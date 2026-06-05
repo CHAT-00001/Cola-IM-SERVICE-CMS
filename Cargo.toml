@@ -1,0 +1,44 @@
+#### 可乐短视频后端服务器
+# 2025-12-10 12:01
+
+[package]
+name = "short-video"
+version = "0.1.0"
+edition = "2024"
+
+#### 工作区
+[workspace]
+members = ["api", "cola_video", "app", "gateway", "health", "network", "im", "repo", "cola_data", "cola_dynamic", "kits", "cola_user", "cola_music", "cola_auth", "cola_live", "cola_gift", "cola_client"]
+
+#### 外部依赖
+[dependencies]
+futures = "0.3.31"
+tokio = { version = "1.47.0", features = ["full"] }
+tracing = { version = "0.1.41", features = ["log"] }
+tracing-subscriber = { version = "0.3", features = ["fmt", "env-filter"] }
+
+#### 内部依赖
+# 传输层 web框架 状态机 路由器
+api = { path = "api" }
+cola_data = { path = "cola_data"}
+
+# 应用配置
+app_config = { path = "./app" }
+gateway = { path = "gateway" }
+health = { path = "./health" }
+network = { path = "./network" }
+im = { path = "im" }
+
+# 业务模块
+cola_auth = { path = "cola_auth" }
+cola_dynamic = { path = "cola_dynamic" }
+cola_live = { path = "cola_live" }
+cola_music = { path = "cola_music" }
+cola_video = { path = "cola_video" }
+cola_user = { path = "cola_user" }
+
+# 构建优化（新增）
+[profile.release]
+lto = true               # 链接时优化（提升性能）
+codegen-units = 1        # 单代码生成单元（提升优化效果）
+opt-level = 3            # 最高优化级别

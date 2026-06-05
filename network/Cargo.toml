@@ -1,0 +1,13 @@
+## Network 网络客户端 -- 提供给本App使用的外部服务客户端封装.
+[package]
+name = "network"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+serde = { version = "1.0.228", features = ["derive"] }
+uuid = { version = "1.20.0", features = ["v4"] }
+chrono = "0.4.43"
+sqlx = { version = "0.8.6", features = ["runtime-tokio", "postgres", "chrono"] }
+anyhow = "1.0.101"
+redis = { version = "1.2.0", features = ["aio", "tokio-comp"] }

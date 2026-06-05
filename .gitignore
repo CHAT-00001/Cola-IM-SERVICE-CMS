@@ -1,0 +1,51 @@
+# Rust 编译产物
+/target/
+
+# 自定义编译输出
+build_output*.txt
+
+# 可选：如果你使用自定义 target-dir（推荐）
+/build/
+
+# Rust 备份文件
+*.rs.bk
+
+# Rust 文档（自动生成）
+/target/doc/
+
+# 运行时日志/临时文件
+*.log
+*.tmp
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# IDE / 编辑器
+.idea/
+.vscode/
+
+# 编辑器临时文件
+*.swp
+*.swo
+*~
+
+# 环境变量
+.env
+.env.*
+!.env.example
+
+# OS 生成的缩略图/缓存
+ehthumbs.db
+Desktop.ini
+
+# 依赖锁文件
+# 对"应用程序"应该提交 Cargo.lock，不建议忽略
+# 如果你是 library 才可以去掉注释：
+# Cargo.lock
+
+# 本地开发脚本
+# 这些 sh 文件包含敏感信息或开发辅助用途，不应该提交
+# git.sh
+# db.sh
+# a.sh

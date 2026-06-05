@@ -1,0 +1,28 @@
+#### 可乐 验证中心
+# 2026-02-10 10:30
+
+[package]
+name = "cola_auth"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+## 内部依赖
+cola_data = { path = "../cola_data" }
+cola_user = { path = "../cola_user" }
+repo = { path = "../repo" }
+
+## 外部依赖
+serde = { version = "1.0.228", features = ["derive"] }
+chrono = { version = "0.4.44", features = ["serde"] }
+sqlx = { version = "0.8.6", features = ["runtime-tokio", "postgres", "chrono", "uuid"] }
+uuid = { version = "1.23.1", features = ["v4"] }
+futures = "0.3.32"
+# 自动验证
+validator = { version = "0.20.0", features = ["derive"] }
+ipnetwork = "0.20.0"
+async-trait = "0.1.89"
+tracing = "0.1.44"
+anyhow = "1.0.102"
+rand = "0.8.5"
+

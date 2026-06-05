@@ -1,0 +1,46 @@
+// cola_data/src/page  -- 数据 - page - 分页
+// 2026/5/21 02:28 by wx: cestbon10080
+// *
+// * --------
+
+////////
+
+use serde::{Deserialize, Serialize};
+
+////////
+
+/// # [RESPONSE] - 分页信息
+/// * 前台
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct PageInfo {
+    pub page: i64,      // 当前页码
+    pub qty: i64,       // 每页数量
+    pub has_more: bool, // 是否还有下一页
+}
+
+/// # [RESPONSE] - 分页信息
+/// * 管理员
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct PageAdminInfo {
+    pub page: i64,      // 当前页码
+    pub qty: i64,       // 每页数量
+    pub total: i64,     // 总记录数（管理员审计才需要）
+    pub has_more: bool, // 是否还有下一页
+}
+
+
+
+/// # [RESPONSE] - 列表响应 (保持泛型)
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct ListResponse<T> {
+    pub list: Vec<T>,
+    pub page: Option<i64>,
+    pub size: Option<i64>,
+    pub qty: Option<i64>,
+    pub total: Option<i64>,
+    pub has_more: Option<bool>,
+}
+
+
+
+//////// END

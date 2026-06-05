@@ -1,0 +1,14 @@
+pub mod add;
+pub mod category;
+pub mod collect;
+pub mod comment;
+pub mod danmaku;
+pub mod interact;
+pub mod report;
+pub mod share;
+pub mod user;
+pub mod video;
+pub mod video_user_count;
+pub mod video_user_perm;
+pub mod video_user_profile;
+

@@ -1,0 +1,17 @@
+#### 可乐 数据中心
+# 2025-12-20 17:52
+
+[package]
+name = "cola_data"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+serde = { version = "1.0.228", features = ["derive"] }
+chrono = { version =  "0.4.44", features = ["serde"] }
+sqlx = "0.8.6"
+uuid = { version = "1.23.1", features = ["v4"] }
+futures = "0.3.32"
+# 自动验证
+validator = { version = "0.20.0", features = ["derive"] }
+ipnetwork = "0.20.0"

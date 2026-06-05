@@ -1,0 +1,16 @@
+[package]
+name = "health"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+# 内部依赖
+app_config = { path = "../app" }
+# 外部依赖
+actix-web = "4.13.0"
+tracing = "0.1.44"
+tracing-subscriber = "0.3"
+tokio = "1.47.1"
+tera = "1"
+chrono = "0"
+router = "0.6.0"

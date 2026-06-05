@@ -1,0 +1,18 @@
+#### 可乐动态
+# 2026-05-20 01:30
+
+[package]
+name = "cola_dynamic"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+#### 内部依赖
+#app_core = { path = "../cola_video" }
+cola_data = { path = "../cola_data" }
+repo = { path = "../repo" }
+
+#### 外部依赖
+async-trait = "0.1.89"
+sqlx = { version = "0.8.6", features = ["runtime-tokio", "postgres", "chrono", "uuid"] }
+

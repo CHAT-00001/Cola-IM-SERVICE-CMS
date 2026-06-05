@@ -1,0 +1,21 @@
+#### 可乐直播
+# 2026-06-04 15:36
+
+[package]
+name = "cola_live"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+## 内部依赖
+cola_data = { path = "../cola_data"}
+
+## 外部依赖
+serde = { version = "1.0.228", features = ["derive"] }
+chrono = { version =  "0.4.44", features = ["serde"] }
+sqlx = { version = "0.8.6", features = ["runtime-tokio", "postgres", "chrono", "uuid"] }
+uuid = { version = "1.23.1", features = ["v4"] }
+futures = "0.3.32"
+# 自动验证
+validator = { version = "0.20.0", features = ["derive"] }
+ipnetwork = "0.20.0"

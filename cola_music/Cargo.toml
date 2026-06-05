@@ -1,0 +1,18 @@
+##### 可乐音乐
+# 2026-06-04 15:01
+
+[package]
+name = "cola_music"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+## 内部依赖
+cola_data = { path = "../cola_data" }
+cola_user = { path = "../cola_user" }
+
+## 外部依赖
+sqlx = { version = "0.8.6", features = ["runtime-tokio", "postgres", "chrono", "uuid"] }
+serde = { version = "1.0.228", features = ["derive"] }
+uuid = { version = "1.23.1", features = ["v4"] }
+chrono = "0.4.44"

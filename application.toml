@@ -1,0 +1,62 @@
+## 全局应用配置 -- 2026-01-03 14:23
+[app]
+name = "ShortVideoServer"
+signature = "MyCompanyShortVideo2026"
+debug = true
+enable_protobuf = true
+
+# API 模块配置
+[api]
+host = "0.0.0.0"
+port = 8080
+enable_https = false
+https_port = 8081
+
+# Health 模块配置
+[health]
+host = "0.0.0.0"
+port = 80
+enable_https = false
+https_port = 443
+
+# Gateway 模块配置
+[gateway]
+host = "0.0.0.0"
+port = 9000
+
+# WebSocket 模块配置
+[ws]
+host = "0.0.0.0"
+port = 18000
+enable_ssl = false
+ssl_port = 18001
+
+# PostgreSQL 数据库配置
+[pg]
+host = "127.0.0.1"
+port = 5432
+username = "postgres"
+password = "123456"
+database = "live_2026"
+max_connections = 50
+sslmode = "disable"
+
+# Redis 配置
+[redis]
+host = "127.0.0.1"
+port = 6379
+username = ""
+password = ""
+db = 0
+pool_size = 10
+
+# MongoDB 配置
+[mongodb]
+host = "106.55.59.146"
+port = 27017
+username = "short_video"
+password = "short_video"
+database = "short_video"
+auth_source = "admin"
+max_pool_size = 50
+

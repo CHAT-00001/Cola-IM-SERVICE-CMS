@@ -1,0 +1,10 @@
+pub mod buy;
+pub mod category;
+pub mod collect;
+pub mod comment;
+pub mod danmaku;
+pub mod hotlist;
+pub mod report;
+pub mod share;
+pub mod video;
+pub mod recommend;
