@@ -1,14 +1,13 @@
-// cola_video/src/vo/vo/video.rs  -- VIDEO - Model - Vo - 短视频
+// cola_video/src/vo/vo/home  -- VIDEO - Model - Vo - 短视频
 // 2026/5/21 03:47
 
 ////////
 
 use serde::Serialize;
 use cola_data::app::page::PageInfo;
+use cola_data::user::info::user::UserInfo;
+use cola_data::video::info::video::VideoInfo;
 use cola_music::model::info::music::MusicInfo;
-use cola_user::model::info::user::UserInfo;
-//
-use crate::model::info::video::VideoInfo;
 
 ////////
 
@@ -77,6 +76,23 @@ pub struct VideoSingleResponse {
 pub struct VideoListResponse {
     pub list: Vec<VideoVo>, // 吐给前端完美的、组装好的 VO 列表
     pub page_info: PageInfo,
+}
+
+// 🌟🌟🌟 新增：最小侵入性扩展，为多视频响应提供空响应构造 🌟🌟🌟
+impl VideoListResponse {
+    /// ✅ 创建一个空的视频列表响应
+    pub fn empty() -> Self {
+        Self {
+            list: Vec::new(),
+            page_info: PageInfo::default(), // 借助 PageInfo 的 Default 规整分页
+        }
+    }
+}
+
+impl Default for VideoListResponse {
+    fn default() -> Self {
+        Self::empty()
+    }
 }
 
 //////// END

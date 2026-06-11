@@ -1,15 +1,15 @@
-// src/app.rs
+// src/api.rs
 // 2025-11-45 09:40
 
 ////////
 
 use app_config::{db_service::DbService, app_state::AppState};
-use api::start_api;
 use im::start_ws;
 use health::start_health;
-use gateway::start_gateway;
 use tracing::{info, error};
 use app_config::config_loader::load_config;
+use gate_grpc::start_gateway;
+use gate_http::start_api;
 
 ////////
 

@@ -29,7 +29,7 @@ pub struct GiftModel {
 
 // use crate::repository::gift_repository as gift_repo;
 // use crate::models::gift_model::GiftVo;
-// use app::db_service::DbService; // 确保导入了 DbService
+// use api::db_service::DbService; // 确保导入了 DbService
 // use sqlx::PgPool;
 // use tracing::{info, warn};
 //

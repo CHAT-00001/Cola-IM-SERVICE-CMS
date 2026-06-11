@@ -1,4 +1,4 @@
-// cola_data/src/user/entity/user.rs  -- USER - Entity - 用户表
+// cola_data/src/user/entity/state  -- USER - Entity - 用户表
 // 2026/3/30 05:33
 
 ////////

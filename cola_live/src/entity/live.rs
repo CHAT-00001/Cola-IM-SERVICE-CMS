@@ -1,4 +1,4 @@
-// cola_video/src/live/gateway/live.rs -- 直播信息 - 数据实体映射
+// cola_video/src/live/gate_grpc/live.rs -- 直播信息 - 数据实体映射
 // 2026-02-06 21:00:32
 
 use serde::{Deserialize, Serialize};

@@ -1,4 +1,4 @@
-// app/src/db_service.rs  -- 构建所有数据库连接
+// api/src/db_service.rs  -- 构建所有数据库连接
 
 use sqlx::PgPool;
 use redis::{Client as RedisClient, AsyncCommands, RedisError};

@@ -1,0 +1,24 @@
+#### GATEWAY_GRPC 远程程序调用网关
+# 2026-12-10 15:20
+
+[package]
+name = "gate_grpc"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+#### 内部依赖
+app_config = { path = "../app" }
+#app_core = { path = "../cola_video"}
+
+#### 外部依赖
+tracing = "0.1.41"
+tokio = "1.47.1"
+chrono = "0.4.44"
+sqlx = "0.8.6"
+uuid = { version = "1.23.0", features = ["v4"] }
+serde = { version = "1.0.228", features = ["derive"] }
+ipnetwork = "0.20.0"
+futures = "0.3.32"
+validator = "0.20.0"
+futures-util = "0.3.32"

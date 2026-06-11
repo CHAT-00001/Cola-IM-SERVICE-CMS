@@ -1,4 +1,4 @@
-// cola_data/src/user/info/user.rs  -- 可乐数据中心 - USER - info - 构建用户信息
+// cola_data/src/user/info/state  -- 可乐数据中心 - USER - info - 构建用户信息
 // 2026/06/05 02:10
 
 ////////

@@ -1,5 +1,5 @@
-// cola_video/src/request.rs  -- App 请求体
-// 2026/4/16 07:45 by wx: cestbon10080
+// cola_date/src/api/request.rs  -- 可乐数据中心 - 全局应用 - 请求体
+// 2026/4/16 07:45
 
 use std::cmp;
 
@@ -26,8 +26,7 @@ pub struct ApiUrlParamsQuery {
 
 /// # 构造API列表请求体
 impl ApiUrlParamsQuery {
-    /// 你原来的调用方式：ApiUrlParamsQuery::new(uid, page, qty)
-    /// 我保留了，兼容你的旧代码！
+    /// 新的
     pub fn new(uid: Option<i64>, page: i64, qty: i64) -> Self {
         // 页码：最小 1
         let final_page = cmp::max(page, 1);
@@ -58,3 +57,6 @@ impl ApiUrlParamsQuery {
         Self::new(self.uid, page, qty)
     }
 }
+
+
+//////// END

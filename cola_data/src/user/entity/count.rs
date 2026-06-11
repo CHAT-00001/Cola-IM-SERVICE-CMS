@@ -1,4 +1,4 @@
-// cola_video/src/router/gateway/count.rs  -- 用户资产统计表实体
+// cola_video/src/router/gate_grpc/count.rs  -- 用户资产统计表实体
 // 2026/4/12 21:40 updated by wx: cestbon10080
 
 use serde::{Deserialize, Serialize};

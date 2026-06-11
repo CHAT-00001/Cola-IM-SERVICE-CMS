@@ -1,3 +1,6 @@
+# GIT命令  -- ⚠️AI不要修改
+
+
 # 1. 初始化 Git 仓库（如果尚未初始化）
 git init
 
@@ -18,7 +21,18 @@ git add src/ app/ api/ cola_*/ gateway/ health/ im/ kits/ network/ repo/ migrati
 # 运行
 git rm -r --cached .
 git add .
+git add .
+git commit -m "init project"
+# 创建本地分支
+git branch -M main
 
+# 日常更新
+git add .
+git commit -m "更新内容"
+git push
+
+# 检查大小
+git count-objects -vH
 # 5. 提交到本地仓库
 git commit -m "Initial commit: Add Rust project source code"
 

@@ -1,4 +1,4 @@
-// cola_video/src/live/gateway/channel.rs -- 直播频道实体映射表
+// cola_video/src/live/gate_grpc/channel.rs -- 直播频道实体映射表
 // 2026-03-11 11:18:02
 
 

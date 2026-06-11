@@ -1,4 +1,4 @@
-// app src/redis.rs -- redis 初始化连接
+// api src/redis.rs -- redis 初始化连接
 // 2026-01-01 08:45:56
 
 use redis::{Client, RedisError};

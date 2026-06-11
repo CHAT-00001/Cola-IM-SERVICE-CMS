@@ -34,6 +34,8 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+application.toml
+!application.toml.example
 
 # OS 生成的缩略图/缓存
 ehthumbs.db

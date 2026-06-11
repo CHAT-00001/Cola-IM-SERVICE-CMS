@@ -1,11 +1,10 @@
-// /mod.rs  -- 
-// 2026/6/4 15:08 by wx: cestbon10080
+// cola_auth/src/api/mod.rs  -- 可乐验证中心 - 接口层 - mod
+// 2026/4/12 13:56
 
 ////////
 
+pub mod active;
+pub mod session;
+pub mod login;
 
-
-/// # [GATEWAY] - 验证中心网关
-async fn gateway() {
-    println!("gateway");
-}
+//////// END

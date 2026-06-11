@@ -65,6 +65,8 @@ pub struct VideoEntity {
     pub sync_at: Option<i64>,              // 同步时间
     pub created_at: Option<DateTime<Utc>>, // 创建时间
     pub updated_at: Option<DateTime<Utc>>, // 更新时间
+    pub del_time: Option<i64>,  // Unix 时间戳（秒）
+    pub deleted_at: Option<chrono::NaiveDateTime>,  // 删除时间 人类可读
 }
 
 // * --------

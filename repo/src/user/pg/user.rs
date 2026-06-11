@@ -1,4 +1,4 @@
-// repo/src/user/pg/user.rs  -- 用户
+// repo/src/user/pg/state  -- 用户
 // 2026/5/23 05:07
 
 ////////
@@ -205,7 +205,7 @@ mod tests {
         // 这里需要跟你的真实结构契合，通过 init_global_db 注入全局
         // 示例直接注入伪造的依赖（如果 OnceLock 已经满了解包 ok 即可）
         // let service = DbService::from_pool(pool);
-        // app::init_global_db(service);
+        // api::init_global_db(service);
     }
 
     // 注意：在真实单测中，确保在调用 UserRepo 前已经执行了静态池初始化。

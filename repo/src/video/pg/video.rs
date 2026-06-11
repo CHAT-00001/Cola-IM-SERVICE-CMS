@@ -4,9 +4,9 @@
 ////////
 
 use crate::pg_pool;
-use sqlx::{self};
-use cola_data::video::entity::video::VideoEntity;
 use cola_data::video::command::video::VideoCommand;
+use cola_data::video::entity::video::VideoEntity;
+use sqlx::{self, Postgres, QueryBuilder};
 
 ////////
 
@@ -18,15 +18,6 @@ const VIDEO_COLUMNS: &str = r#"
     done_play_qty, visibility, allow_comment, allow_danmaku, shares,
     is_public, status, music_id, goods_id, addtime, created_at, updated_at
 "#;
-
-// 局部辅助结构体：用来承接带有“动态计算距离”的数据库返回行
-#[derive(Debug, sqlx::FromRow)]
-pub struct VideoHomeRow {
-    #[sqlx(flatten)] // 自动把标准字段映射进 Entity
-    pub entity: VideoEntity,
-    #[sqlx(default)]
-    pub distance: Option<f64>, // 承接动态计算的距离
-}
 
 /// # 搜索排序规则枚举（新增：最新发布）
 #[derive(Debug, Clone, Copy)]
@@ -41,12 +32,10 @@ pub enum SearchOrder {
 pub struct VideoRepo;
 
 impl VideoRepo {
+    ////////
 
     /// # 1. [REPOSITORY] - 查找最新的列表
-    pub async fn find_new_list(
-        limit: i64,
-        offset: i64,
-    ) -> Result<Vec<VideoEntity>, sqlx::Error> {
+    pub async fn find_new_list(limit: i64, offset: i64) -> Result<Vec<VideoEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
             "SELECT {} FROM video WHERE status = 1 ORDER BY addtime DESC LIMIT $1 OFFSET $2",
@@ -62,11 +51,51 @@ impl VideoRepo {
 
     ////////
 
-    /// # 2. [REPOSITORY] - 热门
-    pub async fn find_hot_list(
+    /// # 5. [REPOSITORY] - 根据用户IDs查找对象
+    /// * 关注的人/朋友/某个用户 复用
+    pub async fn find_list_by_uids(
+        uids: Option<Vec<i64>>,
+        keyword: Option<String>,
         limit: i64,
         offset: i64,
     ) -> Result<Vec<VideoEntity>, sqlx::Error> {
+        let pool = pg_pool();
+
+        // 1. 构建基础 SQL 和参数列表
+        let mut sql = format!("SELECT {} FROM video WHERE status = 1", VIDEO_COLUMNS);
+
+        // 2. 动态拼接条件
+        if let Some(ref ids) = uids {
+            if !ids.is_empty() {
+                sql.push_str(" AND uid = ANY($1)");
+            }
+        }
+
+        if let Some(ref kw) = keyword {
+            if !kw.is_empty() {
+                sql.push_str(" AND (title ILIKE $2 OR description ILIKE $2)");
+            }
+        }
+
+        sql.push_str(" ORDER BY addtime DESC LIMIT $3 OFFSET $4");
+
+        // 3. 执行查询
+        let mut query = sqlx::query_as::<_, VideoEntity>(&sql);
+
+        // 4. 按顺序绑定 (注意：SQL 中 $1-$4 必须对应好)
+        // 这里使用 bind 链式调用，这是最简单的方法
+        query = query.bind(uids.unwrap_or_default());
+        query = query.bind(format!("%{}%", keyword.unwrap_or_default()));
+        query = query.bind(limit);
+        query = query.bind(offset);
+
+        query.fetch_all(&pool).await
+    }
+
+    ////////
+
+    /// # 2. [REPOSITORY] - 热门
+    pub async fn find_hot_list(limit: i64, offset: i64) -> Result<Vec<VideoEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
             "SELECT {} FROM video WHERE status = 1 ORDER BY likes DESC, views DESC, addtime DESC LIMIT $1 OFFSET $2",
@@ -110,7 +139,7 @@ impl VideoRepo {
         lng: f64,
         limit: i64,
         offset: i64,
-    ) -> Result<Vec<VideoHomeRow>, sqlx::Error> {
+    ) -> Result<Vec<VideoEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
             "SELECT {}, SQRT(POW(lat - $1, 2) + POW(lng - $2, 2)) AS distance
@@ -121,7 +150,7 @@ impl VideoRepo {
             VIDEO_COLUMNS
         );
 
-        sqlx::query_as::<_, VideoHomeRow>(&query)
+        sqlx::query_as::<_, VideoEntity>(&query)
             .bind(lat)
             .bind(lng)
             .bind(limit)
@@ -176,7 +205,7 @@ impl VideoRepo {
 
     /// # 7. [REPOSITORY] - 搜索关键词 (超级强化版：时间筛选 + 多维可选排序 + 距离计算)
     pub async fn search_keyword_list(
-        keyword: &str,
+        keyword: String,
         lat: f64,
         lng: f64,
         start_time: Option<i64>,
@@ -184,7 +213,7 @@ impl VideoRepo {
         order_by: Option<SearchOrder>,
         limit: i64,
         offset: i64,
-    ) -> Result<Vec<VideoHomeRow>, sqlx::Error> {
+    ) -> Result<Vec<VideoEntity>, sqlx::Error> {
         let pool = pg_pool();
         let mut sql = format!(
             "SELECT {}, SQRT(POW(lat - $1, 2) + POW(lng - $2, 2)) AS distance FROM video WHERE status = 1",
@@ -220,9 +249,7 @@ impl VideoRepo {
         ));
 
         let keyword_like = format!("%{}%", keyword);
-        let mut query = sqlx::query_as::<_, VideoHomeRow>(&sql)
-            .bind(lat)
-            .bind(lng);
+        let mut query = sqlx::query_as::<_, VideoEntity>(&sql).bind(lat).bind(lng);
 
         query = query.bind(&keyword_like);
 
@@ -296,8 +323,61 @@ impl VideoRepo {
             .bind(cmd.title)
             .bind(cmd.description) // 👈 简介字段安全入库
             .bind(cmd.href)
-            .bind(visibility)      // 👈 风控计算后的可见性状态
+            .bind(visibility) // 👈 风控计算后的可见性状态
             .fetch_one(&pool)
+            .await
+    }
+
+    ////////
+
+    /// # 12. [REPOSITORY] - 同步更新视频弹幕数量（减指定数量）
+    /// * `video_id`: 视频 ID
+    /// * `count`: 删除的弹幕数量
+    /// * 返回更新后的弹幕数量
+    pub async fn sync_decrement_danmaku_count_by_num(
+        video_id: i64,
+        count: i64,
+    ) -> Result<i64, sqlx::Error> {
+        let pool = pg_pool();
+
+        let query = r#"
+        UPDATE video
+        SET danmaku_count = GREATEST(danmaku_count - $1, 0),
+            updated_at = NOW()
+        WHERE id = $2
+        RETURNING danmaku_count
+    "#;
+
+        let danmaku_count: i64 = sqlx::query_scalar(query)
+            .bind(count)
+            .bind(video_id)
+            .fetch_one(&pool)
+            .await?;
+
+        Ok(danmaku_count)
+    }
+
+    ////////
+
+    /// # 8. [REPOSITORY] - 查找某个用户发布的视频列表
+    pub async fn find_new_list_by_user_id(
+        user_id: i64,
+        offset: i64,
+        limit: i64,
+    ) -> Result<Vec<VideoEntity>, sqlx::Error> {
+        let pool = pg_pool();
+
+        // 使用参数化查询，避免 SQL 注入
+        let query = format!(
+            "SELECT {} FROM video WHERE uid = $1 AND status = 1 OFFSET $2 LIMIT $3",
+            VIDEO_COLUMNS
+        );
+
+        sqlx::query_as::<_, VideoEntity>(&query)
+            .bind(user_id)
+            .bind(offset)
+            .bind(limit)
+            .fetch_all(&pool) // 使用 fetch_all 获取多条记录
             .await
     }
 }

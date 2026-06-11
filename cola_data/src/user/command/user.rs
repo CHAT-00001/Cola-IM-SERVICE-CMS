@@ -1,4 +1,4 @@
-// cola_data/src/user/command/user.rs  -- Command - 创建用户命令
+// cola_data/src/user/command/state  可乐数据中心 -- 用户 - Command - 创建用户命令
 // 2026/5/22 16:35
 
 ////////
@@ -37,13 +37,23 @@ pub struct UserCommand {
     pub updated_time: i64,         // 更新时间
 }
 
-/// # [BUILD] - 构造函数
+// 构造函数
 impl UserCommand {
+
+    /// # 0. [QUICK] - 快速构建用于注册的 Command
+    /// 专门用于在 Orchestrator 中传入手机号进行初始化
+    pub fn new_with_phone(phone_no: String) -> Self {
+        Self {
+            phone: Some(phone_no),
+            register_type: Some(1), // 默认手机注册
+            created_time: Utc::now().timestamp(),
+            ..Default::default()
+        }
+    }
 
 
     /// # 1. [MAKE] - 注册
-    /// * 用户第一次注册 自动构建一个初始化用户资料
-    pub fn new(self, real_uid: i64, real_video_id: i64) -> UserEntity {
+    pub fn new(self) -> UserEntity {
         // ⏰️ 获取当前的系统秒级时间戳
         let now_ts = Utc::now().timestamp();
 
@@ -64,7 +74,7 @@ impl UserCommand {
 
         // 装载到User表
         UserEntity {
-            id: real_video_id,      // 数据库自增 ID (来自参数)
+            id: 0,      // 👈 数据库自增字段，由数据库处理，这里设为 0
             send_id: Option::from(final_send_id), // 最终确定的 UUID 字符串
             sync_id: Some(make_sync_id()),
             user_nickname: Option::from(self.nickname.unwrap_or(default_nickname)), // 客户端有传用客户端的，否则用默认生成的

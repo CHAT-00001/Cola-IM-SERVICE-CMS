@@ -1,17 +1,18 @@
-// cola_auth/src/model/vo/session  -- AUTH - Model - 认证上下文
-// 2026/4/16 07:49 by wx: cestbon10080
+// cola_auth/src/model/vo/auth.rs  -- 可乐验证中心 -  Model - Vo - 认证上下文
+// 2026/4/16 07:49
 
 ////////
 
+use cola_data::auth::command::session::SessionCommand;
 use serde::{Deserialize, Serialize};
 use validator::Validate;
-use cola_data::auth::command::session::SessionCommand;
+use cola_data::auth::info::session::SessionInfo;
 ////////
 
 /// # [VO] - 无状态Auth结构体
 #[derive(Debug, Clone, Serialize, Deserialize, Validate)]
-pub struct AuthContext {
-    pub user_id: Option<i64>,  // 核心：当前登录用户 ID
+pub struct AuthContextVo {
+    pub uid: Option<i64>,      // 核心：当前登录用户 ID
     pub roles: Vec<String>,    // 扩展：权限角色
     pub device_id: String,     // 安全：设备指纹
     pub is_anonymous: bool,    // 状态：是否为游客
@@ -19,49 +20,23 @@ pub struct AuthContext {
     pub refresh_token: String, // 刷新令牌
 }
 
-impl AuthContext {
-    pub fn new(
-        user_id: Option<i64>,
-        access_token: String,
-        refresh_token: String,
-        device_id: String,
+// 构造函数
+impl AuthContextVo {
+    /// # 组装器：从 SessionInfo 组装认证上下文
+    pub fn from_session(
+        session: SessionInfo,
+        uid: i64,
+        device_id: String
     ) -> Self {
-        // 自动判断是否匿名：没有 user_id 就是匿名游客
-        let is_anonymous = user_id.is_none();
-
         Self {
-            user_id,
-            roles: Vec::new(), // 默认空角色，后续可扩展
+            uid: Some(uid),
+            roles: Vec::new(), // 可在此处从 DB 查询角色进行填充
             device_id,
-            is_anonymous,
-            access_token,
-            refresh_token,
+            is_anonymous: false,
+            access_token: session.access_token,
+            refresh_token: session.refresh_token,
         }
     }
 }
 
-/// # ENTITY - 登录体
-#[derive(Debug, Serialize, Deserialize)]
-pub struct AuthLogin {
-    pub id: i64,             // 客户端ID
-    pub area_code: String,   // 地区编码（默认 0086 ）
-    pub phone_no: String,    // 电话号码
-    pub sms_code: String,    // 短信验证码
-    pub key: Option<String>, // 客户端key
-    pub device_id: String,   // 设备ID
-    pub platform: String,    // 平台
-}
-
-impl AuthLogin {
-    // 注意：这里是你的 Request Schema 结构体
-    pub fn into_command(self) -> SessionCommand {
-        SessionCommand {
-            id: 0, // 登录时 ID 还没生成，默认给 0
-            area_code: self.area_code,
-            phone_no: self.phone_no,
-            sms_code: self.sms_code,
-            device_id: self.device_id,
-            platform: self.platform,
-        }
-    }
-}
+////////

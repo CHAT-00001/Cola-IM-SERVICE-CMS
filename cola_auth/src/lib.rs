@@ -3,9 +3,8 @@
 
 ////////
 
-mod api;
-pub mod app;
-pub mod biz;
+pub mod api;
+pub mod case;
 pub mod kits;
 pub mod model;
 

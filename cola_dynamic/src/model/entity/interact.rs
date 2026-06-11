@@ -1,4 +1,4 @@
-// repo/src/dynamic/gateway/interact.rs  -- 动态 - 交互
+// repo/src/dynamic/gate_grpc/interact.rs  -- 动态 - 交互
 // 2026/3/31 07:56 by wx: cestbon10080
 
 ////////

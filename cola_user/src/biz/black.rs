@@ -1,7 +1,7 @@
-// // store/src/router/black/biz.rs
+// // store/src/router/black/case.rs
 //
 // use crate::router::adapter::black::BlacklistRepo; // 确保路径对应你最新的 repo
-// use app::app_state::AppState;
+// use api::app_state::AppState;
 // use anyhow::Result;
 // use redis::AsyncCommands;
 // use std::collections::HashSet;

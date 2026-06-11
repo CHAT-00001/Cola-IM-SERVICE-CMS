@@ -1,4 +1,4 @@
-// // cola_user/src/biz/permission.rs  -- 可乐用户 - 逻辑层 - 用户权限
+// // cola_user/src/case/permission_update  -- 可乐用户 - 逻辑层 - 用户权限
 // // 2026/4/23 11:36 by wx: cestbon10080
 //
 // ////////

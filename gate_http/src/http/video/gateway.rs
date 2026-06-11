@@ -1,0 +1,125 @@
+// http/video/router.rs  -- HTTP - 短视频 - 路由器
+// 2026/5/25 06:49 by wx: cestbon10080
+
+////////
+
+use crate::kits::response::IntoApi;
+use actix_web::{HttpMessage, HttpRequest, HttpResponse, Responder, web};
+use cola_data::app::ctx::AppContext;
+use cola_data::app::data::AppData;
+use cola_data::app::query::ApiGatewayRequest;
+use cola_data::auth::info::auth::AuthContext;
+use serde::Deserialize;
+use std::io::Bytes;
+use std::time::Instant;
+
+////////
+
+/// # 网关请求体
+struct GatewayRequest {
+    auth: AuthContext,     // 补上 auth 字段
+    action: i16,           // 🌟 以后使用的 int16 动作代码
+    service: String,       // 🌟 兼容 PHP PhalApi 的服务名称 (字符串)
+    query: Option<String>, // 查询
+    body: web::Bytes,      // body
+    path: String,          // 路径
+}
+
+/// # 统一的 Query 提取结构体
+#[derive(Deserialize)]
+pub struct GatewayQuery {
+    pub service: String,         // 🌟 兼容 PhalApi，接收如 "Video.PublishVideo"
+    pub action: Option<i16>,     // 🌟 以后转入的 int16 动作代码，先用 Option 顶住
+    pub video_id: Option<i64>,
+}
+
+/// # [ROUTER] - 短视频 - 路由器
+pub fn video_router(cfg: &mut web::ServiceConfig) {
+    cfg.service(
+        // by
+        // * /video/xxxx
+        web::scope("/video")
+            // 默认
+            .route("/", web::get().to(root))
+            // 网关
+            .route("/gateway", web::get().to(video_gateway)),
+    );
+}
+
+// ROOT
+pub async fn root() -> HttpResponse {
+    HttpResponse::Ok().json(vec!["Cole", "VIDEO", "ROUTER"])
+}
+
+pub async fn get_videos_by_category() -> HttpResponse {
+    HttpResponse::Ok().json(vec!["Video1", "Video2"])
+}
+
+////////
+
+/// # [GATEWAY] - 可乐短视频网关
+async fn video_gateway(
+    req: HttpRequest,
+    // url web::Query<ApiGatewayRequest>,
+    query: web::Query<GatewayQuery>,
+    body: web::Bytes,
+    ctx: web::Data<AppContext>,
+) -> impl Responder {
+    let start = Instant::now();
+
+    // 严格检查登录状态，统一命名操作用户为 uid
+    let uid = match req.extensions().get::<i64>().copied() {
+        Some(id) => id,
+        None => return HttpResponse::Unauthorized().json("401 Unauthorized"),
+    };
+
+    let auth = AuthContext {
+        uid,
+        access_token: String::new(),
+        refresh_token: String::new(),
+        device_id: String::new(),
+        roles: vec![],
+        is_anonymous: false,
+    };
+
+    let gateway_req = GatewayRequest {
+        auth,
+        action: query.action.unwrap_or(0), // 先给个默认值 0，留给以后用
+        service: query.service.clone(),    // 对齐并绑定真正的 PhalApi 字符串服务名
+        query: Some(req.query_string().to_string()),
+        body,
+        path: req.path().to_string(),
+    };
+
+    // 🌟 对齐到 service 字符串进行业务路由分发
+    match gateway_req.service.as_str() {
+        "publish_video" => {
+            // 发布视频接口转发
+            let data = serde_json::json!({
+                "video_id": 12345,
+                "user_id": uid,
+                "title": "示例视频标题",
+                "status": "published"
+            });
+            AppData::ok(data).finish(&req, start)
+        }
+
+        "publish_comment" => {
+            // 发布评论接口转发
+            let data = serde_json::json!({
+                "comment_id": 67890,
+                "user_id": uid,
+                "video_id": query.video_id.unwrap_or(0),
+                "content": "示例评论内容"
+            });
+            AppData::ok(data).finish(&req, start)
+        }
+
+        _ => AppData::<()>::err(
+            400,
+            format!("Unknown PhalApi service: {}", gateway_req.service),
+            None,
+        )
+            .finish(&req, start),
+    }
+}

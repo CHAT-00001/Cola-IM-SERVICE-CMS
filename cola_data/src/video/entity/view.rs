@@ -1,4 +1,4 @@
-// repo/src/live/gateway/video_response  -- 浏览记录实体
+// repo/src/live/gate_grpc/video_response  -- 浏览记录实体
 // 2026/3/28 05:56 by wx: cestbon10080
 
 ////////

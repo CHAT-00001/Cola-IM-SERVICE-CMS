@@ -13,7 +13,7 @@ architecture:
             - "Kits"
         description: "对外接口（HTTP / gRPC），接收请求转换为 Command 抛给业务模块"
         crates:
-            - api
+            - gate_http
 
     app_layer:
         name: "App (应用核心 & 状态机)"
@@ -26,10 +26,10 @@ architecture:
             全局应用状态管理、配置加载、数据库连接池初始化。
             注册所有路由、中间件，作为整个系统的入口编排层。
         crates:
-            - app
+            - api
         entrypoint:
             - src/main.rs
-            - src/app.rs
+            - src/api.rs
 
     business_layer:
         name: "Business Modules (业务模块)"
@@ -92,7 +92,7 @@ architecture:
             - health: 健康检查
             - im: 即时通讯模块
         crates:
-            - gateway
+            - gate_grpc
             - health
             - im
 

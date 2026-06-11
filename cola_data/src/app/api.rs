@@ -1,4 +1,4 @@
-// cola_video/src/api.rs  -- 统一的请求查询体
+// cola_video/src/gate_http.rs  -- 统一的请求查询体
 // 2026/4/12 12:55 by wx: cestbon10080
 
 ////////

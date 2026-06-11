@@ -10,7 +10,6 @@ edition = "2024"
 #### 内部依赖
 kits = { path = "../kits" }
 network = { path = "../network"}
-
 cola_data = { path = "../cola_data" }
 cola_music = { path = "../cola_music"}
 cola_user = { path = "../cola_user"}

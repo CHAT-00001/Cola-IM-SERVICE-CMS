@@ -1,4 +1,4 @@
-// cola_video/src/video/command/video.rs  -- VIDEO - Command  - 发布视频
+// cola_video/src/video/command/home  -- VIDEO - Command  - 发布视频
 // 2026/5/19 21:28 by wx: cestbon10080
 
 ////////

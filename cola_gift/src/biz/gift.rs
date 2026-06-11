@@ -1,4 +1,4 @@
-// cola_video/src/gift/biz/gift.rs -- 礼物
+// cola_video/src/gift/case/gift.rs -- 礼物
 // 2026-03-01 10:21
 
 use network::http::response::{ListQuery, ListResponse, Pagination};

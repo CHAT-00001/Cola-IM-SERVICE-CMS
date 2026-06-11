@@ -1,11 +1,11 @@
-// cola_video/src/vo/vo/comment.rs  -- VIDEO - Model - VO - 评论
+// vo/comment.rs  -- VO - 评论
 // 2026/5/22 15:23
 
 ////////
 
-use serde::Serialize;
 use cola_data::app::page::PageInfo;
-use crate::model::info::comment::CommentInfo;
+use cola_data::video::info::comment::CommentInfo;
+use serde::Serialize;
 
 ////////
 
@@ -15,24 +15,26 @@ pub struct CommentVo {
     // 平铺评论
     #[serde(flatten)]
     pub comment: CommentInfo, // 评论 元信息
-    pub is_liked: bool,       // 是否点赞
-    pub is_disliked: bool,    // 是否不喜欢
+    pub is_author: bool,   // 🌟 已修正：平铺在这里，标识当前评论者是否是视频作者
+    pub is_liked: bool,    // 是否点赞
+    pub is_disliked: bool, // 是否不喜欢
 }
 
 /// # [BUILD] - 构造函数
 impl CommentVo {
     /// 从已有的 CommentInfo 组装成最终的 VO 对象
     pub fn from_info(
-        mut comment: CommentInfo,
-        video_author_id: i64,  // 传入视频作者的 UID
+        comment: CommentInfo, // 🌟 去掉了 mut，因为不需要修改内部字段了
+        video_author_id: i64, // 传入视频作者的 UID
         is_liked: bool,
         is_disliked: bool,
     ) -> Self {
-        // 在这里进行安全修正
-        comment.is_author = comment.user_id == video_author_id;
+        // 🌟 已修正：在这里进行业务逻辑判断，算完直接塞给 VO 实体
+        let is_author = comment.user_id == video_author_id;
 
         Self {
             comment,
+            is_author, // 🌟 组装新字段
             is_liked,
             is_disliked,
         }

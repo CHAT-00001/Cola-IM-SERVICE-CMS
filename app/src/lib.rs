@@ -1,4 +1,4 @@
-// app/src/lib.rs
+// api/src/lib.rs
 
 use std::sync::{Arc, OnceLock};
 pub use crate::db_service::DbService;

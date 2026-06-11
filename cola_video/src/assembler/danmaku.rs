@@ -2,37 +2,32 @@
 // 2026/06/05 10:10 by wx: cestbon10080
 
 use anyhow::Result;
-use std::collections::HashMap;
-
 use cola_data::app::page::PageInfo;
-use cola_data::user::info::user::UserInfo;
-use cola_data::video::entity::danmaku::DanmakuEntity;
-use crate::model::info::danmaku::DanmakuInfo;
+use cola_data::video::info::danmaku::DanmakuInfo;
 use crate::model::vo::danmaku::{DanmakuListResponse, DanmakuSingleResponse, DanmakuVo};
-use repo::user::service::user::UserService; // 🚀 引入静态 UserService
+use repo::user::service::user::UserService;
 
 ////////
 
 /// # [BUILD] - 组装单弹幕响应
 pub async fn build_danmaku_single_response(
-    entity: DanmakuEntity,
+    danmaku_info: DanmakuInfo, // 🚀 升级：直接吃 Info
     current_uid: Option<i64>,
     video_author_id: i64,
 ) -> Result<DanmakuSingleResponse> {
 
-    // 1. 静态调用：获取发送者用户信息
-    let sender_user_info = UserService::find_user_info_by_id(entity.user_id).await?;
+    let _sender_user_info = UserService::get_user_info_by_id(danmaku_info.user_id).await?;
 
-    // 2. 组装 Info
-    let danmaku_info = DanmakuInfo::from_entity(entity, sender_user_info, video_author_id);
+    let is_liked = false;
+    let is_disliked = false;
 
-    // 3. 组装 VO
+    // 组装 VO
     let danmaku_vo = DanmakuVo::from_info(
         danmaku_info,
         current_uid,
         video_author_id,
-        false, // is_liked
-        false, // is_disliked
+        is_liked,
+        is_disliked,
     );
 
     Ok(DanmakuSingleResponse { info: danmaku_vo })
@@ -42,7 +37,7 @@ pub async fn build_danmaku_single_response(
 
 /// # [BUILD] - 组装多弹幕列表响应
 pub async fn build_danmaku_list_response(
-    entities: Vec<DanmakuEntity>,
+    infos: Vec<DanmakuInfo>, // 🚀 核心重构：全面改收 Vec<DanmakuInfo>，跟 Repo 对齐！
     current_uid: Option<i64>,
     video_author_id: i64,
     page: i64,
@@ -50,18 +45,15 @@ pub async fn build_danmaku_list_response(
     total: i64,
 ) -> Result<DanmakuListResponse> {
 
-    // 1. 静态调用：批量获取用户信息 (UserService 保证全量填充)
-    let author_ids: Vec<i64> = entities.iter().map(|e| e.user_id).collect();
-    let authors_map = UserService::find_user_info_by_uids(&author_ids).await?;
+    // 1. 静态调用：批量获取用户信息
+    let author_ids: Vec<i64> = infos.iter().map(|i| i.user_id).collect();
+    let _authors_map = UserService::get_user_info_by_ids(&author_ids).await?;
 
     // 2. 迭代组装
-    let danmakus: Vec<DanmakuVo> = entities
+    let danmakus: Vec<DanmakuVo> = infos
         .into_iter()
-        .map(|entity| {
-            let sender_user_info = authors_map.get(&entity.user_id).cloned().unwrap_or_default();
-
-            let danmaku_info = DanmakuInfo::from_entity(entity, sender_user_info, video_author_id);
-
+        .map(|danmaku_info| {
+            // 通过 VO 的顶级流控函数，去计算 is_own, is_author 等复杂身份状态
             DanmakuVo::from_info(
                 danmaku_info,
                 current_uid,

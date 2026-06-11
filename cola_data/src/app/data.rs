@@ -1,4 +1,4 @@
-// cola_data/src/app/cola_data.rs  -- 数据 - 全局应用中心 - cola_data  （统一应用响应壳）
+// cola_data/src/api/cola_data.rs  -- 数据 - 全局应用中心 - cola_data  （统一应用响应壳）
 // 2026/5/22 13:46 by wx: cestbon10080
 // * --------
 // * --------

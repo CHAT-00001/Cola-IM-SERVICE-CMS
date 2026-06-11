@@ -1,18 +1,13 @@
-// cola_video/src/assembler/video.rs  -- VIDEO - 组装 -  视频响应体
-// 2026/06/05 03:40 by wx: cestbon10080
-
-////////
+// cola_video/src/assembler/home  -- VIDEO - 组装 -  视频响应体
+// 2026/06/11 架构对齐重构
 
 use std::collections::HashMap;
 use anyhow::Result;
-//
 use cola_data::app::page::PageInfo;
 use cola_data::user::info::user::UserInfo;
-use cola_data::video::entity::video::VideoEntity;
+use cola_data::video::info::video::VideoInfo; // 🌟 告别物理 Entity 引用
 use cola_music::model::info::music::MusicInfo;
 use repo::user::service::user::UserService;
-//
-use crate::model::info::video::VideoInfo;
 use crate::model::vo::video::{VideoListResponse, VideoSingleResponse, VideoVo};
 
 ////////
@@ -28,7 +23,7 @@ pub async fn build_video_single_response(
 
     // 2. 🚀 直接静态调用服务层的单条查询（内部已做好 None 时的 default 兜底）
     let author = if author_uid > 0 {
-        UserService::find_user_info_by_id(author_uid)
+        UserService::get_user_info_by_id(author_uid)
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 详情页获取用户信息失败: {}", e))?
     } else {
@@ -38,10 +33,10 @@ pub async fn build_video_single_response(
     // 3. 原声占位（统一改为你的 MusicInfo 类型）
     let music_info = MusicInfo::default();
 
-    // 5. 🚀 大聚合：调用 combine 生成前端需要的扁平化 VideoVo
+    // 4. 🚀 大聚合：调用 combine 生成前端需要的扁平化 VideoVo
     let video_vo = VideoVo::combine(video_info, author, music_info);
 
-    // 6. 包装进单视频响应体返回
+    // 5. 包装进单视频响应体返回
     Ok(VideoSingleResponse { info: video_vo })
 }
 
@@ -50,19 +45,19 @@ pub async fn build_video_single_response(
 /// # [BUILD] - 构建多视频列表响应体
 /// * 机制：调用服务层 find_user_info_by_uids 批量补全，上层零判空、零等待，高性能组装
 pub async fn build_video_list_response(
-    entities: Vec<VideoEntity>,
+    infos: Vec<VideoInfo>,     // 🌟 1. 类型对齐：完美接收 Service 层脱敏后的元数据 Info
     _current_uid: Option<i64>,
     // 外部传入的分页基础原始数据
     page: i64,   // 当前页码
     qty: i64,    // 每页数量
-    _total: i64, // 总记录数
+    _total: i64, // 🌟 2. 数量对齐：接收 Case 层传进来的第 6 个参数 total
 ) -> Result<VideoListResponse> {
 
     // 1. 批量获取作者用户信息 (全静态服务化)
-    let authors_map: HashMap<i64, UserInfo> = if entities.is_empty() {
+    let authors_map: HashMap<i64, UserInfo> = if infos.is_empty() {
         HashMap::new()
     } else {
-        let author_ids: Vec<i64> = entities
+        let author_ids: Vec<i64> = infos
             .iter()
             .map(|v| v.user_id)
             .filter(|&id| id > 0)
@@ -70,25 +65,22 @@ pub async fn build_video_list_response(
             .into_iter()
             .collect();
 
-        // 🚀 静态批量获取：不管数据库少没少人，UserService 会严格按照 author_ids 的数量全部喂饱
-        UserService::find_user_info_by_uids(&author_ids)
+        // 🚀 静态批量获取：UserService 会严格按照 author_ids 的数量全部喂饱
+        UserService::get_user_info_by_ids(&author_ids)
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 批量获取用户信息失败: {}", e))?
     };
 
     // 2. 🌟 迭代组装完美的 VideoVo 列表
-    let list: Vec<VideoVo> = entities.into_iter().map(|entity| {
-        let author_uid = entity.user_id;
+    let list: Vec<VideoVo> = infos.into_iter().map(|video_info| {
+        let author_uid = video_info.user_id;
 
-        // 💡 极其舒适：因为 UserService 保证了请求的 id 只要大于 0 必然有值在 map 里，
-        // 这里直接 cloned() 拿走即可，哪怕账号不存在，里面拿到的也是带“用户不存在”占位符的安全 Info！
+        // 💡 因为 UserService 保证了请求的 id 只要大于 0 必然有值在 map 里，
+        // 这里直接 cloned() 拿走即可，无需多余转换。
         let author = authors_map.get(&author_uid).cloned().unwrap_or_default();
         let music_info = MusicInfo::default();
 
-        // 转换为 VideoInfo
-        let video_info = VideoInfo::from_entity(entity);
-
-        // 融合成大视图对象 Vo
+        // 🌟 核心修正：干掉了旧的 from_entity，直接将纯净的 video_info 拿来融合成大视图对象 Vo
         VideoVo::combine(video_info, author, music_info)
     }).collect();
 

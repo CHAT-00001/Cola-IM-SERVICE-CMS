@@ -8,7 +8,7 @@ edition = "2024"
 
 #### 工作区
 [workspace]
-members = ["api", "cola_video", "app", "gateway", "health", "network", "im", "repo", "cola_data", "cola_dynamic", "kits", "cola_user", "cola_music", "cola_auth", "cola_live", "cola_gift", "cola_client"]
+members = ["gate_http", "cola_video", "app", "gate_grpc", "health", "network", "im", "repo", "cola_data", "cola_dynamic", "kits", "cola_user", "cola_music", "cola_auth", "cola_live", "cola_gift", "cola_client", "cola_rick"]
 
 #### 外部依赖
 [dependencies]
@@ -18,15 +18,19 @@ tracing = { version = "0.1.41", features = ["log"] }
 tracing-subscriber = { version = "0.3", features = ["fmt", "env-filter"] }
 
 #### 内部依赖
-# 传输层 web框架 状态机 路由器
-api = { path = "api" }
-cola_data = { path = "cola_data"}
-
+# HTTP 网关
+gate_http = { path = "./gate_http" }
+# GRPC 网关
+gate_grpc = { path = "./gate_grpc" }
+# DATA 数据
+cola_data = { path = "./cola_data"}
 # 应用配置
 app_config = { path = "./app" }
-gateway = { path = "gateway" }
+# 应用健康
 health = { path = "./health" }
+# 外部网络
 network = { path = "./network" }
+# 消息服务
 im = { path = "im" }
 
 # 业务模块

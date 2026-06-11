@@ -1,10 +1,9 @@
-// cola_data/src/music/info/mod.rs  -- 核心
-// 2026/5/22 13:27 by wx: cestbon10080
-// * --------
-// * --------
+// /mod.rs
+// 2026/5/22 13:27
 
 ////////
 
-pub mod user;
+pub mod config;
 pub mod label;
 pub mod state;
+pub mod user;

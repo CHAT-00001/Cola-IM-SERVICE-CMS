@@ -1,4 +1,4 @@
-// cola_user/src/biz/check.rs  --  Biz - 检查用户状态是否正常
+// cola_user/src/case/check.rs  --  Biz - 检查用户状态是否正常
 // 2026/06/05 03:55 by wx: cestbon10080
 
 ////////

@@ -1,4 +1,4 @@
-// repo/src/user/service/user.rs  -- 仓储 - USER - service - user
+// repo/src/user/service/state  -- 仓储 - USER - service - user
 // 2026/06/05 03:10 by wx: cestbon10080
 
 ////////
@@ -26,7 +26,7 @@ impl UserService {
     ////////
 
     /// # 2. [SERVICE] - 查找一个用户信息
-    pub async fn find_user_info_by_id(
+    pub async fn get_user_info_by_id(
         user_id: i64,
     ) -> Result<UserInfo, anyhow::Error> {
         let option_entity = UserRepo::find_user_by_id(user_id)
@@ -47,7 +47,7 @@ impl UserService {
     /// # 3. [SERVICE] - 查找一组用户信息
     /// * 核心：专门提供给各大业务层的装配器（VideoVo, CommentVo 等）调用
     /// * 机制：不管数据库有没有，上层要多少 UID，这里就必然喂饱多少个 UserInfo，空的主动用构造函数垫后
-    pub async fn find_user_info_by_uids(
+    pub async fn get_user_info_by_ids(
         user_ids: &[i64],
     ) -> Result<HashMap<i64, UserInfo>, anyhow::Error> {
         if user_ids.is_empty() {

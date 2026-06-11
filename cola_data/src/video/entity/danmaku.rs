@@ -1,4 +1,4 @@
-// cola_video/src/live/gateway/danmark.rs  -- 弹幕 - 实体
+// cola_video/src/live/gate_grpc/danmark.rs  -- 弹幕 - 实体
 // 2026-01-16 09:37:10
 
 ////////

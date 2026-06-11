@@ -3,11 +3,17 @@
 
 ////////
 
+pub mod add;
 pub mod collect;
+pub mod comment;
+pub mod count;
+pub mod danmaku;
+pub mod ids;
+pub mod like;
+pub mod perm_check;
+pub mod perm_update;
 pub mod recommend;
 pub mod share;
+pub mod user;
 pub mod video;
 pub mod view;
-pub mod view2;
-pub mod user;
-

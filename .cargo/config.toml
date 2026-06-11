@@ -1,0 +1,19 @@
+# 位于项目根目录下的 .cargo/config.toml 文件
+
+[build]
+# 设置最大并行任务数，通常设为CPU核心数即可
+# jobs = 16
+
+[profile.dev]
+# 开发配置：追求极致的编译速度
+opt-level = 0          # 最低优化，编译最快
+incremental = true     # 开启增量编译，必备！
+codegen-units = 256    # 拆分更多的编译单元以实现并行编译，最大化加速
+debug = 1              # 只生成行号信息，够调试也够快
+
+[profile.release]
+# 发布配置：平衡编译时间与运行性能
+opt-level = 3          # 最高级别优化
+lto = "thin"           # 使用"瘦"链接时优化，比"fat"快，效果也不错
+codegen-units = 16     # 在并行编译和优化效果间取得平衡
+debug = 1              # 保留行号，便于线上排查问题

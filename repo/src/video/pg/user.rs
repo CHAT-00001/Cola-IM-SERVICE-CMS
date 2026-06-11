@@ -1,4 +1,4 @@
-// repo/src/video/pg/user.rs  -- 仓储中心 - video - pg - 用户
+// repo/src/video/pg/state  -- 仓储中心 - video - pg - 用户
 // 2026/6/4 22:09
 
 ////////
@@ -77,12 +77,12 @@ impl UserRepo {
     /// * 警告：严禁传入绝对值覆盖！必须传入变化量（增量），例如加 1 传 `1`，扣减传 `-1`
     pub async fn update_user_count(
         uid: i64,
-        publish_delta: i32,       // 发布视频变化量
-        liked_delta: i32,         // 该用户点赞别人变化量
+        publish_delta: i32,         // 发布视频变化量
+        liked_delta: i32,           // 该用户点赞别人变化量
         total_favorited_delta: i32, // 该用户产出视频被赞变化量（获赞数）
-        collected_delta: i32,     // 收藏变化量
-        following_delta: i32,     // 关注人数变化量
-        follower_delta: i32,      // 粉丝人数变化量
+        collected_delta: i32,       // 收藏变化量
+        following_delta: i32,       // 关注人数变化量
+        follower_delta: i32,        // 粉丝人数变化量
     ) -> Result<(), sqlx::Error> {
         let pool = pg_pool();
 
@@ -128,6 +128,94 @@ impl UserRepo {
             .fetch_optional(&pool)
             .await
     }
+
+    /// # 7002. [REPOSITORY] - 查找用户浏览过的视频IDs
+    /// * `user_id`: 用户 ID
+    /// * `offset`: 分页偏移量
+    /// * `limit`: 每页数量
+    pub async fn find_user_visited_video_ids_paginated(
+        user_id: i64,
+        offset: i64,
+        limit: i64,
+    ) -> Result<Vec<i64>, sqlx::Error> {
+        let pool = pg_pool();
+
+        let query = r#"
+        SELECT video_id
+        FROM user_visit_history
+        WHERE user_id = $1
+        ORDER BY visited_at DESC, id DESC
+        LIMIT $2 OFFSET $3
+    "#;
+
+        let video_ids: Vec<i64> = sqlx::query_scalar(query)
+            .bind(user_id)
+            .bind(limit)
+            .bind(offset)
+            .fetch_all(&pool)
+            .await?;
+
+        Ok(video_ids)
+    }
+
+    ////////
+
+    /// # 7002. [REPOSITORY] - 统计用户浏览过的视频总数
+    /// * `user_id` 用户 ID
+    pub async fn count_user_visited_videos(
+        user_id: i64
+    ) -> Result<i64, sqlx::Error> {
+        let pool = pg_pool();
+
+        let query = r#"
+        SELECT COUNT(*)
+        FROM user_visit_history
+        WHERE user_id = $1
+    "#;
+
+        let count: i64 = sqlx::query_scalar(query)
+            .bind(user_id)
+            .fetch_one(&pool)
+            .await?;
+
+        Ok(count)
+    }
+
+
+    /// # 7002. [REPOSITORY] - 查找用户浏览过的视频IDs
+    /// * `user_id`: 用户 ID
+    /// * `offset`: 分页偏移量
+    /// * `limit`: 每页数量
+    pub async fn find_user_liked_list(
+        user_id: i64,
+        offset: i64,
+        limit: i64,
+    ) -> Result<Vec<i64>, sqlx::Error> {
+        let pool = pg_pool();
+
+        let query = r#"
+        SELECT video_id
+        FROM user_visit_history
+        WHERE user_id = $1
+        ORDER BY visited_at DESC, id DESC
+        LIMIT $2 OFFSET $3
+    "#;
+
+        let video_ids: Vec<i64> = sqlx::query_scalar(query)
+            .bind(user_id)
+            .bind(limit)
+            .bind(offset)
+            .fetch_all(&pool)
+            .await?;
+
+        Ok(video_ids)
+    }
+
+    ////////
 }
+
+
+////////
+
 
 //////// END

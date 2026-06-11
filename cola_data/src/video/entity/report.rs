@@ -1,4 +1,4 @@
-// cola_video/src/live/gateway/report.rs  -- 短视频 - 实体 - 举报视频类型
+// cola_video/src/live/gate_grpc/report.rs  -- 短视频 - 实体 - 举报视频类型
 // 2026/4/24 18:07 by wx: cestbon10080
 
 ////////

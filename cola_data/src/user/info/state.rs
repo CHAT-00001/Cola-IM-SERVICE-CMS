@@ -1,4 +1,4 @@
-// cola_video/src/router/info/app.rs  -- 用户状态模型
+// cola_video/src/router/info/api.rs  -- 用户状态模型
 // 2026/4/23 13:42 by wx: cestbon10080
 
 ////////

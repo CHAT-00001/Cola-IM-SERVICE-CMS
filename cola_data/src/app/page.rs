@@ -1,7 +1,5 @@
 // cola_data/src/page  -- 数据 - page - 分页
-// 2026/5/21 02:28 by wx: cestbon10080
-// *
-// * --------
+// 2026/5/21 02:28
 
 ////////
 
@@ -16,6 +14,17 @@ pub struct PageInfo {
     pub page: i64,      // 当前页码
     pub qty: i64,       // 每页数量
     pub has_more: bool, // 是否还有下一页
+}
+
+// 🌟 手动实现 Default 特征，自定义空数据时的初始值 🌟
+impl Default for PageInfo {
+    fn default() -> Self {
+        Self {
+            page: 1,         // 默认起始页码为 1
+            qty: 10,         // 默认每页 10 条
+            has_more: false, // 默认没有下一页
+        }
+    }
 }
 
 /// # [RESPONSE] - 分页信息

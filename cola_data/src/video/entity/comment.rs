@@ -14,10 +14,10 @@ use uuid::{Uuid, uuid};
 /// * table name: video_comment
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct CommentEntity {
-    pub id: i64,                    // id
-    pub user_id: i64,               // 作者 ID
-    pub video_id: i64,              // 视频 ID
-    pub parent_id: Option<i64>,     // 父评论（可选）
+    pub id: i64,                     // id
+    pub user_id: i64,                // 作者 ID
+    pub video_id: i64,               // 视频 ID
+    pub parent_id: Option<i64>,      // 父评论（可选）
     pub comment_type: i16, // 类型: 1. 文字 2. 语音 3. 照片 4. 视频 5. 位置 7. 表情包 8. 红包 9. 转账 ...
     pub content: String,   // 内容
     pub photos_url: Option<String>, // 照片 url
@@ -28,8 +28,8 @@ pub struct CommentEntity {
     pub dislikes: i32,     // 被踩数量
     pub collects: i32,     // 收藏量
     pub reply: i32,        // 回复数量（是父评论时）
-    pub shares: Option<i32>, // 分享数量
     pub visibility: i16,   // 可见范围
+    pub region_code: Option<String>, // i18n 地区码
     pub status: i16,       // 状态
     pub add_time: i64,     // 时间戳（ms）
     pub created_at: Option<String>, // 创建于

@@ -1,4 +1,4 @@
-// cola_user/src/vo/entity/app.rs  -- 用户状态实体
+// cola_user/src/vo/entity/api.rs  -- 用户状态实体
 // 2026/4/23 15:55 优化：双形态封禁逻辑（永久 vs 限期）
 
 ////////

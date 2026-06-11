@@ -1,10 +1,10 @@
-// cola_user/src/app/check.rs -- 可乐用户 - 应用层 - 检查用户状态
+// cola_user/src/api/check.rs -- 可乐用户 - 应用层 - 检查用户状态
 // 2026/06/05 04:25
 
 ////////
 
 use cola_data::app::data::AppData;
-use crate::biz::check::logic_get_user_state; // 👈 引入本地 biz 里的纯静态逻辑函数
+use crate::biz::check::logic_get_user_state; // 👈 引入本地 case 里的纯静态逻辑函数
 
 ////////
 

@@ -1,4 +1,4 @@
-// repo/src/gateway/qty.rs  -- 用户的视频统计
+// repo/src/gate_grpc/qty.rs  -- 用户的视频统计
 
 use serde::{Deserialize, Serialize};
 use sqlx::FromRow;

@@ -1,4 +1,4 @@
-// cola_data/src/video/entity/user.rs  -- 可乐数据 - video - entity - 用户
+// cola_data/src/video/entity/state  -- 可乐数据 - video - entity - 用户
 // 2026/5/19 21:34
 
 ////////

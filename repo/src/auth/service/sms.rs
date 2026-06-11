@@ -7,12 +7,16 @@ use anyhow::{anyhow, Result};
 use crate::auth::redis::sms::SmsCache; // 引入刚才写的 Cache 层
 
 ////////
+
+/// # [SERVICE] - 短信服务
 pub struct SmsService;
 
+
+// 构造函数
 impl SmsService {
 
     /// # [SERVICE] - 频率检查
-    /// 增加这个接口，biz 层调用它来判断是否允许发送
+    /// 增加这个接口，case 层调用它来判断是否允许发送
     pub async fn check_send_frequency(phone: &str) -> Result<bool> {
         let now = chrono::Utc::now().timestamp();
 
@@ -37,10 +41,11 @@ impl SmsService {
     }
 
     /// # [SERVICE] - 校验验证码 (核心业务)
-    pub async fn verify_sms_code(phone: &str, input_code: &str) -> Result<bool> {
+    /// * params: phone / code
+    pub async fn verify_sms_code(phone: &str, code: &str) -> Result<bool> {
         let cached_code = SmsCache::get_sms_code(phone).await?;
         match cached_code {
-            Some(c) if c == input_code => Ok(true),
+            Some(c) if c == code => Ok(true),
             _ => Ok(false),
         }
     }

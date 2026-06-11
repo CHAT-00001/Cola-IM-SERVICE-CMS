@@ -1,4 +1,4 @@
-// store src/gift/info/gateway.rs -- 礼物信息 - 数据表映射
+// store src/gift/info/gate_grpc.rs -- 礼物信息 - 数据表映射
 // 2026-02-06 20:41:46
 
 use chrono::{DateTime, Utc};

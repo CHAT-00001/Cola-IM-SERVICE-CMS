@@ -4,7 +4,7 @@
 // ////////
 //
 // use serde::{Deserialize, Serialize};
-// use cola_data::app::page::PageInfo;
+// use cola_data::api::page::PageInfo;
 // use crate::vo::info::live::UserInfo;
 // ////////
 //

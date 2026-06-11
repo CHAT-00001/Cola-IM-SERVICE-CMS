@@ -1,34 +1,32 @@
-// cola_video/src/modelo/vo/danmaku  -- VIDEO - Model - VO - 弹幕
-// 2026/5/22 15:23 by wx: cestbon10080
+// /vo/danmaku  -- VO - 弹幕
+// 2026/5/22 15:23
 
 ////////
 
 use serde::Serialize;
 use cola_data::app::page::PageInfo;
-use crate::model::info::danmaku::DanmakuInfo;
+use cola_data::video::info::danmaku::DanmakuInfo;
 
 ////////
 
 /// # [VO] - 弹幕 视图对象
-#[derive(Serialize, Debug, Default)]
+#[derive(Serialize, Debug)] // 🌟 已修正：移除了不满足条件的 Default 派生
 pub struct DanmakuVo {
-    // 平铺弹幕
     #[serde(flatten)]
-    pub Danmaku: DanmakuInfo, // 弹幕 元信息
-
+    pub danmaku: DanmakuInfo, // 🌟 已修正：改回小写 snake_case 规范
     pub is_liked: bool,       // 是否点赞
     pub is_disliked: bool,    // 是否不喜欢
     pub is_author: bool,      // 是否是视频作者发的
-    pub is_own: bool,         // 🚀 新增：是否是当前登录用户自己发的
+    pub is_own: bool,         // 是否是当前登录用户自己发的
 }
 
 /// # [BUILD] - 构造函数
 impl DanmakuVo {
     /// 从已有的 DanmakuInfo 组装成最终的 VO 对象
     pub fn from_info(
-        mut danmaku: DanmakuInfo,
-        current_uid: Option<i64>,  // 🚀 传入当前登录用户的 UID (用来判断 is_own)
-        video_author_id: i64,      // 🚀 传入视频作者的 UID (用来判断 is_author)
+        danmaku: DanmakuInfo,      // 🌟 已修正：去掉了 mut，不污染底层元数据
+        current_uid: Option<i64>,  // 传入当前登录用户的 UID (用来判断 is_own)
+        video_author_id: i64,      // 传入视频作者的 UID (用来判断 is_author)
         is_liked: bool,            // 外部点赞状态
         is_disliked: bool,         // 外部不喜欢状态
     ) -> Self {
@@ -38,11 +36,10 @@ impl DanmakuVo {
         // 2. 判断是不是视频作者发的弹幕
         let is_author = danmaku.user_id == video_author_id;
 
-        // 3. 同时对平铺的内部元信息进行安全修正（兼容你原本的内部逻辑）
-        danmaku.is_author = is_author;
+        // 🌟 已修正：删除了对 danmaku.is_author 的非法赋值，保持 Info 干净
 
         Self {
-            Danmaku: danmaku,
+            danmaku, // 🌟 已修正：对应小写字段
             is_liked,
             is_disliked,
             is_author,
@@ -64,5 +61,4 @@ pub struct DanmakuListResponse {
     pub page_info: PageInfo,      // 分页信息
 }
 
-// * --------
 //////// END
