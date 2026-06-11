@@ -23,36 +23,22 @@ use uuid::Uuid;
 
 /// # [RUN] - Start_api_server
 
-// gate_http/src/lib.rs
-
 pub async fn start_api(api_config: &Api, app_state: AppState) {
-
-    // 1. 提前克隆一份，准备送进 HttpServer 闭包
-    let state_for_app = app_state.clone();
-
     // [HTTP]
     HttpServer::new(move || {
-        // 2. 🌟 关键：在每一路 Worker 线程内再克隆一份，专门喂给路由层
-        let state_for_router = state_for_app.clone();
-
         App::new()
             .wrap(Logger::default())
             .wrap(JwtAuth)
-            .app_data(web::Data::new(state_for_app.clone()))
+            .app_data(web::Data::new(app_state.clone()))
             .route("/ping", web::get().to(ping))
-
             // API服务 - 根路由
-            // 3. 🌟 绝杀改动：用 move |cfg| 闭包代替直接传函数名，把 state_for_router 亲手带进去！
-            .service(
-                web::scope("/api")
-                    .configure(move |cfg| router::boot_router_v1(cfg, state_for_router.clone()))
-            )
+            .service(web::scope("/api").configure(router::boot_router_v1))
     })
-        .bind((api_config.host.as_str(), api_config.port))
-        .expect("Failed to bind API server")
-        .run()
-        .await
-        .expect("API server runtime error");
+    .bind((api_config.host.as_str(), api_config.port))
+    .expect("Failed to bind API server")
+    .run()
+    .await
+    .expect("API server runtime error");
 }
 
 /// # PING

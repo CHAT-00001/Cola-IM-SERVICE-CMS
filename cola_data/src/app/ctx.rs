@@ -11,16 +11,33 @@ use crate::video::port::ColaVideoPort;
 
 ////////
 
-
 /// # [CONTEXT] - 应用上下文
 /// * `描述` - 全局注入
 #[derive(Clone)]
 pub struct AppContext {
     //pub app: AppServicePorts,
     pub auth: AuthServicePorts,
-   // pub dynamic: DynamicServicePorts,
+    // pub dynamic: DynamicServicePorts,
     pub live: ColaLivePort,
     pub music: MusicServicePorts,
     pub user: ColaUserPort,
     pub video: ColaVideoPort,
+}
+
+impl AppContext {
+    pub fn default(
+        auth: AuthServicePorts,
+        live: ColaLivePort,
+        music: MusicServicePorts,
+        user: ColaUserPort,
+        video: ColaVideoPort,
+    ) -> Self {
+        Self {
+            auth,
+            live,
+            music,
+            user,
+            video,
+        }
+    }
 }

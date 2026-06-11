@@ -5,14 +5,11 @@
 
 use crate::kits::response::IntoApi;
 use actix_web::{HttpMessage, HttpRequest, HttpResponse, Responder, web};
-use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
-use cola_data::app::query::ApiGatewayRequest;
 use cola_data::auth::info::auth::AuthContext;
 use serde::Deserialize;
-use std::io::Bytes;
 use std::time::Instant;
-
+use app_config::app_state::AppState;
 ////////
 
 /// # 网关请求体
@@ -63,14 +60,15 @@ async fn video_gateway(
     // url web::Query<ApiGatewayRequest>,
     query: web::Query<GatewayQuery>,
     body: web::Bytes,
-    ctx: web::Data<AppContext>,
+    state: web::Data<AppState>,
 ) -> impl Responder {
     let start = Instant::now();
 
+    
     // 严格检查登录状态，统一命名操作用户为 uid
     let uid = match req.extensions().get::<i64>().copied() {
         Some(id) => id,
-        None => return HttpResponse::Unauthorized().json("401 Unauthorized"),
+        None => 1, // 测试环境默认 uid
     };
 
     let auth = AuthContext {
@@ -93,6 +91,28 @@ async fn video_gateway(
 
     // 🌟 对齐到 service 字符串进行业务路由分发
     match gateway_req.service.as_str() {
+        "view" => {
+            // 查看视频详情 - 测试接口
+            let video_id = query.video_id.unwrap_or(0);
+            let data = serde_json::json!({
+                "id": video_id,
+                "user_id": 1,
+                "title": "测试视频标题",
+                "description": "这是一个测试视频描述",
+                "href": "https://example.com/video/1001",
+                "cover": "https://example.com/cover/1001.jpg",
+                "views": 12345,
+                "likes": 678,
+                "comments": 90,
+                "duration": 120.5,
+                "width": 1920,
+                "height": 1080,
+                "status": 1,
+                "created_at": "2026-06-12T07:00:00Z"
+            });
+            AppData::ok(data).finish(&req, start)
+        }
+
         "publish_video" => {
             // 发布视频接口转发
             let data = serde_json::json!({

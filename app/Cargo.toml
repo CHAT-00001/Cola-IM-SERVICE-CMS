@@ -8,7 +8,7 @@ edition = "2024"
 
 [dependencies]
 #### 内部依赖
-#app_core = { path = "../cola_video" }
+cola_data = { path = "../cola_data" }
 
 #### 外部依赖
 tokio = { version = "1", features = ["full"] }

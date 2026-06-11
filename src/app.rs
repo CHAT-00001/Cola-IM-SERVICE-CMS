@@ -1,4 +1,4 @@
-// src/api.rs
+// src/app.rs
 // 2025-11-45 09:40
 
 ////////
@@ -8,6 +8,7 @@ use im::start_ws;
 use health::start_health;
 use tracing::{info, error};
 use app_config::config_loader::load_config;
+use cola_data::app::ctx::AppContext;
 use gate_grpc::start_gateway;
 use gate_http::start_api;
 
