@@ -19,7 +19,7 @@ pub async fn build_video_single_response(
     _current_uid: Option<i64>, // 用户 ID
 ) -> Result<VideoSingleResponse> {
     // 1. 获取该视频的作者 ID
-    let author_uid = video_info.user_id;
+    let author_uid = video_info.uid;
 
     // 2. 🚀 直接静态调用服务层的单条查询（内部已做好 None 时的 default 兜底）
     let author = if author_uid > 0 {
@@ -59,7 +59,7 @@ pub async fn build_video_list_response(
     } else {
         let author_ids: Vec<i64> = infos
             .iter()
-            .map(|v| v.user_id)
+            .map(|v| v.uid)
             .filter(|&id| id > 0)
             .collect::<std::collections::HashSet<_>>()
             .into_iter()
@@ -73,7 +73,7 @@ pub async fn build_video_list_response(
 
     // 2. 🌟 迭代组装完美的 VideoVo 列表
     let list: Vec<VideoVo> = infos.into_iter().map(|video_info| {
-        let author_uid = video_info.user_id;
+        let author_uid = video_info.uid;
 
         // 💡 因为 UserService 保证了请求的 id 只要大于 0 必然有值在 map 里，
         // 这里直接 cloned() 拿走即可，无需多余转换。

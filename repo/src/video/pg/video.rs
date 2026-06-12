@@ -1,5 +1,5 @@
-// repo/src/pg/video/video -- 仓储 - 短视频 - PG - video
-// 2026/5/20 by wx: cestbon10080
+// pg/video.rs -- 仓储 - 短视频 - PG - video
+// 2026/5/20 10:40
 
 ////////
 
@@ -12,11 +12,12 @@ use sqlx::{self, Postgres, QueryBuilder};
 
 // 数据表原始字段
 const VIDEO_COLUMNS: &str = r#"
-    id, uuid, show_id, user_id, title, title_at_uids, description, desc_at_uids,
-    thumb, thumb_s, href, href_w, original_url, tags, lat, lng, duration,
-    width, height, fps, bit, views, likes, steps, collects, comments,
-    done_play_qty, visibility, allow_comment, allow_danmaku, shares,
-    is_public, status, music_id, goods_id, addtime, created_at, updated_at
+    id, uid, channel_id, title, title_at_uids, description, desc_at_uids,
+    thumb, thumb_s, thumbnail, cover_url, href, href_w, original_url, tags, lat, lng, duration,
+    width, height, fps, bit, views, likes, dislike, collects, comments,
+    danmakus, recommends, shares, done_play_qty, is_public, is_del, status,
+    music_id, goods_id, visibility_perm, comment_perm, danmaku_perm, collect_perm, download_perm,
+    addtime, sync_at, created_at, updated_at, del_time, deleted_at
 "#;
 
 /// # 搜索排序规则枚举（新增：最新发布）
@@ -47,6 +48,14 @@ impl VideoRepo {
             .bind(offset)
             .fetch_all(&pool)
             .await
+            .map_err(|e| {
+                // 打印完整数据库错误、SQL、参数
+                eprintln!(
+                    "[DB ERROR] find_new_list | SQL: {} | limit: {} | offset: {} | err: {:?}",
+                    query, limit, offset, e
+                );
+                e
+            })
     }
 
     ////////

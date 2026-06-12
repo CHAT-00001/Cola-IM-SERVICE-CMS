@@ -3,20 +3,19 @@
 
 ////////
 
+use crate::video::entity::video::VideoEntity;
 use chrono::Utc;
 use serde::{Deserialize, Serialize};
-use crate::video::entity::video::VideoEntity;
 
 ////////
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct VideoInfo {
-    pub id: i64,                 // 视频 ID
-    pub send_id: Option<String>, // 发送 ID
-    pub sync_id: Option<String>, // 同步 ID
+    pub id: i64, // 视频 ID
     // -- by id
-    pub user_id: i64,    // 用户
-    pub channel_id: i16, // 频道
+    pub uid: i64,         // 用户
+    //pub category_id: i16, // 分类
+    pub channel_id: i16,  // 频道
     // -- info
     pub title: String, // 标题
     pub thumb: String, // 缩略图地址
@@ -37,15 +36,12 @@ pub struct VideoInfo {
 
 /// # [BUILD] - 构造视频信息
 impl VideoInfo {
-
     /// 1. 专门用于返回“视频不存在”的空对象
     pub fn empty() -> Self {
         Self {
             id: 0,
             title: "视频不存在".to_string(),
-            send_id: None,
-            sync_id: None,
-            user_id: 0,
+            uid: 0,
             channel_id: 0,
             thumb: String::new(),
             href: String::new(),
@@ -65,9 +61,7 @@ impl VideoInfo {
     pub fn from_entity(entity: VideoEntity) -> Self {
         Self {
             id: entity.id,
-            send_id: entity.send_id,
-            sync_id: entity.sync_id,
-            user_id: entity.user_id,
+            uid: entity.uid,
             channel_id: entity.channel_id,
             title: entity.title,
             thumb: entity.thumb,

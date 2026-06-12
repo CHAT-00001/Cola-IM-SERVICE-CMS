@@ -8,7 +8,7 @@ use im::start_ws;
 use health::start_health;
 use tracing::{info, error};
 use app_config::config_loader::load_config;
-use cola_data::app::ctx::AppContext;
+use repo_adapter::build_app_context;
 use gate_grpc::start_gateway;
 use gate_http::start_api;
 
@@ -40,8 +40,12 @@ pub async fn run() {
     app_config::init_global_db(db_service.clone());
     info!("✅ Global database pointer initialized via init_global_db.");
 
-    // 实例化 AppState，传入 3 个参数
-    let app_state = AppState::new(db_service);
+    // 构建 AppContext（注入所有 port trait 的 Adapter 实现）
+    let ctx = build_app_context();
+    info!("✅ AppContext built with all repo adapters injected.");
+
+    // 实例化 AppState，传入 db_service 和 ctx
+    let app_state = AppState::new(db_service, ctx);
     // ----------------------------
 
     // 启动 API

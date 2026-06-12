@@ -1,4 +1,4 @@
-// repo/src/user/pg/state  -- 用户
+// /pg/user  -- PG 用户
 // 2026/5/23 05:07
 
 ////////
@@ -10,28 +10,26 @@ use crate::pg_pool;
 
 ////////
 
-// 数据表原始字段（对应 Entity 的基础字段，1:1 完全一致）
+// USER 数据表原始字段（对应 Entity 的基础字段，1:1 完全一致）
 const COLUMNS: &str = r#"
-    id, uuid, show_id, user_id, nickname, avatar, sing, birthday,
-    email, phone, href, href_w, original_url, tags, lat, lng, duration,
-    width, height, fps, bit, views, likes, steps, collects, comments,
-    done_play_qty, visibility, allow_comment, allow_danmaku, shares,
-    is_public, status, music_id, goods_id, addtime, created_at, updated_at
+    id, user_type, sex, snow_id, user_nickname, avatar, bg_img, signature, birthday,
+    email, mobile, more, lat, lng, country_code,
+    is_ad, firstcharge_used, praise_num
+    views, likes, fans, follows,
+    last_login_time,goodnum, score, votes, votestotal, province, city,
+    isrecommend, openid, login_type, iszombie, isrecord, iszombiep, issuper,ishot, recommend_time,live_window
+    user_login, user_status, user_pass,
+    balance, balance_total, balance_consumption,
+    online, online_expired_at, create_time, created_at, updated_at
 "#;
 
-// 局部辅助结构体：用来承接带有“动态计算距离”的数据库返回行
-#[derive(Debug, sqlx::FromRow)]
-pub struct VideoHomeRow {
-    #[sqlx(flatten)] // 自动把标准字段映射进 UserEntity
-    pub entity: UserEntity,
-    #[sqlx(default)]
-    pub distance: Option<f64>, // 承接动态计算的距离
-}
 
-/// 用户底层仓储驱动
+/// [USER REPOSITORY] - 用户 仓储
 pub struct UserRepo;
 
 impl UserRepo {
+
+    ////////
 
     /// # 1. [REPOSITORY] - 查找最新的列表
     pub async fn find_new_user_list(
@@ -40,7 +38,7 @@ impl UserRepo {
     ) -> Result<Vec<UserEntity>, sqlx::Error> {
         let pool = pg_pool(); // 👈 抽出来
         let query = format!(
-            "SELECT {} FROM \"user\" WHERE status = 1 ORDER BY addtime DESC LIMIT $1 OFFSET $2",
+            "SELECT {} FROM \"user\" WHERE status = 1 ORDER BY create_time DESC LIMIT $1 OFFSET $2",
             COLUMNS
         );
 
@@ -51,6 +49,8 @@ impl UserRepo {
             .await
     }
 
+    ////////
+
     /// # 2. [REPOSITORY] - 查找一个用户 (精准匹配)
     pub async fn find_user_by_id(
         user_id: i64,
@@ -58,7 +58,7 @@ impl UserRepo {
         let pool = pg_pool(); // 👈 抽出来
         // 💡 修正：通过 user_id (或 id) 精准定位单条记录，不再是查列表
         let query = format!(
-            "SELECT {} FROM \"user\" WHERE user_id = $1 LIMIT 1",
+            "SELECT {} FROM \"user\" WHERE id = $1 LIMIT 1",
             COLUMNS
         );
 
@@ -68,6 +68,8 @@ impl UserRepo {
             .await
     }
 
+    ////////
+
     /// # 3. [REPOSITORY] - 批量查找用户
     pub async fn find_many_users_by_ids(
         user_ids: &[i64],
@@ -75,7 +77,7 @@ impl UserRepo {
         let pool = pg_pool(); // 👈 抽出来
         // 💡 修正：使用 PostgreSQL 的 ANY 语法批量匹配数组中的所有 id
         let query = format!(
-            "SELECT {} FROM \"user\" WHERE user_id = ANY($1) AND status = 1 ORDER BY addtime DESC",
+            "SELECT {} FROM \"user\" WHERE id = ANY($1) AND status = 1 ORDER BY create_time DESC",
             COLUMNS
         );
 
@@ -91,7 +93,7 @@ impl UserRepo {
         lng: f64,
         limit: i64,
         offset: i64,
-    ) -> Result<Vec<VideoHomeRow>, sqlx::Error> {
+    ) -> Result<Vec<UserEntity>, sqlx::Error> {
         let pool = pg_pool(); // 👈 抽出来
         // 💡 修正：表名换回 \"user\"
         let query = format!(
@@ -103,7 +105,7 @@ impl UserRepo {
             COLUMNS
         );
 
-        sqlx::query_as::<_, VideoHomeRow>(&query)
+        sqlx::query_as::<_, UserEntity>(&query)
             .bind(lat)
             .bind(lng)
             .bind(limit)
@@ -138,7 +140,7 @@ impl UserRepo {
     ) -> Result<Vec<UserEntity>, sqlx::Error> {
         let pool = pg_pool(); // 👈 抽出来
         let query = format!(
-            "SELECT {} FROM \"user\" WHERE status = 1 AND is_public = 1 ORDER BY likes DESC, addtime DESC LIMIT $1 OFFSET $2",
+            "SELECT {} FROM \"user\" WHERE status = 1 AND is_recommend = 1 ORDER BY likes DESC, create_time DESC LIMIT $1 OFFSET $2",
             COLUMNS
         );
 
@@ -156,7 +158,7 @@ impl UserRepo {
         lng: f64,
         limit: i64,
         offset: i64,
-    ) -> Result<Vec<VideoHomeRow>, sqlx::Error> {
+    ) -> Result<Vec<UserEntity>, sqlx::Error> {
         let pool = pg_pool(); // 👈 抽出来
         let keyword_like = format!("%{}%", keyword);
 
@@ -164,13 +166,13 @@ impl UserRepo {
         let query = format!(
             "SELECT {}, SQRT(POW(lat - $2, 2) + POW(lng - $3, 2)) AS distance
              FROM \"user\"
-             WHERE status = 1 AND nickname LIKE $1
+             WHERE status = 1 AND user_nickname LIKE $1
              ORDER BY distance ASC
              LIMIT $4 OFFSET $5",
             COLUMNS
         );
 
-        sqlx::query_as::<_, VideoHomeRow>(&query)
+        sqlx::query_as::<_, UserEntity>(&query)
             .bind(keyword_like)
             .bind(lat)
             .bind(lng)

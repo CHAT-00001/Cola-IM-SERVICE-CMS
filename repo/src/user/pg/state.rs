@@ -1,4 +1,4 @@
-// repo/src/user/pg/state.rs  -- 仓储中心 - 用户 - PG - 状态
+// pg/state.rs  -- 仓储中心 - pg - 用户状态
 // 2026/6/9 09:20
 
 ////////
@@ -16,7 +16,7 @@ const COLUMNS: &str = r#"
     email, phone, href, href_w, original_url, tags, lat, lng, duration,
     width, height, fps, bit, views, likes, steps, collects, comments,
     done_play_qty, visibility, allow_comment, allow_danmaku, shares,
-    is_public, status, music_id, goods_id, addtime, created_at, updated_at
+    is_public, status, music_id, goods_id, create_time, created_at, updated_at
 "#;
 
 // 局部辅助结构体：用来承接带有“动态计算距离”的数据库返回行
@@ -110,7 +110,7 @@ impl UserStateRepo {
             .bind(entity.birthday)
             .bind(entity.status)
             .bind(entity.perm_id)
-            .bind(entity.add_time)
+            .bind(entity.create_time)
             .fetch_one(&pool)
             .await?;
 

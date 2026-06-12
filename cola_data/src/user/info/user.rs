@@ -97,7 +97,7 @@ impl From<UserEntity> for UserInfo {
 
         info.nickname = entity
             .user_nickname
-            .unwrap_or_else(|| "可乐博主".to_string()); // 👈 对齐 user_nickname
+            .unwrap_or_else(|| "一罐可乐".to_string()); // 👈 对齐 user_nickname
 
         info.avatar_url = entity.avatar.unwrap_or_default(); // 👈 对齐 avatar
         info.bg_img = entity.bg_img.unwrap_or_default();     // 👈 对齐 bg_img
@@ -108,7 +108,7 @@ impl From<UserEntity> for UserInfo {
         }
 
         info.status = entity.status.unwrap_or(1);            // 👈 对齐 status
-        info.add_time = entity.add_time as i64;              // 👈 完美强转兼容 PHP 的 i32 时间戳
+        info.add_time = entity.create_time as i64;              // 👈 完美强转兼容 PHP 的 i32 时间戳
 
         // 3. 社交状态默认值，等待 Service 层后续通过 Redis 旁路染色填充
         info.is_following = false;

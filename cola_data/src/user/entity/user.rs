@@ -1,4 +1,4 @@
-// cola_data/src/user/entity/state  -- USER - Entity - 用户表
+// entity/user.rs  --  entity - 用户表
 // 2026/3/30 05:33
 
 ////////
@@ -43,8 +43,8 @@ pub struct UserEntity {
     // -- 状态 --
     pub status: Option<i16>, // 状态
     // -- time --
-    pub add_time: i32,                      // 创建时间（兼容PHP程序）
-    pub sync_time: Option<i64>,             // 同步时间
-    pub create_time: Option<DateTime<Utc>>, // 创建时间戳（UTC）
-    pub update_time: Option<DateTime<Utc>>, // 修改时间 （UTC）
+    pub create_time: i32,                 // 创建时间（兼容PHP程序）
+    pub sync_time: Option<i64>,           // 同步时间
+    pub create_at: Option<DateTime<Utc>>, // 创建时间戳（UTC）
+    pub update_at: Option<DateTime<Utc>>, // 修改时间 （UTC）
 }

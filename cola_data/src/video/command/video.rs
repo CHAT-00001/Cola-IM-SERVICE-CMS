@@ -64,7 +64,7 @@ impl VideoCommand {
 
         VideoEntity {
             id: real_video_id, // 动态注入
-            user_id: real_uid, // 动态注入
+            uid: real_uid, // 动态注入
             music_id: self.music_id,
             title: self.title,
             description: self.description,

@@ -8,7 +8,7 @@ edition = "2024"
 
 #### 工作区
 [workspace]
-members = ["gate_http", "cola_video", "app", "gate_grpc", "health", "network", "im", "repo", "cola_data", "cola_dynamic", "kits", "cola_user", "cola_music", "cola_auth", "cola_live", "cola_gift", "cola_client", "cola_rick"]
+members = ["gate_http", "cola_video", "app", "gate_grpc", "health", "network", "im", "repo", "cola_data", "cola_dynamic", "kits", "cola_user", "cola_music", "cola_auth", "cola_live", "cola_gift", "cola_client", "cola_rick", "repo_adapter"]
 
 #### 外部依赖
 [dependencies]
@@ -40,6 +40,9 @@ cola_live = { path = "cola_live" }
 cola_music = { path = "cola_music" }
 cola_video = { path = "cola_video" }
 cola_user = { path = "cola_user" }
+
+# 适配器层
+repo_adapter = { path = "./repo_adapter" }
 
 # 构建优化（新增）
 [profile.release]

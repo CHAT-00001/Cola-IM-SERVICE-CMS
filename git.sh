@@ -21,7 +21,6 @@ git add src/ app/ api/ cola_*/ gateway/ health/ im/ kits/ network/ repo/ migrati
 # 运行
 git rm -r --cached .
 git add .
-git add .
 git commit -m "init project"
 # 创建本地分支
 git branch -M main
@@ -45,3 +44,15 @@ git push -u origin main
 
 # 8. 覆盖推送（⚠️ 仅在需要强制覆盖远程时使用）
 git push -u origin main --force
+
+
+# 先删除远程旧标签
+git push origin :v0.1.1
+
+# 重新推送本地标签
+git push origin v0.1.1
+
+# 场景 3：想新建别的版本标签（推荐常规做法）
+# 直接打新版本号，比如 v0.1.2：
+git tag -a v0.1.2 -m "Release v0.1.2"
+git push origin v0.1.2

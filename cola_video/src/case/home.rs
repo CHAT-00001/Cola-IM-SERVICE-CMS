@@ -43,8 +43,8 @@ impl HomeCase {
         let response = build_video_list_response(
             video_infos,
             Some(uid),
-            url.offset,
-            url.limit,
+            url.page.unwrap_or(1),
+            url.qty.unwrap_or(10),
             0,
         )
             .await?;
@@ -63,7 +63,7 @@ impl HomeCase {
         let video_infos = VideoHomeService::find_hot_video_list(url.limit, url.offset).await?;
 
         let response =
-            build_video_list_response(video_infos, url.uid, url.offset, url.limit, 0).await?;
+            build_video_list_response(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0).await?;
 
         Ok(response)
     }
@@ -80,7 +80,7 @@ impl HomeCase {
             VideoHomeService::find_recommend_video_list(url.limit, url.offset).await?;
 
         let response =
-            build_video_list_response(video_infos, url.uid, url.offset, url.limit, 0).await?;
+            build_video_list_response(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0).await?;
 
         Ok(response)
     }
@@ -100,7 +100,7 @@ impl HomeCase {
         let video_infos = VideoHomeService::find_city_video_list(lat, lng, url.limit, url.offset).await?;
 
         let response =
-            build_video_list_response(video_infos, url.uid, url.offset, url.limit, 0).await?;
+            build_video_list_response(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0).await?;
 
         Ok(response)
     }
@@ -118,7 +118,7 @@ impl HomeCase {
         let video_infos = VideoHomeService::find_city_video_list(lat, lng, url.limit, url.offset).await?;
 
         let response =
-            build_video_list_response(video_infos, url.uid, url.offset, url.limit, 0).await?;
+            build_video_list_response(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0).await?;
 
         Ok(response)
     }
@@ -138,7 +138,7 @@ impl HomeCase {
         let video_infos = VideoHomeService::find_city_video_list(lat, lng, url.limit, url.offset).await?;
 
         let response =
-            build_video_list_response(video_infos, url.uid, url.offset, url.limit, 0).await?;
+            build_video_list_response(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0).await?;
 
         Ok(response)
     }
@@ -154,7 +154,7 @@ impl HomeCase {
         let video_infos = VideoHomeService::find_featured_video_list(url.limit, url.offset).await?;
 
         let response =
-            build_video_list_response(video_infos, url.uid, url.offset, url.limit, 0).await?;
+            build_video_list_response(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0).await?;
 
         Ok(response)
     }
@@ -179,7 +179,7 @@ impl HomeCase {
             .await?;
 
         let response =
-            build_video_list_response(video_infos, url.uid, url.offset, url.limit, 0).await?;
+            build_video_list_response(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0).await?;
 
         Ok(response)
     }

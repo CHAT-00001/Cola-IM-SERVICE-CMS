@@ -6,7 +6,9 @@
 use crate::kits::response::IntoApi;
 use actix_web::{HttpMessage, HttpRequest, HttpResponse, Responder, web};
 use cola_data::app::data::AppData;
+use cola_data::app::query::ApiGatewayRequest;
 use cola_data::auth::info::auth::AuthContext;
+use cola_video::api::home::HomeApi;
 use serde::Deserialize;
 use std::time::Instant;
 use app_config::app_state::AppState;
@@ -28,6 +30,8 @@ pub struct GatewayQuery {
     pub service: String,         // 🌟 兼容 PhalApi，接收如 "Video.PublishVideo"
     pub action: Option<i16>,     // 🌟 以后转入的 int16 动作代码，先用 Option 顶住
     pub video_id: Option<i64>,
+    pub page: Option<i64>,       // 页码
+    pub qty: Option<i64>,        // 每页数量
 }
 
 /// # [ROUTER] - 短视频 - 路由器
@@ -48,9 +52,6 @@ pub async fn root() -> HttpResponse {
     HttpResponse::Ok().json(vec!["Cole", "VIDEO", "ROUTER"])
 }
 
-pub async fn get_videos_by_category() -> HttpResponse {
-    HttpResponse::Ok().json(vec!["Video1", "Video2"])
-}
 
 ////////
 
@@ -62,6 +63,8 @@ async fn video_gateway(
     body: web::Bytes,
     state: web::Data<AppState>,
 ) -> impl Responder {
+
+    // 开始时间
     let start = Instant::now();
 
     
@@ -91,6 +94,23 @@ async fn video_gateway(
 
     // 🌟 对齐到 service 字符串进行业务路由分发
     match gateway_req.service.as_str() {
+
+
+        // 1001 最新
+        "home.new" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+            .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
         "view" => {
             // 查看视频详情 - 测试接口
             let video_id = query.video_id.unwrap_or(0);

@@ -3,13 +3,13 @@
 
 ////////
 
-mod add;
-mod blacklist;
-mod config;
-mod following;
-mod friend;
-mod info;
-mod view;
+pub mod add;
+pub mod blacklist;
+pub mod config;
+pub mod following;
+pub mod friend;
+pub mod info;
+pub mod view;
 
 ////////
 

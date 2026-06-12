@@ -106,7 +106,7 @@ impl UserCommand {
             perm_id: perm,
 
             // 🕒 兼容老 PHP 系统的历史印记（存入 i32 需要注意范围，这里安全强转）
-            add_time: now_ts as i32,
+            create_time: now_ts as i32,
 
             // 📍 坐标信息
             lat: self.lat,

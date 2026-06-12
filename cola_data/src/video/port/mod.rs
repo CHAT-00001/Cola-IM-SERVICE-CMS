@@ -18,15 +18,15 @@ use crate::video::port::buy::BuyRepo;
 
 ////////
 pub mod add;
-mod buy;
-mod collect;
-mod comment;
-mod danmaku;
-mod feed;
-mod hot;
+pub mod buy;
+pub mod collect;
+pub mod comment;
+pub mod danmaku;
+pub mod feed;
+pub mod hot;
 pub mod like;
-mod report;
-mod share;
+pub mod report;
+pub mod share;
 pub mod view;
 ////////
 

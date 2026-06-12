@@ -3882,6 +3882,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "repo_adapter"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "cola_data",
+ "repo",
+ "tracing",
+]
+
+[[package]]
 name = "resolv-conf"
 version = "0.7.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4333,6 +4344,7 @@ dependencies = [
  "health",
  "im",
  "network",
+ "repo_adapter",
  "tokio",
  "tracing",
  "tracing-subscriber",
