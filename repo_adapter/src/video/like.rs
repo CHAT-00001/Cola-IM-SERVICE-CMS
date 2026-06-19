@@ -1,4 +1,4 @@
-// repo_adapter/src/video/like.rs
+// repo_adapter/src/video/follow
 // 2026-06-12 09:30
 
 ////////

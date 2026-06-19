@@ -1,4 +1,4 @@
-// cola_data/src/video/entity/video_user_profile.rs  -- 数据 - USER - Entity - 用户表
+// cola_data/src/video/handler/video_user_profile.rs  -- 数据 - USER - Entity - 用户表
 // 2026/5/22 18:44 by wx: cestbon10080
 // * --------
 // * --------

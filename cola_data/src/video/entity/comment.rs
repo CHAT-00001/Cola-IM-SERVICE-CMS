@@ -1,4 +1,4 @@
-// cola_data/src/entity/video/comment.rs  -- 数据 - entity -  短视频 - 评论表
+// cola_data/src/handler/video/comment.rs  -- 数据 - handler -  短视频 - 评论表
 // 2026-01-16 09:37:10
 // * 1个结构体 1个构造函数
 // * --------

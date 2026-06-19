@@ -97,7 +97,7 @@ impl CommentService {
         let entities =
             CommentRepo::find_new_comments_by_video_id(video_id, offset, limit).await?;
 
-        // entity -> info
+        // handler -> info
         let infos: Vec<CommentInfo> = entities.into_iter().map(CommentInfo::from_entity).collect();
 
         Ok(infos)
@@ -114,7 +114,7 @@ impl CommentService {
     ) -> Result<Vec<CommentInfo>, anyhow::Error> {
         let entities = CommentRepo::find_comments_by_user_id(video_id, offset, limit).await?;
 
-        // entity -> info
+        // handler -> info
         let infos: Vec<CommentInfo> = entities.into_iter().map(CommentInfo::from_entity).collect();
 
         Ok(infos)
@@ -131,7 +131,7 @@ impl CommentService {
     ) -> Result<Vec<CommentInfo>, anyhow::Error> {
         let entities = CommentRepo::find_comments_by_user_id(user_id, offset, limit).await?;
 
-        // entity -> info
+        // handler -> info
         let infos: Vec<CommentInfo> = entities.into_iter().map(CommentInfo::from_entity).collect();
 
         Ok(infos)

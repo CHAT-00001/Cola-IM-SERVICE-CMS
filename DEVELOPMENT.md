@@ -7,6 +7,7 @@
 |------------------|----------------------------------|
 | **GATE 网关**      | 处理 HTTP 请求与路由分发                  |
 | **APP 状态机/配置**   | 管理数据库连接池、应用状态、多服务启动等             |
+| **BOOT**         | 项目主函数入口启动                        |
 | **COLA DATA**    | 防止依赖循环, 抽离干净中立的data model create |
 | **COLA_AUTH**    | 验证中心, 登录/注册/IP/设备.. 检查           |
 | **COLA_DYNAMIC** | UGC 可乐动态                         |
@@ -18,12 +19,44 @@
 | **COLA_POST**    | UGC 博文                           |
 | **COLA_SHOP**    | 电子商务                             |
 | **IM**           | 聊天IM的客户端                         |
+| **ADAPTER**      | 统一的adapter服务接口插头适配器 (rust trait) |
+| **REPO**         | 统一的repository仓储中心                |
 
 ---
 
-## ⚙️ API 路由器 / HANDLER
+## 🌐️ API MORE GATEWAY AWAY 
 
-> 负责接收请求、参数校验、调用 App 层、返回响应。
+> HTTP / GRPC / CLI* / LIB* / WT / WS   *预设
+> 双版本路由
+>
+| 版本            | 职责                     |
+|---------------|------------------------|
+| **GATE_HTTP** | http 网关 `Actix 4.12.x` |
+| **GATE_GRPC** | grpc 网关 `tonic 0.4.x`  |
+| **GATE_WS**   | ws 客户端 网关 `0.0`        |
+| **GATE_WT**   | wt 客户端 网关 `0.0`        |
+| **GATE_CLI**  | 预设（备用）                 |
+
+## ⚙️ HTTP GATE 路由器 / HANDLER
+
+> HTTP 路由解耦出核心业务, 支持灵活更换web框架,双版本路由版本,双重风格
+> 
+| 版本              | 职责                                   |
+|-----------------|--------------------------------------|
+| **V1**          | RESTful Style `/api/v1/xx/xx/xx`     |
+| **V2**          | Gateway Model `/api/v2/xx?a=xx&b=xx` |
+
+## 📱 客户端请求
+│
+├── /api/v1/xxx (REST 风格) ──┐
+│                              │
+└── /api/v2/xxx (Query 网关模式) ─┘
+↓
+参数适配器
+↓
+统一 Handler
+↓
+业务逻辑
 
 ---
 

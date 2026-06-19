@@ -79,7 +79,7 @@ impl CollectService {
         video_id: i64,
     ) -> Result<(), anyhow::Error> {
         // 1. 删除记录
-        // 如果不需要返回具体的 entity，这里直接执行删除操作即可
+        // 如果不需要返回具体的 handler，这里直接执行删除操作即可
         CollectRepo::delete_collect_by_video_id(uid, video_id).await?;
 
         // 2. 更新视频计数

@@ -32,7 +32,7 @@ impl ViewService {
         // 1. 从 DB 捞出原始 Entity 列表
         let db_videos = VideoViewRepo::find_all_batch_ids(&ids)
             .await
-            .map_err(|e| anyhow::anyhow!("SERVICE: 批量获取视频 entity 列表失败: {}", e))?;
+            .map_err(|e| anyhow::anyhow!("SERVICE: 批量获取视频 handler 列表失败: {}", e))?;
 
         // 2. 纯内存无损转换
         let video_infos = db_videos.into_iter().map(VideoInfo::from_entity).collect();
@@ -69,7 +69,7 @@ impl ViewService {
         // 1. 从 DB 捞出原始 Entity 列表
         let db_videos = VideoViewRepo::pg_batch_uids_find_list(uids, keyword, offset, limit)
             .await
-            .map_err(|e| anyhow::anyhow!("SERVICE: 批量获取视频 entity 列表失败: {}", e))?;
+            .map_err(|e| anyhow::anyhow!("SERVICE: 批量获取视频 handler 列表失败: {}", e))?;
 
         // 2. 纯内存无损转换
         let video_infos = db_videos.into_iter().map(VideoInfo::from_entity).collect();
@@ -92,7 +92,7 @@ impl ViewService {
         // 1. 从 DB 捞出原始 Entity 列表
         let db_videos = VideoViewRepo::pg_find_new_list_by_uid(uid, keyword, offset, limit)
             .await
-            .map_err(|e| anyhow::anyhow!("SERVICE: 批量获取视频 entity 列表失败: {}", e))?;
+            .map_err(|e| anyhow::anyhow!("SERVICE: 批量获取视频 handler 列表失败: {}", e))?;
 
         // 2. 纯内存无损转换
         let video_infos = db_videos.into_iter().map(VideoInfo::from_entity).collect();

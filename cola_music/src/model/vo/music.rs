@@ -1,4 +1,4 @@
-// cola_music/src/vo/user  -- MUSIC - 视图模型 - 音乐
+// vo/music  -- MUSIC - 视图模型 - 音乐
 // 2026/5/19 21:17
 
 ////////
@@ -6,9 +6,8 @@
 use serde::{Deserialize, Serialize};
 //
 use cola_data::app::page::PageInfo;
+use cola_data::music::info::music::MusicInfo;
 use cola_data::user::info::user::UserInfo;
-//
-use crate::model::info::music::MusicInfo;
 
 ////////
 

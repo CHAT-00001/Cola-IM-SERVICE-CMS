@@ -54,7 +54,7 @@ impl VideoHomePort for VideoAdapter {
         limit: i64,
         offset: i64,
     ) -> Result<Vec<VideoEntity>, String> {
-        // 💡 修正：底层返回的是 Vec<VideoHomeRow>，需要把内部的 entity 提取并映射出来
+        // 💡 修正：底层返回的是 Vec<VideoHomeRow>，需要把内部的 handler 提取并映射出来
         let rows = self
             .repo
             .find_nearby_list(lat, lng, limit, offset)

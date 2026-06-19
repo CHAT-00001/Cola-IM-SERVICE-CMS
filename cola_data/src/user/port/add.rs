@@ -1,10 +1,11 @@
-// /add.rs  -- 
+// cola_data/src/user/port/add.rs  -- 数据中心 - USER - 端口层 ADD
 // 2026/6/10 07:31
 
 ////////
 
-use crate::user::command::user::UserCommand;
-
+use crate::user::command::new::UserCommand;
+use crate::user::command::update_user::UpdateUserCommand;
+use crate::user::info::user::UserInfo;
 
 #[async_trait::async_trait]
 pub trait AddPort : Send + Sync + 'static {
@@ -12,23 +13,23 @@ pub trait AddPort : Send + Sync + 'static {
 
     ////////
 
-    /// # [SERVICE] - 创建
+    /// # 1. [SERVICE] - 保存
     async fn save_user(
         &self,
         cmd: UserCommand,
-    ) -> anyhow::Result<()>;
+    ) -> anyhow::Result<(UserInfo)>;
 
     ////////
 
-    /// # [SERVICE] - 编辑
-    async fn edit_user(
+    /// # 2. [SERVICE] - 更新
+    async fn update_user(
         &self,
-        cmd: UserCommand,
-    ) -> anyhow::Result<()>;
+        cmd: UpdateUserCommand,
+    ) -> anyhow::Result<(UserInfo)>;
 
     ////////
 
-    /// # [SERVICE] - 删除一个
+    /// # 3. [SERVICE] - 删除一个
     async fn del_one_user(
         &self,
         user_id: i64,
@@ -36,7 +37,7 @@ pub trait AddPort : Send + Sync + 'static {
 
     ////////
 
-    /// # [SERVICE] - 删除多个
+    /// # 4. [SERVICE] - 删除多个
     async fn del_many_user(
         &self,
         user_ids: Vec<i64>,

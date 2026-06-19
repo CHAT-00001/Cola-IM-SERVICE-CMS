@@ -1,4 +1,4 @@
-// cola_video/src/vo/entity/state.rs  -- 视频状态实体
+// cola_video/src/vo/handler/state.rs  -- 视频状态实体
 // 2026/4/23 15:55 优化：双形态封禁逻辑（永久 vs 限期）
 
 use chrono::{DateTime, Utc};

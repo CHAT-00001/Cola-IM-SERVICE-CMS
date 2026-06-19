@@ -1,11 +1,11 @@
-// cola_data/src/user/info/state  -- 可乐数据中心 - USER - info - 构建用户信息
+// cola_data/src/user/info/user.rs  -- 可乐数据中心 - USER - info - 用户信息
 // 2026/06/05 02:10
 
 ////////
 
 use chrono::{Datelike, TimeZone, Utc};
 use serde::{Deserialize, Serialize};
-use crate::user::entity::user::UserEntity; // 👈 确保引入你刚刚发我的最新 UserEntity 路径
+use crate::user::entity::user::UserEntity;
 
 ////////
 

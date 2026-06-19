@@ -1,4 +1,4 @@
-// app/query  -- 可乐数据中心 - APP - URL 请求参数
+// api/query  -- 可乐数据中心 - APP - URL 请求参数
 // 2026/6/11 20:53
 
 ////////
@@ -57,9 +57,13 @@ pub struct ApiGatewayRequest {
     pub offset: i64,
 }
 
+// 构造函数
 impl ApiGatewayRequest {
-    /// 核心方法：构建并净化请求参数
-    /// 网关反序列化完成后，调用此方法初始化分页、权限等安全边界
+
+    ////////
+
+    /// # [CASE] - 🚧 核心方法：构建并净化请求参数
+    /// * `desc` 网关反序列化完成后，调用此方法初始化分页、权限等安全边界
     pub fn build(mut self) -> Self {
         // 1. 处理分页默认值与边界安全
         let raw_page = self.page.unwrap_or(1);
@@ -83,8 +87,13 @@ impl ApiGatewayRequest {
         self
     }
 
-    /// 空上下文快捷构造
+    ////////
+
+    /// # [CASE] - 🌐 空上下文快捷构造
     pub fn empty() -> Self {
         Self::default()
     }
 }
+
+
+///////// END

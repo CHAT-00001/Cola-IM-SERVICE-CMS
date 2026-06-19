@@ -1,4 +1,4 @@
-// cola_data/src/auth/entity/session.rs  -- 数据 - 认证中心 - entity - session
+// cola_data/src/auth/handler/session.rs  -- 数据 - 认证中心 - handler - session
 // 2026/5/23 07:45 by wx: cestbon10080
 
 use serde::{Deserialize, Serialize};

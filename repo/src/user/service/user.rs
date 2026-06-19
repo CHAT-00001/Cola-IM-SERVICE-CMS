@@ -5,7 +5,7 @@
 
 use std::collections::HashMap;
 use anyhow::Result;
-use cola_data::user::command::user::UserCommand;
+use cola_data::user::command::new::UserCommand;
 use cola_data::user::info::user::UserInfo;
 use crate::user::pg::user::UserRepo;
 

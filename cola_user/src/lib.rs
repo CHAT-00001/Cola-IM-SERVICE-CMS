@@ -1,11 +1,13 @@
-// cola_user/src/lib.rs  -- 可乐用户
-// 2026-06-01 12:41
+// cola_video src/lib.rs --  VIDEO - lib
+// 2026-02-07 12:53:47
 
 ////////
 
-pub mod app;
-pub mod biz;
-mod kits;
+pub mod api;
+pub mod assembler;
+pub mod case;
 pub mod model;
+pub mod port;
+
 
 //////// END

@@ -7,9 +7,15 @@ edition = "2024"
 
 [dependencies]
 ## 本地模块
-cola_video = { path = "../cola_video" }
-app_config = { path = "../app" }
-cola_data = { path = "../cola_data" }
+cola_auth = { path = "../cola_auth" } # 可乐验证中心
+cola_dynamic = { path = "../cola_dynamic" } # 可乐动态
+cola_live = { path = "../cola_live" } # 可乐直播
+cola_music = { path = "../cola_music" } # 可乐短视频
+cola_three = { path = "../cola_three" } # 可乐第三方服务
+cola_video = { path = "../cola_video" } # 可乐短视频
+cola_user = { path = "../cola_user" } # 可乐用户中心
+app_config = { path = "../app" } # APP配置
+cola_data = { path = "../cola_data" } # 数据中心
 network = { path = "../network" }
 
 

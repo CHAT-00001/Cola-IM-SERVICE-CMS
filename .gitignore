@@ -13,6 +13,10 @@ build_output*.txt
 # Rust 文档（自动生成）
 /target/doc/
 
+# 数据库自动迁移
+.migrations
+/migrations/
+
 # 运行时日志/临时文件
 *.log
 *.tmp

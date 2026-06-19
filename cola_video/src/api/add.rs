@@ -30,7 +30,7 @@ impl AddApi {
     ////////
 
     /// # 1. [API HANDLER] - 发布
-    pub(crate) async fn handler_add_video(
+    pub async fn handler_add_video(
         user_id: i64,
         cmd: VideoCommand,
     ) -> AppData<VideoSingleResponse> {
@@ -56,7 +56,7 @@ impl AddApi {
 
     /// # 2. [API HANDLER] - 编辑
     /// * `描述` （需要创作者/视频发布特定权限）
-    pub(crate) async fn handler_edit_video(
+    pub async fn handler_edit_video(
         user_id: i64,
         cmd: VideoCommand,
     ) -> AppData<VideoSingleResponse> {

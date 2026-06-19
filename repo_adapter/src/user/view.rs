@@ -3,7 +3,7 @@
 
 use async_trait::async_trait;
 use cola_data::user::port::view::ViewPort;
-use cola_data::user::command::user::UserCommand;
+use cola_data::user::command::new::UserCommand;
 
 pub struct UserViewPortAdapter;
 

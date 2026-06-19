@@ -2,9 +2,10 @@
 pub mod auth;
 pub mod dynamic;
 pub mod live;
+pub mod market;
+pub mod three;
 pub mod user;
 pub mod video;
-
 
 // repo/src/lib.rs
 

@@ -3,7 +3,7 @@
 
 ////////
 
-use crate::user::command::user::UserCommand;
+use crate::user::command::new::UserCommand;
 
 ////////
 

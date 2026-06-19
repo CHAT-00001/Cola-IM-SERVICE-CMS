@@ -7,13 +7,20 @@ use std::sync::Arc;
 
 pub mod video;
 pub mod user;
+pub mod market;
+pub mod three;
 
 use cola_data::app::ctx::AppContext;
 use cola_data::auth::port::AuthServicePorts;
 use cola_data::live::port::ColaLivePort;
+
+use cola_data::market::port::ColaMarketPort;
 use cola_data::music::port::MusicServicePorts;
+use cola_data::three::port::ColaThreePort;
 use cola_data::user::port::ColaUserPort;
 use cola_data::video::port::ColaVideoPort;
+
+//////
 
 /// 构建完整的 AppContext，注入所有 Adapter 实现
 pub fn build_app_context() -> AppContext {
@@ -39,9 +46,37 @@ pub fn build_app_context() -> AppContext {
         con: Arc::new(user::config::UserConfigPortAdapter),
         following: Arc::new(user::following::UserFollowingPortAdapter),
         friend: Arc::new(user::friend::UserFriendPortAdapter),
+        home: Arc::new(user::home::UserHomePortAdapter),
         info: Arc::new(user::info::UserInfoPortAdapter),
         view: Arc::new(user::view::UserViewPortAdapter),
     };
+
+    // ---------- Market ----------
+    let market = ColaMarketPort {
+        address: Arc::new(market::address::AddressAdapter),
+        buy: Arc::new(video::buy::BuyPortAdapter),
+        feed: Arc::new(video::feed::FeedPortAdapter),
+        express: Arc::new(market::express::ExpressAdapter),
+        goods: Arc::new(market::goods::GoodsAdapter),
+        goods_collect: Arc::new(market::goods_collect::GoodsCollectAdapter),
+        goods_view: Arc::new(market::goods_view::GoodsViewAdapter),
+        goods_mange: Arc::new(video::comment::CommentPortAdapter),
+        danmaku: Arc::new(video::danmaku::DanmakuPortAdapter),
+        share: Arc::new(video::share::SharePortAdapter),
+        // 店铺管理
+        shop_manage: Arc::new(market::shop::ShopManageAdapter),
+        report: Arc::new(video::report::ReportPortAdapter),
+        view: Arc::new(video::view::ViewPortAdapter),
+    };
+
+    // ---------- Three ----------
+    let three = ColaThreePort {
+        r#type: Arc::new(three::three_type::TypeAdapter),
+        vendor: Arc::new(three::three_vendor::VendorAdapter),
+        config: Arc::new(three::three_config::ConfigAdapter),
+        binding: Arc::new(three::three_biz_binding::BindingAdapter),
+    };
+
 
     // ---------- Music (复用 video port trait) ----------
     let music = MusicServicePorts {
@@ -60,5 +95,5 @@ pub fn build_app_context() -> AppContext {
     // ---------- Auth (目前为空结构体) ----------
     let auth = AuthServicePorts {};
 
-    AppContext::default(auth, live, music, user, video)
+    AppContext::default(auth, live, market, music, three, user, video)
 }

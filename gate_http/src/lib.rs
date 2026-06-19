@@ -2,12 +2,12 @@
 // 2026-01-16 13:48:00
 
 ////////
-pub mod grpc;
-pub mod http;
 pub mod kits;
 pub mod middleware;
 pub mod models;
-mod router;
+mod router_v1;
+mod router_v2;
+mod ping;
 
 ////////
 
@@ -16,8 +16,7 @@ use actix_web::middleware::Logger;
 use actix_web::{App, HttpResponse, HttpServer, Responder, web};
 use app_config::app_state::AppState;
 use app_config::config::Api;
-use chrono::Utc;
-use uuid::Uuid;
+use crate::ping::ping;
 
 ////////
 
@@ -26,6 +25,7 @@ use uuid::Uuid;
 // gate_http/src/lib.rs
 
 pub async fn start_api(api_config: &Api, app_state: AppState) {
+
 
     // 1. 提前克隆一份，准备送进 HttpServer 闭包
     let state_for_app = app_state.clone();
@@ -36,16 +36,27 @@ pub async fn start_api(api_config: &Api, app_state: AppState) {
         let state_for_router = state_for_app.clone();
 
         App::new()
-            .wrap(Logger::default())
+
+            // Logger:
+            .wrap(Logger::new("%a \"%m \x1b]8;uri=router_v2://%{Host}i%U%q\x1b\\\x1b[38;2;0;51;255m\x1b[4m%U%q\x1b[0m\x1b]8;;\x1b\\ %H\" %s %b \"%{Referer}i\" \"%{User-Agent}i\" %T"))
             .wrap(JwtAuth)
             .app_data(web::Data::new(state_for_app.clone()))
             .route("/ping", web::get().to(ping))
 
             // API服务 - 根路由
-            // 3. 🌟 绝杀改动：用 move |cfg| 闭包代替直接传函数名，把 state_for_router 亲手带进去！
+            // v1 v2 双路由分叉
             .service(
                 web::scope("/api")
-                    .configure(move |cfg| router::boot_router_v1(cfg, state_for_router.clone()))
+                    // 喂给 v1，记得把 state 克隆一份传过去
+                    .configure({
+                        let state = state_for_router.clone();
+                        move |cfg| router_v1::boot_router_v1(cfg, state)
+                    })
+                    // 喂给 v2，把最后的这份 state 直接 move 进去
+                    .configure({
+                        let state = state_for_router;
+                        move |cfg| router_v2::boot_router_v2(cfg, state)
+                    })
             )
     })
         .bind((api_config.host.as_str(), api_config.port))
@@ -53,29 +64,6 @@ pub async fn start_api(api_config: &Api, app_state: AppState) {
         .run()
         .await
         .expect("API server runtime error");
-}
-
-/// # PING
-/// * PONG
-async fn ping() -> impl Responder {
-    let utc_time = Utc::now().format("%Y-%m-%d %H:%M:%S").to_string();
-
-    let uuid = Uuid::new_v4();
-    let uuid_prefix = &uuid.to_string()[0..8];
-
-    // 重点：里面的双引号改成单引号 ' 就不会报错了
-    let body = format!(
-        "<h1 style='color: #000000'>Cola CMS</h1>
-         <h4 style='color: #666666'>version: 0.1.0</h4>
-         <h4 style='color: #333333'>build: 2026/06/12</h4>
-         <h1 style='color: #0066ff'>pong</h1>
-        <p style='color: #00dd00; font-size: 16px'>UTC Time: {} | UUID (first 8 chars): {}</p>",
-        utc_time, uuid_prefix
-    );
-
-    HttpResponse::Ok()
-        .content_type("text/html; charset=utf-8")
-        .body(body)
 }
 
 //////// END

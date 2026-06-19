@@ -1,9 +1,0 @@
-pub mod auth;
-pub mod client;
-pub mod dynamic;
-pub mod gift;
-pub mod music;
-pub mod response;
-pub mod user;
-pub mod video;
-pub mod live;

@@ -11,6 +11,7 @@ edition = "2024"
 cola_data = { path = "../cola_data" }
 cola_user = { path = "../cola_user" }
 repo = { path = "../repo" }
+app_config = { path = "../app" }
 
 ## 外部依赖
 serde = { version = "1.0.228", features = ["derive"] }
@@ -25,4 +26,4 @@ async-trait = "0.1.89"
 tracing = "0.1.44"
 anyhow = "1.0.102"
 rand = "0.8.5"
-
+jsonwebtoken = { version = "10", features = ["rust_crypto"] }

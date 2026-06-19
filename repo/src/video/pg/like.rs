@@ -1,4 +1,4 @@
-// repo/src/pg/video/like.rs  -- 存储 - PG - 短视频 - 信息
+// repo/src/pg/video/follow  -- 存储 - PG - 短视频 - 信息
 // 2026/6/10 05:25
 
 ////////

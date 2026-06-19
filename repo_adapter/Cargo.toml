@@ -15,3 +15,6 @@ repo = { path = "../repo" }
 async-trait = "0.1.89"
 anyhow = "1.0.99"
 tracing = "0.1.41"
+sqlx = { version = "0.8.6", features = ["runtime-tokio-rustls", "postgres", "chrono", "macros"] }
+chrono = { version = "0.4.42", features = ["serde"] }
+rust_decimal = { version = "1.42.1", features = ["serde"] }

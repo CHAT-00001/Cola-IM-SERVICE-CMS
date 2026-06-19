@@ -1,4 +1,4 @@
-// cola_data/src/dynamic/entity/dynamic.rs  -- DYNAMIC - Entity - 动态表
+// cola_data/src/dynamic/handler/dynamic.rs  -- DYNAMIC - Entity - 动态表
 // 2026/5/22 20:12 by wx: cestbon10080
 // * --------
 // * --------

@@ -8,7 +8,7 @@ use crate::video::pg::video::{VideoRepo};
 use anyhow::Error;
 use cola_data::video::command::video::VideoCommand;
 use cola_data::video::entity::video::VideoEntity;
-// 引入缺少的 command 和 entity 结构
+// 引入缺少的 command 和 handler 结构
 use crate::video::pg::comment::CommentRepo;
 use crate::video::pg::danmaku::DanmakuRepo;
 use cola_data::video::command::buy::BuyCommand;
@@ -78,7 +78,7 @@ impl DanmakuService {
             DanmakuRepo::find_danmaku_by_video_id(video_id, play_time, time_window, offset, limit)
                 .await?;
 
-        // entity -> info
+        // handler -> info
         let infos: Vec<DanmakuInfo> = entities.into_iter().map(DanmakuInfo::from_entity).collect();
 
         Ok(infos)
@@ -96,7 +96,7 @@ impl DanmakuService {
             DanmakuRepo::find_danmaku_by_user_id(user_id, offset, limit)
                 .await?;
 
-        // entity -> info
+        // handler -> info
         let infos: Vec<DanmakuInfo> = entities.into_iter().map(DanmakuInfo::from_entity).collect();
 
         Ok(infos)

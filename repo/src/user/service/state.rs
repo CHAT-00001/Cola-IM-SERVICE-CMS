@@ -4,7 +4,7 @@
 ////////
 
 use crate::user::pg::state::UserStateRepo;
-use cola_data::user::command::user::UserCommand;
+use cola_data::user::command::new::UserCommand;
 use cola_data::user::info::user::UserInfo;
 
 ////////

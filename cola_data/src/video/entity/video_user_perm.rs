@@ -1,4 +1,4 @@
-// cola_data/src/user/entity/profile  -- 数据 - USER - Entity - 用户表
+// cola_data/src/user/handler/profile  -- 数据 - USER - Entity - 用户表
 // 2026/3/30 05:33 by wx: cestbon10080
 
 ////////
