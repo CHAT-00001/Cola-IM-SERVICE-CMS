@@ -1,4 +1,4 @@
-// cola_data/src/auth/command/session.rs  -- 可乐数据中心 - AUTH - Command - session
+// cola_data/src/auth/dynamic/session.rs  -- 可乐数据中心 - AUTH - Command - session
 // 2026/06/05 06:50
 
 ////////

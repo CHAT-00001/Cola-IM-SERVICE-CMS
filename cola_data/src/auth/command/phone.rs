@@ -9,7 +9,7 @@ use validator::Validate;
 ////////
 
 /// # [COMMAND] - 手机验证码登录
-#[derive(Debug, Serialize, Deserialize, Validate, Clone)]
+#[derive(Debug, Default, Serialize, Deserialize, Validate, Clone)]
 pub struct PhoneLoginCommand {
     #[serde(default = "default_area_code")]
     pub area_code: String, // 地区编号
@@ -18,7 +18,7 @@ pub struct PhoneLoginCommand {
     pub phone_no: String, // 电话号码
 
     #[validate(length(min = 4, max = 8, message = "验证码长度非法"))]
-    pub sms_code: String, // 短信验证码
+    pub code: String, // 短信验证码
 
     pub device_id: String, // 设备唯一标识 (用于多设备会话管理)
     pub platform: String,  // 平台标识，如: "ios", "android", "web"
@@ -39,11 +39,12 @@ impl PhoneLoginCommand {
     /// 辅助方法：生成一个脱敏的日志记录，保护用户隐私
     /// 在记录登录日志时，不要打印完整的手机号或验证码
     pub fn to_log_info(&self) -> String {
-        format!("platform: {}, device: {}, phone: {}***{}",
-                self.platform,
-                self.device_id,
-                &self.phone_no[..3],
-                &self.phone_no[self.phone_no.len()-2..]
+        format!(
+            "platform: {}, device: {}, phone: {}***{}",
+            self.platform,
+            self.device_id,
+            &self.phone_no[..3],
+            &self.phone_no[self.phone_no.len() - 2..]
         )
     }
 }

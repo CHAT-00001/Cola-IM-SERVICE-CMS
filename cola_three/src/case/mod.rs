@@ -1,5 +1,5 @@
 // cola_three/src/case/mod.rs  -- 用例 mod
-// 2026/6/18
+// 2026/6/18 16:01
 
 pub mod three_type;
 pub mod three_vendor;

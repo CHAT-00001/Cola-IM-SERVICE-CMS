@@ -1,0 +1,10 @@
+pub mod add;
+pub mod collect;
+pub mod comment;
+pub mod dynamic;
+pub mod feed;
+pub mod home;
+pub mod label;
+pub mod like;
+pub mod manage;
+pub mod view;

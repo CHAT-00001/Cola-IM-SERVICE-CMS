@@ -1,4 +1,4 @@
-// command/provider  - command 推流厂商创建命令
+// dynamic/provider  - dynamic 推流厂商创建命令
 // 2026/6/13 04:50
 
 ////////

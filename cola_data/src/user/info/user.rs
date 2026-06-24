@@ -9,7 +9,8 @@ use crate::user::entity::user::UserEntity;
 
 ////////
 
-/// 用户信息结构体
+/// # [INFO] - 用户元信息 结构体
+/// * `desc` 用户资料(可缓存)
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UserInfo {
     pub id: i64,                   // id

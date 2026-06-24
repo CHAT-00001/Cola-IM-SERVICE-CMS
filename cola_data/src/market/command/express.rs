@@ -1,4 +1,4 @@
-// cola_data/src/market/command/express.rs  -- 快递 命令
+// cola_data/src/market/dynamic/express.rs  -- 快递 命令
 // 2026/6/18 13:29
 
 ////////

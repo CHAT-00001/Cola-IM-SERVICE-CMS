@@ -1,12 +1,12 @@
-// cola_data/src/video/command/comment.rs  -- VIDEO - Command - 评论
+// cola_data/src/video/dynamic/comment.rs  -- VIDEO - Command - 评论
 // 2026/5/20 12:01
 
 ////////
 
-use chrono::Utc;
+use crate::video::entity::comment::CommentEntity;
+use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use std::convert::TryFrom;
-use crate::video::entity::comment::CommentEntity;
 
 ////////
 
@@ -53,8 +53,8 @@ pub struct CommentCommand {
     pub collects: i32,              // 收藏数量
     pub visibility: i16,            // 可见范围：5所有人可见
     pub add_time: i64,              // 创建时间（兼容旧版PHP）
-    pub create_time: i64,           // 创建时间
-    pub update_time: i64,           // 更新时间
+    pub created_at: DateTime<Utc>,  // 创建时间
+    pub updated_at: DateTime<Utc>,  // 更新时间
 }
 
 /// # [BUILD] - 构造函数
@@ -64,6 +64,7 @@ impl CommentCommand {
     pub fn into_entity(self, real_uid: i64, real_video_id: i64) -> CommentEntity {
         // 1. 获取当前 UTC 时间戳
         let now = Utc::now().timestamp();
+        let now_ts = Utc::now();
 
         // 2. 校验评论类型 (1..10)，不合法则默认存为 1 (文本)
         let validated_type = CommentType::try_from(self.comment_type)
@@ -105,8 +106,8 @@ impl CommentCommand {
             visibility: 4, // 默认所有人可见
 
             add_time: now,
-            create_time: now,
-            update_time: now,
+            created_at: Option::from(now_ts),
+            updated_at: Option::from(now_ts),
             ..Default::default()
         }
     }
@@ -142,6 +143,5 @@ impl MediaInfo {
         self.items.push(item);
     }
 }
-
 
 //////// END

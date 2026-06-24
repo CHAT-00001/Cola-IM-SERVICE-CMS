@@ -1,4 +1,4 @@
-// command/mod.rs  -- MARKET - 命令 - 店铺申请
+// dynamic/mod.rs  -- MARKET - 命令 - 店铺申请
 // 2026/6/18 12:23
 
 ////////

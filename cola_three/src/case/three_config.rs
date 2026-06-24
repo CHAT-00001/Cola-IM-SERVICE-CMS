@@ -1,19 +1,21 @@
 // cola_three/src/case/three_config.rs  -- 用例 - 配置
-// 2026/6/18
+// 2026/6/18 16:01
 
-//////
+////////
 
 use crate::model::command::three_config::ConfigCommand;
 use crate::model::vo::three_config::ConfigVO;
 use cola_data::three::port::three_config::ConfigPort;
 use cola_data::app::data::AppData;
 
-//////
+////////
 
 /// # [CASE] - 配置用例
 pub struct ConfigCase;
 
 impl ConfigCase {
+
+    ////////
 
     /// 1. 新增或更新
     pub async fn upsert(port: &dyn ConfigPort, cmd: ConfigCommand) -> AppData<ConfigVO> {
@@ -24,6 +26,8 @@ impl ConfigCase {
         AppData::ok(info.into())
     }
 
+    ////////
+
     /// 2. 按类型查询列表
     pub async fn list_by_type(port: &dyn ConfigPort, type_id: i64) -> AppData<Vec<ConfigVO>> {
         let list = match port.list_by_type(type_id).await {
@@ -32,6 +36,8 @@ impl ConfigCase {
         };
         AppData::ok(list.into_iter().map(|i| i.into()).collect())
     }
+
+    ////////
 
     /// 3. 按 ID 查询
     pub async fn find_by_id(port: &dyn ConfigPort, id: i64) -> AppData<ConfigVO> {
@@ -43,6 +49,8 @@ impl ConfigCase {
         AppData::ok(info.into())
     }
 
+    ////////
+
     /// 4. 查询绑定配置
     pub async fn find_binded(port: &dyn ConfigPort, biz_module: &str, biz_type: &str) -> AppData<ConfigVO> {
         let info = match port.find_binded(biz_module, biz_type).await {
@@ -53,3 +61,6 @@ impl ConfigCase {
         AppData::ok(info.into())
     }
 }
+
+
+//////// END

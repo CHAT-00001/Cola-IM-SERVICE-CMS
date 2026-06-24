@@ -1,4 +1,4 @@
-// cola_data/src/video/command/report.rs  -- VIDEO - Command - 举报命令
+// cola_data/src/video/dynamic/report.rs  -- VIDEO - Command - 举报命令
 // 2026/5/22 20:45 by wx: cestbon10080
 
 ////////

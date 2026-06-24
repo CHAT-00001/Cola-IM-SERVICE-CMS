@@ -1,6 +1,8 @@
 // cola_three/src/model/vo/three_biz_binding.rs  -- 绑定 VO
 // 2026/6/18
 
+////////
+
 use serde::{Deserialize, Serialize};
 
 //////
@@ -15,6 +17,8 @@ pub struct BindingVO {
     pub status: i16,
 }
 
+
+// 转换函数
 impl From<cola_data::three::info::three_biz_binding::BindingInfo> for BindingVO {
     fn from(info: cola_data::three::info::three_biz_binding::BindingInfo) -> Self {
         Self {
@@ -26,3 +30,5 @@ impl From<cola_data::three::info::three_biz_binding::BindingInfo> for BindingVO 
         }
     }
 }
+
+//////// END

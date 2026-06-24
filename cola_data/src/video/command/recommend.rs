@@ -1,4 +1,4 @@
-// cola_data/src/video/command/recommend.rs  -- VIDEO - Command - 推荐命令
+// cola_data/src/video/dynamic/recommend.rs  -- VIDEO - Command - 推荐命令
 // 2026/5/22 20:45 by wx: cestbon10080
 // * --------
 // * --------

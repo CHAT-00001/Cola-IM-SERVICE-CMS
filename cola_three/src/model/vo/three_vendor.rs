@@ -1,6 +1,8 @@
 // cola_three/src/model/vo/three_vendor.rs  -- 厂商 VO
 // 2026/6/18
 
+////////
+
 use serde::{Deserialize, Serialize};
 
 //////
@@ -15,6 +17,7 @@ pub struct VendorVO {
     pub status: i16,
 }
 
+// 构造函数
 impl From<cola_data::three::info::three_vendor::VendorInfo> for VendorVO {
     fn from(info: cola_data::three::info::three_vendor::VendorInfo) -> Self {
         Self {
@@ -26,3 +29,5 @@ impl From<cola_data::three::info::three_vendor::VendorInfo> for VendorVO {
         }
     }
 }
+
+//////// END

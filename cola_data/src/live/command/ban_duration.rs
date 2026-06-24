@@ -1,4 +1,4 @@
-// command/ban_duration.rs  -- 直播封禁时长创建命令
+// dynamic/ban_duration.rs  -- 直播封禁时长创建命令
 // 2026/6/13 08:28
 
 ////////

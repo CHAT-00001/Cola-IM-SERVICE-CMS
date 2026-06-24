@@ -1,4 +1,4 @@
-// cola_data/src/three/command/three_config.rs  -- THREE - 配置命令
+// cola_data/src/three/dynamic/three_config.rs  -- THREE - 配置命令
 // 2026/6/18
 
 use serde::{Deserialize, Serialize};

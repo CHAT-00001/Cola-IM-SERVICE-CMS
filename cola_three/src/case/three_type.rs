@@ -1,20 +1,19 @@
 // cola_three/src/case/three_type.rs  -- 用例 - 服务类型
-// 2026/6/18
+// 2026/6/18 16:40
 
-//////
+////////
 
 use crate::model::command::three_type::TypeCommand;
 use crate::model::vo::three_type::TypeVO;
-use cola_data::three::port::three_type::TypePort;
 use cola_data::app::data::AppData;
+use cola_data::three::port::three_type::TypePort;
 
-//////
+////////
 
 /// # [CASE] - 服务类型用例
 pub struct TypeCase;
 
 impl TypeCase {
-
     /// 1. 新增或更新
     pub async fn upsert(port: &dyn TypePort, cmd: TypeCommand) -> AppData<TypeVO> {
         let info = match port.upsert(cmd.into()).await {
@@ -43,3 +42,6 @@ impl TypeCase {
         AppData::ok(info.into())
     }
 }
+
+
+/////// END

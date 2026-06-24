@@ -1,5 +1,5 @@
 // cola_three/src/case/three_biz_binding.rs  -- 用例 - 绑定
-// 2026/6/18
+// 2026/6/18 16:10
 
 //////
 
@@ -15,6 +15,8 @@ pub struct BindingCase;
 
 impl BindingCase {
 
+    ////////
+
     /// 1. 新增或更新
     pub async fn upsert(port: &dyn BindingPort, cmd: BindingCommand) -> AppData<BindingVO> {
         let info = match port.upsert(cmd.into()).await {
@@ -24,6 +26,8 @@ impl BindingCase {
         AppData::ok(info.into())
     }
 
+    ////////
+
     /// 2. 列表
     pub async fn list(port: &dyn BindingPort) -> AppData<Vec<BindingVO>> {
         let list = match port.list().await {
@@ -32,6 +36,8 @@ impl BindingCase {
         };
         AppData::ok(list.into_iter().map(|i| i.into()).collect())
     }
+
+    ////////
 
     /// 3. 按业务模块+类型查询
     pub async fn find_by_biz(port: &dyn BindingPort, biz_module: &str, biz_type: &str) -> AppData<BindingVO> {
@@ -43,3 +49,6 @@ impl BindingCase {
         AppData::ok(info.into())
     }
 }
+
+
+//////// END

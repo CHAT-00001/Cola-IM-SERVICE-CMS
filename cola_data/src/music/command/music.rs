@@ -1,4 +1,4 @@
-// cola_data/src/music/command/live  -- 数据 - MUSIC - Command - 音乐创建
+// cola_data/src/music/dynamic/live  -- 数据 - MUSIC - Command - 音乐创建
 // 2026/5/22 16:28 by wx: cestbon10080
 // * --------
 // * --------

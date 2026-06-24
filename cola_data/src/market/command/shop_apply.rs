@@ -1,4 +1,4 @@
-// command/shop_apply.rs  -- MARKET - Command  - 商店申请
+// dynamic/shop_apply.rs  -- MARKET - Command  - 商店申请
 // 2026/6/18 12:23
 
 ////////

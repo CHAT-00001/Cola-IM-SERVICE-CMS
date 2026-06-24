@@ -8,7 +8,7 @@ use crate::video::pg::video::{VideoRepo};
 use anyhow::Error;
 use cola_data::video::command::video::VideoCommand;
 use cola_data::video::entity::video::VideoEntity;
-// 引入缺少的 command 和 handler 结构
+// 引入缺少的 dynamic 和 handler 结构
 use crate::video::pg::comment::CommentRepo;
 use crate::video::pg::danmaku::DanmakuRepo;
 use cola_data::video::command::buy::BuyCommand;

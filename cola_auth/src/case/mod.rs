@@ -3,9 +3,7 @@
 
 ////////
 
-pub mod session; // 会话
-pub mod sms;
+pub mod add;
+pub mod code;
 pub mod login;
-
-
-//////// END
+pub mod session; // 会话

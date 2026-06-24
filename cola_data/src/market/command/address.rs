@@ -1,4 +1,4 @@
-// command/address.rs  -- MARKET - Command  - 商店申请
+// dynamic/address.rs  -- MARKET - Command  - 商店申请
 // 2026/6/18 13:08
 
 ////////

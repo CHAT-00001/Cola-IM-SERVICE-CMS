@@ -1,4 +1,4 @@
-// cola_data/src/video/command/danmaku.rs  -- 短视频 - command - 弹幕
+// cola_data/src/video/dynamic/danmaku.rs  -- 短视频 - dynamic - 弹幕
 // 2026/5/19 22:13 by wx: cestbon10080
 
 ////////

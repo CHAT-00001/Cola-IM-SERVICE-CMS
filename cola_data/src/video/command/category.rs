@@ -1,4 +1,4 @@
-// cola_data/src/video/command/category.rs  -- VIDEO - Command - 分类创建命令
+// cola_data/src/video/dynamic/category.rs  -- VIDEO - Command - 分类创建命令
 // 2026/5/22 19:45 by wx: cestbon10080
 // * --------
 // * --------

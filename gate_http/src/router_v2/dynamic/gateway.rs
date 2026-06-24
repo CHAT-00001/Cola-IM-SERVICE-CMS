@@ -40,7 +40,7 @@ pub fn dynamic_router(cfg: &mut web::ServiceConfig) {
     cfg.service(
         // by
         // * /video/xxxx
-        web::scope("/video")
+        web::scope("/dynamic")
             // 默认
             .route("", web::get().to(ping))
             .route("/", web::get().to(root))
@@ -51,7 +51,7 @@ pub fn dynamic_router(cfg: &mut web::ServiceConfig) {
 
 // ROOT
 pub async fn root() -> HttpResponse {
-    HttpResponse::Ok().json(vec!["Cole", "VIDEO", "ROUTER"])
+    HttpResponse::Ok().json(vec!["Cole", "DYNAMIC", "ROUTER"])
 }
 
 

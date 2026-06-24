@@ -1,4 +1,4 @@
-// command/channel.rs  -- 频道 命令
+// dynamic/channel.rs  -- 频道 命令
 // 2026/6/13 08:56
 
 ////////

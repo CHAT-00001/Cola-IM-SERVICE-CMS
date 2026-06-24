@@ -1,4 +1,4 @@
-// command/goods.rs  -- 命令 商品
+// dynamic/goods.rs  -- 命令 商品
 // 2026/6/18 13:28
 
 ////////

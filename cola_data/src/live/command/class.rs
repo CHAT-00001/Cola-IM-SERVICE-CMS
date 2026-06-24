@@ -1,4 +1,4 @@
-// command/class.rs  -- 直播分类 命令
+// dynamic/class.rs  -- 直播分类 命令
 // 2026/6/13 07:25
 
 ////////

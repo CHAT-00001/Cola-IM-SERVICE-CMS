@@ -1,4 +1,4 @@
-// command/mod.rs  - 命令 mod
+// dynamic/mod.rs  - 命令 mod
 // 2026/5/22 14:32
 
 pub mod ban;

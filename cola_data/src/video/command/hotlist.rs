@@ -1,4 +1,4 @@
-// cola_data/src/video/command/hotlist.rs  -- VIDEO - Command - 上热门命令
+// cola_data/src/video/dynamic/hotlist.rs  -- VIDEO - Command - 上热门命令
 // 2026/5/22 20:45 by wx: cestbon10080
 // * --------
 // * --------

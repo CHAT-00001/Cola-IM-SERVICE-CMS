@@ -30,7 +30,7 @@ impl Default for PageInfo {
 /// # [RESPONSE] - 分页信息
 /// * 管理员
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct PageAdminInfo {
+pub struct AdminPageInfo {
     pub page: i64,      // 当前页码
     pub qty: i64,       // 每页数量
     pub total: i64,     // 总记录数（管理员审计才需要）

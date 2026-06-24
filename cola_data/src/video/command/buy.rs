@@ -1,4 +1,4 @@
-// cola_data/src/video/command//buy.rs  --  VIDEO - Command - 购买命令
+// cola_data/src/video/dynamic//buy.rs  --  VIDEO - Command - 购买命令
 // 2026/5/22 20:51 by wx: cestbon10080
 // * --------
 // * --------

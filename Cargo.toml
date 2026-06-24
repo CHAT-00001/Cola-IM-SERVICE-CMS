@@ -48,8 +48,9 @@ cola_user = { path = "cola_user" }
 # 适配器层
 repo_adapter = { path = "./repo_adapter" }
 
-# 构建优化（新增）
+# 构建优化（发行版）
 [profile.release]
 lto = true               # 链接时优化（提升性能）
 codegen-units = 1        # 单代码生成单元（提升优化效果）
 opt-level = 3            # 最高优化级别
+strip = true             # ← 加上这一行

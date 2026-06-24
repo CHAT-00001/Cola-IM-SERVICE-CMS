@@ -1,4 +1,4 @@
-// cola_data/src/three/command/mod.rs  -- THREE 命令 mod
+// cola_data/src/three/dynamic/mod.rs  -- THREE 命令 mod
 // 2026/6/18
 
 pub mod three_type;

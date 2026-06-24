@@ -15,6 +15,8 @@ pub struct SmsService;
 // 构造函数
 impl SmsService {
 
+    ////////
+
     /// # [SERVICE] - 频率检查
     /// 增加这个接口，case 层调用它来判断是否允许发送
     pub async fn check_send_frequency(phone: &str) -> Result<bool> {
@@ -33,6 +35,8 @@ impl SmsService {
         Ok(true)
     }
 
+    ////////
+
     /// # [SERVICE] - 存储验证码
     /// 封装好 TTL，Biz 层调用时无需关心过期时间
     pub async fn store_sms_code(phone: &str, code: &str) -> Result<()> {
@@ -40,7 +44,9 @@ impl SmsService {
         SmsCache::set_sms_code(phone, code, 300).await
     }
 
-    /// # [SERVICE] - 校验验证码 (核心业务)
+    ////////
+
+    /// # [SERVICE] - 校验手机短信验证码 (核心业务)
     /// * params: phone / code
     pub async fn verify_sms_code(phone: &str, code: &str) -> Result<bool> {
         let cached_code = SmsCache::get_sms_code(phone).await?;
@@ -49,6 +55,20 @@ impl SmsService {
             _ => Ok(false),
         }
     }
+
+    ////////
+
+    /// # [SERVICE] - 校验邮箱验证码 (核心业务)
+    /// * params: phone / code
+    pub async fn verify_email_code( email: &str, code: &str) -> Result<bool> {
+        let cached_code = SmsCache::get_sms_code(email).await?;
+        match cached_code {
+            Some(c) if c == code => Ok(true),
+            _ => Ok(false),
+        }
+    }
+
+    ////////
 
     /// # [SERVICE] - 消费/失效验证码
     /// 校验成功后调用此接口删除缓存，防止重放攻击

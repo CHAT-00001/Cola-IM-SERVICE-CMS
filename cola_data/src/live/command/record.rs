@@ -1,4 +1,4 @@
-// command/record.rs  -- 命令 - 开播
+// dynamic/record.rs  -- 命令 - 开播
 // 2026/6/13 06:31
 
 ////////

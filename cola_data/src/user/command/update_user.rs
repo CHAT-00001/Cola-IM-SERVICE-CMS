@@ -1,4 +1,4 @@
-// date/src/user/command/update_user.rs  -- 更新用户资料命令
+// date/src/user/dynamic/update_user.rs  -- 更新用户资料命令
 // 2026/6/18 07:27
 
 ////////

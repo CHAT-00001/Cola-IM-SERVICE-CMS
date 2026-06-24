@@ -8,5 +8,6 @@ pub mod entity;
 pub mod event;
 pub mod info;
 pub mod port;
-mod vo;
+pub mod vo;
+
 //////// END

@@ -4,78 +4,88 @@
 ////////
 
 use crate::kits::response::IntoApi;
+use crate::ping::ping;
 use actix_web::{HttpMessage, HttpRequest, HttpResponse, Responder, web};
+use app_config::app_state::AppState;
+use cola_auth::api::add::AuthAddApi;
+use cola_auth::api::code::AuthCodeApi;
+use cola_auth::api::session::SessionApi;
+use cola_auth::case::add::AuthAddCase;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
+use cola_data::auth::command::email::EmailLoginCommand;
+use cola_data::auth::command::phone::PhoneLoginCommand;
 use cola_data::auth::info::auth::AuthContext;
-use cola_user::api::home::HomeApi;
 use cola_user::api::add::AddApi;
+use cola_user::api::home::HomeApi;
 use serde::Deserialize;
 use std::time::Instant;
-use app_config::app_state::AppState;
-use crate::ping::ping;
 
 ////////
 
 /// # 网关请求体
 struct GatewayRequest {
-    auth: AuthContext,     // 补上 auth 字段
-    action: i16,           // 🌟 以后使用的 int16 动作代码
-    service: String,       // 🌟 兼容 PHP PhalApi 的服务名称 (字符串)
-    query: Option<String>, // 查询
-    body: web::Bytes,      // body
-    path: String,          // 路径
+    auth: AuthContext,
+    action: i16,
+    service: String,
+    query: Option<String>,
+    body: web::Bytes,
+    path: String,
 }
 
 /// # 统一的 Query 提取结构体
 #[derive(Deserialize)]
 pub struct GatewayQuery {
-    pub service: String,         // 🌟 兼容 PhalApi，接收如 "Video.PublishVideo"
-    pub action: Option<i16>,     // 🌟 以后转入的 int16 动作代码，先用 Option 顶住
+    pub service: String,
+    pub action: Option<i16>,
     pub video_id: Option<i64>,
-    pub page: Option<i64>,       // 页码
-    pub qty: Option<i64>,        // 每页数量
+    pub page: Option<i64>,
+    pub qty: Option<i64>,
 }
 
-/// # [ROUTER] - 验证中心 - 路由器
+////////
+/// # [HELPER] - 从 body 中提取 cmd（新增，最小侵入）
+fn extract_cmd<T>(body: &web::Bytes) -> Option<T>
+where
+    T: serde::de::DeserializeOwned,
+{
+    let v: serde_json::Value = serde_json::from_slice(body).ok()?;
+    v.get("cmd")
+        .cloned()
+        .and_then(|cmd| serde_json::from_value(cmd).ok())
+}
+
+////////
+
+/// # [ROUTER]
 pub fn auth_router(cfg: &mut web::ServiceConfig) {
     cfg.service(
-        // by
-        // * /video/xxxx
         web::scope("/auth")
-            // 默认
             .route("", web::get().to(ping))
             .route("/", web::get().to(root))
-            // 网关
             .route("/gateway", web::get().to(auth_gateway)),
     );
 }
 
-// ROOT
 async fn root() -> HttpResponse {
     HttpResponse::Ok().json(vec!["Cole", "VIDEO", "ROUTER"])
 }
 
+////////
 
-//////
-
-/// # [GATEWAY] - 可乐验证中心网关
+/// # [GATEWAY]
 async fn auth_gateway(
     req: HttpRequest,
-    // url web::Query<ApiGatewayRequest>,
+    url: web::Query<ApiGatewayRequest>,
     query: web::Query<GatewayQuery>,
     body: web::Bytes,
     state: web::Data<AppState>,
 ) -> impl Responder {
-
-    // 开始时间
     let start = Instant::now();
 
-
-    // 严格检查登录状态，统一命名操作用户为 uid
     let uid = match req.extensions().get::<i64>().copied() {
         Some(id) => id,
-        None => 1, // 测试环境默认 uid
+        None => 1,
     };
 
     let auth = AuthContext {
@@ -89,17 +99,14 @@ async fn auth_gateway(
 
     let gateway_req = GatewayRequest {
         auth,
-        action: query.action.unwrap_or(0), // 先给个默认值 0，留给以后用
-        service: query.service.clone(),    // 对齐并绑定真正的 PhalApi 字符串服务名
+        action: query.action.unwrap_or(0),
+        service: query.service.clone(),
         query: Some(req.query_string().to_string()),
         body,
         path: req.path().to_string(),
     };
 
-    // 🌟 对齐到 service 字符串进行业务路由分发
     match gateway_req.service.as_str() {
-
-
         // 1001 最新
         "home.new" => {
             let url = ApiGatewayRequest {
@@ -108,69 +115,82 @@ async fn auth_gateway(
                 qty: query.qty,
                 ..Default::default()
             }
-                .build();
+            .build();
 
             HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
                 .await
                 .finish(&req, start)
         }
 
-        // 2001 登录
-        "add.login" => {
-            let url = ApiGatewayRequest {
-                uid: Some(uid),
-                page: query.page,
-                qty: query.qty,
-                ..Default::default()
-            }
-                .build();
+        // 2001 手机验证码登录（✔ 改为 cmd）
+        "add.phone" => {
+            let cmd: PhoneLoginCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
 
-            AddApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+            AuthAddApi::handler_sign_in_by_phone(cmd)
                 .await
                 .finish(&req, start)
         }
 
-        "view" => {
-            // 查看视频详情 - 测试接口
-            let video_id = query.video_id.unwrap_or(0);
-            let data = serde_json::json!({
-                "id": video_id,
-                "user_id": 1,
-                "title": "测试视频标题",
-                "description": "这是一个测试视频描述",
-                "href": "https://example.com/video/1001",
-                "cover": "https://example.com/cover/1001.jpg",
-                "views": 12345,
-                "likes": 678,
-                "comments": 90,
-                "duration": 120.5,
-                "width": 1920,
-                "height": 1080,
-                "status": 1,
-                "created_at": "2026-06-12T07:00:00Z"
-            });
-            AppData::ok(data).finish(&req, start)
+        // 2002 邮箱验证码登录（✔ 改为 cmd）
+        "add.email" => {
+            let cmd: EmailLoginCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
+
+            AuthAddApi::handler_sign_in_by_email(cmd)
+                .await
+                .finish(&req, start)
         }
 
-        "publish_video" => {
-            // 发布视频接口转发
+        // 3001 获取短信验证码
+        "code.phone" => {
+            let phone = url.params.get("phone").cloned().unwrap_or_default();
+
+            AuthCodeApi::handler_get_sms_code(&phone)
+                .await
+                .finish(&req, start)
+        }
+
+        // 3002 获取邮箱验证码
+        "code.email" => {
+            let email = url.params.get("email").cloned().unwrap_or_default();
+
+            AuthCodeApi::handler_get_email_code(&email)
+                .await
+                .finish(&req, start)
+        }
+
+        // // 4001 session
+        // "session.view" => {
+        //     let query = ApiGatewayRequest {
+        //         uid: Some(uid),
+        //         page: query.page,
+        //         qty: query.qty,
+        //         ..Default::default()
+        //     }.build();
+        //
+        //     AuthCodeApi::handler_get_email_code(&(query.email))
+        //         .await
+        //         .finish(&req, start)
+        // }
+        "sign_in.test" => {
             let data = serde_json::json!({
-                "video_id": 12345,
+                "session_id": 123456,
                 "user_id": uid,
-                "title": "示例视频标题",
+                "access_token": "这是access token",
+                "refresh_token": "这是refresh_token",
                 "status": "published"
             });
+
             AppData::ok(data).finish(&req, start)
         }
 
         "publish_comment" => {
-            // 发布评论接口转发
             let data = serde_json::json!({
                 "comment_id": 67890,
                 "user_id": uid,
                 "video_id": query.video_id.unwrap_or(0),
                 "content": "示例评论内容"
             });
+
             AppData::ok(data).finish(&req, start)
         }
 
@@ -179,7 +199,6 @@ async fn auth_gateway(
             format!("Unknown PhalApi service: {}", gateway_req.service),
             None,
         )
-            .finish(&req, start),
+        .finish(&req, start),
     }
 }
-

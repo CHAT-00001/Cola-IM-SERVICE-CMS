@@ -1,4 +1,4 @@
-// cola_data/src/three/command/three_type.rs  -- THREE - 类型命令
+// cola_data/src/three/dynamic/three_type.rs  -- THREE - 类型命令
 // 2026/6/18
 
 use serde::{Deserialize, Serialize};

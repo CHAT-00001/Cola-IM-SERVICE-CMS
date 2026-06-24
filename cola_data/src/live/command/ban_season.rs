@@ -1,4 +1,4 @@
-// command/ban_season.rs  -- 直播流主播封禁原因创建命令
+// dynamic/ban_season.rs  -- 直播流主播封禁原因创建命令
 // 2026/6/13 08:15
 
 ////////

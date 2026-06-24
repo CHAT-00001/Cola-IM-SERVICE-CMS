@@ -1,10 +1,10 @@
-// command/order.rs  -- 订单
+// dynamic/order.rs  -- 订单
 // 2026/6/18 13:29
 
 ////////
 
 
-// command/address.rs  -- MARKET - Command  - 商店申请
+// dynamic/address.rs  -- MARKET - Command  - 商店申请
 // 2026/6/18 13:08
 
 ////////

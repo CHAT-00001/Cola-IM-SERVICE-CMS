@@ -1,4 +1,4 @@
-// cola_three/src/model/command/three_vendor.rs  -- 厂商命令
+// cola_three/src/model/dynamic/three_vendor.rs  -- 厂商命令
 // 2026/6/18
 
 use serde::{Deserialize, Serialize};

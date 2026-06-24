@@ -59,7 +59,7 @@ impl AuthLogin {
         PhoneLoginCommand {
             area_code: self.area_code,
             phone_no: self.phone_no,
-            sms_code: self.sms_code,
+            code: self.sms_code,
             device_id: self.device_id,
             platform: self.platform,
         }

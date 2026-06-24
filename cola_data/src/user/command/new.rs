@@ -1,4 +1,4 @@
-// cola_data/src/user/command/state  可乐数据中心 -- 用户 - Command - 创建用户命令
+// cola_data/src/user/dynamic/state  可乐数据中心 -- 用户 - Command - 创建用户命令
 // 2026/5/22 16:35
 
 ////////
@@ -39,8 +39,10 @@ pub struct UserCommand {
 
 // 构造函数
 impl UserCommand {
+    ////////
+
     /// # 0. [QUICK] - 快速构建用于注册的 Command
-    /// 专门用于在 Orchestrator 中传入手机号进行初始化
+    /// * `desc`: 手机注册
     pub fn new_with_phone(phone_no: String) -> Self {
         Self {
             phone: Some(phone_no),
@@ -49,6 +51,21 @@ impl UserCommand {
             ..Default::default()
         }
     }
+
+    ////////
+
+    /// # 0. [QUICK] - 快速构建用于注册的 Command
+    /// * `desc`: 邮箱注册
+    pub fn new_with_email(email: String) -> Self {
+        Self {
+            email: Some(email),
+            register_type: Some(1), // 默认手机注册
+            created_time: Utc::now().timestamp(),
+            ..Default::default()
+        }
+    }
+
+    ////////
 
     /// # 1. [MAKE] - 注册新用户
     pub fn new(self) -> UserEntity {

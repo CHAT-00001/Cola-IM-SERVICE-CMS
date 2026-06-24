@@ -119,13 +119,13 @@ architecture:
 
 global_shared:
     name: "Shared Data / Entity"
-    description: "cola_data 作为全局数据层，提供 handler / info / vo / command / event 等纯结构体"
+    description: "cola_data 作为全局数据层，提供 handler / info / vo / dynamic / event 等纯结构体"
     rule: "纯结构体，不包含任何业务与传输逻辑，可被任何层引用"
     contains:
         - handler (原始表结构)
         - info (领域数据元信息)
         - vo (领域视图对象)
-        - command (创建命令)
+        - dynamic (创建命令)
         - event (消息事件)
         - aggregate (聚合模型)
         - bridge (适配器接口)

@@ -5,6 +5,7 @@
 
 use serde::{Deserialize, Serialize};
 use std::cmp;
+use std::collections::HashMap;
 use std::net::IpAddr;
 
 ////////
@@ -25,6 +26,16 @@ pub struct ApiGatewayRequest {
     pub lng: Option<f64>,  // 经度
 
     // 3. 业务专属参数（各取所需）
+    #[serde(default)]
+    pub id: i64, // ID
+    #[serde(default)]
+    pub _id: i64, // 雪花 ID
+    #[serde(default)]
+    pub at: i64, // 属于
+    #[serde(default)]
+    pub by: i64, // 搭载于
+    #[serde(default)]
+    pub status: i16, // 状态码
     #[serde(default)]
     pub user_id: i64, // 用户 ID
     #[serde(default)]
@@ -50,7 +61,11 @@ pub struct ApiGatewayRequest {
     #[serde(default)]
     pub keyword: String, // 关键词
 
-    // 4. 后端计算辅助字段（不参与序列化）
+    // 4. hashmap灵活扩展
+    #[serde(default)]
+    pub params: HashMap<String, String>,
+
+    // 5. 后端计算辅助字段（不参与序列化）
     #[serde(skip, default)]
     pub limit: i64,
     #[serde(skip, default)]
@@ -59,7 +74,6 @@ pub struct ApiGatewayRequest {
 
 // 构造函数
 impl ApiGatewayRequest {
-
     ////////
 
     /// # [CASE] - 🚧 核心方法：构建并净化请求参数
@@ -94,6 +108,5 @@ impl ApiGatewayRequest {
         Self::default()
     }
 }
-
 
 ///////// END

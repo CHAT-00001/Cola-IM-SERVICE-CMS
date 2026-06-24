@@ -31,7 +31,7 @@ impl<T> AppData<T> {
     ////////
 
     /// # [CASE] - ✅ 成功响应（彻底泛型化）
-    /// 现在它可以接收 String, AuthSessionResponse, VideoListResponse 等任何类型
+    /// `desc` `现在它可以接收 String, AuthSessionResponse, VideoListResponse 等任何类型`
     pub fn ok(data: T) -> Self {
         Self {
             code: 0,
@@ -48,7 +48,7 @@ impl<T> AppData<T> {
     ////////
 
     /// # [CASE] - 🌐 成功响应（无数据返回）
-    /// 改进：直接返回 AppData<T> 以适配上下文，不需要硬写死为 AppData<()>
+    /// `desc` `改进：直接返回 AppData<T> 以适配上下文，不需要硬写死为 AppData<()>`
     pub fn empty() -> Self {
         Self {
             code: 0,
@@ -88,7 +88,8 @@ impl<T> AppData<T> {
 
     ////////
 
-    /// # [CASE] - 🍚 泛型重绑定：支持从 AppData<A> 转换到 AppData<B>
+    /// # [CASE] - 🍚 泛型重绑定
+    /// * `desc` `支持从 AppData<A> 转换到 AppData<B>`
     pub fn rebind<U>(self) -> AppData<U> {
         AppData {
             code: self.code,

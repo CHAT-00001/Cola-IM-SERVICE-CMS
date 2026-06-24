@@ -1,6 +1,8 @@
 // cola_three/src/model/vo/three_config.rs  -- 配置 VO
 // 2026/6/18
 
+////////
+
 use serde::{Deserialize, Serialize};
 
 //////
@@ -20,7 +22,7 @@ pub struct ConfigVO {
     pub remark: Option<String>,
     pub status: i16,
 }
-
+// 转换函数
 impl From<cola_data::three::info::three_config::ConfigInfo> for ConfigVO {
     fn from(info: cola_data::three::info::three_config::ConfigInfo) -> Self {
         Self {
@@ -38,3 +40,6 @@ impl From<cola_data::three::info::three_config::ConfigInfo> for ConfigVO {
         }
     }
 }
+
+
+//////// END

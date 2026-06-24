@@ -33,7 +33,7 @@ impl LoginCase {
         let phone = format!("{} + {}", cmd.area_code, cmd.phone_no);
 
         // 2. 短信验证码校验
-        let is_valid = SmsService::verify_sms_code(&phone, &cmd.sms_code).await?;
+        let is_valid = SmsService::verify_sms_code(&phone, &cmd.code).await?;
 
         if !is_valid {
             return Err(anyhow!("验证码错误或已过期"));

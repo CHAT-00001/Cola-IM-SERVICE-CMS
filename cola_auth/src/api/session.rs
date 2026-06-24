@@ -9,12 +9,13 @@ use cola_data::app::api::ApiQuery;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::auth::command::phone::PhoneLoginCommand;
+use cola_data::auth::info::session::AccessTokenInfo;
 use tracing::log;
 use validator::Validate;
-use cola_data::auth::info::session::AccessTokenInfo;
+
 ////////
 
-/// # [API] - 会话接口
+/// # [API] - 会话 接口
 pub struct SessionApi;
 
 impl SessionApi {
@@ -23,7 +24,7 @@ impl SessionApi {
     /// # 1. [APP USE CASE] - 退出登录
     /// * action: 4001
     /// * `uid`: 当前登录的用户 ID
-    pub async fn handler_logout(
+    pub async fn handler_session_sign_out(
         uid: i64,         // 操作者 ID
         session_id: &str, // 会话 ID
         device_id: &str,  //  设备 ID

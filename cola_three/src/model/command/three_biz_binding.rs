@@ -1,4 +1,4 @@
-// cola_three/src/model/command/three_biz_binding.rs  -- 绑定命令
+// cola_three/src/model/dynamic/three_biz_binding.rs  -- 绑定命令
 // 2026/6/18
 
 use serde::{Deserialize, Serialize};

@@ -57,6 +57,28 @@ impl UserStateService {
         // 4. 返回新用户信息，is_new_user 为 true
         Ok((saved_entity.into(), true))
     }
+
+    ////////
+
+    /// # 4. [SERVICE] - 查找和创建 Orchestrator
+    /// * 返回 (用户信息, 是否为新用户)
+    pub async fn upsert_user_by_email(email: String) -> Result<(UserInfo, bool), anyhow::Error> {
+        // 1. 查找现有用户
+        if let Some(user) = UserStateRepo::find_user_by_phone(&email).await? {
+            // 存在，返回已有用户信息，is_new_user 为 false
+            return Ok((user.into(), false));
+        }
+
+        // 2. 如果不存在，执行创建逻辑
+        let cmd = UserCommand::new_with_phone(email);
+        let entity = cmd.new();
+
+        // 3. 入库
+        let saved_entity = UserStateRepo::save_user(entity).await?;
+
+        // 4. 返回新用户信息，is_new_user 为 true
+        Ok((saved_entity.into(), true))
+    }
 }
 
 //////// END
