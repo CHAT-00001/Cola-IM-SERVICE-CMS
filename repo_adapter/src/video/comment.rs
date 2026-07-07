@@ -4,7 +4,7 @@
 use async_trait::async_trait;
 use cola_data::video::port::comment::CommentRepo;
 use cola_data::video::command::comment::CommentCommand;
-use cola_data::video::info::comment::CommentInfo;
+use cola_data::video::info::comment::VideoCommentInfo;
 use repo::video::service::comment::CommentService;
 
 pub struct CommentPortAdapter;
@@ -18,7 +18,7 @@ impl CommentRepo for CommentPortAdapter {
         uid: i64,
         video_id: i64,
         is_liked: bool,
-    ) -> anyhow::Result<CommentInfo> {
+    ) -> anyhow::Result<VideoCommentInfo> {
         // is_liked is unused; we need a placeholder cmd
         let cmd = CommentCommand::default();
         CommentService::save_comment_and_update_count(uid, video_id, cmd, 1).await
@@ -29,7 +29,7 @@ impl CommentRepo for CommentPortAdapter {
         &self,
         comment_id: i64,
         cmd: CommentCommand,
-    ) -> anyhow::Result<CommentInfo> {
+    ) -> anyhow::Result<VideoCommentInfo> {
         // TODO: actual edit; for now call delete + re-add
         CommentService::delete_comment_and_update_count(0, comment_id).await?;
         Err(anyhow::anyhow!("edit_comment_record not implemented"))

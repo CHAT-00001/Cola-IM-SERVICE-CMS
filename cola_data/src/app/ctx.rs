@@ -4,6 +4,7 @@
 //////
 
 use crate::auth::port::AuthServicePorts;
+use crate::gis::port::ColaGisPort;
 use crate::live::port::ColaLivePort;
 use crate::market::port::ColaMarketPort;
 use crate::music::port::MusicServicePorts;
@@ -20,6 +21,7 @@ pub struct AppContext {
     //pub api: AppServicePorts,
     pub auth: AuthServicePorts,
     // pub dynamic: DynamicServicePorts,
+    pub gis: ColaGisPort,
     pub live: ColaLivePort,
     pub market: ColaMarketPort,
     pub music: MusicServicePorts,
@@ -31,6 +33,7 @@ pub struct AppContext {
 impl AppContext {
     pub fn default(
         auth: AuthServicePorts,
+        gis: ColaGisPort,
         live: ColaLivePort,
         market: ColaMarketPort,
         music: MusicServicePorts,
@@ -40,6 +43,7 @@ impl AppContext {
     ) -> Self {
         Self {
             auth,
+            gis,
             live,
             market,
             music,

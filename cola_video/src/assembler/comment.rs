@@ -6,7 +6,7 @@
 use anyhow::{anyhow, Result};
 use cola_data::app::page::PageInfo;
 use cola_data::user::info::user::UserInfo;
-use cola_data::video::info::comment::CommentInfo; // 🌟 物理 Entity 可以砍了，全线拥抱 Info
+use cola_data::video::info::comment::VideoCommentInfo; // 🌟 物理 Entity 可以砍了，全线拥抱 Info
 use crate::model::vo::comment::{CommentListResponse, CommentSingleResponse, CommentVo};
 use repo::user::service::user::UserService;
 
@@ -14,7 +14,7 @@ use repo::user::service::user::UserService;
 
 /// # [ASSEMBLER] - 组装单评论响应
 pub async fn build_comment_single_response(
-    comment_info: CommentInfo, // 🌟 听哥们的，改成吃 Info
+    comment_info: VideoCommentInfo, // 🌟 听哥们的，改成吃 Info
     current_uid: Option<i64>,
 ) -> Result<CommentSingleResponse> {
 
@@ -36,7 +36,7 @@ pub async fn build_comment_single_response(
 
 /// # [ASSEMBLER] - 组装多评论列表
 pub async fn build_comment_list_response(
-    infos: Vec<CommentInfo>, // 🌟 同步升级，多列表组装也全部改吃 infos
+    infos: Vec<VideoCommentInfo>, // 🌟 同步升级，多列表组装也全部改吃 infos
     current_uid: Option<i64>,
     page: i64,
     qty: i64,

@@ -1,4 +1,4 @@
-// cola_video/src/video/dynamic/home  -- VIDEO - Command  - 发布视频
+// cola_data/src/video/command/video.rs  -- 数据中心 - VIDEO - Command  - 发布视频
 // 2026/5/19 21:28 by wx: cestbon10080
 
 ////////
@@ -106,5 +106,4 @@ impl VideoCommand {
     }
 }
 
-// * --------
 //////// END

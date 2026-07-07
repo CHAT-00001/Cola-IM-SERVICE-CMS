@@ -1,9 +1,9 @@
-// /state.rs  -- 用户 状态 服务
+// repo/src/user/service/state.rs  -- 用户 状态 服务
 // 2026/6/5 00:38
 
 ////////
 
-use crate::user::pg::state::UserStateRepo;
+use crate::user::pg::state_repo::UserStateRepo;
 use cola_data::user::command::new::UserCommand;
 use cola_data::user::info::user::UserInfo;
 
@@ -14,7 +14,7 @@ pub struct UserStateService;
 
 // 构造函数
 impl UserStateService {
-    ////////
+    // 
 
     ////////
 
@@ -40,15 +40,17 @@ impl UserStateService {
 
     /// # 3. [SERVICE] - 查找和创建 Orchestrator
     /// * 返回 (用户信息, 是否为新用户)
-    pub async fn upsert_user_by_phone(phone_no: String) -> Result<(UserInfo, bool), anyhow::Error> {
+    /// * `client_ip`: 客户端真实 IP（来自网关层提取）
+    pub async fn upsert_user_by_phone(phone_no: String, client_ip: Option<String>) -> Result<(UserInfo, bool), anyhow::Error> {
         // 1. 查找现有用户
         if let Some(user) = UserStateRepo::find_user_by_phone(&phone_no).await? {
             // 存在，返回已有用户信息，is_new_user 为 false
             return Ok((user.into(), false));
         }
 
-        // 2. 如果不存在，执行创建逻辑
-        let cmd = UserCommand::new_with_phone(phone_no);
+        // 2. 如果不存在，执行创建逻辑 — 传入客户端 IP
+        let mut cmd = UserCommand::new_with_phone(phone_no);
+        cmd.last_login_ip = client_ip; // 注入网关提取的真实 IP
         let entity = cmd.new();
 
         // 3. 入库

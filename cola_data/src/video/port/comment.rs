@@ -10,7 +10,7 @@
 ////////
 
 use crate::video::command::comment::CommentCommand;
-use crate::video::info::comment::CommentInfo;
+use crate::video::info::comment::VideoCommentInfo;
 
 ////////
 
@@ -26,7 +26,7 @@ pub trait CommentRepo: Send + Sync {
         uid: i64,
         video_id: i64,
         is_liked: bool,
-    ) -> anyhow::Result<(CommentInfo)>;
+    ) -> anyhow::Result<(VideoCommentInfo)>;
 
     ////////
 
@@ -35,7 +35,7 @@ pub trait CommentRepo: Send + Sync {
         &self,
         comment_id: i64,
         cmd:CommentCommand,
-    ) -> anyhow::Result<(CommentInfo)>;
+    ) -> anyhow::Result<(VideoCommentInfo)>;
 
     ////////
 

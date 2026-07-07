@@ -13,6 +13,7 @@ pub const SESSION_COLUMNS: &str = r#"
 
 /// # [ENTITY] - 认证中心 - 会话
 /// * table name: auth_session
+/// * platform 字段在 DB 中是 INT NOT NULL，用 i16 对齐
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow, Default)]
 pub struct AuthSessionEntity {
     pub id: i64,                                     // 会话 ID (PG 大自增)
@@ -27,5 +28,5 @@ pub struct AuthSessionEntity {
     pub status: i16,                                 // 状态: 1有效, 0注销, -1被挤掉
     pub created_time: chrono::DateTime<chrono::Utc>, // 创建时间
     pub updated_time: chrono::DateTime<chrono::Utc>, // 同步更新时间
-    pub platform: String,                            // 平台名称
+    pub platform: i16,                               // 平台 INT -> i16: 0=未知, 1=ios, 2=android, 3=web
 }

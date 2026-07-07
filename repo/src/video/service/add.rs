@@ -1,4 +1,4 @@
-// service/add.rs  -- 服务层 添加
+// repo/src/video/service/add.rs  -- 仓储中心 - VIDEO - service -  添加
 // 2026/6/9 19:19
 
 ////////
@@ -24,8 +24,7 @@ pub struct AddService;
 
 // 构造函数
 impl AddService {
-    // * --------
-    // * --------
+    //
 
     ////////
 

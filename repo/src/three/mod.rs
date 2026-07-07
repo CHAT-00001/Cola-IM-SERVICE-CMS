@@ -2,3 +2,4 @@
 // 2026/6/18
 
 pub mod pg;
+pub mod redis;

@@ -33,7 +33,7 @@ pub struct ApiGatewayRequest {
     #[serde(default)]
     pub at: i64, // 属于
     #[serde(default)]
-    pub by: i64, // 搭载于
+    pub by: String, // 搭载于
     #[serde(default)]
     pub status: i16, // 状态码
     #[serde(default)]
@@ -70,6 +70,7 @@ pub struct ApiGatewayRequest {
     pub limit: i64,
     #[serde(skip, default)]
     pub offset: i64,
+    pub poi_id: i64,
 }
 
 // 构造函数

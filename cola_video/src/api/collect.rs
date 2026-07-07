@@ -6,16 +6,10 @@
 use crate::case;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
-use cola_data::video::command::buy::BuyCommand;
+use cola_data::video::command::buy::VideoBuyCommand;
 use cola_data::video::command::collect::CollectCommand;
-use cola_data::video::command::comment::CommentCommand;
-use cola_data::video::command::danmaku::DanmakuCommand;
-use cola_data::video::command::hotlist::HotlistCommand;
-use cola_data::video::command::report::ReportCommand;
-use cola_data::video::command::share::ShareCommand;
-use cola_data::video::command::video::VideoCommand;
+use cola_data::video::command::report::VideoReportCommand;
 use crate::case::collect::CollectCase;
-use crate::model::vo::video::VideoSingleResponse;
 
 ////////
 

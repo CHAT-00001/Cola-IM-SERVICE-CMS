@@ -1,4 +1,4 @@
-// pg/video.rs -- 仓储 - 短视频 - PG - video
+// repo/src/video/pg/video.rs -- 仓储 - 短视频 - PG - video
 // 2026/5/20 10:40
 
 ////////
@@ -29,13 +29,15 @@ pub enum SearchOrder {
     Latest,    // 最新发布
 }
 
-/// 视频底层仓储驱动 - 纯静态命名空间外壳
+/// # [REPOSITORY] - 🎥 视频 仓储
 pub struct VideoRepo;
 
 impl VideoRepo {
+    //
+
     ////////
 
-    /// # 1. [REPOSITORY] - 查找最新的列表
+    /// # 1. [REPOSITORY] - 🎥 ☀️ 查找最新的列表
     pub async fn find_new_list(limit: i64, offset: i64) -> Result<Vec<VideoEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
@@ -60,7 +62,7 @@ impl VideoRepo {
 
     ////////
 
-    /// # 5. [REPOSITORY] - 根据用户IDs查找对象
+    /// # 5. [REPOSITORY] - 🎥 👤 根据用户IDs查找对象
     /// * 关注的人/朋友/某个用户 复用
     pub async fn find_list_by_uids(
         uids: Option<Vec<i64>>,
@@ -103,7 +105,7 @@ impl VideoRepo {
 
     ////////
 
-    /// # 2. [REPOSITORY] - 热门
+    /// # 2. [REPOSITORY] - 🎥 🔥 热门
     pub async fn find_hot_list(limit: i64, offset: i64) -> Result<Vec<VideoEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
@@ -120,7 +122,7 @@ impl VideoRepo {
 
     ////////
 
-    /// # 3. [REPOSITORY] - 随机推荐列表
+    /// # 3. [REPOSITORY] - 🎥 ⚙️ 随机推荐列表
     /// * (使用 PostgreSQL 数据库内置随机引擎)
     pub async fn find_recommend_list(
         limit: i64,
@@ -141,7 +143,7 @@ impl VideoRepo {
 
     ////////
 
-    /// # 4. [REPOSITORY] - 附近(同城)
+    /// # 4. [REPOSITORY] - 🎥 📍 附近(同城)
     /// * 使用lat和lng参数
     pub async fn find_nearby_list(
         lat: f64,
@@ -170,7 +172,7 @@ impl VideoRepo {
 
     ////////
 
-    /// # 5. [REPOSITORY] - 分类（频道）视频列表
+    /// # 5. [REPOSITORY] - 🎥 🍠 分类（频道）视频列表
     pub async fn find_category_list(
         category_id: i16,
         limit: i64,
@@ -192,7 +194,7 @@ impl VideoRepo {
 
     ////////
 
-    /// # 6. [REPOSITORY] - 精选
+    /// # 6. [REPOSITORY] - 🎥 ⭐ 精选
     pub async fn find_featured_list(
         limit: i64,
         offset: i64,
@@ -212,7 +214,7 @@ impl VideoRepo {
 
     ////////
 
-    /// # 7. [REPOSITORY] - 搜索关键词 (超级强化版：时间筛选 + 多维可选排序 + 距离计算)
+    /// # 7. [REPOSITORY] - 🎥 🔎 搜索关键词 (超级强化版：时间筛选 + 多维可选排序 + 距离计算)
     pub async fn search_keyword_list(
         keyword: String,
         lat: f64,
@@ -275,7 +277,7 @@ impl VideoRepo {
 
     ////////
 
-    /// # 8. [REPOSITORY] - 根据唯一 ID 查找单个视频详情
+    /// # 8. [REPOSITORY] - ▶ 🆔 根据唯一 ID 查找单个视频详情
     pub async fn find_by_id(id: i64) -> Result<Option<VideoEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
@@ -291,7 +293,7 @@ impl VideoRepo {
 
     ////////
 
-    /// # 9. [REPOSITORY] - 根据 IDs 集合批量查找视频列表 (保持高性能)
+    /// # 9. [REPOSITORY] - 🎥 🆔 🆔 根据 IDs 集合批量查找视频列表 (保持高性能)
     pub async fn find_by_ids(ids: &[i64]) -> Result<Vec<VideoEntity>, sqlx::Error> {
         if ids.is_empty() {
             return Ok(vec![]);
@@ -311,7 +313,7 @@ impl VideoRepo {
 
     ////////
 
-    /// # 10. [REPOSITORY] - 保存视频
+    /// # 10. [REPOSITORY] - 🎥 ✅️ 保存视频
     /// * 场景：用户发布视频落库
     pub async fn save_video_by_uid(
         uid: i64,
@@ -368,7 +370,7 @@ impl VideoRepo {
 
     ////////
 
-    /// # 8. [REPOSITORY] - 查找某个用户发布的视频列表
+    /// # 8. [REPOSITORY] - 🎥 👤 查找某个用户发布的视频列表
     pub async fn find_new_list_by_user_id(
         user_id: i64,
         offset: i64,

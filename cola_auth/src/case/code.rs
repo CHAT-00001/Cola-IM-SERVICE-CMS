@@ -35,7 +35,7 @@ impl AuthCodeCase {
         let (code, sms_content) = kit_make_auth_sms_content();
 
         // 3. 【发送】调用外部网关
-        println!("--- 模拟发送短信 --- \nTO: {}\nCONTENT: {}\n------------------", phone_no, sms_content);
+        println!("[CASE]: --- 模拟发送短信 --- \nTO: {}\nCONTENT: {}\n------------------", phone_no, sms_content);
 
         // 4. 【持久化】通过 Service 层存入缓存 (由 Service 内部处理 TTL)
         SmsService::store_sms_code(phone_no, &code)

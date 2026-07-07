@@ -6,7 +6,7 @@
 use anyhow::{Result, anyhow};
 use tracing::{info, warn};
 use cola_data::app::ctx::AppContext;
-use cola_data::video::command::buy::BuyCommand;
+use cola_data::video::command::buy::VideoBuyCommand;
 use repo::video::service::like::LikeService;
 
 ////////
@@ -22,7 +22,7 @@ impl BuyCase {
     pub async fn case_add_video_buy(
         uid: i64,
         video_id: i64,
-        cmd: BuyCommand,
+        cmd: VideoBuyCommand,
         ctx: &AppContext,
     ) -> Result<()> {
 
@@ -46,7 +46,7 @@ impl BuyCase {
     pub async fn case_del_video_buy(
         uid: i64,
         video_id: i64,
-        cmd: BuyCommand,
+        cmd: VideoBuyCommand,
         ctx: &AppContext,
     ) -> Result<()> {
 

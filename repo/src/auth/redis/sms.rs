@@ -1,56 +1,104 @@
-// repo/src/auth/cache/sms.rs  -- 仓储中心 - AUTH - redis - sms
-// 2026/06/05 08:45 by wx: cestbon10080
+// repo/src/auth/redis/sms.rs  -- 仓储中心 - AUTH - redis - sms 缓存
+// 2026/06/25 改写：去掉伪代码，走真实 Redis 查询（通过 app_config::GLOBAL_DB 全局连接池）
 
-////////
+//////
 
 use anyhow::{anyhow, Result};
-// 假设你项目中有一个全局的 redis 连接池，这里用伪代码表示
-// use crate::redis_pool;
+use redis::AsyncCommands;
 
-////////
+//////
+
 pub struct SmsCache;
 
 impl SmsCache {
-    /// # [CACHE] - 保存短信缓存
+
+    ////////
+
+    /// # [CACHE] - 保存短信验证码到 Redis
     /// * `phone`: 手机号
     /// * `code`: 验证码
     /// * `ttl`: 过期时间 (秒)
     pub async fn set_sms_code(phone: &str, code: &str, ttl: i64) -> Result<()> {
-        // 伪代码实现：SETEX key ttl value
         let key = format!("auth:sms:{}", phone);
 
-        // 实际逻辑：
-        // let mut conn = redis_pool().get().await?;
-        // conn.set_ex(key, code, ttl as usize).await?;
+        // 从全局 GLOBAL_DB 获取 Redis 连接
+        let db = app_config::GLOBAL_DB
+            .get()
+            .ok_or_else(|| anyhow!("GLOBAL_DB not initialized"))?;
+        let mut conn = db.redis_conn.clone();
 
-        println!("[CACHE] Saved SMS: {} -> {} (TTL: {}s)", key, code, ttl);
+        // SETEX key ttl value
+        let _: () = conn.set_ex(&key, code, ttl as u64).await?;
+
         Ok(())
     }
 
-    /// # [CACHE] - 消费/获取短信缓存
-    /// * 机制：获取并返回，如果需要“消费后立即失效”，可以在下面加个 DEL
+    ////////
+
+    /// # [CACHE] - 消费/获取短信验证码
+    /// * 从 Redis 取出验证码，不会自动删除（需要调用 del 做消费）
     pub async fn get_sms_code(phone: &str) -> Result<Option<String>> {
         let key = format!("auth:sms:{}", phone);
 
-        // 实际逻辑：
-        // let mut conn = redis_pool().get().await?;
-        // let code: Option<String> = conn.get(key).await?;
+        let db = app_config::GLOBAL_DB
+            .get()
+            .ok_or_else(|| anyhow!("GLOBAL_DB not initialized"))?;
+        let mut conn = db.redis_conn.clone();
 
-        // 模拟返回
-        println!("[CACHE] Fetched SMS for: {}", key);
-        Ok(Some("123456".to_string()))
+        let code: Option<String> = conn.get(&key).await?;
+
+        Ok(code)
     }
 
-    /// # [CACHE] - 检查是否在冷却期
+    ////////
+
+    /// # [CACHE] - 获取上次发送时间戳（用于频率控制）
+    /// * key: `auth:sms:limit:{phone}`
     pub async fn get_last_send_time(phone: &str) -> Result<Option<i64>> {
-        // 伪逻辑：GET auth:sms:limit:{phone} -> 返回存储的时间戳
-        Ok(Some(1234567890)) // 示例
+        let key = format!("auth:sms:limit:{}", phone);
+
+        let db = app_config::GLOBAL_DB
+            .get()
+            .ok_or_else(|| anyhow!("GLOBAL_DB not initialized"))?;
+        let mut conn = db.redis_conn.clone();
+
+        let timestamp: Option<i64> = conn.get(&key).await?;
+
+        Ok(timestamp)
     }
 
-    /// # [CACHE] - 记录发送时间
+    ////////
+
+    /// # [CACHE] - 记录发送时间戳（60 秒 TTL 自动过期）
+    /// * key: `auth:sms:limit:{phone}`
+    /// * value: Unix 时间戳
     pub async fn set_last_send_time(phone: &str, timestamp: i64) -> Result<()> {
-        // 伪逻辑：SETEX auth:sms:limit:{phone} 60 timestamp
-        // 💡 关键：TTL 设置为 60 秒，这样 Redis 会自动帮你清理记录
+        let key = format!("auth:sms:limit:{}", phone);
+
+        let db = app_config::GLOBAL_DB
+            .get()
+            .ok_or_else(|| anyhow!("GLOBAL_DB not initialized"))?;
+        let mut conn = db.redis_conn.clone();
+
+        // TTL 设置为 60 秒，Redis 自动清理，不用手动删
+        let _: () = conn.set_ex(&key, timestamp, 60).await?;
+
+        Ok(())
+    }
+
+    ////////
+
+    /// # [CACHE] - 消费/删除验证码（校验成功后调用，防重放）
+    pub async fn del_sms_code(phone: &str) -> Result<()> {
+        let key = format!("auth:sms:{}", phone);
+
+        let db = app_config::GLOBAL_DB
+            .get()
+            .ok_or_else(|| anyhow!("GLOBAL_DB not initialized"))?;
+        let mut conn = db.redis_conn.clone();
+
+        let _: () = conn.del(&key).await?;
+
         Ok(())
     }
 }

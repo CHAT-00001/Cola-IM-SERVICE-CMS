@@ -4,4 +4,9 @@
 ////////
 
 pub mod user;
-pub mod state;
+pub mod state_repo;
+pub mod home_repo;
+mod follow_repo;
+mod black_repo;
+mod ban_repo;
+mod view_repo;

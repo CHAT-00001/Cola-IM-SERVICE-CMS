@@ -2,7 +2,7 @@
 // 2026/6/18
 
 use serde::{Deserialize, Serialize};
-use crate::three::entity::three_vendor::ThreeVendorEntity;
+use crate::three::entity::vendor::ThreeVendorEntity;
 
 //////
 

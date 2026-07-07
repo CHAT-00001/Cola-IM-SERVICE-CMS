@@ -1,4 +1,4 @@
-// handler/gateway.rs  -- live gate
+// gate_http/router_v2/live/gateway.rs  -- live gate
 // 2026/6/13 10:21
 
 ////////
@@ -8,7 +8,7 @@ use actix_web::{HttpMessage, HttpRequest, HttpResponse, Responder, web};
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::auth::info::auth::AuthContext;
-use cola_live::api::home::HomeApi;
+use cola_live::api::home::LiveHomeApi;
 use serde::Deserialize;
 use std::time::Instant;
 use app_config::app_state::AppState;
@@ -93,7 +93,7 @@ async fn live_gateway(
 
 
         // 1001 最新
-        "home.new" => {
+        "home_new" => {
             let url = ApiGatewayRequest {
                 uid: Some(uid),
                 page: query.page,
@@ -102,13 +102,13 @@ async fn live_gateway(
             }
                 .build();
 
-            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+            LiveHomeApi::handler_home_new(gateway_req.auth, url, &state.ctx)
                 .await
                 .finish(&req, start)
         }
 
         // 1002 热门
-        "home.hot" => {
+        "home_hot" => {
             let url = ApiGatewayRequest {
                 uid: Some(uid),
                 page: query.page,
@@ -117,13 +117,13 @@ async fn live_gateway(
             }
                 .build();
 
-            HomeApi::handler_get_hot(gateway_req.auth, url, &state.ctx)
+            LiveHomeApi::handler_home_hot(gateway_req.auth, url, &state.ctx)
                 .await
                 .finish(&req, start)
         }
 
         // 1003 推荐
-        "home.recommend" => {
+        "home_recommend" => {
             let url = ApiGatewayRequest {
                 uid: Some(uid),
                 page: query.page,
@@ -132,13 +132,13 @@ async fn live_gateway(
             }
                 .build();
 
-            HomeApi::handler_get_recommend(gateway_req.auth, url, &state.ctx)
+            LiveHomeApi::handler_home_recommend(gateway_req.auth, url, &state.ctx)
                 .await
                 .finish(&req, start)
         }
 
         // 1004 同城
-        "home.city" => {
+        "home_city" => {
             let url = ApiGatewayRequest {
                 uid: Some(uid),
                 page: query.page,
@@ -147,13 +147,13 @@ async fn live_gateway(
             }
                 .build();
 
-            HomeApi::handler_get_city(gateway_req.auth, url, &state.ctx)
+            LiveHomeApi::handler_home_city(gateway_req.auth, url, &state.ctx)
                 .await
                 .finish(&req, start)
         }
 
         // 1005 分类
-        "home.category" => {
+        "home_category" => {
             let url = ApiGatewayRequest {
                 uid: Some(uid),
                 page: query.page,
@@ -162,13 +162,13 @@ async fn live_gateway(
             }
                 .build();
 
-            HomeApi::handler_get_category(gateway_req.auth, url, &state.ctx)
+            LiveHomeApi::handler_home_category(gateway_req.auth, url, &state.ctx)
                 .await
                 .finish(&req, start)
         }
 
         // 1006 精选
-        "home.featured" => {
+        "home_featured" => {
             let url = ApiGatewayRequest {
                 uid: Some(uid),
                 page: query.page,
@@ -177,13 +177,13 @@ async fn live_gateway(
             }
                 .build();
 
-            HomeApi::handler_get_featured(gateway_req.auth, url, &state.ctx)
+            LiveHomeApi::handler_home_featured(gateway_req.auth, url, &state.ctx)
                 .await
                 .finish(&req, start)
         }
 
         // 1007 搜索
-        "home.search" => {
+        "home_search" => {
             let url = ApiGatewayRequest {
                 uid: Some(uid),
                 page: query.page,
@@ -192,7 +192,7 @@ async fn live_gateway(
             }
                 .build();
 
-            HomeApi::handler_get_search(gateway_req.auth, url, &state.ctx)
+            LiveHomeApi::handler_home_search(gateway_req.auth, url, &state.ctx)
                 .await
                 .finish(&req, start)
         }

@@ -7,7 +7,8 @@ use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::auth::info::auth::AuthContext;
 use crate::case::change::VideoChangeCase;
-use crate::case::comment::CommentCase;
+
+ 
 ////////
 
 /// # [API HANDLER] - 权限修改接口
@@ -16,7 +17,7 @@ pub struct ChangeApi;
 // 构造函数
 impl ChangeApi {
 
-    ////////
+    // 
 
     ////////
 
@@ -111,6 +112,8 @@ impl ChangeApi {
             }
         }
     }
+
+    ////////
 
 
     /// # 5. [API HANDLER] - 修改 - 收藏权限

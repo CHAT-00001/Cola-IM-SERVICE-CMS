@@ -5,7 +5,7 @@
 
 use crate::pg_pool;
 use cola_data::video::command::comment::CommentCommand;
-use cola_data::video::entity::comment::CommentEntity;
+use cola_data::video::entity::comment::VideoCommentEntity;
 use sqlx::{self, Postgres, QueryBuilder};
 
 ////////
@@ -22,7 +22,7 @@ const COMMENT_COLUMNS: &str = r#"
 #[derive(Debug, sqlx::FromRow)]
 pub struct VideoHomeRow {
     #[sqlx(flatten)] // 自动把标准字段映射进 Entity
-    pub entity: CommentEntity,
+    pub entity: VideoCommentEntity,
     #[sqlx(default)]
     pub distance: Option<f64>, // 承接动态计算的距离
 }
@@ -48,7 +48,7 @@ impl CommentRepo {
         video_id: i64,
         limit: i64,
         offset: i64,
-    ) -> Result<Vec<CommentEntity>, sqlx::Error> {
+    ) -> Result<Vec<VideoCommentEntity>, sqlx::Error> {
         let pool = pg_pool();
 
         let query = format!(
@@ -61,7 +61,7 @@ impl CommentRepo {
             COMMENT_COLUMNS
         );
 
-        sqlx::query_as::<_, CommentEntity>(&query)
+        sqlx::query_as::<_, VideoCommentEntity>(&query)
             .bind(video_id)
             .bind(limit)
             .bind(offset)
@@ -75,7 +75,7 @@ impl CommentRepo {
         video_id: i64,
         limit: i64,
         offset: i64,
-    ) -> Result<Vec<CommentEntity>, sqlx::Error> {
+    ) -> Result<Vec<VideoCommentEntity>, sqlx::Error> {
         let pool = pg_pool();
 
         let query = format!(
@@ -88,7 +88,7 @@ impl CommentRepo {
             COMMENT_COLUMNS
         );
 
-        sqlx::query_as::<_, CommentEntity>(&query)
+        sqlx::query_as::<_, VideoCommentEntity>(&query)
             .bind(video_id)
             .bind(limit)
             .bind(offset)
@@ -104,7 +104,7 @@ impl CommentRepo {
         user_id: i64,
         limit: i64,
         offset: i64,
-    ) -> Result<Vec<CommentEntity>, sqlx::Error> {
+    ) -> Result<Vec<VideoCommentEntity>, sqlx::Error> {
         let pool = pg_pool();
 
         // 💡 提示：如果你的评论表里，用户ID的物理字段名就叫 `uid`，请把下面的 `user_id = $1` 改为 `uid = $1`
@@ -118,7 +118,7 @@ impl CommentRepo {
             COMMENT_COLUMNS
         );
 
-        sqlx::query_as::<_, CommentEntity>(&query)
+        sqlx::query_as::<_, VideoCommentEntity>(&query)
             .bind(user_id)
             .bind(limit)
             .bind(offset)
@@ -133,14 +133,14 @@ impl CommentRepo {
     pub async fn find_reply_me_comments(
         limit: i64,
         offset: i64,
-    ) -> Result<Vec<CommentEntity>, sqlx::Error> {
+    ) -> Result<Vec<VideoCommentEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
             "SELECT {} FROM video WHERE status = 1 ORDER BY RANDOM() LIMIT $1 OFFSET $2",
             COMMENT_COLUMNS
         );
 
-        sqlx::query_as::<_, CommentEntity>(&query)
+        sqlx::query_as::<_, VideoCommentEntity>(&query)
             .bind(limit)
             .bind(offset)
             .fetch_all(&pool)
@@ -226,7 +226,7 @@ impl CommentRepo {
     ////////
 
     /// # 9. [REPOSITORY] - 根据 IDs 集合批量查找视频列表 (保持高性能)
-    pub async fn find_by_ids(ids: &[i64]) -> Result<Vec<CommentEntity>, sqlx::Error> {
+    pub async fn find_by_ids(ids: &[i64]) -> Result<Vec<VideoCommentEntity>, sqlx::Error> {
         if ids.is_empty() {
             return Ok(vec![]);
         }
@@ -237,7 +237,7 @@ impl CommentRepo {
             COMMENT_COLUMNS
         );
 
-        sqlx::query_as::<_, CommentEntity>(&query)
+        sqlx::query_as::<_, VideoCommentEntity>(&query)
             .bind(ids)
             .fetch_all(&pool)
             .await
@@ -252,7 +252,7 @@ impl CommentRepo {
         video_id: i64,       //  视频 ID
         cmd: CommentCommand, // 评论命令
         visibility: i16,     // 可见性
-    ) -> Result<CommentEntity, sqlx::Error> {
+    ) -> Result<VideoCommentEntity, sqlx::Error> {
         let pool = pg_pool();
 
         let query = format!(
@@ -262,7 +262,7 @@ impl CommentRepo {
             COMMENT_COLUMNS
         );
 
-        sqlx::query_as::<_, CommentEntity>(&query)
+        sqlx::query_as::<_, VideoCommentEntity>(&query)
             .bind(user_id)
             .bind(video_id)
             .bind(cmd.parent_id)
@@ -279,7 +279,7 @@ impl CommentRepo {
     pub async fn user_del_comment_by_id(
         uid: i64,
         comment_id: i64,
-    ) -> Result<CommentEntity, sqlx::Error> {
+    ) -> Result<VideoCommentEntity, sqlx::Error> {
         let pool = pg_pool();
 
         let query = format!(
@@ -291,7 +291,7 @@ impl CommentRepo {
             COMMENT_COLUMNS
         );
 
-        sqlx::query_as::<_, CommentEntity>(&query)
+        sqlx::query_as::<_, VideoCommentEntity>(&query)
             .bind(comment_id)
             .bind(uid)
             .fetch_one(&pool)
@@ -302,7 +302,7 @@ impl CommentRepo {
 
     /// # 12. [REPOSITORY] - 管理员根据评论ID删除评论
     /// * `comment_id`: 评论ID
-    pub async fn admin_del_comment_by_id(comment_id: i64) -> Result<CommentEntity, sqlx::Error> {
+    pub async fn admin_del_comment_by_id(comment_id: i64) -> Result<VideoCommentEntity, sqlx::Error> {
         let pool = pg_pool();
 
         let query = format!(
@@ -312,7 +312,7 @@ impl CommentRepo {
             COMMENT_COLUMNS
         );
 
-        sqlx::query_as::<_, CommentEntity>(&query)
+        sqlx::query_as::<_, VideoCommentEntity>(&query)
             .bind(comment_id)
             .fetch_one(&pool)
             .await

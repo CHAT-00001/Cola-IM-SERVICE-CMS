@@ -12,8 +12,22 @@ use cola_video::api::home::HomeApi;
 use serde::Deserialize;
 use std::time::Instant;
 use app_config::app_state::AppState;
+use cola_data::dynamic::command::dynamic::DynamicCommand;
 use crate::ping::ping;
+
 ////////
+
+////////
+/// # [HELPER] - 从 body 中提取 cmd（新增，最小侵入）
+fn extract_cmd<T>(body: &web::Bytes) -> Option<T>
+where
+    T: serde::de::DeserializeOwned,
+{
+    let v: serde_json::Value = serde_json::from_slice(body).ok()?;
+    v.get("cmd")
+        .cloned()
+        .and_then(|cmd| serde_json::from_value(cmd).ok())
+}
 
 /// # 网关请求体
 struct GatewayRequest {
@@ -135,7 +149,7 @@ async fn dynamic_gateway(
             AppData::ok(data).finish(&req, start)
         }
 
-        "publish_video" => {
+        "add.video" => {
             // 发布视频接口转发
             let data = serde_json::json!({
                 "video_id": 12345,
@@ -146,15 +160,32 @@ async fn dynamic_gateway(
             AppData::ok(data).finish(&req, start)
         }
 
-        "publish_comment" => {
-            // 发布评论接口转发
-            let data = serde_json::json!({
-                "comment_id": 67890,
-                "user_id": uid,
-                "video_id": query.video_id.unwrap_or(0),
-                "content": "示例评论内容"
-            });
-            AppData::ok(data).finish(&req, start)
+        // 3001 发布
+        "comment.add" => {
+            // 发布评论命令
+            let cmd: DynamicCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
+            AppData::ok(cmd).finish(&req, start)
+        }
+
+        // 3002 点赞
+        "comment.like" => {
+            // 发布评论命令
+            let cmd: DynamicCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
+            AppData::ok(cmd).finish(&req, start)
+        }
+
+        // 3003 不喜欢
+        "comment.dislike" => {
+            // 发布评论命令
+            let cmd: DynamicCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
+            AppData::ok(cmd).finish(&req, start)
+        }
+
+        // 3004 举报
+        "comment.report" => {
+            // 发布评论命令
+            let cmd: DynamicCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
+            AppData::ok(cmd).finish(&req, start)
         }
 
         _ => AppData::<()>::err(

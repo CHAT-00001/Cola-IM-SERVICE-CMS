@@ -4,6 +4,7 @@
 ////////
 
 use anyhow::{anyhow, Result};
+use tracing::log;
 use crate::auth::redis::sms::SmsCache; // 引入刚才写的 Cache 层
 
 ////////
@@ -14,6 +15,7 @@ pub struct SmsService;
 
 // 构造函数
 impl SmsService {
+    //
 
     ////////
 
@@ -47,19 +49,29 @@ impl SmsService {
     ////////
 
     /// # [SERVICE] - 校验手机短信验证码 (核心业务)
-    /// * params: phone / code
+    /// * params: phone + code
     pub async fn verify_sms_code(phone: &str, code: &str) -> Result<bool> {
+        // 打印当前正在查询的 Key 和传入的验证码
+        log::info!("正在校验 Key: {}, 传入验证码: {}", phone, code);
+
         let cached_code = SmsCache::get_sms_code(phone).await?;
+
         match cached_code {
-            Some(c) if c == code => Ok(true),
-            _ => Ok(false),
+            Some(c) => {
+                log::info!("Redis 查到的值: '{}', 匹配结果: {}", c, c == code);
+                Ok(c == code)
+            },
+            None => {
+                log::warn!("Redis 中未找到该 Key 的缓存");
+                Ok(false)
+            },
         }
     }
 
     ////////
 
     /// # [SERVICE] - 校验邮箱验证码 (核心业务)
-    /// * params: phone / code
+    /// * params: email + code
     pub async fn verify_email_code( email: &str, code: &str) -> Result<bool> {
         let cached_code = SmsCache::get_sms_code(email).await?;
         match cached_code {
@@ -73,8 +85,7 @@ impl SmsService {
     /// # [SERVICE] - 消费/失效验证码
     /// 校验成功后调用此接口删除缓存，防止重放攻击
     pub async fn consume_sms_code(phone: &str) -> Result<()> {
-        // 调用 Cache 层删除 key (你需要去 SmsCache 加一个 del 接口)
-        Ok(())
+        SmsCache::del_sms_code(phone).await
     }
 }
 

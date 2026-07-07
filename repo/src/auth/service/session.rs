@@ -1,12 +1,12 @@
 // repo/src/auth/service/session.rs  -- 仓储中心 - AUTH - 服务 - 会话
 // 2026/06/05 06:25 by wx: cestbon10080
 
-////////
+//////
 
 use crate::auth::pg::session::SessionRepo;
 use anyhow::{Result, anyhow};
 use cola_data::auth::command::session::SessionCommand;
-use cola_data::auth::entity::session::AuthSessionEntity; // 引入你的物理实体契约 // 🚀 完美调用你刚写好的 Repo
+use cola_data::auth::entity::session::AuthSessionEntity; // 引入你的物理实体契约
 
 pub struct SessionService;
 
@@ -22,7 +22,7 @@ impl SessionService {
             refresh_token: cmd.refresh_token,
             client_id: cmd.client_id,
             device_id: cmd.device_id,
-            platform: "".to_string(),
+            platform: 0,                         // i16: 0=未知平台
             access_expired_at: cmd.access_expired_at.timestamp(),
             refresh_expired_at: 0,
             last_active_at: cmd.last_active_at.timestamp(),
@@ -82,7 +82,24 @@ impl SessionService {
 
     ////////
 
-    /// # 4. [SERVICE] - 获取用户当前所有在线设备
+    /// # 4. [SERVICE] - 退出登录（单设备下线）
+    /// * 根据 user_id + device_id 唯一定位，将双 token 置为失效
+    /// * 不影响该用户其他设备（多端登录友好）
+    pub async fn logout_device(user_id: i64, device_id: &str) -> Result<u64> {
+        if user_id <= 0 || device_id.is_empty() {
+            return Ok(0);
+        }
+
+        let rows = SessionRepo::logout_session(user_id, device_id)
+            .await
+            .map_err(|e| anyhow!("SERVICE: 单设备退出失败: {}", e))?;
+
+        Ok(rows)
+    }
+
+    ////////
+
+    /// # 5. [SERVICE] - 获取用户当前所有在线设备
     pub async fn get_user_online_devices(user_id: i64) -> Result<Vec<AuthSessionEntity>> {
         if user_id <= 0 {
             return Ok(vec![]);

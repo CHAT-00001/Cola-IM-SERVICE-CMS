@@ -4,7 +4,7 @@
 ////////
 
 use cola_data::app::page::PageInfo;
-use cola_data::video::info::comment::CommentInfo;
+use cola_data::video::info::comment::VideoCommentInfo;
 use serde::Serialize;
 
 ////////
@@ -14,7 +14,7 @@ use serde::Serialize;
 pub struct CommentVo {
     // 平铺评论
     #[serde(flatten)]
-    pub comment: CommentInfo, // 评论 元信息
+    pub comment: VideoCommentInfo, // 评论 元信息
     pub is_author: bool,   // 🌟 已修正：平铺在这里，标识当前评论者是否是视频作者
     pub is_liked: bool,    // 是否点赞
     pub is_disliked: bool, // 是否不喜欢
@@ -22,9 +22,9 @@ pub struct CommentVo {
 
 /// # [BUILD] - 构造函数
 impl CommentVo {
-    /// 从已有的 CommentInfo 组装成最终的 VO 对象
+    /// 从已有的 VideoCommentInfo 组装成最终的 VO 对象
     pub fn from_info(
-        comment: CommentInfo, // 🌟 去掉了 mut，因为不需要修改内部字段了
+        comment: VideoCommentInfo, // 🌟 去掉了 mut，因为不需要修改内部字段了
         video_author_id: i64, // 传入视频作者的 UID
         is_liked: bool,
         is_disliked: bool,

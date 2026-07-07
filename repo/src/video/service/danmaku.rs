@@ -11,20 +11,21 @@ use cola_data::video::entity::video::VideoEntity;
 // 引入缺少的 dynamic 和 handler 结构
 use crate::video::pg::comment::CommentRepo;
 use crate::video::pg::danmaku::DanmakuRepo;
-use cola_data::video::command::buy::BuyCommand;
+use cola_data::video::command::buy::VideoBuyCommand;
 use cola_data::video::command::collect::CollectCommand;
 use cola_data::video::command::comment::CommentCommand;
 use cola_data::video::command::danmaku::DanmakuCommand;
 use cola_data::video::command::hotlist::HotlistCommand;
 use cola_data::video::command::recommend::RecommendCommand;
-use cola_data::video::command::report::ReportCommand;
+use cola_data::video::command::report::VideoReportCommand;
 use cola_data::video::command::share::ShareCommand;
 use cola_data::video::entity::collect::CollectEntity;
-use cola_data::video::entity::comment::CommentEntity;
+use cola_data::video::entity::comment::VideoCommentEntity;
 use cola_data::video::entity::danmaku::DanmakuEntity;
-use cola_data::video::info::comment::CommentInfo;
+use cola_data::video::info::comment::VideoCommentInfo;
 use cola_data::video::info::danmaku::DanmakuInfo;
 use tracing::log;
+
 ////////
 
 /// # [SERVICE] - 弹幕服务
@@ -45,7 +46,7 @@ impl DanmakuService {
         // 调用底层仓储 - 保存视频并直接返回插入后的实体数据
         let video_entity = DanmakuRepo::save_danmaku_by_video_id(uid, video_id, cmd, visibility)
             .await
-            .map_err(|e| anyhow::anyhow!("SERVICE: 写入视频主表失败: {}", e))?;
+            .map_err(|e| anyhow::anyhow!("[🔌 ADAPTER]: 💾 写入视频主表失败: {}", e))?;
 
         // 联动更新计数器：发布视频数 + 1
         let async_uid = uid;
@@ -149,7 +150,7 @@ impl DanmakuService {
             // 收藏字段在第四位：publish, liked, total_favorited, collected
             if let Err(e) = UserRepo::update_user_count(async_uid, 0, 0, 0, 1, 0, 0).await {
                 log::error!(
-                    "SERVICE_ASYNC: 异步更新用户收藏计数失败: uid={}, err={:?}",
+                    "[🔌 ADAPTER]: 异步更新用户收藏计数失败: uid={}, err={:?}",
                     async_uid,
                     e
                 );
@@ -177,7 +178,7 @@ impl DanmakuService {
             // 收藏字段在第四位：publish, liked, total_favorited, collected
             if let Err(e) = UserRepo::update_user_count(async_uid, 0, 0, 0, 1, 0, 0).await {
                 log::error!(
-                    "SERVICE_ASYNC: 异步更新用户收藏计数失败: uid={}, err={:?}",
+                    "[🔌 ADAPTER]:: 异步更新用户收藏计数失败: uid={}, err={:?}",
                     async_uid,
                     e
                 );
@@ -204,7 +205,7 @@ impl DanmakuService {
             // 收藏字段在第四位：publish, liked, total_favorited, collected
             if let Err(e) = UserRepo::update_user_count(async_uid, 0, 0, 0, 1, 0, 0).await {
                 log::error!(
-                    "SERVICE_ASYNC: 异步更新用户收藏计数失败: uid={}, err={:?}",
+                    "[🔌 ADAPTER]:: 异步更新用户收藏计数失败: uid={}, err={:?}",
                     async_uid,
                     e
                 );
@@ -254,7 +255,7 @@ impl DanmakuService {
     ////////
 
     /// # 8. [SERVICE] - 记录举报信息
-    pub async fn save_report_info(_uid: i64, _cmd: ReportCommand) -> Result<(), anyhow::Error> {
+    pub async fn save_report_info(_uid: i64, _cmd: VideoReportCommand) -> Result<(), anyhow::Error> {
         // TODO: 写入后台内容风控待人工审核表
 
         Ok(())
@@ -265,7 +266,7 @@ impl DanmakuService {
     /// # 9. [SERVICE] - 购买内容
     pub async fn save_buy_and_update_count(
         _uid: i64,
-        _cmd: BuyCommand,
+        _cmd: VideoBuyCommand,
     ) -> Result<(), anyhow::Error> {
         // TODO: 购买付费视频/电商挂载商品落单逻辑
 

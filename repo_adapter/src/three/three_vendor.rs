@@ -4,10 +4,10 @@
 //////
 
 use async_trait::async_trait;
-use cola_data::three::command::three_vendor::UpsertVendorCommand;
+use cola_data::three::command::vendor::UpsertVendorCommand;
 use cola_data::three::info::three_vendor::VendorInfo;
 use cola_data::three::port::three_vendor::VendorPort;
-use repo::three::pg::three_vendor::VendorRepo;
+use repo::three::pg::vendor_repo::VendorRepo;
 
 //////
 

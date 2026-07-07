@@ -6,8 +6,7 @@
 use crate::user::entity::user::UserEntity;
 use chrono::Utc;
 use serde::{Deserialize, Serialize};
-use std::net::{IpAddr, Ipv4Addr};
-use uuid::{Uuid, uuid};
+use uuid::Uuid;
 
 ////////
 
@@ -15,7 +14,7 @@ use uuid::{Uuid, uuid};
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct UserCommand {
     pub send_id: Option<String>,   // 客户端生成 UUID（可选，不传服务端生成）
-    pub sync_id: Option<String>,   // 同步 ID （服务器生成 UUID）
+    pub user_type: i16,            // 用户类型: 默认 2 (普通用户)
     pub nickname: Option<String>,  // 用户昵称
     pub signature: Option<String>, // 个性签名（修改时可选）
     pub avatar: Option<String>,    // 头像（修改时可选）
@@ -32,13 +31,13 @@ pub struct UserCommand {
     pub last_login_ip: Option<String>, // 最后登录IP
     pub status: Option<i16>,       // 状态：0. 失效 1. 正常
     pub register_type: Option<i16>, // 注册来源类型（1: 手机, 2: 邮箱, 3: 苹果, 4: 谷歌, 5: 微信）
-    pub sync_time: Option<i64>,    // 服务器同步时间
-    pub created_time: i64,         // 客户端生成
+    pub created_time: i64,         // 创建时间
     pub updated_time: i64,         // 更新时间
 }
 
 // 构造函数
 impl UserCommand {
+    
     ////////
 
     /// # 0. [QUICK] - 快速构建用于注册的 Command
@@ -87,11 +86,19 @@ impl UserCommand {
         let reg_type = self.register_type.unwrap_or(1);
         let default_nickname = make_nickname(reg_type, self.phone.as_deref());
 
+        // 🌐 从 last_login_ip 获取客户端 IP（网关层从 HttpRequest 提取后注入）
+        // ⚠️ 兜底方案：若网关未传入 IP（或为空字符串），则标记为"未知IP"，避免 NOT NULL 冲突
+        let client_ip = self
+            .last_login_ip
+            .clone()
+            .filter(|s| !s.is_empty())
+            .unwrap_or_else(|| "未知IP".to_string());
+
         // 装载到User表
         UserEntity {
-            id: 0,                                // 👈 数据库自增字段，由数据库处理，这里设为 0
-            send_id: Option::from(final_send_id), // 最终确定的 UUID 字符串
-            sync_id: Some(make_sync_id()),
+            //id: 0, // 👈 数据库自增字段，由数据库处理，这里设为 0
+            send_id: Option::from(final_send_id).unwrap_or_else(|| String::new()), // 最终确定的 UUID 字符串
+            user_type: Some(2),
             user_nickname: Some(self.nickname.unwrap_or(default_nickname)), // 客户端有传用客户端的，否则用默认生成的
             signature: Option::from(
                 self.signature
@@ -110,28 +117,22 @@ impl UserCommand {
             email: Option::from(self.email.unwrap_or_else(|| "还没有填写喔😮".to_string())),
             phone: Option::from(self.phone.unwrap_or_else(|| "还没有填写喔😮".to_string())),
 
-            // IP 地址处理
-            // 1. login_ip 的修改：
-            // 如果 unwrap_or 拿到的是 String，那里面也要统一成 String
-            login_ip: self
-                .last_login_ip
-                .unwrap_or_else(|| "127.0.0.1".to_string()),
+            // ✅ login_ip / register_ip 使用网关层注入的客户端真实 IP
+            // 兜底"未知IP"确保 NOT NULL 列不报错
+            login_ip: client_ip.clone(),
+            register_ip: client_ip,
 
-            // 2. register_ip 的修改：
-            // 直接给它一个字符串
-            register_ip: "127.0.0.1".to_string(),
             status: Some(0), // 如果开启了审核，状态默认是 0
             perm_id: perm,
 
             // 🕒 兼容老 PHP 系统的历史印记（存入 i32 需要注意范围，这里安全强转）
-            create_time: now_ts as i32,
+            create_time: now_ts,
 
             // 📍 坐标信息
             lat: self.lat,
             lng: self.lng,
 
             // 同步时间
-            sync_time: self.sync_time,
             ..Default::default()
         }
     }
@@ -139,6 +140,7 @@ impl UserCommand {
 
 /// # [MAKE] - 构造一个同步 ID
 /// * 格式: 时间戳_uuid
+#[allow(dead_code)]
 fn make_sync_id() -> String {
     let now = Utc::now();
     let uuid = Uuid::new_v4().to_string();

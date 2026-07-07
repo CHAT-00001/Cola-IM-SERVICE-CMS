@@ -8,13 +8,15 @@ use serde::{Deserialize, Serialize};
 /// # [CMD] - 新增/更新服务类型
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TypeCommand {
-    pub id: Option<i64>,
-    pub code: String,
-    pub name: String,
-    pub sort: i16,
-    pub status: i16,
+    pub id: Option<i64>, // ID
+    pub code: String,    // 代码
+    pub name: String,    // 名称
+    pub sort: i16,       // 排序
+    pub status: i16,     // 默认 1
 }
 
+
+//
 impl From<TypeCommand> for cola_data::three::command::three_type::UpsertTypeCommand {
     fn from(cmd: TypeCommand) -> Self {
         Self {

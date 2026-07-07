@@ -8,6 +8,10 @@ pub struct UserInfoPortAdapter;
 
 #[async_trait]
 impl InfoPort for UserInfoPortAdapter {
+
+    ////////
+
+    /// # [ADAPTER] - 获取用户信息
     async fn get_info(&self, _user_id: i64) -> anyhow::Result<()> {
         Ok(())
     }

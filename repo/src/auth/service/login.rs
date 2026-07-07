@@ -1,7 +1,7 @@
 // repo/src/auth/service/port.rs  -- 仓储中心 - AUTH - 服务 - 会话
 // 2026/6/9 08:37
 
-////////
+//////
 
 use crate::auth::pg::session::SessionRepo;
 use anyhow::{Result, anyhow};
@@ -27,7 +27,7 @@ impl LoginService {
             refresh_token: cmd.refresh_token,
             client_id: "".to_string(),
             device_id: "".to_string(),
-            platform: "".to_string(),
+            platform: 0,                                    // i16: 0=未知平台
             access_expired_at: cmd.access_expired_at.timestamp(),
             refresh_expired_at: cmd.refresh_expired_at.timestamp(),
             last_active_at: cmd.last_active_at.timestamp(),

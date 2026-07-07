@@ -15,7 +15,7 @@ pub struct VendorCommand {
     pub status: i16,
 }
 
-impl From<VendorCommand> for cola_data::three::command::three_vendor::UpsertVendorCommand {
+impl From<VendorCommand> for cola_data::three::command::vendor::UpsertVendorCommand {
     fn from(cmd: VendorCommand) -> Self {
         Self {
             id: cmd.id,

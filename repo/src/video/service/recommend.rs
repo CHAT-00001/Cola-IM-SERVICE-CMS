@@ -6,9 +6,9 @@
 use crate::video::pg::video::{VideoRepo};
 use anyhow::Error;
 use cola_data::video::entity::video::VideoEntity;
-use cola_data::video::command::buy::BuyCommand;
+use cola_data::video::command::buy::VideoBuyCommand;
 use cola_data::video::command::recommend::RecommendCommand;
-use cola_data::video::command::report::ReportCommand;
+use cola_data::video::command::report::VideoReportCommand;
 
 ////////
 

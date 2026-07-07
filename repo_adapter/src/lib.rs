@@ -1,17 +1,25 @@
 // repo_adapter/src/lib.rs
 // 2026-06-12
-// 适配器层：将 repo 层的静态服务函数包装为 cola_data 中定义的 port trait
-// 并提供 build 函数将各 Adapter 组装为 AppContext
+// * 适配器层：将 repo 层的静态服务函数包装为 cola_data 中定义的 port trait
+// * 并提供 build 函数将各 Adapter 组装为 AppContext
 
 use std::sync::Arc;
 
-pub mod video;
-pub mod user;
+pub mod auth;
+pub mod dynamic;
+pub mod gift;
+pub mod gis;
+pub mod live;
 pub mod market;
+pub mod photo;
 pub mod three;
+pub mod user;
+pub mod video;
+pub mod wallet;
 
 use cola_data::app::ctx::AppContext;
 use cola_data::auth::port::AuthServicePorts;
+use cola_data::gis::port::ColaGisPort;
 use cola_data::live::port::ColaLivePort;
 
 use cola_data::market::port::ColaMarketPort;
@@ -24,6 +32,21 @@ use cola_data::video::port::ColaVideoPort;
 
 /// 构建完整的 AppContext，注入所有 Adapter 实现
 pub fn build_app_context() -> AppContext {
+    // ---------- Gis ----------
+    let gis = ColaGisPort {
+        add: Arc::new(gis::add::AddPortAdapter),
+        buy: Arc::new(gis::buy::BuyPortAdapter),
+        feed: Arc::new(gis::feed::FeedPortAdapter),
+        hotlist: Arc::new(gis::hot::HotlistPortAdapter),
+        collect: Arc::new(gis::collect::CollectPortAdapter),
+        comment: Arc::new(gis::comment::CommentPortAdapter),
+        danmaku: Arc::new(gis::danmaku::DanmakuPortAdapter),
+        share: Arc::new(gis::share::SharePortAdapter),
+        like: Arc::new(gis::like::LikePortAdapter),
+        report: Arc::new(gis::report::ReportPortAdapter),
+        view: Arc::new(gis::view::ViewPortAdapter),
+    };
+
     // ---------- Video ----------
     let video = ColaVideoPort {
         add: Arc::new(video::add::AddPortAdapter),
@@ -77,7 +100,6 @@ pub fn build_app_context() -> AppContext {
         binding: Arc::new(three::three_biz_binding::BindingAdapter),
     };
 
-
     // ---------- Music (复用 video port trait) ----------
     let music = MusicServicePorts {
         add: Arc::new(video::add::AddPortAdapter),
@@ -95,5 +117,7 @@ pub fn build_app_context() -> AppContext {
     // ---------- Auth (目前为空结构体) ----------
     let auth = AuthServicePorts {};
 
-    AppContext::default(auth, live, market, music, three, user, video)
+    AppContext::default(auth, gis, live, market, music, three, user, video)
 }
+
+/////// END

@@ -6,3 +6,4 @@
 pub mod phone;
 pub mod session;
 pub mod email;
+pub mod signout;

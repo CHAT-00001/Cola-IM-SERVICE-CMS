@@ -1,4 +1,4 @@
-// /api/home  -- 可乐短视频 - 接口层 - 主页
+// cola_live/src/api/home  -- 可乐直播 - 接口层 - 主页
 // 2026-04-16 08:00
 
 ////////
@@ -16,9 +16,9 @@ use crate::model::vo::video::VideoListResponse;
 ////////
 
 /// # [HOME API] -  主页 接口
-pub struct HomeApi;
+pub struct LiveHomeApi;
 
-impl HomeApi {
+impl LiveHomeApi {
 
 
     ////////
@@ -47,7 +47,7 @@ impl HomeApi {
     ////////
 
     /// # 2. [API HANDLER] - 最新
-    pub async fn handler_get_new(
+    pub async fn handler_home_new(
         auth: AuthContext,
         url: ApiGatewayRequest,
         ctx: &AppContext,
@@ -70,7 +70,7 @@ impl HomeApi {
     ////////
 
     /// # 3. [API HANDLER] - 热门
-    pub async fn handler_get_hot(
+    pub async fn handler_home_hot(
         auth: AuthContext,
         url: ApiGatewayRequest,
         ctx: &AppContext,
@@ -92,7 +92,7 @@ impl HomeApi {
     ////////
 
     /// # 4. [API HANDLER] - 推荐
-    pub async fn handler_get_recommend(
+    pub async fn handler_home_recommend(
         auth: AuthContext,
         url: ApiGatewayRequest,
         ctx: &AppContext,
@@ -111,7 +111,7 @@ impl HomeApi {
     ////////
 
     /// # 5. [API HANDLER] - 同城
-    pub async fn handler_get_city(
+    pub async fn handler_home_city(
         auth: AuthContext,
         url: ApiGatewayRequest,
         ctx: &AppContext,
@@ -130,7 +130,7 @@ impl HomeApi {
     ////////
 
     /// # 6. [API HANDLER] - 分类
-    pub async fn handler_get_category(
+    pub async fn handler_home_category(
         auth: AuthContext,
         url: ApiGatewayRequest,
         ctx: &AppContext,
@@ -155,7 +155,7 @@ impl HomeApi {
     ////////
 
     /// # 7. [API HANDLER] - 精选
-    pub async fn handler_get_featured(
+    pub async fn handler_home_featured(
         auth: AuthContext,
         url: ApiGatewayRequest,
         ctx: &AppContext,
@@ -174,7 +174,7 @@ impl HomeApi {
     ////////
 
     /// # 8. [API HANDLER] - 搜索
-    pub async fn handler_get_search(
+    pub async fn handler_home_search(
         auth: AuthContext,
         url: ApiGatewayRequest,
         ctx: &AppContext,

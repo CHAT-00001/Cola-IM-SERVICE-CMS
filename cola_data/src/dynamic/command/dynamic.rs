@@ -7,9 +7,8 @@ use serde::{Deserialize, Serialize};
 
 ////////
 
-
 /// # [COMMAND] - 动态创建命令
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct DynamicCommand {
     pub r#type: i16,
     pub uid: i64,
@@ -34,7 +33,7 @@ pub struct DynamicCommand {
     pub share_perm: i16,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct MediaCommand {
     pub media_type: i16,
     pub fs: String,

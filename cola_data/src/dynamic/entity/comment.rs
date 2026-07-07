@@ -1,4 +1,4 @@
-// cola_data/src/dynamic/entity/comment.rs  -- 数据 - handler -  短视频 - 评论表
+// cola_data/src/dynamic/entity/comment.rs  -- 数据中心 - DYNAMIC - entity - 动态 评论
 // 2026/6/19 16:22
 
 ////////
@@ -10,8 +10,9 @@ use uuid::{Uuid, uuid};
 
 ////////
 
-/// # [ENTITY] - 视频 - 评论表
-/// * `table name`: dynamic_comment
+/// # [ENTITY] - 动态 评论 实体表
+/// * `pg schema`: `cola-dynamic`
+/// * `table name`: `dynamic_comment`
 /// * `类型`: 1. 文字 2. 语音 3. 照片 4. 视频 5. 位置 7. 表情包 8. 红包 9. 转账 ...
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct DynamicCommentEntity {

@@ -7,6 +7,7 @@ pub mod auth;
 pub mod client;
 pub mod dynamic;
 pub mod gift;
+pub mod gis;
 pub mod live;
 pub mod music;
 pub mod response;
@@ -24,7 +25,6 @@ use app_config::app_state::AppState;
 /// # [ROUTER] - v2
 /// * `desc` 2级路由器
 pub fn boot_router_v2(cfg: &mut web::ServiceConfig, app_state: AppState) {
-
     // 把 AppState 包装成 web::Data
     let shared_data = web::Data::new(app_state);
 
@@ -36,6 +36,8 @@ pub fn boot_router_v2(cfg: &mut web::ServiceConfig, app_state: AppState) {
             .configure(auth::gateway::auth_router)
             // 动态
             .configure(dynamic::gateway::dynamic_router)
+            // 动态
+            .configure(gis::gateway::gis_router)
             // 直播
             .configure(live::gateway::live_router)
             // 音乐
@@ -47,7 +49,7 @@ pub fn boot_router_v2(cfg: &mut web::ServiceConfig, app_state: AppState) {
             // 视频
             .configure(video::gateway::video_router)
             // 客户端
-            .configure(client::router::config)
+            .configure(client::router::config),
     );
 }
 

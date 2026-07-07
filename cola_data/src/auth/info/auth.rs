@@ -21,6 +21,11 @@ pub struct AuthContext {
 }
 
 impl AuthContext {
+    //
+
+    ////////
+
+    /// #[BUILDER] 构造函数 - 生成 AuthContext 实例
     pub fn new(
         uid: i64,
         access_token: String,
@@ -62,6 +67,7 @@ impl AuthLogin {
             code: self.sms_code,
             device_id: self.device_id,
             platform: self.platform,
+            client_ip: String::new(), // 预留，网关处提取客户端 IP 后注入
         }
     }
 }

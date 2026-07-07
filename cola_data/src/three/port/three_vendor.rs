@@ -1,7 +1,7 @@
 // cola_data/src/three/port/three_vendor.rs  -- THREE - 厂商端口
 // 2026/6/18
 
-use crate::three::command::three_vendor::UpsertVendorCommand;
+use crate::three::command::vendor::UpsertVendorCommand;
 use crate::three::info::three_vendor::VendorInfo;
 
 //////

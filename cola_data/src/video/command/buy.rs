@@ -1,15 +1,15 @@
-// cola_data/src/video/dynamic//buy.rs  --  VIDEO - Command - 购买命令
+// cola_data/src/video/command/buy.rs  --  可乐数据中心 - VIDEO - Command - 购买
 // 2026/5/22 20:51 by wx: cestbon10080
-// * --------
-// * --------
+
+////////
 
 use serde::{Deserialize, Serialize};
 
 ////////
 
-/// #  [COMMAND] - 短视频 - 购买命令
+/// #  [COMMAND] - 短视频 购买 命令
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
-pub struct BuyCommand {
+pub struct VideoBuyCommand {
     pub send_id: String,        // 发送 ID
     pub user_id: i64,           // 用户 ID
     pub album_id: Option<i64>,  // 专辑 ID
@@ -19,3 +19,5 @@ pub struct BuyCommand {
     pub time_zone: String,      // 时间区间
     pub older: Option<String>,  // 订单 ID
 }
+
+//////// END

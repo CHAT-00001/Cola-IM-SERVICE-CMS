@@ -24,7 +24,7 @@ impl BuyRepo for BuyPortAdapter {
         uid: i64,
         video_id: i64,
     ) -> anyhow::Result<()> {
-        DanmakuService::save_buy_and_update_count(uid, cola_data::video::command::buy::BuyCommand::default()).await
+        DanmakuService::save_buy_and_update_count(uid, cola_data::video::command::buy::VideoBuyCommand::default()).await
     }
 
     ////////

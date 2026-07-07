@@ -95,9 +95,11 @@ async fn video_gateway(
     // 🌟 对齐到 service 字符串进行业务路由分发
     match gateway_req.service.as_str() {
 
+        ////////
+
 
         // 1001 最新
-        "home.new" => {
+        "home_new" => {
             let url = ApiGatewayRequest {
                 uid: Some(uid),
                 page: query.page,
@@ -105,6 +107,205 @@ async fn video_gateway(
                 ..Default::default()
             }
             .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 1002 热门
+        "home_hot" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 1003 同城
+        "home_city" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 1004 分类
+        "home_category" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 1005 搜索
+        "home_search" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        ////////
+
+        // 2001 关注
+        "feed_following" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 2002 朋友
+        "feed_friend" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 2003 推荐
+        "feed_recommend" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 2004 附近
+        "feed_nearby" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 2005 看过的
+        "feed_visited" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 2006 点赞的
+        "feed_liked" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 2007 收藏的
+        "feed_collect" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        ////////
+
+        // 4001 浏览开始
+        "view_start" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 4002 浏览完成
+        "view_done" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
 
             HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
                 .await
@@ -157,7 +358,7 @@ async fn video_gateway(
 
         _ => AppData::<()>::err(
             400,
-            format!("Unknown PhalApi service: {}", gateway_req.service),
+            format!("Unknown Api Gateway service: {}", gateway_req.service),
             None,
         )
             .finish(&req, start),

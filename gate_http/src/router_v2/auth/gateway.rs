@@ -44,6 +44,7 @@ pub struct GatewayQuery {
 }
 
 ////////
+ 
 /// # [HELPER] - 从 body 中提取 cmd（新增，最小侵入）
 fn extract_cmd<T>(body: &web::Bytes) -> Option<T>
 where
@@ -53,6 +54,31 @@ where
     v.get("cmd")
         .cloned()
         .and_then(|cmd| serde_json::from_value(cmd).ok())
+}
+
+////////
+
+/// # [HELPER] - 从 HttpRequest 提取客户端真实 IP
+fn extract_client_ip(req: &HttpRequest) -> String {
+    // 优先级: X-Forwarded-For > X-Real-IP > peer_addr
+    if let Some(ip) = req
+        .headers()
+        .get("X-Forwarded-For")
+        .and_then(|v| v.to_str().ok())
+    {
+        return ip.to_string();
+    }
+    if let Some(ip) = req
+        .headers()
+        .get("X-Real-IP")
+        .and_then(|v| v.to_str().ok())
+    {
+        return ip.to_string();
+    }
+    if let Some(addr) = req.peer_addr() {
+        return addr.ip().to_string();
+    }
+    "0.0.0.0".to_string()
 }
 
 ////////
@@ -107,8 +133,11 @@ async fn auth_gateway(
     };
 
     match gateway_req.service.as_str() {
+
+        //////// 1xxx HOME
+
         // 1001 最新
-        "home.new" => {
+        "home_new" => {
             let url = ApiGatewayRequest {
                 uid: Some(uid),
                 page: query.page,
@@ -122,9 +151,14 @@ async fn auth_gateway(
                 .finish(&req, start)
         }
 
+        //////// 2xxx SIGN
+
         // 2001 手机验证码登录（✔ 改为 cmd）
-        "add.phone" => {
-            let cmd: PhoneLoginCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
+        "add_phone" => {
+            let mut cmd: PhoneLoginCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
+
+            // 从 HttpRequest 提取客户端真实 IP 注入 cmd
+            cmd.client_ip = extract_client_ip(&req);
 
             AuthAddApi::handler_sign_in_by_phone(cmd)
                 .await
@@ -132,7 +166,7 @@ async fn auth_gateway(
         }
 
         // 2002 邮箱验证码登录（✔ 改为 cmd）
-        "add.email" => {
+        "add_email" => {
             let cmd: EmailLoginCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
 
             AuthAddApi::handler_sign_in_by_email(cmd)
@@ -140,9 +174,56 @@ async fn auth_gateway(
                 .finish(&req, start)
         }
 
+        // 2003 账密验证码登录（✔ 改为 cmd）
+        "add_pwd" => {
+            let cmd: EmailLoginCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
+
+            AuthAddApi::handler_sign_in_by_email(cmd)
+                .await
+                .finish(&req, start)
+        }
+
+        // 2004 谷歌登录（✔ 改为 cmd）
+        "add_google" => {
+            let cmd: EmailLoginCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
+
+            AuthAddApi::handler_sign_in_by_email(cmd)
+                .await
+                .finish(&req, start)
+        }
+
+        // 2005 苹果登录（✔ 改为 cmd）
+        "add_apple" => {
+            let cmd: EmailLoginCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
+
+            AuthAddApi::handler_sign_in_by_email(cmd)
+                .await
+                .finish(&req, start)
+        }
+
+        // 2006 微信登录（✔ 改为 cmd）
+        "add_wechat" => {
+            let cmd: EmailLoginCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
+
+            AuthAddApi::handler_sign_in_by_email(cmd)
+                .await
+                .finish(&req, start)
+        }
+
+        // 2400 退出登录
+        "add_out" => {
+            let cmd: PhoneLoginCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
+
+            AuthAddApi::handler_sign_out(cmd)
+                .await
+                .finish(&req, start)
+        }
+
+        //////// 3xxx CODE
+
         // 3001 获取短信验证码
-        "code.phone" => {
-            let phone = url.params.get("phone").cloned().unwrap_or_default();
+        "code_phone" => {
+            let phone = url.by.to_string();
 
             AuthCodeApi::handler_get_sms_code(&phone)
                 .await
@@ -150,8 +231,8 @@ async fn auth_gateway(
         }
 
         // 3002 获取邮箱验证码
-        "code.email" => {
-            let email = url.params.get("email").cloned().unwrap_or_default();
+        "code_email" => {
+            let email = url.by.to_string();
 
             AuthCodeApi::handler_get_email_code(&email)
                 .await
@@ -196,9 +277,11 @@ async fn auth_gateway(
 
         _ => AppData::<()>::err(
             400,
-            format!("Unknown PhalApi service: {}", gateway_req.service),
+            format!("Unknown Api Gateway service: {}", gateway_req.service),
             None,
         )
         .finish(&req, start),
     }
 }
+
+//////// END

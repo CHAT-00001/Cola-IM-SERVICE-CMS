@@ -45,6 +45,7 @@ architecture:
             - cola_data: 数据聚合层（实体/信息/命令/事件）
             - cola_dynamic: 动态/朋友圈
             - cola_gift: 礼物系统
+            - cola_gis: GIS地理信息服务
             - cola_live: 直播
             - cola_music: 音乐
             - cola_user: 用户管理

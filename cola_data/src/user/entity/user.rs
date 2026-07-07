@@ -13,10 +13,9 @@ use sqlx::FromRow;
 /// * table name: user
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct UserEntity {
-    pub id: i64,                 // id
-    pub send_id: Option<String>, // 发送 ID （客户端构造uuid v4 无分隔符）
-    pub sync_id: Option<String>, // 同步 ID （服务端生成，uuid v4 无分隔符）
-    pub user_type: Option<i16>,  // 用户类型 （默认 2 普通用户）
+    pub id: i64, // id
+    pub send_id: String,
+    pub user_type: Option<i16>, // 用户类型 （默认 2 普通用户）
     // -- 资料 --
     pub user_nickname: Option<String>, // 昵称
     pub signature: Option<String>,     // 签名
@@ -43,8 +42,7 @@ pub struct UserEntity {
     // -- 状态 --
     pub status: Option<i16>, // 状态
     // -- time --
-    pub create_time: i32,                 // 创建时间（机器）
-    pub sync_time: Option<i64>,           // 同步时间
-    pub create_at: Option<DateTime<Utc>>, // 创建时间（人类）
-    pub update_at: Option<DateTime<Utc>>, // 更新时间（人类）
+    pub create_time: i64,                  // 创建时间（机器）
+    pub created_at: Option<DateTime<Utc>>, // 创建时间（人类）
+    pub updated_at: Option<DateTime<Utc>>, // 更新时间（人类）
 }

@@ -4,13 +4,13 @@
 ////////
 
 use serde::{Deserialize, Serialize};
-use crate::video::entity::comment::CommentEntity;
+use crate::video::entity::comment::VideoCommentEntity;
 
 ////////
 
-/// # [INFO] - 评论信息
+/// # [INFO] - 视频 评论
 #[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct CommentInfo {
+pub struct VideoCommentInfo {
     pub id: i64,                // 评论 ID
     pub user_id: i64,           // 用户 ID
     pub video_id: i64,          // 视频 ID
@@ -23,7 +23,7 @@ pub struct CommentInfo {
 }
 
 /// # 构造评论
-impl CommentInfo {
+impl VideoCommentInfo {
     /// 构造评论基础信息，并自动判定是否为视频作者
     pub fn new(
         id: i64,
@@ -54,7 +54,7 @@ impl CommentInfo {
     }
 
     /// 纯净的从数据库实体转换为评论域模型
-    pub fn from_entity(entity: CommentEntity) -> Self {
+    pub fn from_entity(entity: VideoCommentEntity) -> Self {
         Self {
             id: entity.id,
             user_id: entity.user_id,

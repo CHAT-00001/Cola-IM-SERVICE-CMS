@@ -1,7 +1,7 @@
-// cola_data/src/handler/video/comment.rs  -- 数据 - handler -  短视频 - 评论表
+// cola_data/src/video/entity/comment.rs  -- 数据中心 - VIDEO -  entity - 视频 评论
 // 2026-01-16 09:37:10
-// * 1个结构体 1个构造函数
-// * --------
+
+////////
 
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
@@ -10,11 +10,12 @@ use uuid::{Uuid, uuid};
 
 ////////
 
-/// # [ENTITY] - 视频 - 评论表
-/// * `table name`: video_comment
+/// # [ENTITY] - 视频 评论 实体表
+/// * `pg schema`: `cola_video`
+/// * `table name`: `video_comment`
 /// * `类型`: 1. 文字 2. 语音 3. 照片 4. 视频 5. 位置 7. 表情包 8. 红包 9. 转账 ...
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
-pub struct CommentEntity {
+pub struct VideoCommentEntity {
     pub id: i64,                           // id
     pub user_id: i64,                      // 作者 ID
     pub video_id: i64,                     // 视频 ID
@@ -40,5 +41,4 @@ pub struct CommentEntity {
     pub sync_time: i64,
 }
 
-// * --------
 //////// END

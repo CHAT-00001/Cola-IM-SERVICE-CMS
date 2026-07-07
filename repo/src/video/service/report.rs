@@ -3,8 +3,8 @@
 
 ////////
 
-use cola_data::video::command::report::ReportCommand;
-use cola_data::video::entity::comment::CommentEntity;
+use cola_data::video::command::report::VideoReportCommand;
+use cola_data::video::entity::comment::VideoCommentEntity;
 use tracing::log;
 
 ////////
@@ -20,11 +20,11 @@ impl ReportService {
     /// # 1. [SERVICE] - 保存举报 + 更新计数 (纯静态函数适配器)
     pub async fn save_comment_and_update_count(
         uid: i64,
-        cmd: ReportCommand,
-    ) -> Result<Vec<CommentEntity>, anyhow::Error> {
+        cmd: VideoReportCommand,
+    ) -> Result<Vec<VideoCommentEntity>, anyhow::Error> {
         // TODO: 替换为你底层的 CommentRepo 真实物理落库
         // 这里返回一组数据，模拟老代码中用 pop 提取实体的行为
-        let mock_entity = CommentEntity::default();
+        let mock_entity = VideoCommentEntity::default();
         let saved_list = vec![mock_entity];
 
         // 异步更新用户的评论/互动相关计数（如果后续要在用户表增加 comment_count，在这里改 0）

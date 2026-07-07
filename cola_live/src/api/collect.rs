@@ -1,4 +1,4 @@
-// cola_video/src/api/collect.rs  -- 可乐短视频 - 接口层 - 收藏
+// cola_live/src/api/collect.rs  -- LIVE - 接口层 - 收藏
 // 2026/6/9 11:02
 
 ////////
@@ -6,14 +6,8 @@
 use crate::case;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
-use cola_data::video::command::buy::BuyCommand;
+use cola_data::video::command::buy::VideoBuyCommand;
 use cola_data::video::command::collect::CollectCommand;
-use cola_data::video::command::comment::CommentCommand;
-use cola_data::video::command::danmaku::DanmakuCommand;
-use cola_data::video::command::hotlist::HotlistCommand;
-use cola_data::video::command::report::ReportCommand;
-use cola_data::video::command::share::ShareCommand;
-use cola_data::video::command::video::VideoCommand;
 use crate::case::collect::CollectCase;
 use crate::model::vo::video::VideoSingleResponse;
 
@@ -22,7 +16,7 @@ use crate::model::vo::video::VideoSingleResponse;
 /// # [API HANDLER] - 收藏 接口
 pub struct CollectApi;
 
-// 构造函数
+// 构造实现
 impl CollectApi {
     //
 
@@ -87,4 +81,4 @@ impl CollectApi {
 
 }
 
-////////
+//////// END

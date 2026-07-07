@@ -12,3 +12,7 @@ setx DATABASE_URL "postgres://postgres:123456@localhost:5432/live_2026"
 
 # 分析依赖包大小
 cargo bloat --release --crates
+
+
+# 屏蔽冗余日志
+$env:RUST_BACKTRACE="0"

@@ -10,7 +10,7 @@ use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::app::request::ApiUrlParamsQuery;
 use cola_data::risk::rick_check;
-use cola_data::video::command::report::ReportCommand;
+use cola_data::video::command::report::VideoReportCommand;
 use futures_util::TryFutureExt;
 use repo::video::service::home::VideoHomeService;
 use tracing::info;
@@ -29,7 +29,7 @@ impl ReportCase {
     pub async fn case_add_report(
         uid: i64,
         url: ApiGatewayRequest,
-        cmd: ReportCommand,
+        cmd: VideoReportCommand,
         ctx: &AppContext,
     ) -> Result<()> {
         ctx.video

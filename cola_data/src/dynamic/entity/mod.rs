@@ -7,4 +7,4 @@ pub mod comment;
 pub mod dynamic;
 pub mod dynamic_collect;
 pub mod dynamic_like;
-mod dynamic_visited;
+pub mod dynamic_visited;

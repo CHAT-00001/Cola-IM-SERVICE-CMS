@@ -15,15 +15,10 @@ pub struct UserHomePortAdapter;
 
 #[async_trait]
 impl HomePort for UserHomePortAdapter {
-
     ////////
 
     /// # 1. [PORT IMPL] - 获取最新注册的用户
-    async fn get_newest_users(
-        &self,
-        limit: i64,
-        offset: i64,
-    ) -> anyhow::Result<Vec<UserInfo>> {
+    async fn get_newest_users(&self, limit: i64, offset: i64) -> anyhow::Result<Vec<UserInfo>> {
         let entities = UserRepo::find_new_user_list(limit, offset)
             .await
             .map_err(|e| anyhow::anyhow!("HOME PORT: 查询最新用户失败: {}", e))?;

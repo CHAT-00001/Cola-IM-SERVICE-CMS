@@ -10,7 +10,7 @@ use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::app::request::ApiUrlParamsQuery;
 use cola_data::auth::info::auth::AuthContext;
-use cola_data::video::command::report::ReportCommand;
+use cola_data::video::command::report::VideoReportCommand;
 
 ////////
 
@@ -27,7 +27,7 @@ impl ReportApi {
     pub async fn handler_add_report(
         auth: &AuthContext,
         url: ApiGatewayRequest,
-        cmd: ReportCommand,
+        cmd: VideoReportCommand,
         ctx: &AppContext,
     ) -> AppData<String> {
         let uid = auth.uid;

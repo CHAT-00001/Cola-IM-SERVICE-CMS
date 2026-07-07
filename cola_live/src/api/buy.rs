@@ -1,4 +1,4 @@
-// /buy.rs  -- 接口层 - 购买
+// cola_live/src/api/buy.rs  -- LIVE - 接口层 - 购买
 // 2026/6/10 08:41
 
 ////////
@@ -7,27 +7,17 @@ use cola_data::app::ctx::AppContext;
 use crate::case;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
-use cola_data::video::command::buy::BuyCommand;
-use cola_data::video::command::collect::CollectCommand;
-use cola_data::video::command::comment::CommentCommand;
-use cola_data::video::command::danmaku::DanmakuCommand;
-use cola_data::video::command::hotlist::HotlistCommand;
-use cola_data::video::command::report::ReportCommand;
-use cola_data::video::command::share::ShareCommand;
-use cola_data::video::command::video::VideoCommand;
-use repo::video::service::permission_change::PermissionsChangeService;
-use repo::video::service::permission_check::VideoPermissionsCheckService;
-use crate::case::add::AddCase;
+use cola_data::video::command::buy::VideoBuyCommand;
 use crate::case::buy::BuyCase;
-use crate::case::like::LikeCase;
-use crate::model::vo::video::VideoSingleResponse;
 
 ////////
 
-/// # [APP USE CASE] -  购买接口
+/// # [API] -  购买接口
 pub struct BuyApi;
 
+// 构造实现
 impl BuyApi {
+    //
 
     ////////
 
@@ -35,7 +25,7 @@ impl BuyApi {
     pub async fn handler_add_buy(
         user_id: i64,
         video_id: i64,
-        mut cmd: BuyCommand,
+        mut cmd: VideoBuyCommand,
         ctx: &AppContext,
     ) -> AppData<String> {
         cmd.video_id = video_id;

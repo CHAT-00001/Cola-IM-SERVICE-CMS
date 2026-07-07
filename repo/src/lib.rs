@@ -1,6 +1,7 @@
 // repo lib.rs
 pub mod auth;
 pub mod dynamic;
+pub mod gis;
 pub mod live;
 pub mod market;
 pub mod three;

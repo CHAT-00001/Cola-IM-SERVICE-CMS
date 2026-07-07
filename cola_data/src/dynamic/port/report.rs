@@ -3,7 +3,9 @@
 
 ////////
 
-use crate::video::command::report::ReportCommand;
+use crate::video::command::report::VideoReportCommand;
+
+////////
 
 /// # [SERVICE] - 举报
 #[async_trait::async_trait]
@@ -16,7 +18,7 @@ pub trait ReportRepo: Send + Sync {
         &self,
         uid: i64,
         video_id: i64,
-        cmd: ReportCommand,
+        cmd: VideoReportCommand,
     ) -> anyhow::Result<()>;
 
     ////////
@@ -33,3 +35,5 @@ pub trait ReportRepo: Send + Sync {
     ) -> anyhow::Result<(i64, Vec<i64>)>;
 
 }
+
+//////// END

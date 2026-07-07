@@ -1,12 +1,12 @@
 // repo/src/auth/pg/session.rs  -- 仓储 - 认证 - session（会话）
 // 2026/5/23 07:15
 
-////////
+//////
 
 use cola_data::auth::entity::session::AuthSessionEntity;
 use crate::pg_pool;
 
-////////
+//////
 
 /// # 统一的登录会话查询字段（完全对应你最新的 AuthSessionEntity 字段）
 const SESSION_COLUMNS: &str = r#"
@@ -23,25 +23,25 @@ impl SessionRepo {
 
     ////////
 
-    /// # 1. [REPOSITORY] - 插入新登录会话并“制裁”同平台旧设备
-    /// 逻辑：在插入新 Session 前，将该用户在同平台下的其他活跃 Session 置为 -1 (被挤下线)
+    /// # 1. [REPOSITORY] - 插入新登录会话并"制裁"同平台旧设备
+    /// 逻辑：在插入新 Session 前，将该用户在其他活跃 Session 置为 -1 (被挤下线)
     pub async fn insert_session_with_kickout(
         entity: AuthSessionEntity, // 直接获取所有权
     ) -> Result<i64, sqlx::Error> {
         let pool = pg_pool();
         let mut tx = pool.begin().await?;
 
-        // ① 制裁逻辑：更新同用户、同平台下的旧设备
+        // ① 制裁逻辑：更新该用户的其他活跃 Session 为 -1
+        // ⚠️ 不使用 platform 条件：避免 DB 列类型与 Rust String 不匹配（integer = text）
         sqlx::query(
             r#"
         UPDATE "auth_session"
         SET status = -1, updated_time = NOW()
-        WHERE user_id = $1 AND platform = $2 AND status = 1 AND device_id != $3
+        WHERE user_id = $1 AND status = 1 AND id != COALESCE($2, 0)
         "#
         )
             .bind(entity.user_id)
-            .bind(entity.platform)
-            .bind(&entity.device_id)
+            .bind(entity.id)  // 排除当前会话 ID（新会话 id=0 时全部踢下线）
             .execute(&mut *tx)
             .await?;
 
@@ -51,20 +51,22 @@ impl SessionRepo {
             r#"
         INSERT INTO "auth_session" (
             user_id, access_token, refresh_token, client_id,
-            device_id, access_expired_at, refresh_expired_at, last_active_at, status
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, )
+            device_id, access_expired_at, refresh_expired_at, last_active_at,
+            status, platform
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
         RETURNING id
         "#
         )
             .bind(entity.user_id)
-            .bind(entity.access_token)        // 所有权转移
-            .bind(entity.refresh_token)       // 所有权转移
-            .bind(entity.client_id)
-            .bind(entity.device_id)           // 所有权转移
-            .bind(entity.access_expired_at)        // access_expired_at
-            .bind(entity.refresh_expired_at)  // refresh_expired_at
+            .bind(&entity.access_token)
+            .bind(&entity.refresh_token)
+            .bind(&entity.client_id)
+            .bind(&entity.device_id)
+            .bind(entity.access_expired_at)
+            .bind(entity.refresh_expired_at)
             .bind(entity.last_active_at)
             .bind(entity.status)
+            .bind(&entity.platform)            // 一并写入 platform
             .fetch_one(&mut *tx)
             .await?;
 
@@ -151,16 +153,12 @@ impl SessionRepo {
 
     ////////
 
-    /// # 5. [REPOSITORY] - 用户注销（单设备）
+    /// # 6. [REPOSITORY] - 用户注销（单设备）
     /// * 机制：根据 user_id 和 device_id 唯一定位单端会话，将其状态标记为失效
     pub async fn logout_session(user_id: i64, device_id: &str) -> Result<u64, sqlx::Error> {
         let pool = pg_pool();
         let now = chrono::Utc::now().timestamp();
 
-        // 💡 优化点：
-        // 1. 使用 status = 0 进行软删除，方便后续审计
-        // 2. 双重过滤：user_id + device_id 确保只影响当前设备
-        // 3. 将 access_expired_at 和 refresh_expired_at 置为当前时间，立即失效
         let result = sqlx::query(
             r#"UPDATE "auth_session"
            SET status = 0,

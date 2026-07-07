@@ -1,6 +1,5 @@
-// handler/video.rs  -- handler - 短视频
+// cola_data/src/video/entity/video.rs  -- 数据中心 - VIDEO - entity - 视频
 // 2026/5/19 21:34
-
 
 ////////
 
@@ -11,8 +10,9 @@ use uuid::Uuid;
 
 ////////
 
-/// # [ENTITY] - 短视频 实体
-/// * table name: video
+/// # [ENTITY] - 短视频 实体表
+/// * `pg schema`: `cola_video`
+/// * `table name`: `video`
 /// * 权限: 0. 关闭 1. 自己 2. 朋友 3. 关注 4. 粉丝 5. 所有人（拉黑除外）
 #[derive(Debug, Clone, Default, FromRow)]
 pub struct VideoEntity {
@@ -25,7 +25,7 @@ pub struct VideoEntity {
     pub desc_at_uids: Option<Vec<i64>>,            // 标题@的IDs
     pub thumb: String,                             // 封面
     pub thumb_s: Option<String>,                   // 封面w
-    pub thumbnail: Option<String>,
+    pub thumbnail: Option<String>,                 // 封面 2
     pub cover_url: Option<String>,                 // 封面
     pub href: String,                              // 视频url
     pub href_w: Option<String>,                    // 视频url w
@@ -65,5 +65,4 @@ pub struct VideoEntity {
     pub deleted_at: Option<chrono::NaiveDateTime>, // 删除时间 人类可读
 }
 
-// * --------
 //////// EDN

@@ -11,13 +11,14 @@ use uuid::Uuid;
 
 //////
 
-/// # JWT 载荷
+/// # JWT 载荷（含设备 ID，支持多端登录）
 #[derive(Debug, Serialize, Deserialize)]
 pub struct JwtClaims {
-    pub sub: i64,      // 用户 ID (uid)
-    pub exp: usize,    // 过期时间 (秒级时间戳)
-    pub iat: usize,    // 签发时间
-    pub jti: String,   // JWT ID (防重放)
+    pub sub: i64,        // 用户 ID (uid)
+    pub device_id: String, // 设备唯一标识
+    pub exp: usize,      // 过期时间 (秒级时间戳)
+    pub iat: usize,      // 签发时间
+    pub jti: String,     // JWT ID (防重放)
 }
 
 /// # 生产级签名密钥
@@ -25,15 +26,16 @@ fn get_jwt_secret() -> Vec<u8> {
     b"cola_cms_jwt_secret_key_2026_secure_v2!@#".to_vec()
 }
 
-/// # 1. [KITS] - 生成 access_token (JWT)
+/// # 1. [KITS] - 生成 access_token (JWT)，带 device_id
 /// * 有效期: 15 分钟
-pub fn kit_generate_access_token(uid: i64) -> Result<(String, i64), anyhow::Error> {
+pub fn kit_generate_access_token(uid: i64, device_id: &str) -> Result<(String, i64), anyhow::Error> {
     let now = Utc::now();
     let exp = now + Duration::minutes(15);
     let exp_ts = exp.timestamp() as usize;
 
     let claims = JwtClaims {
         sub: uid,
+        device_id: device_id.to_string(),
         exp: exp_ts,
         iat: now.timestamp() as usize,
         jti: Uuid::new_v4().to_string(),
@@ -48,9 +50,10 @@ pub fn kit_generate_access_token(uid: i64) -> Result<(String, i64), anyhow::Erro
     Ok((token, exp.timestamp()))
 }
 
-/// # 2. [KITS] - 生成 access_token (JWT) - 自定义过期时间
+/// # 2. [KITS] - 生成 access_token (JWT) - 自定义过期时间，带 device_id
 pub fn kit_generate_access_token_with_ttl(
     uid: i64,
+    device_id: &str,
     ttl_minutes: i64,
 ) -> Result<(String, i64), anyhow::Error> {
     let now = Utc::now();
@@ -59,6 +62,7 @@ pub fn kit_generate_access_token_with_ttl(
 
     let claims = JwtClaims {
         sub: uid,
+        device_id: device_id.to_string(),
         exp: exp_ts,
         iat: now.timestamp() as usize,
         jti: Uuid::new_v4().to_string(),
@@ -103,13 +107,14 @@ pub fn kit_hash_refresh_token(raw: &str) -> String {
     format!("{:x}", hasher.finish())
 }
 
-/// # 5. [KITS] - 构建 SessionCommand（统一组装 token + 过期时间）
+/// # 5. [KITS] - 构建 SessionCommand（统一组装 token + 过期时间，带 device_id）
 pub fn kit_build_session_cmd(
     uid: i64,
     phone: &str,
     platform: &str,
+    device_id: &str,
 ) -> Result<(cola_data::auth::command::session::SessionCommand, String, String), anyhow::Error> {
-    let (access_token, access_exp) = kit_generate_access_token(uid)?;
+    let (access_token, access_exp) = kit_generate_access_token(uid, device_id)?;
     let (refresh_token_raw, refresh_exp) = kit_generate_refresh_token()?;
 
     let cmd = cola_data::auth::command::session::SessionCommand {
@@ -121,7 +126,7 @@ pub fn kit_build_session_cmd(
             .unwrap_or_else(Utc::now),
         last_active_at: Utc::now(),
         client_id: phone.to_string(),
-        device_id: format!("{}_{}", platform, uid),
+        device_id: device_id.to_string(),
     };
 
     Ok((cmd, access_token, refresh_token_raw))
@@ -139,7 +144,7 @@ mod tests {
 
     #[test]
     fn test_access_token() {
-        let (token, exp) = kit_generate_access_token(10086).unwrap();
+        let (token, exp) = kit_generate_access_token(10086, "test_device").unwrap();
         assert!(!token.is_empty());
         assert!(exp > Utc::now().timestamp());
         println!("Access Token ({} chars): {}...", token.len(), &token[..20]);
@@ -154,4 +159,4 @@ mod tests {
         println!("Hash: {}", kit_hash_refresh_token(&token));
     }
 }
-////// END
+//////// END

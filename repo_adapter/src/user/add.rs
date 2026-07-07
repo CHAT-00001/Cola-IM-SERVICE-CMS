@@ -15,6 +15,9 @@ pub struct UserAddPortAdapter;
 
 #[async_trait]
 impl AddPort for UserAddPortAdapter {
+    //
+    ////////
+
     /// # [ADAPTER] - 保存用户资料
     async fn save_user(&self, _cmd: UserCommand) -> anyhow::Result<UserInfo> {
         // 1. 在这里执行数据库插入 (INSERT)
@@ -25,6 +28,8 @@ impl AddPort for UserAddPortAdapter {
         Ok(UserInfo::default())
     }
 
+    ////////
+
     /// # [ADAPTER] - 更新用户资料
     async fn update_user(&self, _cmd: UpdateUserCommand) -> anyhow::Result<UserInfo> {
         // 1. 在这里执行数据库更新 (UPDATE)
@@ -33,11 +38,19 @@ impl AddPort for UserAddPortAdapter {
         Ok(UserInfo::default())
     }
 
+    ////////
+
+    /// # [ADAPTER] - 删除单个用户
     async fn del_one_user(&self, _user_id: i64) -> anyhow::Result<()> {
         Ok(())
     }
 
+    ////////
+
+    /// # [ADAPTER] - 批量删除用户
     async fn del_many_user(&self, _user_ids: Vec<i64>) -> anyhow::Result<()> {
         Ok(())
     }
 }
+
+//////// END

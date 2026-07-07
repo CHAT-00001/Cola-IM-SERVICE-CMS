@@ -1,4 +1,4 @@
-// service/comment.rs  --  服务层 - 评论
+// repo/src/video/service/comment.rs  --  仓储中心 - VIDEO - service - 视频 评论
 // 2026/6/8 16:51
 
 ////////
@@ -10,7 +10,7 @@ use cola_data::video::entity::video::VideoEntity;
 use crate::video::pg::comment::CommentRepo;
 use crate::video::pg::count::CountRepo;
 use cola_data::video::command::comment::CommentCommand;
-use cola_data::video::info::comment::CommentInfo;
+use cola_data::video::info::comment::VideoCommentInfo;
 use tracing::log;
 
 ////////
@@ -29,7 +29,7 @@ impl CommentService {
         video_id: i64,       // 视频 ID
         cmd: CommentCommand, // 评论创建命令
         visibility: i16,     // 风控可见性
-    ) -> Result<CommentInfo, anyhow::Error> {
+    ) -> Result<VideoCommentInfo, anyhow::Error> {
 
         // 1. 保存评论
         let comment_entity = CommentRepo::save_comment_by_video_id(uid, video_id, cmd, visibility)
@@ -41,7 +41,7 @@ impl CommentService {
         tokio::spawn(async move {
             if let Err(e) = CountRepo::pg_update_video_comments(async_video_id, 1).await {
                 tracing::error!(
-                "SERVICE_ASYNC: 异步更新视频评论计数失败: video_id={}, err={:?}",
+                "[🔌 ADAPTER]: ▶ 异步更新视频评论计数失败: video_id={}, err={:?}",
                 async_video_id,
                 e
             );
@@ -49,7 +49,7 @@ impl CommentService {
         });
 
         // 3. ✅ 修复 [E0308]：显式进行 Entity -> Info 的类型转换
-        let comment_info = CommentInfo::from_entity(comment_entity);
+        let comment_info = VideoCommentInfo::from_entity(comment_entity);
 
         Ok(comment_info)
     }
@@ -74,7 +74,7 @@ impl CommentService {
         tokio::spawn(async move {
             if let Err(e) = CountRepo::pg_update_video_comments(target_video_id, -1).await {
                 tracing::error!(
-                "SERVICE_ASYNC: 异步更新视频评论计数失败: video_id={}, err={:?}",
+                "[🔌 ADAPTER]: ▶ 异步更新视频评论计数失败: video_id={}, err={:?}",
                 target_video_id,
                 e
             );
@@ -93,12 +93,12 @@ impl CommentService {
         video_id: i64,
         offset: i64,
         limit: i64,
-    ) -> Result<Vec<CommentInfo>, anyhow::Error> {
+    ) -> Result<Vec<VideoCommentInfo>, anyhow::Error> {
         let entities =
             CommentRepo::find_new_comments_by_video_id(video_id, offset, limit).await?;
 
         // handler -> info
-        let infos: Vec<CommentInfo> = entities.into_iter().map(CommentInfo::from_entity).collect();
+        let infos: Vec<VideoCommentInfo> = entities.into_iter().map(VideoCommentInfo::from_entity).collect();
 
         Ok(infos)
     }
@@ -111,11 +111,11 @@ impl CommentService {
         video_id: i64,
         offset: i64,
         limit: i64,
-    ) -> Result<Vec<CommentInfo>, anyhow::Error> {
+    ) -> Result<Vec<VideoCommentInfo>, anyhow::Error> {
         let entities = CommentRepo::find_comments_by_user_id(video_id, offset, limit).await?;
 
         // handler -> info
-        let infos: Vec<CommentInfo> = entities.into_iter().map(CommentInfo::from_entity).collect();
+        let infos: Vec<VideoCommentInfo> = entities.into_iter().map(VideoCommentInfo::from_entity).collect();
 
         Ok(infos)
     }
@@ -128,11 +128,11 @@ impl CommentService {
         user_id: i64,
         offset: i64,
         limit: i64,
-    ) -> Result<Vec<CommentInfo>, anyhow::Error> {
+    ) -> Result<Vec<VideoCommentInfo>, anyhow::Error> {
         let entities = CommentRepo::find_comments_by_user_id(user_id, offset, limit).await?;
 
         // handler -> info
-        let infos: Vec<CommentInfo> = entities.into_iter().map(CommentInfo::from_entity).collect();
+        let infos: Vec<VideoCommentInfo> = entities.into_iter().map(VideoCommentInfo::from_entity).collect();
 
         Ok(infos)
     }
@@ -183,7 +183,7 @@ impl CommentService {
     ) -> Result<Vec<VideoEntity>, anyhow::Error> {
         VideoRepo::find_new_list(limit, offset)
             .await
-            .map_err(|e| anyhow::anyhow!("SERVICE: 获取最新视频列表失败: {}", e))
+            .map_err(|e| anyhow::anyhow!("[🔌 ADAPTER]: ▶ 获取最新视频列表失败: {}", e))
     }
 
     ////////
@@ -195,7 +195,7 @@ impl CommentService {
     ) -> Result<Vec<VideoEntity>, anyhow::Error> {
         VideoRepo::find_hot_list(limit, offset)
             .await
-            .map_err(|e| anyhow::anyhow!("SERVICE: 获取热门视频列表失败: {}", e))
+            .map_err(|e| anyhow::anyhow!("[🔌 ADAPTER]: ▶ 获取热门视频列表失败: {}", e))
     }
 
     ////////
@@ -207,7 +207,7 @@ impl CommentService {
     ) -> Result<Vec<VideoEntity>, anyhow::Error> {
         VideoRepo::find_recommend_list(limit, offset)
             .await
-            .map_err(|e| anyhow::anyhow!("SERVICE: 获取推荐视频列表失败: {}", e))
+            .map_err(|e| anyhow::anyhow!("[🔌 ADAPTER]: ▶ 获取推荐视频列表失败: {}", e))
     }
 
     ////////

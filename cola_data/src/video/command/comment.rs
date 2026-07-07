@@ -3,7 +3,7 @@
 
 ////////
 
-use crate::video::entity::comment::CommentEntity;
+use crate::video::entity::comment::VideoCommentEntity;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use std::convert::TryFrom;
@@ -61,7 +61,7 @@ pub struct CommentCommand {
 impl CommentCommand {
     /// 将当前的 Command 转换为核心领域的评论实体 (Entity)
     /// 同时从外部（用例/业务上下文）动态注入实时的真实 uid 和 video_id
-    pub fn into_entity(self, real_uid: i64, real_video_id: i64) -> CommentEntity {
+    pub fn into_entity(self, real_uid: i64, real_video_id: i64) -> VideoCommentEntity {
         // 1. 获取当前 UTC 时间戳
         let now = Utc::now().timestamp();
         let now_ts = Utc::now();
@@ -87,7 +87,7 @@ impl CommentCommand {
             Some(urls.join(",")) // 经典 PHP 时代的逗号分隔存储
         };
 
-        CommentEntity {
+        VideoCommentEntity {
             user_id: real_uid,       // 动态注入
             video_id: real_video_id, // 动态注入
             parent_id: self.parent_id,

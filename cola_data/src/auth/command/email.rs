@@ -13,8 +13,8 @@ use validator::Validate;
 pub struct EmailLoginCommand {
     pub email: String,     // 邮箱
     pub code: String,      // 验证码
-    pub device_id: String, //
-    pub platform: i32,     //
+    pub device_id: String, // 设备ID
+    pub platform: i32,     // 平台
 }
 
 ////////

@@ -10,10 +10,10 @@ use std::collections::HashMap;
 use crate::video::redis::video::VideoCache;
 use crate::video::redis::visited::VisitedCache;
 use app_config::DbService;
-use cola_data::video::command::buy::BuyCommand;
+use cola_data::video::command::buy::VideoBuyCommand;
 use cola_data::video::command::hotlist::HotlistCommand;
 use cola_data::video::command::recommend::RecommendCommand;
-use cola_data::video::command::report::ReportCommand;
+use cola_data::video::command::report::VideoReportCommand;
 use cola_data::video::info::video::VideoInfo;
 use tracing::log;
 
@@ -69,7 +69,7 @@ impl HotlistService {
     ////////
 
     /// # 8. [SERVICE] - 记录举报信息
-    pub async fn save_report_info(_uid: i64, _cmd: ReportCommand) -> Result<(), anyhow::Error> {
+    pub async fn save_report_info(_uid: i64, _cmd: VideoReportCommand) -> Result<(), anyhow::Error> {
         // TODO: 写入后台内容风控待人工审核表
 
         Ok(())
@@ -80,7 +80,7 @@ impl HotlistService {
     /// # 9. [SERVICE] - 购买内容
     pub async fn save_buy_and_update_count(
         _uid: i64,
-        _cmd: BuyCommand,
+        _cmd: VideoBuyCommand,
     ) -> Result<(), anyhow::Error> {
         // TODO: 购买付费视频/电商挂载商品落单逻辑
 

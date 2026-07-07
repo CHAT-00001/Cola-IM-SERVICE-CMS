@@ -5,7 +5,7 @@
 
 use async_trait::async_trait;
 use cola_data::video::port::report::ReportRepo;
-use cola_data::video::command::report::ReportCommand;
+use cola_data::video::command::report::VideoReportCommand;
 use repo::video::service::report::ReportService;
 
 ////////
@@ -25,7 +25,7 @@ impl ReportRepo for ReportPortAdapter {
         &self,
         uid: i64,
         _video_id: i64,
-        cmd: ReportCommand,
+        cmd: VideoReportCommand,
     ) -> anyhow::Result<()> {
         ReportService::save_comment_and_update_count(uid, cmd).await?;
         Ok(())
