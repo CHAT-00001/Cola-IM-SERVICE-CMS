@@ -1,9 +1,7 @@
-// /manager.rs  -- 
+// /manager.rs  --
 // 2026/6/13 07:07
 
 ////////
-
-
 
 ////////
 
@@ -14,13 +12,18 @@ use sqlx::FromRow;
 
 ////////
 
-/// # [ENTITY] - 直播流记录 实体
-/// * `table_name` live_stream_shut
+/// # [ENTITY] - 直播间 闭嘴表
+/// * `pg schema`: `cola_live`
+/// * `table_name` live_room_shut
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow)]
-pub struct LiveStreamShutEntity {
-    pub id: i64,        // ID
-    pub uid: i64,       // 操作者ID
-    pub record_id: i64, // 直播场次记录ID
-    pub user_id: i64,   // 目标用户ID
+pub struct LiveRoomShutEntity {
+    pub id: i64,          // ID
+    pub uid: i64,         // 操作者 ID
+    pub room_id: i64,     // 直播间 ID
+    pub user_id: i64,     // 目标用户 ID
+    pub is_deleted: bool, // 是否删除
+    pub status: i16,      // 状态码: 0. 失效 1. 有效
+    pub add_time: i64,    // 添加时间
+    pub end_time: i64,    // 结束时间
 }
 //////// END

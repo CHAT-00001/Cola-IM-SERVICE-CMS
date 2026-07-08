@@ -2,6 +2,8 @@
 pub mod auth;
 pub mod dynamic;
 pub mod gis;
+pub mod im;
+pub mod music;
 pub mod live;
 pub mod market;
 pub mod three;

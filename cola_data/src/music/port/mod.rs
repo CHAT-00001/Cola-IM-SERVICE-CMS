@@ -12,7 +12,9 @@ use crate::video::port::view::ViewPort;
 pub mod add;
 pub mod like;
 pub mod view;
-
+mod feed;
+mod home;
+mod collect;
 ////////
 
 /// # [SERVICE PORT] - 音乐服务端口

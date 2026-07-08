@@ -1,6 +1,11 @@
-// gift/mod.rs  -- GIFT - mod
+// cola_data/src/gift/mod.rs  -- 数据中心 - GIFT - mod
 // 2026/6/19 17:50
 
 ////////
 
-mod entity;
+pub mod command; // 🚧 命令
+pub mod entity; // 🗄️ 数据表实体
+pub mod event; // ⚡ 消息事件
+pub mod info; // 元信息
+pub mod port; // 🗄️ 🌐服务端口
+pub mod vo; // 📦 视图模型

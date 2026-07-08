@@ -3,6 +3,8 @@
 
 ////////
 
+pub mod action; // 动作
+pub mod category; // 分类
 pub mod expression; // 表情
 pub mod gift; // 礼物
 pub mod sticker; // 表情贴纸

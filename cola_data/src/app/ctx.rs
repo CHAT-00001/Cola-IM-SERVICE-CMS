@@ -5,6 +5,7 @@
 
 use crate::auth::port::AuthServicePorts;
 use crate::gis::port::ColaGisPort;
+use crate::im::port::ColaImPort;
 use crate::live::port::ColaLivePort;
 use crate::market::port::ColaMarketPort;
 use crate::music::port::MusicServicePorts;
@@ -28,6 +29,7 @@ pub struct AppContext {
     pub three: ColaThreePort,
     pub user: ColaUserPort,
     pub video: ColaVideoPort,
+    pub im: ColaImPort,
 }
 
 impl AppContext {
@@ -40,6 +42,7 @@ impl AppContext {
         three: ColaThreePort,
         user: ColaUserPort,
         video: ColaVideoPort,
+        im: ColaImPort,
     ) -> Self {
         Self {
             auth,
@@ -50,6 +53,7 @@ impl AppContext {
             three,
             user,
             video,
+            im,
         }
     }
 }

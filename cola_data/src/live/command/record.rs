@@ -1,11 +1,11 @@
-// dynamic/record.rs  -- 命令 - 开播
+// live/command/record.rs  -- LIVE - command - 记录
 // 2026/6/13 06:31
 
 ////////
 
 use chrono::Utc;
 use serde::{Deserialize, Serialize};
-use crate::live::entity::record::{LiveStreamRecordEntity};
+use crate::live::entity::live_stream_record::{LiveStreamRecordEntity};
 use crate::live::utils::record::build_stream_name;
 
 ////////
@@ -35,7 +35,7 @@ pub struct LiveRecordCommand {
 impl LiveRecordCommand {
     /// 构造函数：关联表结构，全自动计算并填充所有默认值，生成第一个干净合法的直播记录
     pub fn new(cmd: Self, push_domain: &str, play_domain_flv: &str) -> LiveStreamRecordEntity {
-        let now_ts = Utc::now().timestamp() as i32;
+        let now_ts = Utc::now().timestamp();
 
         // 1. 🔥 自动调用刚写好的工具函数，生成绝不重复的流名称
         let stream_name = build_stream_name(cmd.uid, cmd.room_id);
@@ -52,8 +52,8 @@ impl LiveRecordCommand {
             room_id: cmd.room_id,
             showid: now_ts as i64, // 直播标识，传统做法常用当前开播时间戳代表 showid
             nums: 0,               // 刚开播，当前人数自然是 0
-            starttime: now_ts,     // 开播时间
-            endtime: 0,            // 未关播，结束时间给 0
+            start_time: now_ts,     // 开播时间
+            end_time: 0,            // 未关播，结束时间给 0
             title: cmd.title,
             province: cmd.province,
             city: cmd.city,
@@ -83,11 +83,6 @@ impl LiveRecordCommand {
             // 📊 计数控制全清零
             likes: 0,
             recommends: 0,
-            good_num: Some(0),
-            hot_votes: Some(0),
-            gift_total_coin: Some(0),
-            gift_user_total: Some(0),
-            banker_coin: Some(0),
 
             // ⚔️ 连麦/PK 字段初始化全留空
             pk_uid: None,
@@ -101,7 +96,6 @@ impl LiveRecordCommand {
             sw_player_id: None,
             sw_pull_url: None,
             recommend_time: None,
-            distance: None, // 经纬度计算字段，默认忽略
             game_action: None,
         }
     }

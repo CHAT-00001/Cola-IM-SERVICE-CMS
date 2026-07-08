@@ -3,10 +3,8 @@
 
 ////////
 
-pub mod app;
-pub mod biz;
-pub mod model;
-pub mod port;
+pub mod api; // 接口层
+pub mod assembler; // 组装器
+pub mod case; // 用例层
 
 //////// END
-

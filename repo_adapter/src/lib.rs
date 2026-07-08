@@ -9,6 +9,7 @@ pub mod auth;
 pub mod dynamic;
 pub mod gift;
 pub mod gis;
+pub mod im;
 pub mod live;
 pub mod market;
 pub mod photo;
@@ -20,8 +21,8 @@ pub mod wallet;
 use cola_data::app::ctx::AppContext;
 use cola_data::auth::port::AuthServicePorts;
 use cola_data::gis::port::ColaGisPort;
+use cola_data::im::port::ColaImPort;
 use cola_data::live::port::ColaLivePort;
-
 use cola_data::market::port::ColaMarketPort;
 use cola_data::music::port::MusicServicePorts;
 use cola_data::three::port::ColaThreePort;
@@ -114,10 +115,19 @@ pub fn build_app_context() -> AppContext {
         view: Arc::new(video::view::ViewPortAdapter),
     };
 
+    // ---------- IM ----------
+    let im = ColaImPort {
+        contact: Arc::new(im::contact::ContactPortAdapter),
+        contact_request: Arc::new(im::contact_request::ContactRequestPortAdapter),
+        card: Arc::new(im::card::CardPortAdapter),
+        message: Arc::new(im::message::MessagePortAdapter),
+        chat: Arc::new(im::chat::ChatPortAdapter),
+    };
+
     // ---------- Auth (目前为空结构体) ----------
     let auth = AuthServicePorts {};
 
-    AppContext::default(auth, gis, live, market, music, three, user, video)
+    AppContext::default(auth, gis, live, market, music, three, user, video, im)
 }
 
 /////// END

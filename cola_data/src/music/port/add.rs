@@ -1,51 +1,36 @@
-// /port/add.rs  -- 添加
+// cola_data/src/music/port/add.rs  -- 数据中心 - MUSIC - port - 添加
 // 2026/6/10 06:35
 
 ////////
 
-use crate::video::command::video::VideoCommand;
+use crate::music::command::music::MusicCommand;
 
 ////////
-
 
 /// # [PORT] - 添加
 #[async_trait::async_trait]
 pub trait AddPort: Send + Sync {
+    ////////
+
+    /// # 1. [PORT] - 💾 保存
+    async fn save_music_record(&self, uid: i64, data: MusicCommand) -> anyhow::Result<()>;
 
     ////////
 
-    /// # 1. [PORT] - 发布
-    async fn add_video(
-        &self,
-        uid: i64,
-        data: VideoCommand,
-    ) -> anyhow::Result<()>;
+    /// # 2. [PORT] - ⚙️ 编辑
+    async fn edit_music(&self, uid: i64, music_id: i64, data: MusicCommand) -> anyhow::Result<()>;
 
     ////////
 
-    /// # 2. [PORT] - 编辑
-    async fn edit_video(
-        &self,
-        uid: i64,
-        video_id: i64,
-        data: VideoCommand,
-    ) -> anyhow::Result<()>;
+    /// # 3. [PORT] - ❌️ 👤 用户批量软删除音乐(支持批量)
+    async fn user_delete_by_music_ids(&self, uid: i64, music_ids: Vec<i64>) -> anyhow::Result<()>;
 
     ////////
 
-    /// # 3. [PORT] - 单个删除
-    async fn del_one_video(
+    /// # 3. [PORT] - ❌️ ⏰️ 自动任务硬删除过期的项目
+    async fn auto_delete_music_by_time_range(
         &self,
         uid: i64,
-        video_id: i64,
-    ) -> anyhow::Result<()>;
-
-    ////////
-
-    /// # 3. [PORT] - 多个删除
-    async fn del_many_video(
-        &self,
-        uid: i64,
-        video_ids: Vec<i64>,
+        time_range: i64,
     ) -> anyhow::Result<()>;
 }

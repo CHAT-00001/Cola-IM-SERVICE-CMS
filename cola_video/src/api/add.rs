@@ -16,7 +16,7 @@ use crate::model::vo::video::VideoSingleResponse;
 
 ////////
 
-/// # [APP USE CASE] - 发布 接口
+/// # [API] - 发布 接口
 pub struct AddApi;
 
 // 构造函数

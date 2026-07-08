@@ -5,7 +5,7 @@
 
 use sqlx::PgPool;
 use uuid::Uuid;
-use cola_data::live::entity::live::LiveEntity;
+use cola_data::live::entity::live_room::LiveEntity;
 
 ////////
 

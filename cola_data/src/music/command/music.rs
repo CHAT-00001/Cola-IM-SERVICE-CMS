@@ -1,11 +1,14 @@
-// cola_data/src/music/dynamic/live  -- 数据 - MUSIC - Command - 音乐创建
+// cola_data/src/music/command/music.rs  -- 数据中心 - MUSIC - command - 音乐
 // 2026/5/22 16:28 by wx: cestbon10080
-// * --------
-// * --------
+
+////////
+
+use serde::{Deserialize, Serialize};
 
 ////////
 
 /// # [COMMAND] - 可乐音乐 - 音乐创建命令
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct MusicCommand {
     pub send_id: String,     // 发送 ID
     pub sync_id: String,     // 同步 ID
@@ -18,6 +21,8 @@ pub struct MusicCommand {
     pub upload_type: i16,    // 1. 系统生成 2. 用户行为 3. 管理员
     pub use_count: i32,      // 被使用数量
     pub collect_count: i32,  // 收藏数量
-    pub send_time: i64,      // 客户端发送时间
+    pub add_time: i64,       // 添加时间
     pub sync_time: i64,      // 服务器同步时间
 }
+
+//////// END

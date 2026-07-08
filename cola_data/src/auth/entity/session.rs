@@ -1,8 +1,12 @@
 // cola_data/src/auth/handler/session.rs  -- 数据 - 认证中心 - handler - session
 // 2026/5/23 07:45 by wx: cestbon10080
 
+////////
+
 use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
+
+////////
 
 /// # 1. 统一的登录会话查询字段 (1:1 严格对齐结构体，不带任何容易断句的内部注释)
 pub const SESSION_COLUMNS: &str = r#"
@@ -11,8 +15,10 @@ pub const SESSION_COLUMNS: &str = r#"
     status, created_time, updated_time
 "#;
 
+////////
+
 /// # [ENTITY] - 认证中心 - 会话
-/// * table name: auth_session
+/// * `table name`: `auth_session`
 /// * platform 字段在 DB 中是 INT NOT NULL，用 i16 对齐
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow, Default)]
 pub struct AuthSessionEntity {
@@ -28,5 +34,7 @@ pub struct AuthSessionEntity {
     pub status: i16,                                 // 状态: 1有效, 0注销, -1被挤掉
     pub created_time: chrono::DateTime<chrono::Utc>, // 创建时间
     pub updated_time: chrono::DateTime<chrono::Utc>, // 同步更新时间
-    pub platform: i16,                               // 平台 INT -> i16: 0=未知, 1=ios, 2=android, 3=web
+    pub platform: i16, // 平台 INT -> i16: 0=未知, 1=ios, 2=android, 3=web
 }
+
+////////

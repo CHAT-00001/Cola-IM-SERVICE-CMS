@@ -935,10 +935,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "cola_client"
-version = "0.1.0"
-
-[[package]]
 name = "cola_data"
 version = "0.1.0"
 dependencies = [
@@ -1005,6 +1001,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "cola_im"
+version = "0.1.0"
+dependencies = [
+ "cola_data",
+ "cola_music",
+ "cola_user",
+ "repo",
+ "tracing",
+]
+
+[[package]]
 name = "cola_live"
 version = "0.1.0"
 dependencies = [
@@ -1043,17 +1050,16 @@ dependencies = [
 name = "cola_music"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "chrono",
  "cola_data",
  "cola_user",
+ "repo",
  "serde",
  "sqlx",
+ "tracing",
  "uuid",
 ]
-
-[[package]]
-name = "cola_rick"
-version = "0.1.0"
 
 [[package]]
 name = "cola_three"
@@ -4137,6 +4143,7 @@ dependencies = [
  "futures-util",
  "ipnetwork",
  "jsonwebtoken",
+ "mongodb",
  "once_cell",
  "rand 0.8.5",
  "redis",

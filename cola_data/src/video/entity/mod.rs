@@ -6,9 +6,9 @@ pub mod danmaku;
 pub mod interact;
 pub mod report;
 pub mod share;
+pub mod state;
 pub mod user;
 pub mod video;
 pub mod video_user_count;
 pub mod video_user_perm;
 pub mod video_user_profile;
-

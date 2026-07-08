@@ -1,0 +1,610 @@
+// router_v2/im/gateway.rs  --  HTTP - IM - 网关路由器
+// 2026/7/7 17:08
+
+////////
+
+use crate::kits::response::IntoApi;
+use actix_web::{HttpMessage, HttpRequest, HttpResponse, Responder, web};
+use cola_data::app::data::AppData;
+use cola_data::app::query::ApiGatewayRequest;
+use cola_data::auth::info::auth::AuthContext;
+use cola_video::api::home::HomeApi;
+use serde::Deserialize;
+use std::time::Instant;
+use app_config::app_state::AppState;
+////////
+
+/// # 网关请求体
+struct GatewayRequest {
+    auth: AuthContext,     // 补上 auth 字段
+    action: i16,           // 🌟 以后使用的 int16 动作代码
+    service: String,       // 🌟 兼容 PHP PhalApi 的服务名称 (字符串)
+    query: Option<String>, // 查询
+    body: web::Bytes,      // body
+    path: String,          // 路径
+}
+
+/// # 统一的 Query 提取结构体
+#[derive(Deserialize)]
+pub struct GatewayQuery {
+    pub service: String,         // 🌟 兼容 PhalApi，接收如 "Video.PublishVideo"
+    pub action: Option<i16>,     // 🌟 以后转入的 int16 动作代码，先用 Option 顶住
+    pub video_id: Option<i64>,
+    pub page: Option<i64>,       // 页码
+    pub qty: Option<i64>,        // 每页数量
+}
+
+/// # [ROUTER] - 短视频 - 路由器
+pub fn video_router(cfg: &mut web::ServiceConfig) {
+    cfg.service(
+        // by
+        // * /im/xxxx
+        web::scope("/im")
+            // 默认
+            .route("/", web::get().to(root))
+            // 网关
+            .route("/gateway", web::get().to(im_gateway)),
+    );
+}
+
+// ROOT
+pub async fn root() -> HttpResponse {
+    HttpResponse::Ok().json(vec!["Cole", "IM", "ROUTER"])
+}
+
+
+////////
+
+/// # [GATEWAY] - 可乐IM网关
+async fn im_gateway(
+    req: HttpRequest,
+    // url web::Query<ApiGatewayRequest>,
+    query: web::Query<GatewayQuery>,
+    body: web::Bytes,
+    state: web::Data<AppState>,
+) -> impl Responder {
+
+    // 开始时间
+    let start = Instant::now();
+
+
+    // 严格检查登录状态，统一命名操作用户为 uid
+    let uid = match req.extensions().get::<i64>().copied() {
+        Some(id) => id,
+        None => 1, // 测试环境默认 uid
+    };
+
+    let auth = AuthContext {
+        uid,
+        access_token: String::new(),
+        refresh_token: String::new(),
+        device_id: String::new(),
+        roles: vec![],
+        is_anonymous: false,
+    };
+
+    let gateway_req = GatewayRequest {
+        auth,
+        action: query.action.unwrap_or(0), // 先给个默认值 0，留给以后用
+        service: query.service.clone(),    // 对齐并绑定真正的 PhalApi 字符串服务名
+        query: Some(req.query_string().to_string()),
+        body,
+        path: req.path().to_string(),
+    };
+
+    // 🌟 对齐到 service 字符串进行业务路由分发
+    match gateway_req.service.as_str() {
+
+        ////////
+
+
+        // 1001 添加联系人
+        "contact_add" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 1002 联系人同步
+        "contact_sync" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 1003 删除联系人
+        "contact_del" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 1004 联系人管理
+        "contact_manage" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 1005 联系人 星标
+        "contact_star" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 1006 联系人 特别关心
+        "contact_favorites" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 1007 联系人 拉黑
+        "contact_blacked" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 1008 联系人 设置
+        "contact_setting" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 1009 联系人 特别关心
+        "contact_favorites" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        //////// == 用户名片
+
+        // 3001 新建
+        "card_new" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 3002 查看
+        "card_view" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 3003 修改
+        "card_edit" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 3004 删除
+        "card_deleted" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 3005 同步
+        "card_sync" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 3006 管理
+        "card_manage" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 3007 举报
+        "card_report" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        ////////
+
+        // 4001 消息同步
+        "msg_sycn" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 4002 消息删除
+        "msg_delete" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 4003 消息收藏
+        "msg_collect" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 4004 根据聊天ID批量删除消息
+        "msg_delete_by_chat_id" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 4005 根据用户ID批量删除消息
+        "msg_delete_by_card_id" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 4006 根据群组ID批量删除消息
+        "msg_delete_by_group_id" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 4007 根据群组ID批量删除消息
+        "msg_delete_by_group_id" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        //////// == 聊天
+
+        // 5001 添加新聊天
+        "chat_add" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 5002 关闭聊天
+        "chat_close" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 5003 删除聊天
+        "chat_delet" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 5004 聊天设置
+        "chat_setting" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 5005 聊天置顶
+        "chat_pin" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 5006 聊天列表同步
+        "chat_sync" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 5007 聊天
+        "chat_add" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        ////////
+
+        "view" => {
+            // 查看视频详情 - 测试接口
+            let video_id = query.video_id.unwrap_or(0);
+            let data = serde_json::json!({
+                "id": video_id,
+                "user_id": 1,
+                "title": "测试视频标题",
+                "description": "这是一个测试视频描述",
+                "href": "https://example.com/video/1001",
+                "cover": "https://example.com/cover/1001.jpg",
+                "views": 12345,
+                "likes": 678,
+                "comments": 90,
+                "duration": 120.5,
+                "width": 1920,
+                "height": 1080,
+                "status": 1,
+                "created_at": "2026-06-12T07:00:00Z"
+            });
+            AppData::ok(data).finish(&req, start)
+        }
+
+        "publish_video" => {
+            // 发布视频接口转发
+            let data = serde_json::json!({
+                "video_id": 12345,
+                "user_id": uid,
+                "title": "示例视频标题",
+                "status": "published"
+            });
+            AppData::ok(data).finish(&req, start)
+        }
+
+        "publish_comment" => {
+            // 发布评论接口转发
+            let data = serde_json::json!({
+                "comment_id": 67890,
+                "user_id": uid,
+                "video_id": query.video_id.unwrap_or(0),
+                "content": "示例评论内容"
+            });
+            AppData::ok(data).finish(&req, start)
+        }
+
+        _ => AppData::<()>::err(
+            400,
+            format!("Unknown Api Gateway service: {}", gateway_req.service),
+            None,
+        )
+            .finish(&req, start),
+    }
+}

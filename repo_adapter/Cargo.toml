@@ -1,4 +1,5 @@
-#### Repo 适配器：将 repo 层的静态函数包装成 cola_data 中定义的 port trait 实现
+#### Repo 适配器
+# * 将 repo 层的静态函数包装成 cola_data 中定义的 port trait 实现
 # 2026-06-12
 
 [package]
@@ -14,7 +15,7 @@ repo = { path = "../repo" }
 ## 外部依赖
 async-trait = "0.1.89"
 anyhow = "1.0.99"
-tracing = "0.1.41"
+tracing = "0.1.44"
 sqlx = { version = "0.8.6", features = ["runtime-tokio-rustls", "postgres", "chrono", "macros"] }
 chrono = { version = "0.4.42", features = ["serde"] }
 rust_decimal = { version = "1.42.1", features = ["serde"] }

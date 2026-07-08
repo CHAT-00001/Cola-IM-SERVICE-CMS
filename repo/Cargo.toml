@@ -32,6 +32,7 @@ thiserror = "1.0.61"
 jsonwebtoken = { version = "10", features = ["rust_crypto"] }
 rand = "0.8.5"
 redis = "1.0.3"
+mongodb = { version = "3.3" }
 async-trait = "0.1.89"
 format = "0.2.4"
 # 自动验证

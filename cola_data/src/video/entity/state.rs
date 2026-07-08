@@ -1,11 +1,13 @@
-// cola_video/src/vo/handler/state.rs  -- 视频状态实体
-// 2026/4/23 15:55 优化：双形态封禁逻辑（永久 vs 限期）
+// cola_data/src/video/entity/state.rs  -- 数据中心 - VIDEO - entity - 状态
+// 2026/4/23 15:55
+
+////////
 
 use chrono::{DateTime, Utc};
 
 ////////
 
-/// # Entity - 用户状态实体
+/// # [Entity] - 用户状态实体
 pub struct UserStateEntity {
     pub id: i64,
     /// 形态1：永久封禁标志位

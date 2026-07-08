@@ -1,7 +1,5 @@
-// cola_data/src/handler/video/collect.rs  -- 数据 - handler - 短视频 - 收藏
-// 2026/5/20 19:05 by wx: cestbon10080
-// * 1个结构体
-// * --------
+// cola_data/src/video/entity/collect.rs  -- 数据中心 - VIDEO - entity - 收藏
+// 2026/5/20 19:05
 
 ////////
 
@@ -11,7 +9,8 @@ use sqlx::FromRow;
 ////////
 
 /// # [ENTITY] - 视频收藏实体
-/// * table name: video_biz.video_collect (指定在短视频业务子库下)
+/// * `pg schema`: `cola_video`
+/// * `table name`: `video_collect`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct CollectEntity {
     pub id: i64,                // 收藏记录自增 ID
@@ -29,5 +28,4 @@ pub struct CollectEntity {
     pub update_time: i64,       // 精确更新时间：毫秒级时间戳
 }
 
-// * --------
 //////// END

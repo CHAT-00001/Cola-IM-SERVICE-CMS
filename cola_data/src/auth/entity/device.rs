@@ -1,5 +1,7 @@
-// /device.rs  -- 设备表
-// 2026/5/26 07:40 by wx: cestbon10080
+// cola_data/src/auth/entity/device.rs  -- 数据中心 - AUTH - entity - 设备
+// 2026/5/26 07:40
+
+////////
 
 use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
@@ -13,8 +15,10 @@ pub const DEVICE_COLUMNS: &str = r#"
     expired_time, last_active_at, created_time, updated_time
 "#;
 
+////////
+
 /// # [ENTITY] - 认证中心 - 用户设备信任及多设备状态表
-/// * table name: auth_device
+/// * `table name`: `auth_device`
 /// * 业务场景：支持同平台多设备登录、单设备踢出、设备锁管理、多端推送（如绑定个推/APNs的 Token）
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow, Default)]
 pub struct AuthDeviceEntity {
@@ -35,3 +39,5 @@ pub struct AuthDeviceEntity {
     pub created_time: chrono::DateTime<chrono::Utc>, // 设备初次登录/绑定时间
     pub updated_time: chrono::DateTime<chrono::Utc>, // 信息最后同步更新时间
 }
+
+//////// END
