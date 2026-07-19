@@ -44,7 +44,8 @@ pub fn gis_router(cfg: &mut web::ServiceConfig) {
             // 默认
             .route("/", web::get().to(root))
             // 网关
-            .route("/gateway", web::get().to(gis_gateway)),
+            .route("/gateway", web::get().to(gis_gateway))
+            .route("/gateway", web::post().to(gis_gateway)),
     );
 }
 

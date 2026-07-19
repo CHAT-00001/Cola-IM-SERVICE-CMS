@@ -59,7 +59,8 @@ pub fn dynamic_router(cfg: &mut web::ServiceConfig) {
             .route("", web::get().to(ping))
             .route("/", web::get().to(root))
             // 网关
-            .route("/gateway", web::get().to(dynamic_gateway)),
+            .route("/gateway", web::get().to(dynamic_gateway))
+            .route("/gateway", web::post().to(dynamic_gateway)),
     );
 }
 

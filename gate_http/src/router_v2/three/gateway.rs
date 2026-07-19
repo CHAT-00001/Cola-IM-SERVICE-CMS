@@ -40,7 +40,8 @@ pub fn three_router(cfg: &mut web::ServiceConfig) {
         web::scope("/three")
             .route("/", web::get().to(ping))
             .route("/gateway", web::post().to(three_gateway))
-            .route("/gateway", web::get().to(three_gateway)),
+            .route("/gateway", web::get().to(three_gateway))
+            .route("/gateway", web::post().to(three_gateway)),
     );
 }
 

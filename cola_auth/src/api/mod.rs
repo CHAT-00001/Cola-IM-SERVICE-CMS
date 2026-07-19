@@ -3,9 +3,6 @@
 
 ////////
 
-pub mod active;
-pub mod add;
 pub mod code;
-pub mod session;
-
+pub mod seesion;
 //////// END

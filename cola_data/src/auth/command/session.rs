@@ -15,8 +15,8 @@ pub struct SessionCommand {
     pub device_id: String,                                 // 设备 ID
     pub access_token: String,                              // jwt token
     pub refresh_token: String,                             // aes token
-    pub access_expired_at: chrono::DateTime<chrono::Utc>,  // 临时token过期时间
-    pub refresh_expired_at: chrono::DateTime<chrono::Utc>, // 刷新Token过期时间
+    pub access_expires_at: chrono::DateTime<chrono::Utc>,  // 临时token过期时间
+    pub refresh_expires_at: chrono::DateTime<chrono::Utc>, // 刷新Token过期时间
     pub last_active_at: chrono::DateTime<chrono::Utc>,     // 最后一次激活时间(更新时间)
 }
 
@@ -30,8 +30,8 @@ impl SessionCommand {
         let now = chrono::Utc::now();
         let client_id = "a".to_string();
         let device_id = "b".to_string();
-        let access_expired_at = now + chrono::Duration::minutes(10);
-        let refresh_expired_at = now + chrono::Duration::days(180);
+        let access_expires_at = now + chrono::Duration::minutes(10);
+        let refresh_expires_at = now + chrono::Duration::days(180);
         let last_active_at = now;
 
         Self {
@@ -39,8 +39,8 @@ impl SessionCommand {
             device_id,
             access_token,
             refresh_token,
-            access_expired_at,
-            refresh_expired_at,
+            access_expires_at,
+            refresh_expires_at,
             last_active_at,
         }
     }

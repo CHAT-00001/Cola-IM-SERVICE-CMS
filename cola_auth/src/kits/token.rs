@@ -1,7 +1,7 @@
 // cola_auth/src/kits/token.rs  -- 可乐验证中心 - Token 生成工具
 // 2026/6/18
 
-//////
+////////
 
 use chrono::{DateTime, Duration, Utc};
 use jsonwebtoken::{encode, EncodingKey, Header};
@@ -9,7 +9,7 @@ use rand::Rng;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
-//////
+////////
 
 /// # JWT 载荷（含设备 ID，支持多端登录）
 #[derive(Debug, Serialize, Deserialize)]
@@ -25,6 +25,8 @@ pub struct JwtClaims {
 fn get_jwt_secret() -> Vec<u8> {
     b"cola_cms_jwt_secret_key_2026_secure_v2!@#".to_vec()
 }
+
+////////
 
 /// # 1. [KITS] - 生成 access_token (JWT)，带 device_id
 /// * 有效期: 15 分钟
@@ -49,6 +51,8 @@ pub fn kit_generate_access_token(uid: i64, device_id: &str) -> Result<(String, i
 
     Ok((token, exp.timestamp()))
 }
+
+////////
 
 /// # 2. [KITS] - 生成 access_token (JWT) - 自定义过期时间，带 device_id
 pub fn kit_generate_access_token_with_ttl(
@@ -77,6 +81,8 @@ pub fn kit_generate_access_token_with_ttl(
     Ok((token, exp.timestamp()))
 }
 
+////////
+
 /// # 3. [KITS] - 生成 refresh_token (安全随机令牌)
 /// * 有效期: 30 天
 /// * 方案: 32 字节随机数 + 时间戳 + UUID，高熵防猜测
@@ -98,6 +104,8 @@ pub fn kit_generate_refresh_token() -> Result<(String, i64), anyhow::Error> {
     Ok((raw, exp_ts))
 }
 
+////////
+
 /// # 4. [KITS] - 生成 refresh_token 的哈希（用于入库校验）
 pub fn kit_hash_refresh_token(raw: &str) -> String {
     use std::collections::hash_map::DefaultHasher;
@@ -106,6 +114,8 @@ pub fn kit_hash_refresh_token(raw: &str) -> String {
     raw.hash(&mut hasher);
     format!("{:x}", hasher.finish())
 }
+
+////////
 
 /// # 5. [KITS] - 构建 SessionCommand（统一组装 token + 过期时间，带 device_id）
 pub fn kit_build_session_cmd(
@@ -120,9 +130,9 @@ pub fn kit_build_session_cmd(
     let cmd = cola_data::auth::command::session::SessionCommand {
         access_token: access_token.clone(),
         refresh_token: kit_hash_refresh_token(&refresh_token_raw),
-        access_expired_at: DateTime::from_timestamp(access_exp, 0)
+        access_expires_at: DateTime::from_timestamp(access_exp, 0)
             .unwrap_or_else(Utc::now),
-        refresh_expired_at: DateTime::from_timestamp(refresh_exp, 0)
+        refresh_expires_at: DateTime::from_timestamp(refresh_exp, 0)
             .unwrap_or_else(Utc::now),
         last_active_at: Utc::now(),
         client_id: phone.to_string(),
@@ -137,7 +147,7 @@ fn hex_encode(bytes: &[u8]) -> String {
     bytes.iter().map(|b| format!("{:02x}", b)).collect()
 }
 
-////// TEST
+//////// TEST
 #[cfg(test)]
 mod tests {
     use super::*;

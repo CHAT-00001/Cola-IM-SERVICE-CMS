@@ -46,3 +46,11 @@ pub struct UserEntity {
     pub created_at: Option<DateTime<Utc>>, // 创建时间（人类）
     pub updated_at: Option<DateTime<Utc>>, // 更新时间（人类）
 }
+
+/// #[COLUMNS] - 数据表原始字段（对应 Entity 的基础字段，1:1 完全一致）
+pub const USER_COLUMNS: &str = r#"
+    id, user_type, user_nickname, signature, avatar, bg_img,
+    email, phone, sns_url, birthday, sex, perm_id, likes, fans, follows,
+    level, author_level, lat, lng, login_ip, register_ip, status,
+    create_time, created_at, updated_at
+"#;

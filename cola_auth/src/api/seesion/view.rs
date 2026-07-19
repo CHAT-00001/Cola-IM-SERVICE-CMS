@@ -54,6 +54,27 @@ impl SessionApi {
             }
         }
     }
+    //
+    // /// # [API] - 验证访问令牌
+    // ///
+    // /// 供 UGC 等业务服务调用，验证 Token 有效性并返回用户信息
+    // pub async fn handler_verify_token(
+    //     access_token: &str,
+    // ) -> AppData<VerifyTokenResult> {
+    //     // 1. 参数校验
+    //     if access_token.is_empty() {
+    //         return AppData::err(error::PARAM_ERROR, "缺少访问令牌", None);
+    //     }
+    //
+    //     // 2. 调用 Case 层验证
+    //     match SessionCase::case_verify_access_token(access_token).await {
+    //         Ok(user_info) => AppData::ok(user_info),
+    //         Err(e) => {
+    //             tracing::warn!("TOKEN VERIFY FAILED: {:?}", e);
+    //             AppData::err(error::UNAUTHORIZED, "令牌无效或已过期", None)
+    //         }
+    //     }
+    // }
 }
 
 //////// END

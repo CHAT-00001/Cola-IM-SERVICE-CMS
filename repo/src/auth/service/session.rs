@@ -23,15 +23,15 @@ impl SessionService {
             client_id: cmd.client_id,
             device_id: cmd.device_id,
             platform: 0,                         // i16: 0=未知平台
-            access_expired_at: cmd.access_expired_at.timestamp(),
-            refresh_expired_at: 0,
+            access_expires_at: cmd.access_expires_at.timestamp(),
+            refresh_expires_at: 0,
             last_active_at: cmd.last_active_at.timestamp(),
 
             status: 1,
 
             // 💡 2. 物理层是 DateTime<Utc> 时区对象：直接用 chrono 获取当前的标准时区实体
-            created_time: chrono::Utc::now(),
-            updated_time: chrono::Utc::now(),
+            created_at: chrono::Utc::now(),
+            updated_at: chrono::Utc::now(),
         };
 
         // 调用你写的硬核 Repo 事务函数

@@ -28,12 +28,12 @@ impl LoginService {
             client_id: "".to_string(),
             device_id: "".to_string(),
             platform: 0,                                    // i16: 0=未知平台
-            access_expired_at: cmd.access_expired_at.timestamp(),
-            refresh_expired_at: cmd.refresh_expired_at.timestamp(),
+            access_expires_at: cmd.access_expires_at.timestamp(),
+            refresh_expires_at: cmd.refresh_expires_at.timestamp(),
             last_active_at: cmd.last_active_at.timestamp(),
             status: 1,
-            created_time: chrono::Utc::now(),
-            updated_time: chrono::Utc::now(),
+            created_at: chrono::Utc::now(),
+            updated_at: chrono::Utc::now(),
         };
 
         // 调用 Repo 层执行入库（记得在 Repo 更新入库 SQL 以匹配现在的字段）

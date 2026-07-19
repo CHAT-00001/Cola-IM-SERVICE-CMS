@@ -10,14 +10,6 @@ use sqlx::{self, PgPool};
 
 //////
 
-// 数据表原始字段（对应 Entity 的基础字段，1:1 完全一致）
-const COLUMNS: &str = r#"
-    id, user_type, user_nickname, signature, avatar, bg_img,
-    email, phone, sns_url, birthday, sex, perm_id, likes, fans, follows,
-    level, author_level, lat, lng, login_ip, register_ip, status,
-    create_time, created_at, updated_at
-"#;
-
 /// # [SERVICE] - 用户 关注
 pub struct UserFollowRepo;
 

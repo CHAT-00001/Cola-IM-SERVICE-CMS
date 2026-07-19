@@ -1,30 +1,14 @@
-// /view_repo.rs  -- 
+// repo/src/pg/user/view_repo.rs  --
 // 2026/6/29 03:54
 
 ////////
 
-
-// repo/src/user/pg/home_repo.rs  -- 仓储中心 用户 HOME repo
-// 2026/6/25 22:21
-
-////////
-
-//////
-
 use sqlx::{self, PgPool};
 use app_config::GLOBAL_DB;
-use cola_data::user::entity::user::UserEntity;
+use cola_data::user::entity::user::{UserEntity, USER_COLUMNS};
 use crate::pg_pool;
 
 //////
-
-// 数据表原始字段（对应 Entity 的基础字段，1:1 完全一致）
-const COLUMNS: &str = r#"
-    id, user_type, user_nickname, signature, avatar, bg_img,
-    email, phone, sns_url, birthday, sex, perm_id, likes, fans, follows,
-    level, author_level, lat, lng, login_ip, register_ip, status,
-    create_time, created_at, updated_at
-"#;
 
 // 局部辅助结构体：用来承接带有"动态计算距离"的数据库返回行
 #[derive(Debug, sqlx::FromRow)]
@@ -50,7 +34,7 @@ impl UserViewRepo {
         let pool = pg_pool(); // 👈 抽出来
         let query = format!(
             "SELECT {} FROM \"user\" WHERE id = $1 LIMIT 1",
-            COLUMNS
+            USER_COLUMNS
         );
 
         sqlx::query_as::<_, UserEntity>(&query)
@@ -68,7 +52,7 @@ impl UserViewRepo {
         let pool = pg_pool(); // 👈 抽出来
         let query = format!(
             "SELECT {} FROM \"user\" WHERE phone = $1 LIMIT 1",
-            COLUMNS
+            USER_COLUMNS
         );
 
         sqlx::query_as::<_, UserEntity>(&query)
@@ -86,7 +70,7 @@ impl UserViewRepo {
         let pool = pg_pool(); // 👈 抽出来
         let query = format!(
             "SELECT {} FROM \"user\" WHERE email = $1 LIMIT 1",
-            COLUMNS
+            USER_COLUMNS
         );
 
         sqlx::query_as::<_, UserEntity>(&query)
@@ -104,7 +88,7 @@ impl UserViewRepo {
         let pool = pg_pool(); // 👈 抽出来
         let query = format!(
             "SELECT {} FROM \"user\" WHERE id = ANY($1) AND status = 1 ORDER BY id DESC",
-            COLUMNS
+            USER_COLUMNS
         );
 
         sqlx::query_as::<_, UserEntity>(&query)
@@ -129,7 +113,7 @@ impl UserViewRepo {
              WHERE status = 1
              ORDER BY distance ASC
              LIMIT $3 OFFSET $4",
-            COLUMNS
+            USER_COLUMNS
         );
 
         sqlx::query_as::<_, VideoHomeRow>(&query)
@@ -149,7 +133,7 @@ impl UserViewRepo {
         let pool = pg_pool();
         let query = format!(
             "SELECT {} FROM \"user\" WHERE status = 1 ORDER BY likes DESC NULLS LAST, id DESC LIMIT $1 OFFSET $2",
-            COLUMNS
+            USER_COLUMNS
         );
 
         sqlx::query_as::<_, UserEntity>(&query)
@@ -167,7 +151,7 @@ impl UserViewRepo {
         let pool = pg_pool();
         let query = format!(
             "SELECT {} FROM \"user\" WHERE status = 1 ORDER BY likes DESC NULLS LAST, id DESC LIMIT $1 OFFSET $2",
-            COLUMNS
+            USER_COLUMNS
         );
 
         sqlx::query_as::<_, UserEntity>(&query)
@@ -194,7 +178,7 @@ impl UserViewRepo {
              WHERE status = 1 AND user_nickname LIKE $1
              ORDER BY distance ASC
              LIMIT $4 OFFSET $5",
-            COLUMNS
+            USER_COLUMNS
         );
 
         sqlx::query_as::<_, VideoHomeRow>(&query)

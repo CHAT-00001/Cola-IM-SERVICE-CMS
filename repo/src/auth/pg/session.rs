@@ -3,18 +3,10 @@
 
 //////
 
-use cola_data::auth::entity::session::AuthSessionEntity;
+use cola_data::auth::entity::session::{AuthSessionEntity, AUTH_SESSION_COLUMNS};
 use crate::pg_pool;
 
 //////
-
-/// # 统一的登录会话查询字段（完全对应你最新的 AuthSessionEntity 字段）
-const SESSION_COLUMNS: &str = r#"
-    id, user_id, access_token, refresh_token, client_id,
-    device_id, access_expired_at,refresh_expired_at, last_active_at,
-    status, created_time, updated_time
-"#;
-
 
 /// # [REPOSITORY] -
 pub struct SessionRepo;
@@ -35,8 +27,8 @@ impl SessionRepo {
         // ⚠️ 不使用 platform 条件：避免 DB 列类型与 Rust String 不匹配（integer = text）
         sqlx::query(
             r#"
-        UPDATE "auth_session"
-        SET status = -1, updated_time = NOW()
+        UPDATE "cola_auth"."session"
+        SET status = -1, updated_at = NOW()
         WHERE user_id = $1 AND status = 1 AND id != COALESCE($2, 0)
         "#
         )
@@ -49,9 +41,9 @@ impl SessionRepo {
         // 注意：确保 VALUES 列表与 bind 顺序严格对应
         let id: i64 = sqlx::query_scalar(
             r#"
-        INSERT INTO "auth_session" (
+        INSERT INTO "cola_auth"."session" (
             user_id, access_token, refresh_token, client_id,
-            device_id, access_expired_at, refresh_expired_at, last_active_at,
+            device_id, access_expires_at, refresh_expires_at, last_active_at,
             status, platform
         ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
         RETURNING id
@@ -62,8 +54,8 @@ impl SessionRepo {
             .bind(&entity.refresh_token)
             .bind(&entity.client_id)
             .bind(&entity.device_id)
-            .bind(entity.access_expired_at)
-            .bind(entity.refresh_expired_at)
+            .bind(entity.access_expires_at)
+            .bind(entity.refresh_expires_at)
             .bind(entity.last_active_at)
             .bind(entity.status)
             .bind(&entity.platform)            // 一并写入 platform
@@ -83,8 +75,8 @@ impl SessionRepo {
 
         let result = sqlx::query(
             r#"
-            UPDATE "auth_session"
-            SET status = 0, updated_time = NOW()
+            UPDATE "cola_auth"."session"
+            SET status = 0, updated_at = NOW()
             WHERE id = $1 AND device_id = $2
             "#
         )
@@ -103,11 +95,11 @@ impl SessionRepo {
         refresh_token_hash: &str,
     ) -> Result<Option<AuthSessionEntity>, sqlx::Error> {
         let pool = pg_pool();
-        let now = chrono::Utc::now().timestamp() as i32; // 转换为跟 Entity 一致的 i32 时间戳
+        let now = chrono::Utc::now().timestamp(); // 转换为跟 Entity 一致的 i32 时间戳
 
         let sql = format!(
-            "SELECT {} FROM \"auth_session\" WHERE refresh_token = $1 AND status = 1 AND expired_time > $2 LIMIT 1",
-            SESSION_COLUMNS
+            "SELECT {} FROM \"cola_auth.session\" WHERE refresh_token = $1 AND status = 1 AND expired_at > $2 LIMIT 1",
+            AUTH_SESSION_COLUMNS
         );
 
         sqlx::query_as::<_, AuthSessionEntity>(&sql)
@@ -126,8 +118,8 @@ impl SessionRepo {
         let pool = pg_pool();
 
         let sql = format!(
-            "SELECT {} FROM \"auth_session\" WHERE user_id = $1 AND status = 1 ORDER BY last_active_at DESC",
-            SESSION_COLUMNS
+            r#"SELECT {} FROM "cola_auth"."session" WHERE user_id = $1 AND status = 1 ORDER BY last_active_at DESC"#,
+            AUTH_SESSION_COLUMNS
         );
 
         sqlx::query_as::<_, AuthSessionEntity>(&sql)
@@ -141,9 +133,9 @@ impl SessionRepo {
     /// # 5. [REPOSITORY] - 强制清理过期 Session (系统维护)
     pub async fn clean_expired_sessions() -> Result<u64, sqlx::Error> {
         let pool = pg_pool();
-        let now = chrono::Utc::now().timestamp() as i32;
+        let now = chrono::Utc::now().timestamp();
 
-        let result = sqlx::query(r#"DELETE FROM "auth_session" WHERE expired_time < $1"#)
+        let result = sqlx::query(r#"DELETE FROM \cola_auth.session\ WHERE expired_at < $1"#)
             .bind(now)
             .execute(&pool)
             .await?;
@@ -160,10 +152,10 @@ impl SessionRepo {
         let now = chrono::Utc::now().timestamp();
 
         let result = sqlx::query(
-            r#"UPDATE "auth_session"
+            r#"UPDATE "cola_auth"."session"
            SET status = 0,
-               access_expired_at = $1,
-               refresh_expired_at = $1,
+               access_expires_at = $1,
+               refresh_expires_at = $1,
                updated_time = $2
            WHERE user_id = $3 AND device_id = $4 AND status = 1"#
         )

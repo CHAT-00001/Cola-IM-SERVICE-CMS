@@ -45,7 +45,8 @@ pub fn live_router(cfg: &mut web::ServiceConfig) {
             // 默认
             .route("/", web::get().to(ping))
             // 网关
-            .route("/gateway", web::get().to(live_gateway)),
+            .route("/gateway", web::get().to(live_gateway))
+            .route("/gateway", web::post().to(live_gateway)),
     );
 }
 

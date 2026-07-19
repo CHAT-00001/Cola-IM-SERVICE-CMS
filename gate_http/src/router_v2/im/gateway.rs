@@ -43,7 +43,8 @@ pub fn video_router(cfg: &mut web::ServiceConfig) {
             // 默认
             .route("/", web::get().to(root))
             // 网关
-            .route("/gateway", web::get().to(im_gateway)),
+            .route("/gateway", web::get().to(im_gateway))
+            .route("/gateway", web::post().to(im_gateway)),
     );
 }
 

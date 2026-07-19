@@ -7,16 +7,13 @@ use crate::kits::response::IntoApi;
 use crate::ping::ping;
 use actix_web::{HttpMessage, HttpRequest, HttpResponse, Responder, web};
 use app_config::app_state::AppState;
-use cola_auth::api::add::AuthAddApi;
 use cola_auth::api::code::AuthCodeApi;
-use cola_auth::api::session::SessionApi;
-use cola_auth::case::add::AuthAddCase;
+use cola_auth::api::seesion::add::AuthAddApi;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::auth::command::email::EmailLoginCommand;
 use cola_data::auth::command::phone::PhoneLoginCommand;
 use cola_data::auth::info::auth::AuthContext;
-use cola_user::api::add::AddApi;
 use cola_user::api::home::HomeApi;
 use serde::Deserialize;
 use std::time::Instant;
@@ -44,7 +41,7 @@ pub struct GatewayQuery {
 }
 
 ////////
- 
+
 /// # [HELPER] - 从 body 中提取 cmd（新增，最小侵入）
 fn extract_cmd<T>(body: &web::Bytes) -> Option<T>
 where
@@ -68,11 +65,7 @@ fn extract_client_ip(req: &HttpRequest) -> String {
     {
         return ip.to_string();
     }
-    if let Some(ip) = req
-        .headers()
-        .get("X-Real-IP")
-        .and_then(|v| v.to_str().ok())
-    {
+    if let Some(ip) = req.headers().get("X-Real-IP").and_then(|v| v.to_str().ok()) {
         return ip.to_string();
     }
     if let Some(addr) = req.peer_addr() {
@@ -89,7 +82,8 @@ pub fn auth_router(cfg: &mut web::ServiceConfig) {
         web::scope("/auth")
             .route("", web::get().to(ping))
             .route("/", web::get().to(root))
-            .route("/gateway", web::get().to(auth_gateway)),
+            .route("/gateway", web::get().to(auth_gateway))
+            .route("/gateway", web::post().to(auth_gateway)),
     );
 }
 
@@ -133,7 +127,6 @@ async fn auth_gateway(
     };
 
     match gateway_req.service.as_str() {
-
         //////// 1xxx HOME
 
         // 1001 最新
@@ -214,9 +207,7 @@ async fn auth_gateway(
         "add_out" => {
             let cmd: PhoneLoginCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
 
-            AuthAddApi::handler_sign_out(cmd)
-                .await
-                .finish(&req, start)
+            AuthAddApi::handler_sign_out(cmd).await.finish(&req, start)
         }
 
         //////// 3xxx CODE

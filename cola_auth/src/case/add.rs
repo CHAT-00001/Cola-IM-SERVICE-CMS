@@ -52,8 +52,8 @@ impl AuthAddCase {
         let auth_info = SessionInfo {
             access_token: raw_access_token,
             refresh_token: raw_refresh_token,
-            access_expired_at: session_cmd.access_expired_at,
-            refresh_expired_at: session_cmd.refresh_expired_at,
+            access_expires_at: session_cmd.access_expires_at,
+            refresh_expires_at: session_cmd.refresh_expires_at,
         };
 
         // 6. 入库保存会话（使用真实 uid）
@@ -93,8 +93,8 @@ impl AuthAddCase {
         let auth_info = SessionInfo {
             access_token: raw_access_token,
             refresh_token: raw_refresh_token,
-            access_expired_at: session_cmd.access_expired_at,
-            refresh_expired_at: session_cmd.refresh_expired_at,
+            access_expires_at: session_cmd.access_expires_at,
+            refresh_expires_at: session_cmd.refresh_expires_at,
         };
 
         // 6. 入库保存会话（使用真实 uid）

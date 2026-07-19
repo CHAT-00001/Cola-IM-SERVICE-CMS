@@ -14,8 +14,8 @@ use crate::auth::command::session::SessionCommand;
 pub struct SessionInfo {
     pub access_token: String,              // 临时 Token (JWT)
     pub refresh_token: String,             // 刷新 Token
-    pub access_expired_at: DateTime<Utc>,  // 临时 Token 过期时间
-    pub refresh_expired_at: DateTime<Utc>, // 长期 Token 过期时间
+    pub access_expires_at: DateTime<Utc>,  // 临时 Token 过期时间
+    pub refresh_expires_at: DateTime<Utc>, // 长期 Token 过期时间
 }
 
 /// # [INFO] - 刷新ACCESS_TOKEN
@@ -31,8 +31,8 @@ impl From<SessionCommand> for SessionInfo {
         Self {
             access_token: cmd.access_token,
             refresh_token: cmd.refresh_token,
-            access_expired_at: cmd.access_expired_at,
-            refresh_expired_at: cmd.refresh_expired_at,
+            access_expires_at: cmd.access_expires_at,
+            refresh_expires_at: cmd.refresh_expires_at,
         }
     }
 }

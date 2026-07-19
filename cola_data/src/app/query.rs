@@ -14,14 +14,16 @@ use std::net::IpAddr;
 /// * `desc` :采用“全可选/默认值”设计，单网关模式下各路由“各取所需”
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct ApiGatewayRequest {
-    // 1. 基础
+    // 1. 💡 基础
+    pub action: Option<i16>,     // 服务端口名称
+    pub service: Option<String>, // 服务端口名称
     pub uid: Option<i64>,        // 操作者 ID（URL或网关鉴权注入）
     pub req_id: Option<String>,  // 全局请求唯一 ID
-    pub service: Option<String>, // 服务端口名称
 
-    // 2. 翻页
+    // 2. 📰 翻页
     pub page: Option<i64>, // 页码
     pub qty: Option<i64>,  // 每页数量
+    // 3. 📍 位置
     pub lat: Option<f64>,  // 纬度
     pub lng: Option<f64>,  // 经度
 
@@ -70,6 +72,7 @@ pub struct ApiGatewayRequest {
     pub limit: i64,
     #[serde(skip, default)]
     pub offset: i64,
+    #[serde(skip, default)]
     pub poi_id: i64,
 }
 
