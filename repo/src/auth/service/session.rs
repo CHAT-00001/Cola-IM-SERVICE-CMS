@@ -24,7 +24,7 @@ impl SessionService {
             device_id: cmd.device_id,
             platform: 0,                         // i16: 0=未知平台
             access_expires_at: cmd.access_expires_at.timestamp(),
-            refresh_expires_at: 0,
+            refresh_expires_at: cmd.refresh_expires_at.timestamp(),
             last_active_at: cmd.last_active_at.timestamp(),
 
             status: 1,

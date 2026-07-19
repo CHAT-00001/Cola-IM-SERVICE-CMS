@@ -1,9 +1,9 @@
 // cola_auth/src/case/session.rs -- 可乐验证中心 - 用例层 - 会话用例编排
-// 2026/06/05 08:00
+// 2026-07-19
 
 //////
 
-use crate::kits::token::kit_generate_access_token;
+use crate::kits::token::{kit_encrypt_refresh_token, kit_generate_access_token};
 use anyhow::{Result, anyhow};
 use cola_data::auth::entity::session::AuthSessionEntity;
 use cola_data::auth::info::session::AccessTokenInfo;
@@ -34,8 +34,11 @@ impl SessionCase {
     ////////
 
     /// [APP USE CASE] - 鉴权检查 (中间件使用)
-    pub async fn case_auth_check_session(token: &str) -> Result<AuthSessionEntity> {
-        let session_opt = SessionService::check_auth_session_info(token).await?;
+    /// 客户端传 raw refresh_token，AES 加密后匹配数据库密文
+    pub async fn case_auth_check_session(raw_token: &str) -> Result<AuthSessionEntity> {
+        let encrypted = kit_encrypt_refresh_token(raw_token)
+            .map_err(|_| anyhow!("Token encrypt failed"))?;
+        let session_opt = SessionService::check_auth_session_info(&encrypted).await?;
         session_opt.ok_or_else(|| anyhow!("Session invalid or expired"))
     }
 
@@ -46,8 +49,9 @@ impl SessionCase {
     pub async fn case_refresh(
         refresh_token: &str,
     ) -> Result<AccessTokenInfo, anyhow::Error> {
-        // 1. 鉴权：校验 Refresh Token 是否存在且合法
-        let session = SessionService::check_auth_session_info(refresh_token)
+        // 1. AES 加密后再查库，匹配密文
+        let encrypted = kit_encrypt_refresh_token(refresh_token)?;
+        let session = SessionService::check_auth_session_info(&encrypted)
             .await?
             .ok_or_else(|| anyhow!("刷新令牌无效或已过期"))?;
 
@@ -57,7 +61,6 @@ impl SessionCase {
         let new_expiry = chrono::DateTime::from_timestamp(exp_ts, 0)
             .unwrap_or_else(|| chrono::Utc::now() + chrono::Duration::hours(2));
 
-        // 3. 返回新 JWT + 过期时间
         Ok(AccessTokenInfo {
             access_token,
             access_expired_at: new_expiry,
@@ -65,4 +68,4 @@ impl SessionCase {
     }
 }
 
-//////// END
+////// END
