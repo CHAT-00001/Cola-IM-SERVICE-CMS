@@ -1,20 +1,14 @@
 ﻿// repo/src/gis/pg/gis.rs -- 浠撳偍 - GIS - PG - gis
 // 2026/7/6
 
+////////
+
 use crate::pg_pool;
 use cola_data::gis::command::poi::PoiCommand;
-use cola_data::gis::entity::poi::PoiEntity;
+use cola_data::gis::entity::poi::{PoiEntity, GIS_POI_COLUMNS};
 use sqlx::{self, Postgres, QueryBuilder};
 
-const GIS_COLUMNS: &str = r#"
-    id, uid, channel_id, title, title_at_uids, description, desc_at_uids,
-    thumb, thumb_s, thumbnail, cover_url, href, href_w, original_url, tags, lat, lng, duration,
-    width, height, fps, bit, views, likes, dislike, collects, comments,
-    danmakus, recommends, shares, done_play_qty, is_public, is_del, status,
-    music_id, goods_id, visibility_perm, comment_perm, danmaku_perm, collect_perm, download_perm,
-    addtime, sync_at, created_at, updated_at, del_time, deleted_at
-"#;
-
+////////
 #[derive(Debug, Clone, Copy)]
 pub enum SearchOrder {
     Distance,
@@ -37,8 +31,8 @@ impl PoiRepo {
     pub async fn find_new_list(limit: i64, offset: i64) -> Result<Vec<PoiEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM cola_gis.poi WHERE status = 1 ORDER BY addtime DESC LIMIT $1 OFFSET $2",
-            GIS_COLUMNS
+            "SELECT {} FROM cola_gis.poi WHERE status = 1 ORDER BY add_time DESC LIMIT $1 OFFSET $2",
+            GIS_POI_COLUMNS
         );
         sqlx::query_as::<_, PoiEntity>(&query)
             .bind(limit).bind(offset)
@@ -51,8 +45,8 @@ impl PoiRepo {
     pub async fn find_hot_list(limit: i64, offset: i64) -> Result<Vec<PoiEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM cola_gis.poi WHERE status = 1 ORDER BY likes DESC, views DESC, addtime DESC LIMIT $1 OFFSET $2",
-            GIS_COLUMNS
+            "SELECT {} FROM cola_gis.poi WHERE status = 1 ORDER BY likes DESC, views DESC, add_time DESC LIMIT $1 OFFSET $2",
+            GIS_POI_COLUMNS
         );
         sqlx::query_as::<_, PoiEntity>(&query)
             .bind(limit).bind(offset)
@@ -66,7 +60,7 @@ impl PoiRepo {
         let pool = pg_pool();
         let query = format!(
             "SELECT {} FROM cola_gis.poi WHERE status = 1 ORDER BY RANDOM() LIMIT $1 OFFSET $2",
-            GIS_COLUMNS
+            GIS_POI_COLUMNS
         );
         sqlx::query_as::<_, PoiEntity>(&query)
             .bind(limit).bind(offset)
@@ -82,7 +76,7 @@ impl PoiRepo {
             "SELECT {}, SQRT(POW(lat - $1, 2) + POW(lng - $2, 2)) AS distance
              FROM cola_gis.poi WHERE status = 1
              ORDER BY distance ASC LIMIT $3 OFFSET $4",
-            GIS_COLUMNS
+            GIS_POI_COLUMNS
         );
         sqlx::query_as::<_, PoiEntity>(&query)
             .bind(lat).bind(lng).bind(limit).bind(offset)
@@ -95,8 +89,8 @@ impl PoiRepo {
     pub async fn find_category_list(category_id: i16, limit: i64, offset: i64) -> Result<Vec<PoiEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM cola_gis.poi WHERE status = 1 AND category_id = $1 ORDER BY likes DESC, addtime DESC LIMIT $2 OFFSET $3",
-            GIS_COLUMNS
+            "SELECT {} FROM cola_gis.poi WHERE status = 1 AND category_id = $1 ORDER BY likes DESC, add_time DESC LIMIT $2 OFFSET $3",
+            GIS_POI_COLUMNS
         );
         sqlx::query_as::<_, PoiEntity>(&query)
             .bind(category_id).bind(limit).bind(offset)
@@ -109,8 +103,8 @@ impl PoiRepo {
     pub async fn find_featured_list(limit: i64, offset: i64) -> Result<Vec<PoiEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM cola_gis.poi WHERE status = 1 ORDER BY likes DESC, addtime DESC LIMIT $1 OFFSET $2",
-            GIS_COLUMNS
+            "SELECT {} FROM cola_gis.poi WHERE status = 1 ORDER BY likes DESC, add_time DESC LIMIT $1 OFFSET $2",
+            GIS_POI_COLUMNS
         );
         sqlx::query_as::<_, PoiEntity>(&query)
             .bind(limit).bind(offset)
@@ -128,18 +122,18 @@ impl PoiRepo {
         let pool = pg_pool();
         let mut sql = format!(
             "SELECT {}, SQRT(POW(lat - $1, 2) + POW(lng - $2, 2)) AS distance FROM cola_gis.poi WHERE status = 1",
-            GIS_COLUMNS
+            GIS_POI_COLUMNS
         );
         let mut param_index = 3;
         sql.push_str(&format!(" AND title LIKE ${}", param_index));
         param_index += 1;
-        if start_time.is_some() { sql.push_str(&format!(" AND addtime >= ${}", param_index)); param_index += 1; }
-        if end_time.is_some() { sql.push_str(&format!(" AND addtime <= ${}", param_index)); param_index += 1; }
+        if start_time.is_some() { sql.push_str(&format!(" AND add_time >= ${}", param_index)); param_index += 1; }
+        if end_time.is_some() { sql.push_str(&format!(" AND add_time <= ${}", param_index)); param_index += 1; }
         match order_by.unwrap_or(SearchOrder::Distance) {
             SearchOrder::Distance => sql.push_str(" ORDER BY distance ASC"),
             SearchOrder::MostViews => sql.push_str(" ORDER BY views DESC, distance ASC"),
             SearchOrder::MostLikes => sql.push_str(" ORDER BY likes DESC, distance ASC"),
-            SearchOrder::Latest => sql.push_str(" ORDER BY addtime DESC, distance ASC"),
+            SearchOrder::Latest => sql.push_str(" ORDER BY add_time DESC, distance ASC"),
         }
         sql.push_str(&format!(" LIMIT ${} OFFSET ${}", param_index, param_index + 1));
 
@@ -158,7 +152,7 @@ impl PoiRepo {
         let pool = pg_pool();
         let query = format!(
             "SELECT {} FROM cola_gis.poi WHERE id = $1 AND status = 1 LIMIT 1",
-            GIS_COLUMNS
+            GIS_POI_COLUMNS
         );
         sqlx::query_as::<_, PoiEntity>(&query)
             .bind(id).fetch_optional(&pool).await
@@ -172,7 +166,7 @@ impl PoiRepo {
         let pool = pg_pool();
         let query = format!(
             "SELECT {} FROM cola_gis.poi WHERE id = ANY($1) AND status = 1",
-            GIS_COLUMNS
+            GIS_POI_COLUMNS
         );
         sqlx::query_as::<_, PoiEntity>(&query)
             .bind(ids).fetch_all(&pool).await
@@ -186,7 +180,7 @@ impl PoiRepo {
         let query = format!(
             "INSERT INTO cola_gis.poi (user_id, title, description, href, visibility, status) \
              VALUES ($1, $2, $3, $4, $5, 1) RETURNING {}",
-            GIS_COLUMNS
+            GIS_POI_COLUMNS
         );
         sqlx::query_as::<_, PoiEntity>(&query)
             .bind(uid).bind(cmd.title).bind(cmd.description).bind(cmd.href).bind(visibility)
@@ -211,7 +205,7 @@ impl PoiRepo {
         let pool = pg_pool();
         let query = format!(
             "SELECT {} FROM cola_gis.poi WHERE uid = $1 AND status = 1 OFFSET $2 LIMIT $3",
-            GIS_COLUMNS
+            GIS_POI_COLUMNS
         );
         sqlx::query_as::<_, PoiEntity>(&query)
             .bind(user_id).bind(offset).bind(limit)
@@ -223,10 +217,10 @@ impl PoiRepo {
     /// # 13. [REPOSITORY] - 用户们 发布的兴趣点
     pub async fn find_list_by_uids(uids: Option<Vec<i64>>, keyword: Option<String>, limit: i64, offset: i64) -> Result<Vec<PoiEntity>, sqlx::Error> {
         let pool = pg_pool();
-        let mut sql = format!("SELECT {} FROM cola_gis.poi WHERE status = 1", GIS_COLUMNS);
+        let mut sql = format!("SELECT {} FROM cola_gis.poi WHERE status = 1", GIS_POI_COLUMNS);
         if let Some(ref ids) = uids { if !ids.is_empty() { sql.push_str(" AND uid = ANY($1)"); } }
         if let Some(ref kw) = keyword { if !kw.is_empty() { sql.push_str(" AND (title ILIKE $2 OR description ILIKE $2)"); } }
-        sql.push_str(" ORDER BY addtime DESC LIMIT $3 OFFSET $4");
+        sql.push_str(" ORDER BY add_time DESC LIMIT $3 OFFSET $4");
         let mut query = sqlx::query_as::<_, PoiEntity>(&sql);
         query = query.bind(uids.unwrap_or_default());
         query = query.bind(format!("%{}%", keyword.unwrap_or_default()));
@@ -235,4 +229,5 @@ impl PoiRepo {
     }
 }
 
+//////// END
 

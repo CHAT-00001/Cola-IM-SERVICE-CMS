@@ -17,18 +17,17 @@ pub struct PoiEntity {
     pub id: i64,                           // 兴趣点 ID
     pub uid: i64,                          // 发布者 ID
     pub channel_id: i16,                   // 频道 ID
-    pub poi_type: i16,                     // 地点类型
+    pub poi_type: Option<i16>,             // 地点类型
     pub title: String,                     // 标题
     pub name: String,                      // 名称
     pub name_en: Option<String>,           // 英文名称
-    pub name_at: Option<String>,           // 当地名称
     pub thumb: String,                     // 缩略图
     pub description: Option<String>,       // 描述
     pub thumbnail: Option<String>,         //
     pub cover_url: Option<String>,         //
     pub href: String,                      //
     pub href_w: Option<String>,            //
-    pub gov_url: Option<String>,           // 官府网站 URL
+    pub original_url: Option<String>,      // 官府网站 URL
     pub tags: Option<Vec<String>>,         // 标签
     pub lat: Option<f64>,                  // 纬度
     pub lng: Option<f64>,                  // 经度
@@ -57,7 +56,7 @@ pub struct PoiEntity {
     pub collect_perm: i16,                 // 收藏权限
     pub download_perm: i16,                // 下载权限
     pub add_time: i64,                     // 添加时间 - 机器 (时间戳)
-    pub upd_time: i64,                     // 更新时间 - 机器 (时间戳)
+    pub upd_time: Option<i64>,             // 更新时间 - 机器 (时间戳)
     pub del_time: Option<i64>,             // 删除时间 - 机器 (时间戳)
     pub sync_at: Option<i64>,              // 同步时间
     pub created_at: Option<DateTime<Utc>>, // 创建时间 - 人类
@@ -68,9 +67,9 @@ pub struct PoiEntity {
 ////////
 
 /// # [COLUMNS] - 兴趣点 数据表字段
-pub const GIS_COLUMNS: &str = r#"
-    id, uid, channel_id, title, name, name_en, description, desc_at_uids,
-    thumb, thumb_s, thumbnail, cover_url, href, href_w, original_url, tags, lat, lng, duration,
+pub const GIS_POI_COLUMNS: &str = r#"
+    id, uid, channel_id,poi_type, title, name, name_en, description, desc_at_uids,
+    thumb, thumbnail, cover_url, href, href_w, original_url, tags, lat, lng, duration,
     width, height, fps, bit, views, likes, dislike, collects, comments,
     danmakus, recommends, shares, done_play_qty, is_public, is_deleted, status,
     music_id, goods_id, visibility_perm, comment_perm, danmaku_perm, collect_perm, download_perm,

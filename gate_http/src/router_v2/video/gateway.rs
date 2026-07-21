@@ -77,7 +77,7 @@ async fn video_gateway(
         access_token: String::new(),
         refresh_token: String::new(),
         device_id: String::new(),
-        roles: vec![],
+        iam_roles: vec![],
         is_anonymous: false,
     };
 
