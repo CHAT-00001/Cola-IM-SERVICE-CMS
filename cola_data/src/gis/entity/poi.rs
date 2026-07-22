@@ -16,12 +16,12 @@ use sqlx::FromRow;
 pub struct PoiEntity {
     pub id: i64,                           // 兴趣点 ID
     pub uid: i64,                          // 发布者 ID
-    pub channel_id: i16,                   // 频道 ID
+    pub channel_id: Option<i16>,           // 频道 ID
     pub poi_type: Option<i16>,             // 地点类型
     pub title: String,                     // 标题
     pub name: String,                      // 名称
     pub name_en: Option<String>,           // 英文名称
-    pub thumb: String,                     // 缩略图
+    pub thumb: Option<String>,             // 缩略图
     pub description: Option<String>,       // 描述
     pub thumbnail: Option<String>,         //
     pub cover_url: Option<String>,         //
@@ -45,7 +45,6 @@ pub struct PoiEntity {
     pub recommends: i32,                   // 推荐数量
     pub shares: i32,                       // 分享数量
     pub is_public: Option<bool>,           // 是否公共
-    pub done_play_qty: Option<i32>,        // 完播数量
     pub is_deleted: i16,                   // 是否删除
     pub status: i16,                       // 状态码
     pub music_id: Option<i64>,             // 音乐 ID
@@ -71,7 +70,7 @@ pub const GIS_POI_COLUMNS: &str = r#"
     id, uid, channel_id,poi_type, title, name, name_en, description, desc_at_uids,
     thumb, thumbnail, cover_url, href, href_w, original_url, tags, lat, lng, duration,
     width, height, fps, bit, views, likes, dislike, collects, comments,
-    danmakus, recommends, shares, done_play_qty, is_public, is_deleted, status,
+    danmakus, recommends, shares, is_public, is_deleted, status,
     music_id, goods_id, visibility_perm, comment_perm, danmaku_perm, collect_perm, download_perm,
     add_time, upd_time, del_time, sync_at, created_at, updated_at, deleted_at
 "#;

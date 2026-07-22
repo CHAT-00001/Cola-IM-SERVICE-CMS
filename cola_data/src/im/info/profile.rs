@@ -1,4 +1,4 @@
-// cola_date/src/video/info/home  -- VIDEO - info - 视频信息
+// cola_date/src/im/info/profile.rs  -- IM - info - 联系人信息
 // 2026/5/21 by wx: cestbon10080
 
 ////////
@@ -9,8 +9,9 @@ use serde::{Deserialize, Serialize};
 
 ////////
 
+/// # [MATE INFO] - 联系人资料
 #[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct VideoInfo {
+pub struct ProfileInfo {
     pub id: i64, // 视频 ID
     // -- by id
     pub uid: i64,         // 用户
@@ -35,7 +36,7 @@ pub struct VideoInfo {
 }
 
 /// # [BUILD] - 构造视频信息
-impl VideoInfo {
+impl ProfileInfo {
     /// 1. 专门用于返回“视频不存在”的空对象
     pub fn empty() -> Self {
         Self {
@@ -62,7 +63,7 @@ impl VideoInfo {
         Self {
             id: entity.id,
             uid: entity.uid,
-            channel_id: entity.channel_id,
+            channel_id: entity.channel_id.unwrap_or_default(),
             title: entity.title,
             thumb: entity.thumb,
             href: entity.href,

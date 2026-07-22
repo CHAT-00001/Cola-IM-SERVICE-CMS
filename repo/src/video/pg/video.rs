@@ -5,20 +5,10 @@
 
 use crate::pg_pool;
 use cola_data::video::command::video::VideoCommand;
-use cola_data::video::entity::video::VideoEntity;
+use cola_data::video::entity::video::{VideoEntity, VIDEO_COLUMNS};
 use sqlx::{self, Postgres, QueryBuilder};
 
 ////////
-
-// 数据表原始字段
-const VIDEO_COLUMNS: &str = r#"
-    id, uid, channel_id, title, title_at_uids, description, desc_at_uids,
-    thumb, thumb_s, thumbnail, cover_url, href, href_w, original_url, tags, lat, lng, duration,
-    width, height, fps, bit, views, likes, dislike, collects, comments,
-    danmakus, recommends, shares, done_play_qty, is_public, is_del, status,
-    music_id, goods_id, visibility_perm, comment_perm, danmaku_perm, collect_perm, download_perm,
-    addtime, sync_at, created_at, updated_at, del_time, deleted_at
-"#;
 
 /// # 搜索排序规则枚举（新增：最新发布）
 #[derive(Debug, Clone, Copy)]
@@ -41,7 +31,7 @@ impl VideoRepo {
     pub async fn find_new_list(limit: i64, offset: i64) -> Result<Vec<VideoEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM video WHERE status = 1 ORDER BY addtime DESC LIMIT $1 OFFSET $2",
+            "SELECT {} FROM cola_video.video WHERE status = 1 ORDER BY addtime DESC LIMIT $1 OFFSET $2",
             VIDEO_COLUMNS
         );
 
@@ -73,7 +63,7 @@ impl VideoRepo {
         let pool = pg_pool();
 
         // 1. 构建基础 SQL 和参数列表
-        let mut sql = format!("SELECT {} FROM video WHERE status = 1", VIDEO_COLUMNS);
+        let mut sql = format!("SELECT {} FROM cola_video.video WHERE status = 1", VIDEO_COLUMNS);
 
         // 2. 动态拼接条件
         if let Some(ref ids) = uids {
@@ -109,7 +99,7 @@ impl VideoRepo {
     pub async fn find_hot_list(limit: i64, offset: i64) -> Result<Vec<VideoEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM video WHERE status = 1 ORDER BY likes DESC, views DESC, addtime DESC LIMIT $1 OFFSET $2",
+            "SELECT {} FROM cola_video.video WHERE status = 1 ORDER BY likes DESC, views DESC, addtime DESC LIMIT $1 OFFSET $2",
             VIDEO_COLUMNS
         );
 
@@ -130,7 +120,7 @@ impl VideoRepo {
     ) -> Result<Vec<VideoEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM video WHERE status = 1 ORDER BY RANDOM() LIMIT $1 OFFSET $2",
+            "SELECT {} FROM cola_video.video WHERE status = 1 ORDER BY RANDOM() LIMIT $1 OFFSET $2",
             VIDEO_COLUMNS
         );
 
@@ -154,7 +144,7 @@ impl VideoRepo {
         let pool = pg_pool();
         let query = format!(
             "SELECT {}, SQRT(POW(lat - $1, 2) + POW(lng - $2, 2)) AS distance
-             FROM video
+             FROM cola_video.video
              WHERE status = 1
              ORDER BY distance ASC
              LIMIT $3 OFFSET $4",
@@ -180,7 +170,7 @@ impl VideoRepo {
     ) -> Result<Vec<VideoEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM video WHERE status = 1 AND category_id = $1 ORDER BY likes DESC, addtime DESC LIMIT $2 OFFSET $3",
+            "SELECT {} FROM cola_video.video WHERE status = 1 AND category_id = $1 ORDER BY likes DESC, addtime DESC LIMIT $2 OFFSET $3",
             VIDEO_COLUMNS
         );
 
@@ -201,7 +191,7 @@ impl VideoRepo {
     ) -> Result<Vec<VideoEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM video WHERE status = 1 ORDER BY likes DESC, addtime DESC LIMIT $1 OFFSET $2",
+            "SELECT {} FROM cola_video.video WHERE status = 1 ORDER BY likes DESC, addtime DESC LIMIT $1 OFFSET $2",
             VIDEO_COLUMNS
         );
 
@@ -227,7 +217,7 @@ impl VideoRepo {
     ) -> Result<Vec<VideoEntity>, sqlx::Error> {
         let pool = pg_pool();
         let mut sql = format!(
-            "SELECT {}, SQRT(POW(lat - $1, 2) + POW(lng - $2, 2)) AS distance FROM video WHERE status = 1",
+            "SELECT {}, SQRT(POW(lat - $1, 2) + POW(lng - $2, 2)) AS distance FROM cola_video.video WHERE status = 1",
             VIDEO_COLUMNS
         );
 
@@ -281,7 +271,7 @@ impl VideoRepo {
     pub async fn find_by_id(id: i64) -> Result<Option<VideoEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM video WHERE id = $1 AND status = 1 LIMIT 1",
+            "SELECT {} FROM cola_video.video WHERE id = $1 AND status = 1 LIMIT 1",
             VIDEO_COLUMNS
         );
 
@@ -301,7 +291,7 @@ impl VideoRepo {
 
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM video WHERE id = ANY($1) AND status = 1",
+            "SELECT {} FROM cola_video.video WHERE id = ANY($1) AND status = 1",
             VIDEO_COLUMNS
         );
 
@@ -323,7 +313,7 @@ impl VideoRepo {
         let pool = pg_pool();
 
         let query = format!(
-            "INSERT INTO video (user_id, title, description, href, visibility, status) \
+            "INSERT INTO cola_video.video (user_id, title, description, href, visibility, status) \
              VALUES ($1, $2, $3, $4, $5, 1) \
              RETURNING {}",
             VIDEO_COLUMNS
@@ -352,7 +342,7 @@ impl VideoRepo {
         let pool = pg_pool();
 
         let query = r#"
-        UPDATE video
+        UPDATE cola_video.video
         SET danmaku_count = GREATEST(danmaku_count - $1, 0),
             updated_at = NOW()
         WHERE id = $2
@@ -380,7 +370,7 @@ impl VideoRepo {
 
         // 使用参数化查询，避免 SQL 注入
         let query = format!(
-            "SELECT {} FROM video WHERE uid = $1 AND status = 1 OFFSET $2 LIMIT $3",
+            "SELECT {} FROM cola_video.video WHERE uid = $1 AND status = 1 OFFSET $2 LIMIT $3",
             VIDEO_COLUMNS
         );
 

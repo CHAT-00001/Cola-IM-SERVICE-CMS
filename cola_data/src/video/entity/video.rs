@@ -18,7 +18,7 @@ use uuid::Uuid;
 pub struct VideoEntity {
     pub id: i64,                                   // 视频 ID
     pub uid: i64,                                  // 用户 ID
-    pub channel_id: i16,                           // 频道 ID
+    pub channel_id: Option<i16>,                   // 频道 ID
     pub title: String,                             // 标题
     pub title_at_uids: Option<Vec<i64>>,           // 标题@的IDs
     pub description: Option<String>,               // 描述
@@ -47,7 +47,7 @@ pub struct VideoEntity {
     pub recommends: i32,                           // 推荐数量
     pub shares: i32,                               // 分享数量
     pub is_public: Option<bool>,                   // 是否公开
-    pub done_play_qty: Option<i32>,                // 完成播放数量
+    pub done_views: Option<i32>,                   // 完成播放数量
     pub is_del: i16,                               // 是否删除
     pub status: i16,                               // 状态 0. 下架 1. 正常 2. 草稿 3. 冻结
     pub music_id: Option<i64>,                     // 音乐id
@@ -64,5 +64,16 @@ pub struct VideoEntity {
     pub del_time: Option<i64>,                     // Unix 时间戳（秒）
     pub deleted_at: Option<chrono::NaiveDateTime>, // 删除时间 人类可读
 }
+
+/// # [COLUMNS] - 数据表原始字段
+/// * `desc`: `给SQLx提供的表字段映射`
+pub const VIDEO_COLUMNS: &str = r#"
+    id, uid, channel_id, title, title_at_uids, description, desc_at_uids,
+    thumb, thumb_s, thumbnail, cover_url, href, href_w, original_url, tags, lat, lng, duration,
+    width, height, fps, bit, views, likes, dislike, collects, comments,
+    danmakus, recommends, shares, done_views, is_public, is_del, status,
+    music_id, goods_id, visibility_perm, comment_perm, danmaku_perm, collect_perm, download_perm,
+    addtime, sync_at, created_at, updated_at, del_time, deleted_at
+"#;
 
 //////// EDN

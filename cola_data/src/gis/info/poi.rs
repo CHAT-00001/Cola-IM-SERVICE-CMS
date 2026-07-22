@@ -15,7 +15,7 @@ pub struct PoiInfo {
     pub uid: i64,
     pub channel_id: i16,
     pub title: String,
-    pub thumb: String,
+    pub thumb: Option<String>,
     pub href: String,
     pub views: i32,
     pub likes: i32,
@@ -29,7 +29,6 @@ pub struct PoiInfo {
 }
 
 impl PoiInfo {
-
     ////////
 
     /// # [BUILD] - 空的
@@ -39,7 +38,7 @@ impl PoiInfo {
             title: "兴趣点不存在".to_string(),
             uid: 0,
             channel_id: 0,
-            thumb: String::new(),
+            thumb: Option::from(String::new()),
             href: String::new(),
             views: 0,
             likes: 0,
@@ -60,7 +59,7 @@ impl PoiInfo {
         Self {
             id: entity.id,
             uid: entity.uid,
-            channel_id: entity.channel_id,
+            channel_id: entity.channel_id.unwrap_or_default(),
             title: entity.title,
             thumb: entity.thumb,
             href: entity.href,

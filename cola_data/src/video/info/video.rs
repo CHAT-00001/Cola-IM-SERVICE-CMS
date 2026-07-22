@@ -62,7 +62,7 @@ impl VideoInfo {
         Self {
             id: entity.id,
             uid: entity.uid,
-            channel_id: entity.channel_id,
+            channel_id: entity.channel_id.unwrap_or(0),
             title: entity.title,
             thumb: entity.thumb,
             href: entity.href,

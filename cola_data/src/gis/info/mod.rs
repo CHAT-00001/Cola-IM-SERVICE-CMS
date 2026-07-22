@@ -4,3 +4,4 @@
 pub mod comment;
 pub mod danmaku;
 pub mod poi;
+pub mod way;

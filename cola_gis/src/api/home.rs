@@ -37,7 +37,7 @@ impl HomeApi {
             Ok(resp) => AppData::ok(resp),
 
             Err(e) => {
-                tracing::error!("New Videos Error: {:?}", e);
+                tracing::error!("[💡 API]: Get the New Config Error: {:?}", e);
 
                 AppData::err(5001, "获取用户配置失败", None)
             }
@@ -60,7 +60,7 @@ impl HomeApi {
             Ok(resp) => AppData::ok(resp),
 
             Err(e) => {
-                tracing::error!("New Videos Error: {:?}", e);
+                tracing::error!("[💡 API]: Get the New Poi List Error: {:?}", e);
 
                 AppData::err(5001, "获取最新兴趣点失败", None)
             }
@@ -82,7 +82,7 @@ impl HomeApi {
             Ok(resp) => AppData::ok(resp),
 
             Err(e) => {
-                tracing::error!("Recommend Error: {:?}", e);
+                tracing::error!("[💡 API]: Get the Hot Poi List Error: {:?}", e);
 
                 AppData::err(5001, "获取热门兴趣点失败", None)
             }
@@ -102,7 +102,7 @@ impl HomeApi {
         match HomeCase::case_get_recommend_list(uid, url, ctx).await {
             Ok(resp) => AppData::ok(resp),
             Err(e) => {
-                tracing::error!("Recommend Error: {:?}", e);
+                tracing::error!("[💡 API]: Get the Recommend Poi List Error: {:?}", e);
                 AppData::err(5001, "获取推荐兴趣点失败", None)
             }
         }
@@ -121,7 +121,7 @@ impl HomeApi {
         match HomeCase::case_get_city_list(uid, url, ctx).await {
             Ok(resp) => AppData::ok(resp),
             Err(e) => {
-                tracing::error!("Nearby Error: {:?}", e);
+                tracing::error!("[💡 API]: Get the Nearby Poi List Error: {:?}", e);
                 AppData::err(5001, "获取同城兴趣点失败", None)
             }
         }
@@ -146,7 +146,7 @@ impl HomeApi {
         match HomeCase::case_get_category_list(uid, url, ctx).await {
             Ok(resp) => AppData::ok(resp),
             Err(e) => {
-                tracing::error!("Category List Error: {:?}", e);
+                tracing::error!("[💡 API]: Get the Category Poi List Error: {:?}", e);
                 AppData::err(5006, format!("获取分类兴趣点失败: {}", e), None)
             }
         }
@@ -165,7 +165,7 @@ impl HomeApi {
         match HomeCase::case_get_featured_list(uid, url, ctx).await {
             Ok(resp) => AppData::ok(resp),
             Err(e) => {
-                tracing::error!("Featured Error: {:?}", e);
+                tracing::error!("[💡 API]: Get the Featured Poi List Error: {:?}", e);
                 AppData::err(5001, "获取精选兴趣点失败", None)
             }
         }
@@ -183,7 +183,10 @@ impl HomeApi {
         let uid = auth.uid;
         match HomeCase::case_get_keyword_list(uid, url, ctx).await {
             Ok(resp) => AppData::ok(resp),
-            Err(e) => AppData::err(5006, format!("获取用户兴趣点失败: {}", e), None),
+            Err(e) => {
+                tracing::error!("[💡 API]: Get the Keyword Poi List Error: {:?}", e);
+                AppData::err(5006, format!("搜索兴趣点失败: {}", e), None)
+            },
         }
     }
 }
