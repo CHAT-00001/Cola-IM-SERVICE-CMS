@@ -1,4 +1,4 @@
-// cola_data/src/three/entity/sign.rs  -- -- THREE - 第三方登录配置实体
+// cola_data/src/three/entity/sign.rs  -- THREE - 第三方登录配置实体
 // 2026/6/30 03:10
 
 ////////
@@ -10,7 +10,8 @@ use sqlx::FromRow;
 ////////
 
 /// # [ENTITY] - 第三方登录服务配置
-/// * `table name`: `three_sign`
+/// * `pg schema`: `cola_three`
+/// * `table name`: `signin`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct ThreeSignEntity {
     pub id: i64,
@@ -28,8 +29,12 @@ pub struct ThreeSignEntity {
     pub updated_at: Option<DateTime<Utc>>,      // 更新时间 - 人类
 }
 
-/// # 查询字段常量
+////////
+
+/// # [COLUMNS] - 查询字段常量
 pub const THREE_SIGN_COLUMNS: &str = r#"
     id, type_id, vendor_id, name, client_id, client_secret,
     redirect_uri, scope, config_json, remark, status, created_at, updated_at
 "#;
+
+//////// END

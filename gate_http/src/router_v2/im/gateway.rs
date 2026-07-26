@@ -603,7 +603,7 @@ async fn im_gateway(
 
         _ => AppData::<()>::err(
             400,
-            format!("Unknown Api Gateway service: {}", gateway_req.service),
+            format!("[🌐 GATEWAY]: ⚠️ Unknown Api [💬 IM] service: {}", gateway_req.service),
             None,
         )
             .finish(&req, start),

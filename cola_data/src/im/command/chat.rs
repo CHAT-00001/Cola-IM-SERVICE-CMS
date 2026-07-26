@@ -1,11 +1,11 @@
-// cola_data/src/im/command/chat.rs  -- IM - Command - 聊天
+// cola_data/src/im/command/chat.rs  -- 数据中心 - IM - Command - 聊天
 // 2026-07-07
 
-//////
+////////
 
 use serde::{Deserialize, Serialize};
 
-//////
+////////
 
 /// # [COMMAND] - 聊天 命令
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
@@ -18,4 +18,4 @@ pub struct ChatCommand {
     pub status: i16,              // 状态码
 }
 
-////// END
+//////// END

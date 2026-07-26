@@ -5,9 +5,15 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+#### 内部依赖
+
+#### 外部依赖库
 serde = { version = "1.0.228", features = ["derive"] }
 uuid = { version = "1.20.0", features = ["v4"] }
 chrono = "0.4.43"
 sqlx = { version = "0.8.6", features = ["runtime-tokio", "postgres", "chrono"] }
 anyhow = "1.0.101"
 redis = { version = "1.2.0", features = ["aio", "tokio-comp"] }
+aws-config = { version = "1.10.1", features = ["behavior-version-latest"] }
+aws-sdk-s3 = "1.140.0" # 官方 S3 SDK
+tokio = { version = "1", features = ["full"] }

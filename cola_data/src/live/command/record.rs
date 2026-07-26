@@ -1,4 +1,4 @@
-// live/command/record.rs  -- LIVE - command - 记录
+// cola_data/src/live/command/record.rs  -- 数据中心 - LIVE - command - 直播记录
 // 2026/6/13 06:31
 
 ////////
@@ -30,6 +30,7 @@ pub struct LiveRecordCommand {
     pub voice_type: Option<String>,  // 聊天室类型 0语音 1 视频
 }
 
+// 构造实现
 
 /// # [BUILD] - 绑定实体并自动生成默认值
 impl LiveRecordCommand {
@@ -100,3 +101,5 @@ impl LiveRecordCommand {
         }
     }
 }
+
+//////// END

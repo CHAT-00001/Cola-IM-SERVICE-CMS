@@ -1,11 +1,13 @@
 // cola_data/src/three/entity/three_vendor.rs  -- THREE - 厂商实体
 // 2026/6/18
 
+////////
+
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
 
-//////
+////////
 
 /// # [ENTITY] - 第三方厂商
 /// * `table name`: `three_vendor`
@@ -26,7 +28,11 @@ pub struct ThreeVendorEntity {
     pub updated_at: Option<DateTime<Utc>>, // 更新时间
 }
 
-/// # 查询字段常量
+////////
+
+/// # [COLUMNS] - 查询字段常量
 pub const THREE_VENDOR_COLUMNS: &str = r#"
     id, code, name, name_zh, remark, sort, status, owner, add_time, upd_time, created_at, updated_at
 "#;
+
+//////// END

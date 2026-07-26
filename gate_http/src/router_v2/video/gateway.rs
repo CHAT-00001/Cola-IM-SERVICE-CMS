@@ -353,8 +353,8 @@ async fn video_gateway(
         }
 
         _ => AppData::<()>::err(
-            400,
-            format!("Unknown Api Gateway service: {}", gateway_req.service),
+            2004,
+            format!("[🌐 GATEWAY]: ⚠️ Unknown The [🎬 VIDEO] service: {}", gateway_req.service),
             None,
         )
         .finish(&req, start),

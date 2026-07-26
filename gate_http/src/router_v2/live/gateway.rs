@@ -247,8 +247,8 @@ async fn live_gateway(
         }
 
         _ => AppData::<()>::err(
-            400,
-            format!("Unknown PhalApi service: {}", gateway_req.service),
+            2004,
+            format!("[🌐 GATEWAY]: ⚠️ Unknown The [📺 LIVE] service: {}", gateway_req.service),
             None,
         )
             .finish(&req, start),

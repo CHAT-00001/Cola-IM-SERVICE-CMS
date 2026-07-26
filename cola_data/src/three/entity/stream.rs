@@ -28,7 +28,9 @@ pub struct ThreeStreamEntity {
     pub updated_at: Option<DateTime<Utc>>,      // 修改时间
 }
 
-/// # 查询字段常量
+////////
+
+/// # [COLUMNS] - 查询字段常量
 pub const STREAM_CONFIG_COLUMNS: &str = r#"
     id, type_id, vendor_id, name, push_domain, access_key, secret_key,
     expire_seconds, config_json, remark, status, created_at, updated_at

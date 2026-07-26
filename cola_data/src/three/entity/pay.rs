@@ -27,7 +27,9 @@ pub struct ThreePayConfigEntity {
     pub updated_at: Option<DateTime<Utc>>,      // 更新时间
 }
 
-/// # 查询字段常量
+////////
+
+/// # [COLUMNS] - 查询字段常量
 pub const THREE_PAY_CONFIG_COLUMNS: &str = r#"
     id, type_id, vendor_id, name, mch_id, api_key, notify_url,
     config_json, remark, status, created_at, updated_at

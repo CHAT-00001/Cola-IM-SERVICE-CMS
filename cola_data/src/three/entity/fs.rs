@@ -29,7 +29,9 @@ pub struct FileStorageEntity {
     pub updated_at: Option<DateTime<Utc>>,
 }
 
-/// # 查询字段常量
+////////
+
+/// # [COLUMNS] - 查询字段常量
 pub const THREE_FS_COLUMNS: &str = r#"
     id, type_id, vendor_id, name, bucket, access_key, secret_key,
     endpoint, region, config_json, remark, status, created_at, updated_at
