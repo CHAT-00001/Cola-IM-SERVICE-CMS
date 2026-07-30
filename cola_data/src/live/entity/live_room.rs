@@ -1,4 +1,4 @@
-// cola_live/src/live/entity/live.rs  -- 数据中心 - LIVE - entity - 直播间
+// cola_data/src/live/entity/live_room.rs  -- 数据 - LIVE - entity - 直播间实体
 // 2026/7/8 10:23
 
 ////////
@@ -81,3 +81,18 @@ pub struct LiveEntity {
     #[sqlx(default)]
     pub distance: Option<f64>, // 距离 (SQL 实时计算得出，单位：km)
 }
+
+
+////////
+
+/// # [COLUMNS] - LIVE 表
+/// * `desc`: `构建live表基础字段（匹配最终版 Entity）`
+pub const LIVE_COLUMNS: &str = r#"
+    uid, room_id, show_id, title, thumb, pull, stream, channel_id,
+    is_video, is_mic, is_hot, is_recommend, is_live, is_shop, is_off, status,
+    good_num, anyway, hot_votes, gift_total_coin, gift_user_total, banker_coin,
+    pk_uid, pk_stream, video_url, province, city, address, lng, lat,
+    live_type, type_val, device_info, game_action, voice_type,
+    sw_player_status, sw_player_id, sw_pull_url,
+    start_time, off_time, recommend_time
+"#;

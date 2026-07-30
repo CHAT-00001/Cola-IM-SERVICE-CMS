@@ -8,7 +8,7 @@ use tracing::{info, warn};
 use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::video::command::share::ShareCommand;
-use repo::video::service::like::LikeService;
+use repository::video::service::like::LikeService;
 
 ////////
 

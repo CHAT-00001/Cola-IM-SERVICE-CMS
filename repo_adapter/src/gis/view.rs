@@ -1,14 +1,14 @@
 // repo_adapter/src/gis/view.rs
 // 2026-07-07
 
-//////
+////////
 
 use async_trait::async_trait;
 use cola_data::gis::info::poi::PoiInfo;
 use cola_data::gis::port::view::ViewPort;
-use repo::gis::service::view::PoiViewService;
+use repository::gis::service::view::PoiViewService;
 
-//////
+////////
 
 /// # [VIEW PORT] - 浏览 端口 插头
 pub struct ViewPortAdapter;
@@ -56,4 +56,4 @@ impl ViewPort for ViewPortAdapter {
     }
 }
 
-////// END
+//////// END

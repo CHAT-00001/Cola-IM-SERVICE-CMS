@@ -1,4 +1,4 @@
-// case/buy.rs  -- 用例层 - 购买
+// cola_live/src/case/buy.rs  -- LIVE - 用例层 - 购买
 // 2026/6/10 08:41
 
 ////////
@@ -7,7 +7,7 @@ use anyhow::{Result, anyhow};
 use tracing::{info, warn};
 use cola_data::app::ctx::AppContext;
 use cola_data::video::command::buy::VideoBuyCommand;
-use repo::video::service::like::LikeService;
+use repository::video::service::like::LikeService;
 
 ////////
 

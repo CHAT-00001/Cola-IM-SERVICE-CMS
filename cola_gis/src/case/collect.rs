@@ -1,14 +1,14 @@
-// cola_gis/src/case/collect.rs  -- 可乐GIS - 用例层 - 收藏
-// 2026-07-07
+// cola_gis/src/case/collect.rs  -- GIS - 用例层 - 收藏
+// 2026-07-07 10:10
 
-//////
+////////
 
 use anyhow::Result;
 use tracing::{info, warn};
 use cola_data::gis::command::collect::PoiCollectCommand;
-use repo::gis::service::poi_collect::PoiCollectService;
+use repository::gis::service::poi_collect::PoiCollectService;
 
-//////
+////////
 
 /// # [USE CASE] - 收藏 用例
 pub struct CollectCase;
@@ -50,3 +50,5 @@ impl CollectCase {
 
     ////////
 }
+
+//////// END

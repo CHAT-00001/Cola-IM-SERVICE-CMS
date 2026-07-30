@@ -1,7 +1,8 @@
 pub mod api;
-pub mod ctx;
-pub mod data;
-pub mod error;
-pub mod page;
+pub mod ctx;  // 上下文
+pub mod data;  // 数据壳
+pub mod error;  // 错误信息
+pub mod page;  // 分页信息
+pub mod query; // 网关查询
 pub mod request;
-pub mod query;
+pub mod response; // 统一的响应体

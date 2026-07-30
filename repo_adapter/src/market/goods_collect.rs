@@ -1,15 +1,15 @@
-// repo_adapter/src/market/goods_collect.rs  -- 适配器 - 商品收藏
-// 2026/6/18
+// repo_adapter/src/market/goods_collect.rs  -- 适配器 - MARKET - 商品 - 收藏
+// 2026/6/18 14:10
 
-//////
+////////
 
 use async_trait::async_trait;
 use chrono::Utc;
 use cola_data::market::info::address::AddressInfo;
 use cola_data::market::port::goods_collect::GoodsCollectPort;
-use repo::pg_pool;
+use repository::pg_pool;
 
-//////
+////////
 
 /// # [ADAPTER] - 商品收藏 端口适配器
 pub struct GoodsCollectAdapter;

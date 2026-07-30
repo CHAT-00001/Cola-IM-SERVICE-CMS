@@ -1,18 +1,17 @@
 // cola_auth/src/case/port.rs  -- 可乐验证中心 - 用例层 - 会话用例编排
 // 2026/6/9 08:16
 
-//////
+////////
 
 use crate::kits::token::kit_build_session_cmd;
 use crate::model::vo::session::{SignResponse, SignVo};
 use anyhow::{Result, anyhow};
 use cola_data::auth::command::phone::PhoneLoginCommand;
-use cola_data::user::info::user::UserInfo;
-use repo::auth::service::session::SessionService;
-use repo::auth::service::sms::SmsService;
-use repo::user::service::state::UserStateService;
+use repository::auth::service::session::SessionService;
+use repository::auth::service::sms::SmsService;
+use repository::user::service::state::UserStateService;
 
-//////
+////////
 
 /// # [CASE] - 登录用例
 /// * 登录编排 Orchestration

@@ -1501,7 +1501,7 @@ dependencies = [
  "ipnetwork",
  "jsonwebtoken",
  "rand 0.8.5",
- "repo",
+ "repository",
  "serde",
  "sqlx",
  "tracing",
@@ -1532,7 +1532,7 @@ version = "0.1.0"
 dependencies = [
  "async-trait",
  "cola_data",
- "repo",
+ "repository",
  "sqlx",
 ]
 
@@ -1560,7 +1560,7 @@ dependencies = [
  "once_cell",
  "rand 0.8.5",
  "redis",
- "repo",
+ "repository",
  "serde",
  "serde_json",
  "sqlx",
@@ -1582,8 +1582,25 @@ dependencies = [
  "cola_data",
  "cola_music",
  "cola_user",
- "repo",
+ "repository",
  "tracing",
+]
+
+[[package]]
+name = "cola_infra"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "aws-config",
+ "aws-sdk-s3",
+ "chrono",
+ "log 0.4.29",
+ "redis",
+ "serde",
+ "sqlx",
+ "tokio",
+ "tracing",
+ "uuid",
 ]
 
 [[package]]
@@ -1606,7 +1623,7 @@ dependencies = [
  "once_cell",
  "rand 0.8.5",
  "redis",
- "repo",
+ "repository",
  "serde",
  "serde_json",
  "sqlx",
@@ -1629,7 +1646,7 @@ dependencies = [
  "chrono",
  "cola_data",
  "cola_user",
- "repo",
+ "repository",
  "serde",
  "sqlx",
  "tracing",
@@ -1644,6 +1661,7 @@ dependencies = [
  "async-trait",
  "chrono",
  "cola_data",
+ "repository",
  "serde",
  "serde_json",
  "tracing",
@@ -1668,7 +1686,7 @@ dependencies = [
  "once_cell",
  "rand 0.8.5",
  "redis",
- "repo",
+ "repository",
  "serde",
  "serde_json",
  "sqlx",
@@ -1703,7 +1721,7 @@ dependencies = [
  "once_cell",
  "rand 0.8.5",
  "redis",
- "repo",
+ "repository",
  "serde",
  "serde_json",
  "sqlx",
@@ -4933,7 +4951,21 @@ dependencies = [
 ]
 
 [[package]]
-name = "repo"
+name = "repo_adapter"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "chrono",
+ "cola_data",
+ "repository",
+ "rust_decimal",
+ "sqlx",
+ "tracing",
+]
+
+[[package]]
+name = "repository"
 version = "0.1.0"
 dependencies = [
  "anyhow",
@@ -4962,20 +4994,6 @@ dependencies = [
  "uuid",
  "val",
  "validator 0.20.0",
-]
-
-[[package]]
-name = "repo_adapter"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "async-trait",
- "chrono",
- "cola_data",
- "repo",
- "rust_decimal",
- "sqlx",
- "tracing",
 ]
 
 [[package]]
@@ -5540,6 +5558,7 @@ dependencies = [
  "cola_auth",
  "cola_data",
  "cola_dynamic",
+ "cola_infra",
  "cola_live",
  "cola_music",
  "cola_user",
@@ -5549,7 +5568,6 @@ dependencies = [
  "gate_http",
  "health",
  "im",
- "network",
  "repo_adapter",
  "tokio",
  "tracing",

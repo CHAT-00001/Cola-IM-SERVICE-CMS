@@ -7,12 +7,12 @@ use crate::assembler::video::build_video_single_response;
 use crate::model::vo::video::VideoSingleResponse;
 use anyhow::{Context, Result};
 use cola_data::app::ctx::AppContext;
-use cola_data::risk::rick_check;
+use cola_data::fs::rick_check;
 use cola_data::user::command::new::UserCommand;
 use cola_data::user::command::update_user::UpdateUserCommand;
 use cola_data::user::info::user::UserInfo;
 use cola_data::video::command::video::VideoCommand;
-use repo::video::service::add::AddService;
+use repository::video::service::add::AddService;
 use tracing::info;
 
 ////////

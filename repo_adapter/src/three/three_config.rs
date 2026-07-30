@@ -1,11 +1,15 @@
-// repo_adapter/src/three/three_config.rs  -- 适配器 - 配置（three_config 表）
-// 2026/6/30
+// repo_adapter/src/three/config  -- 适配器 - THREE - 配置
+// 2026/6/30 18:41
+
+////////
 
 use async_trait::async_trait;
-use cola_data::three::command::three_config::UpsertConfigCommand;
-use cola_data::three::info::three_config::ConfigInfo;
-use cola_data::three::port::three_config::ConfigPort;
-use repo::three::pg::config_repo::ConfigRepo;
+use cola_data::three::command::config::UpsertConfigCommand;
+use cola_data::three::info::config::ConfigInfo;
+use cola_data::three::port::config::ConfigPort;
+use repository::three::pg::config_repo::ConfigRepo;
+
+////////
 
 /// # [ADAPTER] - 配置 端口适配器
 pub struct ConfigAdapter;
@@ -45,3 +49,5 @@ impl ConfigPort for ConfigAdapter {
         Ok(entity.map(ConfigInfo::from))
     }
 }
+
+//////// END

@@ -6,7 +6,7 @@
 use async_trait::async_trait;
 use cola_data::video::port::share::ShareRepo;
 use cola_data::video::command::share::ShareCommand;
-use repo::video::service::danmaku::DanmakuService;
+use repository::video::service::danmaku::DanmakuService;
 
 ////////
 

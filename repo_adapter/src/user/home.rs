@@ -6,7 +6,7 @@
 use async_trait::async_trait;
 use cola_data::user::info::user::UserInfo;
 use cola_data::user::port::home::HomePort;
-use repo::user::pg::user::UserRepo;
+use repository::user::pg::user::UserRepo;
 
 //////
 

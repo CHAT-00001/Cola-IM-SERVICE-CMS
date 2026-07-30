@@ -5,7 +5,7 @@
 
 use anyhow::Result;
 use cola_data::video::command::video::VideoCommand;
-use repo::video::service::permission_change::PermissionsChangeService;
+use repository::video::service::permission_change::PermissionsChangeService;
 use tracing::{info, warn};
 
 ////////

@@ -76,7 +76,7 @@ architecture:
             物理数据来源。实现业务模块定义的 trait，由 sqlx/redis 驱动。
             分为 auth / user / video / live / dynamic 等存储域。
         crates:
-            - repo
+            - repository
         contains:
             - pg (PostgreSQL 实现)
             - redis (Redis 缓存实现)

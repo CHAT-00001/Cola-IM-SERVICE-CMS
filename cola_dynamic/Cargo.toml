@@ -10,7 +10,7 @@ edition = "2024"
 #### 内部依赖
 #app_core = { path = "../cola_video" }
 cola_data = { path = "../cola_data" }
-repo = { path = "../repo" }
+repository = { path = "../repository" }
 
 #### 外部依赖
 async-trait = "0.1.89"

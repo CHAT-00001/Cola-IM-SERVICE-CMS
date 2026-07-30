@@ -10,7 +10,7 @@ edition = "2024"
 ## 内部依赖
 cola_data = { path = "../cola_data" }
 cola_user = { path = "../cola_user" }
-repo = { path = "../repo" }
+repository = { path = "../repository" }
 
 ## 外部依赖
 sqlx = { version = "0.8.6", features = ["runtime-tokio", "postgres", "chrono", "uuid"] }

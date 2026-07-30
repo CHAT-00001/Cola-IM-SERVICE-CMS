@@ -1,4 +1,0 @@
-// repo/src/market/mod.rs
-// 2026/6/18
-
-pub mod pg;

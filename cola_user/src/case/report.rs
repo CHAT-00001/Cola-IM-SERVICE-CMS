@@ -1,4 +1,4 @@
-// case/report.rs  -- 用例层 举报
+// cola_user/src/case/report.rs  -- USER - 用例层 - 举报
 // 2026/6/10 19:20
 
 ////////
@@ -9,11 +9,11 @@ use anyhow::{Context, Result};
 use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::app::request::ApiUrlParamsQuery;
-use cola_data::risk::rick_check;
 use cola_data::video::command::report::VideoReportCommand;
 use futures_util::TryFutureExt;
-use repo::video::service::home::VideoHomeService;
+use repository::video::service::home::VideoHomeService;
 use tracing::info;
+
 ////////
 
 /// # [REPORT CASE] - 举报 用例

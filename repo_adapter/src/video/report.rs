@@ -6,7 +6,7 @@
 use async_trait::async_trait;
 use cola_data::video::port::report::ReportRepo;
 use cola_data::video::command::report::VideoReportCommand;
-use repo::video::service::report::ReportService;
+use repository::video::service::report::ReportService;
 
 ////////
 
@@ -39,7 +39,7 @@ impl ReportRepo for ReportPortAdapter {
         _offset: i64,
         _limit: i64,
     ) -> anyhow::Result<(i64, Vec<i64>)> {
-        // TODO: implement with real repo
+        // TODO: implement with real repository
         Ok((0, vec![]))
     }
 }

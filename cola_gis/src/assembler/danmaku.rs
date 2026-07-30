@@ -1,13 +1,15 @@
 // cola_gis/src/assembler/danmaku.rs  -- GIS - 组装 - 组装弹幕响应体
 // 2026-07-07
 
+////////
+
 use anyhow::Result;
 use cola_data::app::page::PageInfo;
 use cola_data::gis::info::danmaku::PoiDanmakuInfo;
 use crate::model::vo::poi_danmaku::{DanmakuListResponse, DanmakuSingleResponse, DanmakuVo};
-use repo::user::service::user::UserService;
+use repository::user::service::user::UserService;
 
-//////
+////////
 
 /// # [BUILD] - 组装单弹幕响应
 pub async fn build_danmaku_single_response(
@@ -32,7 +34,7 @@ pub async fn build_danmaku_single_response(
     Ok(DanmakuSingleResponse { info: danmaku_vo })
 }
 
-//////
+////////
 
 /// # [BUILD] - 组装多弹幕列表响应
 pub async fn build_danmaku_list_response(
@@ -69,3 +71,5 @@ pub async fn build_danmaku_list_response(
         },
     })
 }
+
+//////// END

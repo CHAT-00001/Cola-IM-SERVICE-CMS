@@ -1,13 +1,13 @@
-// cola_gis/src/case/poi_add.rs  -- 可乐GIS - 用例层 - 兴趣点发布
+// cola_gis/src/case/poi_add.rs  -- GIS - case - 兴趣点发布
 // 2026-06-11 04:12
 
 ////////
 
 use anyhow::{Context, Result};
 use tracing::info;
+use cola_data::fs::rick_check;
 use cola_data::gis::command::poi::PoiCommand;
-use cola_data::risk::rick_check;
-use repo::gis::service::poi_add::PoiAddService;
+use repository::gis::service::poi_add::PoiAddService;
 use crate::assembler::poi::build_poi_single_response;
 use crate::model::vo::poi::PoiSingleResponse;
 

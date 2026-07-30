@@ -7,13 +7,18 @@ use async_trait::async_trait;
 use cola_data::video::port::danmaku::DanmakuRepo;
 use cola_data::video::command::danmaku::DanmakuCommand;
 use cola_data::video::info::danmaku::DanmakuInfo;
-use repo::video::service::danmaku::DanmakuService;
+use repository::video::service::danmaku::DanmakuService;
 
 ////////
+
+/// # [ADAPTER] - 视频 弹幕 适配器
 pub struct DanmakuPortAdapter;
 
 #[async_trait]
 impl DanmakuRepo for DanmakuPortAdapter {
+    //
+
+    ////////
 
     /// # 1. [PORT] - 保存弹幕 + 更新弹幕数量
     async fn save_danmaku_record(
@@ -26,6 +31,8 @@ impl DanmakuRepo for DanmakuPortAdapter {
         Ok(())
     }
 
+    ////////
+
     /// # 2. [PORT] - 编辑弹幕(预设)
     async fn edit_danmaku_record(
         &self,
@@ -36,6 +43,8 @@ impl DanmakuRepo for DanmakuPortAdapter {
         DanmakuService::delete_danmaku_and_update_count(uid, danmaku_id).await
     }
 
+    ////////
+
     /// # 3. [PORT] - 删除弹幕 + 更新弹幕数量
     async fn del_danmaku_record(
         &self,
@@ -44,6 +53,8 @@ impl DanmakuRepo for DanmakuPortAdapter {
     ) -> anyhow::Result<()> {
         DanmakuService::delete_danmaku_and_update_count(uid, danmaku_id).await
     }
+
+    ////////
 
     /// # 4. [PORT] - 批量删除弹幕
     async fn del_danmakus_record(
@@ -57,6 +68,8 @@ impl DanmakuRepo for DanmakuPortAdapter {
         Ok(())
     }
 
+    ////////
+
     /// # 5. [PORT] - 根据视频ID获取弹幕
     async fn get_danmaku_by_video_id(
         &self,
@@ -69,6 +82,8 @@ impl DanmakuRepo for DanmakuPortAdapter {
         let total = infos.len() as i64;
         Ok((infos, total))
     }
+
+    ////////
 
     /// # 6. [PORT] - 根据用户ID获取弹幕
     async fn get_danmaku_by_user_id(

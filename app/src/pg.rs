@@ -1,12 +1,16 @@
-// api/src/pg.rs
+// app/src/pg.rs -- 应用配置 - pg数据库连接
 // 2026-01-24 10:30
 
+////////
 
 use sqlx::{PgPool, postgres::PgPoolOptions};
 use tracing::{info, error};
 use crate::config::Pg;
 
-/// 初始化 PostgresSQL 连接池
+////////
+
+/// # [CONNECT] - PG
+/// * `desc`: `初始化 PostgresSQL 连接池`
 pub async fn pg_init(config: &Pg) -> Result<PgPool, sqlx::Error> {
     // 构建 PostgresSQL 连接字符串
     let uri = format!(
@@ -43,3 +47,5 @@ pub async fn pg_init(config: &Pg) -> Result<PgPool, sqlx::Error> {
         }
     }
 }
+
+//////// END

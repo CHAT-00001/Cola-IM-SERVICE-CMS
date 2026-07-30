@@ -6,7 +6,7 @@
 use async_trait::async_trait;
 use cola_data::video::port::hot::HotlistRepo;
 use cola_data::video::command::hotlist::HotlistCommand;
-use repo::video::service::hotlist::HotlistService;
+use repository::video::service::hotlist::HotlistService;
 
 ////////
 

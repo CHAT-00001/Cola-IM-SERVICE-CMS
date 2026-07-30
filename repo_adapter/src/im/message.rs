@@ -1,12 +1,18 @@
 // repo_adapter/src/im/message.rs  -- 适配器 - IM - 消息
-// 2026-07-07
+// 2026-07-07 12:01
+
+////////
 
 use async_trait::async_trait;
 use cola_data::im::port::message::MessageRepo;
 use cola_data::im::command::message::MessageCommand;
 use cola_data::im::info::message::MessageInfo;
-use repo::im::service::message::ImMessageService;
+use repository::im::service::message::ImMessageService;
 
+////////
+
+
+/// # [ADAPTER] - 消息 适配器
 pub struct MessagePortAdapter;
 
 #[async_trait]
@@ -39,3 +45,5 @@ impl MessageRepo for MessagePortAdapter {
         Ok(())
     }
 }
+
+//////// END

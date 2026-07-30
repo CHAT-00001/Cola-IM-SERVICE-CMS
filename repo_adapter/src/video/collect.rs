@@ -1,9 +1,13 @@
-// repo_adapter/src/video/collect.rs
+// repo_adapter/src/video/collect.rs -- 适配器 - VIDEO - 收藏
 // 2026-06-12
+
+////////
 
 use async_trait::async_trait;
 use cola_data::video::port::collect::CollectRepo;
-use repo::video::service::collect::CollectService;
+use repository::video::service::collect::CollectService;
+
+////////
 
 pub struct CollectPortAdapter;
 
@@ -52,3 +56,5 @@ impl CollectRepo for CollectPortAdapter {
         CollectService::find_collect_ids_by_user_id(user_id, None, offset, limit).await
     }
 }
+
+//////// END

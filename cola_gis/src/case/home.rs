@@ -1,7 +1,7 @@
-// cola_gis/src/case/home.rs  -- 可乐GIS - 用例层 - home
-// 2026-07-07
+// cola_gis/src/case/home.rs  -- GIS - 用例层 - home
+// 2026-07-07 08:41
 
-//////
+////////
 
 use crate::assembler::poi::build_poi_list_response;
 use crate::model::vo::poi::PoiListResponse;
@@ -9,14 +9,16 @@ use anyhow::Result;
 use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::user::info::config::UserConfigInfo;
-use repo::gis::service::home::PoiHomeService;
+use repository::gis::service::home::PoiHomeService;
 
-//////
+////////
 
 /// # [HOME CASE] - 主页 用例
 pub struct HomeCase;
 
 impl HomeCase {
+    //
+
     ////////
 
     /// # 1. [CASE] - 配置
@@ -179,3 +181,5 @@ impl HomeCase {
         Ok(response)
     }
 }
+
+//////// END

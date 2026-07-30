@@ -1,8 +1,16 @@
-use mongodb::{options::ClientOptions, Client};
-use tracing::{info};
-use crate::config::Mongodb;
+// app/src/mongodb.rs -- 应用配置 - mongodb连接
+// 2025-12-10 10:41
 
-/// 初始化 MongoDB 连接
+////////
+
+use crate::config::Mongodb;
+use mongodb::{Client, options::ClientOptions};
+use tracing::info;
+
+////////
+
+/// # [CONNECT] - MONGODB
+/// * `desc`: `初始化 MongoDB 连接`
 pub async fn mongodb_init(config: &Mongodb) -> Result<Client, mongodb::error::Error> {
     // 构建 MongoDB 连接字符串
     let mut uri = format!("mongodb://{}", config.host);
@@ -12,7 +20,10 @@ pub async fn mongodb_init(config: &Mongodb) -> Result<Client, mongodb::error::Er
 
     if let Some(user) = &config.user {
         if let Some(password) = &config.password {
-            uri = format!("mongodb://{}:{}@{}:{}", user, password, config.host, config.port);
+            uri = format!(
+                "mongodb://{}:{}@{}:{}",
+                user, password, config.host, config.port
+            );
         }
     }
 
@@ -27,3 +38,5 @@ pub async fn mongodb_init(config: &Mongodb) -> Result<Client, mongodb::error::Er
 
     Ok(client)
 }
+
+//////// END

@@ -1,4 +1,4 @@
-// cola_data/src/market/entity/address.rs  -- 可乐数据中心 - MARKET - entity - 地址表
+// cola_data/src/market/entity/address.rs  -- 数据 - MARKET - entity - 地址表
 // 2026/6/18 10:37
 
 ////////
@@ -10,7 +10,8 @@ use sqlx::FromRow;
 ////////
 
 /// # [ENTITY] - 市场 - 地址簿表
-/// * table name: shop_address
+/// * `pg schema`: `cola_market`
+/// * `table name`: `shop_address`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct AddressEntity {
     pub id: i64,                           // id
@@ -31,3 +32,14 @@ pub struct AddressEntity {
     pub id_del: i16,                       // 是否删除(默认0.否)
     pub deleted_at: Option<DateTime<Utc>>, // 删除时间
 }
+
+////////
+
+/// # [COLUMNS] - 地址表
+pub const ADDRESS_COLUMNS: &'static str = r#"
+        id, uid, name, country, province, city, area,
+        address, area_code, phone, is_default,
+        add_time, upd_time, create_at, update_at, id_del, deleted_at
+    "#;
+
+//////// END

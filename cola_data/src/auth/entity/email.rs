@@ -10,7 +10,7 @@ use sqlx::FromRow;
 
 /// # 1. 统一的设备查询字段 (1:1 严格对齐结构体，干净、便于 SQLx 查询复用)
 pub const IAM_AUTH_COLUMNS: &str = r#"
-    id, user_id, _sn, name, vendor, is_banned, is_active,
+    id, user_id, _sn, name, vendor2, is_banned, is_active,
     access_key, secret_key, status, is_online, status,
     banned_expired_at, last_active_at, created_at, updated_at, banned_at
 "#;

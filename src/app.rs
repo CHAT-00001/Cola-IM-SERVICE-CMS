@@ -42,7 +42,7 @@ pub async fn run() {
 
     // 构建 AppContext（注入所有 port trait 的 Adapter 实现）
     let ctx = build_app_context();
-    info!("✅ AppContext built with all repo adapters injected.");
+    info!("✅ AppContext built with all repository adapters injected.");
 
     // 实例化 AppState，传入 db_service 和 ctx
     let app_state = AppState::new(db_service, ctx);

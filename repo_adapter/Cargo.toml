@@ -1,5 +1,5 @@
 #### Repo 适配器
-# * 将 repo 层的静态函数包装成 cola_data 中定义的 port trait 实现
+# * 将 repository 层的静态函数包装成 cola_data 中定义的 port trait 实现
 # 2026-06-12
 
 [package]
@@ -10,7 +10,7 @@ edition = "2024"
 [dependencies]
 ## 内部依赖
 cola_data = { path = "../cola_data" }
-repo = { path = "../repo" }
+repository = { path = "../repository" }
 
 ## 外部依赖
 async-trait = "0.1.89"

@@ -4,7 +4,7 @@
 use app_core::video::port::home::VideoHomePort;
 use async_trait::async_trait;
 use data::video::entity::video::VideoEntity;
-use repo::video::pg::video::VideoHomeRepo;
+use repository::video::pg::video::VideoHomeRepo;
 use std::sync::Arc;
 
 /// # [BRIDGE] - 短视频首页服务端口的直通实现适配器

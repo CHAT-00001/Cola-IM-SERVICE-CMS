@@ -1,4 +1,4 @@
-// cola_data/src/three/entity/three_vendor.rs  -- THREE - 厂商实体
+// cola_data/src/three/entity/vendor  -- THREE - 厂商实体
 // 2026/6/18
 
 ////////

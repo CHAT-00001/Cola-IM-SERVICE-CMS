@@ -17,7 +17,7 @@ use anyhow::Result;
 use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::user::info::config::UserConfigInfo;
-use repo::video::service::home::VideoHomeService;
+use repository::video::service::home::VideoHomeService;
 
 ////////
 

@@ -1,4 +1,4 @@
-// cola_video/src/model/request/comment.rs  -- 请求体 - 评论
+// cola_video/src/model/request/add  -- 请求体 - 评论
 // 2026/6/10 02:26
 
 ////////

@@ -1,4 +1,4 @@
-// /danmaku.rs  -- 用例层 - 弹幕
+// cola_live/src/case/danmaku.rs  -- LIVE - 用例层 - 弹幕
 // 2026/4/24 19:34
 
 ////////
@@ -10,8 +10,8 @@ use anyhow::Result;
 use cola_data::app::ctx::AppContext;
 use cola_data::app::request::ApiUrlParamsQuery;
 use cola_data::video::command::danmaku::DanmakuCommand;
-use repo::user::service::user::UserService;
-use repo::video::service::danmaku::DanmakuService;
+use repository::user::service::user::UserService;
+use repository::video::service::danmaku::DanmakuService;
 
 ////////
 

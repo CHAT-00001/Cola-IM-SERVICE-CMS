@@ -1,4 +1,4 @@
-// api/query  -- 可乐数据中心 - APP - URL 请求参数
+// cola_data/src/query.rs  -- 数据 - APP - 网关查询参数
 // 2026/6/11 20:53
 
 ////////
@@ -6,28 +6,35 @@
 use serde::{Deserialize, Serialize};
 use std::cmp;
 use std::collections::HashMap;
-use std::net::IpAddr;
+use crate::auth::request::session::AuthSessionRequest;
 
 ////////
 
-/// # [GLOBAL REQUEST] - 可乐数据中心统一请求上下文
+/// # [GLOBAL REQUEST] - APP网关统一请求上下文
 /// * `desc` :采用“全可选/默认值”设计，单网关模式下各路由“各取所需”
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct ApiGatewayRequest {
     // 1. 💡 基础
-    pub action: Option<i16>,     // 服务端口名称
-    pub service: Option<String>, // 服务端口名称
+    pub node: Option<String>,    // 节点(预设,暂时无意义)
+    pub code: Option<i16>,       // 代码(预设,暂时无意义)
+    pub service: Option<String>, // 子业务模块名称
+    pub action: Option<i16>,     // 动作码 1000-9999
     pub uid: Option<i64>,        // 操作者 ID（URL或网关鉴权注入）
     pub req_id: Option<String>,  // 全局请求唯一 ID
+    pub lang: Option<String>,    // 语言(可选)
 
     // 2. 📰 翻页
     pub page: Option<i64>, // 页码
     pub qty: Option<i64>,  // 每页数量
     // 3. 📍 位置
-    pub lat: Option<f64>,  // 纬度
-    pub lng: Option<f64>,  // 经度
+    pub lat: Option<f64>, // 纬度
+    pub lng: Option<f64>, // 经度
 
-    // 3. 业务专属参数（各取所需）
+    // 4. 🆔 身份
+    #[serde(default)]
+    pub auth: Option<AuthSessionRequest>, // 验证信息(access_token / refresh_token ..)
+
+    // 5. 🔢 业务专属参数（各取所需）
     #[serde(default)]
     pub id: i64, // ID
     #[serde(default)]
@@ -63,11 +70,11 @@ pub struct ApiGatewayRequest {
     #[serde(default)]
     pub keyword: String, // 关键词
 
-    // 4. hashmap灵活扩展
+    // 6. hashmap灵活扩展
     #[serde(default)]
     pub params: HashMap<String, String>,
 
-    // 5. 后端计算辅助字段（不参与序列化）
+    // 7. 后端计算辅助字段（不参与序列化）
     #[serde(skip, default)]
     pub limit: i64,
     #[serde(skip, default)]

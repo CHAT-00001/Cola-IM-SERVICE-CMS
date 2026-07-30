@@ -1,6 +1,9 @@
-// /mod.rs  -- 
-// 2026/7/8 13:56
+// cola_data/src/video/vo/mod.rs  -- VIDEO - VO - mod
+// 2026/6/19 17:34
 
 ////////
 
-
+pub mod binding; // 绑定
+pub mod category; // 分类
+pub mod config; // 客户端连接池
+pub mod vendor; // 厂商标识

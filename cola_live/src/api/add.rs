@@ -1,4 +1,4 @@
-// cola_live/src/api/add.rs  -- 可乐直播 -  LIVE - 应用层 - 添加
+// cola_live/src/api/add.rs  -- LIVE - api - 添加
 // 2026/4/12 14:45
 
 ////////
@@ -7,7 +7,7 @@ use crate::case;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::video::command::video::VideoCommand;
-use repo::video::service::permission_check::VideoPermissionsCheckService;
+use repository::video::service::permission_check::VideoPermissionsCheckService;
 use crate::case::add::AddCase;
 use crate::model::vo::video::VideoSingleResponse;
 

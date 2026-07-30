@@ -1,4 +1,4 @@
-// cola_data/src/video/info/comment.rs  -- 数据中心 - VIDEO - 信息 - 评论
+// cola_data/src/video/info/add  -- 数据中心 - VIDEO - 信息 - 评论
 // 2026/5/21 00:58
 
 ////////

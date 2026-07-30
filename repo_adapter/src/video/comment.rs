@@ -1,11 +1,15 @@
-// repo_adapter/src/video/comment.rs
-// 2026-06-12
+// repo_adapter/src/video/add -- 适配器 - VIDEO - Add
+// 2026-06-12 14:12
+
+////////
 
 use async_trait::async_trait;
 use cola_data::video::port::comment::CommentRepo;
 use cola_data::video::command::comment::CommentCommand;
 use cola_data::video::info::comment::VideoCommentInfo;
-use repo::video::service::comment::CommentService;
+use repository::video::service::comment::CommentService;
+
+////////
 
 pub struct CommentPortAdapter;
 
@@ -54,3 +58,5 @@ impl CommentRepo for CommentPortAdapter {
         Ok(())
     }
 }
+
+//////// END

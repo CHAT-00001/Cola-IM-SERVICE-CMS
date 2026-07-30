@@ -1,9 +1,9 @@
-// cola_video/src/live/case/follow  -- 点赞
+// cola_user/src/case/follow.rs  -- USER - case - 关注
 // 2026-03-27 06:22
 
 use anyhow::{Result, anyhow};
 use cola_data::app::ctx::AppContext;
-use repo::video::service::like::LikeService;
+use repository::video::service::like::LikeService;
 use tracing::{info, warn};
 
 ////////

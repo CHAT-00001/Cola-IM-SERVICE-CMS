@@ -1,22 +1,18 @@
-// cola_video/src/api/add.rs  -- VIDEO - 应用层 - 添加
+// cola_video/src/api/add.rs  -- VIDEO - api - 添加
 // 2026/4/12 14:45
 
 ////////
 
-use crate::case;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
-use cola_data::video::command::buy::VideoBuyCommand;
-use cola_data::video::command::report::VideoReportCommand;
-use cola_data::video::command::share::ShareCommand;
 use cola_data::video::command::video::VideoCommand;
-use repo::video::service::permission_check::VideoPermissionsCheckService;
+use repository::video::service::permission_check::VideoPermissionsCheckService;
 use crate::case::add::AddCase;
 use crate::model::vo::video::VideoSingleResponse;
 
 ////////
 
-/// # [API] - 发布 接口
+/// # [ADD HANDLER] - 发布 接口
 pub struct AddApi;
 
 // 构造函数

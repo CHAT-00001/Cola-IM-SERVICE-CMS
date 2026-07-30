@@ -1,16 +1,16 @@
-// repo_adapter/src/market/express.rs  -- 适配器 - 快递
+// repo_adapter/src/market/express.rs  -- 适配器 - MARKET - 快递
 // 2026/6/18
 
-//////
+////////
 
 use async_trait::async_trait;
 use cola_data::market::info::address::AddressInfo;
 use cola_data::market::port::express::ExpressPort;
 use cola_data::market::command::goods::GoodsCommand;
-use repo::market::pg::express::ExpressRepo;
+use repository::market::pg::express::ExpressRepo;
 use cola_data::market::info::express::ExpressInfo;
 
-//////
+////////
 
 /// # [ADAPTER] - 快递 端口适配器
 pub struct ExpressAdapter;

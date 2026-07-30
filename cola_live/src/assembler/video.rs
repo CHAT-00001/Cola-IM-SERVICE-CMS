@@ -1,14 +1,16 @@
-// cola_video/src/assembler/home  -- VIDEO - 组装 -  视频响应体
-// 2026/06/11 架构对齐重构
+// cola_live/src/assembler/home  -- LIVE - 组装 -  视频响应体
+// 2026/06/11 10:20
 
-use std::collections::HashMap;
+////////
+
+use crate::model::vo::video::{VideoListResponse, VideoSingleResponse, VideoVo};
 use anyhow::Result;
 use cola_data::app::page::PageInfo;
 use cola_data::music::info::music::MusicInfo;
 use cola_data::user::info::user::UserInfo;
 use cola_data::video::info::video::VideoInfo;
-use repo::user::service::user::UserService;
-use crate::model::vo::video::{VideoListResponse, VideoSingleResponse, VideoVo};
+use repository::user::service::user::UserService;
+use std::collections::HashMap;
 
 ////////
 
@@ -45,14 +47,13 @@ pub async fn build_video_single_response(
 /// # [BUILD] - 构建多视频列表响应体
 /// * 机制：调用服务层 find_user_info_by_uids 批量补全，上层零判空、零等待，高性能组装
 pub async fn build_video_list_response(
-    infos: Vec<VideoInfo>,     // 🌟 1. 类型对齐：完美接收 Service 层脱敏后的元数据 Info
+    infos: Vec<VideoInfo>, // 🌟 1. 类型对齐：完美接收 Service 层脱敏后的元数据 Info
     _current_uid: Option<i64>,
     // 外部传入的分页基础原始数据
     page: i64,   // 当前页码
     qty: i64,    // 每页数量
     _total: i64, // 🌟 2. 数量对齐：接收 Case 层传进来的第 6 个参数 total
 ) -> Result<VideoListResponse> {
-
     // 1. 批量获取作者用户信息 (全静态服务化)
     let authors_map: HashMap<i64, UserInfo> = if infos.is_empty() {
         HashMap::new()
@@ -72,17 +73,20 @@ pub async fn build_video_list_response(
     };
 
     // 2. 🌟 迭代组装完美的 VideoVo 列表
-    let list: Vec<VideoVo> = infos.into_iter().map(|video_info| {
-        let author_uid = video_info.uid;
+    let list: Vec<VideoVo> = infos
+        .into_iter()
+        .map(|video_info| {
+            let author_uid = video_info.uid;
 
-        // 💡 因为 UserService 保证了请求的 id 只要大于 0 必然有值在 map 里，
-        // 这里直接 cloned() 拿走即可，无需多余转换。
-        let author = authors_map.get(&author_uid).cloned().unwrap_or_default();
-        let music_info = MusicInfo::default();
+            // 💡 因为 UserService 保证了请求的 id 只要大于 0 必然有值在 map 里，
+            // 这里直接 cloned() 拿走即可，无需多余转换。
+            let author = authors_map.get(&author_uid).cloned().unwrap_or_default();
+            let music_info = MusicInfo::default();
 
-        // 🌟 核心修正：干掉了旧的 from_entity，直接将纯净的 video_info 拿来融合成大视图对象 Vo
-        VideoVo::combine(video_info, author, music_info)
-    }).collect();
+            // 🌟 核心修正：干掉了旧的 from_entity，直接将纯净的 video_info 拿来融合成大视图对象 Vo
+            VideoVo::combine(video_info, author, music_info)
+        })
+        .collect();
 
     // 3. 动态计算是否还有下一页 (根据当前页列表长度与每页申请数量对比)
     let has_more = list.len() >= (qty as usize);

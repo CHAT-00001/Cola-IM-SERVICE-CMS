@@ -1,12 +1,12 @@
-// cola_video/src/video/case/change.rs  -- 可乐短视频 - 用例层 - 修改
-// 2026/5/20 03:19 by wx: cestbon10080
+// cola_video/src/case/change.rs  -- VIDEO - 用例层 - 修改
+// 2026/5/20 03:19
 
 ////////
 
 use anyhow::Result;
 use cola_data::video::command::video::VideoCommand;
 use tracing::{info, warn};
-use repo::video::service::permission_change::{PermissionsChangeService};
+use repository::video::service::permission_change::{PermissionsChangeService};
 
 ////////
 

@@ -1,5 +1,5 @@
-// case/mine.rs  -- 用例层 - 我的
-// 2026/06/11 架构对齐重构
+// cola_user/src/case/mine.rs  -- USER - 用例层 - 我的
+// 2026/06/11 14:00
 
 ////////
 
@@ -8,8 +8,8 @@ use crate::model::vo::video::VideoListResponse;
 use anyhow::{Context, Result};
 use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
-use repo::video::service::like::LikeService;
-use repo::video::service::view::ViewService;
+use repository::video::service::like::LikeService;
+use repository::video::service::view::ViewService;
 
 ////////
 

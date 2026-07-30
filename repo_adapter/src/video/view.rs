@@ -6,7 +6,7 @@
 use async_trait::async_trait;
 use cola_data::video::info::video::VideoInfo;
 use cola_data::video::port::view::ViewPort;
-use repo::video::service::view::ViewService;
+use repository::video::service::view::ViewService;
 
 ////////
 
@@ -26,7 +26,7 @@ impl ViewPort for ViewPortAdapter {
         _uid: i64,
         _video_id: i64,
     ) -> anyhow::Result<()> {
-        // TODO: call repo::video::pg::view::VideoViewRepo if needed
+        // TODO: call repository::video::pg::view::VideoViewRepo if needed
         Ok(())
     }
 
@@ -39,7 +39,7 @@ impl ViewPort for ViewPortAdapter {
         _video_id: i64,
         _is_done: bool,
     ) -> anyhow::Result<()> {
-        // TODO: call repo::video::pg::view::VideoViewRepo if needed
+        // TODO: call repository::video::pg::view::VideoViewRepo if needed
         Ok(())
     }
 

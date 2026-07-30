@@ -1,4 +1,4 @@
-// cola_data/src/three/command/sign.rs  -- THREE - 第三方登录配置命令
+// cola_data/src/three/command/sign_type  -- THREE - 第三方登录配置命令
 // 2026/6/30 03:55
 
 ////////

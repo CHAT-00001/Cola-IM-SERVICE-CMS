@@ -1,7 +1,7 @@
 // cola_music/src/assembler/music.rs  -- MUSIC - 组装 - 音乐响应体
 // 2026-07-08
 
-//////
+////////
 
 use std::collections::HashMap;
 use anyhow::Result;
@@ -9,9 +9,9 @@ use cola_data::app::page::PageInfo;
 use cola_data::music::info::music::MusicInfo;
 use cola_data::music::vo::music_vo::{MusicListResponse, MusicSingleResponse, MusicVo};
 use cola_data::user::info::user::UserInfo;
-use repo::user::service::user::UserService;
+use repository::user::service::user::UserService;
 
-//////
+////////
 
 /// # [BUILD] - 构建单音乐响应函数
 pub async fn build_music_single_response(
@@ -76,3 +76,5 @@ pub async fn build_music_list_response(
 
     Ok(MusicListResponse { list, page_info })
 }
+
+//////// END

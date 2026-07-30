@@ -1,23 +1,24 @@
-// cola_gis/src/case/danmaku.rs  -- 可乐GIS - 用例层 - 弹幕
+// cola_gis/src/case/danmaku.rs  -- GIS - 用例层 - 弹幕
 // 2026-07-07
 
-//////
+////////
 
 use crate::assembler::danmaku::build_danmaku_list_response;
 use crate::model::vo::poi_danmaku::DanmakuListResponse;
 use anyhow::Result;
 use cola_data::app::ctx::AppContext;
-use cola_data::app::request::ApiUrlParamsQuery;
 use cola_data::gis::command::danmaku::PoiDanmakuCommand;
-use repo::gis::service::poi_danmaku::GisDanmakuService;
+use repository::gis::service::poi_danmaku::GisDanmakuService;
 
-//////
+////////
 
 /// # [CASE] - 弹幕 用例
 pub struct DanmakuCase;
 
 //////
 impl DanmakuCase {
+    //
+
     ////////
 
     /// # 1. [CASE] - 发表弹幕
@@ -40,7 +41,6 @@ impl DanmakuCase {
         qty: i64,
         ctx: &AppContext,
     ) -> Result<DanmakuListResponse> {
-
         let (danmaku_list, total) = ctx
             .gis
             .danmaku
@@ -50,14 +50,9 @@ impl DanmakuCase {
         let current_uid = if uid > 0 { Some(uid) } else { None };
         let video_author_id = 0i64;
 
-        let response = build_danmaku_list_response(
-            danmaku_list,
-            current_uid,
-            video_author_id,
-            1,
-            qty,
-            total,
-        ).await?;
+        let response =
+            build_danmaku_list_response(danmaku_list, current_uid, video_author_id, 1, qty, total)
+                .await?;
 
         Ok(response)
     }
@@ -65,4 +60,4 @@ impl DanmakuCase {
     ////////
 }
 
-////// END
+//////// END

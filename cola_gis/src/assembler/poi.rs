@@ -1,4 +1,4 @@
-// cola_gis/src/assembler/poi.rs  -- GIS - 组装 -  兴趣点响应体
+// cola_gis/src/assembler/poi.rs  -- GIS - 组装 - 兴趣点响应体
 // 2026-07-07 07:06
 
 ////////
@@ -9,7 +9,7 @@ use cola_data::app::page::PageInfo;
 use cola_data::gis::info::poi::PoiInfo;
 use cola_data::music::info::music::MusicInfo;
 use cola_data::user::info::user::UserInfo;
-use repo::user::service::user::UserService;
+use repository::user::service::user::UserService;
 use std::collections::HashMap;
 
 ////////

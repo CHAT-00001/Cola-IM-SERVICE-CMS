@@ -7,7 +7,7 @@ use async_trait::async_trait;
 use chrono::Utc;
 use cola_data::market::info::address::AddressInfo;
 use cola_data::market::port::goods_view::GoodsViewPort;
-use repo::pg_pool;
+use repository::pg_pool;
 
 //////
 

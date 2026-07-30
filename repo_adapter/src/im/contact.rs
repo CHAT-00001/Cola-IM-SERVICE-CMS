@@ -1,12 +1,18 @@
 // repo_adapter/src/im/contact.rs  -- 适配器 - IM - 联系人
-// 2026-07-07
+// 2026-07-07 12:01
+
+////////
 
 use async_trait::async_trait;
 use cola_data::im::port::contact::ContactRepo;
 use cola_data::im::command::contact::ContactCommand;
 use cola_data::im::info::contact::ContactInfo;
-use repo::im::service::contact::ImContactService;
+use repository::im::service::contact::ImContactService;
 
+////////
+
+
+/// # [ADAPTER] - 联系人 - 适配器
 pub struct ContactPortAdapter;
 
 #[async_trait]
@@ -35,3 +41,5 @@ impl ContactRepo for ContactPortAdapter {
         ImContactService::block_contact(uid, card_id, blocked).await
     }
 }
+
+//////// END

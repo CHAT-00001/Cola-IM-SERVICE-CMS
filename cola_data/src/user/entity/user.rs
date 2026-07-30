@@ -47,10 +47,17 @@ pub struct UserEntity {
     pub updated_at: Option<DateTime<Utc>>, // 更新时间（人类）
 }
 
+////////
+
 /// #[COLUMNS] - 数据表原始字段（对应 Entity 的基础字段，1:1 完全一致）
 pub const USER_COLUMNS: &str = r#"
-    id, user_type, user_nickname, signature, avatar, bg_img,
-    email, phone, sns_url, birthday, sex, perm_id, likes, fans, follows,
-    level, author_level, lat, lng, login_ip, register_ip, status,
-    create_time, created_at, updated_at
+    id, user_type, sex, snow_id, user_nickname, avatar, bg_img, signature, birthday,
+    email, mobile, more, lat, lng, country_code,
+    is_ad, firstcharge_used, praise_num
+    views, likes, fans, follows,
+    last_login_time,goodnum, score, votes, votestotal, province, city,
+    isrecommend, openid, login_type, iszombie, isrecord, iszombiep, issuper,ishot, recommend_time,live_window
+    user_login, user_status, user_pass,
+    balance, balance_total, balance_consumption,
+    online, online_expired_at, create_time, created_at, updated_at
 "#;

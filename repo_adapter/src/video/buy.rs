@@ -4,7 +4,7 @@
 
 use async_trait::async_trait;
 use cola_data::video::port::buy::BuyRepo;
-use repo::video::service::danmaku::DanmakuService;
+use repository::video::service::danmaku::DanmakuService;
 
 ////////
 

@@ -1,4 +1,4 @@
-// cola_gis/src/case/share.rs  -- 可乐GIS - 用例层 - 分享
+// cola_gis/src/case/share.rs  -- GIS - 用例层 - 分享
 // 2026/6/10 08:14
 
 ////////
@@ -8,7 +8,7 @@ use tracing::{info, warn};
 use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::video::command::share::ShareCommand;
-use repo::video::service::like::LikeService;
+use repository::video::service::like::LikeService;
 
 ////////
 
@@ -19,6 +19,7 @@ use repo::video::service::like::LikeService;
 pub struct ShareCase;
 
 impl ShareCase {
+    //
 
     ////////
 

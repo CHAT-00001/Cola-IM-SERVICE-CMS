@@ -30,7 +30,7 @@ pub fn music_router(cfg: &mut web::ServiceConfig) {
             .route("/{id}", web::delete().to(del))
             // 可以添加更多子路由
             .service(
-                web::scope("/category")
+                web::scope("/fs")
                     .route("", web::get().to(get_categories))
                     .route("/{id}", web::get().to(get_videos_by_category)),
             ),

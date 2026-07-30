@@ -1,17 +1,15 @@
-// /danmaku.rs  -- 用例层 - 弹幕
+// cola_user/src/case/danmaku.rs  -- USER - 用例层 - 弹幕
 // 2026/4/24 19:34
 
 ////////
 
 use crate::assembler::danmaku::build_danmaku_list_response;
 use crate::model::vo::danmaku::DanmakuListResponse;
-use crate::model::vo::video::VideoListResponse;
 use anyhow::Result;
 use cola_data::app::ctx::AppContext;
 use cola_data::app::request::ApiUrlParamsQuery;
 use cola_data::video::command::danmaku::DanmakuCommand;
-use repo::user::service::user::UserService;
-use repo::video::service::danmaku::DanmakuService;
+use repository::video::service::danmaku::DanmakuService;
 
 ////////
 

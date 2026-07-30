@@ -1,5 +1,5 @@
-// cola_date/src/video/info/home  -- VIDEO - info - 视频信息
-// 2026/5/21 by wx: cestbon10080
+// cola_data/src/video/info/video.rs  -- VIDEO - info - 视频信息
+// 2026/5/21 08:40
 
 ////////
 

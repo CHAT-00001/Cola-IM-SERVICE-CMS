@@ -1,4 +1,4 @@
-// cola_video/src/case/share.rs  -- 用例层 - 分享
+// cola_video/src/case/share.rs  -- VIDEO - 用例层 - 分享
 // 2026/6/10 08:14
 
 ////////
@@ -8,7 +8,7 @@ use tracing::{info, warn};
 use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::video::command::share::ShareCommand;
-use repo::video::service::like::LikeService;
+use repository::video::service::like::LikeService;
 
 ////////
 

@@ -1,19 +1,19 @@
 // repo_adapter/src/gis/report.rs
-// 2026-07-07
+// 2026-07-07 12:10
 
-//////
+////////
 
 use async_trait::async_trait;
 use cola_data::gis::port::report::ReportRepo;
 use cola_data::gis::command::report::PoiReportCommand;
-use repo::gis::service::report::ReportService;
+use repository::gis::service::report::ReportService;
 
-//////
+////////
 
 /// # [REPORT PORT] - 举报 端口 插头
 pub struct ReportPortAdapter;
 
-//////
+////////
 
 #[async_trait]
 impl ReportRepo for ReportPortAdapter {
@@ -43,4 +43,4 @@ impl ReportRepo for ReportPortAdapter {
     }
 }
 
-////// END
+//////// END

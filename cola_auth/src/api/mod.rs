@@ -4,5 +4,8 @@
 ////////
 
 pub mod code;
+pub mod rick;
 pub mod seesion;
+pub mod sign;
+
 //////// END

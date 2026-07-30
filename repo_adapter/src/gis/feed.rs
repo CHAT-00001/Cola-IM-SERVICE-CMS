@@ -1,20 +1,22 @@
-// repo_adapter/src/gis/feed.rs
-// 2026-07-07
+// repo_adapter/src/gis/feed.rs -- 适配器 - GIS - feed
+// 2026-07-07 12:00
 
-//////
+////////
 
 use async_trait::async_trait;
 use cola_data::gis::port::feed::FeedRepo;
 use cola_data::gis::info::poi::PoiInfo;
-use repo::gis::service::home::PoiHomeService;
+use repository::gis::service::home::PoiHomeService;
 
-//////
+////////
 
 /// # [FEED PORT] - 流 适配器
 pub struct FeedPortAdapter;
 
-//////
+////////
 
+
+/// # [ADAPTER] - Feed 适配器
 #[async_trait]
 impl FeedRepo for FeedPortAdapter {
 
@@ -51,4 +53,4 @@ impl FeedRepo for FeedPortAdapter {
     }
 }
 
-////// END
+//////// END

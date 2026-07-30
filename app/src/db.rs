@@ -1,24 +1,24 @@
-// api/src/db.rs -- 数据 - DB
+// app/src/db.rs -- 应用配置 - 数据库连接池
 // 2025-12-16 10:50
 
 ////////
 
-use sqlx::PgPool;
-use redis::Client as RedisClient;
-use mongodb::Client as MongoClient;
-use tracing::error;
 use crate::config::AppConfig;
 use crate::mongodb::mongodb_init;
 use crate::pg::pg_init;
 use crate::redis::redis_init;
+use mongodb::Client as MongoClient;
+use redis::Client as RedisClient;
+use sqlx::PgPool;
+use tracing::error;
 
 ////////
 
 /// # [CONN] - 封装后的数据库连接结构体
 pub struct DbConnection {
-    pub pg_pool: PgPool,
-    pub redis_client: RedisClient,
-    pub mongo_client: MongoClient,
+    pub pg_pool: PgPool,           // PG
+    pub redis_client: RedisClient, // REDIS
+    pub mongo_client: MongoClient, // MONGODB
 }
 
 /// # [INIT] - 初始化所有数据库连接
@@ -57,6 +57,5 @@ pub async fn db_connection(config: &AppConfig) -> Result<DbConnection, ()> {
         mongo_client,
     })
 }
-
 
 //////// END

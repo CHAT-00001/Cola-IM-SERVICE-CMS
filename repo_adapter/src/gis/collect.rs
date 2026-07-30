@@ -1,10 +1,14 @@
 // repo_adapter/src/gis/collect.rs
 // 2026-07-07
 
+////////
+
 use async_trait::async_trait;
 use cola_data::gis::port::collect::CollectRepo;
 use cola_data::gis::command::collect::PoiCollectCommand;
-use repo::gis::service::poi_collect::PoiCollectService;
+use repository::gis::service::poi_collect::PoiCollectService;
+
+////////
 
 pub struct CollectPortAdapter;
 

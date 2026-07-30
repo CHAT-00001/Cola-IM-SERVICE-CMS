@@ -1,4 +1,4 @@
-﻿// cola_data/src/gis/entity/comment.rs  -- 可乐GIS - entity -  评论
+﻿// cola_data/src/gis/entity/add  -- 可乐GIS - entity -  评论
 // 2026-01-16 09:37:10
 
 ////////
@@ -40,8 +40,10 @@ pub struct PoiCommentEntity {
     pub sync_time: i64,
 }
 
+////////
+
 /// # [COLUMNS] - 数据表字段
-pub const COMMENT_COLUMNS: &str = r#"
+pub const POI_COMMENT_COLUMNS: &str = r#"
     id, uuid, show_id, user_id, gis_id, parent_id, content, at_uids,
     thumb_url, photos_url, video_url, voice_url, lat, lng,
     likes, steps, collects, reply, visibility, region_code,

@@ -10,7 +10,7 @@ edition = "2024"
 ## 内部依赖
 cola_data = { path = "../cola_data" }
 cola_user = { path = "../cola_user" }
-repo = { path = "../repo" }
+repository = { path = "../repository" }
 app_config = { path = "../app" }
 
 ## 外部依赖

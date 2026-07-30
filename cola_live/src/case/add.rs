@@ -1,11 +1,13 @@
-// case/add.rs  -- 用例层 - 发布
-// 2026-06-11 修正风控返回值与单视频响应组装
+// cola_live/src/case/add.rs  -- LIVE - 用例层 - 发布
+// 2026-06-11 10:41
+
+////////
 
 use anyhow::{Context, Result};
 use tracing::info;
-use cola_data::risk::rick_check;
+use cola_data::fs::rick_check;
 use cola_data::video::command::video::VideoCommand;
-use repo::video::service::add::AddService;
+use repository::video::service::add::AddService;
 use crate::assembler::video::build_video_single_response;
 use crate::model::vo::video::VideoSingleResponse;
 
@@ -14,6 +16,7 @@ use crate::model::vo::video::VideoSingleResponse;
 pub struct AddCase;
 
 impl AddCase {
+    //
 
     ////////
 

@@ -1,15 +1,15 @@
-// cola_auth/src/case/code.rs  -- 可乐验证中心 - 用例层 - 会话用例编排
+// cola_auth/src/case/code.rs  -- AUTH - case - 会话
 // 2026/6/22 07:00
 
 ////////
 
 use anyhow::{Result, anyhow};
-use repo::auth::service::sms::SmsService;
+use repository::auth::service::sms::SmsService;
 use crate::kits::sms::kit_make_auth_sms_content;
 
 ////////
 
-/// # [CASE] - 验证码 用例
+/// # [USE CASE] - 验证码 用例
 /// * 登录编排 Orchestration
 pub struct AuthCodeCase;
 

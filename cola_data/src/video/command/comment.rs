@@ -1,4 +1,4 @@
-// cola_data/src/video/dynamic/comment.rs  -- VIDEO - Command - 评论
+// cola_data/src/video/dynamic/add  -- VIDEO - Command - 评论
 // 2026/5/20 12:01
 
 ////////

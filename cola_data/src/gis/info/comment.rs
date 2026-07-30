@@ -1,4 +1,4 @@
-﻿// cola_data/src/gis/info/comment.rs  -- 数据中心 - GIS - info - 兴趣点评论
+﻿// cola_data/src/gis/info/add  -- 数据中心 - GIS - info - 兴趣点评论
 // 2026/5/21 00:58
 
 ////////

@@ -19,4 +19,5 @@ pub mod manager; // 管理
 pub mod mine;
 pub mod report;
 pub mod view;
+mod a;
 // 浏览

@@ -1,4 +1,4 @@
-// case/comment.rs  -- 用例层 - 评论
+// cola_user/src/case/add  -- 用户 - case - 评论
 // 2026/5/23 15:20
 
 ////////
@@ -10,7 +10,7 @@ use cola_data::app::ctx::AppContext;
 use cola_data::app::request::ApiUrlParamsQuery;
 use cola_data::auth::info::auth::AuthContext;
 use cola_data::video::command::comment::CommentCommand;
-use repo::video::service::comment::CommentService;
+use repository::video::service::comment::CommentService;
 use std::collections::HashMap;
 
 ////////

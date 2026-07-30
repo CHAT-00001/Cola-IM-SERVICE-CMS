@@ -1,4 +1,4 @@
-// cola_gis/src/case/feed.rs  -- 可乐GIS - 用例层 - FEED
+// cola_gis/src/case/feed.rs  -- GIS - 用例层 - FEED
 // 2026-07-07
 
 //////////
@@ -7,9 +7,9 @@ use crate::assembler::poi::build_poi_list_response;
 use crate::model::vo::poi::PoiListResponse;
 use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
-use repo::gis::service::home::PoiHomeService;
-use repo::gis::service::view::PoiViewService;
-use repo::gis::service::like::GisLikeService;
+use repository::gis::service::home::PoiHomeService;
+use repository::gis::service::view::PoiViewService;
+use repository::gis::service::like::GisLikeService;
 
 //////////
 
@@ -17,6 +17,8 @@ use repo::gis::service::like::GisLikeService;
 pub struct FeedCase;
 
 impl FeedCase {
+    //
+
     ////////
 
     /// # 1. [CASE] - 关注的人发布的兴趣点

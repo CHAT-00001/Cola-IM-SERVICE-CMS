@@ -1,4 +1,4 @@
-// /case/home.rs  -- 可乐短视频 - 用例层 - home
+// cola_live/src/case/home.rs  -- LIVE - 用例层 - home
 // 2026-06-11 08:10
 
 ////////
@@ -9,7 +9,7 @@ use anyhow::Result;
 use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::user::info::config::UserConfigInfo;
-use repo::video::service::home::VideoHomeService;
+use repository::video::service::home::VideoHomeService;
 
 ////////
 

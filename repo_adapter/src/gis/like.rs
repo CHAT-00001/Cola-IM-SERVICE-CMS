@@ -1,18 +1,18 @@
 // repo_adapter/src/gis/like.rs
 // 2026-07-07
 
-//////
+////////
 
 use async_trait::async_trait;
 use cola_data::gis::port::like::LikeRepo;
-use repo::gis::service::like::GisLikeService;
+use repository::gis::service::like::GisLikeService;
 
-//////
+////////
 
 /// # [LIKE PORT] - 点赞 端口 插头
 pub struct LikePortAdapter;
 
-//////
+////////
 
 #[async_trait]
 impl LikeRepo for LikePortAdapter {
@@ -48,4 +48,4 @@ impl LikeRepo for LikePortAdapter {
     }
 }
 
-////// END
+//////// END

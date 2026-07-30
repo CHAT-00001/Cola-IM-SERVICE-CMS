@@ -9,6 +9,7 @@ edition.workspace = true
 [dependencies]
 ## 内部依赖
 cola_data = { path = "../cola_data" }
+repository = {path = "../repository" }
 
 ## 外部依赖
 anyhow = "1"

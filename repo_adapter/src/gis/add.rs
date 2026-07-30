@@ -1,23 +1,24 @@
-// repo_adapter/src/gis/add.rs
-// 2026-07-07
+// repo_adapter/src/gis/add.rs -- 适配器 - GIS - 添加
+// 2026-07-07 10:12
 
-//////
+////////
 
 use async_trait::async_trait;
 use cola_data::gis::command::poi::PoiCommand;
 use cola_data::gis::port::add::AddPort;
-use repo::gis::service::poi_add::PoiAddService;
+use repository::gis::service::poi_add::PoiAddService;
 
-//////
+////////
 
 /// # [ADD PORT] - 添加 端口 插头
 pub struct AddPortAdapter;
 
-//////
+////////
 
 #[async_trait]
 impl AddPort for AddPortAdapter {
-    // * --------
+    // 💡
+
     ////////
 
     /// # 1. [PORT] - 保存兴趣点记录 + 更新用户兴趣点数量
@@ -51,4 +52,4 @@ impl AddPort for AddPortAdapter {
     }
 }
 
-////// END
+//////// END

@@ -7,9 +7,9 @@ use crate::assembler::video::build_video_list_response;
 use crate::model::vo::video::VideoListResponse;
 use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
-use repo::video::service::feed::FeedService;
-use repo::video::service::like::LikeService;
-use repo::video::service::view::ViewService;
+use repository::video::service::feed::FeedService;
+use repository::video::service::like::LikeService;
+use repository::video::service::view::ViewService;
 
 //////////
 

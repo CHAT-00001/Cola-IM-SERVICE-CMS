@@ -1,16 +1,18 @@
-// cola_video/src/api/comment.rs  -- VIDEO - 应用层 - 评论
+// cola_video/src/api/add  -- VIDEO - 应用层 - 评论
 // 2026-04-16 08:00
 
 ////////
 
-use cola_data::app::ctx::AppContext;
 use crate::case::comment::CommentCase;
+use crate::model::vo::comment::{CommentListResponse, CommentSingleResponse};
+use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::request::ApiUrlParamsQuery;
 use cola_data::auth::info::auth::AuthContext;
 use cola_data::video::command::comment::CommentCommand;
-use repo::user::service::state::UserStateService;
-use crate::model::vo::comment::{CommentListResponse, CommentSingleResponse};
+use repository::user::service::state::UserStateService;
+
+////////
 
 pub struct CommentParamsQuery {
     pub video_id: i64,
@@ -23,14 +25,16 @@ pub struct CommentParamsQuery {
 pub struct CommentApi;
 
 impl CommentApi {
+    // 💡
+
     ////////
 
     /// # 1. [API HANDLER] - 发布
     pub async fn handler_add_comment(
-        auth: AuthContext,        // 验证中心
+        auth: AuthContext, // 验证中心
         url: CommentParamsQuery,
-        cmd: CommentCommand,      // 评论命令
-        ctx: &AppContext,         // 🌟 核心修复：把业务上下文注入进来
+        cmd: CommentCommand, // 评论命令
+        ctx: &AppContext,    // 🌟 核心修复：把业务上下文注入进来
     ) -> AppData<CommentSingleResponse> {
         // 1. 检查用户状态
 
@@ -56,7 +60,6 @@ impl CommentApi {
         query: ApiUrlParamsQuery,
         ctx: &AppContext,
     ) -> AppData<CommentListResponse> {
-
         // 1. 参数校验：获取 uid
         let uid = auth.uid;
 
@@ -87,7 +90,6 @@ impl CommentApi {
         query: ApiUrlParamsQuery,
         ctx: &AppContext,
     ) -> AppData<CommentListResponse> {
-
         let uid = auth.uid;
 
         // 2. Call Service 检查用户状态
@@ -110,7 +112,8 @@ impl CommentApi {
         auth: AuthContext,
         url: CommentParamsQuery,
         ctx: &AppContext,
-    ) -> AppData<String> { // 🌟 核心修复：尊重客观事实，类型改成 String
+    ) -> AppData<String> {
+        // 🌟 核心修复：尊重客观事实，类型改成 String
 
         // 1. 参数校验：comment_id
         let comment_id = match url.comment_id {
@@ -139,7 +142,6 @@ impl CommentApi {
         is_liked: bool,
         ctx: &AppContext,
     ) -> AppData<bool> {
-
         let uid = auth.uid;
 
         let comment_id = match url.comment_id {
@@ -165,9 +167,10 @@ impl CommentApi {
         url: CommentParamsQuery,
         ctx: &AppContext, // 🌟 已经在这里了
     ) -> AppData<()> {
-
         // CALL CASE 🌟 核心修复：在末尾把 ctx 捎上，凑齐 4 个参数
-        match CommentCase::case_add_comment_unlike(auth.uid, url.comment_id, url.is_unliked, ctx).await {
+        match CommentCase::case_add_comment_unlike(auth.uid, url.comment_id, url.is_unliked, ctx)
+            .await
+        {
             Ok(resp) => AppData::ok(resp),
             Err(e) => {
                 tracing::error!("Unlike Error: {:?}", e);

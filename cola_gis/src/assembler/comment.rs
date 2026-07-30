@@ -1,4 +1,4 @@
-// cola_video/src/assembler/comment.rs  -- 组装 - 评论响应体
+// cola_video/src/assembler/add  -- 组装 - 评论响应体
 // 2026/06/05 09:50 修改成只吃infos
 
 ////////
@@ -9,7 +9,7 @@ use cola_data::gis::info::comment::PoiCommentInfo;
 use cola_data::user::info::user::UserInfo;
 use cola_data::video::info::comment::VideoCommentInfo;
 use crate::model::vo::poi_comment::{CommentListResponse, CommentSingleResponse, CommentVo};
-use repo::user::service::user::UserService;
+use repository::user::service::user::UserService;
 
 ////////
 

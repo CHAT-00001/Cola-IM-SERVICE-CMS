@@ -1,5 +1,5 @@
-// gate_http/src/router_v2/three/gateway.rs  -- THREE 网关
-// 2026/6/18
+// gate_http/src/router_v2/three/gateway.rs  -- 第三方服务 网关
+// 2026/7/27 11:40
 
 //////
 
@@ -8,33 +8,14 @@ use crate::ping::ping;
 use actix_web::{HttpMessage, HttpRequest, HttpResponse, Responder, web};
 use app_config::app_state::AppState;
 use cola_data::app::data::AppData;
-use cola_data::auth::info::auth::AuthContext;
-use cola_three::api::three_biz_binding::BindingApi;
-use cola_three::api::three_config::ConfigApi;
-use cola_three::api::three_type::TypeApi;
-use cola_three::api::three_vendor::VendorApi;
-use cola_three::model::command::three_biz_binding::BindingCommand;
-use cola_three::model::command::three_config::ConfigCommand;
-use cola_three::model::command::three_type::TypeCommand;
-use cola_three::model::command::three_vendor::VendorCommand;
-use serde::Deserialize;
+use cola_data::app::query::ApiGatewayRequest;
+use cola_data::auth::request::session::SessionContext;
 use std::time::Instant;
+use crate::router_v2::three::dispatcher;
+
 //////
 
-/// # 统一的 Query 提取结构体
-#[derive(Deserialize)]
-pub struct ThreeGatewayQuery {
-    pub service: String,
-    pub action: Option<i16>,
-    pub type_id: Option<i64>,
-    pub vendor_id: Option<i64>,
-    pub config_id: Option<i64>,
-    pub code: Option<String>,
-    pub biz_module: Option<String>,
-    pub biz_type: Option<String>,
-}
-
-/// # [ROUTER] - THREE - 第三方服务路由器
+/// # [ROUTER] - 第三方服务路由器
 pub fn three_router(cfg: &mut web::ServiceConfig) {
     cfg.service(
         web::scope("/three")
@@ -44,172 +25,57 @@ pub fn three_router(cfg: &mut web::ServiceConfig) {
     );
 }
 
-//////
-
-/// # [GATEWAY] - 第三方服务管理网关
+/// # [GATEWAY] - 按 service name 分发到 dispatcher 子模块
 async fn three_gateway(
     req: HttpRequest,
-    query: web::Query<ThreeGatewayQuery>,
+    query: web::Query<ApiGatewayRequest>,
     body: web::Bytes,
     state: web::Data<AppState>,
 ) -> impl Responder {
     let start = Instant::now();
-
-    let _uid = match req.extensions().get::<i64>().copied() {
-        Some(id) => id,
-        None => 1,
-    };
-
-    let _auth = AuthContext {
-        uid: _uid,
-        access_token: String::new(),
-        refresh_token: String::new(),
-        device_id: String::new(),
-        iam_roles: vec![],
-        is_anonymous: false,
-    };
-
-    // 获取 THREE Port
     let three = &state.ctx.three;
 
-    match query.service.as_str() {
-        ////////
+    // 1️⃣ 接收请求参数结构体
+    let mut api_req = query.into_inner();
+    // 如果 Body 是 JSON，尝试解析结构体覆盖 URL 参数（Body 为主）
+    if !body.is_empty() {
+        if let Ok(body_req) = serde_json::from_slice::<ApiGatewayRequest>(&body) {
+            api_req = body_req;
+        }
+    }
+    api_req = api_req.build();
 
-        // 1001 类型添加
-        "type_upsert" => {
-            let cmd: TypeCommand = match serde_json::from_slice(&body) {
-                Ok(c) => c,
-                Err(e) => {
-                    return AppData::<()>::err(400, format!("参数解析失败: {}", e), None)
-                        .finish(&req, start);
-                }
-            };
-            TypeApi::upsert(three.r#type.as_ref(), cmd)
+    // 2️⃣ 前置身份校验（预留接口）
+    let _session = match &api_req.auth {
+        Some(auth) if auth.has_token() => {
+            // 🚧 后续接入 verify_token
+            // auth_service.verify_token(token).await?
+            SessionContext::anonymous()
+        }
+        _ => SessionContext::anonymous(),
+    };
+
+    // 3️⃣ 分发
+    let service_name = api_req.service.clone().unwrap_or_default();
+    match service_name.as_str() {
+        "fs" => {
+            dispatcher::category::category_dispatch(three, &api_req)
                 .await
                 .finish(&req, start)
         }
-
-        // 1002 类型列表
-        "type_list" => TypeApi::list(three.r#type.as_ref())
-            .await
+        "sms" => {
+            dispatcher::sms::sms_dispatch(three, &api_req)
+                .await
+                .finish(&req, start)
+        }
+        "provider" => {
+            dispatcher::provider::provider_dispatch(three, &api_req)
+                .await
+                .finish(&req, start)
+        }
+        _ => AppData::<()>::err(4000, format!("[🌐 GATEWAY]: ⚠️ Unknown service: {}", service_name), None)
             .finish(&req, start),
-
-        // 1003 类型查询
-        "type_find_by_code" => {
-            let code = query.code.as_deref().unwrap_or("");
-            TypeApi::find_by_code(three.r#type.as_ref(), code)
-                .await
-                .finish(&req, start)
-        }
-
-        ////////
-
-        // 5001 厂商添加
-        "vendor_upsert" => {
-            let cmd: VendorCommand = match serde_json::from_slice(&body) {
-                Ok(c) => c,
-                Err(e) => {
-                    return AppData::<()>::err(400, format!("参数解析失败: {}", e), None)
-                        .finish(&req, start);
-                }
-            };
-            VendorApi::upsert(three.vendor.as_ref(), cmd)
-                .await
-                .finish(&req, start)
-        }
-
-        // 5002 厂商列表
-        "vendor_list" => VendorApi::list(three.vendor.as_ref())
-            .await
-            .finish(&req, start),
-
-        // 5003 厂商查询
-        "vendor_find_by_code" => {
-            let code = query.code.as_deref().unwrap_or("");
-            VendorApi::find_by_code(three.vendor.as_ref(), code)
-                .await
-                .finish(&req, start)
-        }
-
-        ////////
-
-        // 2001 配置
-        "config_upsert" => {
-            let cmd: ConfigCommand = match serde_json::from_slice(&body) {
-                Ok(c) => c,
-                Err(e) => {
-                    return AppData::<()>::err(400, format!("参数解析失败: {}", e), None)
-                        .finish(&req, start);
-                }
-            };
-            ConfigApi::upsert(three.config.as_ref(), cmd)
-                .await
-                .finish(&req, start)
-        }
-
-        // 2002 类型列表
-        "config_list_by_type" => {
-            let type_id = query.type_id.unwrap_or(0);
-            ConfigApi::list_by_type(three.config.as_ref(), type_id)
-                .await
-                .finish(&req, start)
-        }
-
-        // 2003 查找一个
-        "config_find_by_id" => {
-            let id = query.config_id.unwrap_or(0);
-            ConfigApi::find_by_id(three.config.as_ref(), id)
-                .await
-                .finish(&req, start)
-        }
-
-        // 2004 绑定
-        "config_find_binded" => {
-            let biz_module = query.biz_module.as_deref().unwrap_or("");
-            let biz_type = query.biz_type.as_deref().unwrap_or("");
-            ConfigApi::find_binded(three.config.as_ref(), biz_module, biz_type)
-                .await
-                .finish(&req, start)
-        }
-
-        ////////
-
-        // 4001 绑定添加
-        "binding_upsert" => {
-            let cmd: BindingCommand = match serde_json::from_slice(&body) {
-                Ok(c) => c,
-                Err(e) => {
-                    return AppData::<()>::err(400, format!("参数解析失败: {}", e), None)
-                        .finish(&req, start);
-                }
-            };
-            BindingApi::upsert(three.binding.as_ref(), cmd)
-                .await
-                .finish(&req, start)
-        }
-
-        // 4002 绑定列表
-        "binding_list" => BindingApi::list(three.binding.as_ref())
-            .await
-            .finish(&req, start),
-
-        // 4003 绑定查询
-        "binding_find_by_biz" => {
-            let biz_module = query.biz_module.as_deref().unwrap_or("");
-            let biz_type = query.biz_type.as_deref().unwrap_or("");
-            BindingApi::find_by_biz(three.binding.as_ref(), biz_module, biz_type)
-                .await
-                .finish(&req, start)
-        }
-
-        _ => AppData::<()>::err(
-            2004,
-            format!("[🌐 GATEWAY]: ⚠️ Unknown The [🔌 THREE] service: {}", query.service
-            ),
-            None,
-        )
-        .finish(&req, start),
     }
 }
 
-//////// END
+////// END

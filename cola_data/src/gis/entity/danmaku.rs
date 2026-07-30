@@ -1,5 +1,5 @@
 ﻿// cola_data/src/gis/entity/danmark.rs  -- 数据中心 - GIS - entity - 弹幕
-// 2026-01-16 09:37:10
+// 2026-01-16 09:37
 
 ////////
 
@@ -33,6 +33,7 @@ pub struct PoiDanmakuEntity {
     pub status: i16,             // 状态
 }
 
+////////
 
 /// # [COLUMNS] - 兴趣点 评论 数据表字段
 pub const POI_DANMAKU_COLUMNS: &str = r#"

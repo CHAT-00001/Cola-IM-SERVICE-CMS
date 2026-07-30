@@ -1,15 +1,17 @@
-// repo_adapter/src/gis/danmaku.rs
-// 2026-07-07
+// repo_adapter/src/gis/danmaku.rs -- 适配器 - GIS - danmaku
+// 2026-07-07 12:00
 
-//////
+////////
 
 use async_trait::async_trait;
 use cola_data::gis::port::danmaku::DanmakuRepo;
 use cola_data::gis::command::danmaku::PoiDanmakuCommand;
 use cola_data::gis::info::danmaku::PoiDanmakuInfo;
-use repo::gis::service::poi_danmaku::GisDanmakuService;
+use repository::gis::service::poi_danmaku::GisDanmakuService;
 
-//////
+////////
+
+/// # [ADAPTER] - GIS - 弹幕
 pub struct DanmakuPortAdapter;
 
 #[async_trait]
@@ -82,4 +84,4 @@ impl DanmakuRepo for DanmakuPortAdapter {
     }
 }
 
-////// END
+//////// END

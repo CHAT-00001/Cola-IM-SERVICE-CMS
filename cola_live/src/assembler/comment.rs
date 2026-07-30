@@ -1,4 +1,4 @@
-// cola_live/src/assembler/comment.rs  -- LIVE - 组装 - 评论响应体
+// cola_live/src/assembler/add  -- LIVE - 组装 - 评论响应体
 // 2026/06/05 09:50 修改成只吃infos
 
 ////////
@@ -8,7 +8,7 @@ use cola_data::app::page::PageInfo;
 use cola_data::user::info::user::UserInfo;
 use cola_data::video::info::comment::VideoCommentInfo; // 🌟 物理 Entity 可以砍了，全线拥抱 Info
 use crate::model::vo::comment::{CommentListResponse, CommentSingleResponse, CommentVo};
-use repo::user::service::user::UserService;
+use repository::user::service::user::UserService;
 
 ////////
 

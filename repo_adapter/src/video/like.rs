@@ -5,7 +5,7 @@
 
 use async_trait::async_trait;
 use cola_data::video::port::like::LikeRepo;
-use repo::video::service::like::LikeService;
+use repository::video::service::like::LikeService;
 
 ////////
 

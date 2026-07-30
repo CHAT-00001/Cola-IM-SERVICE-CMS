@@ -1,4 +1,4 @@
-// case/comment.rs  -- 用例层 - 评论
+// cola_video/src/case/comment.rs  -- VIDEO - 用例层 - 评论
 // 2026/5/23 15:20
 
 ////////
@@ -10,7 +10,7 @@ use cola_data::app::ctx::AppContext;
 use cola_data::app::request::ApiUrlParamsQuery;
 use cola_data::auth::info::auth::AuthContext;
 use cola_data::video::command::comment::CommentCommand;
-use repo::video::service::comment::CommentService;
+use repository::video::service::comment::CommentService;
 use std::collections::HashMap;
 
 ////////
@@ -63,8 +63,14 @@ impl CommentCase {
         let current_page_total = infos.len() as i64;
 
         // 3. 直接调用组装器
-        let response =
-            build_comment_list_response(infos, Some(uid), query.page.unwrap_or(1),query.qty.unwrap_or(10), current_page_total).await?;
+        let response = build_comment_list_response(
+            infos,
+            Some(uid),
+            query.page.unwrap_or(1),
+            query.qty.unwrap_or(10),
+            current_page_total,
+        )
+        .await?;
 
         Ok(response)
     }
@@ -76,7 +82,7 @@ impl CommentCase {
     /// * `uid` 我的用户ID
     /// * `query` 查询参数
     pub async fn case_get_user_comments_list(
-        uid: i64,         // 操作者 ID
+        uid: i64,                 // 操作者 ID
         query: ApiUrlParamsQuery, // url查询参数
         ctx: &AppContext,
     ) -> Result<CommentListResponse> {
@@ -87,8 +93,14 @@ impl CommentCase {
         // 2. 拿到当前页的局部数量，用来给下层组装的分页算总量兜底
         let current_page_total = infos.len() as i64;
 
-        let response =
-            build_comment_list_response(infos, Some(uid), query.page.unwrap_or(1),query.qty.unwrap_or(10), current_page_total).await?;
+        let response = build_comment_list_response(
+            infos,
+            Some(uid),
+            query.page.unwrap_or(1),
+            query.qty.unwrap_or(10),
+            current_page_total,
+        )
+        .await?;
 
         Ok(response)
     }
@@ -102,20 +114,15 @@ impl CommentCase {
         snowflake: i64,  // 雪花 ID
         ctx: &AppContext,
     ) -> Result<(String)> {
-        ctx.video.comment
-            .del_comment_record(comment_id,).await?;
-            Ok("单条删除评论成功~".to_string())
+        ctx.video.comment.del_comment_record(comment_id).await?;
+        Ok("单条删除评论成功~".to_string())
     }
 
     /////////
 
     /// # 5. [CASE] - 批量删除评论
-    pub async fn case_del_all_item(
-        comment_ids: Vec<i64>,
-        ctx: &AppContext,
-    ) -> Result<(String)> {
-        ctx.video.comment
-            .del_comments_record(comment_ids).await?;
+    pub async fn case_del_all_item(comment_ids: Vec<i64>, ctx: &AppContext) -> Result<(String)> {
+        ctx.video.comment.del_comments_record(comment_ids).await?;
         Ok("批量删除评论成功~".to_string())
     }
 

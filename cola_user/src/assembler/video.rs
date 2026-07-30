@@ -7,7 +7,7 @@ use cola_data::app::page::PageInfo;
 use cola_data::music::info::music::MusicInfo;
 use cola_data::user::info::user::UserInfo;
 use cola_data::video::info::video::VideoInfo;
-use repo::user::service::user::UserService;
+use repository::user::service::user::UserService;
 use crate::model::vo::video::{VideoListResponse, VideoSingleResponse, VideoVo};
 
 ////////

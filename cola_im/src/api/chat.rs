@@ -12,7 +12,6 @@ use cola_data::user::info::config::UserConfigInfo;
 use cola_user::model::vo::video::VideoListResponse;
 use crate::case;
 use crate::case::chat::ChatCase;
-use crate::model::vo::video::VideoListResponse;
 
 ////////
 

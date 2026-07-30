@@ -1,21 +1,24 @@
 // cola_gis/src/case/mine.rs  -- 可乐GIS - 用例层 - 我的
-// 2026-07-07
+// 2026-07-07 12:00
 
-//////
+////////
 
 use crate::assembler::poi::build_poi_list_response;
 use crate::model::vo::poi::PoiListResponse;
 use anyhow::{Context, Result};
 use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
-use repo::gis::service::like::GisLikeService;
-use repo::gis::service::view::PoiViewService;
+use repository::gis::service::like::GisLikeService;
+use repository::gis::service::view::PoiViewService;
 
-//////
+////////
 
+/// # [MINE CASE]
 pub struct MineCase;
 
 impl MineCase {
+    //
+
     ////////
 
     /// # 1. [CASE] - 我发布的兴趣点
@@ -80,4 +83,4 @@ impl MineCase {
     }
 }
 
-////// END
+//////// END

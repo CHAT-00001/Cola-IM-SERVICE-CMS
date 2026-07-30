@@ -6,7 +6,7 @@
 use async_trait::async_trait;
 use cola_data::video::command::video::VideoCommand;
 use cola_data::video::port::add::AddPort;
-use repo::video::service::add::AddService;
+use repository::video::service::add::AddService;
 
 ////////
 

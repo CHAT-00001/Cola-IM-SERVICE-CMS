@@ -1,56 +1,83 @@
+// app_config/src/config.rs -- 应用配置 - 全局配置
+// 2025-12-10 14:10
+
+////////
+
 use serde::Deserialize;
 
+////////
+
 /// ---------------------------
-/// 应用全局配置
+/// APP - 应用全局配置
 /// ---------------------------
 #[derive(Debug, Clone, Deserialize)]
 pub struct App {
-    pub name: String,
-    pub debug: bool,
-    pub signature: String,
-    pub enable_protobuf: bool,
+    pub name: String,          // 应用名称
+    pub debug: bool,           // DEBUG模式开关
+    pub signature: String,     // 签名
+    pub enable_protobuf: bool, // 二进制开关
 }
 
+////////
+
 /// ---------------------------
-/// API / WS / Health / Gateway
+/// API - 接口服务
 /// ---------------------------
 #[derive(Debug, Clone, Deserialize)]
 pub struct Api {
-    pub host: String,
-    pub port: u16,
+    pub host: String, // 主机
+    pub port: u16,    // 端口
 }
 
+////////
+
+/// ---------------------------
+/// WS - 长连接
+/// ---------------------------
 #[derive(Debug, Clone, Deserialize)]
 pub struct Ws {
-    pub host: String,
-    pub port: u16,
+    pub host: String, // 主机
+    pub port: u16,    // 端口
 }
 
+////////
+
+/// ---------------------------
+/// Health - 健康中心
+/// ---------------------------
 #[derive(Debug, Clone, Deserialize)]
 pub struct Health {
-    pub host: String,
-    pub port: u16,
+    pub host: String, // 主机
+    pub port: u16,    // 端口
 }
 
+////////
+
+/// ---------------------------
+/// Gateway - 全局网关
+/// ---------------------------
 #[derive(Debug, Clone, Deserialize)]
 pub struct Gateway {
-    pub host: String,
-    pub port: u16,
+    pub host: String, // 主机
+    pub port: u16,    // 端口
 }
+
+////////
 
 /// ---------------------------
 /// PostgreSQL 配置
 /// ---------------------------
 #[derive(Debug, Clone, Deserialize)]
 pub struct Pg {
-    pub host: String,
-    pub port: u16,
-    pub username: String,
-    pub password: String,
-    pub database: String,
-    pub max_connections: Option<u32>,
-
+    pub host: String,                 // 主机
+    pub port: u16,                    // 端口
+    pub username: String,             // 用户名
+    pub password: String,             // 密码
+    pub database: String,             // 数据库名称
+    pub max_connections: Option<u32>, // 最大连接数量
 }
+
+////////
 
 /// ---------------------------
 /// Redis 配置
@@ -64,6 +91,8 @@ pub struct Redis {
     pub db: Option<u32>,
 }
 
+////////
+
 /// ---------------------------
 /// MongoDB 配置
 /// ---------------------------
@@ -75,6 +104,8 @@ pub struct Mongodb {
     pub password: Option<String>,
     pub database: String,
 }
+
+////////
 
 /// ---------------------------
 /// 全局 AppConfig
@@ -90,3 +121,5 @@ pub struct AppConfig {
     pub redis: Redis,
     pub mongodb: Mongodb,
 }
+
+//////// END

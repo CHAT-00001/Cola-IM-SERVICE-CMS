@@ -11,11 +11,11 @@ use cola_data::auth::command::email::EmailLoginCommand;
 use cola_data::auth::command::phone::PhoneLoginCommand;
 use cola_data::auth::info::session::SessionInfo;
 use cola_data::user::info::user::UserInfo;
-use repo::auth::service::session::SessionService;
-use repo::auth::service::sms::SmsService;
-use repo::user::service::state::UserStateService;
+use repository::auth::service::session::SessionService;
+use repository::auth::service::sms::SmsService;
+use repository::user::service::state::UserStateService;
 use tracing::log;
- 
+
 ////////
 pub struct AuthAddCase;
 
@@ -41,8 +41,11 @@ impl AuthAddCase {
         SmsService::consume_sms_code(&phone).await?;
 
         // 4. 用户处理 — 传入网关提取的客户端 IP
-        let (user_info, is_new_user) =
-            UserStateService::upsert_user_by_phone(cmd.phone_no.clone(), Some(cmd.client_ip.clone())).await?;
+        let (user_info, is_new_user) = UserStateService::upsert_user_by_phone(
+            cmd.phone_no.clone(),
+            Some(cmd.client_ip.clone()),
+        )
+        .await?;
 
         // 5. 构造真实 JWT + 随机 refresh_token（带 device_id 支持多端登录）
         let (session_cmd, raw_access_token, raw_refresh_token) =
@@ -105,7 +108,7 @@ impl AuthAddCase {
     }
 
     ////////
- 
+
     /// # 3. [CASE] - 退出登录（单设备下线）
     /// * `user_id`   用户 ID
     /// * `device_id` 设备唯一标识 — 只下线当前设备，不影响其他端
@@ -122,9 +125,14 @@ impl AuthAddCase {
             return Ok("已退出（无活跃会话）".to_string());
         }
 
-        log::info!("[退出] 用户 {} 设备 {} 下线成功（影响 {} 条）", user_id, device_id, rows);
+        log::info!(
+            "[退出] 用户 {} 设备 {} 下线成功（影响 {} 条）",
+            user_id,
+            device_id,
+            rows
+        );
         Ok("已安全退出".to_string())
     }
 }
 
-////////
+//////// END

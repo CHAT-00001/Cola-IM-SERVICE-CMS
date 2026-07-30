@@ -1,4 +1,4 @@
-// case/collect.rs  -- 用例层 - 收藏
+// cola_video/src/case/collect.rs  -- VIDEO - 用例层 - 收藏
 // 2026/6/10 07:00
 
 ////////
@@ -7,8 +7,8 @@ use anyhow::Result;
 use cola_data::video::command::video::VideoCommand;
 use tracing::{info, warn};
 use cola_data::video::command::collect::CollectCommand;
-use repo::video::service::collect::CollectService;
-use repo::video::service::permission_change::{PermissionsChangeService};
+use repository::video::service::collect::CollectService;
+use repository::video::service::permission_change::{PermissionsChangeService};
 
 ////////
 

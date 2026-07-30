@@ -1,4 +1,4 @@
-// cola_data/src/dynamic/entity/comment.rs  -- 数据中心 - DYNAMIC - entity - 动态 评论
+// cola_data/src/dynamic/entity/add  -- 数据中心 - DYNAMIC - entity - 动态 评论
 // 2026/6/19 16:22
 
 ////////

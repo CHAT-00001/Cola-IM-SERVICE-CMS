@@ -7,14 +7,14 @@ use crate::case;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::video::command::video::VideoCommand;
-use repo::video::service::permission_check::VideoPermissionsCheckService;
+use repository::video::service::permission_check::VideoPermissionsCheckService;
 use crate::case::add::AddCase;
 use crate::case::like::LikeCase;
 use crate::model::vo::video::VideoSingleResponse;
 
 ////////
 
-/// # [APP USE CASE] -  点赞接口
+/// # [USE CASE] -  点赞接口
 pub struct LikeApi;
 
 impl LikeApi {

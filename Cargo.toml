@@ -8,7 +8,7 @@ edition = "2024"
 
 #### 工作区
 [workspace]
-members = ["gate_http", "cola_video", "app", "gate_grpc", "health", "network", "im", "repo", "cola_data", "cola_dynamic", "cola_gis", "kits", "cola_user", "cola_music", "cola_auth", "cola_live", "cola_gift", "cola_im", "cola_three", "repo_adapter"]
+members = ["gate_http", "cola_video", "app", "gate_grpc", "health", "cola_infra", "im", "repository", "cola_data", "cola_dynamic", "cola_gis", "kits", "cola_user", "cola_music", "cola_auth", "cola_live", "cola_gift", "cola_im", "cola_three", "repo_adapter"]
 
 [workspace.package]
 version = "0.1.0"
@@ -27,13 +27,13 @@ gate_http = { path = "./gate_http" }
 # GRPC 网关
 gate_grpc = { path = "./gate_grpc" }
 # DATA 数据
-cola_data = { path = "./cola_data"}
+cola_data = { path = "./cola_data" }
 # 应用配置
 app_config = { path = "./app" }
 # 应用健康
 health = { path = "./health" }
 # 外部网络
-network = { path = "./network" }
+cola_infra = { path = "./cola_infra" }
 # 消息服务
 im = { path = "im" }
 

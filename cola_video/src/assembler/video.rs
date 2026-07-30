@@ -1,5 +1,7 @@
-// cola_video/src/assembler/home  -- VIDEO - 组装 -  视频响应体
-// 2026/06/11 架构对齐重构
+// cola_video/src/assembler/video.rs  -- VIDEO - 组装 -  视频响应体
+// 2026/06/11 12:01
+
+////////
 
 use std::collections::HashMap;
 use anyhow::Result;
@@ -7,7 +9,7 @@ use cola_data::app::page::PageInfo;
 use cola_data::music::info::music::MusicInfo;
 use cola_data::user::info::user::UserInfo;
 use cola_data::video::info::video::VideoInfo;
-use repo::user::service::user::UserService;
+use repository::user::service::user::UserService;
 use crate::model::vo::video::{VideoListResponse, VideoSingleResponse, VideoVo};
 
 ////////

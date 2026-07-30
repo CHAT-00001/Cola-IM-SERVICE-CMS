@@ -1,4 +1,4 @@
-//  cola_data/src/three/entity/provider/category.rs  -- 数据中心 - 第三方 - 厂商 - 分类
+//  cola_data/src/three/entity/provider/fs.rs  -- 数据中心 - 第三方 - 厂商 - 分类
 // 2026/7/24 04:23
 
 ////////
@@ -11,11 +11,12 @@ use sqlx::FromRow;
 
 /// # [ENTITY] - 第三方接口分类
 /// * `pg schema`: `cola_three`
-/// * `table name`: `three_category`
+/// * `table name`: `server_type`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
-pub struct ThreeCategoryEntity {
+pub struct ThreeServerTypeEntity {
     pub id: i64,                           // ID
     pub _id: String,                       // 备用ID
+    pub uid: i64,                          // 作者 ID
     pub code: String,                      // 三字母代码
     pub name: String,                      // 英文名称
     pub name_zh: String,                   // 中文名
@@ -32,8 +33,8 @@ pub struct ThreeCategoryEntity {
 ////////
 
 /// # [COLUMNS] - 查询字段常量
-pub const THREE_CATEGORY_COLUMNS: &str = r#"
-    id, code, name, name_zh, remark, sort, status, owner, add_time, upd_time, created_at, updated_at
+pub const THREE_SERVER_TYPE_COLUMNS: &str = r#"
+    id, _id, uid, code, name, name_zh, remark, sort, status, owner, add_time, upd_time, created_at, updated_at
 "#;
 
 //////// END

@@ -1,14 +1,14 @@
 // repo_adapter/src/gis/hot.rs
 // 2026-07-07
 
-//////
+////////
 
 use async_trait::async_trait;
 use cola_data::gis::port::hot::HotlistRepo;
 use cola_data::gis::command::hotlist::HotlistCommand;
-use repo::gis::service::hotlist::HotlistService;
+use repository::gis::service::hotlist::HotlistService;
 
-//////
+////////
 
 /// # [HOTLIST PORT] - 上热门 端口 插头
 pub struct HotlistPortAdapter;
@@ -41,4 +41,4 @@ impl HotlistRepo for HotlistPortAdapter {
     }
 }
 
-////// END
+//////// END

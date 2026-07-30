@@ -1,4 +1,4 @@
-// info/live.rs  -- 构建直播信息
+// info/live_repo  -- 构建直播信息
 // 2026/5/19 18:17 by wx: cestbon10080
 
 use chrono::Utc;

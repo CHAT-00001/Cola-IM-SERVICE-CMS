@@ -6,7 +6,7 @@
 use async_trait::async_trait;
 use cola_data::video::port::feed::FeedRepo;
 use cola_data::video::info::video::VideoInfo;
-use repo::video::service::home::VideoHomeService;
+use repository::video::service::home::VideoHomeService;
 
 ////////
 

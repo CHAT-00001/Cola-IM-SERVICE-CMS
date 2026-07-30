@@ -1,27 +1,29 @@
 // cola_music/src/case/add.rs  -- MUSIC - 用例层 - 发布
-// 2026-07-08
+// 2026-07-08 14:20
 
-//////
+////////
 
+use crate::assembler::music::build_music_single_response;
 use anyhow::{Context, Result};
-use tracing::info;
+use cola_data::fs::rick_check;
 use cola_data::music::command::music::MusicCommand;
 use cola_data::music::vo::music_vo::MusicSingleResponse;
-use cola_data::risk::rick_check;
-use repo::music::service::add::MusicAddService;
-use crate::assembler::music::build_music_single_response;
+use repository::music::service::add::MusicAddService;
+use tracing::info;
 
-//////
+////////
 
 /// # [CASE] - 音乐 发布 用例
 pub struct MusicAddCase;
 
 impl MusicAddCase {
-
     ////////
 
     /// # 1. [CASE] - 发布音乐
-    pub async fn case_add_publish(uid: i64, cmd: MusicCommand) -> Result<MusicSingleResponse, anyhow::Error> {
+    pub async fn case_add_publish(
+        uid: i64,
+        cmd: MusicCommand,
+    ) -> Result<MusicSingleResponse, anyhow::Error> {
         let check_text = format!("{} {}", cmd.name, cmd.description);
 
         let visibility = rick_check(check_text).await;
@@ -40,7 +42,10 @@ impl MusicAddCase {
     ////////
 
     /// # 2. [CASE] - 编辑音乐
-    pub async fn case_edit_publish(uid: i64, cmd: MusicCommand) -> Result<MusicSingleResponse, anyhow::Error> {
+    pub async fn case_edit_publish(
+        uid: i64,
+        cmd: MusicCommand,
+    ) -> Result<MusicSingleResponse, anyhow::Error> {
         let check_text = format!("{} {}", cmd.name, cmd.description);
 
         let visibility = rick_check(check_text).await;
@@ -55,8 +60,6 @@ impl MusicAddCase {
 
         Ok(response)
     }
-
-    ////////
 }
 
-////// END
+//////// END

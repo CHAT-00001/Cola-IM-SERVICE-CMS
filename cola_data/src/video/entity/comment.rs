@@ -1,4 +1,4 @@
-// cola_data/src/video/entity/comment.rs  -- 数据中心 - VIDEO -  entity - 视频 评论
+// cola_data/src/video/entity/add  -- 数据中心 - VIDEO -  entity - 视频 评论
 // 2026-01-16 09:37:10
 
 ////////

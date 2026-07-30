@@ -11,7 +11,7 @@ edition = "2024"
 kits = { path = "../kits" }
 network = { path = "../network"}
 cola_data = { path = "../cola_data" }
-repo = { path = "../repo" }
+repository = { path = "../repository" }
 
 #### 外部依赖
 futures = "0.3.31"

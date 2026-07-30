@@ -1,12 +1,14 @@
-// cola_gis/src/case/like.rs  -- 可乐GIS - 用例层 - 点赞
-// 2026-07-07
+// cola_gis/src/case/like.rs  -- GIS - 用例层 - 点赞
+// 2026-07-07 11:40
+
+////////
 
 use anyhow::{Result, anyhow};
 use cola_data::app::ctx::AppContext;
-use repo::gis::service::like::GisLikeService;
+use repository::gis::service::like::GisLikeService;
 use tracing::{info, warn};
 
-//////
+////////
 
 /// # [USE CASE] - 点赞 用例
 pub struct LikeCase;
@@ -57,4 +59,4 @@ impl LikeCase {
     }
 }
 
-////// END
+//////// END

@@ -1,7 +1,7 @@
-// cola_gis/src/case/comment.rs  -- 用例层 - 评论
+// cola_gis/src/case/add  -- GIS - 用例层 - 评论
 // 2026-07-07
 
-//////
+////////
 
 use crate::assembler::comment::{build_comment_list_response, build_comment_single_response};
 use crate::model::vo::poi_comment::{CommentListResponse, CommentSingleResponse};
@@ -9,14 +9,14 @@ use anyhow::Result;
 use cola_data::app::ctx::AppContext;
 use cola_data::app::request::ApiUrlParamsQuery;
 use cola_data::gis::command::comment::PoiCommentCommand;
-use repo::gis::service::poi_comment::PoiCommentService;
+use repository::gis::service::poi_comment::PoiCommentService;
 
-//////
+////////
 
 /// # [COMMENT CASE] - 评论 用例
 pub struct CommentCase;
 
-//////
+////////
 impl CommentCase {
     ////////
 

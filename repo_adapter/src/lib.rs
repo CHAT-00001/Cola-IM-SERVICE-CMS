@@ -1,6 +1,6 @@
 // repo_adapter/src/lib.rs
 // 2026-06-12
-// * 适配器层：将 repo 层的静态服务函数包装为 cola_data 中定义的 port trait
+// * 适配器层：将 repository 层的静态服务函数包装为 cola_data 中定义的 port trait
 // * 并提供 build 函数将各 Adapter 组装为 AppContext
 
 use std::sync::Arc;

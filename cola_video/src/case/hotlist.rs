@@ -1,4 +1,4 @@
-// case/hotlist.rs  -- 用例层 - 上热门
+// cola_video/src/case/hotlist.rs  -- VIDEO - 用例层 - 上热门
 // 2026/6/10 08:37
 
 ////////
@@ -8,7 +8,7 @@ use tracing::{info, warn};
 use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::video::command::hotlist::HotlistCommand;
-use repo::video::service::like::LikeService;
+use repository::video::service::like::LikeService;
 
 ////////
 

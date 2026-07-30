@@ -1,16 +1,16 @@
 // repo_adapter/src/market/goods.rs  -- 适配器 - 商品
 // 2026/6/18
 
-//////
+////////
 
 use async_trait::async_trait;
 use chrono::Utc;
 use cola_data::market::command::goods::GoodsCommand;
 use cola_data::market::info::goods::GoodsInfo;
 use cola_data::market::port::goods::GoodsPort;
-use repo::market::pg::goods::GoodsRepo;
+use repository::market::pg::goods::GoodsRepo;
 
-//////
+////////
 
 /// # [ADAPTER] - 商品 端口适配器
 pub struct GoodsAdapter;

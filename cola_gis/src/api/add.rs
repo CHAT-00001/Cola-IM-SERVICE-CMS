@@ -1,4 +1,4 @@
-// cola_gis/src/api/poi_add.rs  -- 可乐GIS - 应用层 - 添加
+// cola_gis/src/api/poi_add.rs  -- GIS - api - 添加
 // 2026/4/12 14:45
 
 ////////
@@ -9,7 +9,7 @@ use crate::model::vo::poi::PoiSingleResponse;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::gis::command::poi::PoiCommand;
-use repo::video::service::permission_check::VideoPermissionsCheckService;
+use repository::video::service::permission_check::VideoPermissionsCheckService;
 
 ////////
 

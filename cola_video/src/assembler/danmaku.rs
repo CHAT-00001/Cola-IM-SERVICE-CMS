@@ -1,11 +1,13 @@
 // cola_video/src/assembler/danmaku.rs  -- VIDEO - 组装 - 组装弹幕响应体
-// 2026/06/05 10:10 by wx: cestbon10080
+// 2026/06/05 10:10
+
+////////
 
 use anyhow::Result;
 use cola_data::app::page::PageInfo;
 use cola_data::video::info::danmaku::DanmakuInfo;
 use crate::model::vo::danmaku::{DanmakuListResponse, DanmakuSingleResponse, DanmakuVo};
-use repo::user::service::user::UserService;
+use repository::user::service::user::UserService;
 
 ////////
 
@@ -74,3 +76,5 @@ pub async fn build_danmaku_list_response(
         },
     })
 }
+
+//////// END

@@ -10,7 +10,6 @@ use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::app::request::ApiUrlParamsQuery;
 use cola_data::gis::command::report::PoiReportCommand;
-use cola_data::risk::rick_check;
 use futures_util::TryFutureExt;
 use tracing::info;
 

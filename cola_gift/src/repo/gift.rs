@@ -1,4 +1,4 @@
-// src/gift/info/repo.rs
+// src/gift/info/repository.rs
 // 2026-02-07 11:29:00
 
 use sqlx::PgPool;

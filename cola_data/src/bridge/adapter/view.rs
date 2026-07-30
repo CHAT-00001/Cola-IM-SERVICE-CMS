@@ -7,7 +7,7 @@ use app_core::video::port::view::ViewPort;
 use async_trait::async_trait;
 use data::video::entity::video::VideoEntity;
 use std::sync::Arc;
-use repo::video::pg::view2::VideoViewRepo;
+use repository::video::pg::view2::VideoViewRepo;
 
 pub struct ViewAdapter {
     repo: Arc<VideoViewRepo>,

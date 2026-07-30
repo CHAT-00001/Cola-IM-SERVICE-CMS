@@ -1,4 +1,4 @@
-// cola_video/src/api/comment.rs  -- VIDEO - 应用层 - 评论
+// cola_live/src/api/add  -- LIVE - 应用层 - 评论
 // 2026-04-16 08:00
 
 ////////
@@ -9,8 +9,10 @@ use cola_data::app::data::AppData;
 use cola_data::app::request::ApiUrlParamsQuery;
 use cola_data::auth::info::auth::AuthContext;
 use cola_data::video::command::comment::CommentCommand;
-use repo::user::service::state::UserStateService;
+use repository::user::service::state::UserStateService;
 use crate::model::vo::comment::{CommentListResponse, CommentSingleResponse};
+
+////////
 
 pub struct CommentParamsQuery {
     pub video_id: i64,
