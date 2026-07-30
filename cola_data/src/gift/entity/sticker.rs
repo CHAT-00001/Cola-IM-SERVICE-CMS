@@ -18,7 +18,7 @@ pub const GIFT_STICKER_COLUMNS: &str = r#"
 ////////
 
 /// # [ENTITY] - 表情包贴纸 表
-/// * `pg schema`: `cola_gift`
+/// * `pg schema`: `cola_fs`
 /// * `table name`: `sticker`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct GiftStickerEntity {

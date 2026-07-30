@@ -1,4 +1,4 @@
-// cola_infra/src/s3.rs
+// cola_infra/src/s3.rs -- 基础设施 - S3
 // 2025-12-10 15:00
 
 ////////

@@ -18,7 +18,7 @@ pub const GIFT_EXPRESSION_COLUMNS: &str = r#"
 ////////
 
 /// # [ENTITY] - 表情 表
-/// * `pg schema`: `cola_gift`
+/// * `pg schema`: `cola_fs`
 /// * `table name`: `expression`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct GiftExpressionEntity {

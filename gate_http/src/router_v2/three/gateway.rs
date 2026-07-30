@@ -1,7 +1,7 @@
 // gate_http/src/router_v2/three/gateway.rs  -- 第三方服务 网关
 // 2026/7/27 11:40
 
-//////
+////////
 
 use crate::kits::response::IntoApi;
 use crate::ping::ping;
@@ -13,7 +13,7 @@ use cola_data::auth::request::session::SessionContext;
 use std::time::Instant;
 use crate::router_v2::three::dispatcher;
 
-//////
+////////
 
 /// # [ROUTER] - 第三方服务路由器
 pub fn three_router(cfg: &mut web::ServiceConfig) {
@@ -24,6 +24,8 @@ pub fn three_router(cfg: &mut web::ServiceConfig) {
             .route("/gateway", web::post().to(three_gateway)),
     );
 }
+
+////////
 
 /// # [GATEWAY] - 按 service name 分发到 dispatcher 子模块
 async fn three_gateway(
@@ -78,4 +80,4 @@ async fn three_gateway(
     }
 }
 
-////// END
+//////// END

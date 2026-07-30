@@ -19,7 +19,7 @@ pub const IAM_CLIENT_COLUMNS: &str = r#"
 ////////
 
 /// # [ENTITY] - 礼物 表
-/// * `pg schema`: `cola_gift`
+/// * `pg schema`: `cola_fs`
 /// * `table name`: `gift`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct GiftEntity {

@@ -1,0 +1,15 @@
+#### COLA FS - 可乐 文件存储服务
+## 2026-04-20 14:00
+
+[package]
+name = "cola_fs"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+## 内部依赖
+cola_data = { path = "../cola_data" }
+repository = {path = "../repository" }
+
+## 外部依赖
+aws-sdk-s3 = { version = "1.140.0" }
