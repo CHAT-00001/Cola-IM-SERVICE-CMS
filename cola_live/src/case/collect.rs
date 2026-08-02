@@ -4,7 +4,6 @@
 ////////
 
 use anyhow::Result;
-use cola_data::video::command::video::VideoCommand;
 use tracing::{info, warn};
 use cola_data::video::command::collect::CollectCommand;
 use repository::video::service::collect::CollectService;

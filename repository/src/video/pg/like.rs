@@ -1,11 +1,10 @@
-// repository/src/pg/video/follow  -- 存储 - PG - 短视频 - 信息
+// repository/src/pg/new/follow  --
+// 仓储 - VIDEO - pg - like - 点赞
 // 2026/6/10 05:25
 
 ////////
 
 use crate::pg_pool;
-use cola_data::video::command::video::VideoCommand;
-use cola_data::video::entity::video::VideoEntity;
 use sqlx::{self, Postgres, QueryBuilder};
 
 ////////

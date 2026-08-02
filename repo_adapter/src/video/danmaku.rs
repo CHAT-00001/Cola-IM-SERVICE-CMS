@@ -1,4 +1,4 @@
-// repo_adapter/src/video/danmaku.rs
+// repo_adapter/src/new/danmaku.rs
 // 2026-06-12
 
 ////////

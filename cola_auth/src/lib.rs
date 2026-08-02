@@ -6,7 +6,6 @@
 pub mod api;
 pub mod case;
 pub mod kits;
-pub mod model;
 
 
 //////// END

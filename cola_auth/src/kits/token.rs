@@ -1,7 +1,8 @@
-// cola_auth/src/kits/token.rs  -- 可乐验证中心 - Token 生成工具
-// 2026-07-19
+// cola_auth/src/kits/token.rs
+// core - 验证中心 - kits - Token 生成工具
+// 2026-07-19 11:10
 
-//////
+////////
 
 use aes_gcm::{
     aead::{Aead, KeyInit, OsRng},
@@ -13,9 +14,9 @@ use rand::Rng;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
-//////
+////////
 
-/// # JWT 载荷（含设备 ID，支持多端登录）
+/// # [PAYLOAD] - JWT 载荷（含设备 ID，支持多端登录）
 #[derive(Debug, Serialize, Deserialize)]
 pub struct JwtClaims {
     pub sub: i64,          // 用户 ID (uid)
@@ -25,8 +26,11 @@ pub struct JwtClaims {
     pub jti: String,       // JWT ID (防重放)
 }
 
+////////
+
 /// # 生产级签名密钥
-fn get_jwt_secret() -> Vec<u8> {
+/// * `pub`: 供网关 middleware (JwtAuth) 复用同一密钥进行解码验证
+pub fn kit_get_jwt_secret() -> Vec<u8> {
     b"cola_cms_jwt_secret_key_2026_secure_v2!@#".to_vec()
 }
 
@@ -42,11 +46,14 @@ fn get_aes_key() -> [u8; 32] {
     key
 }
 
+////////
+
 /// # 1. [KITS] - 生成 access_token (JWT)，带 device_id
-/// * 有效期: 15 分钟
+/// * 有效期: 由 `SessionCommand::ACCESS_TOKEN_TTL_DAYS` 统一控制（默认 10 天）
 pub fn kit_generate_access_token(uid: i64, device_id: &str) -> Result<(String, i64), anyhow::Error> {
     let now = Utc::now();
-    let exp = now + Duration::minutes(15);
+    let ttl_days = cola_data::auth::command::session::SessionCommand::ACCESS_TOKEN_TTL_DAYS;
+    let exp = now + Duration::days(ttl_days);
     let exp_ts = exp.timestamp() as usize;
 
     let claims = JwtClaims {
@@ -60,11 +67,13 @@ pub fn kit_generate_access_token(uid: i64, device_id: &str) -> Result<(String, i
     let token = encode(
         &Header::default(),
         &claims,
-        &EncodingKey::from_secret(&get_jwt_secret()),
+        &EncodingKey::from_secret(&kit_get_jwt_secret()),
     )?;
 
     Ok((token, exp.timestamp()))
 }
+
+////////
 
 /// # 2. [KITS] - 生成 access_token (JWT) - 自定义过期时间，带 device_id
 pub fn kit_generate_access_token_with_ttl(
@@ -87,18 +96,21 @@ pub fn kit_generate_access_token_with_ttl(
     let token = encode(
         &Header::default(),
         &claims,
-        &EncodingKey::from_secret(&get_jwt_secret()),
+        &EncodingKey::from_secret(&kit_get_jwt_secret()),
     )?;
 
     Ok((token, exp.timestamp()))
 }
 
+////////
+
 /// # 3. [KITS] - 生成 128 位 refresh_token (安全随机令牌)
-/// * 有效期: 30 天
+/// * 有效期: 由 `SessionCommand::REFRESH_TOKEN_TTL_DAYS` 统一控制（默认 180 天）
 /// * 方案: 64 字节随机数 → 128 hex 字符
 pub fn kit_generate_refresh_token() -> Result<(String, i64), anyhow::Error> {
     let now = Utc::now();
-    let exp = now + Duration::days(30);
+    let ttl_days = cola_data::auth::command::session::SessionCommand::REFRESH_TOKEN_TTL_DAYS;
+    let exp = now + Duration::days(ttl_days);
     let exp_ts = exp.timestamp();
 
     // 64 字节随机数 → 128 hex 字符
@@ -108,6 +120,8 @@ pub fn kit_generate_refresh_token() -> Result<(String, i64), anyhow::Error> {
 
     Ok((raw, exp_ts))
 }
+
+////////
 
 /// # 4. [KITS] - AES-256-GCM 加密 refresh_token（用于入库）
 /// * 返回 base64 编码的密文（nonce + ciphertext）
@@ -133,6 +147,8 @@ pub fn kit_encrypt_refresh_token(raw: &str) -> Result<String, anyhow::Error> {
     Ok(base64_encode(&combined))
 }
 
+////////
+
 /// # 5. [KITS] - AES-256-GCM 解密 refresh_token
 /// * 输入: base64 编码的密文
 /// * 返回: 明文字符串
@@ -157,30 +173,37 @@ pub fn kit_decrypt_refresh_token(encrypted_b64: &str) -> Result<String, anyhow::
         .map_err(|e| anyhow::anyhow!("Decrypted data not valid UTF-8: {}", e))?)
 }
 
+////////
+
 /// # 6. [KITS] - 验证 refresh_token 是否匹配密文
-/// * 将客户端传来的明文 token 再 AES 加密一次，对比数据库密文
+/// * 解密数据库密文后与客户端明文 token 比对（AES-GCM nonce 随机，不能直接比对密文）
 pub fn kit_verify_refresh_token(raw: &str, encrypted_b64: &str) -> bool {
-    match kit_encrypt_refresh_token(raw) {
-        Ok(re_encrypted) => re_encrypted == encrypted_b64,
+    match kit_decrypt_refresh_token(encrypted_b64) {
+        Ok(plaintext) => plaintext == raw,
         Err(_) => false,
     }
 }
 
+////////
+
 /// # 7. [KITS] - 构建 SessionCommand（统一组装 token + 过期时间，带 device_id）
 /// * refresh_token 入库前先 AES-256-GCM 加密
+/// * 过期时间: 统一由 `SessionCommand` 配置常量控制，与 JWT 生成保持一致
 pub fn kit_build_session_cmd(
     uid: i64,
     phone: &str,
     platform: &str,
     device_id: &str,
 ) -> Result<(cola_data::auth::command::session::SessionCommand, String, String), anyhow::Error> {
+    use cola_data::auth::command::session::SessionCommand;
+
     let (access_token, access_exp) = kit_generate_access_token(uid, device_id)?;
     let (refresh_token_raw, refresh_exp) = kit_generate_refresh_token()?;
 
     // AES-256-GCM 加密后入库
     let refresh_token_encrypted = kit_encrypt_refresh_token(&refresh_token_raw)?;
 
-    let cmd = cola_data::auth::command::session::SessionCommand {
+    let cmd = SessionCommand {
         access_token: access_token.clone(),
         refresh_token: refresh_token_encrypted,
         access_expires_at: DateTime::from_timestamp(access_exp, 0)
@@ -195,6 +218,8 @@ pub fn kit_build_session_cmd(
     Ok((cmd, access_token, refresh_token_raw))
 }
 
+////////
+
 /// 辅助: hex 编码
 fn hex_encode(bytes: &[u8]) -> String {
     bytes.iter().map(|b| format!("{:02x}", b)).collect()
@@ -206,6 +231,8 @@ fn base64_encode(bytes: &[u8]) -> String {
     base64::engine::general_purpose::STANDARD.encode(bytes)
 }
 
+////////
+
 /// 辅助: base64 解码
 fn base64_decode(s: &str) -> Result<Vec<u8>, anyhow::Error> {
     use base64::Engine;
@@ -214,7 +241,9 @@ fn base64_decode(s: &str) -> Result<Vec<u8>, anyhow::Error> {
         .map_err(|e| anyhow::anyhow!("Base64 decode failed: {}", e))
 }
 
-////// TEST
+////////
+
+//////// TEST
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -247,3 +276,5 @@ mod tests {
         assert!(!kit_verify_refresh_token("wrong_token", &encrypted));
     }
 }
+
+//////// END

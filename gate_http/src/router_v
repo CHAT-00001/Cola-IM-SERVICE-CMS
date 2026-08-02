@@ -1,0 +1,125 @@
+// gate_http/src/router_v2/video/dispatcher/comment.rs  -- VIDEO - dispatcher - comment
+// 2026/8/1 07:53
+// 2026/8/1 重构：纯路由转发器，按 action 路由到 handler
+
+////////
+
+use cola_data::app::ctx::AppContext;
+use cola_data::app::data::AppData;
+use cola_data::app::query::ApiGatewayRequest;
+use cola_data::auth::info::auth::AuthContext;
+use cola_data::auth::request::session::SessionContext;
+use cola_data::video::command::comment::CommentCommand;
+use cola_video::api::comment::{CommentApi, CommentParamsQuery};
+use serde_json::Value;
+
+////////
+
+/// # [ACTION] - 动作码
+pub mod action {
+    pub const COMMENT_ADD: i16 = 3001; // 发布评论
+    pub const COMMENT_VIDEO_LIST: i16 = 3002; // 视频的评论列表
+    pub const COMMENT_USER_LIST: i16 = 3003; // 用户的评论列表
+    pub const COMMENT_DEL: i16 = 3004; // 删除评论
+    pub const COMMENT_LIKE: i16 = 3005; // 点赞评论
+    pub const COMMENT_UNLIKE: i16 = 3006; // 不喜欢评论
+}
+
+////////
+
+/// # [DISPATCHER] - COMMENT 转发器（纯路由 + cmd 自适应映射）
+/// * `desc`: `只负责按 action 路由到 handler；cmd 从 body.cmd 动态反序列化为对应命令结构体`
+/// * `session`: 由 gateway 验证后传入的可信上下文
+pub async fn comment_dispatch(
+    ctx: &AppContext,
+    session: &SessionContext,
+    req: &ApiGatewayRequest,
+) -> AppData<Value> {
+    let action = req.action.unwrap_or(3001);
+
+    // 由可信 session 派生 AuthContext 传给 handler
+    let auth = AuthContext::new(
+        session.uid,
+        session.access_token.clone(),
+        String::new(),
+        session.device_id.clone(),
+    );
+
+    // 💡 从透传的 body JSON 中提取 cmd 子对象（不同任务的结构不同）
+    let cmd_value: Value = req
+        .body
+        .as_ref()
+        .and_then(|b| b.get("cmd"))
+        .cloned()
+        .unwrap_or_else(|| Value::Object(Default::default()));
+
+    // 评论专用参数：从 ApiGatewayRequest 业务字段中提取
+    let url = CommentParamsQuery {
+        video_id: req.video_id,
+        comment_id: req.comment_id,
+        is_unliked: false,
+        snowflake: req._id,
+    };
+
+    ////////
+
+    // 🚧 动作转发与动态反序列化 Command（自适应映射）
+    match action {
+        // 发布评论 (3001) → CommentCommand
+        3001 => {
+            let cmd: CommentCommand = match serde_json::from_value(cmd_value) {
+                Ok(c) => c,
+                Err(e) => return AppData::err(4000, format!("[🚧 DISPATCH]: 评论参数解析失败: {}", e), None),
+            };
+            to_value(CommentApi::handler_add_comment(auth, url, cmd, ctx).await)
+        }
+
+        // 视频的评论列表 (3002)
+        3002 => {
+            to_value(CommentApi::handler_view_video_list(auth, Some(req.video_id), req.clone().into(), ctx).await)
+        }
+
+        // 用户的评论列表 (3003)
+        3003 => {
+            to_value(CommentApi::handler_view_user_list(auth, url, req.clone().into(), ctx).await)
+        }
+
+        // 删除评论 (3004)
+        3004 => {
+            to_value(CommentApi::handler_del_comment(auth, url.clone(), ctx).await)
+        }
+
+        // 点赞评论 (3005)
+        3005 => {
+            to_value(CommentApi::handler_add_like(auth, url.clone(), true, ctx).await)
+        }
+
+        // 不喜欢评论 (3006)
+        3006 => {
+            to_value(CommentApi::handler_add_unlike(auth, url.clone(), ctx).await)
+        }
+
+        // more
+        _ => AppData::err(
+            4000,
+            format!("[🚧 DISPATCH]: Unknown dispatch action: 💡[{}]", action),
+            None,
+        ),
+    }
+}
+
+//////// END
+
+/// 将具体 handler 的 AppData<T> 转换为转发器统一返回的 AppData<Value>
+fn to_value(inner: AppData<impl serde::Serialize>) -> AppData<Value> {
+    AppData {
+        code: inner.code,
+        message: inner.message,
+        error: inner.error,
+        duration: inner.duration,
+        request_id: inner.request_id,
+        at: inner.at,
+        log_id: inner.log_id,
+        data: inner.data.map(|d| serde_json::to_value(d).unwrap_or_default()),
+    }
+}

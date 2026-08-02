@@ -1,30 +1,32 @@
-// cola_data/src/video/info/add  -- 数据中心 - VIDEO - 信息 - 评论
+// cola_data/src/new/info/comment.rs  --
+// 数据 - VIDEO - 元信息 - 评论
 // 2026/5/21 00:58
 
 ////////
 
+use crate::video::entity::comment::comment::VideoCommentEntity;
+use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
-use crate::video::entity::comment::VideoCommentEntity;
 
 ////////
 
 /// # [INFO] - 视频 评论
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct VideoCommentInfo {
-    pub id: i64,                // 评论 ID
-    pub user_id: i64,           // 用户 ID
-    pub video_id: i64,          // 视频 ID
-    pub parent_id: Option<i64>, // 爸爸评论（可选）
-    pub content: String,        // 内容
-    pub likes: i32,             // 点赞数量
-    pub reply: i32,             // 回复数量
-    pub send_time: i64,         // 发送时间
-    pub sync_time: i64,         // 同步时间
+    pub id: i64,                           // 评论 ID
+    pub user_id: i64,                      // 用户 ID
+    pub video_id: i64,                     // 视频 ID
+    pub parent_id: Option<i64>,            // 爸爸评论（可选）
+    pub content: String,                   // 内容
+    pub likes: i32,                        // 点赞数量
+    pub reply: i32,                        // 回复数量
+    pub add_time: i64,                     // 发布时间
+    pub created_at: Option<DateTime<Utc>>, // 创建时间 (新版)
 }
 
 /// # 构造评论
 impl VideoCommentInfo {
-    /// 构造评论基础信息，并自动判定是否为视频作者
+    /// 构造评论基础信息
     pub fn new(
         id: i64,
         user_id: i64,
@@ -33,13 +35,9 @@ impl VideoCommentInfo {
         content: String,
         likes: i32,
         reply: i32,
-        send_time: i64,
-        sync_time: i64,
-        video_author_id: i64, // 传入视频作者的 UID
+        add_time: i64,
+        created_at: Option<DateTime<Utc>>,
     ) -> Self {
-        // 如果评论的发布者 ID 等于 视频作者的 ID，则为 true
-        let is_author = user_id == video_author_id;
-
         Self {
             id,
             user_id,
@@ -48,8 +46,8 @@ impl VideoCommentInfo {
             content,
             likes,
             reply,
-            send_time,
-            sync_time,
+            add_time,
+            created_at,
         }
     }
 
@@ -63,8 +61,8 @@ impl VideoCommentInfo {
             content: entity.content,
             likes: entity.likes,
             reply: entity.reply,
-            send_time: entity.send_time,
-            sync_time: entity.sync_time,
+            add_time: entity.add_time,
+            created_at: entity.created_at,
         }
     }
 }

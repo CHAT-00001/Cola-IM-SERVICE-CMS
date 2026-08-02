@@ -3,19 +3,25 @@
 
 //////
 
+pub mod state;
+
 use cola_data::auth::entity::session::{AuthSessionEntity, AUTH_SESSION_COLUMNS};
 use crate::pg_pool;
 
 //////
 
 /// # [REPOSITORY] -
-pub struct SessionRepo;
+pub struct AuthSessionRepo;
 
-impl SessionRepo {
+/// SessionRepo 类型别名（兼容 service 层 import）
+pub type SessionRepo = AuthSessionRepo;
+
+// 构造函数
+impl AuthSessionRepo {
 
     ////////
 
-    /// # 1. [REPOSITORY] - 插入新登录会话并"制裁"同平台旧设备
+    /// # 1. [REPOSITORY] - ✅️ 插入新登录会话并"制裁"同平台旧设备
     /// 逻辑：在插入新 Session 前，将该用户在其他活跃 Session 置为 -1 (被挤下线)
     pub async fn insert_session_with_kickout(
         entity: AuthSessionEntity, // 直接获取所有权
@@ -68,7 +74,7 @@ impl SessionRepo {
 
     ////////
 
-    /// # 2. [REPOSITORY] - 注销登录 (主动退出)
+    /// # 2. [REPOSITORY] - ❌️ 注销登录 (主动退出)
     /// * session id 和 device id 双命中
     pub async fn update_session_by_device_id(session_id: &str, device_id: &str,) -> Result<u64, sqlx::Error> {
         let pool = pg_pool();
@@ -111,7 +117,7 @@ impl SessionRepo {
 
     ////////
 
-    /// # 4. [REPOSITORY] - 获取用户当前所有在线设备列表 (用于安全中心展示)
+    /// # 4. [REPOSITORY] - 👤 获取用户当前所有在线设备列表 (用于安全中心展示)
     pub async fn find_online_devices_by_uid(
         user_id: i64,
     ) -> Result<Vec<AuthSessionEntity>, sqlx::Error> {
@@ -167,6 +173,30 @@ impl SessionRepo {
             .await?;
 
         Ok(result.rows_affected())
+    }
+
+    ////////
+
+    /// # 7. [REPOSITORY] - 按 access_token 查询活跃会话
+    /// * `desc`: 中间件鉴权专用，通过 access_token (JWT) 查找有效 session
+    pub async fn find_active_by_access_token(
+        access_token: &str,
+    ) -> Result<Option<AuthSessionEntity>, sqlx::Error> {
+        let pool = pg_pool();
+        let now = chrono::Utc::now().timestamp();
+
+        let sql = format!(
+            r#"SELECT {} FROM "cola_auth"."session"
+               WHERE access_token = $1 AND status = 1 AND access_expires_at > $2
+               LIMIT 1"#,
+            AUTH_SESSION_COLUMNS
+        );
+
+        sqlx::query_as::<_, AuthSessionEntity>(&sql)
+            .bind(access_token)
+            .bind(now)
+            .fetch_optional(&pool)
+            .await
     }
 }
 

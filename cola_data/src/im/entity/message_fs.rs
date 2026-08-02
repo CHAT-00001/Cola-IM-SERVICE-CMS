@@ -60,7 +60,7 @@ impl sqlx::FromRow<'_, sqlx::postgres::PgRow> for FileType {
         match type_str.as_str() {
             "image" => Ok(FileType::Image),
             "voice" => Ok(FileType::Voice),
-            "video" => Ok(FileType::Video),
+            "new" => Ok(FileType::Video),
             "live_photo" => Ok(FileType::LivePhoto),
             "file" => Ok(FileType::File),
             "audio" => Ok(FileType::Audio),
@@ -76,7 +76,7 @@ impl std::fmt::Display for FileType {
         match self {
             FileType::Image => write!(f, "image"),
             FileType::Voice => write!(f, "voice"),
-            FileType::Video => write!(f, "video"),
+            FileType::Video => write!(f, "new"),
             FileType::LivePhoto => write!(f, "live_photo"),
             FileType::File => write!(f, "file"),
             FileType::Audio => write!(f, "audio"),

@@ -37,14 +37,17 @@ async fn three_gateway(
     let start = Instant::now();
     let three = &state.ctx.three;
 
-    // 1️⃣ 接收请求参数结构体
-    let mut api_req = query.into_inner();
-    // 如果 Body 是 JSON，尝试解析结构体覆盖 URL 参数（Body 为主）
-    if !body.is_empty() {
-        if let Ok(body_req) = serde_json::from_slice::<ApiGatewayRequest>(&body) {
-            api_req = body_req;
+    // 1️⃣ 接收请求参数结构体（URL + Body JSON 双重命中，Body 为主）
+    let url_req = query.into_inner();
+    let mut api_req = if !body.is_empty() {
+        match serde_json::from_slice::<ApiGatewayRequest>(&body) {
+            // 字段级合并：Body 中有值的字段覆盖 URL，Body 缺省的字段保留 URL
+            Ok(body_req) => url_req.merge(body_req),
+            Err(_) => url_req,
         }
-    }
+    } else {
+        url_req
+    };
     api_req = api_req.build();
 
     // 2️⃣ 前置身份校验（预留接口）

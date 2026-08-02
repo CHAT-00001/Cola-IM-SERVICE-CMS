@@ -1,0 +1,24 @@
+{
+    "gate": "1001",
+    "node": "cn-gz-04",
+    "code": "000000",
+    "service": "video",
+    "action_name": "home_new",
+    "action": 1004,
+    "auth": {
+        "access_token": "abc123456",
+        "ex_at": ""
+    },
+    "lang": "zh",
+    "cmd": "video.getVideoDetail",
+    "data": {
+        "video_id": 1000041001
+    },
+    "meta": {
+        "page": 1,
+        "qty": 10,
+        "keyword": null,
+        "start_time": null,
+        "end_time": null
+    }
+}

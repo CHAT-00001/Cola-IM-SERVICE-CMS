@@ -1,4 +1,5 @@
-// cola_data/src/auth/dynamic/session.rs  -- 可乐数据中心 - AUTH - Command - session
+// cola_data/src/auth/command/session.rs
+// 数据 - AUTH - Command - session - 会话
 // 2026/06/05 06:50
 
 ////////
@@ -20,18 +21,29 @@ pub struct SessionCommand {
     pub last_active_at: chrono::DateTime<chrono::Utc>,     // 最后一次激活时间(更新时间)
 }
 
+impl SessionCommand {
+    /// # [CONFIG] - access_token 统一过期配置（天）
+    /// * `desc`: 开发初期设为 10 天，避免频繁登录
+    pub const ACCESS_TOKEN_TTL_DAYS: i64 = 10;
+
+    /// # [CONFIG] - refresh_token 统一过期配置（天）
+    pub const REFRESH_TOKEN_TTL_DAYS: i64 = 180;
+}
+
 // 构造函数
 impl SessionCommand {
+    //
+
     ////////
 
-    /// # 构造函数：基于基本信息生成标准有效期 Token 命令
-    /// * 10分钟短 Token + 180天长 Refresh Token
+    /// # [BUILD] - 构造函数：基于基本信息生成标准有效期 Token 命令
+    /// * `access_expires_at`: 由 `Self::ACCESS_TOKEN_TTL_DAYS` 统一控制
     pub fn new_with_defaults(access_token: String, refresh_token: String) -> Self {
         let now = chrono::Utc::now();
         let client_id = "a".to_string();
         let device_id = "b".to_string();
-        let access_expires_at = now + chrono::Duration::minutes(10);
-        let refresh_expires_at = now + chrono::Duration::days(180);
+        let access_expires_at = now + chrono::Duration::days(Self::ACCESS_TOKEN_TTL_DAYS);
+        let refresh_expires_at = now + chrono::Duration::days(Self::REFRESH_TOKEN_TTL_DAYS);
         let last_active_at = now;
 
         Self {

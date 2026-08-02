@@ -1,4 +1,4 @@
-//  bridge/src/video/adapter/view.rs  --
+//  bridge/src/new/adapter/view.rs  --
 // 2026/5/26 11:31 by wx: cestbon10080
 
 ////////

@@ -1,4 +1,4 @@
-// cola_data/src/video/entity/fs.rs  -- 数据中心 - VIDEO - entity - 分类
+// cola_data/src/new/entity/fs.rs  -- 数据中心 - VIDEO - entity - 分类
 // 2026/4/24 18:24 by wx: cestbon10080
 
 ////////

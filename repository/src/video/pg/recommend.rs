@@ -1,16 +1,17 @@
-// pg/recommend.rs  -- PG 推荐
-// 2026/5/20 20:45 by wx: cestbon10080
+// repository/src/new/pg/recommend.rs  --
+// 仓储 - VIDEO - pg - 推荐
+// 2026/5/20 20:45
 
 ////////
 
-use cola_data::video::command::recommend::RecommendCommand;
 use crate::pg_pool;
+use cola_data::video::command::recommend::RecommendCommand;
 
 ////////
 
 pub struct RecommendRepository;
 impl RecommendRepository {
-    // * ---------
+    //
 
     ////////
 
@@ -28,7 +29,7 @@ impl RecommendRepository {
 
         // 1. 修正：VALUES 必须对应 5 个参数
         let query = "
-        INSERT INTO video_recommend (user_id, video_id, remark, add_time, created_at)
+        INSERT INTO cola_video.recommend (user_id, video_id, remark, add_time, created_at)
         VALUES ($1, $2, $3, $4, $5)
         ON CONFLICT (user_id, video_id) DO NOTHING
     ";
@@ -38,8 +39,8 @@ impl RecommendRepository {
             .bind(uid)
             .bind(video_id)
             .bind(&cmd.remark) // 对应 $3
-            .bind(timestamp)   // 对应 $4
-            .bind(datetime)    // 对应 $5
+            .bind(timestamp) // 对应 $4
+            .bind(datetime) // 对应 $5
             .execute(&pool)
             .await?;
 
@@ -71,12 +72,12 @@ impl RecommendRepository {
         // 映射单列数据到基础类型，sqlx 内部用 sqlx::query_scalar
         // 或者直接 query 迭代 row.get(0)，但最清爽的是 query_scalar! 宏或直接用单列映射
         sqlx::query_scalar::<_, i64>(query)
-            .bind(uid)    // $1
-            .bind(limit)  // $2
+            .bind(uid) // $1
+            .bind(limit) // $2
             .bind(offset) // $3
             .fetch_all(&pool)
             .await
     }
 }
 
-////////
+//////// END

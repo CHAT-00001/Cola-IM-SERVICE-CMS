@@ -1,4 +1,5 @@
-// repository/src/pg/video/share.rs  -- 存储 - PG - 短视频 - 分享
+// repository/src/pg/new/share.rs  --
+// 仓储 - VIDEO - pg - share - 分享
 // 2026/5/20 20:31
 
 ////////
@@ -6,6 +7,7 @@
 use sqlx::PgPool;
 use cola_data::video::entity::share::ShareEntity;
 use crate::pg_pool;
+
 ////////
 
 /// # [REPOSITORY] - 短视频分享数据仓库
@@ -19,6 +21,9 @@ impl ShareRepository {
     pub fn new(pool: PgPool) -> Self {
         Self { pool }
     }
+    //
+    
+    ////////
 
     /// # [REPOSITORY] - 保存 - 分享记录
     /// * 防重刷（基于 sync_id 的强幂等机制）
@@ -26,7 +31,7 @@ impl ShareRepository {
         // 💡 使用更加稳健、不依赖编译期数据库连接的 sqlx::query 动态绑定
         sqlx::query(
             r#"
-            INSERT INTO video_share
+            INSERT INTO cola_video.cola_video.video_share
             (user_id, video_id, target_platform, share_code, sync_id, sync_time, create_time)
             VALUES ($1, $2, $3, $4, $5, $6, $7)
             ON CONFLICT (sync_id) DO NOTHING
@@ -61,7 +66,7 @@ impl ShareRepository {
         // 3. 浏览记录一般按“浏览时间（visittime/addtime）”倒序，这里把乱入的 likes 排序去掉了
         let query = "
         SELECT video_id
-        FROM video_share
+        FROM cola_video.video_share
         WHERE user_id = $1 AND status = 1
         ORDER BY addtime DESC
         LIMIT $2 OFFSET $3
@@ -78,5 +83,4 @@ impl ShareRepository {
     }
 }
 
-// * --------
 //////// END

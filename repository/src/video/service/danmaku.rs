@@ -1,16 +1,13 @@
-// service/danmaku.rs  -- 仓储中心 - VIDEO - 服务层 - 弹幕
+// repository/src/new/service/danmaku.rs  --
+// 仓储 - VIDEO - service - danmaku - 弹幕
 // 2026/6/8 19:17
 
 ////////
 
-use crate::video::pg::user::UserRepo;
-use crate::video::pg::video::{VideoRepo};
+use crate::video::pg::danmaku::danmaku::DanmakuRepo;
+use crate::video::pg::user::user_repo::UserRepo;
+use crate::video::pg::video::video::VideoRepo;
 use anyhow::Error;
-use cola_data::video::command::video::VideoCommand;
-use cola_data::video::entity::video::VideoEntity;
-// 引入缺少的 dynamic 和 handler 结构
-use crate::video::pg::comment::CommentRepo;
-use crate::video::pg::danmaku::DanmakuRepo;
 use cola_data::video::command::buy::VideoBuyCommand;
 use cola_data::video::command::collect::CollectCommand;
 use cola_data::video::command::comment::CommentCommand;
@@ -20,8 +17,8 @@ use cola_data::video::command::recommend::RecommendCommand;
 use cola_data::video::command::report::VideoReportCommand;
 use cola_data::video::command::share::ShareCommand;
 use cola_data::video::entity::collect::CollectEntity;
-use cola_data::video::entity::comment::VideoCommentEntity;
-use cola_data::video::entity::danmaku::DanmakuEntity;
+use cola_data::video::entity::danmaku::danmaku::DanmakuEntity;
+use cola_data::video::entity::video::video::VideoEntity;
 use cola_data::video::info::comment::VideoCommentInfo;
 use cola_data::video::info::danmaku::DanmakuInfo;
 use tracing::log;
@@ -93,9 +90,7 @@ impl DanmakuService {
         limit: i64,
     ) -> Result<Vec<DanmakuInfo>, anyhow::Error> {
         // 弹幕实体
-        let entities =
-            DanmakuRepo::find_danmaku_by_user_id(user_id, offset, limit)
-                .await?;
+        let entities = DanmakuRepo::find_danmaku_by_user_id(user_id, offset, limit).await?;
 
         // handler -> info
         let infos: Vec<DanmakuInfo> = entities.into_iter().map(DanmakuInfo::from_entity).collect();
@@ -111,7 +106,6 @@ impl DanmakuService {
         uid: i64,
         danmaku_id: i64,
     ) -> Result<(), anyhow::Error> {
-
         // 1. 先查弹幕（用于获取 video_id + 校验权限）
         let danmaku = DanmakuRepo::find_by_id(danmaku_id)
             .await?
@@ -160,7 +154,6 @@ impl DanmakuService {
         Ok(collect_entity)
     }
 
-
     ////////
 
     /// # 6. [SERVICE] - 添加不喜欢弹幕 + 更新计数
@@ -169,7 +162,6 @@ impl DanmakuService {
         danmaku_id: i64,
         is_unliked: bool,
     ) -> Result<CollectEntity, anyhow::Error> {
-
         let collect_entity = CollectEntity::default();
 
         // 联动更新计数器：收藏的视频数量 + 1
@@ -255,7 +247,10 @@ impl DanmakuService {
     ////////
 
     /// # 8. [SERVICE] - 记录举报信息
-    pub async fn save_report_info(_uid: i64, _cmd: VideoReportCommand) -> Result<(), anyhow::Error> {
+    pub async fn save_report_info(
+        _uid: i64,
+        _cmd: VideoReportCommand,
+    ) -> Result<(), anyhow::Error> {
         // TODO: 写入后台内容风控待人工审核表
 
         Ok(())
@@ -286,8 +281,6 @@ impl DanmakuService {
     }
 
     ////////
-
-
 }
 
 //////// END

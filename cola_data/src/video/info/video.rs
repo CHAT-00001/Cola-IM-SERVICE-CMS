@@ -1,9 +1,9 @@
-// cola_data/src/video/info/video.rs  -- VIDEO - info - 视频信息
+// cola_data/src/new/info/new.rs  -- VIDEO - info - 视频信息
 // 2026/5/21 08:40
 
 ////////
 
-use crate::video::entity::video::VideoEntity;
+use crate::video::entity::video::video::VideoEntity;
 use chrono::Utc;
 use serde::{Deserialize, Serialize};
 

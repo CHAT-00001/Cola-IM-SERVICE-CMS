@@ -1,21 +1,17 @@
 // src/middleware/auth_check.rs - jwt 验证
 // 2026-01-16 13:45:00
+// 2026/8/1 重构：统一使用 cola_auth::kits::token 中的密钥与载荷结构
 
 use actix_web::{
     dev::{Service, ServiceRequest, ServiceResponse, Transform},
     Error, HttpMessage,
 };
+use cola_auth::kits::token::{JwtClaims, kit_get_jwt_secret};
 use futures_util::future::{ready, LocalBoxFuture, Ready};
-use jsonwebtoken::{decode, DecodingKey, Validation, Algorithm};
+use jsonwebtoken::{decode, DecodingKey, Validation};
 use std::rc::Rc;
-use serde::{Deserialize, Serialize};
 
-/// JWT 载荷结构
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Claims {
-    pub sub: i64,      // 用户 ID (uid)
-    pub exp: u64,      // 过期时间 (秒级时间戳)
-}
+////////
 
 pub struct JwtAuth;
 
@@ -37,6 +33,8 @@ where
         }))
     }
 }
+
+////////
 
 pub struct JwtAuthMiddleware<S> {
     service: Rc<S>,
@@ -66,18 +64,17 @@ where
                     if auth_str.starts_with("Bearer ") {
                         let token = &auth_str[7..];
 
-                        // 2. 校验 JWT
-                        // 建议：实际开发中密钥应该从环境配置（config）中读取
-                        let secret = "your_super_secret_key_123";
-                        let decoding_key = DecodingKey::from_secret(secret.as_ref());
-                        let validation = Validation::new(Algorithm::HS256);
+                        // 2. 校验 JWT：使用与生成端完全一致的密钥（cola_auth 统一管理）
+                        let secret = kit_get_jwt_secret();
+                        let decoding_key = DecodingKey::from_secret(&secret);
+                        let validation = Validation::default();
 
-                        if let Ok(token_data) = decode::<Claims>(token, &decoding_key, &validation) {
+                        if let Ok(token_data) = decode::<JwtClaims>(token, &decoding_key, &validation) {
                             // 3. 【核心】验证成功，将 uid 注入 extensions
                             // 后续 ApiRequest 就能通过 req.extensions().get::<i64>() 拿到它
                             req.extensions_mut().insert(token_data.claims.sub);
                         } else {
-                            // 这里可以选择直接拦截返回 401，也可以放行让业务层判断是否为游客
+                            // 验证失败放行，让业务层判断是否为游客
                             // tracing::warn!("JWT 验证失败: {}", token);
                         }
                     }
@@ -90,3 +87,5 @@ where
         })
     }
 }
+
+//////// END

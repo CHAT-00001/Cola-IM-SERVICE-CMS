@@ -1,4 +1,4 @@
-// cola_data/src/video/vo/video.rs  -- VIDEO - VO - 视频
+// cola_data/src/new/vo/new.rs  -- VIDEO - VO - 视频
 // 2026/6/19 17:35
 
 ////////

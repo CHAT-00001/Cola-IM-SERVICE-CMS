@@ -7,7 +7,7 @@
 //
 // use serde::Serialize;
 // use crate::api::page::PageInfo;
-// use crate::video::vo::video::VideoVo;
+// use crate::new::vo::new::VideoVo;
 //
 // ////////
 //

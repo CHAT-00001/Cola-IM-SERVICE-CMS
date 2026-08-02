@@ -3,9 +3,9 @@
 
 ////////
 
-use crate::video::entity::video::VideoEntity;
 use chrono::Utc;
 use serde::{Deserialize, Serialize};
+use crate::video::entity::video::video::VideoEntity;
 
 ////////
 

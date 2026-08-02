@@ -1,4 +1,4 @@
-// cola_data/src/video/info/mod.rs  -- 数据 - video - 信息 - mod
+// cola_data/src/new/info/mod.rs  -- 数据 - new - 信息 - mod
 // 2026/5/22 13:27
 
 ////////

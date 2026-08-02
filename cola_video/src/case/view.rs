@@ -1,4 +1,5 @@
-// case/view.rs  -- 可乐短视频 - 用例层 - 浏览
+// cola_video/src/case/view.rs
+// core - VIDEO - case - view - 浏览用例层
 // 2026-03-30 08:25
 
 ////////
@@ -8,11 +9,9 @@ use crate::assembler::video::build_video_single_response;
 use crate::model::vo::video::VideoSingleResponse;
 use anyhow::{Result, anyhow};
 use cola_data::app::ctx::AppContext;
-use cola_data::video::entity::video::VideoEntity;
 use cola_data::video::info::video::VideoInfo;
 use std::sync::Arc;
 use cola_data::app::query::ApiGatewayRequest;
-////////
 
 ////////
 

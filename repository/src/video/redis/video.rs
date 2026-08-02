@@ -1,12 +1,16 @@
-// repository/src/video/redis/home  -- 仓储中心 - 短视频 - Redis - 视频缓存
+// repository/src/new/redis/home  --
+// 仓储 - VIDEO - redis - 视频缓存
 // 2026/6/8 23:03
 
 ////////
 use redis::AsyncCommands;
 use app_config::DbService;
+use cola_data::video::entity::video::video::VideoEntity;
 use cola_data::video::info::video::VideoInfo;
-use cola_data::video::entity::video::VideoEntity;
 
+////////
+
+/// # [CACHE] - 视频缓存
 #[derive(Clone)]
 pub struct VideoCache {
     db: DbService,
@@ -18,7 +22,7 @@ impl VideoCache {
     }
 
     fn key(video_id: i64) -> String {
-        format!("video:info:{}", video_id)
+        format!("new:info:{}", video_id)
     }
 
     // =========================
@@ -95,3 +99,5 @@ impl VideoCache {
         Ok(())
     }
 }
+
+//////// END

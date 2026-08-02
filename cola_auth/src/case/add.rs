@@ -5,7 +5,7 @@
 
 use crate::kits::sms::kit_make_auth_sms_content;
 use crate::kits::token::kit_build_session_cmd;
-use crate::model::vo::session::{SignResponse, SignVo};
+use cola_data::auth::vo::session::{SignResponse, SignVo};
 use anyhow::{Result, anyhow};
 use cola_data::auth::command::email::EmailLoginCommand;
 use cola_data::auth::command::phone::PhoneLoginCommand;

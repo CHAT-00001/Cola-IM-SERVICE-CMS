@@ -4,7 +4,7 @@
 //////
 
 use crate::case::session::{SessionCase};
-use crate::model::vo::session::SignResponse;
+use cola_data::auth::vo::session::SignResponse;
 use cola_data::app::api::ApiQuery;
 use cola_data::app::data::AppData;
 use cola_data::app::error;

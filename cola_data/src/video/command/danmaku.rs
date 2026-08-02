@@ -1,10 +1,10 @@
-// cola_data/src/video/dynamic/danmaku.rs  -- 短视频 - dynamic - 弹幕
+// cola_data/src/new/dynamic/danmaku.rs  -- 短视频 - dynamic - 弹幕
 // 2026/5/19 22:13 by wx: cestbon10080
 
 ////////
 
 use serde::{Deserialize, Serialize};
-use crate::video::entity::danmaku::DanmakuEntity;
+use crate::video::entity::danmaku::danmaku::DanmakuEntity;
 
 ////////
 

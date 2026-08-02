@@ -1,17 +1,12 @@
-// dynamic/order.rs  -- 订单
+// cola_data/src/market/command/order.rs  -- 订单
+// 数据 - MARKET - command - 订单
 // 2026/6/18 13:29
-
-////////
-
-
-// dynamic/address.rs  -- MARKET - Command  - 商店申请
-// 2026/6/18 13:08
 
 ////////
 
 use chrono::{TimeZone, Utc};
 use serde::{Deserialize, Serialize};
-use crate::video::entity::video::VideoEntity;
+use crate::video::entity::video::video::VideoEntity;
 
 ////////
 
@@ -112,5 +107,4 @@ impl OrderCommand {
     }
 }
 
-// * --------
 //////// END

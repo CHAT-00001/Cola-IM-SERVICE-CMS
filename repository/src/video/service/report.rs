@@ -4,9 +4,9 @@
 ////////
 
 use cola_data::video::command::report::VideoReportCommand;
-use cola_data::video::entity::comment::VideoCommentEntity;
-use tracing::log;
 
+use tracing::log;
+use cola_data::video::entity::comment::comment::VideoCommentEntity;
 ////////
 
 /// # [REPORT SERVICE] - 举报 服务

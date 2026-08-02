@@ -9,7 +9,7 @@ use serde::{Deserialize, Serialize};
 
 /// # [AUTH] - 客户端认证请求
 /// * `desc`: `网关接收客户端提交的 auth 信息`
-/// `不可信数据，需要经过验证后生成 SessionContext
+/// `不可信数据，需要经过验证后生成 SessionContext`
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct AuthSessionRequest {
     // 客户端携带的访问令牌
@@ -26,9 +26,8 @@ impl AuthSessionRequest {
     /// 是否存在登录信息
     pub fn has_token(&self) -> bool {
         self.access_token
-            .as_ref()
-            .map(|v| !v.is_empty())
-            .unwrap_or(false)
+            .as_deref()
+            .is_some_and(|v| !v.trim().is_empty())
     }
 }
 
@@ -82,6 +81,16 @@ impl SessionContext {
             is_anonymous: false,
             access_token,
         }
+    }
+
+    /// 是否已登录
+    pub fn is_login(&self) -> bool {
+        !self.is_anonymous
+    }
+
+    /// 是否拥有指定角色
+    pub fn has_role(&self, role: &str) -> bool {
+        self.iam_roles.iter().any(|r| r == role)
     }
 }
 

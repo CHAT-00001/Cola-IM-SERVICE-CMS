@@ -1,4 +1,4 @@
-// cola_video/src/assembler/video.rs  -- VIDEO - 组装 -  视频响应体
+// cola_video/src/assembler/new.rs  -- VIDEO - 组装 -  视频响应体
 // 2026/06/11 12:01
 
 ////////

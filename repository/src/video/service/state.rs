@@ -1,4 +1,4 @@
-// repository/src/video/service/state  -- 仓储 - video - 服务 - 状态
+// repository/src/new/service/state  -- 仓储 - new - 服务 - 状态
 // 2026/06/05 04:45 by wx: cestbon10080
 
 ////////

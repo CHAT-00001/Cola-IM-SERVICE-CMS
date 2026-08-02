@@ -4,13 +4,18 @@
 ////////
 
 use crate::config::AppConfig;
-use crate::mongodb::mongodb_init;
-use crate::pg::pg_init;
-use crate::redis::redis_init;
 use mongodb::Client as MongoClient;
+use mongodb::mongodb_init;
+use pg::pg_init;
 use redis::Client as RedisClient;
+use redis::redis_init;
 use sqlx::PgPool;
 use tracing::error;
+
+////////
+pub mod mongodb;
+pub mod pg;
+pub mod redis;
 
 ////////
 

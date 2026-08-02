@@ -1,19 +1,18 @@
-// repository/src/video/pg/mod.rs  -- 仓储 - VIDEO - PG - mod
-// 2026/5/23 04:58 by wx: cestbon10080
+// repository/src/new/pg/mod.rs  --
+// 仓储 - VIDEO - pg - mod
+// 2026/5/23 04:58
 
 ////////
 
-pub mod add;
-pub mod collect;
-pub mod comment;
-pub mod count;
-pub mod danmaku;
+// 发布
+pub mod banned; // 封禁功能
+pub mod collect; // 收藏
+pub mod comment; // 评论
+pub mod danmaku; // 弹幕
 pub mod ids;
-pub mod like;
-pub mod perm_check;
-pub mod perm_update;
-pub mod recommend;
-pub mod share;
-pub mod user;
-pub mod video;
-pub mod view;
+pub mod like; // 点赞
+pub mod recommend; // 推荐
+pub mod share; // 分享
+pub mod user; // 创作者中心
+pub mod video; // 视频内容
+pub mod view; // 浏览

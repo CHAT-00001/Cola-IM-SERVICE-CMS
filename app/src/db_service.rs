@@ -29,29 +29,29 @@ impl DbService {
     /// [CASE] - NEW
     pub async fn new(config: &AppConfig) -> Option<Self> {
         // PostgreSQL
-        let pg_pool = match crate::pg::pg_init(&config.pg).await {
+        let pg_pool = match crate::db::pg::pg_init(&config.pg).await {
             Ok(pool) => pool,
             Err(e) => {
-                error!("Failed to connect PostgreSQL: {:?}", e);
+                error!("❌️ Failed to connect PostgreSQL: {:?}", e);
                 return None;
             }
         };
 
         // MongoDB
-        let mongo_client = match crate::mongodb::mongodb_init(&config.mongodb).await {
+        let mongo_client = match crate::db::mongodb::mongodb_init(&config.mongodb).await {
             Ok(client) => client,
             Err(e) => {
-                error!("Failed to connect MongoDB: {:?}", e);
+                error!("❌️ Failed to connect MongoDB: {:?}", e);
                 return None;
             }
         };
 
-        let redis_client = crate::redis::redis_init(&config.redis).ok()?;
+        let redis_client = crate::db::redis::redis_init(&config.redis).ok()?;
         let redis_conn = redis_client
             .get_multiplexed_async_connection()
             .await
             .map_err(|e| {
-                error!("Redis Connection Error: {}", e);
+                error!("❌️ Redis Connection Error: {}", e);
                 e
             })
             .ok()?;

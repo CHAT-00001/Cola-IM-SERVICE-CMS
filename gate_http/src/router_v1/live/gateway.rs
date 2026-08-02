@@ -39,7 +39,7 @@ pub struct GatewayQuery {
 pub fn live_router(cfg: &mut web::ServiceConfig) {
     cfg.service(
         // by
-        // * /video/xxxx
+        // * /new/xxxx
         web::scope("/live")
             // 默认
             .route("/", web::get().to(root))
@@ -197,7 +197,7 @@ async fn live_gateway(
                 "user_id": 1,
                 "title": "测试视频标题",
                 "description": "这是一个测试视频描述",
-                "href": "https://example.com/video/1001",
+                "href": "https://example.com/new/1001",
                 "cover": "https://example.com/cover/1001.jpg",
                 "views": 12345,
                 "likes": 678,

@@ -3,7 +3,7 @@
 
 //////
 
-use crate::auth::pg::session::SessionRepo;
+use crate::auth::pg::session::{SessionRepo, state::SessionStateService};
 use anyhow::{Result, anyhow};
 use cola_data::auth::command::session::SessionCommand;
 use cola_data::auth::entity::session::AuthSessionEntity; // 引入你的物理实体契约
@@ -45,15 +45,15 @@ impl SessionService {
     ////////
 
     /// # 2. [SERVICE] - 检查会话状态 (通常给中间件鉴权使用)
-    /// * 机制：未来改为旁路模式时，先去 Redis 查这个 token 存不存在。
-    /// * 如果 Redis 穿透，下钻调用底层的 `find_active_session_by_token`，并回填 Redis。
-    pub async fn check_auth_session_info(token: &str) -> Result<Option<AuthSessionEntity>> {
-        if token.is_empty() {
+    /// * 机制：cache-first 旁路模式 → 先查 Redis → Miss 下钻 PG → 回填 Redis
+    /// * 支持多设备登录：同一用户可在多个设备同时在线
+    pub async fn check_auth_session_info(access_token: &str) -> Result<Option<AuthSessionEntity>> {
+        if access_token.is_empty() {
             return Ok(None);
         }
 
-        // 🚀 静态下探调用你的第 3 个 Repo 校验函数
-        let session_opt = SessionRepo::find_active_session_by_token(token)
+        // cache-first: Redis → PG → 回填 Redis
+        let session_opt = SessionStateService::check_session(access_token)
             .await
             .map_err(|e| anyhow!("SERVICE: 校验会话有效性失败: {}", e))?;
 

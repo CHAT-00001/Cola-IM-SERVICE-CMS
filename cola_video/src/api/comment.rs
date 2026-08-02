@@ -14,6 +14,7 @@ use repository::user::service::state::UserStateService;
 
 ////////
 
+#[derive(Clone)]
 pub struct CommentParamsQuery {
     pub video_id: i64,
     pub comment_id: i64,

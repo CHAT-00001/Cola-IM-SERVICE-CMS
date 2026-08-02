@@ -1,4 +1,5 @@
-// cola_video/src/case/add.rs  -- VIDEO - 用例层 - 发布
+// cola_video/src/case/add.rs
+// core - VIDEO - case - 发布
 // 2026-06-11 12:10
 
 ////////
@@ -6,7 +7,9 @@
 use anyhow::{Context, Result};
 use tracing::info;
 use cola_data::fs::rick_check;
-use cola_data::video::command::video::VideoCommand;
+use cola_data::video::command::video::edit::VideoUpdateCommand;
+use cola_data::video::command::video::new::VideoNewCommand;
+use cola_data::video::command::video::permission::VideoUpdatePermissionCommand;
 use repository::video::service::add::AddService;
 use crate::assembler::video::build_video_single_response;
 use crate::model::vo::video::VideoSingleResponse;
@@ -20,7 +23,7 @@ impl AddCase {
     ////////
 
     /// # 1. [CASE] - 发布视频
-    pub async fn case_add_publish(uid: i64, cmd: VideoCommand) -> Result<VideoSingleResponse, anyhow::Error> {
+    pub async fn case_add_publish(uid: i64, cmd: VideoNewCommand) -> Result<VideoSingleResponse, anyhow::Error> {
         // 1. 内容风控（标题 + 简介 联合过滤）
         let check_text = format!("{} {:?}", cmd.title, cmd.description);
 
@@ -30,9 +33,9 @@ impl AddCase {
         // 2. 核心数据持久化与计数更新 (💡 提示：建议让这个 Service 函数返回刚插入成功的 VideoInfo)
         let video_info = AddService::save_video_and_update_count(uid, cmd, visibility)
             .await
-            .map_err(|e| anyhow::anyhow!("BIZ: 视频发布持久化失败: {}", e))?;
+            .map_err(|e| anyhow::anyhow!("[🗣️ BIZ]: 视频发布持久化失败: {}", e))?;
 
-        info!("BIZ - 视频发布成功: uid={}, visibility={}", uid, visibility);
+        info!("[🗣️ BIZ] - 视频发布成功: uid={}, visibility={}", uid, visibility);
 
         // 3. 🌟 架构对齐：用我们刚才写好的高质量总装器，动态拼装博主信息后返回给前端
         let response = build_video_single_response(video_info, Some(uid)).await?;
@@ -43,7 +46,7 @@ impl AddCase {
     ////////
 
     /// # 2. [CASE] - 编辑视频
-    pub async fn case_edit_publish(uid: i64, cmd: VideoCommand) -> Result<VideoSingleResponse, anyhow::Error> {
+    pub async fn case_edit_publish(uid: i64, cmd: VideoUpdateCommand) -> Result<VideoSingleResponse, anyhow::Error> {
         // 1. 内容风控（标题 + 简介 联合过滤）
         let check_text = format!("{} {:?}", cmd.title, cmd.description);
 
@@ -51,11 +54,53 @@ impl AddCase {
         let visibility = rick_check(check_text).await;
 
         // 2. 核心数据持久化与计数更新
-        let video_info = AddService::edit_video(uid, cmd, visibility)
+        let video_info = AddService::edit_content(uid, cmd, visibility)
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 视频发布持久化失败: {}", e))?;
 
-        info!("BIZ - 视频发布成功: uid={}, visibility={}", uid, visibility);
+        info!("[🗣️ BIZ] - 视频发布成功: uid={}, visibility={}", uid, visibility);
+
+        // 3. 🌟 架构对齐：用我们刚才写好的高质量总装器，动态拼装博主信息后返回给前端
+        let response = build_video_single_response(video_info, Some(uid)).await?;
+
+        Ok(response)
+    }
+
+    ////////
+
+    /// # 3. [CASE] - 修改权限
+    pub async fn case_change_permission(uid: i64, cmd: VideoUpdatePermissionCommand) -> Result<VideoSingleResponse, anyhow::Error> {
+        let video_id = cmd.id;
+
+        // 1. 权限修改不涉及文本内容风控，直接调用 Service 持久化更新
+        let video_info = AddService::change_permission(uid, cmd)
+            .await
+            .map_err(|e| anyhow::anyhow!("BIZ: 视频权限修改持久化失败: {}", e))?;
+
+        info!("[👤 BIZ] -  视频权限修改成功: uid={}, video_id={}", uid, video_id);
+
+        // 2. 🌟 架构对齐：用我们写好的高质量总装器，动态拼装博主信息后返回给前端
+        let response = build_video_single_response(video_info, Some(uid)).await?;
+
+        Ok(response)
+    }
+
+    ////////
+
+    /// # 4. [CASE] - 修改状态
+    pub async fn case_change_status(uid: i64, cmd: VideoUpdateCommand) -> Result<VideoSingleResponse, anyhow::Error> {
+        // 1. 内容风控（标题 + 简介 联合过滤）
+        let check_text = format!("{} {:?}", cmd.title, cmd.description);
+
+        // ✅ 核心修复：同上，直接接住 i16
+        let visibility = rick_check(check_text).await;
+
+        // 2. 核心数据持久化与计数更新
+        let video_info = AddService::edit_content(uid, cmd, visibility)
+            .await
+            .map_err(|e| anyhow::anyhow!("BIZ: 视频发布持久化失败: {}", e))?;
+
+        info!("[👤 BIZ] -  视频发布成功: uid={}, visibility={}", uid, visibility);
 
         // 3. 🌟 架构对齐：用我们刚才写好的高质量总装器，动态拼装博主信息后返回给前端
         let response = build_video_single_response(video_info, Some(uid)).await?;

@@ -1,4 +1,4 @@
-// repo_adapter/src/video/hot.rs
+// repo_adapter/src/new/hot.rs
 // 2026-06-12 09:30
 
 ////////

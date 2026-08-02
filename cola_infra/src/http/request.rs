@@ -1,10 +1,13 @@
-// network lib src/router_v2/request.rs -- Http Api 请求体
+// network/src/router_v2/request.rs -- 网络 - HTTP -  Api 请求体
 // 2026-03-11 06:51:10
+
+////////
 
 use std::collections::HashMap;
 
-/// # Http Api 请求体
+////////
 
+/// # [CMD] - Http Api 请求体
 #[derive(Debug, Clone)]
 pub struct ApiRequest {
     pub request_id: String,                    // 请求id

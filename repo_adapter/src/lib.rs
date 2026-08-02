@@ -29,7 +29,7 @@ use cola_data::three::port::ColaThreePort;
 use cola_data::user::port::ColaUserPort;
 use cola_data::video::port::ColaVideoPort;
 
-//////
+////////
 
 /// 构建完整的 AppContext，注入所有 Adapter 实现
 pub fn build_app_context() -> AppContext {
@@ -101,14 +101,14 @@ pub fn build_app_context() -> AppContext {
         binding: Arc::new(three::three_biz_binding::BindingAdapter),
     };
 
-    // ---------- Music (复用 video port trait) ----------
+    // ---------- Music (复用 new port trait) ----------
     let music = MusicServicePorts {
         add: Arc::new(video::add::AddPortAdapter),
         like: Arc::new(video::like::LikePortAdapter),
         view: Arc::new(video::view::ViewPortAdapter),
     };
 
-    // ---------- Live (复用 video port trait) ----------
+    // ---------- Live (复用 new port trait) ----------
     let live = ColaLivePort {
         add: Arc::new(video::add::AddPortAdapter),
         like: Arc::new(video::like::LikePortAdapter),
@@ -124,10 +124,12 @@ pub fn build_app_context() -> AppContext {
         chat: Arc::new(im::chat::ChatPortAdapter),
     };
 
-    // ---------- Auth (目前为空结构体) ----------
-    let auth = AuthServicePorts {};
+    // ---------- Auth ----------
+    let auth = AuthServicePorts {
+        session: Arc::new(auth::session::SessionPortAdapter),
+    };
 
     AppContext::default(auth, gis, live, market, music, three, user, video, im)
 }
 
-/////// END
+//////// END

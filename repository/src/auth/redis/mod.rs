@@ -3,4 +3,5 @@
 
 ////////
 
+pub mod session;
 pub mod sms;

@@ -1,15 +1,15 @@
-// repository/src/video/service/add  --  仓储中心 - VIDEO - service - 视频 评论
+// repository/src/new/service/comment  --
+// 仓储 - VIDEO - service - comment - 评论
 // 2026/6/8 16:51
 
 ////////
 
-use crate::video::pg::user::UserRepo;
-use crate::video::pg::video::{VideoRepo};
+use crate::video::pg::comment::comment::CommentRepo;
+use crate::video::pg::video::count::VideoCountRepo;
+use crate::video::pg::video::video::VideoRepo;
 use anyhow::Error;
-use cola_data::video::entity::video::VideoEntity;
-use crate::video::pg::comment::CommentRepo;
-use crate::video::pg::count::CountRepo;
 use cola_data::video::command::comment::CommentCommand;
+use cola_data::video::entity::video::video::VideoEntity;
 use cola_data::video::info::comment::VideoCommentInfo;
 use tracing::log;
 
@@ -30,7 +30,6 @@ impl CommentService {
         cmd: CommentCommand, // 评论创建命令
         visibility: i16,     // 风控可见性
     ) -> Result<VideoCommentInfo, anyhow::Error> {
-
         // 1. 保存评论
         let comment_entity = CommentRepo::save_comment_by_video_id(uid, video_id, cmd, visibility)
             .await
@@ -39,12 +38,12 @@ impl CommentService {
         // 2. 更新计数
         let async_video_id = video_id;
         tokio::spawn(async move {
-            if let Err(e) = CountRepo::pg_update_video_comments(async_video_id, 1).await {
+            if let Err(e) = VideoCountRepo::pg_update_video_comments(async_video_id, 1).await {
                 tracing::error!(
-                "[🔌 ADAPTER]: ▶ 异步更新视频评论计数失败: video_id={}, err={:?}",
-                async_video_id,
-                e
-            );
+                    "[🔌 ADAPTER]: ▶ 异步更新视频评论计数失败: video_id={}, err={:?}",
+                    async_video_id,
+                    e
+                );
             }
         });
 
@@ -60,7 +59,8 @@ impl CommentService {
     pub async fn delete_comment_and_update_count(
         uid: i64,        // 用户 ID
         comment_id: i64, // 评论 ID
-    ) -> Result<bool, anyhow::Error> { // 🌟 听哥们的, 简单直接返回 bool
+    ) -> Result<bool, anyhow::Error> {
+        // 🌟 听哥们的, 简单直接返回 bool
 
         // 1. 调用底层仓储删除评论，顺便返回被删除的数据行（包含 video_id）
         let comment_entity = CommentRepo::user_del_comment_by_id(uid, comment_id)
@@ -72,12 +72,12 @@ impl CommentService {
 
         // 3. 联动异步更新计数器：评论数 -1 (用 move 彻底带走 target_video_id)
         tokio::spawn(async move {
-            if let Err(e) = CountRepo::pg_update_video_comments(target_video_id, -1).await {
+            if let Err(e) = VideoCountRepo::pg_update_video_comments(target_video_id, -1).await {
                 tracing::error!(
-                "[🔌 ADAPTER]: ▶ 异步更新视频评论计数失败: video_id={}, err={:?}",
-                target_video_id,
-                e
-            );
+                    "[🔌 ADAPTER]: ▶ 异步更新视频评论计数失败: video_id={}, err={:?}",
+                    target_video_id,
+                    e
+                );
             }
         });
 
@@ -94,11 +94,13 @@ impl CommentService {
         offset: i64,
         limit: i64,
     ) -> Result<Vec<VideoCommentInfo>, anyhow::Error> {
-        let entities =
-            CommentRepo::find_new_comments_by_video_id(video_id, offset, limit).await?;
+        let entities = CommentRepo::find_new_comments_by_video_id(video_id, offset, limit).await?;
 
         // handler -> info
-        let infos: Vec<VideoCommentInfo> = entities.into_iter().map(VideoCommentInfo::from_entity).collect();
+        let infos: Vec<VideoCommentInfo> = entities
+            .into_iter()
+            .map(VideoCommentInfo::from_entity)
+            .collect();
 
         Ok(infos)
     }
@@ -115,7 +117,10 @@ impl CommentService {
         let entities = CommentRepo::find_comments_by_user_id(video_id, offset, limit).await?;
 
         // handler -> info
-        let infos: Vec<VideoCommentInfo> = entities.into_iter().map(VideoCommentInfo::from_entity).collect();
+        let infos: Vec<VideoCommentInfo> = entities
+            .into_iter()
+            .map(VideoCommentInfo::from_entity)
+            .collect();
 
         Ok(infos)
     }
@@ -132,7 +137,10 @@ impl CommentService {
         let entities = CommentRepo::find_comments_by_user_id(user_id, offset, limit).await?;
 
         // handler -> info
-        let infos: Vec<VideoCommentInfo> = entities.into_iter().map(VideoCommentInfo::from_entity).collect();
+        let infos: Vec<VideoCommentInfo> = entities
+            .into_iter()
+            .map(VideoCommentInfo::from_entity)
+            .collect();
 
         Ok(infos)
     }
@@ -211,8 +219,6 @@ impl CommentService {
     }
 
     ////////
-
-
 }
 
 //////// END

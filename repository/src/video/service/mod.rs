@@ -4,6 +4,7 @@
 ////////
 
 pub mod add;
+pub mod ban;  // 创作者封禁
 pub mod collect;
 pub mod comment;
 pub mod danmaku;
@@ -15,6 +16,6 @@ pub mod permission_change;
 pub mod permission_check;
 pub mod recommend;
 pub mod report;
-pub mod state;
 pub mod setting;
+pub mod state;
 pub mod view;

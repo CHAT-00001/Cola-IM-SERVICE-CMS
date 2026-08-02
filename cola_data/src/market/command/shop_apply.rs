@@ -5,7 +5,7 @@
 
 use chrono::{TimeZone, Utc};
 use serde::{Deserialize, Serialize};
-use crate::video::entity::video::VideoEntity;
+use crate::video::entity::video::video::VideoEntity;
 
 ////////
 

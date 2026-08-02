@@ -1,4 +1,4 @@
-// repo_adapter/src/video/mod.rs
+// repo_adapter/src/new/mod.rs
 // 2026-06-12
 
 pub mod add;

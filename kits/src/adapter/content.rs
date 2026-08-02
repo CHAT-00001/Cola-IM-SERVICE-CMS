@@ -21,7 +21,7 @@ impl RiskControlPort for LocalRiskAdapter {
     }
 }
 
-// cola_video/src/video/adapter/risk/third_party.rs
+// cola_video/src/new/adapter/risk/third_party.rs
 pub struct ThirdPartyRiskAdapter {
     // client: reqwest::Client
 }

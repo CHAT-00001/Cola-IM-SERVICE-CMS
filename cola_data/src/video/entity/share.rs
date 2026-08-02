@@ -1,4 +1,4 @@
-// cola_data/src/handler/video//share.rs  -- 数据 - handler - 短视频 - 收藏
+// cola_data/src/handler/new//share.rs  -- 数据 - handler - 短视频 - 收藏
 // 2026/5/20 19:56 by wx: cestbon10080
 // * 1个结构体
 // * --------

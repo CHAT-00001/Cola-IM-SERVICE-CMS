@@ -1,4 +1,5 @@
-// cola_data/src/api/cola_data.rs  -- 数据 - 全局应用中心 - cola_data  （统一应用响应壳）
+// cola_data/src/api/cola_data.rs
+// 数据 - APP - data  （统一应用数据响应壳）
 // 2026/5/22 13:46
 
 ////////
@@ -10,7 +11,8 @@ use uuid::Uuid;
 
 ////////
 
-/// # [DATA] - 统一应用数据体 (泛型版)
+/// # [DATA] - 统一应用数据体
+/// * `desc`: `数据响应壳`
 #[derive(Serialize, Debug)]
 pub struct AppData<T> {
     pub code: i32,          // 0: 成功, 其他: 错误码
@@ -48,7 +50,7 @@ impl<T> AppData<T> {
     ////////
 
     /// # [CASE] - 🌐 成功响应（无数据返回）
-    /// `desc` `改进：直接返回 AppData<T> 以适配上下文，不需要硬写死为 AppData<()>`
+    /// `desc`: `改进：直接返回 AppData<T> 以适配上下文，不需要硬写死为 AppData<()>`
     pub fn empty() -> Self {
         Self {
             code: 0,
@@ -65,6 +67,7 @@ impl<T> AppData<T> {
     ////////
 
     /// # [CASE] - ❌️ 错误响应
+    /// * `desc`: `错误信息`
     pub fn err(code: i32, message: impl Into<String>, detail: Option<String>) -> Self {
         Self {
             code,
@@ -81,6 +84,7 @@ impl<T> AppData<T> {
     ////////
 
     /// # [CASE] - 🔗 链式调用：修改消息内容
+    /// * `desc`: `可以注入错误信息`
     pub fn with_msg(mut self, msg: impl Into<String>) -> Self {
         self.message = msg.into();
         self
@@ -89,7 +93,7 @@ impl<T> AppData<T> {
     ////////
 
     /// # [CASE] - 🍚 泛型重绑定
-    /// * `desc` `支持从 AppData<A> 转换到 AppData<B>`
+    /// * `desc`: `支持从 AppData<A> 转换到 AppData<B>`
     pub fn rebind<U>(self) -> AppData<U> {
         AppData {
             code: self.code,

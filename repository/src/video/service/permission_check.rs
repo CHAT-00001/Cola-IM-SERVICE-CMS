@@ -1,10 +1,11 @@
-// repository/src/video/service//permission_update  -- 仓储 - video - 服务 - 权限检查服务
+// repository/src/new/service/permission_update  -- 仓储 - new - 服务 - 权限检查服务
 // 2026/6/8 23:33
 
 ////////
 
 use anyhow::Result;
-use crate::pg_pool; // 👈 引入你项目里通用的数据库连接池获取函数
+use tracing::error;
+use crate::pg_pool;
 
 ////////
 
@@ -24,18 +25,25 @@ impl VideoPermissionsCheckService {
     ) -> Result<(), sqlx::Error> {
         let pool = pg_pool();
 
-        // 
         let sql = r#"
-            SELECT "publish_perm"
-            FROM "video_user
-            SET publish_perm = COALESCE(views, 0) + $2
-            WHERE id = $1
-        "#;
+        SELECT publish_perm
+        FROM cola_video.video_user
+        WHERE uid = $1
+    "#;
 
         sqlx::query(sql)
             .bind(uid)
             .execute(&pool)
-            .await?;
+            .await
+            .map_err(|err| {
+                error!(
+                uid = uid,
+                sql = %sql,
+                error = ?err,
+                "check_video_publish_perm failed"
+            );
+                err
+            })?;
 
         Ok(())
     }
@@ -51,8 +59,8 @@ impl VideoPermissionsCheckService {
 
         //
         let sql = r#"
-            SELECT "publish_perm"
-            FROM "video_user
+            SELECT publish_perm
+            FROM cola_video.video_user
             SET views = COALESCE(views, 0) + $2
             WHERE id = $1
         "#;
@@ -77,8 +85,8 @@ impl VideoPermissionsCheckService {
 
         // 对应你 UserEntity 中的 views（发布数/作品数）字段进行原子加减
         let sql = r#"
-            SELECT "visibility_perm"
-            FROM "video
+            SELECT visibility_perm
+            FROM cola_video.video_user
             SET views = COALESCE(views, 0) + $2
             WHERE id = $1
         "#;
@@ -103,7 +111,7 @@ impl VideoPermissionsCheckService {
         // 1:1 匹配你在 UserEntity 中定义的物理字段 perm_id
         let sql = r#"
             SELECT perm_id
-            FROM "video"
+            FROM cola_video.video_user
             WHERE id = $1
             LIMIT 1
         "#;
@@ -127,7 +135,7 @@ impl VideoPermissionsCheckService {
 
         let sql = r#"
             SELECT "danmaku_perm"
-            FROM "video"
+            FROM cola_video.video_user
             SET perm_id = $2, updated_at = NOW()
             WHERE danmaku_perm = $1
         "#;
@@ -151,7 +159,7 @@ impl VideoPermissionsCheckService {
         let pool = pg_pool();
 
         let sql = r#"
-            UPDATE "video"
+            UPDATE cola_video.video_user
             SET perm_id = $2, updated_at = NOW()
             WHERE collect_perm = $1
         "#;
@@ -188,7 +196,7 @@ impl VideoPermissionsCheckService {
 
         let sql = r#"
         SELECT "download_perm"
-        FROM "video"
+        FROM cola_video.video_user
         SET comment_perm = $3, updated_at = NOW()
         WHERE id = $2
             AND user_id = $1
@@ -221,7 +229,7 @@ impl VideoPermissionsCheckService {
 
         let sql = r#"
         SELECT "buy_perm"
-        FORM "video"
+        FORM cola_video.video_user
         SET danmaku_perm = $3, updated_at = NOW()
         WHERE id = $2
             AND video_id = $1

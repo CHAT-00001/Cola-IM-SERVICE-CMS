@@ -15,7 +15,7 @@ use cola_data::video::info::video::VideoInfo;
 #[derive(Debug, Serialize, Clone)]
 pub struct VideoVo {
     // 🌟 直接扁平化展开（Flatten），前端甚至感觉不到结构体拆分了！
-    // 访问时依然是 video.id, video.title，不需要 video.info.title
+    // 访问时依然是 new.id, new.title，不需要 new.info.title
     #[serde(flatten)]
     pub video: VideoInfo,
 

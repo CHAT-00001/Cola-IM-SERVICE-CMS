@@ -1,9 +1,9 @@
-// cola_data/src/video/dynamic/add  -- VIDEO - Command - 评论
+// cola_data/src/new/dynamic/add  -- VIDEO - Command - 评论
 // 2026/5/20 12:01
 
 ////////
 
-use crate::video::entity::comment::VideoCommentEntity;
+use crate::video::entity::comment::comment::VideoCommentEntity;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use std::convert::TryFrom;

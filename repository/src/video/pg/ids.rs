@@ -1,11 +1,13 @@
-// repository/src/pg/video/ids.rs -- 仓储中心 - 短视频 -  PG - ids
+// repository/src/pg/new/ids.rs --
+// 仓储 - VIDEO -  pg - ids
 // 2026-05-20 14:20
 
 ////////
 
 use crate::pg_pool;
 use sqlx::{self, PgPool};
-use cola_data::video::entity::video::VideoEntity;
+use cola_data::video::entity::video::video::VideoEntity;
+
 
 ////////
 
@@ -188,7 +190,7 @@ impl VideoIdsRepo {
     pub async fn find_by_id(&self, id: Vec<i64>) -> Result<Option<VideoEntity>, sqlx::Error> {
         let pool = pg_pool(); // 👈 抽出来
         let query = format!(
-            "SELECT {} FROM video WHERE id = $1 AND status = 1 LIMIT 1",
+            "SELECT {} FROM new WHERE id = $1 AND status = 1 LIMIT 1",
             VIDEO_COLUMNS
         );
 
@@ -214,7 +216,7 @@ impl VideoIdsRepo {
 
         // 💡 工业级 PG 秘籍：在 PostgreSQL 中，使用 = ANY($1) 的性能和可读性远超动态拼接 IN ($1, $2, $3...)
         let query = format!(
-            "SELECT {} FROM video WHERE id = ANY($1) AND status = 1",
+            "SELECT {} FROM new WHERE id = ANY($1) AND status = 1",
             VIDEO_COLUMNS
         );
 

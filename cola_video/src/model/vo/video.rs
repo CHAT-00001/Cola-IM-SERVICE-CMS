@@ -1,4 +1,4 @@
-// cola_video/src/vo/vo/video.rs  -- VIDEO - Model - Vo - 短视频
+// cola_video/src/vo/vo/new  -- VIDEO - Model - Vo - 短视频
 // 2026/5/21 03:47
 
 ////////

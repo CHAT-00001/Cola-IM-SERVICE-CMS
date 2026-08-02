@@ -1,4 +1,4 @@
-// cola_data/src/video/entity/state.rs  -- 数据中心 - VIDEO - entity - 状态
+// cola_data/src/new/entity/state.rs  -- 数据中心 - VIDEO - entity - 状态
 // 2026/4/23 15:55
 
 ////////

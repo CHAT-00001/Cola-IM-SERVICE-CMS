@@ -1,16 +1,17 @@
-// /hotlist  -- 上热门 服务端口
+// cola_data/src/video/port/hotlist.rs  -- 上热门 服务端口
+// 数据 - VIDEO - port - hotlist 上热门
 // 2026/6/10 08:31
-
-////////
-
 
 ////////
 
 use crate::video::command::hotlist::HotlistCommand;
 
+////////
+
 /// # [SERVICE] - 上热门
 #[async_trait::async_trait]
 pub trait HotlistRepo: Send + Sync {
+    //
 
     ////////
 
@@ -31,3 +32,5 @@ pub trait HotlistRepo: Send + Sync {
         video_id: i64,
     ) -> anyhow::Result<()>;
 }
+
+//////// END

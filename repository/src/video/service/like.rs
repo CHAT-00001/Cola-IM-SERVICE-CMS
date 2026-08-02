@@ -1,13 +1,14 @@
-// service/follow  -- 服务层 - 点赞
+// repository/src/new/service/like.rs
+// 仓储 - VIDEO - service - like - 点赞服务
 // 2026/6/10 04:52
 
 ////////
 
 use crate::pg_pool;
-use crate::video::pg::count::CountRepo;
 use crate::video::pg::like::LikeRepo;
+use crate::video::pg::video::count::VideoCountRepo;
 use anyhow::Result;
-
+use cola_data::im::entity::message_fs::FileType::Video;
 ////////
 
 /// # [SERVICE] - 点赞
@@ -30,7 +31,7 @@ impl LikeService {
         LikeRepo::pg_save_video_like(uid, video_id, is_like).await?;
 
         // 3. 更新视频计数表
-        CountRepo::pg_update_video_likes(video_id, increment).await?;
+        VideoCountRepo::pg_update_video_likes(video_id, increment).await?;
 
         Ok(true)
     }
@@ -51,7 +52,7 @@ impl LikeService {
         LikeRepo::pg_save_video_unlike(uid, video_id, is_unlike).await?;
 
         // 3. 更新视频计数表
-        CountRepo::pg_update_video_unlikes(video_id, increment).await?;
+        VideoCountRepo::pg_update_video_unlikes(video_id, increment).await?;
 
         Ok(true)
     }
@@ -64,7 +65,7 @@ impl LikeService {
 
         // 1:1 匹配你在 UserEntity 中定义的物理字段 perm_id
         let sql = r#"
-            UPDATE "video"
+            UPDATE "new"
             SET collects = COALESCE(collects, 0) + $2
             WHERE id = $1
             LIMIT 1

@@ -5,7 +5,7 @@
 
 use serde::{Deserialize, Serialize};
 use crate::user::info::user::UserInfo;
-use crate::video::entity::danmaku::DanmakuEntity;
+use crate::video::entity::danmaku::danmaku::DanmakuEntity;
 
 ////////
 

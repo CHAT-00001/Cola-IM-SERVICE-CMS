@@ -11,7 +11,6 @@ use cola_data::fs::rick_check;
 use cola_data::user::command::new::UserCommand;
 use cola_data::user::command::update_user::UpdateUserCommand;
 use cola_data::user::info::user::UserInfo;
-use cola_data::video::command::video::VideoCommand;
 use repository::video::service::add::AddService;
 use tracing::info;
 

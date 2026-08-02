@@ -1,7 +1,7 @@
-// cola_date/src/api/ctx.rs  -- 全局应用上下文
-// 2026/4/23 07:03 by wx: cestbon10080
+// cola_data/src/app/ctx.rs  -- 数据 - APP - 全局应用上下文
+// 2026/4/23 07:03
 
-//////
+////////
 
 use crate::auth::port::AuthServicePorts;
 use crate::gis::port::ColaGisPort;
@@ -13,7 +13,7 @@ use crate::three::port::ColaThreePort;
 use crate::user::port::ColaUserPort;
 use crate::video::port::ColaVideoPort;
 
-//////
+////////
 
 /// # [CONTEXT] - 应用上下文
 /// * `描述` - 全局注入
@@ -57,3 +57,5 @@ impl AppContext {
         }
     }
 }
+
+//////// END

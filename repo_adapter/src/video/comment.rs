@@ -1,4 +1,4 @@
-// repo_adapter/src/video/add -- 适配器 - VIDEO - Add
+// repo_adapter/src/new/add -- 适配器 - VIDEO - Add
 // 2026-06-12 14:12
 
 ////////

@@ -1,4 +1,4 @@
-// repo_adapter/src/video/share.rs
+// repo_adapter/src/new/share.rs
 // 2026-06-12
 
 ////////

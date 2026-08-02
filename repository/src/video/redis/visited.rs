@@ -1,4 +1,4 @@
-// repository/src/video/redis/visited.rs
+// repository/src/new/redis/visited.rs
 // 2026/6/8 23:03
 
 use redis::AsyncCommands;

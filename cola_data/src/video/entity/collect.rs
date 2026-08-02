@@ -1,4 +1,4 @@
-// cola_data/src/video/entity/collect.rs  -- 数据中心 - VIDEO - entity - 收藏
+// cola_data/src/new/entity/collect.rs  -- 数据中心 - VIDEO - entity - 收藏
 // 2026/5/20 19:05
 
 ////////

@@ -1,0 +1,11 @@
+// gate_http/src/router_v2/video/dispatcher/mod.rs  -- VIDEO - 分发器 - mod
+// 2026/7/18 16:14
+// 2026/8/1 重构：对齐 three 网关模式，转发器是二级路由器
+
+////////
+
+pub mod add; // 发布
+pub mod comment; // 评论
+pub mod danmaku; // 弹幕
+pub mod feed; // feed
+pub mod home; // 主页

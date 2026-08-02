@@ -3,11 +3,10 @@
 
 ////////
 
-use crate::video::pg::video::{VideoRepo};
 use cola_data::video::command::report::VideoReportCommand;
 use cola_data::video::command::buy::VideoBuyCommand;
 use cola_data::video::info::video::VideoInfo;
-
+use crate::video::pg::video::video::VideoRepo;
 ////////
 
 /// # [SETTING SERVICE] - 设置服务

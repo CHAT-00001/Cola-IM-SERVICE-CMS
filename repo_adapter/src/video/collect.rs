@@ -1,4 +1,4 @@
-// repo_adapter/src/video/collect.rs -- 适配器 - VIDEO - 收藏
+// repo_adapter/src/new/collect.rs -- 适配器 - VIDEO - 收藏
 // 2026-06-12
 
 ////////

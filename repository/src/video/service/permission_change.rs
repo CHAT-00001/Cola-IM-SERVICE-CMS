@@ -1,4 +1,4 @@
-// repository/src/video/service//permission_update  -- 仓储 - video - 服务 - 权限
+// repository/src/new/service//permission_update  -- 仓储 - new - 服务 - 权限
 // 2026/6/8 23:33
 
 ////////

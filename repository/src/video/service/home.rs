@@ -1,16 +1,17 @@
-// service/home.rs  -- 服务层 主页
+// repository/src/video/service/home.rs
+// 仓储 - VIDEO - service - home
 // 2026/6/11 19:38
 
 ////////
 
-use crate::video::pg::user::UserRepo;
-use crate::video::pg::video::{VideoRepo};
+
 use anyhow::Error;
 use cola_data::video::command::collect::CollectCommand;
 use cola_data::video::entity::collect::CollectEntity;
-use cola_data::video::entity::video::VideoEntity;
 use cola_data::video::info::video::VideoInfo;
 use tracing::log;
+use crate::video::pg::user::user_repo::UserRepo;
+use crate::video::pg::video::video::VideoRepo;
 
 ////////
 
@@ -37,7 +38,7 @@ impl VideoHomeService {
             // 收藏字段在第四位：publish, liked, total_favorited, collected
             if let Err(e) = UserRepo::update_user_count(async_uid, 0, 0, 0, 1, 0, 0).await {
                 log::error!(
-                    "SERVICE_ASYNC: 异步更新用户收藏计数失败: uid={}, err={:?}",
+                    "[👤 SERVICE]: 异步更新用户收藏计数失败: uid={}, err={:?}",
                     async_uid,
                     e
                 );
@@ -46,8 +47,6 @@ impl VideoHomeService {
 
         Ok(collect_entity)
     }
-
-    ////////
 
     ////////
 
@@ -61,7 +60,7 @@ impl VideoHomeService {
         let entities = VideoRepo::find_new_list_by_user_id(user_id, limit, offset)
             .await
             .map_err(|e| {
-                anyhow::anyhow!("SERVICE: 获取用户{}发布的最新视频列表失败: {}", user_id, e)
+                anyhow::anyhow!("[👤 SERVICE]: 获取用户{}发布的最新视频列表失败: {}", user_id, e)
             })?;
 
         // 🌟 已修正：加入调用构造函数转换
@@ -86,7 +85,7 @@ impl VideoHomeService {
         // 1. 从 Repo 拿到物理表 Entity 列表
         let entities = VideoRepo::find_new_list(limit, offset)
             .await
-            .map_err(|e| anyhow::anyhow!("SERVICE: 获取最新视频列表失败: {}", e))?;
+            .map_err(|e| anyhow::anyhow!("[👤 SERVICE]: 获取最新视频列表失败: {}", e))?;
 
         // 2. 🌟 拦截并就地转换为纯净的领域元数据 VideoInfo，彻底告别外泄
         let infos = entities
@@ -109,7 +108,7 @@ impl VideoHomeService {
         // 1. 从 Repo 拿到物理表 Entity 列表
         let entities = VideoRepo::find_hot_list(limit, offset)
             .await
-            .map_err(|e| anyhow::anyhow!("SERVICE: 获取热门视频列表失败: {}", e))?;
+            .map_err(|e| anyhow::anyhow!("[👤 SERVICE]: 获取热门视频列表失败: {}", e))?;
 
         // 2. 🌟 拦截并就地脱敏、规范化，转换为纯净的领域元数据 VideoInfo
         let infos = entities
@@ -130,7 +129,7 @@ impl VideoHomeService {
         // 1. 从 Repo 拿到物理表 Entity 列表
         let entities = VideoRepo::find_recommend_list(limit, offset)
             .await
-            .map_err(|e| anyhow::anyhow!("SERVICE: 获取推荐视频列表失败: {}", e))?;
+            .map_err(|e| anyhow::anyhow!("[👤 SERVICE]: 获取推荐视频列表失败: {}", e))?;
 
         // 2. 🌟 拦截并转换为纯净的领域元数据 VideoInfo
         let infos = entities
@@ -153,7 +152,7 @@ impl VideoHomeService {
         // 🌟 已修正：返回值改为 Vec<VideoInfo>
         let entities = VideoRepo::find_nearby_list(lat, lng, limit, offset)
             .await
-            .map_err(|e| anyhow::anyhow!("SERVICE: 获取附近同城视频列表失败: {}", e))?;
+            .map_err(|e| anyhow::anyhow!("[👤 SERVICE]: 获取附近同城视频列表失败: {}", e))?;
 
         // 🌟 已修正：加入调用构造函数转换
         let infos = entities
@@ -174,7 +173,7 @@ impl VideoHomeService {
         // 1. 从 Repo 拿到物理表 Entity 列表
         let entities = VideoRepo::find_featured_list(limit, offset)
             .await
-            .map_err(|e| anyhow::anyhow!("SERVICE: 获取精选视频列表失败: {}", e))?;
+            .map_err(|e| anyhow::anyhow!("[👤 SERVICE]: 获取精选视频列表失败: {}", e))?;
 
         // 2. 🌟 拦截并就地转换为纯净的领域元数据 VideoInfo
         let infos = entities
@@ -199,7 +198,7 @@ impl VideoHomeService {
         let entities =
             VideoRepo::search_keyword_list(keyword, lat, lng, None, None, None, limit, offset)
                 .await
-                .map_err(|e| anyhow::anyhow!("SERVICE: 搜索视频失败: {}", e))?;
+                .map_err(|e| anyhow::anyhow!("[👤 SERVICE]: 搜索视频失败: {}", e))?;
 
         // 🌟 已修正：加入调用构造函数转换，完美对接上层用例
         let infos = entities
@@ -223,7 +222,7 @@ impl VideoHomeService {
         // 1. 从 Repo 拿到物理表 Entity 列表
         let entities = VideoRepo::find_list_by_uids(Option::from(uids), keyword, limit, offset)
             .await
-            .map_err(|e| anyhow::anyhow!("SERVICE: 搜索视频失败: {}", e))?;
+            .map_err(|e| anyhow::anyhow!("[👤 SERVICE]: 搜索视频失败: {}", e))?;
 
         // 2. 🌟 拦截并就地转换为纯净的领域元数据 VideoInfo
         let infos = entities

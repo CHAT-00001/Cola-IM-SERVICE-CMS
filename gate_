@@ -1,0 +1,69 @@
+// gate_http/src/router_v2/video/dispatcher/add.rs  -- HTTP网关 - v2 - VIDEO - dispatcher - add
+// 2026/8/1 07:54
+// 2026/8/1 修复：add_dispatch 签名对齐 three 网关，直接返回 handler 真实类型
+
+//////
+
+use app_config::app_state::AppState;
+use cola_data::app::data::AppData;
+use cola_data::app::query::ApiGatewayRequest;
+use cola_data::video::command::video::VideoCommand;
+use cola_video::api::add::AddApi;
+use cola_video::model::vo::video::VideoSingleResponse;
+
+//////
+
+/// # [ACTION] - 动作码
+pub mod action {
+    pub const ADD_PUBLISH: i16 = 5001;  // 发布视频
+    pub const ADD_EDIT: i16 = 5002;  // 编辑视频
+    pub const ADD_STATE: i16 = 5003;  // 修改状态(上架/下架/删除/隐藏..)
+    pub const ADD_PERM: i16 = 5004; // 修改权限(浏览/评论/弹幕/分享/下载/..)
+    pub const ADD_LBS: i16 = 5005;  // 添加LBS服务
+}
+
+//////
+
+/// # [DISPATCHER] - 转发器
+/// * `desc`: `根据action值自动匹配handler函数`
+pub async fn add_dispatch(
+    _state: &AppState,
+    req: &ApiGatewayRequest,
+) -> AppData<VideoSingleResponse> {
+    let action = req.action.unwrap_or(5001);
+
+    // 从统一请求体构造 VideoCommand
+    let user_id = req.uid.unwrap_or(0);
+    let cmd = VideoCommand {
+        user_id,
+        title: req.by.clone(),
+        category_id: req.status as i16,
+        ..Default::default()
+    };
+
+    ////////
+
+    // 🚧 动作转发
+    match action {
+
+        // 发布视频
+        5001 => AddApi::add_publish(user_id, cmd.clone()).await,
+
+        // 编辑视频
+        5002 => AddApi::add_edit(user_id, cmd.clone()).await,
+
+        // 修改状态
+        5003 => AddApi::add_status(user_id, cmd.clone()).await,
+
+        // 修改权限
+        5004 => AddApi::add_permission(user_id, cmd.clone()).await,
+
+        // 添加lbs
+        5005 => AddApi::add_lbs(user_id, cmd.clone()).await,
+
+        // more
+        _ => AppData::err(4000, format!("[🚧 DISPATCH]: Unknown dispatch action: 💡[{}]", action), None),
+    }
+}
+
+////// END

@@ -1,4 +1,4 @@
-// cola_date/src/video/response/video_resp.rs  -- 数据中心 - VIDEO - response - 短视频响应体
+// cola_date/src/new/response/video_resp.rs  -- 数据中心 - VIDEO - response - 短视频响应体
 // 2026/7/27 13:36
 
 ////////

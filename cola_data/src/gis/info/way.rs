@@ -1,11 +1,12 @@
-// cola_date/src/video/info/way.rs  -- GIS - info - 道路
-// 2026/5/21 by wx: cestbon10080
+// cola_date/src/new/info/way.rs  --
+// 数据 - GIS - info - 道路
+// 2026/5/21 14:20 创建
 
 ////////
 
-use crate::video::entity::video::VideoEntity;
 use chrono::Utc;
 use serde::{Deserialize, Serialize};
+use crate::video::entity::video::video::VideoEntity;
 
 ////////
 

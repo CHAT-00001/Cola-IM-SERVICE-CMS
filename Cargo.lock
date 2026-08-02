@@ -4963,8 +4963,10 @@ dependencies = [
  "async-trait",
  "chrono",
  "cola_data",
+ "jsonwebtoken",
  "repository",
  "rust_decimal",
+ "serde",
  "sqlx",
  "tracing",
 ]

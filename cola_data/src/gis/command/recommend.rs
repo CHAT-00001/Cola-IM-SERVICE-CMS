@@ -1,4 +1,4 @@
-﻿// cola_data/src/video/dynamic/recommend.rs  -- VIDEO - Command - 鎺ㄨ崘鍛戒护
+﻿// cola_data/src/new/dynamic/recommend.rs  -- VIDEO - Command - 鎺ㄨ崘鍛戒护
 // 2026/5/22 20:45 by wx: cestbon10080
 // * --------
 // * --------

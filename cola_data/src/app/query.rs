@@ -81,6 +81,10 @@ pub struct ApiGatewayRequest {
     pub offset: i64,
     #[serde(skip, default)]
     pub poi_id: i64,
+
+    // 8. 📦 原始请求体（Body JSON 透传，含 cmd 业务参数）
+    #[serde(default)]
+    pub body: Option<serde_json::Value>,
 }
 
 // 构造函数
@@ -112,6 +116,65 @@ impl ApiGatewayRequest {
         }
 
         self
+    }
+
+    ////////
+
+    /// # [CASE] - 🔗 字段级合并（Body 为主）
+    /// * `desc` URL 解析出的基底 + Body 解析出的覆盖层
+    /// * `合并规则`: Body 中**有值**的字段覆盖 URL，Body 中**缺省**的字段保留 URL
+    pub fn merge(self, body: Self) -> Self {
+        Self {
+            // 1. 基础（Option 字段：body 有值才覆盖）
+            node: body.node.or(self.node),
+            code: body.code.or(self.code),
+            service: body.service.or(self.service),
+            action: body.action.or(self.action),
+            uid: body.uid.or(self.uid),
+            req_id: body.req_id.or(self.req_id),
+            lang: body.lang.or(self.lang),
+
+            // 2. 翻页
+            page: body.page.or(self.page),
+            qty: body.qty.or(self.qty),
+
+            // 3. 位置
+            lat: body.lat.or(self.lat),
+            lng: body.lng.or(self.lng),
+
+            // 4. 身份
+            auth: body.auth.or(self.auth),
+
+            // 5. 业务专属（默认值字段：body 非默认才覆盖）
+            id: if body.id != 0 { body.id } else { self.id },
+            _id: if body._id != 0 { body._id } else { self._id },
+            at: if body.at != 0 { body.at } else { self.at },
+            by: if !body.by.is_empty() { body.by } else { self.by },
+            status: if body.status != 0 { body.status } else { self.status },
+            user_id: if body.user_id != 0 { body.user_id } else { self.user_id },
+            dynamic_id: if body.dynamic_id != 0 { body.dynamic_id } else { self.dynamic_id },
+            gift_id: if body.gift_id != 0 { body.gift_id } else { self.gift_id },
+            live_id: if body.live_id != 0 { body.live_id } else { self.live_id },
+            music_id: if body.music_id != 0 { body.music_id } else { self.music_id },
+            photo_id: if body.photo_id != 0 { body.photo_id } else { self.photo_id },
+            video_id: if body.video_id != 0 { body.video_id } else { self.video_id },
+            category_id: if body.category_id != 0 { body.category_id } else { self.category_id },
+            city_id: if body.city_id != 0 { body.city_id } else { self.city_id },
+            comment_id: if body.comment_id != 0 { body.comment_id } else { self.comment_id },
+            danmaku_id: if body.danmaku_id != 0 { body.danmaku_id } else { self.danmaku_id },
+            keyword: if !body.keyword.is_empty() { body.keyword } else { self.keyword },
+
+            // 6. 灵活扩展
+            params: if !body.params.is_empty() { body.params } else { self.params },
+
+            // 7. 后端计算辅助字段（取 URL 的，build() 会重算）
+            limit: self.limit,
+            offset: self.offset,
+            poi_id: self.poi_id,
+
+            // 8. 原始请求体（Body 有值则覆盖）
+            body: body.body.or(self.body),
+        }
     }
 
     ////////

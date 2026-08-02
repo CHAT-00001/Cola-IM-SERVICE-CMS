@@ -1,4 +1,4 @@
-// repo_adapter/src/video/view.rs
+// repo_adapter/src/new/view.rs
 // 2026-06-12
 
 ////////
@@ -26,7 +26,7 @@ impl ViewPort for ViewPortAdapter {
         _uid: i64,
         _video_id: i64,
     ) -> anyhow::Result<()> {
-        // TODO: call repository::video::pg::view::VideoViewRepo if needed
+        // TODO: call repository::new::pg::view::VideoViewRepo if needed
         Ok(())
     }
 
@@ -39,7 +39,7 @@ impl ViewPort for ViewPortAdapter {
         _video_id: i64,
         _is_done: bool,
     ) -> anyhow::Result<()> {
-        // TODO: call repository::video::pg::view::VideoViewRepo if needed
+        // TODO: call repository::new::pg::view::VideoViewRepo if needed
         Ok(())
     }
 

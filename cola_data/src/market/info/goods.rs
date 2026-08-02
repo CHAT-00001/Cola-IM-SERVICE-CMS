@@ -3,7 +3,7 @@
 
 ////////
 
-use crate::video::entity::video::VideoEntity;
+use crate::video::entity::video::video::VideoEntity;
 use chrono::Utc;
 use serde::{Deserialize, Serialize};
 use crate::market::entity::goods::GoodsEntity;

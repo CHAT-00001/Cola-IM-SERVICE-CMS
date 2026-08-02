@@ -1,4 +1,4 @@
-// cola_data/src/video/rntity/interact.rs  -- VIDEO - Entity - 互动
+// cola_data/src/new/rntity/interact.rs  -- VIDEO - Entity - 互动
 // 2026-01-16 09:37:10
 
 use chrono::{DateTime, Utc};

@@ -1,4 +1,4 @@
-// cola_data/src/video/dynamic/share.rs  -- VIDEO - Command - 分享命令
+// cola_data/src/new/dynamic/share.rs  -- VIDEO - Command - 分享命令
 // 2026/5/22 20:45 by wx: cestbon10080
 // * --------
 // * --------

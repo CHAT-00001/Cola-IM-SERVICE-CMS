@@ -1,23 +1,15 @@
-// video/view -- 短视频 浏览
-// 2026/5/20 by wx: cestbon10080
+// repository/src/video/pg/view.rs -- 短视频 浏览
+// 仓储 - VIDEO - pg - view - 浏览记录
+// 2026/5/20 10:20
 
 ////////
 
 use crate::pg_pool;
-use cola_data::video::command::video::VideoCommand;
-use cola_data::video::entity::video::VideoEntity;
 use sqlx::{self, Postgres, QueryBuilder};
+use cola_data::video::entity::video::video::{VideoEntity, VIDEO_COLUMNS};
 
 ////////
 
-// 数据表原始字段
-const VIDEO_COLUMNS: &str = r#"
-    id, uuid, show_id, user_id, title, title_at_uids, description, desc_at_uids,
-    thumb, thumb_s, href, href_w, original_url, tags, lat, lng, duration,
-    width, height, fps, bit, views, likes, steps, collects, comments,
-    done_play_qty, visibility, allow_comment, allow_danmaku, shares,
-    is_public, status, music_id, goods_id, addtime, created_at, updated_at
-"#;
 
 // 局部辅助结构体：用来承接带有“动态计算距离”的数据库返回行
 #[derive(Debug, sqlx::FromRow)]
@@ -387,35 +379,6 @@ impl VideoViewRepo {
     }
 
     ////////
-
-    /// # 10. [REPOSITORY] - 保存视频
-    /// * 场景：用户发布视频落库
-    pub async fn save_video_by_uid(
-        uid: i64,
-        cmd: VideoCommand,
-        visibility: i16,
-    ) -> Result<VideoEntity, sqlx::Error> {
-        let pool = pg_pool();
-
-        let query = format!(
-            "INSERT INTO cola_video.video (user_id, title, description, href, visibility, status) \
-             VALUES ($1, $2, $3, $4, $5, 1) \
-             RETURNING {}",
-            VIDEO_COLUMNS
-        );
-
-        sqlx::query_as::<_, VideoEntity>(&query)
-            .bind(uid)
-            .bind(cmd.title)
-            .bind(cmd.description) // 👈 简介字段安全入库
-            .bind(cmd.href)
-            .bind(visibility) // 👈 风控计算后的可见性状态
-            .fetch_one(&pool)
-            .await
-    }
-
-    ////////
-
 
     /// # 12. [REPOSITORY] - 同步更新视频弹幕数量（减指定数量）
     /// * `video_id`: 视频 ID

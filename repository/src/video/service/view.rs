@@ -1,22 +1,24 @@
-// service/feed.rs  - 服务层 浏览
+// repository/src/video/service/view.rs  - 服务层 浏览
+// 仓储 - VIDEO - service - view 浏览
 // 2026/6/10 17:44
 
 ////////
 
-use crate::video::pg::video::{ VideoRepo};
 use crate::video::pg::view::VideoViewRepo;
-use cola_data::video::entity::video::VideoEntity;
 use cola_data::video::info::video::VideoInfo;
 use tracing::log;
+use cola_data::video::entity::video::video::VideoEntity;
+use crate::video::pg::video::video::VideoRepo;
 
 ////////
 
-/// # [SERVICE] - 视频服务
+/// # [VIEW SERVICE] - 视频 浏览 服务
 pub struct ViewService;
 
+// 构造实现
+
 impl ViewService {
-    // * --------
-    ////////
+    // 💡
 
     ////////
 
@@ -32,7 +34,7 @@ impl ViewService {
         // 1. 从 DB 捞出原始 Entity 列表
         let db_videos = VideoViewRepo::find_all_batch_ids(&ids)
             .await
-            .map_err(|e| anyhow::anyhow!("SERVICE: 批量获取视频 handler 列表失败: {}", e))?;
+            .map_err(|e| anyhow::anyhow!("[👤 SERVICE]: 批量获取视频 handler 列表失败: {}", e))?;
 
         // 2. 纯内存无损转换
         let video_infos = db_videos.into_iter().map(VideoInfo::from_entity).collect();
@@ -49,7 +51,7 @@ impl ViewService {
         // 捞得到就吐出来，捞不到就报 404
         infos
             .pop()
-            .ok_or_else(|| anyhow::anyhow!("BIZ: 视频 {} 不存在", id))
+            .ok_or_else(|| anyhow::anyhow!("[👤 SERVICE]:: 视频 {} 不存在", id))
     }
 
     ////////
@@ -69,7 +71,7 @@ impl ViewService {
         // 1. 从 DB 捞出原始 Entity 列表
         let db_videos = VideoViewRepo::pg_batch_uids_find_list(uids, keyword, offset, limit)
             .await
-            .map_err(|e| anyhow::anyhow!("SERVICE: 批量获取视频 handler 列表失败: {}", e))?;
+            .map_err(|e| anyhow::anyhow!("[👤 SERVICE]: 批量获取视频 handler 列表失败: {}", e))?;
 
         // 2. 纯内存无损转换
         let video_infos = db_videos.into_iter().map(VideoInfo::from_entity).collect();
@@ -92,7 +94,7 @@ impl ViewService {
         // 1. 从 DB 捞出原始 Entity 列表
         let db_videos = VideoViewRepo::pg_find_new_list_by_uid(uid, keyword, offset, limit)
             .await
-            .map_err(|e| anyhow::anyhow!("SERVICE: 批量获取视频 handler 列表失败: {}", e))?;
+            .map_err(|e| anyhow::anyhow!("[👤 SERVICE]: 批量获取视频 handler 列表失败: {}", e))?;
 
         // 2. 纯内存无损转换
         let video_infos = db_videos.into_iter().map(VideoInfo::from_entity).collect();
@@ -109,7 +111,7 @@ impl ViewService {
     ) -> Result<Vec<VideoEntity>, anyhow::Error> {
         VideoRepo::find_new_list(limit, offset)
             .await
-            .map_err(|e| anyhow::anyhow!("SERVICE: 获取最新视频列表失败: {}", e))
+            .map_err(|e| anyhow::anyhow!("[👤 SERVICE]: 获取最新视频列表失败: {}", e))
     }
 
     ////////
@@ -121,7 +123,7 @@ impl ViewService {
     ) -> Result<Vec<VideoEntity>, anyhow::Error> {
         VideoRepo::find_hot_list(limit, offset)
             .await
-            .map_err(|e| anyhow::anyhow!("SERVICE: 获取热门视频列表失败: {}", e))
+            .map_err(|e| anyhow::anyhow!("[👤 SERVICE]: 获取热门视频列表失败: {}", e))
     }
 
 }

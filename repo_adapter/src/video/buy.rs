@@ -1,4 +1,4 @@
-// repo_adapter/src/video/buy.rs
+// repo_adapter/src/new/buy.rs
 // 2026-06-12 09:30
 ////////
 

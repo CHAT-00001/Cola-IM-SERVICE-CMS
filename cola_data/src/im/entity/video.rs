@@ -1,4 +1,4 @@
-// cola_data/src/video/entity/video.rs  -- 数据中心 - VIDEO - entity - 视频
+// cola_data/src/new/entity/new  -- 数据中心 - VIDEO - entity - 视频
 // 2026/5/19 21:34
 
 ////////
@@ -12,7 +12,7 @@ use uuid::Uuid;
 
 /// # [ENTITY] - 短视频 实体表
 /// * `pg schema`: `cola_video`
-/// * `table name`: `video`
+/// * `table name`: `new`
 /// * 权限: 0. 关闭 1. 自己 2. 朋友 3. 关注 4. 粉丝 5. 所有人（拉黑除外）
 #[derive(Debug, Clone, Default, FromRow)]
 pub struct VideoEntity {

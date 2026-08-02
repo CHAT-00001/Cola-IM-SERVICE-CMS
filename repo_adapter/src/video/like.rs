@@ -1,4 +1,4 @@
-// repo_adapter/src/video/follow
+// repo_adapter/src/new/follow
 // 2026-06-12 09:30
 
 ////////

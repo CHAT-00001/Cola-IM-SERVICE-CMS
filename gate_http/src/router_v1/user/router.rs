@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 // # [ROUTER] - 用户 - 路由器
 pub fn user_router(cfg: &mut web::ServiceConfig) {
     cfg.service(
-        // # router routes
+        // # router dispatcher
         web::scope("/user")
             .route("", web::get().to(get_users))
             .route("/{id}", web::get().to(get_user))

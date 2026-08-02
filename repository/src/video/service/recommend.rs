@@ -1,14 +1,12 @@
-// service/recommend.rs  -- 推荐 服务
+// repository/src/new/service/recommend.rs
+// 仓储 - VIDEO - service - recommend - 推荐服务层
 // 2026/6/10 19:31
 
 ////////
 
-use crate::video::pg::video::{VideoRepo};
-use anyhow::Error;
-use cola_data::video::entity::video::VideoEntity;
-use cola_data::video::command::buy::VideoBuyCommand;
+use crate::video::pg::video::video::VideoRepo;
 use cola_data::video::command::recommend::RecommendCommand;
-use cola_data::video::command::report::VideoReportCommand;
+use cola_data::video::entity::video::video::VideoEntity;
 
 ////////
 
@@ -47,8 +45,6 @@ impl RecommendService {
     }
 
     ////////
-
-
 }
 
 //////// END

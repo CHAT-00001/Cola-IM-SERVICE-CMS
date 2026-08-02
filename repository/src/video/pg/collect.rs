@@ -1,18 +1,15 @@
-// /collect.rs  --
+// repository/src/pg/new/pg/danmaku/collect.rs  --
+// 仓储 - VIDEO - pg - collect - repository
 // 2026/5/20 20:45 by wx: cestbon10080
-
-////////
-
-// repository/src/pg/video/pg/danmaku.rs  -- 仓储 - 短视频 - PG - 弹幕
-// 2026/6/8 16:57
 
 ////////
 
 use crate::pg_pool;
 use cola_data::video::command::collect::CollectCommand;
 use cola_data::video::command::danmaku::DanmakuCommand;
-use cola_data::video::entity::danmaku::DanmakuEntity;
 use sqlx::{self, Postgres, QueryBuilder};
+use cola_data::video::entity::danmaku::danmaku::DanmakuEntity;
+
 ////////
 
 // 数据表原始字段
@@ -206,7 +203,7 @@ impl CollectRepo {
         let pool = pg_pool();
         let query = format!(
             "SELECT {}, SQRT(POW(lat - $1, 2) + POW(lng - $2, 2)) AS distance
-             FROM video
+             FROM new
              WHERE status = 1
              ORDER BY distance ASC
              LIMIT $3 OFFSET $4",
@@ -263,7 +260,7 @@ impl CollectRepo {
     ) -> Result<Vec<DanmakuEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM video WHERE status = 1 ORDER BY likes DESC, addtime DESC LIMIT $1 OFFSET $2",
+            "SELECT {} FROM new WHERE status = 1 ORDER BY likes DESC, addtime DESC LIMIT $1 OFFSET $2",
             DANMAKU_COLUMNS
         );
 
@@ -289,7 +286,7 @@ impl CollectRepo {
     ) -> Result<Vec<VideoHomeRow>, sqlx::Error> {
         let pool = pg_pool();
         let mut sql = format!(
-            "SELECT {}, SQRT(POW(lat - $1, 2) + POW(lng - $2, 2)) AS distance FROM video WHERE status = 1",
+            "SELECT {}, SQRT(POW(lat - $1, 2) + POW(lng - $2, 2)) AS distance FROM new WHERE status = 1",
             DANMAKU_COLUMNS
         );
 
@@ -343,7 +340,7 @@ impl CollectRepo {
     pub async fn find_by_id(id: i64) -> Result<Option<DanmakuEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM video WHERE id = $1 AND status = 1 LIMIT 1",
+            "SELECT {} FROM new WHERE id = $1 AND status = 1 LIMIT 1",
             DANMAKU_COLUMNS
         );
 
@@ -363,7 +360,7 @@ impl CollectRepo {
 
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM video WHERE id = ANY($1) AND status = 1",
+            "SELECT {} FROM new WHERE id = ANY($1) AND status = 1",
             DANMAKU_COLUMNS
         );
 

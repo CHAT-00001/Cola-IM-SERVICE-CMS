@@ -1,21 +1,15 @@
-// service/hotlist.rs - 服务层 上热门
+// repository/src/new/service/hotlist.rs - 服务层 上热门
+// 仓储 - VIDEO - service - hotlist - 上热门服务
 // 2026/6/10 19:11
 
 ////////
 
-use crate::video::pg::video::{VideoRepo};
-use anyhow::Error;
-use cola_data::video::entity::video::VideoEntity;
-use std::collections::HashMap;
-use crate::video::redis::video::VideoCache;
-use crate::video::redis::visited::VisitedCache;
-use app_config::DbService;
 use cola_data::video::command::buy::VideoBuyCommand;
 use cola_data::video::command::hotlist::HotlistCommand;
 use cola_data::video::command::recommend::RecommendCommand;
 use cola_data::video::command::report::VideoReportCommand;
-use cola_data::video::info::video::VideoInfo;
-use tracing::log;
+use cola_data::video::entity::video::video::VideoEntity;
+use crate::video::pg::video::video::VideoRepo;
 
 ////////
 

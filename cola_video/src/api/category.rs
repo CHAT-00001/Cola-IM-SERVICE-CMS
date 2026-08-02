@@ -7,7 +7,7 @@
 // use cola_data::api::request::ApiUrlParamsQuery;
 // use crate::case;
 // use crate::case::fs::logic_check_category_status;
-// use crate::model::vo::video::VideoListResponse;
+// use crate::model::vo::new::VideoListResponse;
 //
 // ////////
 //

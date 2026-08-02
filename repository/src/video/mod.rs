@@ -1,4 +1,4 @@
-// repository/src/video/mod.rs -- 仓储 - VIDEO - mod
+// repository/src/new/mod.rs -- 仓储 - VIDEO - mod
 // 2026-05-10 10:10
 
 ////////

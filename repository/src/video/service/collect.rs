@@ -1,18 +1,19 @@
-// service/collect.rs  -- -- 仓储中心 - VIDEO - 服务 - 评论
+// repository/src/new/service/collect.rs  --
+// 仓储 - VIDEO - service - 收藏
 // 2026/6/10 07:06
 
 ////////
 
 use crate::video::pg::collect::CollectRepo;
-use crate::video::pg::comment::CommentRepo;
-use crate::video::pg::count::CountRepo;
-use crate::video::pg::user::UserRepo;
-use crate::video::pg::video::{VideoRepo};
+use crate::video::pg::comment::comment::CommentRepo;
+use crate::video::pg::user::user_repo::UserRepo;
+use crate::video::pg::video::count::VideoCountRepo;
+use crate::video::pg::video::video::VideoRepo;
 use anyhow::Error;
 use cola_data::video::command::collect::CollectCommand;
 use cola_data::video::command::recommend::RecommendCommand;
 use cola_data::video::entity::collect::CollectEntity;
-use cola_data::video::entity::video::VideoEntity;
+use cola_data::video::entity::video::video::VideoEntity;
 use tracing::log;
 
 ////////
@@ -21,7 +22,7 @@ use tracing::log;
 pub struct CollectService;
 
 impl CollectService {
-    ////////
+    //
 
     ////////
 
@@ -71,8 +72,6 @@ impl CollectService {
 
     ////////
 
-    ////////
-
     /// # 4. [SERVICE] - 删除收藏 + 更新计数
     pub async fn del_collect_and_update_count(
         uid: i64,
@@ -85,13 +84,12 @@ impl CollectService {
         // 2. 更新视频计数
         // 删除收藏对应计数器操作：通常为 -1 (increment = -1)
         let increment = -1;
-        CountRepo::pg_update_video_collects(video_id, increment).await?;
+        VideoCountRepo::pg_update_video_collects(video_id, increment).await?;
 
         Ok(())
     }
 
     ////////
-
 
     ////////
 
@@ -163,7 +161,6 @@ impl CollectService {
     }
 
     ////////
-
 }
 
 //////// END

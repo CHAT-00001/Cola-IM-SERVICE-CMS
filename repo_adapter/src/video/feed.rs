@@ -1,4 +1,4 @@
-// repo_adapter/src/video/feed.rs
+// repo_adapter/src/new/feed.rs
 // 2026-06-12
 
 ////////

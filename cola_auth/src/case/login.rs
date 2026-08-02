@@ -4,7 +4,7 @@
 ////////
 
 use crate::kits::token::kit_build_session_cmd;
-use crate::model::vo::session::{SignResponse, SignVo};
+use cola_data::auth::vo::session::{SignResponse, SignVo};
 use anyhow::{Result, anyhow};
 use cola_data::auth::command::phone::PhoneLoginCommand;
 use repository::auth::service::session::SessionService;

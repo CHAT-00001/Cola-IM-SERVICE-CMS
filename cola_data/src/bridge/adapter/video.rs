@@ -1,4 +1,4 @@
-// bridge/src/video/adapter/video  -- 桥接 - 短视 - 适配器 - 首页
+// bridge/src/new/adapter/new  -- 桥接 - 短视 - 适配器 - 首页
 // 2026/5/20 01:50 corrected by code-alignment
 
 use app_core::video::port::home::VideoHomePort;

@@ -6,7 +6,7 @@
 use crate::case;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
-use cola_data::video::command::video::VideoCommand;
+use cola_data::video::command::video::new::VideoNewCommand;
 use repository::video::service::permission_check::VideoPermissionsCheckService;
 use crate::case::add::AddCase;
 use crate::case::like::LikeCase;
@@ -51,7 +51,7 @@ impl LikeApi {
     /// * `描述` （需要创作者/视频发布特定权限）
     pub async fn handler_add_video_unlike(
         user_id: i64,
-        cmd: VideoCommand,
+        cmd: VideoNewCommand,
     ) -> AppData<VideoSingleResponse> {
 
         // 1. 业务级权限检查 - 纯函数调用，不走 Trait 弯弯绕绕
