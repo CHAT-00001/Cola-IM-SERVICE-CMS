@@ -1,10 +1,11 @@
-// cola_video/src/case/manage  -- VIDEO - 用例层 - 修改
+// cola_video/src/case/change.rs -- 💡 未完成2026-8-8
+// ▶ 可乐视频 - 用例层 - 修改
 // 2026/5/20 03:19
 
 ////////
 
 use anyhow::Result;
-use repository::cola_video::service::permission_change::PermissionsChangeService;
+use service::cola_video::user::permission_change::PermissionsChangeService;
 use tracing::{info, warn};
 
 ////////
@@ -79,7 +80,7 @@ impl VideoChangeCase {
         }
 
         // 修改视频评论权限
-        PermissionsChangeService::update_video_danmaku_perm(uid, video_id, danmaku_perm)
+        PermissionsChangeService::update_video_comment_perm(uid, video_id, danmaku_perm)
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 弹幕权限同步失败: {}", e))?;
 
@@ -104,7 +105,7 @@ impl VideoChangeCase {
         }
 
         // 修改视频评论权限
-        PermissionsChangeService::update_video_collect_perm(uid, video_id, collect_perm)
+        PermissionsChangeService::update_video_comment_perm(uid, video_id, collect_perm)
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 收藏权限同步失败: {}", e))?;
 
@@ -129,7 +130,7 @@ impl VideoChangeCase {
         }
 
         // 修改视频评论权限
-        PermissionsChangeService::update_video_download_perm(uid, video_id, download_perm)
+        PermissionsChangeService::update_video_comment_perm(uid, video_id, download_perm)
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 下载权限同步失败: {}", e))?;
 
@@ -150,7 +151,7 @@ impl VideoChangeCase {
         }
 
         // 修改视频评论权限
-        PermissionsChangeService::update_video_buy_perm(uid, video_id, buy_perm)
+        PermissionsChangeService::update_video_comment_perm(uid, video_id, buy_perm)
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 购买权限同步失败: {}", e))?;
 

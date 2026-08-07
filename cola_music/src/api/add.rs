@@ -1,17 +1,19 @@
-// cola_music/src/api/active  -- 可乐 MUSIC - api - 添加
-// 2026-07-08
+// cola_music/src/api/active
+// 🎶 可乐音乐 - api - 添加
+// 2026-07-08 14:52 Created.
 
-//////
+////////
 
 use cola_data::app::data::AppData;
 use cola_data::app::error;
-use cola_data::cola_music::command::music::MusicCommand;
+use cola_data::cola_music::command::music::new::MusicCommand;
 use cola_data::cola_music::vo::music_vo::MusicSingleResponse;
 use crate::case::add::MusicAddCase;
 
-//////
+////////
 
 /// # [API] - 发布 接口
+/// * `desc`: `可乐音乐 - 发布接口`
 pub struct MusicAddApi;
 
 impl MusicAddApi {
@@ -45,4 +47,4 @@ impl MusicAddApi {
     }
 }
 
-////// END
+//////// END

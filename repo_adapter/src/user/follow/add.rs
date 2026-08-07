@@ -5,7 +5,7 @@
 ////////
 
 use anyhow::Result;
-use repository::cola_user::service::follow::add::FollowService;
+use service::cola_user::follow::add::FollowService;
 
 ////////
 

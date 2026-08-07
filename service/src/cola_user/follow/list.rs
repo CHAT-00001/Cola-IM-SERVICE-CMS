@@ -4,14 +4,15 @@
 
 ////////
 
-use crate::user::pg::follow::list::UserFollowListRepo;
 use anyhow::{Result, anyhow};
-use cola_data::user::entity::user::UserEntity;
-use cola_data::user::info::user::UserInfo;
+use cola_data::cola_user::entity::user::UserEntity;
+use cola_data::cola_user::info::user::UserInfo;
+use repository::cola_user::pg::follow::list::UserFollowListRepo;
 
 ////////
 
-/// # [LIST SERVICE] - 关注列表服务
+/// # [LIST SERVICE] - 列表
+/// * `desc`: `可乐用户 - 关注列表服务`
 pub struct FollowListService;
 
 impl FollowListService {

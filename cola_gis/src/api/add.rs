@@ -9,8 +9,7 @@ use crate::model::vo::poi::PoiSingleResponse;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::cola_gis::command::poi::PoiCommand;
-use repository::cola_video::service::permission_check::VideoPermissionsCheckService;
-
+use service::cola_gis::permission_check::VideoPermissionsCheckService;
 ////////
 
 /// # [CASE] - 发布 接口

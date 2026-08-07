@@ -1,24 +1,24 @@
-// cola_auth/src/case/port.rs  -- 可乐验证中心 - 用例层 - 会话用例编排
-// 2026/6/9 08:16
+// cola_auth/src/case/port.rs
+// 🆔 验证中心 - case - 会话用例编排
+// 2026/6/9 08:16 Created.
 
 ////////
 
 use crate::kits::token::kit_build_session_cmd;
-use cola_data::cola_auth::vo::session::{SignResponse, SignVo};
 use anyhow::{Result, anyhow};
 use cola_data::cola_auth::command::phone::PhoneLoginCommand;
-use repository::cola_auth::service::session::SessionService;
-use repository::cola_auth::service::sms::SmsService;
-use repository::cola_user::service::state::UserStateService;
+use cola_data::cola_auth::vo::session::{SignResponse, SignVo};
+use service::cola_auth::session::SessionService;
+use service::cola_auth::sms::SmsService;
+use service::cola_user::user::state::UserStateService;
 
 ////////
 
 /// # [CASE] - 登录用例
-/// * 登录编排 Orchestration
+/// * `desc`: `登录编排 Orchestration`
 pub struct LoginCase;
 
 impl LoginCase {
-
     ////////
 
     /// # 1. [APP USE CASE] - 手机验证码登录
@@ -34,8 +34,11 @@ impl LoginCase {
         }
 
         // 3. 用户处理（不存在则自动创建）— 返回真实 user_info
-        let (user_info, is_new_user) =
-            UserStateService::upsert_user_by_phone(cmd.phone_no.clone(), Some(cmd.client_ip.clone())).await?;
+        let (user_info, is_new_user) = UserStateService::upsert_user_by_phone(
+            cmd.phone_no.clone(),
+            Some(cmd.client_ip.clone()),
+        )
+        .await?;
 
         // 4. 构造真实 JWT + 随机 refresh_token（带 device_id 支持多端登录）
         let (session_cmd, raw_access_token, raw_refresh_token) =

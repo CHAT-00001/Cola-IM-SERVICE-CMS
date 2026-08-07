@@ -1,12 +1,12 @@
 // repo_adapter/src/cola_user/vip/add.rs
-// 适配器 - USER - 贵宾 - 开通/取消
-// 2026/8/6 解耦: 开通VIP / 取消VIP
+// 🔌 适配器 - 可乐用户 - 贵宾 - 开通/取消
+// 2026/8/6 12:40 Created.
 
 ////////
 
 use anyhow::Result;
 use cola_data::cola_user::command::vip::VipCommand;
-use repository::cola_user::service::vip::VipService;
+use service::cola_user::vip::add::VipAddService;
 
 ////////
 
@@ -20,13 +20,13 @@ pub async fn add_vip(uid: i64, target_id: i64) -> Result<()> {
         remark: String::new(),
         source: String::from("app"),
     };
-    VipService::add_vip(uid, target_id, &cmd).await?;
+    VipAddService::add_vip(uid, target_id, &cmd).await?;
     Ok(())
 }
 
 /// # [ADAPTER] - 取消 VIP
 pub async fn cancel_vip(uid: i64, target_id: i64) -> Result<()> {
-    VipService::cancel_vip(uid, target_id).await?;
+    VipAddService::cancel_vip(uid, target_id).await?;
     Ok(())
 }
 

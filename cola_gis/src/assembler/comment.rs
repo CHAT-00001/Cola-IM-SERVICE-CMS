@@ -9,8 +9,7 @@ use cola_data::cola_gis::info::comment::PoiCommentInfo;
 use cola_data::cola_user::info::user::UserInfo;
 use cola_data::cola_video::info::comment::VideoCommentInfo;
 use crate::model::vo::poi_comment::{CommentListResponse, CommentSingleResponse, CommentVo};
-use repository::cola_user::service::user::UserService;
-
+use service::cola_user::user::active::UserService;
 ////////
 
 /// # [ASSEMBLER] - 组装单评论响应

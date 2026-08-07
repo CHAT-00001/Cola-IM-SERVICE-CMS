@@ -1,11 +1,11 @@
 // repo_adapter/src/cola_user/vip/check.rs
-// 适配器 - USER - 贵宾 - 检查
-// 2026/8/6 解耦: VIP状态检查
+// 🔌 适配器 - 可乐用户 - 贵宾 - 检查
+// 2026/8/6 14:20 Created.
 
 ////////
 
 use anyhow::Result;
-use repository::cola_user::service::vip::VipService;
+use service::cola_user::vip::state::VipStateService;
 
 ////////
 
@@ -14,7 +14,7 @@ pub async fn check_state(
     _uid: i64, // 操作者ID
     user_id: i64, // 目标用户ID
 ) -> Result<bool> {
-    VipService::check_vip_status(user_id).await
+    VipStateService::check_vip_status(user_id).await
 }
 
 //////// END

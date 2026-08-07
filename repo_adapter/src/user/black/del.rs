@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_user/black/del.rs
+// repo_adapter/src/user/black/del.rs
 // 🔌 适配器 - USER - 黑名单 - 删除
 // 2026/8/6 22:30 Created.
 
@@ -6,8 +6,12 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_user::port::black::del::BlackDelPort;
+// 💡 修正：使用 user 路径以保持项目一致性
 
+// 💡 修正：Adapter 层应该调用 Repository，删除操作通过 get_repo 的 save 方法实现
+use tracing::info;
+use cola_data::cola_user::port::black::del::BlackDelPort;
+use repository::cola_user::pg::black::get::UserBlackGetRepo;
 ////////
 
 /// # [DEL ADAPTER] - 删除
@@ -21,13 +25,16 @@ impl BlackDelPort for BlackDelAdapter {
     ////////
 
     /// # 1. [ADAPTER] - 单个软删除
+    /// * `desc`: 调用 save_black_record 将 status 置为 0 来实现
     async fn single_soft_del(
         &self,
         uid: i64,       // 操作者ID
         target_id: i64, // 目标用户ID
-    ) -> Result<u16> {
-        let _ = BlackDelService::save_black_record(uid, target_id, String::new(), 0).await?;
-        Ok(1)
+    ) -> Result<u64> { // 💡 修正：返回值类型为 u64 以匹配 repo 方法
+        // 调用 get repo 的 save 方法，status=0 表示取消拉黑
+        let rows_affected = UserBlackGetRepo::save_black_record(uid, target_id, "".to_string(), 0).await?;
+        info!("[🔌 ADAPTER] - ✅️ 取消拉黑成功: uid={}, target_id={}, affected={}", uid, target_id, rows_affected);
+        Ok(rows_affected)
     }
 
     ////////
@@ -37,11 +44,15 @@ impl BlackDelPort for BlackDelAdapter {
         &self,
         uid: i64,      // 操作者ID
         ids: Vec<i64>, // 目标用户ID列表
-    ) -> Result<u16> {
-        for id in &ids {
-            let _ = BlacklistService::save_black_record(uid, *id, String::new(), 0).await;
+    ) -> Result<u64> { // 💡 修正：返回值类型为 u64
+        let mut total_affected = 0;
+        for target_id in ids.iter() {
+            // 循环调用 save_black_record
+            let rows_affected = UserBlackGetRepo::save_black_record(uid, *target_id, "".to_string(), 0).await?;
+            total_affected += rows_affected;
         }
-        Ok(ids.len() as u16)
+        info!("[🔌 ADAPTER] - ✅️ 批量取消拉黑成功: uid={}, count={}, total_affected={}", uid, ids.len(), total_affected);
+        Ok(total_affected)
     }
 }
 

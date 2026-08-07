@@ -6,17 +6,19 @@
 use crate::assembler::music::build_music_single_response;
 use anyhow::{Context, Result};
 use cola_data::cola_fs::rick_check;
-use cola_data::cola_music::command::music::MusicCommand;
+use cola_data::cola_music::command::music::new::MusicCommand;
 use cola_data::cola_music::vo::music_vo::MusicSingleResponse;
 use repository::cola_music::service::add::MusicAddService;
 use tracing::info;
-
 ////////
 
 /// # [CASE] - 音乐 发布 用例
+/// * `desc`: `可乐音乐 - 发布用例`
 pub struct MusicAddCase;
 
 impl MusicAddCase {
+    //
+
     ////////
 
     /// # 1. [CASE] - 发布音乐
@@ -30,9 +32,12 @@ impl MusicAddCase {
 
         let music_info = MusicAddService::save_music_and_update_count(uid, cmd, visibility)
             .await
-            .map_err(|e| anyhow::anyhow!("BIZ: 音乐发布持久化失败: {}", e))?;
+            .map_err(|e| anyhow::anyhow!("[🤐 ADD CASE]: ❌️ 音乐发布持久化失败: {}", e))?;
 
-        info!("BIZ - 音乐发布成功: uid={}, visibility={}", uid, visibility);
+        info!(
+            "[🗣️ ADD CASE] - ✅️ 音乐发布成功: uid={}, visibility={}",
+            uid, visibility
+        );
 
         let response = build_music_single_response(music_info, Some(uid)).await?;
 
@@ -52,9 +57,12 @@ impl MusicAddCase {
 
         let music_info = MusicAddService::edit_music(uid, cmd, visibility)
             .await
-            .map_err(|e| anyhow::anyhow!("BIZ: 音乐编辑持久化失败: {}", e))?;
+            .map_err(|e| anyhow::anyhow!("[🤐 ADD CASE]: ❌️ 音乐编辑持久化失败: {}", e))?;
 
-        info!("BIZ - 音乐编辑成功: uid={}, visibility={}", uid, visibility);
+        info!(
+            "[🗣️ ADD CASE] - ✅️ 音乐编辑成功: uid={}, visibility={}",
+            uid, visibility
+        );
 
         let response = build_music_single_response(music_info, Some(uid)).await?;
 

@@ -14,6 +14,7 @@ pub mod like; // 互动
 pub mod recommend; // 推荐
 pub mod report; // 举报
 pub mod share; // 分享
+pub mod user; // 用户
 pub mod video; // 视频
 pub mod view; // 浏览
 // 浏览

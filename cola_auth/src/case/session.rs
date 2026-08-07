@@ -1,4 +1,5 @@
-// cola_auth/src/case/session.rs -- 可乐验证中心 - 用例层 - 会话用例编排
+// cola_auth/src/case/session.rs --
+// 🆔 验证中心 - case - 会话用例编排
 // 2026-07-19
 
 ////////
@@ -7,7 +8,7 @@ use crate::kits::token::{kit_encrypt_refresh_token, kit_generate_access_token};
 use anyhow::{Result, anyhow};
 use cola_data::cola_auth::entity::session::AuthSessionEntity;
 use cola_data::cola_auth::info::session::AccessTokenInfo;
-use repository::cola_auth::service::session::SessionService;
+use service::cola_auth::session::SessionService;
 
 ////////
 

@@ -6,7 +6,6 @@
 mod add;
 mod get;
 mod manage;
-mod de;
 mod state;
 
 use crate::case::report::ReportCase;

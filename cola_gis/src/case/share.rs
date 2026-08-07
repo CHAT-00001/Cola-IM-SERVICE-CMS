@@ -8,7 +8,7 @@ use tracing::{info, warn};
 use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::cola_video::command::share::ShareCommand;
-use repository::cola_video::service::like::LikeService;
+
 
 ////////
 
@@ -31,7 +31,8 @@ impl ShareCase {
         ctx: &AppContext,
     ) -> Result<()> {
         // 1. 获取当前收藏数 (自动从存储层获取)
-        ctx.video.share
+        ctx.video
+            .share
             .save_share_record(uid, url.video_id, cmd)
             .await
             .map_err(|e| anyhow!("保存分享视频记录失败:  {}", e))?;

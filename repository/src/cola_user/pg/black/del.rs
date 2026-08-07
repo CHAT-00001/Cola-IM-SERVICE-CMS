@@ -1,5 +1,5 @@
 // repository/src/cola_user/pg/black/del.rs
-// 仓储 - 可乐用户 - pg - 黑名单 - 删除
+// 仓储 - 可乐用户 - pg - 黑名单 - 软删除
 // 2026/8/7 21:13 Created.
 
 ////////
@@ -9,12 +9,12 @@ use sqlx::{self, PgPool};
 
 ////////
 
-/// # [DEL REPOSITORY] - 管理
+/// # [DEL REPOSITORY] - 软删除
 /// * `desc`: `用户黑名单删除仓储`
-pub struct UserBlackManageRepo;
+pub struct UserBlackDelRepo;
 
 // 构造函数
-impl UserBlackManageRepo {
+impl UserBlackDelRepo {
     //
 
     ////////
@@ -42,7 +42,7 @@ impl UserBlackManageRepo {
     /// # 2. [REPOSITORY] - 🚮 批量软删除
     /// * `desc`: `根据黑名单IDs 批量软删除`
     pub async fn batch_soft_del_by_ids(
-        ids: &[i64], // 黑名单ID列表
+        ids: Vec<i64>, // 黑名单ID列表
     ) -> Result<u64, sqlx::Error> {
         let pool = pg_pool();
 

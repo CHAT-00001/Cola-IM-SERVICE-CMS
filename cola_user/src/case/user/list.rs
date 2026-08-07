@@ -75,18 +75,17 @@ impl UserListCase {
 
     ////////
 
-    /// # 4. [CASE] - 附近
+    /// # 4. [CASE] - 同城(💡 2026-8-8未完成)
     /// * `desc`: `获取GEO附近用户列表`
     pub async fn case_get_city_users(
         _uid: i64,         // 操作者ID
-        lat: f64,          // 经度
-        lng: f64,          // 经度
+        city_id: i64,          // 分类
         offset: i64,       // 分页偏移
         limit: i64,        // 每页数量
         _ctx: &AppContext, // 全局上下文
     ) -> Result<Vec<UserVo>, anyhow::Error> {
         // Call ..
-        let entities = UserListService::get_nearby_user_list(lat, lng, limit, offset)
+        let entities = UserListService::get_city_user_list(city_id, limit, offset)
             .await
             .map_err(|e| anyhow!("[🤐 USER LIST CASE]: ❌️ 查询同城用户失败: {}", e))?;
 

@@ -4,7 +4,7 @@
 ////////
 
 use anyhow::{Result, anyhow};
-use repository::cola_auth::service::sms::SmsService;
+use service::cola_auth::sms::SmsService;
 use crate::kits::sms::kit_make_auth_sms_content;
 
 ////////

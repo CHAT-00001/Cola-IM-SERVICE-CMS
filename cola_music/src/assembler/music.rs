@@ -1,15 +1,16 @@
-// cola_music/src/assembler/cola_music.rs  -- MUSIC - 组装 - 音乐响应体
-// 2026-07-08
+// cola_music/src/assembler/cola_music.rs  --
+// 🎶 可乐音乐 - 组装 - 音乐响应体
+// 2026-07-08 12:10 Created.
 
 ////////
 
-use std::collections::HashMap;
 use anyhow::Result;
 use cola_data::app::page::PageInfo;
 use cola_data::cola_music::info::music::MusicInfo;
 use cola_data::cola_music::vo::music_vo::{MusicListResponse, MusicSingleResponse, MusicVo};
 use cola_data::cola_user::info::user::UserInfo;
-use repository::cola_user::service::user::UserService;
+use service::cola_user::user::active::UserService;
+use std::collections::HashMap;
 
 ////////
 
@@ -18,12 +19,12 @@ pub async fn build_music_single_response(
     music_info: MusicInfo,
     _current_uid: Option<i64>,
 ) -> Result<MusicSingleResponse> {
-    let author_uid = music_info.user_id.unwrap_or(0);
+    let author_uid = music_info.uid.unwrap_or(0);
 
     let author = if author_uid > 0 {
         UserService::get_user_info_by_id(author_uid)
             .await
-            .map_err(|e| anyhow::anyhow!("BIZ: 详情页获取用户信息失败: {}", e))?
+            .map_err(|e| anyhow::anyhow!("[🤐 BIZ]: ❌️ 详情页获取用户信息失败: {}", e))?
     } else {
         UserInfo::default()
     };
@@ -43,13 +44,12 @@ pub async fn build_music_list_response(
     qty: i64,
     _total: i64,
 ) -> Result<MusicListResponse> {
-
     let authors_map: HashMap<i64, UserInfo> = if infos.is_empty() {
         HashMap::new()
     } else {
         let author_ids: Vec<i64> = infos
             .iter()
-            .filter_map(|v| v.user_id)
+            .filter_map(|v| v.uid)
             .filter(|&id| id > 0)
             .collect::<std::collections::HashSet<_>>()
             .into_iter()
@@ -57,14 +57,17 @@ pub async fn build_music_list_response(
 
         UserService::get_user_info_by_ids(&author_ids)
             .await
-            .map_err(|e| anyhow::anyhow!("BIZ: 批量获取用户信息失败: {}", e))?
+            .map_err(|e| anyhow::anyhow!("[🤐 BIZ]: ❌️ 批量获取用户信息失败: {}", e))?
     };
 
-    let list: Vec<MusicVo> = infos.into_iter().map(|music_info| {
-        let author_uid = music_info.user_id.unwrap_or(0);
-        let author = authors_map.get(&author_uid).cloned().unwrap_or_default();
-        MusicVo::combine(music_info, author)
-    }).collect();
+    let list: Vec<MusicVo> = infos
+        .into_iter()
+        .map(|music_info| {
+            let author_uid = music_info.uid.unwrap_or(0);
+            let author = authors_map.get(&author_uid).cloned().unwrap_or_default();
+            MusicVo::combine(music_info, author)
+        })
+        .collect();
 
     let has_more = list.len() >= (qty as usize);
 

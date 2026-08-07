@@ -115,7 +115,23 @@ impl UserListService {
         Ok(list.into_iter().map(UserInfo::from).collect())
     }
 
-    /// # 6. [SERVICE] - 角色分类下的用户列表
+    ////////
+
+    /// # 7. [SERVICE] - 同城
+    /// * `desc`: `对接 UserListRepo::find_category_list 并转换为 UserInfo 列表`
+    pub async fn get_city_user_list(
+        city_id: i64, // 城市 ID
+        limit: i64,  // 数量
+        offset: i64,  // 页码
+    ) -> Result<Vec<UserInfo>, anyhow::Error> {
+        let list = UserListRepo::find_category_list(limit, offset)
+            .await
+            .map_err(|e| anyhow::anyhow!("[🤐 SERVICE]: ❌️ 获取分类用户列表失败: {}", e))?;
+
+        Ok(list.into_iter().map(UserInfo::from).collect())
+    }
+
+    /// # 8. [SERVICE] - 角色分类下的用户列表
     /// * `desc`: `对接 UserListRepo::find_category_list 并转换为 UserInfo 列表`
     pub async fn get_role_user_list(
         role_id: i64, // 角色 ID
@@ -131,7 +147,7 @@ impl UserListService {
 
     ////////
 
-    /// # 7. [SERVICE] - 精选用户列表
+    /// # 9. [SERVICE] - 精选用户列表
     /// * `desc`: `对接 UserListRepo::find_featured_list 并转换为 UserInfo 列表`
     pub async fn get_featured_user_list(
         limit: i64,
@@ -146,7 +162,7 @@ impl UserListService {
 
     ////////
 
-    /// # 8. [SERVICE] - 搜索关键词用户列表
+    /// # 10. [SERVICE] - 搜索关键词用户列表
     /// * `desc`: `对接 UserListRepo::search_keyword 并转换为 UserInfo 列表`
     pub async fn search_user_keyword(
         keyword: &str,
@@ -164,7 +180,7 @@ impl UserListService {
 
     ////////
 
-    /// # 9. [SERVICE] - 修改用户信息
+    /// # 11. [SERVICE] - 修改用户信息
     pub async fn update_user_info_by_id(
         user_id: i64,
         cmd: UserCommand,
