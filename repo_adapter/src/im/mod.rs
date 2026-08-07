@@ -1,4 +1,4 @@
-// repo_adapter/src/im/mod.rs  -- 适配器 - IM - mod
+// repo_adapter/src/cola_im/mod.rs  -- 适配器 - IM - mod
 // 2026-07-07
 
 pub mod contact;

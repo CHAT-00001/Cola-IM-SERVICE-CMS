@@ -26,7 +26,7 @@
 //     pub id: i16,
 //     pub name: String,
 //     pub icon_url: String,
-//     pub menu_type: String, // 菜单类型，如 "live", "rank", "fs"
+//     pub menu_type: String, // 菜单类型，如 "cola_live", "rank", "cola_fs"
 // }
 //
 // /// # [RESPONSE] 整个聚合首页的完全体响应

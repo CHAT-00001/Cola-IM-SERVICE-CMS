@@ -1,4 +1,4 @@
-// user/src/case/category/get.rs
+// cola_user/src/case/category/get.rs
 // 用户 - case - 分类 - 获取
 // 2026/8/4 01:28 Created.
 
@@ -8,7 +8,7 @@ use anyhow::{Result, anyhow};
 use cola_data::app::ctx::AppContext;
 use cola_data::app::page::PageInfo;
 use cola_data::app::response::ListResponse;
-use cola_data::user::info::category::UserCategoryInfo;
+use cola_data::cola_user::info::category::UserCategoryInfo;
 use tracing::info;
 
 ////////
@@ -43,12 +43,12 @@ impl UserCategoryGetCase {
             infos.pop(); // 弹出多查的那一条
         }
 
-        // 3. 构建 PageInfo（根据你的 PageInfo 结构适配，这里假设支持类似字段或构造方法）
+        // 3. 构建 PageInfo（由 offset/limit 反推页码）
+        let page = if limit > 0 { offset / limit + 1 } else { 1 };
         let page_info = PageInfo {
             page,
-            qty,
-            has_more,
-            ..Default::default()
+            qty: limit,
+            has_more: has_next,
         };
 
         // 4. 装载到泛型 ListResponse 中

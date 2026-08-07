@@ -1,4 +1,4 @@
-// repo_adapter/src/user/black/get.rs
+// repo_adapter/src/cola_user/black/get.rs
 // 🔌 适配器 - USER - 黑名单 - 获取
 // 2026/8/6 解耦: 获取黑名单IDs
 
@@ -6,8 +6,8 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::user::port::black::get::BlackGetPort;
-use repository::user::pg::black::get::UserBlackGetRepo;
+use cola_data::cola_user::port::black::get::BlackGetPort;
+use repository::cola_user::pg::black::get::UserBlackGetRepo;
 use tracing::{error, info};
 
 ////////
@@ -42,8 +42,9 @@ impl BlackGetPort for BlackGetAdapter {
                 Ok(ids)
             }
             Err(e) => {
-                error!("[🔌 ADAPTER] - ❌️ 获取我的黑名单IDs失败: uid = {}, err = {:?}", target_uid, e);
-                Err(e)
+                error!("[🔌 ADAPTER] - ❌️ 获取我的黑名单IDs失败: uid = {}, err = {:?}", target_uid, &e);
+                // 💡 修正：将 sqlx::Error 转换为 anyhow::Error
+                Err(e.into())
             }
         }
     }
@@ -68,8 +69,9 @@ impl BlackGetPort for BlackGetAdapter {
                 Ok(ids)
             }
             Err(e) => {
-                error!("[🔌 ADAPTER] - ❌️ 获取她的黑名单IDs失败: uid = {}, err = {:?}", target_uid, e);
-                Err(e)
+                error!("[🔌 ADAPTER] - ❌️ 获取她的黑名单IDs失败: uid = {}, err = {:?}", target_uid, &e);
+                // 💡 修正：将 sqlx::Error 转换为 anyhow::Error
+                Err(e.into())
             }
         }
     }
@@ -94,8 +96,9 @@ impl BlackGetPort for BlackGetAdapter {
                 Ok(ids)
             }
             Err(e) => {
-                error!("[🔌 ADAPTER] - ❌️ 获取拉黑我的黑名单IDs失败: uid = {}, err = {:?}", target_uid, e);
-                Err(e)
+                error!("[🔌 ADAPTER] - ❌️ 获取拉黑我的黑名单IDs失败: uid = {}, err = {:?}", target_uid, &e);
+                // 💡 修正：将 sqlx::Error 转换为 anyhow::Error
+                Err(e.into())
             }
         }
     }
@@ -120,8 +123,9 @@ impl BlackGetPort for BlackGetAdapter {
                 Ok(ids)
             }
             Err(e) => {
-                error!("[🔌 ADAPTER] - ❌️ 获取拉黑TA的黑名单IDs失败: uid = {}, err = {:?}", target_uid, e);
-                Err(e)
+                error!("[🔌 ADAPTER] - ❌️ 获取拉黑TA的黑名单IDs失败: uid = {}, err = {:?}", target_uid, &e);
+                // 💡 修正：将 sqlx::Error 转换为 anyhow::Error
+                Err(e.into())
             }
         }
     }

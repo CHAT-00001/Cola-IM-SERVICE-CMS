@@ -1,13 +1,13 @@
-// repo_adapter/src/three/server_type.rs  -- 适配器 - THREE - 服务类型
+// repo_adapter/src/cola_three/server_type.rs  -- 适配器 - THREE - 服务类型
 // 2026/6/18 18:19
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::three::command::category::ThreeServerTypeCommand;
-use cola_data::three::info::server_type::{ServerTypeInfo};
-use cola_data::three::port::category::TypePort;
-use repository::three::pg::three_type::{ServerTypeRepo};
+use cola_data::cola_three::command::category::ThreeServerTypeCommand;
+use cola_data::cola_three::info::server_type::{ServerTypeInfo};
+use cola_data::cola_three::port::category::TypePort;
+use repository::cola_three::pg::three_type::{ServerTypeRepo};
 
 ////////
 

@@ -1,4 +1,4 @@
-// repo_adapter/src/user/mod.rs
+// repo_adapter/src/cola_user/mod.rs
 // 🔌 插头 - 可乐用户 - 模块
 // 2026-06-12 10:01 Created.
 

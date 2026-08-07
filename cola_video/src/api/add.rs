@@ -6,10 +6,10 @@
 
 use cola_data::app::data::AppData;
 use cola_data::app::error;
-use cola_data::video::command::video::edit::VideoUpdateCommand;
-use cola_data::video::command::video::new::VideoNewCommand;
-use cola_data::video::command::video::permission::VideoUpdatePermissionCommand;
-use repository::video::service::ban::publish_service::VideoPublishBanService;
+use cola_data::cola_video::command::video::edit::VideoUpdateCommand;
+use cola_data::cola_video::command::video::new::VideoNewCommand;
+use cola_data::cola_video::command::video::permission::VideoUpdatePermissionCommand;
+use repository::cola_video::service::ban::publish_service::VideoPublishBanService;
 use crate::case::add::AddCase;
 use crate::model::vo::video::VideoSingleResponse;
 

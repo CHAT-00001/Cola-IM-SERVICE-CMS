@@ -1,4 +1,4 @@
-// user/case/category/state.rs
+// cola_user/case/category/state.rs
 // 用户 - case - 分类 - 状态
 // 2026/8/4 01:01 Created.
 
@@ -30,8 +30,9 @@ impl UserCategoryStateCase {
         // 1. 🗣️ CALL USER PORT.
         let is_black = ctx
             .user
-            .category
-            .check_state(uid, user_id)
+            .black
+            .check
+            .is_blacked(uid, user_id)
             .await
             .map_err(|e| anyhow::anyhow!("[CASE]: ❌️ 检查黑名单状态失败: {}", e))?;
 

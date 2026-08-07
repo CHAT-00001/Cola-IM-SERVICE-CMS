@@ -11,6 +11,7 @@ edition = "2024"
 #app_core = { path = "../cola_video" }
 cola_data = { path = "../cola_data" }
 repository = { path = "../repository" }
+service = { path = "../service" }  ## 全函数调用service层
 
 #### 外部依赖
 async-trait = "0.1.89"

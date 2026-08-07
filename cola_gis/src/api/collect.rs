@@ -6,7 +6,7 @@
 use crate::case::collect::CollectCase;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
-use cola_data::gis::command::collect::PoiCollectCommand;
+use cola_data::cola_gis::command::collect::PoiCollectCommand;
 
 //////
 

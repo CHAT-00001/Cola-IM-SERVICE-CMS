@@ -1,4 +1,4 @@
-// repo_adapter/src/video/buy/mod.rs
+// repo_adapter/src/cola_video/buy/mod.rs
 // 🔌 插头 - 可乐视频 - 购买 - 模块
 // 2026/8/6 19:32 Created.
 

@@ -1,4 +1,4 @@
-// repo_adapter/src/user/ban/list.rs
+// repo_adapter/src/cola_user/ban/list.rs
 // 🔌 适配器 - 可乐用户 - 封禁 - 列表服务
 // 2026/8/7 05:56 Created.
 
@@ -13,7 +13,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::user::port::ban::list::BanListPort;
+use cola_data::cola_user::port::ban::list::BanListPort;
 
 ////////
 

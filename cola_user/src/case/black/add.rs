@@ -31,7 +31,8 @@ impl UserBlackAddCase {
         // 🚧 Call Port..
         ctx.user
             .black
-            .add_following(uid, id)
+            .add
+            .add_black(uid, id)
             .await
             .map_err(|e| anyhow!("[🤐 CASE]: ❌️ 添加黑名单失败: {}", e))?;
 
@@ -55,7 +56,8 @@ impl UserBlackAddCase {
         // 🚧 Call Port..
         ctx.user
             .black
-            .single_del(uid, id)
+            .del
+            .single_soft_del(uid, id)
             .await
             .map_err(|e| anyhow!("[🤐 CASE]: ❌️ 移除黑名单失败: {}", e))?;
 

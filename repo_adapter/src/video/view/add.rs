@@ -1,4 +1,4 @@
-// repo_adapter/src/video/view/add.rs
+// repo_adapter/src/cola_video/view/add.rs
 // 🔌 插头 - 可乐视频 - 浏览 - 发布
 // 2026/8/6 19:00 Created.
 
@@ -6,10 +6,10 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::video::command::video::edit::VideoUpdateCommand;
-use cola_data::video::command::video::new::VideoNewCommand;
-use cola_data::video::command::video::permission::VideoUpdatePermissionCommand;
-use cola_data::video::port::video::add::VideoAddPort;
+use cola_data::cola_video::command::video::edit::VideoUpdateCommand;
+use cola_data::cola_video::command::video::new::VideoNewCommand;
+use cola_data::cola_video::command::video::permission::VideoUpdatePermissionCommand;
+use cola_data::cola_video::port::video::add::VideoAddPort;
 ////////
 
 /// # [DEL SERVICE] - 发布

@@ -1,4 +1,4 @@
-// cola_dynamic/src/api/dynamic/feed.rs  -- 动态 - api - dynamic - 推荐流
+// cola_dynamic/src/api/cola_dynamic/feed.rs  -- 动态 - api - cola_dynamic - 推荐流
 // 2026/7/30 04:06
 
 ////////

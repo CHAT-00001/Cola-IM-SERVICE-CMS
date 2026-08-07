@@ -1,11 +1,11 @@
-// gate_http/src/router_v2/three/dispatcher/category.rs  -- 分类/类型 分发器
+// gate_http/src/router_v2/cola_three/dispatcher/category.rs  -- 分类/类型 分发器
 // 2026/7/27 11:40
 
 //////
 
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::three::port::ColaThreePort;
+use cola_data::cola_three::port::ColaThreePort;
 use serde_json::Value;
 use cola_three::api::server_type::ServerTypeApi;
 
@@ -74,35 +74,35 @@ pub async fn category_dispatch(
 //////// END
 
 async fn home_list(_req: &ApiGatewayRequest) -> AppData<Value> {
-    AppData::ok(serde_json::json!({"service":"fs","action":"home_list"}))
+    AppData::ok(serde_json::json!({"service":"cola_fs","action":"home_list"}))
 }
 async fn home_detail(_req: &ApiGatewayRequest) -> AppData<Value> {
-    AppData::ok(serde_json::json!({"service":"fs","action":"home_detail"}))
+    AppData::ok(serde_json::json!({"service":"cola_fs","action":"home_detail"}))
 }
 async fn feed_list(_req: &ApiGatewayRequest) -> AppData<Value> {
-    AppData::ok(serde_json::json!({"service":"fs","action":"feed_list"}))
+    AppData::ok(serde_json::json!({"service":"cola_fs","action":"feed_list"}))
 }
 async fn check_status(_req: &ApiGatewayRequest) -> AppData<Value> {
-    AppData::ok(serde_json::json!({"service":"fs","action":"check_status"}))
+    AppData::ok(serde_json::json!({"service":"cola_fs","action":"check_status"}))
 }
 async fn create(_req: &ApiGatewayRequest) -> AppData<Value> {
-    AppData::ok(serde_json::json!({"service":"fs","action":"create"}))
+    AppData::ok(serde_json::json!({"service":"cola_fs","action":"create"}))
 }
 async fn edit(_req: &ApiGatewayRequest) -> AppData<Value> {
-    AppData::ok(serde_json::json!({"service":"fs","action":"edit"}))
+    AppData::ok(serde_json::json!({"service":"cola_fs","action":"edit"}))
 }
 async fn reorder(_req: &ApiGatewayRequest) -> AppData<Value> {
-    AppData::ok(serde_json::json!({"service":"fs","action":"reorder"}))
+    AppData::ok(serde_json::json!({"service":"cola_fs","action":"reorder"}))
 }
 async fn admin_list(_req: &ApiGatewayRequest) -> AppData<Value> {
-    AppData::ok(serde_json::json!({"service":"fs","action":"admin_list"}))
+    AppData::ok(serde_json::json!({"service":"cola_fs","action":"admin_list"}))
 }
 async fn toggle_status(_req: &ApiGatewayRequest) -> AppData<Value> {
-    AppData::ok(serde_json::json!({"service":"fs","action":"toggle_status"}))
+    AppData::ok(serde_json::json!({"service":"cola_fs","action":"toggle_status"}))
 }
 async fn audit_log(_req: &ApiGatewayRequest) -> AppData<Value> {
-    AppData::ok(serde_json::json!({"service":"fs","action":"audit_log"}))
+    AppData::ok(serde_json::json!({"service":"cola_fs","action":"audit_log"}))
 }
 async fn delete(_req: &ApiGatewayRequest) -> AppData<Value> {
-    AppData::ok(serde_json::json!({"service":"fs","action":"delete"}))
+    AppData::ok(serde_json::json!({"service":"cola_fs","action":"delete"}))
 }

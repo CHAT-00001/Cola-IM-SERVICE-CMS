@@ -1,4 +1,4 @@
-// repo_adapter/src/video/comment/mod.rs
+// repo_adapter/src/cola_video/comment/mod.rs
 // 插头 - 视频- 评论 - 模块
 // 2026/8/6 19:25 Created.
 

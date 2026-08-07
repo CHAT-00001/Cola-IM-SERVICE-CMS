@@ -1,4 +1,4 @@
-// // /fs.rs  -- 可乐GIS
+// // /cola_fs.rs  -- 可乐GIS
 // // 2026/5/20 02:00
 //
 // ////////
@@ -6,7 +6,7 @@
 // use cola_data::api::data::AppData;
 // use cola_data::api::request::ApiUrlParamsQuery;
 // use crate::case;
-// use crate::case::fs::logic_check_category_status;
+// use crate::case::cola_fs::logic_check_category_status;
 // use crate::model::vo::new::VideoListResponse;
 //
 // ////////

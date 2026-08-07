@@ -1,4 +1,4 @@
-// cola_video/src/new/case/music  -- 视频业务 基础
+// cola_video/src/new/case/cola_music  -- 视频业务 基础
 // 2026/4/18 10:36 by wx: cestbon10080
 
 ////////

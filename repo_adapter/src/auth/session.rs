@@ -1,13 +1,12 @@
-// repo_adapter/src/auth/session.rs
+// repo_adapter/src/cola_auth/session.rs
 // 适配器 - AUTH - 会话校验
 // 2026/8/2 重构：使用 SessionService(cache-first + PG) 而非直接解码 JWT + UserRepo
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::auth::port::session::{SessionPort, SessionUserInfo, SessionVerifyVo};
-use repository::auth::service::session::SessionService;
-
+use cola_data::cola_auth::port::session::{SessionPort, SessionUserInfo, SessionVerifyVo};
+use service::cola_auth::session::SessionService;
 ////////
 
 /// # [ADAPTER] - 会话校验适配器

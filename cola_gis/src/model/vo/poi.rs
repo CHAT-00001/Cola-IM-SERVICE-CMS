@@ -4,9 +4,9 @@
 ////////
 
 use cola_data::app::page::PageInfo;
-use cola_data::gis::info::poi::PoiInfo;
-use cola_data::music::info::music::MusicInfo;
-use cola_data::user::info::user::UserInfo;
+use cola_data::cola_gis::info::poi::PoiInfo;
+use cola_data::cola_music::info::music::MusicInfo;
+use cola_data::cola_user::info::user::UserInfo;
 use serde::Serialize;
 
 ////////

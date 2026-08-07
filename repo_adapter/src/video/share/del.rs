@@ -1,11 +1,11 @@
-// repo_adapter/src/video/share/del.rs
+// repo_adapter/src/cola_video/share/del.rs
 // 🔌 插头 - 可乐视频 - 分享 - 删除
 // 2026/8/6 18:57 Created.
 
 ////////
 
 
-// repo_adapter/src/user/ban/del.rs
+// repo_adapter/src/cola_user/ban/del.rs
 // 🔌 适配器 - 可乐用户 - 浏览 - 删除服务
 // 2026/8/7 05:56 Created.
 
@@ -13,7 +13,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::user::port::view::del::ViewDelPort;
+use cola_data::cola_user::port::view::del::ViewDelPort;
 
 ////////
 

@@ -1,4 +1,4 @@
-// gate_http/src/router_v2/music/router2 -- 音乐 - 路由器
+// gate_http/src/router_v2/cola_music/router2 -- 音乐 - 路由器
 // 2026/5/25 03:08 by wx: cestbon10080
 
 ////////
@@ -13,7 +13,7 @@ use std::alloc::handle_alloc_error;
 use std::collections::HashMap;
 use std::error::Error;
 use std::time::Instant;
-//use crate::router_v2::user::User;
+//use crate::router_v2::cola_user::User;
 use crate::models::response::ApiResponse;
 use crate::models::user::{UserInfo, get_user_info};
 
@@ -22,7 +22,7 @@ use crate::models::user::{UserInfo, get_user_info};
 /// # [ROUTER] - 音乐 - 路由器
 pub fn music_router(cfg: &mut web::ServiceConfig) {
     cfg.service(
-        web::scope("/music")
+        web::scope("/cola_music")
             .route("", web::get().to(get_client_list))
             //  .route("/{id}", web::get().to(get_client_by_id))
             .route("", web::post().to(create))
@@ -30,7 +30,7 @@ pub fn music_router(cfg: &mut web::ServiceConfig) {
             .route("/{id}", web::delete().to(del))
             // 可以添加更多子路由
             .service(
-                web::scope("/fs")
+                web::scope("/cola_fs")
                     .route("", web::get().to(get_categories))
                     .route("/{id}", web::get().to(get_videos_by_category)),
             ),

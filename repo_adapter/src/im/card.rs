@@ -1,13 +1,13 @@
-// repo_adapter/src/im/card.rs  -- 适配器 - IM - 名片
+// repo_adapter/src/cola_im/card.rs  -- 适配器 - IM - 名片
 // 2026-07-07 18:00
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::im::port::card::CardRepo;
-use cola_data::im::command::card::CardCommand;
-use cola_data::im::info::card::CardInfo;
-use repository::im::service::card::ImCardService;
+use cola_data::cola_im::port::card::CardRepo;
+use cola_data::cola_im::command::card::CardCommand;
+use cola_data::cola_im::info::card::CardInfo;
+use repository::cola_im::service::card::ImCardService;
 
 ////////
 pub struct CardPortAdapter;

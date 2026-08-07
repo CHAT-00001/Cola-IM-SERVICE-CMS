@@ -4,9 +4,9 @@
 ////////
 
 use cola_data::app::data::AppData;
-use cola_data::three::command::config::UpsertConfigCommand;
-use cola_data::three::port::config::ConfigPort;
-use cola_data::three::vo::config::ConfigVo;
+use cola_data::cola_three::command::config::UpsertConfigCommand;
+use cola_data::cola_three::port::config::ConfigPort;
+use cola_data::cola_three::vo::config::ConfigVo;
 
 ////////
 

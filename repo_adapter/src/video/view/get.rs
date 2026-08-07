@@ -1,4 +1,4 @@
-// repo_adapter/src/video/view/get.rs
+// repo_adapter/src/cola_video/view/get.rs
 // 🔌 插头 - 可乐视频 - 浏览 - 获取服务
 // 2026/8/6 19:00 Created.
 
@@ -6,9 +6,9 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::video::info::video::VideoInfo;
-use cola_data::video::info::view::VideoViewInfo;
-use cola_data::video::port::view::get::VideoViewGetPort;
+use cola_data::cola_video::info::video::VideoInfo;
+use cola_data::cola_video::info::view::VideoViewInfo;
+use cola_data::cola_video::port::view::get::VideoViewGetPort;
 
 ////////
 

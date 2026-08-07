@@ -5,7 +5,7 @@
 
 use cola_data::app::data::AppData;
 use cola_data::app::error;
-use cola_data::auth::info::auth::AuthContext;
+use cola_data::cola_auth::info::auth::AuthContext;
 use crate::case::change::VideoChangeCase;
 
  
@@ -29,12 +29,12 @@ impl ChangeApi {
     ) -> AppData<bool> {
         //
         // // 1. 检查视频修改权限
-        // let auth_res = ensure_user_active(auth, session_port).await;
+        // let auth_res = ensure_user_active(cola_auth, session_port).await;
         // if auth_res.code != 0 {
         //     return AppData::err(auth_res.code, auth_res.message, None);
         // }
         //
-        // let uid = match auth.user_id {
+        // let uid = match cola_auth.user_id {
         //     Some(id) => id,
         //     None => return AppData::err(error::UNAUTHORIZED, "未登录", None),
         // };
@@ -62,12 +62,12 @@ impl ChangeApi {
     ) -> AppData<bool> {
 
         // // 1. 检查视频修改权限
-        // let auth_res = ensure_user_active(auth, session_port).await;
+        // let auth_res = ensure_user_active(cola_auth, session_port).await;
         // if auth_res.code != 0 {
         //     return AppData::err(auth_res.code, auth_res.message, None);
         // }
         //
-        // let uid = match auth.user_id {
+        // let uid = match cola_auth.user_id {
         //     Some(id) => id,
         //     None => return AppData::err(error::UNAUTHORIZED, "未登录", None),
         // };
@@ -93,12 +93,12 @@ impl ChangeApi {
     ) -> AppData<bool> {
 
         // // 1. 检查视频修改权限
-        // let auth_res = ensure_user_active(auth, session_port).await;
+        // let auth_res = ensure_user_active(cola_auth, session_port).await;
         // if auth_res.code != 0 {
         //     return AppData::err(auth_res.code, auth_res.message, None);
         // }
         //
-        // let uid = match auth.user_id {
+        // let uid = match cola_auth.user_id {
         //     Some(id) => id,
         //     None => return AppData::err(error::UNAUTHORIZED, "未登录", None),
         // };
@@ -124,12 +124,12 @@ impl ChangeApi {
     ) -> AppData<bool> {
 
         // // 1. 检查视频修改权限
-        // let auth_res = ensure_user_active(auth, session_port).await;
+        // let auth_res = ensure_user_active(cola_auth, session_port).await;
         // if auth_res.code != 0 {
         //     return AppData::err(auth_res.code, auth_res.message, None);
         // }
         //
-        // let uid = match auth.user_id {
+        // let uid = match cola_auth.user_id {
         //     Some(id) => id,
         //     None => return AppData::err(error::UNAUTHORIZED, "未登录", None),
         // };
@@ -155,12 +155,12 @@ impl ChangeApi {
     ) -> AppData<bool> {
 
         // // 1. 检查视频修改权限
-        // let auth_res = ensure_user_active(auth, session_port).await;
+        // let auth_res = ensure_user_active(cola_auth, session_port).await;
         // if auth_res.code != 0 {
         //     return AppData::err(auth_res.code, auth_res.message, None);
         // }
         //
-        // let uid = match auth.user_id {
+        // let uid = match cola_auth.user_id {
         //     Some(id) => id,
         //     None => return AppData::err(error::UNAUTHORIZED, "未登录", None),
         // };
@@ -187,12 +187,12 @@ impl ChangeApi {
     ) -> AppData<bool> {
 
         // // 1. 检查视频修改权限
-        // let auth_res = ensure_user_active(auth, session_port).await;
+        // let auth_res = ensure_user_active(cola_auth, session_port).await;
         // if auth_res.code != 0 {
         //     return AppData::err(auth_res.code, auth_res.message, None);
         // }
         //
-        // let uid = match auth.user_id {
+        // let uid = match cola_auth.user_id {
         //     Some(id) => id,
         //     None => return AppData::err(error::UNAUTHORIZED, "未登录", None),
         // };

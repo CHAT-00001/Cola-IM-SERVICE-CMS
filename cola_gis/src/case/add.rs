@@ -5,9 +5,9 @@
 
 use anyhow::{Context, Result};
 use tracing::info;
-use cola_data::fs::rick_check;
-use cola_data::gis::command::poi::PoiCommand;
-use repository::gis::service::poi_add::PoiAddService;
+use cola_data::cola_fs::rick_check;
+use cola_data::cola_gis::command::poi::PoiCommand;
+use repository::cola_gis::service::poi_add::PoiAddService;
 use crate::assembler::poi::build_poi_single_response;
 use crate::model::vo::poi::PoiSingleResponse;
 

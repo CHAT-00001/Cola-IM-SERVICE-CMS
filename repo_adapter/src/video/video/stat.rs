@@ -1,4 +1,4 @@
-// repo_adapter/src/video/video/stat.rs
+// repo_adapter/src/cola_video/cola_video/stat.rs
 // 🔌 插头服务 - 可乐视频 - 视频 - 统计服务
 // 2026/8/6 19:20 Created.
 
@@ -6,8 +6,8 @@
 
 use async_trait::async_trait;
 use anyhow::Result;
-use cola_data::video::info::video::VideoInfo;
-use cola_data::video::port::video::stat::VideoStatPortt;
+use cola_data::cola_video::info::video::VideoInfo;
+use cola_data::cola_video::port::video::stat::VideoStatPortt;
 
 ////////
 

@@ -1,4 +1,4 @@
-// cola_data/src/three/entity/pay.rs  --  THREE - 第三方支付配置实体
+// cola_data/src/cola_three/entity/pay.rs  --  THREE - 第三方支付配置实体
 // 2026/6/30 04:06
 
 ////////

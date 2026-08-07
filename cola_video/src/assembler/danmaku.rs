@@ -5,9 +5,9 @@
 
 use anyhow::Result;
 use cola_data::app::page::PageInfo;
-use cola_data::video::info::danmaku::DanmakuInfo;
+use cola_data::cola_video::info::danmaku::DanmakuInfo;
 use crate::model::vo::danmaku::{DanmakuListResponse, DanmakuSingleResponse, DanmakuVo};
-use repository::user::service::user::UserService;
+use repository::cola_user::service::user::UserService;
 
 ////////
 

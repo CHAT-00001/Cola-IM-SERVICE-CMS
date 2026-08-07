@@ -1,4 +1,4 @@
-// cola_user/src/case/user/check.rs
+// cola_user/src/case/cola_user/check.rs
 // core - USER - case - vip - 检查 用例
 // 2026/8/2 22:53 Created.
 
@@ -7,11 +7,11 @@
 
 use anyhow::{Context, Result};
 use cola_data::app::ctx::AppContext;
-use cola_data::fs::rick_check;
-use cola_data::user::command::new::UserCommand;
-use cola_data::user::info::user::UserInfo;
+use cola_data::cola_fs::rick_check;
+use cola_data::cola_user::command::new::UserCommand;
+use cola_data::cola_user::info::user::UserInfo;
 use tracing::info;
-use cola_data::user::command::user::update::UpdateUserCommand;
+use cola_data::cola_user::command::user::update::UpdateUserCommand;
 ////////
 
 /// # [CHECK CASE] - 用户 贵宾 检查 用例

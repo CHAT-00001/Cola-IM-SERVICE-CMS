@@ -6,7 +6,7 @@
 
 use anyhow::{Result, anyhow};
 use cola_data::app::ctx::AppContext;
-use cola_data::user::info::user::UserInfo;
+use cola_data::cola_user::info::user::UserInfo;
 use tracing::info;
 
 ////////
@@ -28,11 +28,12 @@ impl UserFollowGetCase {
         offset: i64,      // 页码
         ctx: &AppContext, // 全局上下文
     ) -> Result<Vec<UserInfo>, anyhow::Error> {
-        // 1. 先查黑名单的ids
+        // 1. 先查关注IDs
         let ids = ctx
             .user
             .follow
-            .get_list_by_user_id(uid, offset, limit)
+            .get
+            .get_my_follow_ids(uid, uid, limit, offset)
             .await
             .map_err(|e| anyhow!("[🤐 CASE]: ❌️ 获取关注的IDs失败: {}", e))?;
 

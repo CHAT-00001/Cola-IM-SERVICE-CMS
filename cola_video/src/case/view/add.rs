@@ -1,4 +1,4 @@
-// video/case/view/add.rs
+// cola_video/case/view/add.rs
 // 视频 - case - 浏览 - 发布
 // 2026/8/4 20:18 Created.
 
@@ -8,7 +8,7 @@ use crate::assembler::video::build_video_single_response;
 use anyhow::{Result, anyhow};
 use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::video::info::video::{VideoInfo, VideoSingleResponse};
+use cola_data::cola_video::info::video::{VideoInfo, VideoSingleResponse};
 use std::sync::Arc;
 use tracing::{error, info};
 

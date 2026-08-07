@@ -1,4 +1,4 @@
-// http/src/router_v2/dynamic/gateway.rs  -- HTTP - V2 - 动态 - 网关
+// http/src/router_v2/cola_dynamic/gateway.rs  -- HTTP - V2 - 动态 - 网关
 // 2026/6/18 09:48
 
 ////////
@@ -7,12 +7,12 @@ use crate::kits::response::IntoApi;
 use actix_web::{HttpMessage, HttpRequest, HttpResponse, Responder, web};
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::auth::info::auth::AuthContext;
+use cola_data::cola_auth::info::auth::AuthContext;
 use cola_video::api::home::HomeApi;
 use serde::Deserialize;
 use std::time::Instant;
 use app_config::app_state::AppState;
-use cola_data::dynamic::command::dynamic::DynamicCommand;
+use cola_data::cola_dynamic::command::dynamic::DynamicCommand;
 use crate::ping::ping;
 
 ////////
@@ -31,7 +31,7 @@ where
 
 /// # 网关请求体
 struct GatewayRequest {
-    auth: AuthContext,     // 补上 auth 字段
+    auth: AuthContext,     // 补上 cola_auth 字段
     action: i16,           // 🌟 以后使用的 int16 动作代码
     service: String,       // 🌟 兼容 PHP PhalApi 的服务名称 (字符串)
     query: Option<String>, // 查询
@@ -54,7 +54,7 @@ pub fn dynamic_router(cfg: &mut web::ServiceConfig) {
     cfg.service(
         // by
         // * /new/xxxx
-        web::scope("/dynamic")
+        web::scope("/cola_dynamic")
             // 默认
             .route("", web::get().to(ping))
             .route("/", web::get().to(root))

@@ -54,7 +54,15 @@ impl UserBlackManageApi {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> AppData<String> {
-        let ids = url.params.ids;
+        let ids: Vec<i64> = url
+            .params
+            .get("ids")
+            .map(|s| {
+                s.split(',')
+                    .filter_map(|x| x.trim().parse::<i64>().ok())
+                    .collect()
+            })
+            .unwrap_or_default();
 
         // Call Case
         match UserBlackManageCase::case_batch_del(uid, ids, ctx.clone()).await {

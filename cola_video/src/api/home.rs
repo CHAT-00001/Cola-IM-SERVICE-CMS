@@ -9,9 +9,9 @@ use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::app::request::ApiUrlParamsQuery;
-use cola_data::auth::info::auth::AuthContext;
-use cola_data::user::info::config::UserConfigInfo;
-use cola_data::video::info::video::VideoListResponse;
+use cola_data::cola_auth::info::auth::AuthContext;
+use cola_data::cola_user::info::config::UserConfigInfo;
+use cola_data::cola_video::info::video::VideoListResponse;
 
 ////////
 

@@ -1,12 +1,12 @@
-// repo_adapter/src/gis/get
+// repo_adapter/src/cola_gis/get
 // 2026-07-07
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::gis::info::poi::PoiInfo;
-use cola_data::gis::port::view::ViewPort;
-use repository::gis::service::view::PoiViewService;
+use cola_data::cola_gis::info::poi::PoiInfo;
+use cola_data::cola_gis::port::view::ViewPort;
+use repository::cola_gis::service::view::PoiViewService;
 
 ////////
 

@@ -1,4 +1,4 @@
-// router_v2/im/gateway.rs  --  HTTP - IM - 网关路由器
+// router_v2/cola_im/gateway.rs  --  HTTP - IM - 网关路由器
 // 2026/7/7 17:08
 
 ////////
@@ -16,7 +16,7 @@ use app_config::app_state::AppState;
 
 /// # 网关请求体
 struct GatewayRequest {
-    auth: AuthContext,     // 补上 auth 字段
+    auth: AuthContext,     // 补上 cola_auth 字段
     action: i16,           // 🌟 以后使用的 int16 动作代码
     service: String,       // 🌟 兼容 PHP PhalApi 的服务名称 (字符串)
     query: Option<String>, // 查询
@@ -38,8 +38,8 @@ pub struct GatewayQuery {
 pub fn video_router(cfg: &mut web::ServiceConfig) {
     cfg.service(
         // by
-        // * /im/xxxx
-        web::scope("/im")
+        // * /cola_im/xxxx
+        web::scope("/cola_im")
             // 默认
             .route("/", web::get().to(root))
             // 网关

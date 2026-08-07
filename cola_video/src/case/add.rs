@@ -6,11 +6,11 @@
 
 use anyhow::{Context, Result};
 use tracing::info;
-use cola_data::fs::rick_check;
-use cola_data::video::command::video::edit::VideoUpdateCommand;
-use cola_data::video::command::video::new::VideoNewCommand;
-use cola_data::video::command::video::permission::VideoUpdatePermissionCommand;
-use repository::video::service::add::AddService;
+use cola_data::cola_fs::rick_check;
+use cola_data::cola_video::command::video::edit::VideoUpdateCommand;
+use cola_data::cola_video::command::video::new::VideoNewCommand;
+use cola_data::cola_video::command::video::permission::VideoUpdatePermissionCommand;
+use repository::cola_video::service::add::AddService;
 use crate::assembler::video::build_video_single_response;
 use crate::model::vo::video::VideoSingleResponse;
 

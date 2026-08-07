@@ -27,7 +27,7 @@ pub async fn get_user_info<UserRow>(
 
   //  let pool =  &state.db.pg_pool;
 
-    let row = sqlx::query("SELECT id, nickname, avatar FROM \"user\" WHERE id=$1")
+    let row = sqlx::query("SELECT id, nickname, avatar FROM \"cola_user\" WHERE id=$1")
         .bind(user_id)
         .fetch_optional(pool)
         .await?;
@@ -69,7 +69,7 @@ pub async fn get_user_info2(
     let users = sqlx::query_as::<_, UserInfo>(
         r#"
         SELECT id, nickname, email
-        FROM user
+        FROM cola_user
         WHERE id = ANY($1)
     "#
     )

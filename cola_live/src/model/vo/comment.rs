@@ -4,7 +4,7 @@
 ////////
 
 use cola_data::app::page::PageInfo;
-use cola_data::video::info::comment::VideoCommentInfo;
+use cola_data::cola_video::info::comment::VideoCommentInfo;
 use serde::Serialize;
 
 ////////

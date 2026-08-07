@@ -12,7 +12,7 @@ use crate::assembler::video::build_video_single_response;
 use anyhow::{Result, anyhow};
 use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::video::info::video::VideoInfo;
+use cola_data::cola_video::info::video::VideoInfo;
 use std::sync::Arc;
 
 ////////

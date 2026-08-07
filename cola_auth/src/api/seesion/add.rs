@@ -6,12 +6,12 @@
 use crate::case::add::AuthAddCase;
 use crate::case::login::LoginCase;
 use crate::case::session::SessionCase;
-use cola_data::auth::vo::session::SignResponse;
+use cola_data::cola_auth::vo::session::SignResponse;
 use cola_data::app::api::ApiQuery;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
-use cola_data::auth::command::email::EmailLoginCommand;
-use cola_data::auth::command::phone::PhoneLoginCommand;
+use cola_data::cola_auth::command::email::EmailLoginCommand;
+use cola_data::cola_auth::command::phone::PhoneLoginCommand;
 use tracing::log;
 use validator::Validate;
 

@@ -1,4 +1,4 @@
-// repo_adapter/src/video/danmaku/mod.rs
+// repo_adapter/src/cola_video/danmaku/mod.rs
 // 🔌 插头 - 可乐视频 - 弹幕 - 模块
 // 2026/8/6 19:27 Created.
 

@@ -1,4 +1,4 @@
-// repo_adapter/src/video/collect/add.rs
+// repo_adapter/src/cola_video/collect/add.rs
 // 🔌 插头 - 可乐视频 - 收藏 - 发布
 // 2026/8/6 19:48 Created.
 

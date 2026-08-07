@@ -7,7 +7,7 @@ use serde::{Deserialize, Serialize};
 use std::cmp;
 use std::collections::HashMap;
 use std::net::IpAddr;
-use crate::auth::info::auth::AuthContext;
+use crate::cola_auth::info::auth::AuthContext;
 
 ////////
 

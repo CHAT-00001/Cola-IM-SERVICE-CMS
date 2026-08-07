@@ -2,18 +2,21 @@
 // 2026-04-05 14:02
 
 ////////
-pub mod auth; // 验证中心
-pub mod dynamic; // 动态
-pub mod fs; // 文件存储(公共)
-pub mod gis; // 地理信息服务
-pub mod im; // 即时通讯
-pub mod live; // 直播
-pub mod market; // 市场
-pub mod music; // 音乐
-pub mod three; // 三方服务
-pub mod user; // 用户中心
-pub mod video; // 短视频
-pub mod wallet; // 钱包
+pub mod cola_asset; // 可乐资产
+pub mod cola_auth; // 可乐验证中心
+pub mod cola_dynamic; // 快乐动态
+pub mod cola_finance; // 可乐财务
+pub mod cola_fs; // 可怜文件存储(公共)
+pub mod cola_gis; // 可乐地理信息服务
+pub mod cola_im; // 可乐即时通讯
+pub mod cola_live; // 可乐直播
+pub mod cola_market; // 可乐市场
+pub mod cola_music; // 可乐音乐
+pub mod cola_three; // 可乐三方服务
+pub mod cola_user; // 可乐用户中心
+pub mod cola_video; // 可乐短视频
+
+////////
 
 // 统一为整个 repository 层提供一个获取 PG 连接池的便捷函数
 pub fn pg_pool() -> sqlx::PgPool {
@@ -23,3 +26,5 @@ pub fn pg_pool() -> sqlx::PgPool {
         .pg_pool
         .clone()
 }
+
+//////// END

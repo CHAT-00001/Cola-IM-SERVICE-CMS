@@ -1,12 +1,12 @@
-// repo_adapter/src/gis/hot.rs
+// repo_adapter/src/cola_gis/hot.rs
 // 2026-07-07
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::gis::port::hot::HotlistRepo;
-use cola_data::gis::command::hotlist::HotlistCommand;
-use repository::gis::service::hotlist::HotlistService;
+use cola_data::cola_gis::port::hot::HotlistRepo;
+use cola_data::cola_gis::command::hotlist::HotlistCommand;
+use repository::cola_gis::service::hotlist::HotlistService;
 
 ////////
 

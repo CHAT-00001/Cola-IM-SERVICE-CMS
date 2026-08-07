@@ -7,8 +7,8 @@ use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::video::command::hotlist::HotlistCommand;
-use cola_data::video::command::report::VideoReportCommand;
+use cola_data::cola_video::command::hotlist::HotlistCommand;
+use cola_data::cola_video::command::report::VideoReportCommand;
 use crate::case::hotlist::HotlistCase;
 
 ////////

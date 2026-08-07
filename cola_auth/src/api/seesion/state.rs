@@ -6,8 +6,8 @@
 
 use cola_data::app::data::AppData;
 use cola_data::app::error;
-use cola_data::auth::port::AuthServicePorts;
-use cola_data::auth::request::session::{AuthSessionRequest, SessionContext};
+use cola_data::cola_auth::port::AuthServicePorts;
+use cola_data::cola_auth::request::session::{AuthSessionRequest, SessionContext};
 
 ////////
 

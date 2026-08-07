@@ -6,10 +6,10 @@
 use crate::model::vo::poi::{PoiListResponse, PoiSingleResponse, PoiVo};
 use anyhow::Result;
 use cola_data::app::page::PageInfo;
-use cola_data::gis::info::poi::PoiInfo;
-use cola_data::music::info::music::MusicInfo;
-use cola_data::user::info::user::UserInfo;
-use repository::user::service::user::UserService;
+use cola_data::cola_gis::info::poi::PoiInfo;
+use cola_data::cola_music::info::music::MusicInfo;
+use cola_data::cola_user::info::user::UserInfo;
+use repository::cola_user::service::user::UserService;
 use std::collections::HashMap;
 
 ////////

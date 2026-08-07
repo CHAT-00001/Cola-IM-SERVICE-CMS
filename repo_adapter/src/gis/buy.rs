@@ -1,11 +1,11 @@
-// repo_adapter/src/gis/add
+// repo_adapter/src/cola_gis/add
 // 2026-07-07
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::gis::port::buy::BuyRepo;
-use repository::gis::service::poi_add::PoiAddService;
+use cola_data::cola_gis::port::buy::BuyRepo;
+use repository::cola_gis::service::poi_add::PoiAddService;
 
 ////////
 

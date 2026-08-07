@@ -1,13 +1,13 @@
-// repo_adapter/src/three/vendor  -- 适配器 - 厂商
+// repo_adapter/src/cola_three/vendor  -- 适配器 - 厂商
 // 2026/6/18 18:21
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::three::command::vendor::UpsertVendorCommand;
-use cola_data::three::info::vendor::VendorInfo;
-use cola_data::three::port::vendor::VendorPort;
-use repository::three::pg::vendor_repo::VendorRepo;
+use cola_data::cola_three::command::vendor::UpsertVendorCommand;
+use cola_data::cola_three::info::vendor::VendorInfo;
+use cola_data::cola_three::port::vendor::VendorPort;
+use repository::cola_three::pg::vendor_repo::VendorRepo;
 
 ////////
 

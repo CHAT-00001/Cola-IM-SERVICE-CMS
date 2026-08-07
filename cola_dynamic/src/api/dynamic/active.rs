@@ -1,4 +1,4 @@
-// cola_dynamic/src/api/dynamic/state  -- 动态 - api - dynamic - 状态检查
+// cola_dynamic/src/api/cola_dynamic/state  -- 动态 - api - cola_dynamic - 状态检查
 // 2026/7/30 04:03
 
 ////////

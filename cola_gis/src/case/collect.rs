@@ -5,8 +5,8 @@
 
 use anyhow::Result;
 use tracing::{info, warn};
-use cola_data::gis::command::collect::PoiCollectCommand;
-use repository::gis::service::poi_collect::PoiCollectService;
+use cola_data::cola_gis::command::collect::PoiCollectCommand;
+use repository::cola_gis::service::poi_collect::PoiCollectService;
 
 ////////
 

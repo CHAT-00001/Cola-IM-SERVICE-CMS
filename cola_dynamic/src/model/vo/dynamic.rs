@@ -1,12 +1,12 @@
-// // cola_data/src/dynamic/vo/dynamic.rs  -- DYNAMIC - Model - 动态响应体
+// // cola_data/src/cola_dynamic/vo/cola_dynamic.rs  -- DYNAMIC - Model - 动态响应体
 // // 2026/5/22 20:08 by wx: cestbon10080
 // // * --------
 // // * --------
 //
 // ////////
 //
-// use crate::dynamic::info::dynamic::DynamicInfo;
-// use crate::user::info::music::UserInfo;
+// use crate::cola_dynamic::info::cola_dynamic::DynamicInfo;
+// use crate::cola_user::info::cola_music::UserInfo;
 // use serde::{Deserialize, Serialize};
 // use crate::app::page::PageInfo;
 // ////////

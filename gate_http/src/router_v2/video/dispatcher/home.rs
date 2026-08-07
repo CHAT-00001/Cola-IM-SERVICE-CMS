@@ -1,4 +1,4 @@
-// gate_http/src/router_v2/video/dispatcher/home2  -- VIDEO - dispatcher - home
+// gate_http/src/router_v2/cola_video/dispatcher/home2  -- VIDEO - dispatcher - home
 // 2026/7/18 16:14
 // 2026/8/1 重构：纯路由转发器，不自带验证，返回通用 Value
 
@@ -7,8 +7,8 @@
 use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::auth::info::auth::AuthContext;
-use cola_data::auth::request::session::SessionContext;
+use cola_data::cola_auth::info::auth::AuthContext;
+use cola_data::cola_auth::request::session::SessionContext;
 use cola_video::api::home::HomeApi;
 use serde_json::Value;
 

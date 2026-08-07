@@ -1,4 +1,4 @@
-// repo_adapter/src/video/view/stat.rs
+// repo_adapter/src/cola_video/view/stat.rs
 // 🔌 插头 - 可乐视频 - 浏览 - 统计
 // 2026/8/6 19:18 Created.
 
@@ -6,7 +6,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::video::port::view::stat::VideoViewStatPort;
+use cola_data::cola_video::port::view::stat::VideoViewStatPort;
 
 ////////
 

@@ -1,4 +1,4 @@
-// user/case/category/add.rs
+// cola_user/case/category/add.rs
 // 用户 - case - 分类 - 发布
 // 2026/8/4 02:17 Created.
 
@@ -6,11 +6,12 @@
 
 use anyhow::{Result, anyhow};
 use cola_data::app::ctx::AppContext;
+use cola_data::cola_user::command::category::UserCategoryCommand;
 use tracing::info;
 
 ////////
 
-/// # [ADD CASE] - 用户 黑名单 添加/移除 用例
+/// # [ADD CASE] - 用户 分类 添加/删除 用例
 pub struct UserCategoryAddCase;
 
 impl UserCategoryAddCase {
@@ -20,22 +21,23 @@ impl UserCategoryAddCase {
 
     /// # 1. [CASE] - 添加分类
     /// * `uid` 操作者
-    /// * `id` 目标用户ID
-    /// * `remark` 拉黑原因
+    /// * `id` 目标分类ID
     pub async fn case_add_category(
         uid: i64,         // 操作者ID
-        id: i64,          // 目标用户ID
+        id: i64,          // 目标分类ID
         ctx: &AppContext, // 全局上下文
     ) -> Result<(), anyhow::Error> {
         // 🚧 Call Port..
+        let mut cmd = UserCategoryCommand::new();
+        cmd.name = Some(id.to_string());
         ctx.user
             .category
-            .add_following(uid, id)
+            .add_new_one(uid, cmd)
             .await
-            .map_err(|e| anyhow!("[🤐 CASE]: ❌️ 添加黑名单失败: {}", e))?;
+            .map_err(|e| anyhow!("[🤐 CASE]: ❌️ 添加分类失败: {}", e))?;
 
         info!(
-            "[🗣️ CASE] - ✅️ 添加黑名单成功: uid={}, target_id={},",
+            "[🗣️ CASE] - ✅️ 添加分类成功: uid={}, target_id={},",
             uid, id
         );
         Ok(())
@@ -43,9 +45,9 @@ impl UserCategoryAddCase {
 
     ////////
 
-    /// # 2. [CASE] - 移除黑名单
+    /// # 2. [CASE] - 删除分类
     /// * `uid` 操作者
-    /// * `id` 目标用户ID
+    /// * `id` 目标分类ID
     pub async fn case_del_category(
         uid: i64,         // 操作者ID
         id: i64,          // 目标ID
@@ -54,12 +56,12 @@ impl UserCategoryAddCase {
         // 🚧 Call Port..
         ctx.user
             .category
-            .single_del(uid, id)
+            .batch_del(vec![id])
             .await
-            .map_err(|e| anyhow!("[🤐 CASE]: ❌️ 移除黑名单失败: {}", e))?;
+            .map_err(|e| anyhow!("[🤐 CASE]: ❌️ 删除分类失败: {}", e))?;
 
         info!(
-            "[🗣️ CASE] - ✅️ 移除黑名单成功: uid={}, target_id={}",
+            "[🗣️ CASE] - ✅️ 删除分类成功: uid={}, target_id={}",
             uid, id
         );
         Ok(())

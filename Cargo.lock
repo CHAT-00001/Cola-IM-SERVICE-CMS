@@ -1503,6 +1503,7 @@ dependencies = [
  "rand 0.8.5",
  "repository",
  "serde",
+ "service",
  "sqlx",
  "tracing",
  "uuid",
@@ -1533,6 +1534,7 @@ dependencies = [
  "async-trait",
  "cola_data",
  "repository",
+ "service",
  "sqlx",
 ]
 
@@ -1543,6 +1545,7 @@ dependencies = [
  "aws-sdk-s3",
  "cola_data",
  "repository",
+ "service",
 ]
 
 [[package]]
@@ -1568,6 +1571,7 @@ dependencies = [
  "repository",
  "serde",
  "serde_json",
+ "service",
  "sqlx",
  "state",
  "thiserror 1.0.69",
@@ -1588,6 +1592,7 @@ dependencies = [
  "cola_music",
  "cola_user",
  "repository",
+ "service",
  "tracing",
 ]
 
@@ -1602,6 +1607,7 @@ dependencies = [
  "log 0.4.29",
  "redis",
  "serde",
+ "service",
  "sqlx",
  "tokio",
  "tracing",
@@ -1631,6 +1637,7 @@ dependencies = [
  "repository",
  "serde",
  "serde_json",
+ "service",
  "sqlx",
  "state",
  "thiserror 1.0.69",
@@ -1653,6 +1660,7 @@ dependencies = [
  "cola_user",
  "repository",
  "serde",
+ "service",
  "sqlx",
  "tracing",
  "uuid",
@@ -1669,6 +1677,7 @@ dependencies = [
  "repository",
  "serde",
  "serde_json",
+ "service",
  "tracing",
  "validator 0.19.0",
 ]
@@ -1694,6 +1703,7 @@ dependencies = [
  "repository",
  "serde",
  "serde_json",
+ "service",
  "sqlx",
  "state",
  "thiserror 1.0.69",
@@ -1729,6 +1739,7 @@ dependencies = [
  "repository",
  "serde",
  "serde_json",
+ "service",
  "sqlx",
  "state",
  "thiserror 1.0.69",
@@ -4967,6 +4978,7 @@ dependencies = [
  "repository",
  "rust_decimal",
  "serde",
+ "service",
  "sqlx",
  "tracing",
 ]
@@ -5490,6 +5502,21 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 2.0.117",
+]
+
+[[package]]
+name = "service"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "cola_data",
+ "kits",
+ "network",
+ "repository",
+ "sqlx",
+ "tokio",
+ "tracing",
 ]
 
 [[package]]

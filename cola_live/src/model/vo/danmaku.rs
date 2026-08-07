@@ -5,7 +5,7 @@
 
 use serde::Serialize;
 use cola_data::app::page::PageInfo;
-use cola_data::video::info::danmaku::DanmakuInfo;
+use cola_data::cola_video::info::danmaku::DanmakuInfo;
 
 ////////
 

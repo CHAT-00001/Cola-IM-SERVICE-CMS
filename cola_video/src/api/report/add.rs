@@ -1,4 +1,4 @@
-// video/api/report/add.rs
+// cola_video/api/report/add.rs
 // 视频 - api - 举报 - 发布
 // 2026/8/4 18:52 Created.
 
@@ -10,8 +10,8 @@ use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::app::request::ApiUrlParamsQuery;
-use cola_data::auth::info::auth::AuthContext;
-use cola_data::video::command::report::VideoReportCommand;
+use cola_data::cola_auth::info::auth::AuthContext;
+use cola_data::cola_video::command::report::VideoReportCommand;
 
 ////////
 

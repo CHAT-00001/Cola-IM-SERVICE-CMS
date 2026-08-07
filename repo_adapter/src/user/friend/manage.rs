@@ -1,4 +1,4 @@
-// repo_adapter/src/user/friend/manage.rs
+// repo_adapter/src/cola_user/friend/manage.rs
 // 🔌 插头 - 可乐用户 - 朋友 - 管理
 // 2026/8/6 解耦: 管理操作(封禁/删除)
 

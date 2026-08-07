@@ -1,4 +1,4 @@
-// repo_adapter/src/video/video/list.rs
+// repo_adapter/src/cola_video/cola_video/list.rs
 // 🔌 插头 - 可乐视频 - 视频 - 列表
 // 2026/8/7 05:31 Created.
 
@@ -6,8 +6,8 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::video::info::video::VideoInfo;
-use cola_data::video::port::video::list::VideoListPort;
+use cola_data::cola_video::info::video::VideoInfo;
+use cola_data::cola_video::port::video::list::VideoListPort;
 
 ////////
 

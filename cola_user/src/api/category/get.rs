@@ -1,4 +1,4 @@
-// user/src/api/category/get.rs
+// cola_user/src/api/category/get.rs
 // 用户 - api - 分类 - 获取
 // 2026/8/2 22:30 Created.
 
@@ -10,7 +10,7 @@ use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::app::response::ListResponse;
-use cola_data::user::info::category::UserCategoryInfo;
+use cola_data::cola_user::info::category::UserCategoryInfo;
 use tracing::{error, info}; // 引入 info 和 error 宏
 
 ////////

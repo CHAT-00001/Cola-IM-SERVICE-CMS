@@ -1,4 +1,4 @@
-// video/case/view/get.rs
+// cola_video/case/view/get.rs
 // 视频 - case - 浏览 - 获取
 // 2026/8/4 20:21 Created.
 
@@ -9,8 +9,8 @@ use anyhow::{Result, anyhow};
 use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::app::response::ListResponse;
-use cola_data::video::info::video::{VideoInfo, VideoSingleResponse};
-use cola_data::video::info::view::VideoViewInfo;
+use cola_data::cola_video::info::video::{VideoInfo, VideoSingleResponse};
+use cola_data::cola_video::info::view::VideoViewInfo;
 
 ////////
 

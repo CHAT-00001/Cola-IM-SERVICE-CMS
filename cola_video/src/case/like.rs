@@ -5,7 +5,7 @@
 
 use anyhow::{Result, anyhow};
 use cola_data::app::ctx::AppContext;
-use repository::video::service::like::LikeService;
+use repository::cola_video::service::like::LikeService;
 use tracing::{info, warn};
 
 ////////

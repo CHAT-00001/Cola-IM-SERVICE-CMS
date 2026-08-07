@@ -7,7 +7,7 @@ use cola_data::app::ctx::AppContext;
 use crate::case;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
-use cola_data::video::command::buy::VideoBuyCommand;
+use cola_data::cola_video::command::buy::VideoBuyCommand;
 use crate::case::buy::BuyCase;
 
 ////////

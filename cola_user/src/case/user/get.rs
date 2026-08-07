@@ -1,5 +1,5 @@
-// cola_user/src/case/user/get.rs
-// core - USER - case - user - 获取 用例
+// cola_user/src/case/cola_user/get.rs
+// core - USER - case - cola_user - 获取 用例
 // 2026-03-30 08:25
 // 2026/8/6 对接：ViewServicePort 子端口 (add / get)
 
@@ -7,7 +7,7 @@
 
 use anyhow::{Result, anyhow};
 use cola_data::app::ctx::AppContext;
-use cola_data::video::info::video::VideoInfo;
+use cola_data::cola_video::info::video::VideoInfo;
 use tracing::info;
 
 ////////

@@ -1,4 +1,4 @@
-// repo_adapter/src/video/report/mod.rs
+// repo_adapter/src/cola_video/report/mod.rs
 // 🔌 插头 - 可乐视频 - 举报 - 模块
 // 2026/8/6 19:22 Created.
 

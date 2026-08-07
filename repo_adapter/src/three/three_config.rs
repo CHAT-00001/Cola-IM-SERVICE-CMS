@@ -1,13 +1,13 @@
-// repo_adapter/src/three/config  -- 适配器 - THREE - 配置
+// repo_adapter/src/cola_three/config  -- 适配器 - THREE - 配置
 // 2026/6/30 18:41
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::three::command::config::UpsertConfigCommand;
-use cola_data::three::info::config::ConfigInfo;
-use cola_data::three::port::config::ConfigPort;
-use repository::three::pg::config_repo::ConfigRepo;
+use cola_data::cola_three::command::config::UpsertConfigCommand;
+use cola_data::cola_three::info::config::ConfigInfo;
+use cola_data::cola_three::port::config::ConfigPort;
+use repository::cola_three::pg::config_repo::ConfigRepo;
 
 ////////
 

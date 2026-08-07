@@ -1,4 +1,4 @@
-// gate_http/src/router_v2/video/dispatcher/danmaku.rs  -- VIDEO - dispatcher - danmaku
+// gate_http/src/router_v2/cola_video/dispatcher/danmaku.rs  -- VIDEO - dispatcher - danmaku
 // 2026/8/1 07:53
 // 2026/8/1 重构：纯路由转发器，按 action 路由到 handler
 
@@ -7,9 +7,9 @@
 use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::auth::info::auth::AuthContext;
-use cola_data::auth::request::session::SessionContext;
-use cola_data::video::command::danmaku::DanmakuCommand;
+use cola_data::cola_auth::info::auth::AuthContext;
+use cola_data::cola_auth::request::session::SessionContext;
+use cola_data::cola_video::command::danmaku::DanmakuCommand;
 use cola_video::api::danmaku::DanmakuApi;
 use serde_json::Value;
 

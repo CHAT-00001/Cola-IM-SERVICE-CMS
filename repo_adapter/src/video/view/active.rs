@@ -1,11 +1,11 @@
-// repo_adapter/src/video/view/active.rs
+// repo_adapter/src/cola_video/view/active.rs
 // 🔌 插头 - 可乐视频 - 浏览 - 活跃
 // 2026/8/6 19:01 Created.
 
 ////////
 
 
-// repo_adapter/src/user/ban/del.rs
+// repo_adapter/src/cola_user/ban/del.rs
 // 🔌 适配器 - 可乐用户 - 浏览 - 删除服务
 // 2026/8/7 05:56 Created.
 
@@ -13,7 +13,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::video::port::view::active::{VideoViewActivePort};
+use cola_data::cola_video::port::view::active::{VideoViewActivePort};
 ////////
 
 /// # [ALIVE SERVICE] - 存活

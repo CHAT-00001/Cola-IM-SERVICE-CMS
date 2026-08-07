@@ -4,7 +4,7 @@
 ////////
 
 use anyhow::Result;
-use repository::video::service::permission_change::PermissionsChangeService;
+use repository::cola_video::service::permission_change::PermissionsChangeService;
 use tracing::{info, warn};
 
 ////////

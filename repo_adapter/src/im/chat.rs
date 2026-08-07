@@ -1,14 +1,14 @@
-// repo_adapter/src/im/chat.rs  -- 适配器 - IM - 聊天
+// repo_adapter/src/cola_im/chat.rs  -- 适配器 - IM - 聊天
 // 2026-07-07 14:10
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::im::port::chat::ChatRepo;
-use cola_data::im::command::chat::ChatCommand;
-use cola_data::im::command::setting::ChatSettingCommand;
-use cola_data::im::info::chat::ChatInfo;
-use repository::im::service::chat::ImChatService;
+use cola_data::cola_im::port::chat::ChatRepo;
+use cola_data::cola_im::command::chat::ChatCommand;
+use cola_data::cola_im::command::setting::ChatSettingCommand;
+use cola_data::cola_im::info::chat::ChatInfo;
+use repository::cola_im::service::chat::ImChatService;
 
 ////////
 

@@ -1,11 +1,11 @@
-// repo_adapter/src/market/goods/manage.rs
+// repo_adapter/src/cola_market/goods/manage.rs
 // 适配器 - 市场 - 商品 - 管理操作
 // 2026/8/6 解耦: 上架/下架/封禁/改权限
 
 ////////
 
 use anyhow::Result;
-use repository::market::pg::goods::GoodsRepo;
+use repository::cola_market::pg::goods::GoodsRepo;
 
 ////////
 
@@ -24,7 +24,7 @@ pub async fn ban_goods(
     _goods_id: i64, // 商品ID
     _reason: &str, // 封禁原因
 ) -> Result<()> {
-    // 🚧 TODO: 对接 repository market service
+    // 🚧 TODO: 对接 repository cola_market service
     Err(anyhow::anyhow!("not implemented"))
 }
 
@@ -34,7 +34,7 @@ pub async fn change_permission(
     _goods_id: i64, // 商品ID
     _perm_id: i16, // 权限码
 ) -> Result<()> {
-    // 🚧 TODO: 对接 repository market service
+    // 🚧 TODO: 对接 repository cola_market service
     Err(anyhow::anyhow!("not implemented"))
 }
 

@@ -1,12 +1,12 @@
-// repo_adapter/src/gis/report.rs
+// repo_adapter/src/cola_gis/report.rs
 // 2026-07-07 12:10
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::gis::port::report::ReportRepo;
-use cola_data::gis::command::report::PoiReportCommand;
-use repository::gis::service::report::ReportService;
+use cola_data::cola_gis::port::report::ReportRepo;
+use cola_data::cola_gis::command::report::PoiReportCommand;
+use repository::cola_gis::service::report::ReportService;
 
 ////////
 

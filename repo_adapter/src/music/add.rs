@@ -1,4 +1,4 @@
-// repo_adapter/src/music/active -- 适配器 - MUSIC - ADD
+// repo_adapter/src/cola_music/active -- 适配器 - MUSIC - ADD
 // 2026-06-12
 
 ////////

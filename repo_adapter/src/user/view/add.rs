@@ -1,4 +1,4 @@
-// repo_adapter/src/user/view/add.rs
+// repo_adapter/src/cola_user/view/add.rs
 // 🔌 适配器 - 可乐用户 - 浏览 - 发布服务
 // 2026/8/6 04:18 Created.
 
@@ -12,8 +12,8 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::user::command::new::UserCommand;
-use cola_data::user::port::view::add::ViewAddPort;
+use cola_data::cola_user::command::new::UserCommand;
+use cola_data::cola_user::port::view::add::ViewAddPort;
 
 ////////
 

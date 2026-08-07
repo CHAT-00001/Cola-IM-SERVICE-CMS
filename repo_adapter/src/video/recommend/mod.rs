@@ -1,4 +1,4 @@
-// repo_adapter/src/video/recommend/mod.rs
+// repo_adapter/src/cola_video/recommend/mod.rs
 // 🔌 插头 - 可乐视频 - 推荐 - 模块
 // 2026/8/6 19:14 Created.
 

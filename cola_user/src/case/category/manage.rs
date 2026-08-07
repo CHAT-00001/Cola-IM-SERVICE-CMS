@@ -1,4 +1,4 @@
-// user/case/category/manage.rs
+// cola_user/case/category/manage.rs
 // 用户 - case - 分类 - 管理
 // 2026/8/2 22:48 Created.
 
@@ -28,7 +28,8 @@ impl UserCategoryManageCase {
         let qty = ctx
             .user
             .black
-            .single_del(id)
+            .del
+            .single_soft_del(uid, id)
             .await
             .map_err(|e| anyhow::anyhow!("[🗣️ CASE]: ❌️ 移除黑名单失败: {}", e))?;
 
@@ -55,7 +56,8 @@ impl UserCategoryManageCase {
         let qty = ctx
             .user
             .black
-            .batch_del(uid, ids)
+            .del
+            .batch_soft_del(uid, ids)
             .await
             .map_err(|e| anyhow::anyhow!("[🗣️ CASE]: ❌️ 批量移除黑名单失败: {}", e))?;
 

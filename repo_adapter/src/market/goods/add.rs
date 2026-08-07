@@ -1,4 +1,4 @@
-// repo_adapter/src/market/goods/add.rs
+// repo_adapter/src/cola_market/goods/add.rs
 // 适配器 - 市场 - 商品 - 添加/更新
 // 2026/8/6 解耦: 发布/编辑商品
 
@@ -6,8 +6,8 @@
 
 use anyhow::Result;
 use chrono::Utc;
-use cola_data::market::command::goods::GoodsCommand;
-use repository::market::pg::goods::GoodsRepo;
+use cola_data::cola_market::command::goods::GoodsCommand;
+use repository::cola_market::pg::goods::GoodsRepo;
 
 ////////
 

@@ -1,12 +1,12 @@
-// repo_adapter/src/market/goods_collect.rs  -- 适配器 - MARKET - 商品 - 收藏
+// repo_adapter/src/cola_market/goods_collect.rs  -- 适配器 - MARKET - 商品 - 收藏
 // 2026/6/18 14:10
 
 ////////
 
 use async_trait::async_trait;
 use chrono::Utc;
-use cola_data::market::info::address::AddressInfo;
-use cola_data::market::port::goods_collect::GoodsCollectPort;
+use cola_data::cola_market::info::address::AddressInfo;
+use cola_data::cola_market::port::goods_collect::GoodsCollectPort;
 use repository::pg_pool;
 
 ////////

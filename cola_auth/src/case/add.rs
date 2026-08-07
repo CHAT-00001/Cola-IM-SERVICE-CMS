@@ -1,19 +1,20 @@
-// cola_auth/src/case/active  -- AUTH - 用例层 - 登录
+// cola_auth/src/case/add.rs
+// AUTH - 用例层 - 登录
 // 2026/06/05 09:20
 
 ////////
 
 use crate::kits::sms::kit_make_auth_sms_content;
 use crate::kits::token::kit_build_session_cmd;
-use cola_data::auth::vo::session::{SignResponse, SignVo};
 use anyhow::{Result, anyhow};
-use cola_data::auth::command::email::EmailLoginCommand;
-use cola_data::auth::command::phone::PhoneLoginCommand;
-use cola_data::auth::info::session::SessionInfo;
-use cola_data::user::info::user::UserInfo;
-use repository::auth::service::session::SessionService;
-use repository::auth::service::sms::SmsService;
-use repository::user::service::state::UserStateService;
+use cola_data::cola_auth::command::email::EmailLoginCommand;
+use cola_data::cola_auth::command::phone::PhoneLoginCommand;
+use cola_data::cola_auth::info::session::SessionInfo;
+use cola_data::cola_auth::vo::session::{SignResponse, SignVo};
+use cola_data::cola_user::info::user::UserInfo;
+use service::cola_auth::session::SessionService;
+use service::cola_auth::sms::SmsService;
+use service::cola_user::user::state::UserStateService;
 use tracing::log;
 
 ////////

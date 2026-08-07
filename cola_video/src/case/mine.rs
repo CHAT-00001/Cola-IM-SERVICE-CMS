@@ -8,8 +8,8 @@ use crate::model::vo::video::VideoListResponse;
 use anyhow::{Context, Result};
 use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
-use repository::video::service::like::LikeService;
-use repository::video::service::view::ViewService;
+use repository::cola_video::service::like::LikeService;
+use repository::cola_video::service::view::ViewService;
 
 ////////
 

@@ -1,11 +1,11 @@
-// repo_adapter/src/user/vip/check.rs
+// repo_adapter/src/cola_user/vip/check.rs
 // 适配器 - USER - 贵宾 - 检查
 // 2026/8/6 解耦: VIP状态检查
 
 ////////
 
 use anyhow::Result;
-use repository::user::service::vip::VipService;
+use repository::cola_user::service::vip::VipService;
 
 ////////
 

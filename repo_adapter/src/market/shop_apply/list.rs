@@ -1,4 +1,4 @@
-// repo_adapter/src/market/shop_apply/list.rs
+// repo_adapter/src/cola_market/shop_apply/list.rs
 // 插头 - 市场 - 商店申请 - 列表查询
 // 2026/8/6 解耦: 最新/最热/推荐/同城/分类/搜索
 
@@ -14,7 +14,7 @@ pub async fn get_new_list(
     _offset: i64, // 分页偏移
     _limit: i64, // 每页数量
 ) -> Result<Vec<()>> {
-    // 🚧 TODO: 对接 repository market service
+    // 🚧 TODO: 对接 repository cola_market service
     Ok(vec![])
 }
 
@@ -24,7 +24,7 @@ pub async fn get_hot_list(
     _offset: i64, // 分页偏移
     _limit: i64, // 每页数量
 ) -> Result<Vec<()>> {
-    // 🚧 TODO: 对接 repository market service
+    // 🚧 TODO: 对接 repository cola_market service
     Ok(vec![])
 }
 
@@ -34,7 +34,7 @@ pub async fn get_recommend_list(
     _offset: i64, // 分页偏移
     _limit: i64, // 每页数量
 ) -> Result<Vec<()>> {
-    // 🚧 TODO: 对接 repository market service
+    // 🚧 TODO: 对接 repository cola_market service
     Ok(vec![])
 }
 
@@ -46,7 +46,7 @@ pub async fn get_city_list(
     _offset: i64, // 分页偏移
     _limit: i64, // 每页数量
 ) -> Result<Vec<()>> {
-    // 🚧 TODO: 对接 repository market service
+    // 🚧 TODO: 对接 repository cola_market service
     Ok(vec![])
 }
 
@@ -57,7 +57,7 @@ pub async fn get_category_list(
     _offset: i64, // 分页偏移
     _limit: i64, // 每页数量
 ) -> Result<Vec<()>> {
-    // 🚧 TODO: 对接 repository market service
+    // 🚧 TODO: 对接 repository cola_market service
     Ok(vec![])
 }
 
@@ -68,7 +68,7 @@ pub async fn search_list(
     _offset: i64, // 分页偏移
     _limit: i64, // 每页数量
 ) -> Result<Vec<()>> {
-    // 🚧 TODO: 对接 repository market service
+    // 🚧 TODO: 对接 repository cola_market service
     Ok(vec![])
 }
 

@@ -5,11 +5,11 @@
 
 use anyhow::{anyhow, Result};
 use cola_data::app::page::PageInfo;
-use cola_data::gis::info::comment::PoiCommentInfo;
-use cola_data::user::info::user::UserInfo;
-use cola_data::video::info::comment::VideoCommentInfo;
+use cola_data::cola_gis::info::comment::PoiCommentInfo;
+use cola_data::cola_user::info::user::UserInfo;
+use cola_data::cola_video::info::comment::VideoCommentInfo;
 use crate::model::vo::poi_comment::{CommentListResponse, CommentSingleResponse, CommentVo};
-use repository::user::service::user::UserService;
+use repository::cola_user::service::user::UserService;
 
 ////////
 

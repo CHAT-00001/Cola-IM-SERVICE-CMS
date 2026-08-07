@@ -1,13 +1,13 @@
-// repo_adapter/src/gis/danmaku.rs -- 适配器 - GIS - danmaku
+// repo_adapter/src/cola_gis/danmaku.rs -- 适配器 - GIS - danmaku
 // 2026-07-07 12:00
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::gis::port::danmaku::DanmakuRepo;
-use cola_data::gis::command::danmaku::PoiDanmakuCommand;
-use cola_data::gis::info::danmaku::PoiDanmakuInfo;
-use repository::gis::service::poi_danmaku::GisDanmakuService;
+use cola_data::cola_gis::port::danmaku::DanmakuRepo;
+use cola_data::cola_gis::command::danmaku::PoiDanmakuCommand;
+use cola_data::cola_gis::info::danmaku::PoiDanmakuInfo;
+use repository::cola_gis::service::poi_danmaku::GisDanmakuService;
 
 ////////
 

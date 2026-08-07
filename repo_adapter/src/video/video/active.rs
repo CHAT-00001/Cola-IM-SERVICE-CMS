@@ -1,4 +1,4 @@
-// repo_adapter/src/video/video/active.rs
+// repo_adapter/src/cola_video/cola_video/active.rs
 // 🔌 插头 - 可乐视频 - 视频 - 活跃服务
 // 2026/8/6 19:20 Created.
 
@@ -6,8 +6,8 @@
 
 use async_trait::async_trait;
 use anyhow::Result;
-use cola_data::gis::port::add::AddPort;
-use cola_data::gis::command::poi::PoiCommand;
+use cola_data::cola_gis::port::add::AddPort;
+use cola_data::cola_gis::command::poi::PoiCommand;
 
 ////////
 

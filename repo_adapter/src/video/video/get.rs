@@ -1,4 +1,4 @@
-// repo_adapter/src/video/video/get.rs
+// repo_adapter/src/cola_video/cola_video/get.rs
 // 🔌 插头 - 可乐视频 - 视频 - 获取IDs
 // 2026/8/6 19:19 Created.
 
@@ -6,8 +6,8 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::video::info::video::VideoInfo;
-use cola_data::video::port::video::get::VideoGetPort;
+use cola_data::cola_video::info::video::VideoInfo;
+use cola_data::cola_video::port::video::get::VideoGetPort;
 
 ////////
 

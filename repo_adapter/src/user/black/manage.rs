@@ -1,4 +1,4 @@
-// repo_adapter/src/user/black/manage.rs
+// repo_adapter/src/cola_user/black/manage.rs
 // 适配器 - USER - 黑名单 - 管理操作
 // 2026/8/6 解耦: 管理操作接口
 
@@ -6,8 +6,8 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::user::info::black::UserBlackInfo;
-use cola_data::user::port::black::manage::BlackManagePort;
+use cola_data::cola_user::info::black::UserBlackInfo;
+use cola_data::cola_user::port::black::manage::BlackManagePort;
 
 ////////
 

@@ -1,13 +1,13 @@
-// repo_adapter/src/user/add/update.rs
+// repo_adapter/src/cola_user/add/update.rs
 // 适配器 - USER - Add - 更新用户
 // 2026/8/6 解耦: 更新用户资料/头像/背景图
 
 ////////
 
 use anyhow::Result;
-use cola_data::user::command::user::update::UpdateUserCommand;
-use cola_data::user::info::user::UserInfo;
-use repository::user::pg::state_repo::UserStateRepo;
+use cola_data::cola_user::command::user::update::UpdateUserCommand;
+use cola_data::cola_user::info::user::UserInfo;
+use repository::cola_user::pg::state_repo::UserStateRepo;
 
 ////////
 

@@ -1,4 +1,4 @@
-// user/case/black/check.rs
+// cola_user/case/black/check.rs
 // 用户 - case - black - 检查
 // 2026/8/5 21:29 Created.
 
@@ -25,11 +25,12 @@ impl UserBlackCheckCase {
         uid: i64,         // 操作者ID
         id: i64,          // 目标用户ID
         ctx: &AppContext, // 全局上下文
-    ) -> Result<(), anyhow::Error> {
+    ) -> Result<bool, anyhow::Error> {
         // ..
         // ..
         // 🚧 Call Port..
-        ctx.user
+        let is_black = ctx
+            .user
             .black
             .check
             .is_blacked(uid, id)
@@ -40,7 +41,7 @@ impl UserBlackCheckCase {
             "[🗣️ CASE] - ✅️ 检查是否在黑名单成功: uid={}, target_id={},",
             uid, id
         );
-        Ok(())
+        Ok(is_black)
     }
 }
 

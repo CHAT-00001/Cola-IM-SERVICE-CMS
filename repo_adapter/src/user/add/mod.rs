@@ -1,4 +1,4 @@
-// repo_adapter/src/user/add/mod.rs
+// repo_adapter/src/cola_user/add/mod.rs
 // 适配器 - USER - Add (原子化解耦)
 // 2026-08-12
 // 2026/8/6 对接新版 UserAddPort + 原子化子模块
@@ -6,10 +6,10 @@
 ////////
 
 use async_trait::async_trait;
-use cola_data::user::command::new::UserCommand;
-use cola_data::user::command::user::update::UpdateUserCommand;
-use cola_data::user::info::user::UserInfo;
-use cola_data::user::port::user::add::UserAddPort;
+use cola_data::cola_user::command::new::UserCommand;
+use cola_data::cola_user::command::user::update::UpdateUserCommand;
+use cola_data::cola_user::info::user::UserInfo;
+use cola_data::cola_user::port::user::add::UserAddPort;
 
 pub mod add;
 pub mod del;

@@ -1,16 +1,16 @@
-// repo_adapter/src/user/follow/mod.rs
+// repo_adapter/src/cola_user/follow/mod.rs
 // 🔌 插头 - 可乐用户 - 关注 - 模块
 // 2026/8/6 Created.
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::user::port::follow::add::FollowAddPort;
-use cola_data::user::port::follow::check::FollowCheckPort;
-use cola_data::user::port::follow::del::FollowDelPort;
-use cola_data::user::port::follow::get::FollowGetPort;
-use cola_data::user::port::follow::list::FollowListPort;
-use cola_data::user::port::follow::manage::FollowManagePort;
+use cola_data::cola_user::port::follow::add::FollowAddPort;
+use cola_data::cola_user::port::follow::check::FollowCheckPort;
+use cola_data::cola_user::port::follow::del::FollowDelPort;
+use cola_data::cola_user::port::follow::get::FollowGetPort;
+use cola_data::cola_user::port::follow::list::FollowListPort;
+use cola_data::cola_user::port::follow::manage::FollowManagePort;
 
 pub mod add;
 
@@ -27,7 +27,7 @@ impl FollowAddPort for FollowAdapter {
     async fn del_follow(&self, uid: i64, target_id: i64) -> anyhow::Result<()> {
         add::unfollow(uid, target_id).await
     }
-    async fn get_following(&self, _uid: i64) -> anyhow::Result<cola_data::user::info::user::UserInfo> {
+    async fn get_following(&self, _uid: i64) -> anyhow::Result<cola_data::cola_user::info::user::UserInfo> {
         Err(anyhow::anyhow!("not implemented"))
     }
     async fn single_del(&self, _uid: i64, _id: i64) -> anyhow::Result<u16> { Ok(0) }
@@ -77,12 +77,12 @@ impl FollowGetPort for FollowAdapter {
 
 #[async_trait]
 impl FollowListPort for FollowAdapter {
-    async fn get_config(&self, _user_id: i64) -> anyhow::Result<cola_data::user::info::config::UserConfigInfo> {
+    async fn get_config(&self, _user_id: i64) -> anyhow::Result<cola_data::cola_user::info::config::UserConfigInfo> {
         Err(anyhow::anyhow!("not implemented"))
     }
     async fn add_black(&self, _uid: i64, _id: i64) -> anyhow::Result<()> { Ok(()) }
     async fn del_black(&self, _uid: i64, _id: i64) -> anyhow::Result<()> { Ok(()) }
-    async fn get_following(&self, _uid: i64) -> anyhow::Result<cola_data::user::info::user::UserInfo> {
+    async fn get_following(&self, _uid: i64) -> anyhow::Result<cola_data::cola_user::info::user::UserInfo> {
         Err(anyhow::anyhow!("not implemented"))
     }
     async fn single_del(&self, _uid: i64, _id: i64) -> anyhow::Result<u16> { Ok(0) }
@@ -94,12 +94,12 @@ impl FollowListPort for FollowAdapter {
 
 #[async_trait]
 impl FollowManagePort for FollowAdapter {
-    async fn get_config(&self, _user_id: i64) -> anyhow::Result<cola_data::user::info::config::UserConfigInfo> {
+    async fn get_config(&self, _user_id: i64) -> anyhow::Result<cola_data::cola_user::info::config::UserConfigInfo> {
         Err(anyhow::anyhow!("not implemented"))
     }
     async fn add_black(&self, _uid: i64, _id: i64) -> anyhow::Result<()> { Ok(()) }
     async fn del_black(&self, _uid: i64, _id: i64) -> anyhow::Result<()> { Ok(()) }
-    async fn get_following(&self, _uid: i64) -> anyhow::Result<cola_data::user::info::user::UserInfo> {
+    async fn get_following(&self, _uid: i64) -> anyhow::Result<cola_data::cola_user::info::user::UserInfo> {
         Err(anyhow::anyhow!("not implemented"))
     }
     async fn single_del(&self, _uid: i64, _id: i64) -> anyhow::Result<u16> { Ok(0) }

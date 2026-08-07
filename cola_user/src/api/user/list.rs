@@ -1,5 +1,5 @@
-// cola_user/src/api/user/list.rs
-// core - USER - api - user - 列表 接口
+// cola_user/src/api/cola_user/list.rs
+// core - USER - api - cola_user - 列表 接口
 // 2026/6/18 09:06 Created.
 // 2026/8/6 对齐 case 层：最新/热门/推荐/同城/分类/角色/附近/搜索 8 个接口
 
@@ -10,7 +10,7 @@ use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::user::vo::user::UserVo;
+use cola_data::cola_user::vo::user::UserVo;
 use tracing::{error, info};
 
 ////////

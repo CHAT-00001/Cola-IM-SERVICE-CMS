@@ -1,4 +1,4 @@
-// repo_adapter/src/auth/mod.rs
+// repo_adapter/src/cola_auth/mod.rs
 // 🔌 插头 - 可乐验证中心 - 模块
 // 2026/6/29 05:22
 

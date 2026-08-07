@@ -28,7 +28,8 @@ impl UserBlackManageCase {
         let qty = ctx
             .user
             .black
-            .single_del(id)
+            .del
+            .single_soft_del(uid, id)
             .await
             .map_err(|e| anyhow::anyhow!("[🗣️ CASE]: ❌️ 移除黑名单失败: {}", e))?;
 
@@ -55,7 +56,8 @@ impl UserBlackManageCase {
         let qty = ctx
             .user
             .black
-            .batch_del(uid, ids)
+            .del
+            .batch_soft_del(uid, ids)
             .await
             .map_err(|e| anyhow::anyhow!("[🗣️ CASE]: ❌️ 批量移除黑名单失败: {}", e))?;
 

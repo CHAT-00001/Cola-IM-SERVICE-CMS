@@ -7,8 +7,8 @@ use crate::assembler::danmaku::build_danmaku_list_response;
 use crate::model::vo::poi_danmaku::DanmakuListResponse;
 use anyhow::Result;
 use cola_data::app::ctx::AppContext;
-use cola_data::gis::command::danmaku::PoiDanmakuCommand;
-use repository::gis::service::poi_danmaku::GisDanmakuService;
+use cola_data::cola_gis::command::danmaku::PoiDanmakuCommand;
+use repository::cola_gis::service::poi_danmaku::GisDanmakuService;
 
 ////////
 

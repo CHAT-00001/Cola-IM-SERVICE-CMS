@@ -4,26 +4,24 @@
 
 ////////
 
-use crate::case;
+use crate::case::report::list::UserReportListCase;
 use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::app::request::ApiUrlParamsQuery;
-use cola_data::auth::info::auth::AuthContext;
-use cola_data::user::info::config::UserConfigInfo;
-use cola_data::video::info::video::VideoListResponse;
+use cola_data::cola_auth::info::auth::AuthContext;
+use cola_data::cola_video::info::video::VideoListResponse;
 
 ////////
 
-/// # [HOME API] -  主页 接口
-pub struct HomeApi;
+/// # [REPORT GET API] - 举报列表 接口
+pub struct ReportGetApi;
 
-impl HomeApi {
+impl ReportGetApi {
     //
 
     ////////
 
-    /// # 1. [API HANDLER] - 我的
+    /// # 1. [API HANDLER] - 我的举报记录
     pub async fn api_get_my_list(
         auth: AuthContext,
         url: ApiGatewayRequest,
@@ -31,12 +29,10 @@ impl HomeApi {
     ) -> AppData<VideoListResponse> {
         let uid = auth.uid;
 
-        match HomeCase::case_get_new_list(uid, url, ctx).await {
+        match UserReportListCase::case_get_my_report_list(uid, url, ctx).await {
             Ok(resp) => AppData::ok(resp),
-
             Err(e) => {
-                tracing::error!("New Videos Error: {:?}", e);
-
+                tracing::error!("Get My Reports Error: {:?}", e);
                 AppData::err(5001, "❌️ 获取我的举报列表失败", None)
             }
         }
@@ -44,137 +40,96 @@ impl HomeApi {
 
     ////////
 
-    /// # 2. [API HANDLER] - 他的
-    pub async fn api_get_he_list(
+    /// # 2. [API HANDLER] - 最新举报记录
+    pub async fn api_get_new_list(
         auth: AuthContext,
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> AppData<VideoListResponse> {
         let uid = auth.uid;
 
-        match HomeCase::case_get_hot_list(uid, url, ctx).await {
+        match UserReportListCase::case_get_new_report_list(uid, url, ctx).await {
             Ok(resp) => AppData::ok(resp),
-
             Err(e) => {
-                tracing::error!("Recommend Error: {:?}", e);
-
-                AppData::err(5001, "获取热门视频失败", None)
+                tracing::error!("Get New Reports Error: {:?}", e);
+                AppData::err(5001, "获取最新举报记录失败", None)
             }
         }
     }
 
     ////////
 
-    /// # 3. [API HANDLER] - 推荐
-    pub async fn home_recommend(
+    /// # 3. [API HANDLER] - 处理过的举报记录
+    pub async fn api_get_processed_list(
         auth: AuthContext,
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> AppData<VideoListResponse> {
         let uid = auth.uid;
-        match HomeCase::case_get_recommend_list(uid, url, ctx).await {
+
+        match UserReportListCase::case_get_processed_report_list(uid, url, ctx).await {
             Ok(resp) => AppData::ok(resp),
             Err(e) => {
-                tracing::error!("Recommend Error: {:?}", e);
-                AppData::err(5001, "获取推荐视频失败", None)
+                tracing::error!("Get Processed Reports Error: {:?}", e);
+                AppData::err(5001, "获取处理过的举报记录失败", None)
             }
         }
     }
 
     ////////
 
-    /// # 4. [API HANDLER] - 同城
-    pub async fn home_city(
+    /// # 4. [API HANDLER] - 违规类型列表
+    pub async fn api_get_violation_type_list(
         auth: AuthContext,
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> AppData<VideoListResponse> {
         let uid = auth.uid;
-        match HomeCase::case_get_city_list(uid, url, ctx).await {
+
+        match UserReportListCase::case_get_violation_type_list(uid, url, ctx).await {
             Ok(resp) => AppData::ok(resp),
             Err(e) => {
-                tracing::error!("Nearby Error: {:?}", e);
-                AppData::err(5001, "获取同城视频失败", None)
+                tracing::error!("Get Violation Types Error: {:?}", e);
+                AppData::err(5006, format!("获取违规类型失败: {}", e), None)
             }
         }
     }
 
     ////////
 
-    /// # 5. [API HANDLER] - 分类
-    pub async fn home_category(
+    /// # 5. [API HANDLER] - 举报分类列表
+    pub async fn api_get_report_category_list(
         auth: AuthContext,
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> AppData<VideoListResponse> {
         let uid = auth.uid;
-        let category_id = url.category_id;
 
-        if category_id <= 0 {
-            return AppData::err(4002, "参数错误：非法的 category_id", None);
-        }
-
-        match HomeCase::case_get_category_list(uid, url, ctx).await {
+        match UserReportListCase::case_get_report_category_list(uid, url, ctx).await {
             Ok(resp) => AppData::ok(resp),
             Err(e) => {
-                tracing::error!("Category List Error: {:?}", e);
-                AppData::err(5006, format!("获取分类视频失败: {}", e), None)
-            }
-        }
-    }
-
-    /// # 6. [API HANDLER] - 频道
-    pub async fn home_channel(
-        auth: AuthContext,
-        url: ApiGatewayRequest,
-        ctx: &AppContext,
-    ) -> AppData<VideoListResponse> {
-        let uid = auth.uid;
-        let channel_id = url.category_id;
-
-        if channel_id <= 0 {
-            return AppData::err(4002, "参数错误：非法的 channel_id", None);
-        }
-
-        match HomeCase::case_get_category_list(uid, url, ctx).await {
-            Ok(resp) => AppData::ok(resp),
-            Err(e) => {
-                tracing::error!("Category List Error: {:?}", e);
-                AppData::err(5006, format!("获取频道视频失败: {}", e), None)
+                tracing::error!("Get Report Categories Error: {:?}", e);
+                AppData::err(5006, format!("获取举报分类失败: {}", e), None)
             }
         }
     }
 
     ////////
 
-    /// # 7. [API HANDLER] - 精选
-    pub async fn home_featured(
+    /// # 6. [API HANDLER] - 处理结果类型列表
+    pub async fn api_get_result_type_list(
         auth: AuthContext,
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> AppData<VideoListResponse> {
         let uid = auth.uid;
-        match HomeCase::case_get_featured_list(uid, url, ctx).await {
+
+        match UserReportListCase::case_get_result_type_list(uid, url, ctx).await {
             Ok(resp) => AppData::ok(resp),
             Err(e) => {
-                tracing::error!("Featured Error: {:?}", e);
-                AppData::err(5001, "获取精选视频失败", None)
+                tracing::error!("Get Result Types Error: {:?}", e);
+                AppData::err(5001, "获取处理结果类型失败", None)
             }
-        }
-    }
-
-    ////////
-
-    /// # 8. [API HANDLER] - 搜索
-    pub async fn home_search(
-        auth: AuthContext,
-        url: ApiGatewayRequest,
-        ctx: &AppContext,
-    ) -> AppData<VideoListResponse> {
-        let uid = auth.uid;
-        match HomeCase::case_get_keyword_list(uid, url, ctx).await {
-            Ok(resp) => AppData::ok(resp),
-            Err(e) => AppData::err(5006, format!("获取用户视频失败: {}", e), None),
         }
     }
 }

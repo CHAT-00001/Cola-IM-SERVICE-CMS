@@ -5,7 +5,7 @@
 ////////
 
 use anyhow::Result;
-use repository::gis::service::permission_change::PermissionsChangeService;
+use repository::cola_gis::service::permission_change::PermissionsChangeService;
 use tracing::{info, warn};
 
 ////////
@@ -72,7 +72,7 @@ impl ChangeCase {
         }
 
         // 修改视频评论权限
-        PermissionsChangeService::check_video_permission(uid, user_id, danmaku_perm)
+        PermissionsChangeService::update_video_comment_perm(uid, user_id, danmaku_perm)
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 弹幕权限同步失败: {}", e))?;
 
@@ -93,7 +93,7 @@ impl ChangeCase {
         }
 
         // 修改视频评论权限
-        PermissionsChangeService::update_video_collect_perm(uid, user_id, collect_perm)
+        PermissionsChangeService::update_video_comment_perm(uid, user_id, collect_perm)
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 收藏权限同步失败: {}", e))?;
 
@@ -118,7 +118,7 @@ impl ChangeCase {
         }
 
         // 修改视频评论权限
-        PermissionsChangeService::update_video_download_perm(uid, user_id, download_perm)
+        PermissionsChangeService::update_video_comment_perm(uid, user_id, download_perm)
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 下载权限同步失败: {}", e))?;
 
@@ -139,7 +139,7 @@ impl ChangeCase {
         }
 
         // 修改视频评论权限
-        PermissionsChangeService::update_video_buy_perm(uid, user_id, buy_perm)
+        PermissionsChangeService::update_video_comment_perm(uid, user_id, buy_perm)
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 购买权限同步失败: {}", e))?;
 

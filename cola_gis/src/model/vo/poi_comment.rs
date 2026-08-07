@@ -4,7 +4,7 @@
 ////////
 
 use cola_data::app::page::PageInfo;
-use cola_data::gis::info::comment::PoiCommentInfo;
+use cola_data::cola_gis::info::comment::PoiCommentInfo;
 use serde::Serialize;
 
 ////////

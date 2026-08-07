@@ -5,7 +5,7 @@
 
 use anyhow::{Result, anyhow};
 use cola_data::app::ctx::AppContext;
-use repository::gis::service::like::GisLikeService;
+use repository::cola_gis::service::like::GisLikeService;
 use tracing::{info, warn};
 
 ////////

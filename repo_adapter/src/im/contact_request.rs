@@ -1,10 +1,10 @@
-// repo_adapter/src/im/contact_request.rs  -- 适配器 - IM - 联系人请求
+// repo_adapter/src/cola_im/contact_request.rs  -- 适配器 - IM - 联系人请求
 // 2026-07-07
 
 use async_trait::async_trait;
-use cola_data::im::port::contact_request::ContactRequestRepo;
-use cola_data::im::command::contact_request::ContactRequestCommand;
-use cola_data::im::info::contact_request::ContactRequestInfo;
+use cola_data::cola_im::port::contact_request::ContactRequestRepo;
+use cola_data::cola_im::command::contact_request::ContactRequestCommand;
+use cola_data::cola_im::info::contact_request::ContactRequestInfo;
 
 pub struct ContactRequestPortAdapter;
 

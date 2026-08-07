@@ -1,4 +1,4 @@
-// repo_adapter/src/market/shop_apply/mod.rs
+// repo_adapter/src/cola_market/shop_apply/mod.rs
 // 插头 - 市场 - 商店申请 - 模块(原子化解耦)
 // 2026/6/18
 // 2026/8/6 解耦: add / list / del / get / manage / check
@@ -6,8 +6,8 @@
 ////////
 
 use async_trait::async_trait;
-use cola_data::market::command::shop::add::CreatedShopApplyCommand;
-use cola_data::market::port::shop_appy::ShopAppyPort;
+use cola_data::cola_market::command::shop::add::CreatedShopApplyCommand;
+use cola_data::cola_market::port::shop_appy::ShopAppyPort;
 
 pub mod add;
 pub mod list;

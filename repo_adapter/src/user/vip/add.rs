@@ -1,12 +1,12 @@
-// repo_adapter/src/user/vip/add.rs
+// repo_adapter/src/cola_user/vip/add.rs
 // 适配器 - USER - 贵宾 - 开通/取消
 // 2026/8/6 解耦: 开通VIP / 取消VIP
 
 ////////
 
 use anyhow::Result;
-use cola_data::user::command::vip::VipCommand;
-use repository::user::service::vip::VipService;
+use cola_data::cola_user::command::vip::VipCommand;
+use repository::cola_user::service::vip::VipService;
 
 ////////
 

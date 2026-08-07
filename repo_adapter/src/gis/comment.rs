@@ -1,13 +1,13 @@
-// repo_adapter/src/gis/active -- 适配器 - GIS - add
+// repo_adapter/src/cola_gis/active -- 适配器 - GIS - add
 // 2026-07-07 07:10
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::gis::port::comment::CommentRepo;
-use cola_data::gis::command::comment::PoiCommentCommand;
-use cola_data::gis::info::comment::PoiCommentInfo;
-use repository::gis::service::poi_comment::PoiCommentService;
+use cola_data::cola_gis::port::comment::CommentRepo;
+use cola_data::cola_gis::command::comment::PoiCommentCommand;
+use cola_data::cola_gis::info::comment::PoiCommentInfo;
+use repository::cola_gis::service::poi_comment::PoiCommentService;
 
 ////////
 

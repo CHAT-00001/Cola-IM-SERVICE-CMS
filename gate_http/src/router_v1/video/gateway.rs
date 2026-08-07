@@ -7,7 +7,7 @@ use crate::kits::response::IntoApi;
 use actix_web::{HttpMessage, HttpRequest, HttpResponse, Responder, web};
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::auth::info::auth::AuthContext;
+use cola_data::cola_auth::info::auth::AuthContext;
 use cola_video::api::home::HomeApi;
 use serde::Deserialize;
 use std::time::Instant;
@@ -16,7 +16,7 @@ use app_config::app_state::AppState;
 
 /// # 网关请求体
 struct GatewayRequest {
-    auth: AuthContext,     // 补上 auth 字段
+    auth: AuthContext,     // 补上 cola_auth 字段
     action: i16,           // 🌟 以后使用的 int16 动作代码
     service: String,       // 🌟 兼容 PHP PhalApi 的服务名称 (字符串)
     query: Option<String>, // 查询

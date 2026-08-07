@@ -1,4 +1,4 @@
-// repo_adapter/src/video/share/add.rs
+// repo_adapter/src/cola_video/share/add.rs
 // 🔌 插头 - 可乐视频 - 分享 - 发布
 // 2026/8/6 18:57 Created.
 
@@ -6,7 +6,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::video::port::view::add::VideoViewAddPort;
+use cola_data::cola_video::port::view::add::VideoViewAddPort;
 
 ////////
 

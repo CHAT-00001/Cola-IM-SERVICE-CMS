@@ -8,8 +8,8 @@ use crate::case::add::PoiAddCase;
 use crate::model::vo::poi::PoiSingleResponse;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
-use cola_data::gis::command::poi::PoiCommand;
-use repository::video::service::permission_check::VideoPermissionsCheckService;
+use cola_data::cola_gis::command::poi::PoiCommand;
+use repository::cola_video::service::permission_check::VideoPermissionsCheckService;
 
 ////////
 

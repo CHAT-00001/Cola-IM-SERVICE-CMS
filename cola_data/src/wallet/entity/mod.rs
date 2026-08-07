@@ -1,4 +1,4 @@
-// cola_data/src/wallet/entity/mod.rs  -- 数据 - WALLET - entity - mod
+// cola_data/src/cola_finance/entity/mod.rs  -- 数据 - WALLET - entity - mod
 // 2026/6/26 01:30
 
 ////////

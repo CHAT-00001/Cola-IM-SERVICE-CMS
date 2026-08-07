@@ -9,7 +9,7 @@ use crate::assembler::video::build_video_single_response;
 use crate::model::vo::video::VideoSingleResponse;
 use anyhow::{Result, anyhow};
 use cola_data::app::ctx::AppContext;
-use cola_data::video::info::video::VideoInfo;
+use cola_data::cola_video::info::video::VideoInfo;
 use std::sync::Arc;
 use cola_data::app::query::ApiGatewayRequest;
 

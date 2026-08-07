@@ -1,4 +1,4 @@
-// cola_user/src/case/user/add.rs
+// cola_user/src/case/cola_user/add.rs
 // 用户 - case - 用户 - 发布
 // 2026/8/2 22:45 Created.
 
@@ -6,10 +6,10 @@
 
 use anyhow::{Context, Result};
 use cola_data::app::ctx::AppContext;
-use cola_data::fs::rick_check;
-use cola_data::user::command::new::UserCommand;
-use cola_data::user::command::user::update::UpdateUserCommand;
-use cola_data::user::info::user::UserInfo;
+use cola_data::cola_fs::rick_check;
+use cola_data::cola_user::command::new::UserCommand;
+use cola_data::cola_user::command::user::update::UpdateUserCommand;
+use cola_data::cola_user::info::user::UserInfo;
 use tracing::info;
 
 ////////

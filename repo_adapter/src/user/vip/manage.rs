@@ -1,1 +1,1 @@
-// repo_adapter/src/user/vip/manage.rs  -- VIP管理 // 2026/8/6 //////// use anyhow::Result; pub async fn ban(uid: i64, target_id: i64) -> Result<()> { Ok(()) }
+// repo_adapter/src/cola_user/vip/manage.rs  -- VIP管理 // 2026/8/6 //////// use anyhow::Result; pub async fn ban(uid: i64, target_id: i64) -> Result<()> { Ok(()) }

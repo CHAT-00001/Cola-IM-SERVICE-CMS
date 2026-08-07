@@ -1,4 +1,4 @@
-// repo_adapter/src/music/mod.rs
+// repo_adapter/src/cola_music/mod.rs
 // 2026-06-12
 
 pub mod add;

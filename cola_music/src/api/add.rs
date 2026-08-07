@@ -5,8 +5,8 @@
 
 use cola_data::app::data::AppData;
 use cola_data::app::error;
-use cola_data::music::command::music::MusicCommand;
-use cola_data::music::vo::music_vo::MusicSingleResponse;
+use cola_data::cola_music::command::music::MusicCommand;
+use cola_data::cola_music::vo::music_vo::MusicSingleResponse;
 use crate::case::add::MusicAddCase;
 
 //////

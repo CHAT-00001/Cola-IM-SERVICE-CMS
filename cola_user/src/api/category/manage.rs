@@ -4,11 +4,11 @@
 
 ////////
 
+use crate::case::category::manage::UserCategoryManageCase;
 use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
-use crate::case::category::manage::UserCategoryManageCase;
 ////////
 
 /// # [API HANDLER] -  用户 黑名单 管理 接口
@@ -53,7 +53,15 @@ impl UserCategoryManageApi {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> AppData<String> {
-        let ids = url.params.ids;
+        let ids: Vec<i64> = url
+            .params
+            .get("ids")
+            .map(|s| {
+                s.split(',')
+                    .filter_map(|x| x.trim().parse::<i64>().ok())
+                    .collect()
+            })
+            .unwrap_or_default();
 
         // Call Case
         match UserCategoryManageCase::case_batch_del(uid, ids, ctx.clone()).await {

@@ -6,10 +6,10 @@
 use std::collections::HashMap;
 use anyhow::Result;
 use cola_data::app::page::PageInfo;
-use cola_data::music::info::music::MusicInfo;
-use cola_data::user::info::user::UserInfo;
-use cola_data::video::info::video::VideoInfo;
-use repository::user::service::user::UserService;
+use cola_data::cola_music::info::music::MusicInfo;
+use cola_data::cola_user::info::user::UserInfo;
+use cola_data::cola_video::info::video::VideoInfo;
+use repository::cola_user::service::user::UserService;
 use crate::model::vo::video::{VideoListResponse, VideoSingleResponse, VideoVo};
 
 ////////

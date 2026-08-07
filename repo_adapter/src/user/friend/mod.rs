@@ -1,18 +1,18 @@
-// repo_adapter/src/user/friend/mod.rs
+// repo_adapter/src/cola_user/friend/mod.rs
 // 🔌 插头 - 可乐用户 - 朋友 - 模块
 // 2026/8/6 解耦: 朋友关系适配器 (子模块实现)
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::user::info::config::UserConfigInfo;
-use cola_data::user::info::user::UserInfo;
-use cola_data::user::port::friend::add::FriendAddPort;
-use cola_data::user::port::friend::check::FriendCheckPort;
-use cola_data::user::port::friend::del::FriendDelPort;
-use cola_data::user::port::friend::get::FriendGetPort;
-use cola_data::user::port::friend::list::FriendListPort;
-use cola_data::user::port::friend::manage::FriendManagePort;
+use cola_data::cola_user::info::config::UserConfigInfo;
+use cola_data::cola_user::info::user::UserInfo;
+use cola_data::cola_user::port::friend::add::FriendAddPort;
+use cola_data::cola_user::port::friend::check::FriendCheckPort;
+use cola_data::cola_user::port::friend::del::FriendDelPort;
+use cola_data::cola_user::port::friend::get::FriendGetPort;
+use cola_data::cola_user::port::friend::list::FriendListPort;
+use cola_data::cola_user::port::friend::manage::FriendManagePort;
 
 pub mod add; // 添加/移除
 pub mod check; // 检查

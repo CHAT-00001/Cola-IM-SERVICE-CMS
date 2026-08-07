@@ -1,15 +1,15 @@
-// repo_adapter/src/market/address.rs  -- 适配器 - MARKET - 地址簿
+// repo_adapter/src/cola_market/address.rs  -- 适配器 - MARKET - 地址簿
 // 2026/6/18 14:02
 
 ////////
 
 use async_trait::async_trait;
 use chrono::Utc;
-use cola_data::market::command::address::AddressCommand;
-use cola_data::market::info::address::AddressInfo;
-use cola_data::market::port::address::AddressPort;
-use repository::market::pg::address::AddressRepo;
-use cola_data::market::entity::address::AddressEntity;
+use cola_data::cola_market::command::address::AddressCommand;
+use cola_data::cola_market::info::address::AddressInfo;
+use cola_data::cola_market::port::address::AddressPort;
+use repository::cola_market::pg::address::AddressRepo;
+use cola_data::cola_market::entity::address::AddressEntity;
 
 ////////
 

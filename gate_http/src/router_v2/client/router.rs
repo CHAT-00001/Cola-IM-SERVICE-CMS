@@ -8,7 +8,7 @@ use once_cell::sync::Lazy;
 use serde::{Deserialize, Serialize};
 use sqlx::{query, Row};
 use app_config::app_state::AppState;
-//use crate::router_v2::user::User;
+//use crate::router_v2::cola_user::User;
 use crate::models::response::ApiResponse;
 use crate::models::user::{get_user_info, UserInfo};
 
@@ -24,7 +24,7 @@ pub fn config(cfg: &mut web::ServiceConfig) {
             .route("/{id}", web::delete().to(del))
             // 可以添加更多子路由
             .service(
-                web::scope("/fs")
+                web::scope("/cola_fs")
                     .route("", web::get().to(get_categories))
                     .route("/{id}", web::get().to(get_videos_by_category))
             )

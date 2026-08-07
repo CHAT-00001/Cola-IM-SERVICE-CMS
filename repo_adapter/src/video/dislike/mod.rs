@@ -1,12 +1,12 @@
-// repo_adapter/src/video/dislike/mod.rs
+// repo_adapter/src/cola_video/dislike/mod.rs
 // 插头 - 视频 - 不喜欢 - 模块
 // 2026/8/6 19:24 Created.
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::video::port::like::LikePort;
-use repository::video::service::like::add::VideoLikeAddService;
+use cola_data::cola_video::port::like::LikePort;
+use repository::cola_video::service::like::add::VideoLikeAddService;
 
 /////////
 pub mod add; // 添加/修改

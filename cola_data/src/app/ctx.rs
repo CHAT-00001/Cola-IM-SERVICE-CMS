@@ -4,15 +4,15 @@
 
 ////////
 
-use crate::auth::port::AuthServicePorts;
-use crate::gis::port::ColaGisPort;
-use crate::im::port::ColaImPort;
-use crate::live::port::ColaLivePort;
-use crate::market::port::ColaMarketPort;
-use crate::music::port::ColaMusicPort;
-use crate::three::port::ColaThreePort;
-use crate::user::port::ColaUserPort;
-use crate::video::port::ColaVideoPort;
+use crate::cola_auth::port::AuthServicePorts;
+use crate::cola_gis::port::ColaGisPort;
+use crate::cola_im::port::ColaImPort;
+use crate::cola_live::port::ColaLivePort;
+use crate::cola_market::port::ColaMarketPort;
+use crate::cola_music::port::ColaMusicPort;
+use crate::cola_three::port::ColaThreePort;
+use crate::cola_user::port::ColaUserPort;
+use crate::cola_video::port::ColaVideoPort;
 
 ////////
 
@@ -22,8 +22,8 @@ use crate::video::port::ColaVideoPort;
 pub struct AppContext {
     //pub api: AppServicePorts,
     pub auth: AuthServicePorts, // IAM验证中心
-    // pub dynamic: ColaDynamicPort,  // 动态
-    // pub fs: ColaFsPort,  // 文件存储
+    // pub cola_dynamic: ColaDynamicPort,  // 动态
+    // pub cola_fs: ColaFsPort,  // 文件存储
     pub gis: ColaGisPort,       // GIS
     pub live: ColaLivePort,     // 直播
     pub market: ColaMarketPort, // 市场

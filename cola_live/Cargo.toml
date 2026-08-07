@@ -14,6 +14,7 @@ cola_data = { path = "../cola_data" }
 cola_music = { path = "../cola_music"}
 cola_user = { path = "../cola_user"}
 repository = { path = "../repository" }
+service = { path = "../service" }  ## 全函数调用service层
 
 #### 外部依赖
 futures = "0.3.31"

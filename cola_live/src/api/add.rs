@@ -7,9 +7,9 @@
 use crate::case;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
-use cola_data::video::command::video::edit::VideoUpdateCommand;
-use cola_data::video::command::video::new::VideoNewCommand;
-use repository::video::service::permission_check::VideoPermissionsCheckService;
+use cola_data::cola_video::command::video::edit::VideoUpdateCommand;
+use cola_data::cola_video::command::video::new::VideoNewCommand;
+use repository::cola_video::service::permission_check::VideoPermissionsCheckService;
 use crate::case::add::AddCase;
 use crate::model::vo::video::VideoSingleResponse;
 

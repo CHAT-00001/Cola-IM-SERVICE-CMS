@@ -8,9 +8,9 @@ use crate::model::vo::comment::{CommentListResponse, CommentSingleResponse, Comm
 use anyhow::Result;
 use cola_data::app::ctx::AppContext;
 use cola_data::app::request::ApiUrlParamsQuery;
-use cola_data::auth::info::auth::AuthContext;
-use cola_data::video::command::comment::CommentCommand;
-use repository::video::service::comment::CommentService;
+use cola_data::cola_auth::info::auth::AuthContext;
+use cola_data::cola_video::command::comment::CommentCommand;
+use repository::cola_video::service::comment::CommentService;
 use std::collections::HashMap;
 
 ////////

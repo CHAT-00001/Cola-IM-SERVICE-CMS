@@ -5,7 +5,7 @@
 
 use serde::Serialize;
 use cola_data::app::page::PageInfo;
-use cola_data::gis::info::danmaku::PoiDanmakuInfo;
+use cola_data::cola_gis::info::danmaku::PoiDanmakuInfo;
 
 //////
 

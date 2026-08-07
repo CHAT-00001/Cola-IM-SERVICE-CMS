@@ -1,4 +1,4 @@
-// cola_user/src/api/user/feed.rs
+// cola_user/src/api/cola_user/feed.rs
 // 可乐短用户 - api - 用户 - feed流
 // 2026/5/20 02:04
 
@@ -101,7 +101,7 @@ impl UserFeedApi {
         let uid = auth.uid.clone();
         //
         // // 1. 检查会话状态
-        // let auth_res = ensure_user_active(auth, session_port).await;
+        // let auth_res = ensure_user_active(cola_auth, session_port).await;
         // if auth_res.code != 0 {
         //     return AppData::err(auth_res.code, auth_res.message, None);
         // }

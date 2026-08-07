@@ -6,9 +6,10 @@
 
 use anyhow::{Context, Result};
 use cola_data::app::ctx::AppContext;
-use cola_data::fs::rick_check;
-use cola_data::user::command::new::UserCommand;
-use cola_data::user::info::user::UserInfo;
+use cola_data::cola_fs::rick_check;
+use cola_data::cola_user::command::new::UserCommand;
+use cola_data::cola_user::command::user::update::UpdateUserCommand;
+use cola_data::cola_user::info::user::UserInfo;
 use tracing::info;
 
 ////////
@@ -51,6 +52,9 @@ impl UserAddCase {
         ctx: AppContext,  // 全局上下文
     ) -> Result<UserInfo, anyhow::Error> {
 
+        // 1. 内容风控
+        let check_text = format!("{:?} {:?}", cmd.nickname, cmd.signature);
+        let visibility = rick_check(check_text).await;
 
         // 2. 核心数据持久化与计数更新
         let user_info = ctx

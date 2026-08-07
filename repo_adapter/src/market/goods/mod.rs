@@ -1,4 +1,4 @@
-// repo_adapter/src/market/goods/mod.rs
+// repo_adapter/src/cola_market/goods/mod.rs
 // 适配器 - 市场 - 商品 - 模块(原子化解耦)
 // 2026/6/18
 // 2026/8/6 解耦: add / list / del / get / manage / check
@@ -6,9 +6,9 @@
 ////////
 
 use async_trait::async_trait;
-use cola_data::market::command::goods::GoodsCommand;
-use cola_data::market::info::goods::goods::GoodsInfo;
-use cola_data::market::port::goods::GoodsPort;
+use cola_data::cola_market::command::goods::GoodsCommand;
+use cola_data::cola_market::info::goods::goods::GoodsInfo;
+use cola_data::cola_market::port::goods::GoodsPort;
 
 pub mod add;
 pub mod list;

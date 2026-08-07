@@ -5,9 +5,9 @@
 
 use anyhow::Result;
 use tracing::{info, warn};
-use cola_data::video::command::collect::CollectCommand;
-use repository::video::service::collect::CollectService;
-use repository::video::service::permission_change::{PermissionsChangeService};
+use cola_data::cola_video::command::collect::CollectCommand;
+use repository::cola_video::service::collect::CollectService;
+use repository::cola_video::service::permission_change::{PermissionsChangeService};
 
 ////////
 

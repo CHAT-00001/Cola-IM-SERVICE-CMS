@@ -9,7 +9,7 @@ use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::app::request::ApiUrlParamsQuery;
-use cola_data::auth::info::auth::AuthContext;
+use cola_data::cola_auth::info::auth::AuthContext;
 
 ////////
 
@@ -101,7 +101,7 @@ impl MineApi {
         let uid = auth.uid.clone();
         //
         // // 1. 检查会话状态
-        // let auth_res = ensure_user_active(auth, session_port).await;
+        // let auth_res = ensure_user_active(cola_auth, session_port).await;
         // if auth_res.code != 0 {
         //     return AppData::err(auth_res.code, auth_res.message, None);
         // }

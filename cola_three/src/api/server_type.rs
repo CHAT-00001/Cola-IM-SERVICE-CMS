@@ -1,13 +1,13 @@
-// cola_three/src/api/fs  -- API - 服务类型
+// cola_three/src/api/cola_fs  -- API - 服务类型
 // 2026/6/18
 
 ////////
 
 use crate::case::category::TypeCase;
 use cola_data::app::data::AppData;
-use cola_data::three::command::category::ThreeServerTypeCommand;
-use cola_data::three::port::category::TypePort;
-use cola_data::three::vo::category::CategoryVo;
+use cola_data::cola_three::command::category::ThreeServerTypeCommand;
+use cola_data::cola_three::port::category::TypePort;
+use cola_data::cola_three::vo::category::CategoryVo;
 
 ////////
 

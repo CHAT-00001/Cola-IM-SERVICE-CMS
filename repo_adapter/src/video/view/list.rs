@@ -1,4 +1,4 @@
-// repo_adapter/src/user/ban/del.rs
+// repo_adapter/src/cola_user/ban/del.rs
 // 🔌 适配器 - 可乐用户 - 浏览 - 删除服务
 // 2026/8/7 05:56 Created.
 
@@ -6,8 +6,8 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::video::info::view::VideoViewInfo;
-use cola_data::video::port::view::list::VideoViewListPort;
+use cola_data::cola_video::info::view::VideoViewInfo;
+use cola_data::cola_video::port::view::list::VideoViewListPort;
 
 ////////
 

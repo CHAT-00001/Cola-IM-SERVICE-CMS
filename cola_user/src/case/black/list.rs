@@ -6,7 +6,7 @@
 
 use anyhow::{Result, anyhow};
 use cola_data::app::ctx::AppContext;
-use cola_data::user::info::user::UserInfo;
+use cola_data::cola_user::info::user::UserInfo;
 use tracing::info;
 
 ////////

@@ -1,12 +1,12 @@
-// cola_user/src/case/user/get.rs
-// core - USER - case - user - 获取 用例
+// cola_user/src/case/cola_user/get.rs
+// core - USER - case - cola_user - 获取 用例
 // 2026/8/3 12:18 Created.
 
 ////////
 
 use anyhow::{Result, anyhow};
 use cola_data::app::ctx::AppContext;
-use cola_data::user::info::user::UserInfo;
+use cola_data::cola_user::info::user::UserInfo;
 use tracing::info;
 
 ////////
@@ -32,7 +32,7 @@ impl UserBlackGetCase {
             .user
             .black
             .get
-            .get_my_black_ids(uid, limit, offset)
+            .get_my_black_ids(uid, uid, limit, offset)
             .await
             .map_err(|e| anyhow!("[CASE]: ❌️ 获取黑名单IDs失败: {}", e))?;
 

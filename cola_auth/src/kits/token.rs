@@ -52,7 +52,7 @@ fn get_aes_key() -> [u8; 32] {
 /// * 有效期: 由 `SessionCommand::ACCESS_TOKEN_TTL_DAYS` 统一控制（默认 10 天）
 pub fn kit_generate_access_token(uid: i64, device_id: &str) -> Result<(String, i64), anyhow::Error> {
     let now = Utc::now();
-    let ttl_days = cola_data::auth::command::session::SessionCommand::ACCESS_TOKEN_TTL_DAYS;
+    let ttl_days = cola_data::cola_auth::command::session::SessionCommand::ACCESS_TOKEN_TTL_DAYS;
     let exp = now + Duration::days(ttl_days);
     let exp_ts = exp.timestamp() as usize;
 
@@ -109,7 +109,7 @@ pub fn kit_generate_access_token_with_ttl(
 /// * 方案: 64 字节随机数 → 128 hex 字符
 pub fn kit_generate_refresh_token() -> Result<(String, i64), anyhow::Error> {
     let now = Utc::now();
-    let ttl_days = cola_data::auth::command::session::SessionCommand::REFRESH_TOKEN_TTL_DAYS;
+    let ttl_days = cola_data::cola_auth::command::session::SessionCommand::REFRESH_TOKEN_TTL_DAYS;
     let exp = now + Duration::days(ttl_days);
     let exp_ts = exp.timestamp();
 
@@ -194,8 +194,8 @@ pub fn kit_build_session_cmd(
     phone: &str,
     platform: &str,
     device_id: &str,
-) -> Result<(cola_data::auth::command::session::SessionCommand, String, String), anyhow::Error> {
-    use cola_data::auth::command::session::SessionCommand;
+) -> Result<(cola_data::cola_auth::command::session::SessionCommand, String, String), anyhow::Error> {
+    use cola_data::cola_auth::command::session::SessionCommand;
 
     let (access_token, access_exp) = kit_generate_access_token(uid, device_id)?;
     let (refresh_token_raw, refresh_exp) = kit_generate_refresh_token()?;

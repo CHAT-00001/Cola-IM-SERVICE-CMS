@@ -1,4 +1,4 @@
-// cola_video/src/vo/vo/fs.rs  -- VIDEO - Model - Vo - 分类
+// cola_video/src/vo/vo/cola_fs.rs  -- VIDEO - Model - Vo - 分类
 // 2026/5/22 19:51 by wx: cestbon10080
 
 ////////

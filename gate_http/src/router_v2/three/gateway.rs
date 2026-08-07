@@ -1,4 +1,4 @@
-// gate_http/src/router_v2/three/gateway.rs  -- 第三方服务 网关
+// gate_http/src/router_v2/cola_three/gateway.rs  -- 第三方服务 网关
 // 2026/7/27 11:40
 
 ////////
@@ -9,7 +9,7 @@ use actix_web::{HttpMessage, HttpRequest, HttpResponse, Responder, web};
 use app_config::app_state::AppState;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::auth::request::session::SessionContext;
+use cola_data::cola_auth::request::session::SessionContext;
 use std::time::Instant;
 use crate::router_v2::three::dispatcher;
 
@@ -18,7 +18,7 @@ use crate::router_v2::three::dispatcher;
 /// # [ROUTER] - 第三方服务路由器
 pub fn three_router(cfg: &mut web::ServiceConfig) {
     cfg.service(
-        web::scope("/three")
+        web::scope("/cola_three")
             .route("/", web::get().to(ping))
             .route("/gateway", web::get().to(three_gateway))
             .route("/gateway", web::post().to(three_gateway)),
@@ -63,7 +63,7 @@ async fn three_gateway(
     // 3️⃣ 分发
     let service_name = api_req.service.clone().unwrap_or_default();
     match service_name.as_str() {
-        "fs" => {
+        "cola_fs" => {
             dispatcher::category::category_dispatch(three, &api_req)
                 .await
                 .finish(&req, start)

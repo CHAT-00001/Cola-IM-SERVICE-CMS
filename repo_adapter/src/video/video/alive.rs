@@ -1,4 +1,4 @@
-// repo_adapter/src/video/video/alive.rs
+// repo_adapter/src/cola_video/cola_video/alive.rs
 // 🔌 插头 - 可乐视频 - 视频 - 存活
 // 2026/8/6 19:20 Created.
 
@@ -6,8 +6,8 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::gis::command::poi::PoiCommand;
-use cola_data::gis::port::add::AddPort;
+use cola_data::cola_gis::command::poi::PoiCommand;
+use cola_data::cola_gis::port::add::AddPort;
 
 ////////
 

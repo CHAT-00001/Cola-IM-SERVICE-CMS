@@ -6,8 +6,8 @@
 use crate::case;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
-use cola_data::video::command::buy::VideoBuyCommand;
-use cola_data::video::command::collect::CollectCommand;
+use cola_data::cola_video::command::buy::VideoBuyCommand;
+use cola_data::cola_video::command::collect::CollectCommand;
 use crate::case::collect::CollectCase;
 use crate::model::vo::video::VideoSingleResponse;
 

@@ -1,13 +1,13 @@
-// repo_adapter/src/market/express.rs  -- 适配器 - MARKET - 快递
+// repo_adapter/src/cola_market/express.rs  -- 适配器 - MARKET - 快递
 // 2026/6/18
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::market::info::address::AddressInfo;
-use cola_data::market::port::express::ExpressPort;
-use cola_data::market::command::goods::GoodsCommand;
-use repository::market::pg::express::ExpressRepo;
+use cola_data::cola_market::info::address::AddressInfo;
+use cola_data::cola_market::port::express::ExpressPort;
+use cola_data::cola_market::command::goods::GoodsCommand;
+use repository::cola_market::pg::express::ExpressRepo;
 
 ////////
 

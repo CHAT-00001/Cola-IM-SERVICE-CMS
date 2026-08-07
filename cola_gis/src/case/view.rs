@@ -8,7 +8,7 @@ use crate::model::vo::poi::PoiSingleResponse;
 use anyhow::{Result, anyhow};
 use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::gis::info::poi::PoiInfo;
+use cola_data::cola_gis::info::poi::PoiInfo;
 
 //////
 

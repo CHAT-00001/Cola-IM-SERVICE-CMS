@@ -9,7 +9,7 @@ use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::video::command::collect::CollectCommand;
+use cola_data::cola_video::command::collect::CollectCommand;
 
 ////////
 
@@ -30,7 +30,7 @@ impl UserCategorytAddApi {
         ctx: &AppContext,         // 全局上下文
     ) -> AppData<String> {
 
-        match UserCategoryStateCase::case_check_state(uid, user_id, *ctx).await {
+        match UserCategoryStateCase::case_check_state(uid, user_id, ctx.clone()).await {
             Ok(_) => AppData::ok("收藏成功".to_string()).with_msg("收藏成功"),
             Err(e) => AppData::err(error::INTERNAL_ERROR, format!("收藏失败: {:?}", e), None),
         }

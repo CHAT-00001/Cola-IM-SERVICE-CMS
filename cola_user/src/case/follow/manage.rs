@@ -28,7 +28,8 @@ impl UserFollowManageCase {
         let qty = ctx
             .user
             .follow
-            .single_del(id)
+            .del
+            .single_soft_del(uid, id)
             .await
             .map_err(|e| anyhow::anyhow!("[🗣️ CASE]: ❌️ 移除关注失败: {}", e))?;
 
@@ -55,7 +56,8 @@ impl UserFollowManageCase {
         let qty = ctx
             .user
             .follow
-            .batch_del(uid, ids)
+            .del
+            .batch_soft_del(uid, ids)
             .await
             .map_err(|e| anyhow::anyhow!("[🗣️ CASE]: ❌️ 批量移除关注失败: {}", e))?;
 

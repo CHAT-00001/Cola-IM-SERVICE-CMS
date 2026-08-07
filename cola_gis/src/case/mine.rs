@@ -8,8 +8,8 @@ use crate::model::vo::poi::PoiListResponse;
 use anyhow::{Context, Result};
 use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
-use repository::gis::service::like::GisLikeService;
-use repository::gis::service::view::PoiViewService;
+use repository::cola_gis::service::like::GisLikeService;
+use repository::cola_gis::service::view::PoiViewService;
 
 ////////
 

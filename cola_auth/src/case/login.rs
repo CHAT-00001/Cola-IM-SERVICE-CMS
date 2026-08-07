@@ -4,12 +4,12 @@
 ////////
 
 use crate::kits::token::kit_build_session_cmd;
-use cola_data::auth::vo::session::{SignResponse, SignVo};
+use cola_data::cola_auth::vo::session::{SignResponse, SignVo};
 use anyhow::{Result, anyhow};
-use cola_data::auth::command::phone::PhoneLoginCommand;
-use repository::auth::service::session::SessionService;
-use repository::auth::service::sms::SmsService;
-use repository::user::service::state::UserStateService;
+use cola_data::cola_auth::command::phone::PhoneLoginCommand;
+use repository::cola_auth::service::session::SessionService;
+use repository::cola_auth::service::sms::SmsService;
+use repository::cola_user::service::state::UserStateService;
 
 ////////
 
@@ -42,7 +42,7 @@ impl LoginCase {
             kit_build_session_cmd(user_info.id, &cmd.phone_no, "phone", &cmd.device_id)?;
 
         // 5. 构建响应用的认证信息（给客户端的原始 refresh_token，非哈希）
-        let auth_info = cola_data::auth::info::session::SessionInfo {
+        let auth_info = cola_data::cola_auth::info::session::SessionInfo {
             access_token: raw_access_token,
             refresh_token: raw_refresh_token,
             access_expires_at: session_cmd.access_expires_at,

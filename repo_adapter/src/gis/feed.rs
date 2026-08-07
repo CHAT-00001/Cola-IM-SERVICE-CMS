@@ -1,12 +1,12 @@
-// repo_adapter/src/gis/feed.rs -- 适配器 - GIS - feed
+// repo_adapter/src/cola_gis/feed.rs -- 适配器 - GIS - feed
 // 2026-07-07 12:00
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::gis::port::feed::FeedRepo;
-use cola_data::gis::info::poi::PoiInfo;
-use repository::gis::service::home::PoiHomeService;
+use cola_data::cola_gis::port::feed::FeedRepo;
+use cola_data::cola_gis::info::poi::PoiInfo;
+use repository::cola_gis::service::home::PoiHomeService;
 
 ////////
 

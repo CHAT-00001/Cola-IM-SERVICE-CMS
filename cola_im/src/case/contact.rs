@@ -6,7 +6,7 @@
 use anyhow::Result;
 use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::im::command::contact::ContactCommand;
+use cola_data::cola_im::command::contact::ContactCommand;
 
 //////
 

@@ -1,4 +1,4 @@
-// user/case/vip/mod.rs
+// cola_user/case/vip/mod.rs
 // 用户 - case -贵宾 - 模块
 // 2026/8/2 22:45 Created.
 

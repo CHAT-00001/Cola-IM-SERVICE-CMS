@@ -1,12 +1,12 @@
-// repo_adapter/src/market/shop.rs  -- 适配器 - 店铺管理
+// repo_adapter/src/cola_market/shop.rs  -- 适配器 - 店铺管理
 // 2026/6/18
 
 //////
 
 use async_trait::async_trait;
-use cola_data::market::port::shop_manage::ShopManagePort;
-use cola_data::market::vo::shop_apply::ShopApplyVo;
-use cola_data::market::vo::shop_apply_history::ShopApplyHistoryVo;
+use cola_data::cola_market::port::shop_manage::ShopManagePort;
+use cola_data::cola_market::vo::shop_apply::ShopApplyVo;
+use cola_data::cola_market::vo::shop_apply_history::ShopApplyHistoryVo;
 
 //////
 

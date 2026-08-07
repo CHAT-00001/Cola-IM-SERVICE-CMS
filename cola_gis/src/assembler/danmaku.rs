@@ -5,9 +5,9 @@
 
 use anyhow::Result;
 use cola_data::app::page::PageInfo;
-use cola_data::gis::info::danmaku::PoiDanmakuInfo;
+use cola_data::cola_gis::info::danmaku::PoiDanmakuInfo;
 use crate::model::vo::poi_danmaku::{DanmakuListResponse, DanmakuSingleResponse, DanmakuVo};
-use repository::user::service::user::UserService;
+use repository::cola_user::service::user::UserService;
 
 ////////
 

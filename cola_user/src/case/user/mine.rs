@@ -1,10 +1,10 @@
-// // cola_user/src/case/user/mine.rs
-// // USER - 用例层 - user - 我的
+// // cola_user/src/case/cola_user/mine.rs
+// // USER - 用例层 - cola_user - 我的
 // // 2026/6/11 14:00
 //
 // ////////
 //
-// use crate::assembler::video::build_video_list_response;
+// use crate::assembler::cola_video::build_video_list_response;
 // use anyhow::{Context, Result};
 // use cola_data::app::ctx::AppContext;
 // use cola_data::app::query::ApiGatewayRequest;
@@ -24,7 +24,7 @@
 //         ctx: &AppContext,
 //     ) -> anyhow::Result<VideoListResponse> {
 //         // 1. following
-//         let ids = ctx.user.following.get_following_ids(uid).await?;
+//         let ids = ctx.cola_user.following.get_following_ids(uid).await?;
 //
 //         // CALL SERVICE
 //         let infos =
@@ -49,7 +49,7 @@
 //         ctx: &AppContext,
 //     ) -> anyhow::Result<VideoListResponse> {
 //         // 1. friend
-//         let ids = ctx.user.following.get_following_ids(uid).await?;
+//         let ids = ctx.cola_user.following.get_following_ids(uid).await?;
 //
 //         // CALL SERVICE
 //         let infos =
@@ -73,7 +73,7 @@
 //         url: ApiGatewayRequest,
 //         ctx: &AppContext,
 //     ) -> anyhow::Result<VideoListResponse> {
-//         let ids = ctx.user.following.get_following_ids(uid).await?;
+//         let ids = ctx.cola_user.following.get_following_ids(uid).await?;
 //
 //         // CALL SERVICE
 //         let infos = ViewService::batch_get_videos_infos(ids)
@@ -192,7 +192,7 @@
 //         let range = 50000.0;
 //
 //         let infos = ctx
-//             .video
+//             .cola_video
 //             .feed
 //             .get_nearby_list(lat, lng, range, url.offset, url.limit)
 //             .await

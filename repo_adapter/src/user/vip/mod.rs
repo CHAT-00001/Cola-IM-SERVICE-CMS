@@ -1,17 +1,17 @@
-// repo_adapter/src/user/vip/mod.rs
+// repo_adapter/src/cola_user/vip/mod.rs
 // 🔌 插头 - 可乐用户 - 贵宾 - 模块
 // 2026/8/6 Created.
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::user::info::user::UserInfo;
-use cola_data::user::port::vip::add::VipAddPort;
-use cola_data::user::port::vip::check::VipCheckPort;
-use cola_data::user::port::vip::del::VipDelPort;
-use cola_data::user::port::vip::get::VipGetPort;
-use cola_data::user::port::vip::list::VipListPort;
-use cola_data::user::port::vip::manage::VipManagePort;
+use cola_data::cola_user::info::user::UserInfo;
+use cola_data::cola_user::port::vip::add::VipAddPort;
+use cola_data::cola_user::port::vip::check::VipCheckPort;
+use cola_data::cola_user::port::vip::del::VipDelPort;
+use cola_data::cola_user::port::vip::get::VipGetPort;
+use cola_data::cola_user::port::vip::list::VipListPort;
+use cola_data::cola_user::port::vip::manage::VipManagePort;
 
 pub mod add;
 pub mod alive;
@@ -89,7 +89,7 @@ impl VipGetPort for VipAdapter {
 
 #[async_trait]
 impl VipListPort for VipAdapter {
-    async fn get_config(&self, _user_id: i64) -> anyhow::Result<cola_data::user::info::config::UserConfigInfo> {
+    async fn get_config(&self, _user_id: i64) -> anyhow::Result<cola_data::cola_user::info::config::UserConfigInfo> {
         Err(anyhow::anyhow!("not implemented"))
     }
     async fn add_black(&self, _uid: i64, _id: i64) -> anyhow::Result<()> { Ok(()) }
@@ -106,7 +106,7 @@ impl VipListPort for VipAdapter {
 
 #[async_trait]
 impl VipManagePort for VipAdapter {
-    async fn get_config(&self, _user_id: i64) -> anyhow::Result<cola_data::user::info::config::UserConfigInfo> {
+    async fn get_config(&self, _user_id: i64) -> anyhow::Result<cola_data::cola_user::info::config::UserConfigInfo> {
         Err(anyhow::anyhow!("not implemented"))
     }
     async fn add_black(&self, _uid: i64, _id: i64) -> anyhow::Result<()> { Ok(()) }

@@ -8,8 +8,8 @@ use crate::model::vo::poi_comment::{CommentListResponse, CommentSingleResponse};
 use anyhow::Result;
 use cola_data::app::ctx::AppContext;
 use cola_data::app::request::ApiUrlParamsQuery;
-use cola_data::gis::command::comment::PoiCommentCommand;
-use repository::gis::service::poi_comment::PoiCommentService;
+use cola_data::cola_gis::command::comment::PoiCommentCommand;
+use repository::cola_gis::service::poi_comment::PoiCommentService;
 
 ////////
 

@@ -6,7 +6,7 @@
 use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::auth::info::auth::AuthContext;
+use cola_data::cola_auth::info::auth::AuthContext;
 use crate::case::view::PoiViewCase;
 use crate::model::vo::poi::PoiSingleResponse;
 

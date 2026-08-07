@@ -1,12 +1,12 @@
-// repo_adapter/src/market/goods/get.rs
+// repo_adapter/src/cola_market/goods/get.rs
 // 适配器 - 市场 - 商品 - 获取详情/状态
 // 2026/8/6 解耦: 获取商品详情、状态检查
 
 ////////
 
 use anyhow::Result;
-use cola_data::market::info::goods::goods::GoodsInfo;
-use repository::market::pg::goods::GoodsRepo;
+use cola_data::cola_market::info::goods::goods::GoodsInfo;
+use repository::cola_market::pg::goods::GoodsRepo;
 
 ////////
 
@@ -26,7 +26,7 @@ pub async fn get_status(
     _uid: i64, // 用户ID
     _goods_id: i64, // 商品ID
 ) -> Result<i16> {
-    // 🚧 TODO: 对接 repository market service
+    // 🚧 TODO: 对接 repository cola_market service
     Ok(1)
 }
 

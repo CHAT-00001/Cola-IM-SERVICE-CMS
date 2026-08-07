@@ -1,13 +1,13 @@
-// repo_adapter/src/market/goods_feed.rs  -- 适配器 - 商品 FEED
+// repo_adapter/src/cola_market/goods_feed.rs  -- 适配器 - 商品 FEED
 // 2026/6/18
 
 ////////
 
 use async_trait::async_trait;
 use rust_decimal::Decimal;
-use cola_data::market::info::goods::goods::GoodsInfo;
-use cola_data::market::port::goods_feed::GoodsFeedPort;
-use repository::market::pg::goods::GoodsRepo;
+use cola_data::cola_market::info::goods::goods::GoodsInfo;
+use cola_data::cola_market::port::goods_feed::GoodsFeedPort;
+use repository::cola_market::pg::goods::GoodsRepo;
 
 ////////
 

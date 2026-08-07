@@ -9,6 +9,10 @@ use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
+use cola_data::app::page::PageInfo;
+use cola_data::app::response::ListResponse;
+use cola_data::cola_user::info::user::UserInfo;
+use tracing::{error, info};
 
 ////////
 
@@ -28,21 +32,20 @@ impl UserBlackListApi {
         uid: i64,               // UID
         url: ApiGatewayRequest, // 网关
         ctx: &AppContext,       // 全局上下文
-    ) -> AppData<String> {
+    ) -> AppData<ListResponse<UserInfo>> {
         // Call Case
-        // 🗣️ CALL USER BLACK STATE
-        // 注意：根据上一层 Case 返回的类型调整匹配逻辑
         match UserBlackListCase::case_get_my_black_list(uid, url.id, url.limit, url.offset, ctx)
             .await
         {
-            Ok(is_black) => {
-                // 根据实际业务返回提示信息，例如返回 "已在黑名单" 或 "不在黑名单"
-                let msg = if is_black {
-                    "用户已在黑名单中"
-                } else {
-                    "用户不在黑名单中"
+            Ok(infos) => {
+                info!("[🗣️ API]: ✅️ 获取我的黑名单成功: uid={}, count={}", uid, infos.len());
+                let page_info = PageInfo {
+                    page: url.page.unwrap_or(1),
+                    qty: url.qty.unwrap_or(10),
+                    has_more: false,
                 };
-                AppData::ok(is_black.to_string()).with_msg(msg)
+                let response = ListResponse::new(infos, page_info);
+                AppData::ok(response).with_msg("✅️ 获取我的黑名单成功")
             }
             Err(e) => AppData::err(
                 error::INTERNAL_ERROR,

@@ -1,4 +1,4 @@
-// gate_http/src/router_v2/video/dispatcher/feed.rs  -- VIDEO - dispatcher - feed
+// gate_http/src/router_v2/cola_video/dispatcher/feed.rs  -- VIDEO - dispatcher - feed
 // 2026/8/1 08:22
 // 2026/8/1 重构：纯路由转发器，按 action 路由到 handler
 
@@ -7,8 +7,8 @@
 use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::auth::info::auth::AuthContext;
-use cola_data::auth::request::session::SessionContext;
+use cola_data::cola_auth::info::auth::AuthContext;
+use cola_data::cola_auth::request::session::SessionContext;
 use cola_video::api::feed::FeedApi;
 use serde_json::Value;
 

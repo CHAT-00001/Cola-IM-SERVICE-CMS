@@ -9,9 +9,9 @@ use anyhow::{Context, Result};
 use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::app::request::ApiUrlParamsQuery;
-use cola_data::video::command::report::VideoReportCommand;
+use cola_data::cola_video::command::report::VideoReportCommand;
 use futures_util::TryFutureExt;
-use repository::video::service::home::VideoHomeService;
+use repository::cola_video::service::home::VideoHomeService;
 use tracing::info;
 
 ////////

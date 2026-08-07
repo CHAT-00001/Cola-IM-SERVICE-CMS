@@ -6,7 +6,7 @@
 use anyhow::{Result, anyhow};
 use tracing::{info, warn};
 use cola_data::app::ctx::AppContext;
-use cola_data::gis::command::buy::PoiBuyCommand;
+use cola_data::cola_gis::command::buy::PoiBuyCommand;
 
 //////
 

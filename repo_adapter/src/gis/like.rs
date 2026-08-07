@@ -1,11 +1,11 @@
-// repo_adapter/src/gis/like.rs
+// repo_adapter/src/cola_gis/like.rs
 // 2026-07-07
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::gis::port::like::LikeRepo;
-use repository::gis::service::like::GisLikeService;
+use cola_data::cola_gis::port::like::LikeRepo;
+use repository::cola_gis::service::like::GisLikeService;
 
 ////////
 

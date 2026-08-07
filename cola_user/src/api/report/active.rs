@@ -15,9 +15,10 @@ use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::app::request::ApiUrlParamsQuery;
-use cola_data::auth::info::auth::AuthContext;
-use cola_data::video::command::report::VideoReportCommand;
+use cola_data::cola_auth::info::auth::AuthContext;
+use cola_data::cola_video::command::report::VideoReportCommand;
 use crate::case::report::add::UserReportAddCase;
+use crate::case::report::get::UserReportGetCase;
 ////////
 
 /// # [API HANDLER] - 举报 接口
@@ -56,7 +57,7 @@ impl ReportApi {
         let uid = auth.uid;
 
         // Call Case:
-        match UserReportAddCase::case_get_report_video(uid, url, ctx).await {
+        match UserReportGetCase::case_get_report_list(uid, url, ctx).await {
             Ok(_) => AppData::ok("获取成功".to_string()).with_msg("获取被举报的视频列表成功"),
             Err(e) => AppData::err(
                 error::INTERNAL_ERROR,

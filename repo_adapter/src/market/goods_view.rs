@@ -1,12 +1,12 @@
-// repo_adapter/src/market/goods_view.rs  -- 适配器 - 商品浏览记录
+// repo_adapter/src/cola_market/goods_view.rs  -- 适配器 - 商品浏览记录
 // 2026/6/18
 
 //////
 
 use async_trait::async_trait;
 use chrono::Utc;
-use cola_data::market::info::address::AddressInfo;
-use cola_data::market::port::goods_view::GoodsViewPort;
+use cola_data::cola_market::info::address::AddressInfo;
+use cola_data::cola_market::port::goods_view::GoodsViewPort;
 use repository::pg_pool;
 
 //////

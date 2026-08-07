@@ -6,7 +6,7 @@
 use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
-use cola_data::gis::command::buy::PoiBuyCommand;
+use cola_data::cola_gis::command::buy::PoiBuyCommand;
 use crate::case::buy::BuyCase;
 
 //////

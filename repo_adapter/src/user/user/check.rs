@@ -1,12 +1,12 @@
-// repo_adapter/src/user/user/check.rs
+// repo_adapter/src/cola_user/cola_user/check.rs
 // 🔌 适配器 - 用户 - 用户 - 列表服务
 // 2026/8/6 04:19 Created.
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::user::info::user::UserInfo;
-use cola_data::user::port::user::check::UserCheckPort;
+use cola_data::cola_user::info::user::UserInfo;
+use cola_data::cola_user::port::user::check::UserCheckPort;
 
 ////////
 

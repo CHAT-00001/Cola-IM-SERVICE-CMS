@@ -1,4 +1,4 @@
-// repo_adapter/src/user/view/add.rs
+// repo_adapter/src/cola_user/view/add.rs
 // 🔌 适配器 - 可乐用户 - 浏览 - 获取服务
 // 2026/8/6 04:18 Created.
 
@@ -6,8 +6,8 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::video::info::video::VideoInfo;
-use cola_data::video::port::video::get::VideoGetPort;
+use cola_data::cola_video::info::video::VideoInfo;
+use cola_data::cola_video::port::video::get::VideoGetPort;
 
 ////////
 

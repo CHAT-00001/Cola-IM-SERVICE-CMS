@@ -1,4 +1,4 @@
-// repo_adapter/src/user/friend/add.rs
+// repo_adapter/src/cola_user/friend/add.rs
 // 🔌 插头 - 可乐用户 - 朋友 - 添加/移除
 // 2026/8/6 解耦: 添加朋友 / 移除朋友
 

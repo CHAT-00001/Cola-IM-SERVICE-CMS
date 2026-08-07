@@ -1,12 +1,12 @@
-// repo_adapter/src/gis/count
+// repo_adapter/src/cola_gis/count
 // 2026-07-07
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::gis::port::collect::CollectRepo;
-use cola_data::gis::command::collect::PoiCollectCommand;
-use repository::gis::service::poi_collect::PoiCollectService;
+use cola_data::cola_gis::port::collect::CollectRepo;
+use cola_data::cola_gis::command::collect::PoiCollectCommand;
+use repository::cola_gis::service::poi_collect::PoiCollectService;
 
 ////////
 

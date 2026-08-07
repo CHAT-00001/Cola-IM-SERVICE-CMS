@@ -1,4 +1,4 @@
-// repo_adapter/src/user/view/manage.rs
+// repo_adapter/src/cola_user/view/manage.rs
 // 🔌 适配器 - 可乐用户 - 浏览 - 管理服务
 // 2026/8/7 06:21 Created.
 
@@ -6,9 +6,9 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::user::info::config::UserConfigInfo;
-use cola_data::user::info::user::UserInfo;
-use cola_data::user::port::view::manage::ViewManagePort;
+use cola_data::cola_user::info::config::UserConfigInfo;
+use cola_data::cola_user::info::user::UserInfo;
+use cola_data::cola_user::port::view::manage::ViewManagePort;
 
 ////////
 

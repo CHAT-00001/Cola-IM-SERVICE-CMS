@@ -9,9 +9,9 @@ use crate::model::vo::video::VideoListResponse;
 use anyhow::Result;
 use cola_data::app::ctx::AppContext;
 use cola_data::app::request::ApiUrlParamsQuery;
-use cola_data::video::command::danmaku::DanmakuCommand;
-use repository::user::service::user::UserService;
-use repository::video::service::danmaku::DanmakuService;
+use cola_data::cola_video::command::danmaku::DanmakuCommand;
+use repository::cola_user::service::user::UserService;
+use repository::cola_video::service::danmaku::DanmakuService;
 
 ////////
 

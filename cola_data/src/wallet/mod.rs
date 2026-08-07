@@ -1,4 +1,4 @@
-// wallet/mod.rs  -- 钱包
+// cola_finance/mod.rs  -- 钱包
 // 2026/6/26 01:30
 
 ////////

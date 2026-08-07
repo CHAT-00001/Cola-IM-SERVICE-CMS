@@ -1,13 +1,13 @@
-// repo_adapter/src/im/message.rs  -- 适配器 - IM - 消息
+// repo_adapter/src/cola_im/message.rs  -- 适配器 - IM - 消息
 // 2026-07-07 12:01
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::im::port::message::MessageRepo;
-use cola_data::im::command::message::MessageCommand;
-use cola_data::im::info::message::MessageInfo;
-use repository::im::service::message::ImMessageService;
+use cola_data::cola_im::port::message::MessageRepo;
+use cola_data::cola_im::command::message::MessageCommand;
+use cola_data::cola_im::info::message::MessageInfo;
+use repository::cola_im::service::message::ImMessageService;
 
 ////////
 

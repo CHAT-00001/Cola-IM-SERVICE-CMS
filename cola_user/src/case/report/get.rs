@@ -9,7 +9,7 @@ use anyhow::{Result, anyhow};
 use cola_data::app::ctx::AppContext;
 use cola_data::app::page::ListResponse;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::video::info::video::VideoInfo;
+use cola_data::cola_video::info::video::VideoInfo;
 use tracing::info;
 
 ////////
@@ -40,7 +40,14 @@ impl UserReportGetCase {
 
         if video_ids.is_empty() {
             info!("[🗣️ REPORT CASE]: ✅️ 举报列表为空");
-            return Ok(ListResponse::default());
+            return Ok(ListResponse {
+                list: Vec::new(),
+                page: Some(1),
+                size: Some(10),
+                qty: Some(10),
+                total: Some(total),
+                has_more: Some(false),
+            });
         }
 
         // 2. 批量获取视频Info列表
@@ -61,7 +68,7 @@ impl UserReportGetCase {
             has_more: None,
         };
 
-        info!("[🗣️ REPORT CASE]: ✅️ 举报列表查询成功, total={}, count={}", total, video_infos.len());
+        info!("[🗣️ REPORT CASE]: ✅️ 举报列表查询成功, total={}, count={}", total, response.list.len());
         Ok(response)
     }
 }

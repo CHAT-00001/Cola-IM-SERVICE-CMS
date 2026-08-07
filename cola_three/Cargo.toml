@@ -10,6 +10,7 @@ edition.workspace = true
 ## 内部依赖
 cola_data = { path = "../cola_data" }
 repository = {path = "../repository" }
+service = { path = "../service" }  ## 全函数调用service层
 
 ## 外部依赖
 anyhow = "1"

@@ -1,4 +1,4 @@
-// repo_adapter/src/video/view/mod.rs
+// repo_adapter/src/cola_video/view/mod.rs
 // 🔌 插头 - 可乐视频 - 浏览 - 模块
 // 2026/8/6 19:30 Created.
 

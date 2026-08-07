@@ -7,8 +7,8 @@ use cola_data::app::ctx::AppContext;
 use crate::case::comment::CommentCase;
 use cola_data::app::data::AppData;
 use cola_data::app::request::ApiUrlParamsQuery;
-use cola_data::auth::info::auth::AuthContext;
-use cola_data::gis::command::comment::PoiCommentCommand;
+use cola_data::cola_auth::info::auth::AuthContext;
+use cola_data::cola_gis::command::comment::PoiCommentCommand;
 use crate::model::vo::poi_comment::{CommentListResponse, CommentSingleResponse};
 
 pub struct CommentParamsQuery {

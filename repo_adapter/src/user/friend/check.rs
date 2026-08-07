@@ -1,4 +1,4 @@
-// repo_adapter/src/user/friend/check.rs
+// repo_adapter/src/cola_user/friend/check.rs
 // 🔌 插头 - 可乐用户 - 朋友 - 检查
 // 2026/8/6 解耦: 是否已是朋友 / 状态检查
 

@@ -1,4 +1,4 @@
-// repo_adapter/src/user/ban/get.rs
+// repo_adapter/src/cola_user/ban/get.rs
 // 🔌 适配器 - 可乐用户 - 封禁 - 获取服务
 // 2026/8/7 06:09 Created.
 
@@ -6,7 +6,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::user::port::ban::get::BanGetPort;
+use cola_data::cola_user::port::ban::get::BanGetPort;
 
 ////////
 

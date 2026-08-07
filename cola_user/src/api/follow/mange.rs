@@ -1,14 +1,14 @@
-// cola_user/src/api/follow/manage.rs
+// cola_user/src/api/follow/mange.rs
 // core - USER - api - follow - 管理 接口
 // 2026/8/2 22:21 Created.
 
 ////////
 
+use crate::case::follow::manage::UserFollowManageCase;
 use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
-use crate::case::follow::manage::UserFollowManageCase;
 ////////
 
 /// # [API HANDLER] -  用户 关注 管理 接口
@@ -54,7 +54,15 @@ impl UserFollowManageApi {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> AppData<String> {
-        let ids = url.params.ids;
+        let ids: Vec<i64> = url
+            .params
+            .get("ids")
+            .map(|s| {
+                s.split(',')
+                    .filter_map(|x| x.trim().parse::<i64>().ok())
+                    .collect()
+            })
+            .unwrap_or_default();
 
         // Call Case
         match UserFollowManageCase::case_batch_del(uid, ids, ctx.clone()).await {

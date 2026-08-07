@@ -1,5 +1,5 @@
-// cola_user/src/api/user/mod.rs
-// core - USER - api - user - mod
+// cola_user/src/api/cola_user/mod.rs
+// core - USER - api - cola_user - mod
 // 2026/8/2 22:11 Created.
 
 ////////

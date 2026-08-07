@@ -5,9 +5,9 @@
 
 use crate::kits::token::{kit_encrypt_refresh_token, kit_generate_access_token};
 use anyhow::{Result, anyhow};
-use cola_data::auth::entity::session::AuthSessionEntity;
-use cola_data::auth::info::session::AccessTokenInfo;
-use repository::auth::service::session::SessionService;
+use cola_data::cola_auth::entity::session::AuthSessionEntity;
+use cola_data::cola_auth::info::session::AccessTokenInfo;
+use repository::cola_auth::service::session::SessionService;
 
 ////////
 

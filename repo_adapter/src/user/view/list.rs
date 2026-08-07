@@ -1,4 +1,4 @@
-// repo_adapter/src/user/view/list.rs
+// repo_adapter/src/cola_user/view/list.rs
 // 🔌 适配器 - 可乐用户 - 浏览 - 列表服务
 // 2026/8/6 04:18 Created.
 
@@ -6,10 +6,10 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::user::info::config::UserConfigInfo;
-use cola_data::user::info::user::UserInfo;
-use cola_data::user::port::ban::del::BanDelPort;
-use cola_data::user::port::view::list::ViewListPort;
+use cola_data::cola_user::info::config::UserConfigInfo;
+use cola_data::cola_user::info::user::UserInfo;
+use cola_data::cola_user::port::ban::del::BanDelPort;
+use cola_data::cola_user::port::view::list::ViewListPort;
 ////////
 
 /// # [LIST SERVICE] - 列表

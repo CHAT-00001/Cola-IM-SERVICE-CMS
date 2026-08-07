@@ -1,4 +1,4 @@
-// http/src/user/gateway.rs  -- HTTP 用户 网关
+// http/src/cola_user/gateway.rs  -- HTTP 用户 网关
 // 2026/6/18 07:53
 
 //////
@@ -7,7 +7,7 @@ use crate::kits::response::IntoApi;
 use actix_web::{HttpMessage, HttpRequest, HttpResponse, Responder, web};
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::auth::info::auth::AuthContext;
+use cola_data::cola_auth::info::auth::AuthContext;
 use cola_user::api::home::HomeApi;
 use cola_user::api::add::AddApi;
 use serde::Deserialize;
@@ -18,7 +18,7 @@ use crate::ping::ping;
 
 /// # 网关请求体
 struct GatewayRequest {
-    auth: AuthContext,     // 补上 auth 字段
+    auth: AuthContext,     // 补上 cola_auth 字段
     action: i16,           // 🌟 以后使用的 int16 动作代码
     service: String,       // 🌟 兼容 PHP PhalApi 的服务名称 (字符串)
     query: Option<String>, // 查询
@@ -41,7 +41,7 @@ pub fn user_router(cfg: &mut web::ServiceConfig) {
     cfg.service(
         // by
         // * /new/xxxx
-        web::scope("/user")
+        web::scope("/cola_user")
             // 默认
             .route("", web::get().to(ping))
             .route("/", web::get().to(root))

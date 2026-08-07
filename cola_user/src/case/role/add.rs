@@ -1,14 +1,14 @@
 // cola_user/src/case/role/add.rs
-// core - USER - case - role - 角色添加/删除 用例
+// core - 可乐用户 - case - role - 角色添加/删除 用例
 // 2026/8/2 22:49 Created.
 
 ////////
 
 use anyhow::{Result, anyhow};
 use cola_data::app::ctx::AppContext;
-use cola_data::user::info::role::RoleInfo;
-use cola_data::user::vo::role::RoleVo;
-use repository::user::service::role::add::RoleService;
+use cola_data::cola_user::info::role::RoleInfo;
+use cola_data::cola_user::vo::role::RoleVo;
+use service::cola_user::role::add::RoleAddService;
 use tracing::info;
 
 ////////
@@ -31,7 +31,7 @@ impl UserRoleAddCase {
         remark: &str,      // 备注
         _ctx: &AppContext, // 全局上下文
     ) -> Result<RoleVo, anyhow::Error> {
-        let info = RoleService::add_role(uid, name, remark)
+        let info = RoleAddService::add_role(uid, name, remark)
             .await
             .map_err(|e| anyhow!("[🤐 ROLE CASE]: ❌️ 添加角色失败: {}", e))?;
 
@@ -53,7 +53,7 @@ impl UserRoleAddCase {
         role_id: i64,      // 角色ID
         _ctx: &AppContext, // 全局上下文
     ) -> Result<(), anyhow::Error> {
-        repository::user::pg::role::add::UserRoleAddRepo::soft_delete_follows_by_uid(uid)
+        repository::cola_user::pg::role::add::UserRoleAddRepo::soft_delete_follows_by_uid(uid)
             .await
             .map_err(|e| anyhow!("[🤐 ROLE CASE]: ❌️ 删除角色失败: {}", e))?;
 

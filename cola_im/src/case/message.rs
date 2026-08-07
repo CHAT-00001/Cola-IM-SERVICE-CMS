@@ -16,8 +16,8 @@ use crate::model::vo::video::VideoListResponse;
 use anyhow::Result;
 use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::user::info::config::UserConfigInfo;
-use repository::video::service::home::VideoHomeService;
+use cola_data::cola_user::info::config::UserConfigInfo;
+use repository::cola_video::service::home::VideoHomeService;
 
 ////////
 

@@ -1,4 +1,4 @@
-// gate_http/src/router_v2/three/dispatcher/mod.rs  -- 第三方服务分发器
+// gate_http/src/router_v2/cola_three/dispatcher/mod.rs  -- 第三方服务分发器
 // 2026/7/27
 
 ////////

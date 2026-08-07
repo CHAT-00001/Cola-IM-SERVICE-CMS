@@ -1,4 +1,4 @@
-// repo_adapter/src/user/add/del.rs
+// repo_adapter/src/cola_user/add/del.rs
 // 适配器 - USER - Add - 删除用户
 // 2026/8/6 解耦: 单个删除/批量删除
 

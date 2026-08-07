@@ -7,8 +7,8 @@ use anyhow::{Result, anyhow};
 use tracing::{info, warn};
 use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::video::command::hotlist::HotlistCommand;
-use repository::video::service::like::LikeService;
+use cola_data::cola_video::command::hotlist::HotlistCommand;
+use repository::cola_video::service::like::LikeService;
 
 ////////
 

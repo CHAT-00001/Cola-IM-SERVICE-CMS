@@ -1,4 +1,4 @@
-// http/src/v2/auth/gateway.rs  --  HTTP 验证中心 网关
+// http/src/v2/cola_auth/gateway.rs  --  HTTP 验证中心 网关
 // 2026/6/18 09:26
 
 ////////
@@ -11,9 +11,9 @@ use cola_auth::api::code::AuthCodeApi;
 use cola_auth::api::seesion::add::AuthAddApi;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::auth::command::email::EmailLoginCommand;
-use cola_data::auth::command::phone::PhoneLoginCommand;
-use cola_data::auth::info::auth::AuthContext;
+use cola_data::cola_auth::command::email::EmailLoginCommand;
+use cola_data::cola_auth::command::phone::PhoneLoginCommand;
+use cola_data::cola_auth::info::auth::AuthContext;
 use cola_user::api::home::HomeApi;
 use serde::Deserialize;
 use std::time::Instant;
@@ -79,7 +79,7 @@ fn extract_client_ip(req: &HttpRequest) -> String {
 /// # [ROUTER]
 pub fn auth_router(cfg: &mut web::ServiceConfig) {
     cfg.service(
-        web::scope("/auth")
+        web::scope("/cola_auth")
             .route("", web::get().to(ping))
             .route("/", web::get().to(root))
             .route("/gateway", web::get().to(auth_gateway))

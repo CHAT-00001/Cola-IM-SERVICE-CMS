@@ -1,4 +1,4 @@
-// gate_http/src/router_v2/video/gateway.rs
+// gate_http/src/router_v2/cola_video/gateway.rs
 // HTTP网关 - v2 - VIDEO - 业务网关
 // 2026/5/25 06:49
 // 2026/8/2 重构
@@ -13,14 +13,14 @@ use app_config::app_state::AppState;
 use cola_auth::api::seesion::state::SessionStateApi;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::auth::request::session::SessionContext;
+use cola_data::cola_auth::request::session::SessionContext;
 use std::time::Instant;
 
 ////////
 
 pub fn video_router(cfg: &mut web::ServiceConfig) {
     cfg.service(
-        web::scope("/video")
+        web::scope("/cola_video")
             .route("/", web::get().to(root))
             .route("", web::get().to(ping))
             .route("/gateway", web::get().to(video_gateway))
@@ -44,7 +44,7 @@ async fn video_gateway(
     let start = Instant::now();
     let ctx = &state.ctx;
 
-    // 1️⃣ URL + Body JSON 双重命中，Body 为主（对齐 three 网关模式）
+    // 1️⃣ URL + Body JSON 双重命中，Body 为主（对齐 cola_three 网关模式）
     let url_req = query.into_inner();
     let mut api_req = if !body.is_empty() {
         match serde_json::from_slice::<ApiGatewayRequest>(&body) {
@@ -59,7 +59,7 @@ async fn video_gateway(
     // 2️⃣ 把完整原始 Body JSON 注入 api_req.body，供 dispatcher 读取 body.cmd
     api_req.body = serde_json::from_slice(&body).ok();
 
-    // 3️⃣ 前置身份校验：body.auth.access_token → 数据库验证
+    // 3️⃣ 前置身份校验：body.cola_auth.access_token → 数据库验证
     let session = match &api_req.auth {
         Some(auth) if auth.has_token() => {
             let result = SessionStateApi::verify_session(auth, &ctx.auth).await;
@@ -87,7 +87,7 @@ async fn video_gateway(
         session.is_anonymous,
         api_req.body.as_ref().and_then(|b| b.get("cmd")),
     );
-    tracing::info!("🆔: api_req.auth = {:?}", api_req.auth);
+    tracing::info!("🆔: api_req.cola_auth = {:?}", api_req.auth);
 
     // 4️⃣ 分发
     let service_name = api_req.service.clone().unwrap_or_default();

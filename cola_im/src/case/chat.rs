@@ -13,10 +13,10 @@ use crate::model::vo::video::VideoListResponse;
 use anyhow::Result;
 use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::user::info::config::UserConfigInfo;
+use cola_data::cola_user::info::config::UserConfigInfo;
 use cola_user::assembler::info::build_video_list_response;
 use cola_user::model::vo::video::VideoListResponse;
-use repository::video::service::home::VideoHomeService;
+use repository::cola_video::service::home::VideoHomeService;
 
 ////////
 
