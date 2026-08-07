@@ -2,7 +2,7 @@
 // 2026-07-07
 
 use crate::pg_pool;
-use cola_data::im::entity::contact::ContactEntity;
+use cola_data::im::entity::contacts::contact::ImContactEntity as ContactEntity;
 
 pub struct ImContactRepo;
 

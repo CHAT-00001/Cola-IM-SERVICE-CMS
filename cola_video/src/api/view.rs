@@ -1,7 +1,9 @@
-// cola_video/src/api/view.rs -- 接口层 浏览
+// cola_video/src/api/get -- 接口层 浏览
 // 2026-03-30 07:55
 
 ////////
+
+mod add;
 
 use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;

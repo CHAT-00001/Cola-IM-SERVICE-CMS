@@ -1,4 +1,4 @@
-// cola_dynamic/src/api/dynamic/home.rs  -- 动态 - api - dynamic - 状态检查
+// cola_dynamic/src/api/dynamic/home2  -- 动态 - api - dynamic - 状态检查
 // 2026/6/19 18:12
 
 ////////

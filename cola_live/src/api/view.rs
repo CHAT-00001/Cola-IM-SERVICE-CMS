@@ -1,4 +1,4 @@
-// cola_video/src/api/view.rs -- 接口层 浏览
+// cola_video/src/api/get -- 接口层 浏览
 // 2026-03-30 07:55
 
 ////////

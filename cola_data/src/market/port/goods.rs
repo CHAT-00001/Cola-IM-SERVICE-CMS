@@ -4,8 +4,8 @@
 ////////
 
 use crate::market::command::goods::GoodsCommand;
-use crate::market::info::address::AddressInfo;
-use crate::market::info::goods::GoodsInfo;
+use crate::market::info::goods::goods::GoodsInfo;
+
 ////////
 
 /// # [SERVICE PORT] - 商品 服务端口

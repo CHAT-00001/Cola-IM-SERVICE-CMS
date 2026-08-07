@@ -1,39 +1,63 @@
-// port/mod.rs  -- 可乐用户中心 - 服务端口 mod
+// cola_data/src/user/port/mod.rs
+// 数据中心 - USER - port -  mod
 // 2026/6/10 07:27
 
-//////
+////////
 
+use crate::three::port::config::ConfigPort;
+use crate::user::port::add::AddPort;
+use crate::user::port::ban::BanPort;
+use crate::user::port::black::BlackPort;
+use crate::user::port::category::CategoryPort;
+use crate::user::port::follow::FollowPort;
+use crate::user::port::friend::FriendPort;
+use crate::user::port::home::HomePort;
+use crate::user::port::info::InfoPort;
+use crate::user::port::role::RolePort;
+use crate::user::port::share::SharePort;
+use crate::user::port::user::UserPort;
+use crate::user::port::view::ViewPort;
+use crate::user::port::vip::VipPort;
+use std::sync::Arc;
+
+////////
 pub mod add;
-pub mod blacklist;
+pub mod auth;
+pub mod ban;
+pub mod black;
+pub mod category;
 pub mod config;
-pub mod following;
+pub mod follow;
 pub mod friend;
 pub mod home;
 pub mod info;
+pub mod role;
+pub mod share;
+pub mod user;
 pub mod view;
+pub mod vip;
 
-//////
+////////
 
-use std::sync::Arc;
-use crate::user::port::add::AddPort;
-use crate::user::port::config::ConfigPort;
-use crate::user::port::home::HomePort;
-use crate::user::port::info::InfoPort;
-use crate::user::port::view::ViewPort;
-use crate::user::port::blacklist::BlacklistPort;
-use crate::user::port::following::FollowingPort;
-use crate::user::port::friend::FriendPort;
-
-//////
-
+/// # [COLA USER SERVICE PORTS] - 用户
+/// * `desc`: `可乐用户服务端口`
 #[derive(Clone)]
 pub struct ColaUserPort {
     pub add: Arc<dyn AddPort + Send + Sync + 'static>,
-    pub black: Arc<dyn BlacklistPort + Send + Sync + 'static>,
+    pub ban: BanPort,
+    pub black: BlackPort,
+    pub cate: Arc<dyn CategoryPort + Send + Sync + 'static>,
+    pub category: Arc<dyn CategoryPort + Send + Sync + 'static>,
     pub con: Arc<dyn ConfigPort + Send + Sync + 'static>,
-    pub following: Arc<dyn FollowingPort + Send + Sync + 'static>,
-    pub friend: Arc<dyn FriendPort + Send + Sync + 'static>,
+    pub follow: FollowPort,
+    pub friend: FriendPort,
     pub home: Arc<dyn HomePort + Send + Sync + 'static>,
     pub info: Arc<dyn InfoPort + Send + Sync + 'static>,
-    pub view: Arc<dyn ViewPort + Send + Sync + 'static>,
+    pub role: RolePort,
+    pub share: SharePort,
+    pub user: UserPort,
+    pub view: ViewPort,
+    pub vip: VipPort,
 }
+
+//////// END

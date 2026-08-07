@@ -1,4 +1,4 @@
-// repository/src/video/pg/video/add.rs  --
+// repository/src/video/pg/video/active  --
 // 仓储 - VIDEO - pg - video - add
 // 2026/6/10 19:52
 
@@ -22,28 +22,74 @@ impl AddRepository {
 
     ////////
 
-    /// # 1. [REPOSITORY] - 保存
+    /// # 1. [REPOSITORY] - 💾 保存
     /// * `desc`: `用户发布视频落库`
     pub async fn pg_save_video_by_uid(
         uid: i64,
         cmd: VideoNewCommand,
-        visibility: i16,
+        real_video_id: i64,       // 👈 1. 外部注入真实的视频ID（如雪花ID）
+        visibility_perm: i16,     // 👈 2. 接收风控计算后的可见性权限（若没有可直接用 cmd 里的）
     ) -> Result<VideoEntity, sqlx::Error> {
         let pool = pg_pool();
 
+        // 💡 核心：先通过 into_entity 转换为完整的实体，统筹默认值、初始计数、时间戳等
+        // 如果 Command 里的 visibility_perm 需要被外部参数覆盖，可以在转换后手动赋新值
+        let mut entity = cmd.into_entity(uid, real_video_id);
+        if visibility_perm > 0 {
+            entity.visibility_perm = visibility_perm;
+        }
+
+        // 📋 根据 VideoEntity 的全量字段补齐 INSERT 语句（请根据数据库实际表结构增减列名）
         let query = format!(
-            "INSERT INTO cola_video.video (uid, title, description, href, visibility, status) \
-             VALUES ($1, $2, $3, $4, $5, 1) \
-             RETURNING {}",
+            "INSERT INTO cola_video.video (
+            id, _sn, uid, music_id, title, description, thumbnail, thumb, href, is_4k,
+            views, done_views, likes, dislike, comments, danmakus, steps, collects, shares, recommends,
+            width, height, bit, addtime, lat, lng,
+            visibility_perm, comment_perm, danmaku_perm, collect_perm, download_perm,
+            sync_at, status
+        ) VALUES (
+            $1, $2, $3, $4, $5, $6, $7, $8, $9,
+            $10, $11, $12, $13, $14, $15, $16, $17, $18, $19,
+            $20, $21, $22, $23, $24, $25,
+            $26, $27, $28, $29, $30, $31,
+            $31, 1
+        ) \
+         RETURNING {}",
             VIDEO_COLUMNS
         );
 
         sqlx::query_as::<_, VideoEntity>(&query)
-            .bind(uid)
-            .bind(cmd.title)
-            .bind(cmd.description) // 👈 简介字段安全入库
-            .bind(cmd.href)
-            .bind(visibility) // 👈 风控计算后的可见性状态
+            .bind(entity.id)              // $1: id (real_video_id)
+            .bind(entity.uid)             // $2: uid
+            .bind(entity.music_id)        // $3: music_id
+            .bind(entity.title)           // $4: title
+            .bind(entity.description)     // $5: description
+            .bind(entity.thumbnail)       // $6: thumbnail (cover_url)
+            .bind(entity.thumb)           // $7: thumb
+            .bind(entity.href)            // $8: href
+            .bind(entity.is_4k)           // $9: is_4k
+            .bind(entity.views)           // $10: views (默认1)
+            .bind(entity.done_views)      // $11: done_views
+            .bind(entity.likes)           // $12: likes
+            .bind(entity.dislike)         // $13: dislike
+            .bind(entity.comments)        // $14: comments
+            .bind(entity.danmakus)        // $15: danmakus
+            .bind(entity.steps)           // $16: steps
+            .bind(entity.collects)        // $17: collects
+            .bind(entity.shares)          // $18: shares
+            .bind(entity.recommends)      // $19: recommends
+            .bind(entity.width)           // $20: width
+            .bind(entity.height)          // $21: height
+            .bind(entity.bit)             // $22: bit
+            .bind(entity.addtime)         // $23: addtime (秒级时间戳)
+            .bind(entity.lat)             // $24: lat
+            .bind(entity.lng)             // $25: lng
+            .bind(entity.visibility_perm) // $26: visibility_perm
+            .bind(entity.comment_perm)    // $27: comment_perm
+            .bind(entity.danmaku_perm)    // $28: danmaku_perm
+            .bind(entity.collect_perm)    // $29: collect_perm
+            .bind(entity.download_perm)   // $30: download_perm
+            .bind(entity.sync_at)         // $31: sync_at
             .fetch_one(&pool)
             .await
     }

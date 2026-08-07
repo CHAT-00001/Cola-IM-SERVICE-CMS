@@ -1,7 +1,7 @@
 // cola_data/src/im/info/message.rs  -- IM - info - 消息
 // 2026-07-07
 
-use crate::im::entity::message::MessageEntity;
+use crate::im::entity::message::message::ImMessageEntity as MessageEntity;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, Clone)]

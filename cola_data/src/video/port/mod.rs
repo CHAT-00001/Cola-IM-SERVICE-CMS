@@ -1,47 +1,58 @@
-// cola_cola_data/src/new/port/mod.rs  -- 数据中心 - AUTH - port
-// 2026-06-10 06:40
+// video/port/mod.rs
+// 视频 - port - 模块
+// 2026/6/10 06:40 Created.
 
 ////////
 
-use crate::video::port::add::AddPort;
-use crate::video::port::collect::CollectRepo;
-use crate::video::port::comment::CommentRepo;
-use crate::video::port::danmaku::DanmakuRepo;
-use crate::video::port::feed::FeedRepo;
-use crate::video::port::hot::HotlistRepo;
-use crate::video::port::like::LikeRepo;
-use crate::video::port::report::ReportRepo;
-use crate::video::port::share::ShareRepo;
-use crate::video::port::view::ViewPort;
+use crate::gis::port::add::AddPort;
+use crate::video::port::buy::BuyPort;
+use crate::video::port::collect::CollectPort;
+use crate::video::port::comment::CommentPort;
+use crate::video::port::danmaku::DanmakuPort;
+use crate::video::port::dislike::DislikePort;
+use crate::video::port::hotlist::HotlistPort;
+use crate::video::port::like::LikePort;
+use crate::video::port::recommend::RecommendPort;
+use crate::video::port::report::ReportPort;
+use crate::video::port::share::VideoSharePort;
+use crate::video::port::video::VideoPort;
+use crate::video::port::view::VideoViewPort;
 use std::sync::Arc;
-use crate::video::port::buy::BuyRepo;
 
 ////////
-pub mod add;
-pub mod buy;
-pub mod collect;
-pub mod comment;
-pub mod danmaku;
-pub mod feed;
-pub mod hot;
-pub mod like;
-pub mod report;
-pub mod share;
-pub mod view;
+pub mod ban; // 封禁
+pub mod buy; // 购买
+pub mod collect; // 收藏
+pub mod comment; // 评论
+pub mod danmaku; // 弹幕
+pub mod dislike; // 不喜欢
+pub mod hotlist; // 上热门
+pub mod like; // 点赞
+pub mod recommend; // 推荐
+pub mod report; // 举报
+pub mod share; // 分享
+pub mod video; // 视频(主内容)
+pub mod view; // 浏览
+
 ////////
 
-/// # [S] - 短视频 ServicePort
+/// # [COLA VIDEO PORTS] - 视频
+/// * `desc`: `可乐视频 Cola Video Service Port`
 #[derive(Clone)]
 pub struct ColaVideoPort {
     pub add: Arc<dyn AddPort + Send + Sync + 'static>,
-    pub buy: Arc<dyn BuyRepo + Send + Sync + 'static>,
-    pub feed: Arc<dyn FeedRepo + Send + Sync + 'static>,
-    pub hotlist: Arc<dyn HotlistRepo + Send + Sync + 'static>,
-    pub collect: Arc<dyn CollectRepo + Send + Sync + 'static>,
-    pub comment: Arc<dyn CommentRepo + Send + Sync + 'static>,
-    pub danmaku: Arc<dyn DanmakuRepo + Send + Sync + 'static>,
-    pub share: Arc<dyn ShareRepo + Send + Sync + 'static>,
-    pub like: Arc<dyn LikeRepo + Send + Sync + 'static>,
-    pub report: Arc<dyn ReportRepo + Send + Sync + 'static>,
-    pub view: Arc<dyn ViewPort + Send + Sync + 'static>,
+    pub buy: BuyPort,
+    pub collect: CollectPort,
+    pub comment: CommentPort,
+    pub danmaku: DanmakuPort,
+    pub dislike: DislikePort,
+    pub hotlist: HotlistPort,
+    pub like: LikePort,
+    pub recommend: RecommendPort,
+    pub report: ReportPort,
+    pub share: VideoSharePort,
+    pub video: VideoPort,
+    pub view: VideoViewPort,
 }
+
+//////// END

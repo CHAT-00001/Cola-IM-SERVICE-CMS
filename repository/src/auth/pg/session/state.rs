@@ -1,4 +1,4 @@
-// repository/src/auth/pg/session/state.rs
+// repository/src/auth/pg/session/ban
 // 仓储 - AUTH - pg - session - 会话校验服务(cache-first + pg fallback + 多设备支持)
 // 2026/8/2 09:43
 

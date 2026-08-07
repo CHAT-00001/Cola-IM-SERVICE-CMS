@@ -1,13 +1,18 @@
-// /mod.rs  -- 
+// live/port/mod.rs
+// 直播 - port - 模块
 // 2026/6/10 07:44
 
 ////////
 
+use crate::gis::port::add::AddPort;
+use crate::gis::port::like::LikeRepo;
+use crate::gis::port::view::ViewPort;
 use std::sync::Arc;
-use crate::video::port::add::AddPort;
-use crate::video::port::like::LikeRepo;
-use crate::video::port::view::ViewPort;
 
+////////
+
+/// # [COLA LIVE PORTS]
+/// * `desc`: `可乐直播端口`
 #[derive(Clone)]
 pub struct ColaLivePort {
     pub add: Arc<dyn AddPort + Send + Sync + 'static>,
@@ -17,3 +22,5 @@ pub struct ColaLivePort {
     pub like: Arc<dyn LikeRepo + Send + Sync + 'static>,
     pub view: Arc<dyn ViewPort + Send + Sync + 'static>,
 }
+
+//////// END

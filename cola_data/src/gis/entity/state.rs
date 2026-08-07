@@ -1,4 +1,4 @@
-// cola_date/src/gisentity/state.rs  -- 数据中心 - GIS - entit - 状态
+// cola_date/src/gisentity/ban  -- 数据中心 - GIS - entit - 状态
 // 2026/4/23 15:55
 
 ////////

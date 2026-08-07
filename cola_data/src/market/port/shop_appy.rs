@@ -1,23 +1,23 @@
-// port/shop_appy.rs  -- 服务端口 - 店铺申请
-// 2026/6/18 12:21
+// market/port/shop_appy.rs
+// market - port - 商店 - 申请
+// 2026/6/18 12:21 Created.
 
 ////////
 
-use crate::market::command::shop_apply::ShopApplyCommand;
+use crate::market::command::shop::add::CreatedShopApplyCommand;
 
 ////////
 
 /// # [SERVICE PORT] - 商店申请 服务端口
 #[async_trait::async_trait]
 pub trait ShopAppyPort: Send + Sync {
-
     ////////
 
     /// # 1. [PORT] - 保存商店申请 + 发送事件
     async fn save_shop_appy_and_send_event(
         &self,
         uid: i64,
-        cmd: ShopApplyCommand,
+        cmd: CreatedShopApplyCommand,
     ) -> anyhow::Result<()>;
 
     ////////
@@ -27,9 +27,8 @@ pub trait ShopAppyPort: Send + Sync {
         &self,
         uid: i64,
         shop_id: i64,
-        cmd: ShopApplyCommand,
+        cmd: CreatedShopApplyCommand,
     ) -> anyhow::Result<()>;
-
 
     ////////
 
@@ -38,9 +37,8 @@ pub trait ShopAppyPort: Send + Sync {
         &self,
         uid: i64,
         shop_id: i64,
-        cmd: ShopApplyCommand,
+        cmd: CreatedShopApplyCommand,
     ) -> anyhow::Result<()>;
-
 
     ////////
 
@@ -49,17 +47,14 @@ pub trait ShopAppyPort: Send + Sync {
         &self,
         uid: i64,
         shop_id: i64,
-        cmd: ShopApplyCommand,
+        cmd: CreatedShopApplyCommand,
     ) -> anyhow::Result<()>;
 
     ////////
 
     /// # 5. [PORT] - 管理员删除一个商店
-    async fn admin_del_one_shop_and_send_event(
-        &self,
-        uid: i64,
-        shop_id: i64,
-    ) -> anyhow::Result<()>;
+    async fn admin_del_one_shop_and_send_event(&self, uid: i64, shop_id: i64)
+    -> anyhow::Result<()>;
 
     ////////
 
@@ -70,3 +65,5 @@ pub trait ShopAppyPort: Send + Sync {
         shop_ids: Vec<i64>,
     ) -> anyhow::Result<()>;
 }
+
+//////// END

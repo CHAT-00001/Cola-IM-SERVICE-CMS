@@ -1,4 +1,4 @@
-// cola_gis/src/api/view.rs -- 可乐GIS - 接口层 浏览
+// cola_gis/src/api/get -- 可乐GIS - 接口层 浏览
 // 2026-07-07
 
 //////

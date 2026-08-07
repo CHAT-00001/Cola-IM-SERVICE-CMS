@@ -1,4 +1,4 @@
-﻿// repository/src/gis/pg/view.rs  -- 仓储 - GIS - pg - 浏览
+﻿// repository/src/gis/pg/get  -- 仓储 - GIS - pg - 浏览
 // 2026/7/6
 
 use crate::pg_pool;

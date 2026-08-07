@@ -5,5 +5,5 @@
 ////////
 
 pub mod count_repo; // 创作者计数
-pub mod permission_repo;  // 权限 (预设)
-pub mod user_repo; // 创作者资料
+pub mod permission_repo; // 权限 (预设)
+pub mod user_repo;

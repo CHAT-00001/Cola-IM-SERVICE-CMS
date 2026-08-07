@@ -3,6 +3,13 @@
 
 ////////
 
+mod add;
+mod get;
+mod del;
+mod state;
+mod report;
+mod like;
+
 use crate::case;
 use crate::case::danmaku::DanmakuCase;
 use crate::model::vo::danmaku::{DanmakuListResponse, DanmakuSingleResponse};

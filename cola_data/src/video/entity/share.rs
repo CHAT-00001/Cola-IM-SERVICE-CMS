@@ -1,7 +1,6 @@
-// cola_data/src/handler/new//share.rs  -- 数据 - handler - 短视频 - 收藏
-// 2026/5/20 19:56 by wx: cestbon10080
-// * 1个结构体
-// * --------
+// cola_data/src/video/entity/add
+// 数据 - VIDEO - entity - 分享表
+// 2026/5/20 19:56
 
 ////////
 
@@ -10,8 +9,9 @@ use sqlx::FromRow;
 
 ////////
 
-/// # [ENTITY] - 视频分享实体
-/// * table name: video_biz.video_collect (指定在短视频业务子库下)
+/// # [ENTITY] - 视频 分享表
+/// * `pg schema`: `cola_video`
+/// * `table name`: `video_shares`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct ShareEntity {
     pub id: i64,              // 分享 ID
@@ -24,5 +24,4 @@ pub struct ShareEntity {
     pub create_time: i64,     // 创建时间 （客户端生成）
 }
 
-// * --------
 //////// END

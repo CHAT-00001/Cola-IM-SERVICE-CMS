@@ -1,4 +1,4 @@
-// cola_video/src/new/api/change.rs  -- 可乐短视频 - 接口层 - 修改
+// cola_video/src/new/api/manage  -- 可乐短视频 - 接口层 - 修改
 // 2026/5/20 02:36
 
 ////////

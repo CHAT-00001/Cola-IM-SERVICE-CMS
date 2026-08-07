@@ -50,6 +50,7 @@ repo_adapter = { path = "./repo_adapter" }
 
 # 构建优化（发行版）
 [profile.release]
+debug = true             # DEBUG模式
 lto = true               # 链接时优化（提升性能）
 codegen-units = 1        # 单代码生成单元（提升优化效果）
 opt-level = 3            # 最高优化级别

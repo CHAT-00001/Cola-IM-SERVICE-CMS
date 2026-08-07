@@ -1,5 +1,8 @@
-// repo_adapter/src/three/mod.rs  -- 适配器 - THREE
-// 2026/6/18
+// repo_adapter/src/three/mod.rs
+// 🔌 插头 - 可乐第三方 - 模块
+// 2026/6/18 10:14 Created.
+
+////////
 
 pub mod three_type;
 pub mod three_vendor;

@@ -8,7 +8,7 @@ use anyhow::Result;
 use chrono::{DateTime, Utc};
 use tracing::error;
 use cola_data::video::entity::banned::publish::VideoBannedPublishEntity;
-use crate::video::pg::banned::publish_repo::VideoBannedPublishRepo;
+use crate::video::pg::ban::publish_repo::VideoBannedPublishRepo;
 
 ////////
 

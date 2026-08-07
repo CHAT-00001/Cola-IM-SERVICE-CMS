@@ -1,5 +1,5 @@
 use crate::pg_pool;
-use cola_data::im::entity::card::ContactCardEntity;
+use cola_data::im::entity::contacts::contact::ImContactEntity as ContactCardEntity;
 
 pub struct ImCardRepo;
 

@@ -178,6 +178,23 @@ impl VideoCountRepo {
     }
 
     ////////
+
+    /// # 7. [REPOSITORY] - 更新销售数量
+    /// * `描述` 数量不需要+1,只能递增
+    pub async fn pg_update_video_buys(video_id: i64) -> Result<(), sqlx::Error> {
+        let pool = pg_pool();
+        let query = r#"
+            INSERT INTO cola_video.video_count (video_id, shalls)
+            VALUES ($1, 1)
+            ON CONFLICT (video_id)
+            DO UPDATE SET shares = cola_video.video_count.shares + 1
+        "#;
+        sqlx::query(query).bind(video_id).execute(&pool).await?;
+        Ok(())
+    }
+
+
+    ////////
 }
 
 //////// END

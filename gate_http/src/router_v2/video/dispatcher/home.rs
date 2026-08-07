@@ -1,4 +1,4 @@
-// gate_http/src/router_v2/video/dispatcher/home.rs  -- VIDEO - dispatcher - home
+// gate_http/src/router_v2/video/dispatcher/home2  -- VIDEO - dispatcher - home
 // 2026/7/18 16:14
 // 2026/8/1 重构：纯路由转发器，不自带验证，返回通用 Value
 

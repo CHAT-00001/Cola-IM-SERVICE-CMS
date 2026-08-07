@@ -1,0 +1,21 @@
+// repository/src/video/service/collect/count.rs
+// 仓储 - VIDEO - service - collect - 计数 服务
+// 2026/8/2 17:06 Created.
+
+////////
+
+
+
+
+/// # [COUNT SERVICE] - 视频 收藏 计数 服务
+
+pub struct VideoCollectCountService;
+
+impl VideoCollectCountService {
+    //
+
+    ////////
+
+}
+
+//////// END

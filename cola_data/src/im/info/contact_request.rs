@@ -1,7 +1,7 @@
 // cola_data/src/im/info/contact_request.rs  -- IM - info - 联系人请求
 // 2026-07-07
 
-use crate::im::entity::contact_request::ContactRequestEntity;
+use crate::im::entity::contacts::contact_request::ContactRequestEntity;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, Clone)]

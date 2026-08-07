@@ -1,10 +1,10 @@
-// cola_data/src/user/port/add.rs  -- 数据中心 - USER - 端口层 ADD
+// cola_data/src/user/port/active  -- 数据中心 - USER - 端口层 ADD
 // 2026/6/10 07:31
 
 ////////
 
 use crate::user::command::new::UserCommand;
-use crate::user::command::update_user::UpdateUserCommand;
+use crate::user::command::user::update::UpdateUserCommand;
 use crate::user::info::user::UserInfo;
 
 #[async_trait::async_trait]
@@ -43,3 +43,5 @@ pub trait AddPort : Send + Sync + 'static {
         user_ids: Vec<i64>,
     ) -> anyhow::Result<()>;
 }
+
+//////// END

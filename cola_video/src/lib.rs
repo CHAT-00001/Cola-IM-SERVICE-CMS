@@ -1,4 +1,5 @@
-// cola_video src/lib.rs --  VIDEO - lib
+// cola_video/src/lib.rs
+// 视频 - lib
 // 2026-02-07 12:53:47
 
 ////////
@@ -6,8 +7,5 @@
 pub mod api;
 pub mod assembler;
 pub mod case;
-pub mod model;
-pub mod port;
-
 
 //////// END

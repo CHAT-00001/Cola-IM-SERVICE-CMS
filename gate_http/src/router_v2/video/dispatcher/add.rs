@@ -1,4 +1,4 @@
-// gate_http/src/router_v2/new/dispatcher/add.rs
+// gate_http/src/router_v2/new/dispatcher/active
 // HTTP 网关 - v2 - VIDEO - dispatcher - add
 // 2026/8/1 07:54
 // 2026/8/1 重构：纯路由转发器 + 从 body.cmd 自适应动态映射命令结构体

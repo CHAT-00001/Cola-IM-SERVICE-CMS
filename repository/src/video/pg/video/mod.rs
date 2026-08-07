@@ -6,6 +6,10 @@
 
 pub mod add; // 发布
 pub mod count; // 统计数量
+pub mod get; // 获取
+pub mod home; // 主页
 pub mod perm_check; // 权限检查
 pub mod perm_update; // 权限更新
-pub mod video; // 视频
+pub mod video;
+mod clean;
+// 视频

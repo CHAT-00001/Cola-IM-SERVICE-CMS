@@ -1,4 +1,4 @@
-// cola_video/src/case/collect.rs  -- VIDEO - 用例层 - 收藏
+// cola_video/src/case/count  -- VIDEO - 用例层 - 收藏
 // 2026/6/10 07:00
 
 ////////

@@ -1,0 +1,1 @@
+// cola_user/src/case/share/del.rs  -- 删除分享 // 2026/8/6 //////// use anyhow::Result; //////// pub struct UserShareDelCase; impl UserShareDelCase { pub async fn case_single_del(uid: i64, share_id: i64) -> Result<u16> { Ok(1) } pub async fn case_batch_del(uid: i64, ids: Vec<i64>) -> Result<u16> { Ok(ids.len() as u16) } }

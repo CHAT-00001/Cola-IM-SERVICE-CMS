@@ -5,7 +5,7 @@
 
 use async_trait::async_trait;
 use rust_decimal::Decimal;
-use cola_data::market::info::goods::GoodsInfo;
+use cola_data::market::info::goods::goods::GoodsInfo;
 use cola_data::market::port::goods_feed::GoodsFeedPort;
 use repository::market::pg::goods::GoodsRepo;
 

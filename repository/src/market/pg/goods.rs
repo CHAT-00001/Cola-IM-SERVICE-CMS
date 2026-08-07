@@ -1,10 +1,11 @@
-// repository/src/market/pg/goods.rs  -- 仓储层 - MARKET - pg - 商品
+// repository/src/market/pg/goods.rs
+// 仓储 - MARKET - pg - 商品
 // 2026/6/18 14:29
 
 ////////
 
-use cola_data::market::entity::goods::GoodsEntity;
 use crate::pg_pool;
+use cola_data::market::entity::goods::goods::GoodsEntity;
 
 ////////
 
@@ -12,7 +13,6 @@ use crate::pg_pool;
 pub struct GoodsRepo;
 
 impl GoodsRepo {
-
     const COLUMNS: &'static str = r#"
         id, uid, market_id, name, name_en, no,
         one_classid, two_classid, three_classid,
@@ -75,7 +75,9 @@ impl GoodsRepo {
             Self::COLUMNS
         );
         sqlx::query_as::<_, GoodsEntity>(&query)
-            .bind(uid).bind(limit).bind(offset)
+            .bind(uid)
+            .bind(limit)
+            .bind(offset)
             .fetch_all(&pool)
             .await
     }
@@ -100,10 +102,12 @@ impl GoodsRepo {
     /// 5. 上架/下架
     pub async fn toggle_status(id: i64) -> Result<(), sqlx::Error> {
         let pool = pg_pool();
-        sqlx::query("UPDATE shop_goods SET issale = CASE WHEN issale = 1 THEN 0 ELSE 1 END WHERE id = $1")
-            .bind(id)
-            .execute(&pool)
-            .await?;
+        sqlx::query(
+            "UPDATE shop_goods SET issale = CASE WHEN issale = 1 THEN 0 ELSE 1 END WHERE id = $1",
+        )
+        .bind(id)
+        .execute(&pool)
+        .await?;
         Ok(())
     }
 
@@ -122,17 +126,15 @@ impl GoodsRepo {
     ////////
 
     /// 7. 推荐列表
-    pub async fn find_recommend(
-        offset: i64,
-        limit: i64,
-    ) -> Result<Vec<GoodsEntity>, sqlx::Error> {
+    pub async fn find_recommend(offset: i64, limit: i64) -> Result<Vec<GoodsEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
             "SELECT {} FROM shop_goods WHERE isrecom = 1 ORDER BY sale_nums DESC LIMIT $1 OFFSET $2",
             Self::COLUMNS
         );
         sqlx::query_as::<_, GoodsEntity>(&query)
-            .bind(limit).bind(offset)
+            .bind(limit)
+            .bind(offset)
             .fetch_all(&pool)
             .await
     }
@@ -149,16 +151,24 @@ impl GoodsRepo {
     ) -> Result<Vec<GoodsEntity>, sqlx::Error> {
         let pool = pg_pool();
         let mut conditions = vec!["1=1".to_string()];
-        if let Some(v) = one_classid { conditions.push(format!("one_classid = {}", v)); }
-        if let Some(v) = two_classid { conditions.push(format!("two_classid = {}", v)); }
-        if let Some(v) = three_classid { conditions.push(format!("three_classid = {}", v)); }
+        if let Some(v) = one_classid {
+            conditions.push(format!("one_classid = {}", v));
+        }
+        if let Some(v) = two_classid {
+            conditions.push(format!("two_classid = {}", v));
+        }
+        if let Some(v) = three_classid {
+            conditions.push(format!("three_classid = {}", v));
+        }
         let where_clause = conditions.join(" AND ");
         let query = format!(
             "SELECT {} FROM shop_goods WHERE {} ORDER BY add_time DESC LIMIT $1 OFFSET $2",
-            Self::COLUMNS, where_clause
+            Self::COLUMNS,
+            where_clause
         );
         sqlx::query_as::<_, GoodsEntity>(&query)
-            .bind(limit).bind(offset)
+            .bind(limit)
+            .bind(offset)
             .fetch_all(&pool)
             .await
     }
@@ -181,10 +191,13 @@ impl GoodsRepo {
         let where_clause = conditions.join(" AND ");
         let query = format!(
             "SELECT {} FROM shop_goods WHERE {} ORDER BY add_time DESC LIMIT $2 OFFSET $3",
-            Self::COLUMNS, where_clause
+            Self::COLUMNS,
+            where_clause
         );
         sqlx::query_as::<_, GoodsEntity>(&query)
-            .bind(&keyword_like).bind(limit).bind(offset)
+            .bind(&keyword_like)
+            .bind(limit)
+            .bind(offset)
             .fetch_all(&pool)
             .await
     }

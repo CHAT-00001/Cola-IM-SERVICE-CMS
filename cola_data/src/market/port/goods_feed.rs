@@ -1,9 +1,12 @@
-// port/goods_feed.rs  -- 商品 FEED
+// market/port/goods_feed.rs
+// 市场 - port - 商品 - feed
 // 2026/6/18 14:37
 
-use crate::market::info::address::AddressInfo;
-use crate::market::info::goods::GoodsInfo;
+////////
+
 use rust_decimal::Decimal;
+use crate::market::info::goods::goods::GoodsInfo;
+
 ////////
 
 /// # [SERVICE PORT] - 商品 收藏

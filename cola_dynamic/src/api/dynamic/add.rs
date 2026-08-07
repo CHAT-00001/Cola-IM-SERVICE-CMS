@@ -1,4 +1,4 @@
-// cola_dynamic/src/api/add.rs  -- 动态 - api - 添加
+// cola_dynamic/src/api/active  -- 动态 - api - 添加
 // 2026/6/19 18:13
 
 ////////

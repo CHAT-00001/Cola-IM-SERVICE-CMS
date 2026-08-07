@@ -1,4 +1,4 @@
-// repo_adapter/src/gis/add.rs -- 适配器 - GIS - add
+// repo_adapter/src/gis/active -- 适配器 - GIS - add
 // 2026-07-07 07:10
 
 ////////

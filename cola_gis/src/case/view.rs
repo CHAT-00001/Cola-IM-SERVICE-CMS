@@ -1,4 +1,4 @@
-// cola_gis/src/case/view.rs  -- 可乐GIS - 用例层 - 浏览
+// cola_gis/src/case/get  -- 可乐GIS - 用例层 - 浏览
 // 2026-07-07
 
 //////

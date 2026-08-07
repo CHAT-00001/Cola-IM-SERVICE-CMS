@@ -1,0 +1,11 @@
+// cola_user/src/api/follow/mod.rs
+// core - USER - api - follow - mod
+// 2026/8/2 22:01 Created.
+
+////////
+
+pub mod active;
+pub mod add;
+pub mod check;
+pub mod get;
+pub mod mange;

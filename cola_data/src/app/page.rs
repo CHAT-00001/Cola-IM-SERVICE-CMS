@@ -1,5 +1,6 @@
-// cola_data/src/page  -- 数据 - page - 分页
-// 2026/5/21 02:28
+// cola_data/src/app/page.rs
+// 数据 - APP - 分页
+// 2026/5/21 02:28 Created.
 
 ////////
 
@@ -49,7 +50,5 @@ pub struct ListResponse<T> {
     pub total: Option<i64>,
     pub has_more: Option<bool>,
 }
-
-
 
 //////// END

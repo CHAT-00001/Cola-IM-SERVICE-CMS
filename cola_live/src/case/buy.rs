@@ -1,4 +1,4 @@
-// cola_live/src/case/buy.rs  -- LIVE - 用例层 - 购买
+// cola_live/src/case/add  -- LIVE - 用例层 - 购买
 // 2026/6/10 08:41
 
 ////////

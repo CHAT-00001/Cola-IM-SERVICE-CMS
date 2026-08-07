@@ -1,4 +1,4 @@
-// repository/src/video/pg/video/video.rs
+// repository/src/video/pg/video/info
 // 仓储 - VIDEO - pg - video - home
 // 2026/5/20 10:40
 
@@ -29,7 +29,7 @@ impl VideoRepo {
 
     ////////
 
-    /// # 1. [REPOSITORY] - 🎥 ☀️ 查找最新的列表
+    /// # 1. [REPOSITORY] - 🎥 最新
     pub async fn find_new_list(limit: i64, offset: i64) -> Result<Vec<VideoEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
@@ -54,53 +54,7 @@ impl VideoRepo {
 
     ////////
 
-    /// # 5. [REPOSITORY] - 🎥 👤 根据用户IDs查找对象
-    /// * 关注的人/朋友/某个用户 复用
-    pub async fn find_list_by_uids(
-        uids: Option<Vec<i64>>,
-        keyword: Option<String>,
-        limit: i64,
-        offset: i64,
-    ) -> Result<Vec<VideoEntity>, sqlx::Error> {
-        let pool = pg_pool();
-
-        // 1. 构建基础 SQL 和参数列表
-        let mut sql = format!(
-            "SELECT {} FROM cola_video.video WHERE status = 1",
-            VIDEO_COLUMNS
-        );
-
-        // 2. 动态拼接条件
-        if let Some(ref ids) = uids {
-            if !ids.is_empty() {
-                sql.push_str(" AND uid = ANY($1)");
-            }
-        }
-
-        if let Some(ref kw) = keyword {
-            if !kw.is_empty() {
-                sql.push_str(" AND (title ILIKE $2 OR description ILIKE $2)");
-            }
-        }
-
-        sql.push_str(" ORDER BY addtime DESC LIMIT $3 OFFSET $4");
-
-        // 3. 执行查询
-        let mut query = sqlx::query_as::<_, VideoEntity>(&sql);
-
-        // 4. 按顺序绑定 (注意：SQL 中 $1-$4 必须对应好)
-        // 这里使用 bind 链式调用，这是最简单的方法
-        query = query.bind(uids.unwrap_or_default());
-        query = query.bind(format!("%{}%", keyword.unwrap_or_default()));
-        query = query.bind(limit);
-        query = query.bind(offset);
-
-        query.fetch_all(&pool).await
-    }
-
-    ////////
-
-    /// # 2. [REPOSITORY] - 🎥 🔥 热门
+    /// # 2. [REPOSITORY] - 🎥 热门
     pub async fn find_hot_list(limit: i64, offset: i64) -> Result<Vec<VideoEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
@@ -117,7 +71,7 @@ impl VideoRepo {
 
     ////////
 
-    /// # 3. [REPOSITORY] - 🎥 ⚙️ 随机推荐列表
+    /// # 3. [REPOSITORY] - 🎥 随机
     /// * (使用 PostgreSQL 数据库内置随机引擎)
     pub async fn find_recommend_list(
         limit: i64,
@@ -365,7 +319,7 @@ impl VideoRepo {
 
     ////////
 
-    /// # 8. [REPOSITORY] - 🎥 👤 查找某个用户发布的视频列表
+    /// # 13. [REPOSITORY] - 🎥 👤 查找某个用户发布的视频列表
     pub async fn find_new_list_by_user_id(
         user_id: i64,
         offset: i64,
@@ -385,6 +339,99 @@ impl VideoRepo {
             .bind(limit)
             .fetch_all(&pool) // 使用 fetch_all 获取多条记录
             .await
+    }
+
+    ////////
+
+    /// # [REPOSITORY] - 👤 根据用户ID和关键词分页查找视频列表
+    pub async fn find_list_by_uid(
+        uid: Option<i64>,
+        keyword: Option<String>,
+        limit: i64,
+        offset: i64,
+    ) -> Result<Vec<VideoEntity>, sqlx::Error> {
+        let pool = pg_pool();
+
+        // 使用 QueryBuilder 优雅且安全地拼接动态 SQL
+        let mut query_builder: sqlx::QueryBuilder<Postgres> = sqlx::QueryBuilder::new(format!(
+            "SELECT {} FROM cola_video.video WHERE status = 1",
+            VIDEO_COLUMNS
+        ));
+
+        // 1. 动态拼接 uid 条件
+        if let Some(user_id) = uid {
+            query_builder.push(" AND uid = ");
+            query_builder.push_bind(user_id);
+        }
+
+        // 2. 动态拼接 keyword 条件
+        if let Some(ref kw) = keyword {
+            if !kw.is_empty() {
+                query_builder.push(" AND (title ILIKE ");
+                query_builder.push_bind(format!("%{}%", kw));
+                query_builder.push(" OR description ILIKE ");
+                query_builder.push_bind(format!("%{}%", kw));
+                query_builder.push(")");
+            }
+        }
+
+        // 3. 拼接排序与分页
+        query_builder.push(" ORDER BY addtime DESC LIMIT ");
+        query_builder.push_bind(limit);
+        query_builder.push(" OFFSET ");
+        query_builder.push_bind(offset);
+
+        // 4. 构建并执行
+        query_builder
+            .build_query_as::<VideoEntity>()
+            .fetch_all(&pool)
+            .await
+    }
+
+    ////////
+
+    /// # 15. [REPOSITORY] - 🎥 👤 根据用户IDs查找对象
+    /// * 关注的人/朋友/某个用户 复用
+    pub async fn find_list_by_uids(
+        uids: Option<Vec<i64>>,
+        keyword: Option<String>,
+        limit: i64,
+        offset: i64,
+    ) -> Result<Vec<VideoEntity>, sqlx::Error> {
+        let pool = pg_pool();
+
+        // 1. 构建基础 SQL 和参数列表
+        let mut sql = format!(
+            "SELECT {} FROM cola_video.video WHERE status = 1",
+            VIDEO_COLUMNS
+        );
+
+        // 2. 动态拼接条件
+        if let Some(ref ids) = uids {
+            if !ids.is_empty() {
+                sql.push_str(" AND uid = ANY($1)");
+            }
+        }
+
+        if let Some(ref kw) = keyword {
+            if !kw.is_empty() {
+                sql.push_str(" AND (title ILIKE $2 OR description ILIKE $2)");
+            }
+        }
+
+        sql.push_str(" ORDER BY addtime DESC LIMIT $3 OFFSET $4");
+
+        // 3. 执行查询
+        let mut query = sqlx::query_as::<_, VideoEntity>(&sql);
+
+        // 4. 按顺序绑定 (注意：SQL 中 $1-$4 必须对应好)
+        // 这里使用 bind 链式调用，这是最简单的方法
+        query = query.bind(uids.unwrap_or_default());
+        query = query.bind(format!("%{}%", keyword.unwrap_or_default()));
+        query = query.bind(limit);
+        query = query.bind(offset);
+
+        query.fetch_all(&pool).await
     }
 }
 

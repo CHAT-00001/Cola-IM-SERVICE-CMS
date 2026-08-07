@@ -1,4 +1,4 @@
-﻿// repository/src/gis/service/permission_check.rs -- 鏈嶅姟灞?- GIS 鏉冮檺妫€鏌?
+﻿// repository/src/gis/service/check -- 鏈嶅姟灞?- GIS 鏉冮檺妫€鏌?
 // 2026/7/6
 
 use anyhow::Result;

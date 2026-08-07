@@ -1,4 +1,4 @@
-﻿// repository/src/gis/service/view.rs  -- 鏈嶅姟灞?- GIS 娴忚
+﻿// repository/src/gis/service/get  -- 鏈嶅姟灞?- GIS 娴忚
 // 2026/7/6
 
 use crate::gis::pg::poi::PoiRepo;

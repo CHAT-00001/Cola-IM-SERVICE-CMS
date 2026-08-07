@@ -1,26 +1,22 @@
-// cola_data/src/music/vo/music_vo.rs  -- 数据中心 - MUSIC - vo - 音乐视图
+// cola_data/src/music/vo/music_vo.rs
+// 数据中心 - MUSIC - vo - 音乐视图
 // 2026/7/7 13:01
 
 ////////
 
-use serde::Serialize;
 use crate::app::page::PageInfo;
 use crate::music::info::music::MusicInfo;
 use crate::user::info::user::UserInfo;
+use serde::Serialize;
 
 ////////
 
 /// # [VO] - 音乐视图模型
 #[derive(Debug, Serialize, Clone)]
 pub struct MusicVo {
-    // 🌟 直接扁平化展开（Flatten），前端甚至感觉不到结构体拆分了！
     #[serde(flatten)]
     pub music: MusicInfo,
-
-    // 动态组装的关联数据
     pub user_info: UserInfo,
-
-    // 针对当前登录用户的动态交互显示
     pub is_visited: bool,
     pub is_like: bool,
     pub is_collect: bool,
@@ -47,6 +43,11 @@ impl MusicVo {
 }
 
 impl Default for MusicVo {
+    //
+
+    ////////
+
+    /// # [BUILD] - 默认
     fn default() -> Self {
         Self {
             music: MusicInfo::empty(),

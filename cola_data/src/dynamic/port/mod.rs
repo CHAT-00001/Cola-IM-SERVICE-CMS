@@ -1,47 +1,56 @@
-// cola_cola_data/src/new/port/mod.rs  -- 数据中心 - AUTH - port
-// 2026-06-10 06:40
+// dynamic/port/mod.rs
+// 动态 - port - 模块
+// 2026/6/10 06:40 Created.
 
 ////////
 
-use crate::video::port::add::AddPort;
-use crate::video::port::collect::CollectRepo;
-use crate::video::port::comment::CommentRepo;
-use crate::video::port::danmaku::DanmakuRepo;
-use crate::video::port::feed::FeedRepo;
-use crate::video::port::hot::HotlistRepo;
-use crate::video::port::like::LikeRepo;
-use crate::video::port::report::ReportRepo;
-use crate::video::port::share::ShareRepo;
-use crate::video::port::view::ViewPort;
+use crate::dynamic::port::buy::DynamicBuyPort;
+use crate::dynamic::port::collect::CollectPort;
+use crate::dynamic::port::comment::{DynamicCommentPort};
+use crate::dynamic::port::danmaku::DanmakuPort;
+use crate::dynamic::port::dislike::DislikePort;
+use crate::dynamic::port::dynamic::DynamicPort;
+use crate::dynamic::port::hotlist::HotlistPort;
+use crate::dynamic::port::like::DynamicLikePort;
+use crate::dynamic::port::recommend::RecommendPort;
+use crate::dynamic::port::report::ReportPort;
+use crate::dynamic::port::share::{DynamicSharePort};
+use crate::dynamic::port::view::ViewPort;
 use std::sync::Arc;
-use crate::video::port::buy::BuyRepo;
 
 ////////
-pub mod add;
-pub mod buy;
-pub mod collect;
-pub mod comment;
-pub mod danmaku;
-pub mod feed;
-pub mod hot;
-pub mod like;
-pub mod report;
-pub mod share;
-pub mod view;
+mod ban;
+mod buy;
+mod collect;
+mod comment;
+mod danmaku;
+mod dislike;
+mod dynamic;
+mod hotlist;
+mod like;
+mod recommend;
+mod report;
+mod share;
+mod view;
+
 ////////
 
-/// # [S] - 短视频 ServicePort
+/// # [COLA DYNAMIC PORT] - 动态
+/// * `desc`: `可乐动态 Cola Dynamic Service Port`
 #[derive(Clone)]
-pub struct ColaVideoPort {
-    pub add: Arc<dyn AddPort + Send + Sync + 'static>,
-    pub buy: Arc<dyn BuyRepo + Send + Sync + 'static>,
-    pub feed: Arc<dyn FeedRepo + Send + Sync + 'static>,
-    pub hotlist: Arc<dyn HotlistRepo + Send + Sync + 'static>,
-    pub collect: Arc<dyn CollectRepo + Send + Sync + 'static>,
-    pub comment: Arc<dyn CommentRepo + Send + Sync + 'static>,
-    pub danmaku: Arc<dyn DanmakuRepo + Send + Sync + 'static>,
-    pub share: Arc<dyn ShareRepo + Send + Sync + 'static>,
-    pub like: Arc<dyn LikeRepo + Send + Sync + 'static>,
-    pub report: Arc<dyn ReportRepo + Send + Sync + 'static>,
-    pub view: Arc<dyn ViewPort + Send + Sync + 'static>,
+pub struct ColaDynamicPort {
+    pub add: DynamicPort,            // 动态端口
+    pub buy: DynamicBuyPort,         // 购买端口
+    pub collect: CollectPort,        // 收藏端口
+    pub comment: DynamicCommentPort, // 评论端口
+    pub danmaku: DanmakuPort,        // 弹幕端口
+    pub dislike: DislikePort,        // 不喜欢端口
+    pub hotlist: HotlistPort,        // 上热门
+    pub like: DynamicLikePort,       // 点赞端口
+    pub recommend: RecommendPort,    // 推荐端口
+    pub report: ReportPort,          // 举报端口
+    pub share: DynamicSharePort,     // 分享端口
+    pub view: ViewPort,              // 浏览端口
 }
+
+//////// END

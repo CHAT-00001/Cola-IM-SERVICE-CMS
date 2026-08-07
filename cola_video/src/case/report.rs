@@ -3,6 +3,8 @@
 
 ////////
 
+mod get;
+
 use crate::assembler::video::build_video_list_response;
 use crate::model::vo::video::{VideoListResponse, VideoSingleResponse};
 use anyhow::{Context, Result};

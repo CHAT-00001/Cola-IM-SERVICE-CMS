@@ -1,9 +1,10 @@
-// cola_data/src/music/port/add.rs  -- 数据中心 - MUSIC - port - 添加
+// music/port/add.rs
+// 音乐 - port - 添加
 // 2026/6/10 06:35
 
 ////////
 
-use crate::music::command::music::MusicCommand;
+use crate::music::command::music::new::MusicCommand;
 
 ////////
 
@@ -34,3 +35,5 @@ pub trait AddPort: Send + Sync {
         time_range: i64,
     ) -> anyhow::Result<()>;
 }
+
+//////// END

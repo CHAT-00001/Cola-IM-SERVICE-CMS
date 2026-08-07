@@ -1,6 +1,13 @@
-// cola_data/src/music/handler/mod.rs  -- 数据 - MUSIC - Entity - mod
-// 2026/5/22 13:27 by wx: cestbon10080
-// * --------
-// * --------
+// cola_data/src/music/entity/mod.rs
+// 数据中心 - MUSIC - entity - mod
+// 2026/5/22 13:27 Created.
 
-pub mod music;
+////////
+
+pub mod album; // 💿 专辑
+pub mod classify; // 🚗 类别
+pub mod favorites; // 😍 喜欢的
+pub mod music; // 🎶 音乐
+pub mod playlist;
+mod collect;
+// ▶ 播放列表

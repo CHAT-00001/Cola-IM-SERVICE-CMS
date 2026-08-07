@@ -1,4 +1,4 @@
-// cola_live/src/case/collect.rs  -- LIVE - 用例层 - 收藏
+// cola_live/src/case/count  -- LIVE - 用例层 - 收藏
 // 2026/6/10 07:00
 
 ////////

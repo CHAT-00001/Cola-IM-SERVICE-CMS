@@ -1,4 +1,5 @@
-// cola_data/src/user/info/user.rs  -- 可乐数据中心 - USER - info - 用户信息
+// cola_data/src/user/info/user.rs  --
+// 可乐数据中心 - 用户 - info - 用户信息
 // 2026/06/05 02:10
 
 ////////
@@ -9,7 +10,7 @@ use crate::user::entity::user::UserEntity;
 
 ////////
 
-/// # [INFO] - 用户元信息 结构体
+/// # [INFO] - 用户信息
 /// * `desc` 用户资料(可缓存)
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UserInfo {

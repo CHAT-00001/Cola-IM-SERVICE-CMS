@@ -1,4 +1,4 @@
-﻿// repository/src/gis/pg/collect.rs  -- 仓储 - GIS - pg - 兴趣点 收藏记录
+﻿// repository/src/gis/pg/count  -- 仓储 - GIS - pg - 兴趣点 收藏记录
 // 2026/7/6 14:19
 
 ////////

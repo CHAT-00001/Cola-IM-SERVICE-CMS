@@ -8,7 +8,7 @@ pub async fn start_health(health_config: &Health, app_state: AppState) {
     HttpServer::new(move || {
         App::new()
             // 自定义 Logger: URL 使用 OSC 8 超链接（颜色 #0033ff + 下划线），终端可点击
-            .wrap(Logger::new("%a \"%m \x1b]8;uri=router_v2://%{Host}i%U%q\x1b\\\x1b[38;2;0;51;255m\x1b[4m%U%q\x1b[0m\x1b]8;;\x1b\\ %H\" %s %b \"%{Referer}i\" \"%{User-Agent}i\" %T"))
+            .wrap(Logger::new("%a \"%m \x1b]8;uri=router_v2://%{Host}i%U%q\x1b\\\x1b[38;2;0;51;255m\x1b[4m%U%q\x1b[0m\x1b]8;;\x1b\\ %H\" %share %b \"%{Referer}i\" \"%{User-Agent}i\" %T"))
             .app_data(web::Data::new(app_state.clone()))
             .route("/ping", web::get().to(ping))
             // 2级路由器

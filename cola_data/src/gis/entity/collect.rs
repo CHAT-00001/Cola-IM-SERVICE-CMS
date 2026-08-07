@@ -1,4 +1,4 @@
-﻿// cola_data/src/gis/entity/collect.rs  -- 数据中心 - GIS - entity - 收藏
+﻿// cola_data/src/gis/entity/count  -- 数据中心 - GIS - entity - 收藏
 // 2026/5/20 19:05 by wx: cestbon10080
 
 ////////

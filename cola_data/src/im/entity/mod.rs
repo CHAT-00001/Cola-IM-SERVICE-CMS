@@ -1,19 +1,14 @@
-pub mod add;
-pub mod card; // 用户名片
-pub mod card_count; // 名片统计
-pub mod card_report; // 名片举报
-pub mod category;
-pub mod contact; // 联系人
-pub mod interact;
-pub mod message; // 消息体
-pub mod message_media; // 消息媒体
-pub mod message_type; // 消息类型
-pub mod share;
-pub mod user;
-pub mod video;
-pub mod video_user_count;
-pub mod video_user_perm;
-pub mod video_user_profile;
-pub mod message_fs;
-pub mod contact_request;
-pub mod contact_relation;
+// cola_data/src/im/entity/mod.rs
+// 数据中心 - IM - entity - mod
+// 2026/6/7 11:10
+
+////////
+
+pub mod chats; // 💬 聊天会话
+pub mod contacts; // 👬 联系人
+pub mod expression; // 😊 表情
+pub mod favorites; // 🛒 喜欢的
+pub mod gift; // 🎁 礼物
+pub mod message; // ✉️ 消息
+pub mod notice; // 🔔 通知
+pub mod profile; // 👤 用户

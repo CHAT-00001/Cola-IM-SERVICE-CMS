@@ -1,5 +1,8 @@
-// repo_adapter/src/new/mod.rs
+// repo_adapter/src/gis/mod.rs
+// 🔌 插头 - 可乐视频 - 模块
 // 2026-06-12
+
+////////
 
 pub mod add;
 pub mod buy;

@@ -1,4 +1,4 @@
-// cola_gis/src/api/buy.rs  -- 可乐GIS - 接口层 - 购买
+// cola_gis/src/api/add  -- 可乐GIS - 接口层 - 购买
 // 2026-07-07
 
 //////

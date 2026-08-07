@@ -1,4 +1,4 @@
-// cola_data/src/new/dynamic/collect.rs  -- VIDEO - Command - 收藏命令
+// cola_data/src/new/dynamic/count  -- VIDEO - Command - 收藏命令
 // 2026/5/22 20:45 by wx: cestbon10080
 // * --------
 // * --------

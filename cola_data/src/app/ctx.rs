@@ -1,4 +1,5 @@
-// cola_data/src/app/ctx.rs  -- 数据 - APP - 全局应用上下文
+// cola_data/src/app/ctx.rs
+// 数据中心 - APP - 全局应用上下文
 // 2026/4/23 07:03
 
 ////////
@@ -8,7 +9,7 @@ use crate::gis::port::ColaGisPort;
 use crate::im::port::ColaImPort;
 use crate::live::port::ColaLivePort;
 use crate::market::port::ColaMarketPort;
-use crate::music::port::MusicServicePorts;
+use crate::music::port::ColaMusicPort;
 use crate::three::port::ColaThreePort;
 use crate::user::port::ColaUserPort;
 use crate::video::port::ColaVideoPort;
@@ -16,20 +17,21 @@ use crate::video::port::ColaVideoPort;
 ////////
 
 /// # [CONTEXT] - 应用上下文
-/// * `描述` - 全局注入
+/// * `desc`: `全局注入`
 #[derive(Clone)]
 pub struct AppContext {
     //pub api: AppServicePorts,
-    pub auth: AuthServicePorts,
-    // pub dynamic: DynamicServicePorts,
-    pub gis: ColaGisPort,
-    pub live: ColaLivePort,
-    pub market: ColaMarketPort,
-    pub music: MusicServicePorts,
-    pub three: ColaThreePort,
-    pub user: ColaUserPort,
-    pub video: ColaVideoPort,
-    pub im: ColaImPort,
+    pub auth: AuthServicePorts, // IAM验证中心
+    // pub dynamic: ColaDynamicPort,  // 动态
+    // pub fs: ColaFsPort,  // 文件存储
+    pub gis: ColaGisPort,       // GIS
+    pub live: ColaLivePort,     // 直播
+    pub market: ColaMarketPort, // 市场
+    pub music: ColaMusicPort,   // 音乐
+    pub three: ColaThreePort,   // 三方
+    pub user: ColaUserPort,     // 用户
+    pub video: ColaVideoPort,   // 视频
+    pub im: ColaImPort,         // 即时通讯
 }
 
 impl AppContext {
@@ -38,7 +40,7 @@ impl AppContext {
         gis: ColaGisPort,
         live: ColaLivePort,
         market: ColaMarketPort,
-        music: MusicServicePorts,
+        music: ColaMusicPort,
         three: ColaThreePort,
         user: ColaUserPort,
         video: ColaVideoPort,

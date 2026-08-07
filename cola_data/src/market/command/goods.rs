@@ -3,8 +3,11 @@
 
 ////////
 
+mod add;
+
 use chrono::{TimeZone, Utc};
 use serde::{Deserialize, Serialize};
+use crate::market::entity::goods::goods::GoodsEntity;
 
 ////////
 
@@ -51,8 +54,8 @@ impl Default for GoodsCommand {
 impl GoodsCommand {
     /// # 映射到数据库实体
     /// 这里会自动填补所有必要的默认值，防止数据库写入失败
-    pub fn to_entity(&self, admin_id: i64) -> crate::market::entity::goods::GoodsEntity {
-        let mut entity = crate::market::entity::goods::GoodsEntity::default();
+    pub fn to_entity(&self, admin_id: i64) -> GoodsEntity {
+        let mut entity = GoodsEntity::default();
 
         // 核心业务字段
         entity.name = self.name.clone();

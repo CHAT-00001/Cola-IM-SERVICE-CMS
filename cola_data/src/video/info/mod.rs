@@ -1,7 +1,10 @@
-// cola_data/src/new/info/mod.rs  -- 数据 - new - 信息 - mod
-// 2026/5/22 13:27
+// video/info/mod.rs
+// 视频 - info - 模块
+// 2026/8/4 20:59 Created.
 
 ////////
-pub mod video;
-pub mod comment;
-pub mod danmaku;
+
+pub mod comment; // 评论信息
+pub mod danmaku; // 弹幕信息
+pub mod video; // 视频信息
+pub mod view; // 浏览信息

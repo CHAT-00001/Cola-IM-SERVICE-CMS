@@ -1,4 +1,4 @@
-// cola_music/src/case/add.rs  -- MUSIC - 用例层 - 发布
+// cola_music/src/case/active  -- MUSIC - 用例层 - 发布
 // 2026-07-08 14:20
 
 ////////

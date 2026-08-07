@@ -1,10 +1,13 @@
-// dynamic/mod.rs  -- MARKET - 命令 - 店铺申请
-// 2026/6/18 12:23
+// market/command/mod.rs
+// 市场 - command - 模块
+// 2026/8/3 23:38 Created.
 
 ////////
 
-pub mod address;
-pub mod express;
-pub mod goods;
-pub mod order;
-pub mod shop_apply;
+pub mod address; // 地址
+pub mod express; // 📦 物流快递
+pub mod goods; // ⬆️ 商品
+pub mod mall; // 商场
+pub mod order; // 订单
+pub mod shop; // 商店
+pub mod showroom; // 展厅

@@ -1,5 +1,6 @@
-// cola_data/src/user/handler/profile  -- 数据 - USER - Entity - 用户表
-// 2026/3/30 05:33 by wx: cestbon10080
+// cola_data/src/video/entity/user/permission.rs
+// 数据 - VIDEO - entity - user - 权限表
+// 2026/3/30 05:33
 
 ////////
 
@@ -52,3 +53,6 @@ pub struct VideoUserPermEntity {
     pub create_time: Option<i32>, // 创建时间戳（UTC）
     pub update_time: Option<i32>, // 修改时间 （UTC）
 }
+
+
+//////// END

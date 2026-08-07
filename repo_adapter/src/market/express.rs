@@ -8,7 +8,6 @@ use cola_data::market::info::address::AddressInfo;
 use cola_data::market::port::express::ExpressPort;
 use cola_data::market::command::goods::GoodsCommand;
 use repository::market::pg::express::ExpressRepo;
-use cola_data::market::info::express::ExpressInfo;
 
 ////////
 

@@ -1,18 +1,18 @@
-// repository/src/market/pg/express.rs  -- 仓储层 - 快递 PG
+// repository/src/market/pg/express.rs
+// 仓储 - 市场 - pg - 快递
 // 2026/6/18
 
-//////
+////////
 
-use cola_data::market::entity::express::ExpressEntity;
 use crate::pg_pool;
+use cola_data::market::entity::express::express::ExpressEntity;
 
-//////
+////////
 
 /// # [EXPRESS REPO] - 快递公司 仓储
 pub struct ExpressRepo;
 
 impl ExpressRepo {
-
     const COLUMNS: &'static str = r#"
         id, express_name, name_en, express_phone, express_thumb,
         express_status, express_code, sort, add_time, upd_time, create_at, update_at, list_order
@@ -43,3 +43,5 @@ impl ExpressRepo {
             .await
     }
 }
+
+//////// END

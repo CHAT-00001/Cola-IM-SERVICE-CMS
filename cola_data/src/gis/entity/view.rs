@@ -1,4 +1,4 @@
-// cola_data/src/gis/entity/view.rs  -- 数据中心 - GIS - entity - 浏览记录
+// cola_data/src/gis/entity/get  -- 数据中心 - GIS - entity - 浏览记录
 // 2026/3/28 05:56
 
 ////////

@@ -15,14 +15,16 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 #[serde(default)]
 pub struct VideoNewCommand {
+    pub _id: Option<String>,          // UUID (客户端生成)
+    pub _sn: Option<i64>,             // 雪花ID
     pub uid: i64,                     // 用户 ID（服务端注入）
-    pub uuid: Option<String>,         // UUID (客户端生成)
     pub title: String,                // 视频标题
     pub title_at: Vec<i64>,           // 标题 - 艾特的用户 IDs
-    pub original_url: Option<String>, // 视频原始地址
     pub cover_url: String,            // 封面图地址
     pub thumb: String,                // 缩略图
     pub thumb_w: String,              // 缩略图 w
+    pub original_url: Option<String>, // 视频原始地址
+    pub is_4k: i16,                   // 是否4k
     pub href: String,                 // 视频地址
     pub description: Option<String>,  // 可选的描述
     pub desc_at: Vec<i64>,            // 描述 - 艾特的用户 IDs
@@ -30,12 +32,15 @@ pub struct VideoNewCommand {
     pub music_id: Option<i64>,        // 音乐ID
     pub label_id: Option<i64>,        // 标签 ID
     pub tags: Vec<String>,            // 标签列表
-    pub views: i64,                   // 浏览数量
-    pub likes: i64,                   // 点赞数量
-    pub comments: i64,                // 评论数量
-    pub danmakus: i64,                // 弹幕数量
-    pub collects: i64,                // 收藏数量
-    pub shares: i64,                  // 分享数量
+    pub views: i32,                   // 浏览数量
+    pub done_views: i32,              // 完播数量
+    pub likes: i32,                   // 点赞数量
+    pub dislikes: i32,                // 不喜欢数量
+    pub comments: i32,                // 评论数量
+    pub danmakus: i32,                // 弹幕数量
+    pub steps: i32,                   // 弹幕数量
+    pub collects: i32,                // 收藏数量
+    pub shares: i32,                  // 分享数量
     pub width: Option<i16>,           // 视频宽
     pub height: Option<i16>,          // 视频高
     pub fps: Option<i16>,             // 帧数
@@ -56,8 +61,8 @@ impl VideoNewCommand {
     ////////
 
     /// # [BUILD] - 构建新视频对象
-    /// 同时注入通过安全校验的真实真实操作者 uid，以及由底层生成的唯一自增 video_id
-    pub fn into_entity(self, real_uid: i64, real_video_id: i64) -> VideoEntity {
+    /// 同时注入通过安全校验的真实操作者 uid，以及由底层生成的唯一雪花 ID (`real_sn`)
+    pub fn into_entity(self, real_uid: i64, real_sn: i64) -> VideoEntity {
         // ⏰️ 获取当前的系统秒级时间戳
         let now_ts = std::time::SystemTime::now()
             .duration_since(std::time::UNIX_EPOCH)
@@ -69,19 +74,25 @@ impl VideoNewCommand {
         let get_perm = |client_perm: i16| -> i16 { if client_perm > 0 { client_perm } else { 5 } };
 
         VideoEntity {
-            id: real_video_id, // 动态注入
-            uid: real_uid,     // 动态注入
-            music_id: self.music_id,
-            title: self.title,
-            description: self.description,
-            thumbnail: Some(self.cover_url),
-            href: self.href, // 经典视频流播放地址
+            // 💡 id 由数据库自增接管，不在此处显式指定（或利用 ..Default::default() 留空由 DB 生成）
+            _sn: Some(real_sn),              // 👈 注入雪花ID到 _sn 字段
+            uid: real_uid,                   // 动态注入
+            music_id: self.music_id,         // 音乐ID
+            title: self.title,               // 标题
+            description: self.description,   // 描述
+            thumbnail: Some(self.cover_url), // 缩略图(新)
+            thumb: self.thumb,               // 缩略图(旧)
+            href: self.href,                 // 视频链接(旧)
+            is_4k: 0,
 
             // 📊 计数控制初始化：浏览量默认为 1，其余核心计数规整为 0
             views: 1,
+            done_views: Some(0),
             likes: 0,
+            dislike: 0,
             comments: 0,
             danmakus: 0,
+            steps: 0,
             collects: 0,
             shares: 0,
             recommends: 0,
@@ -89,16 +100,16 @@ impl VideoNewCommand {
             // 📐 基础流媒体元数据
             width: self.width,
             height: self.height,
-            bit: None, // 码率由转码服务后续生成
+            bit: None,
 
-            // 🕒 经典秒级 add_time，兼容老 PHP 系统的历史印记
+            // 🕒 经典秒级 add_time
             addtime: now_ts,
 
             // 📍 坐标信息：以客户端传入为准
             lat: self.lat,
             lng: self.lng,
 
-            // 🔐 权限策略：优先以客户端传入为准，若无传入则兜底给默认权限值 5
+            // 🔐 权限策略
             visibility_perm: get_perm(self.visibility_perm),
             comment_perm: get_perm(self.comment_perm),
             danmaku_perm: get_perm(self.danmaku_perm),

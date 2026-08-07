@@ -3,6 +3,12 @@
 
 ////////
 
+mod add;
+mod get;
+mod manage;
+mod de;
+mod state;
+
 use crate::case::report::ReportCase;
 use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
@@ -14,11 +20,12 @@ use cola_data::video::command::report::VideoReportCommand;
 
 ////////
 
-/// # [API HANDLER] - 举报 接口
-pub struct ReportApi;
+/// # [API HANDLER] - 举报
+/// * `desc`: `视频举报接口`
+pub struct VideoReportApi;
 
 // 构造函数
-impl ReportApi {
+impl VideoReportApi {
     //
 
     ////////

@@ -3,6 +3,8 @@
 
 ////////
 
+mod address;
+
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
@@ -25,12 +27,13 @@ pub struct AddressEntity {
     pub area_code: String,                 // 地区号
     pub phone: String,                     // 电话号码
     pub is_default: i16,                   // 是否默认
-    pub add_time: i32,                     // 添加时间（机器）
-    pub upd_time: i32,                     // 更新时间（机器）
-    pub create_at: Option<DateTime<Utc>>,  // 创建时间（人类）
-    pub update_at: Option<DateTime<Utc>>,  // 更新时间（人类）
-    pub id_del: i16,                       // 是否删除(默认0.否)
-    pub deleted_at: Option<DateTime<Utc>>, // 删除时间
+    pub id_del: i16,                       // 是否删除(兼容旧版PHP, 默认0.否)
+    pub id_deleted: Option<bool>,          // 是否删除: (默认false, 否)
+    pub add_time: i32,                     // 添加时间（兼容旧版PHP）
+    pub upd_time: i32,                     // 更新时间（兼容旧版PHP）
+    pub create_at: Option<DateTime<Utc>>,  // 创建时间
+    pub update_at: Option<DateTime<Utc>>,  // 更新时间
+    pub deleted_at: Option<DateTime<Utc>>, // 删除时间(软删除)
 }
 
 ////////

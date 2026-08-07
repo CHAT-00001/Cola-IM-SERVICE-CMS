@@ -1,4 +1,4 @@
-// repository/src/user/pg/home_repo.rs  -- 仓储中心 用户 HOME repository
+// repository/src/user/pg/home  -- 仓储中心 用户 HOME repository
 // 2026/6/25 22:21
 
 ////////

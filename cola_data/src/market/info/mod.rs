@@ -1,4 +1,5 @@
-// /mod.rs  --
+// market/info/mod.rs
+// 市场 - info - 模块
 // 2026/6/18 12:15
 
 ////////
@@ -6,5 +7,6 @@
 pub mod address; // 地址簿
 pub mod express; // 快递
 pub mod goods; // 商品
-pub mod shop_apply; // 商店申请
-pub mod shop_bond; // 商店保证金
+pub mod mall; // 商场
+pub mod shop; // 商店
+pub mod showroom; // 展厅

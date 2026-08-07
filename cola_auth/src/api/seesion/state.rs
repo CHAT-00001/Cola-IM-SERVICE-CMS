@@ -1,4 +1,4 @@
-// cola_auth/src/api/session/state.rs
+// cola_auth/src/api/session/ban
 // core - AUTH - api - session - 状态
 // 2026/04/13 10:15
 

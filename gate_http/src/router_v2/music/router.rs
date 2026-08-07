@@ -44,8 +44,8 @@ pub struct VideoQuery {
 pub struct Messages(HashMap<String, HashMap<String, String>>);
 
 // static MESSAGES: Lazy<Messages> = Lazy::new(|| {
-//     let s = include_str!("messages.toml");
-//     toml::from_str(s).expect("Failed to parse messages.toml")
+//     let share = include_str!("messages.toml");
+//     toml::from_str(share).expect("Failed to parse messages.toml")
 // });
 
 // pub fn get_message(key: &str, lang: &str) -> String {

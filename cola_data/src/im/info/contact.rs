@@ -3,7 +3,7 @@
 
 //////
 
-use crate::im::entity::contact::ContactEntity;
+use crate::im::entity::contacts::contact::ImContactEntity as ContactEntity;
 use serde::{Deserialize, Serialize};
 
 //////

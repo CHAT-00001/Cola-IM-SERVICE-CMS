@@ -1,29 +1,36 @@
-// cola_cola_data/src/new/port/mod.rs  -- 数据中心 - AUTH - port
+// music/port/mod.rs
+// 音乐 - port - 模块
 // 2026-06-10 06:40
 
 ////////
 
+use crate::gis::port::add::AddPort;
+use crate::gis::port::like::LikeRepo;
+use crate::gis::port::view::ViewPort;
 use std::sync::Arc;
-use crate::video::port::add::AddPort;
-use crate::video::port::like::LikeRepo;
-use crate::video::port::view::ViewPort;
 
 ////////
 pub mod add;
+pub mod collect;
+pub mod favorites;
+pub mod feed;
+pub mod home;
 pub mod like;
+pub mod playlist;
 pub mod view;
-mod feed;
-mod home;
-mod collect;
+
 ////////
 
-/// # [SERVICE PORT] - 音乐服务端口
+/// # [COLA MUSIC PORT] - 音乐
+/// * `desc`: `可乐音乐 Cola Music Service Ports`
 #[derive(Clone)]
-pub struct MusicServicePorts {
+pub struct ColaMusicPort {
     pub add: Arc<dyn AddPort + Send + Sync + 'static>,
-   // pub feed: Arc<dyn FeedPort>,
-   // pub collect: Arc<dyn CollectPort>,
-   // pub state: Arc<dyn StatePort>,
+    // pub favorites: Arc<dyn FavoritesPort>,
+    // pub collect: Arc<dyn CollectPort>,
+    // pub playlist: Arc<dyn PlaylistPort>,
     pub like: Arc<dyn LikeRepo + Send + Sync + 'static>,
     pub view: Arc<dyn ViewPort + Send + Sync + 'static>,
 }
+
+//////// END

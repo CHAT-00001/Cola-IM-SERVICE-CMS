@@ -4,14 +4,16 @@
 
 ////////
 
+mod add;
+mod get;
+
 use crate::api::view;
 use crate::assembler::video::build_video_single_response;
-use crate::model::vo::video::VideoSingleResponse;
 use anyhow::{Result, anyhow};
 use cola_data::app::ctx::AppContext;
+use cola_data::app::query::ApiGatewayRequest;
 use cola_data::video::info::video::VideoInfo;
 use std::sync::Arc;
-use cola_data::app::query::ApiGatewayRequest;
 
 ////////
 
@@ -27,8 +29,8 @@ impl ViewCase {
     pub async fn case_add_video_view(
         uid: i64,
         url: ApiGatewayRequest,
-        ctx: &AppContext) -> Result<()> {
-
+        ctx: &AppContext,
+    ) -> Result<()> {
         // Call Service Port
         ctx.video
             .view
@@ -47,7 +49,6 @@ impl ViewCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> Result<VideoSingleResponse> {
-
         // Call Service Port
         let info: VideoInfo = ctx
             .video

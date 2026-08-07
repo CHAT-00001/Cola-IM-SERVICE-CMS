@@ -38,9 +38,9 @@ pub async fn start_api(api_config: &Api, app_state: AppState) {
         App::new()
 
             // Logger:
-            //.wrap(Logger::new("%a \"%m \x1b]8;uri=router_v2://%{Host}i%U%q\x1b\\\x1b[38;2;0;51;255m\x1b[4m%U%q\x1b[0m\x1b]8;;\x1b\\ %H\" %s %b \"%{Referer}i\" \"%{User-Agent}i\" %T"))
+            //.wrap(Logger::new("%a \"%m \x1b]8;uri=router_v2://%{Host}i%U%q\x1b\\\x1b[38;2;0;51;255m\x1b[4m%U%q\x1b[0m\x1b]8;;\x1b\\ %H\" %share %b \"%{Referer}i\" \"%{User-Agent}i\" %T"))
             .wrap(Logger::new(
-                "%a \"%m http://%{Host}i%U% %H\" %s %b \"%{Referer}i\" \"%{User-Agent}i\" %T"
+                "%a \"%m http://%{Host}i%U% %H\" %share %b \"%{Referer}i\" \"%{User-Agent}i\" %T"
             ))
             .wrap(JwtAuth)
             .app_data(web::Data::new(state_for_app.clone()))

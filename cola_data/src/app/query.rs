@@ -26,6 +26,7 @@ pub struct ApiGatewayRequest {
     // 2. 📰 翻页
     pub page: Option<i64>, // 页码
     pub qty: Option<i64>,  // 每页数量
+
     // 3. 📍 位置
     pub lat: Option<f64>, // 纬度
     pub lng: Option<f64>, // 经度

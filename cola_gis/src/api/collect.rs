@@ -1,4 +1,4 @@
-// cola_gis/src/api/collect.rs  -- 可乐GIS - 接口层 - 收藏
+// cola_gis/src/api/count  -- 可乐GIS - 接口层 - 收藏
 // 2026-07-07
 
 //////

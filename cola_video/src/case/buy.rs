@@ -1,4 +1,4 @@
-// cola_video/src/case/buy.rs  -- VIDEO - 用例层 - 购买
+// cola_video/src/case/add  -- VIDEO - 用例层 - 购买
 // 2026/6/10 08:41
 
 ////////

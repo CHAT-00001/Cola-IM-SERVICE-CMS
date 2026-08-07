@@ -1,4 +1,5 @@
-// cola_data/src/gift/entity/expression.rs  -- GIFT - entity - gift
+// cola_data/src/gift/entity/expression.rs
+// 数据中心 - GIFT - entity - gift
 // 2026/6/19 17:58
 
 ////////
@@ -7,14 +8,6 @@ use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
 
-////////
-
-/// # 1. 统一的设备查询字段 (1:1 严格对齐结构体，干净、便于 SQLx 查询复用)
-pub const GIFT_EXPRESSION_COLUMNS: &str = r#"
-    id, user_id, classify_id, name, name_en, is_banned, is_active,
-    url, sort, status,
-    add_time, upd_time
-"#;
 ////////
 
 /// # [ENTITY] - 表情 表
@@ -35,5 +28,13 @@ pub struct GiftExpressionEntity {
     pub created_at: DateTime<Utc>, // 创建时间 - 人类
     pub updated_at: DateTime<Utc>, // 更新时间 - 人类
 }
+
+
+/// # 1. 统一的设备查询字段 (1:1 严格对齐结构体，干净、便于 SQLx 查询复用)
+pub const GIFT_EXPRESSION_COLUMNS: &str = r#"
+    id, user_id, classify_id, name, name_en, is_banned, is_active,
+    url, sort, status,
+    add_time, upd_time
+"#;
 
 //////// END

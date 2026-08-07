@@ -22,18 +22,34 @@ impl SessionPort for SessionPortAdapter {
     /// # 1. [🔌 ADAPTER] - 获取会话
     /// * 机制：SessionService::check_auth_session_info → cache-first (Redis → PG) → 组装 SessionVerifyVo
     async fn get_session(&self, token: &str) -> anyhow::Result<Option<SessionVerifyVo>> {
+        tracing::info!(
+            "🔐 [ADAPTER]: get_session 请求, token_len={}, token_preview={}...",
+            token.len(),
+            &token.chars().take(20).collect::<String>(),
+        );
+
         if token.is_empty() {
+            tracing::warn!("🔐 [ADAPTER]: token 为空，返回 None");
             return Ok(None);
         }
 
         // 1. 调用 SessionService 查询会话 (cache-first)
         let session_opt = SessionService::check_auth_session_info(token)
             .await
-            .map_err(|e| anyhow::anyhow!("[ADAPTER]: 查询会话失败: {}", e))?;
+            .map_err(|e| {
+                tracing::error!("🔐 [ADAPTER]: 查询会话失败: {}", e);
+                anyhow::anyhow!("[ADAPTER]: 查询会话失败: {}", e)
+            })?;
 
         // 2. 将 AuthSessionEntity 转换为 SessionVerifyVo
         match session_opt {
             Some(session) => {
+                tracing::info!(
+                    "🔐 [ADAPTER]: ✅ session 查询成功，user_id={}, device_id={}, status={}",
+                    session.user_id,
+                    session.device_id,
+                    session.status,
+                );
                 Ok(Some(SessionVerifyVo {
                     user_info: SessionUserInfo {
                         uid: session.user_id,
@@ -42,7 +58,12 @@ impl SessionPort for SessionPortAdapter {
                     },
                 }))
             }
-            None => Ok(None),
+            None => {
+                tracing::warn!(
+                    "🔐 [ADAPTER]: ⚠️ session 查询未命中，access_token 在 DB/Redis 中不存在或已过期"
+                );
+                Ok(None)
+            }
         }
     }
 }

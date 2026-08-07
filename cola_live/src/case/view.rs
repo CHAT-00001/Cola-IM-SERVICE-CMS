@@ -1,4 +1,4 @@
-// cola_live/src/case/view.rs
+// cola_live/src/case/get
 // core - LIVE - case - view 浏览用例
 // 2026-03-30 08:25
 

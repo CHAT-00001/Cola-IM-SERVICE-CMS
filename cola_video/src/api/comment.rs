@@ -1,7 +1,16 @@
-// cola_video/src/api/add  -- VIDEO - 应用层 - 评论
+// cola_video/src/api/add  --
+// 视频 - 应用层 - 评论 - 发布
 // 2026-04-16 08:00
 
 ////////
+
+mod add;
+mod get;
+mod active;
+mod state;
+mod del;
+mod like;
+mod report;
 
 use crate::case::comment::CommentCase;
 use crate::model::vo::comment::{CommentListResponse, CommentSingleResponse};

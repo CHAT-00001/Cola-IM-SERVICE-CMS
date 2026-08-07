@@ -17,7 +17,7 @@ pub struct ClassifyCommand {
     pub artist: String,      // 艺术家
     pub cover_url: String,   // 封面
     pub description: String, // 简介
-    pub duration: i16,       // 时长（s）
+    pub duration: i16,       // 时长（share）
     pub upload_type: i16,    // 1. 系统生成 2. 用户行为 3. 管理员
     pub use_count: i32,      // 被使用数量
     pub sort: i16,           // 排序值: 默认9999

@@ -1,16 +1,16 @@
-pub mod add;
-pub mod buy;
-pub mod category;
-pub mod change;
-pub mod collect;
-pub mod comment;
-pub mod danmaku;
-pub mod feed;
-pub mod home;
-pub mod hotlist;
-pub mod info;
-pub mod follow;
-pub mod mine;
-pub mod report;
-pub mod share;
-pub mod view;
+// cola_user/src/case/mod.rs
+// 用户 - case - mod
+// 2026/8/2 23:33 Created.
+
+////////
+
+pub mod black; // 黑名单
+pub mod category; // 分类
+pub mod follow; // 关注
+pub mod permission; // 权限
+pub mod profile; // 资料
+pub mod report; // 举报
+pub mod role; // 角色
+pub mod share; // 分享
+pub mod user; // 用户(主内容)
+pub mod vip; // 贵宾

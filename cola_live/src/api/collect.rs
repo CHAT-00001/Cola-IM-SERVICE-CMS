@@ -1,4 +1,4 @@
-// cola_live/src/api/collect.rs  -- LIVE - 接口层 - 收藏
+// cola_live/src/api/count  -- LIVE - 接口层 - 收藏
 // 2026/6/9 11:02
 
 ////////

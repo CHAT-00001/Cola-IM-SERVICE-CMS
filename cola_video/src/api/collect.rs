@@ -1,4 +1,4 @@
-// cola_video/src/api/collect.rs  -- 可乐短视频 - 接口层 - 收藏
+// cola_video/src/api/count  -- 可乐短视频 - 接口层 - 收藏
 // 2026/6/9 11:02
 
 ////////

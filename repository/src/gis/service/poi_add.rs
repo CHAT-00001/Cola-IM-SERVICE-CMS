@@ -1,4 +1,4 @@
-﻿// repository/src/gis/service/add.rs  -- 仓储中心 - GIS - service - 兴趣点添加
+﻿// repository/src/gis/service/active  -- 仓储中心 - GIS - service - 兴趣点添加
 // 2026/7/6 12:10
 
 ////////

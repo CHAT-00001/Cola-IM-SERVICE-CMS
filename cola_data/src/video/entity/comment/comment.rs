@@ -1,6 +1,7 @@
-// cola_data/src/new/entity/comment/comment.rs  --
-// 数据 - VIDEO -  entity - comment - 评论表
-// 2026-01-16 09:37:10
+// video/entity/comment/comment.rs
+// 数据 - 视频 - entity - comment - 评论表
+// 2026/1/16 09:37 Created.
+// 2026/8/4 21:10 Updated.
 
 ////////
 
@@ -13,11 +14,12 @@ use uuid::{Uuid, uuid};
 
 /// # [ENTITY] - 视频 评论 实体表
 /// * `pg schema`: `cola_video`
-/// * `table name`: `comment`
+/// * `table name`: `comments`
 /// * `类型`: `1. 文字 2. 语音 3. 照片 4. 视频 5. 位置 7. 表情包 8. 红包 9. 转账 ...`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct VideoCommentEntity {
-    pub id: i64,                           // id
+    pub id: i64,                           // ID (自增 / 雪花)
+    pub _id: Option<String>,               // UUID v4
     pub user_id: i64,                      // 作者 ID
     pub video_id: i64,                     // 视频 ID
     pub parent_id: Option<i64>,            // 父评论（可选）
@@ -35,12 +37,12 @@ pub struct VideoCommentEntity {
     pub visibility: i16,                   // 可见范围
     pub region_code: Option<String>,       // i18n 地区码
     pub status: i16,                       // 状态
-    pub add_time: i64,                     // 添加时间（机器）
-    pub upd_time: i64,                     // 更新时间（机器）
+    pub add_time: i64,                     // 添加时间（兼容旧版PHP）
+    pub upd_time: i64,                     // 更新时间（兼容旧版PHP）
     pub is_deleted: Option<bool>,          // 是否删除
-    pub created_at: Option<DateTime<Utc>>, // 创建时间(人类)
-    pub updated_at: Option<DateTime<Utc>>, // 更新时间(人类)
-    pub deleted_at: Option<DateTime<Utc>>, // 软删除时间
+    pub created_at: Option<DateTime<Utc>>, // 创建时间
+    pub updated_at: Option<DateTime<Utc>>, // 更新时间
+    pub deleted_at: Option<DateTime<Utc>>, // 删除时间 (软删除)
 }
 
 ////////
@@ -48,9 +50,11 @@ pub struct VideoCommentEntity {
 /// # [COLUMNS] - 数据表原始字段
 /// * `desc`: `给SQLx提供的表字段映射`
 pub const VIDEO_COMMENT_COLUMNS: &str = r#"
-    id, user_id, video_id, parent_id, comment_type, content, photos_url,
-    video_url, voice_url, duration, media_ids, likes, dislikes, collects,
-    reply, visibility, region_code, status, add_time, upd_time,
+    id, _id, user_id, video_id,
+    parent_id, comment_type,
+    content, photos_url,video_url, voice_url, duration, media_ids,
+    likes, dislikes, collects,reply, visibility, region_code,
+    status, add_time, upd_time,
     is_deleted, created_at, updated_at, deleted_at
 "#;
 

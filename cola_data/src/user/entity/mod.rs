@@ -1,12 +1,16 @@
-// cola_data/src/user/handler/mod.rs  -- 数据 - USER - Entity - mod
-// 2026/5/22 13:27 by wx: cestbon10080
-// * --------
-// * --------
+// cola_data/src/user/entity/mod.rs
+// 数据中心 - USER - entity - mod
+// 2026/5/22 13:27
 
 ////////
 
+pub mod ban; // 封禁
+pub mod black; // 黑名单
+pub mod category; // 分类
+pub mod count; // 计数
+pub mod follow; // 关注
+pub mod profile; // 资料
+pub mod role; // 角色
 pub mod user;
-pub mod state;
-pub mod count;
-pub mod follow;
-pub mod black;
+pub(crate) mod report;
+// 用户

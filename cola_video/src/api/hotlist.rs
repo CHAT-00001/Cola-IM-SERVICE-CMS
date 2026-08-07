@@ -1,7 +1,9 @@
-// api/hotlist.rs  -- 接口层 - 上热门
+// api/add  -- 接口层 - 上热门
 // 2026/6/10 08:33
 
 ////////
+
+mod add;
 
 use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
@@ -13,6 +15,7 @@ use crate::case::hotlist::HotlistCase;
 ////////
 
 /// # [API HANDLER] -  上热门 接口
+/// * `desc`: `视频上热门接口`
 pub struct HotlistApi;
 
 // 构造函数

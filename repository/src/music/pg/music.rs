@@ -1,46 +1,13 @@
-// repository/src/music/pg/music.rs  -- 仓储 - MUSIC - PG - 音乐
+// repository/src/music/pg/music.rs
+// 仓储 - MUSIC - pg - 音乐
 // 2026-07-08
 
-use crate::pg_pool;
-use cola_data::music::command::music::MusicCommand;
-use cola_data::music::entity::music::MusicEntity;
-use sqlx;
+////////
 
-const MUSIC_COLUMNS: &str = r#"
-    id, uuid, author, title, description, cover_url, file_url, href,
-    length, duration, views, likes, steps, collects, comments,
-    shares, is_public, status, use_nums, add_time, created_at, updated_at
-"#;
-
-pub struct MusicRepo;
-
-impl MusicRepo {
-    pub async fn save_music_by_uid(uid: i64, cmd: MusicCommand, visibility: i16) -> Result<MusicEntity, sqlx::Error> {
-        let pool = pg_pool();
-        let query = format!(
-            "INSERT INTO cola_music.music (author, title, description, cover_url, href, duration, status) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING {}",
-            MUSIC_COLUMNS
-        );
-        sqlx::query_as::<_, MusicEntity>(&query)
-            .bind(uid)
-            .bind(cmd.name)
-            .bind(cmd.description)
-            .bind(cmd.cover_url)
-            .bind(cmd.sync_id)
-            .bind(cmd.duration)
-            .bind(1i16)
-            .fetch_one(&pool).await
-    }
-
-    pub async fn find_new_list(limit: i64, offset: i64) -> Result<Vec<MusicEntity>, sqlx::Error> {
-        let pool = pg_pool();
-        let query = format!("SELECT {} FROM cola_music.music WHERE status = 1 ORDER BY add_time DESC LIMIT $1 OFFSET $2", MUSIC_COLUMNS);
-        sqlx::query_as::<_, MusicEntity>(&query).bind(limit).bind(offset).fetch_all(&pool).await
-    }
-
-    pub async fn find_hot_list(limit: i64, offset: i64) -> Result<Vec<MusicEntity>, sqlx::Error> {
-        let pool = pg_pool();
-        let query = format!("SELECT {} FROM cola_music.music WHERE status = 1 ORDER BY use_nums DESC, likes DESC LIMIT $1 OFFSET $2", MUSIC_COLUMNS);
-        sqlx::query_as::<_, MusicEntity>(&query).bind(limit).bind(offset).fetch_all(&pool).await
-    }
-}
+pub mod active; // 活跃
+pub mod add; // 发布
+pub mod basic; // 基础
+pub mod clean; // 清除
+pub mod get; // 获取
+pub mod manage; // 管理
+pub mod state; // 状态
