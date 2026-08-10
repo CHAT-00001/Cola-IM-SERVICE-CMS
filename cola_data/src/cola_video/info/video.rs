@@ -1,6 +1,6 @@
-// cola_data/src/new/info/new.rs  -- VIDEO - info - 视频信息
-// 2026/5/21 08:40
-// 2026/8/4 Refactored.
+// data/src/cola_video/info/video.rs
+// 🗄 数据 - 可乐视频 - info - 视频信息
+// 2026/5/21 08:40 Created.
 
 ////////
 
@@ -9,9 +9,10 @@ use crate::cola_video::vo::video::VideoVo;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use crate::cola_video::entity::video::video::VideoEntity;
+
 ////////
 
-/// # [INFO] - 视频信息
+/// # [INFO] - 视频 - 视频信息
 /// * `desc`: `安全的视频元信息`
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct VideoInfo {
@@ -56,7 +57,12 @@ pub struct VideoInfo {
 
 /// # [BUILD] - 构造视频信息
 impl VideoInfo {
-    /// 1. 专门用于返回“视频不存在”的空对象
+    //
+
+    ////////
+
+    /// # 1. [BUILD] - 空
+    /// * `desc`: `专门用于返回“视频不存在”的空对象`
     pub fn empty() -> Self {
         Self {
             id: 0,
@@ -96,7 +102,10 @@ impl VideoInfo {
         }
     }
 
-    /// 2. 纯粹的从数据库实体转换
+    ////////
+
+    /// # 2. [FROM] - 转换
+    /// * `desc`: `纯粹的从数据库实体转换`
     pub fn from_entity(entity: VideoEntity) -> Self {
         Self {
             id: entity.id,

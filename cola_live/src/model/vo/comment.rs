@@ -30,7 +30,7 @@ impl CommentVo {
         is_disliked: bool,
     ) -> Self {
         // 🌟 已修正：在这里进行业务逻辑判断，算完直接塞给 VO 实体
-        let is_author = comment.user_id == video_author_id;
+        let is_author = comment.uid == video_author_id;
 
         Self {
             comment,

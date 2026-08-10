@@ -1,5 +1,5 @@
 // cola_data/src/cola_im/entity/chats/gourp.rs
-// 数据 - USER - Entity - 用户表
+// 🗄 数据 - ⏹ 可乐IM - entity - 用户表
 // 2026/5/22 18:44 by wx: cestbon10080
 
 ////////

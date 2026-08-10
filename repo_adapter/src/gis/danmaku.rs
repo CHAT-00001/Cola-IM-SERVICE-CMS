@@ -1,5 +1,6 @@
-// repo_adapter/src/cola_gis/danmaku.rs -- 适配器 - GIS - danmaku
-// 2026-07-07 12:00
+// repo_adapter/src/cola_gis/danmaku.rs
+// 🔌 适配器 - 可乐GIS - danmaku
+// 2026-07-07 12:00 Created.
 
 ////////
 

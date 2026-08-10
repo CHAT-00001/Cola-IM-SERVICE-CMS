@@ -1,42 +1,26 @@
-// repo_adapter/src/cola_video/share/check.rs
-// 🔌 插头 - 可乐视频 - 分享 - 检查
+// repo_adapter/src/video/share/check.rs
+// 🔌 插头 - ▶ 视频 - 分享 - 检查
 // 2026/8/6 18:57 Created.
-
-////////
-
-
-// repo_adapter/src/cola_user/ban/del.rs
-// 🔌 适配器 - 可乐用户 - 浏览 - 删除服务
-// 2026/8/7 05:56 Created.
 
 ////////
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_user::port::view::del::ViewDelPort;
+use port::cola_video::share::check::VideoShareCheckPort;
 
 ////////
 
-/// # [DEL SERVICE] - 删除
-/// * `desc`: `用户浏览删除服务`
-pub struct ViewDelService;
+/// # [ADAPTER] - share check
+#[derive(Debug, Default, Clone)]
+pub struct VideoShareCheckAdapter;
 
-// 构造实现
 #[async_trait]
-impl ViewDelPort for ViewDelService {
-    //
-
-    ////////
-
-    /// # 1. [SERVICE] - 单个
-    /// * `desc`: `单个软删除`
-    async fn single_soft_del(&self, uid: i64, id: i64) -> Result<(u16)> {
+impl VideoShareCheckPort for VideoShareCheckAdapter {
+    async fn health(&self, uid: i64, video_id: i64) -> Result<()> {
         todo!()
     }
 
-    /// # 2. [SERVICE] - 批量
-    /// * `desc`: `批量软删除`
-    async fn batch_soft_del(&self, uid: i64, ids: Vec<i64>) -> Result<(u16)> {
+    async fn state(&self, uid: i64, video_id: i64) -> Result<()> {
         todo!()
     }
 }

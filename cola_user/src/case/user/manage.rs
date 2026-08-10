@@ -5,12 +5,13 @@
 ////////
 
 use anyhow::Result;
-use cola_data::app::ctx::AppContext;
 use cola_data::cola_fs::rick_check;
-use cola_data::cola_user::command::new::UserCommand;
+use cola_data::cola_user::command::user::add::UserCommand;
 use cola_data::cola_user::command::user::update::UpdateUserCommand;
 use cola_data::cola_user::info::user::UserInfo;
+use port::ctx::AppContext;
 use tracing::info;
+
 ////////
 
 pub struct UserManageCase;
@@ -81,9 +82,9 @@ impl UserManageCase {
     /// # 3. [CASE] - 管理员修改用户权限
     /// * `desc`: 管理员修改用户权限等级
     pub async fn case_change_permission(
-        uid: i64, // 管理员ID
+        uid: i64,               // 管理员ID
         cmd: UpdateUserCommand, // 权限命令
-        ctx: &AppContext, // 全局上下文
+        ctx: &AppContext,       // 全局上下文
     ) -> Result<UserInfo, anyhow::Error> {
         let user_info = ctx
             .user
@@ -102,9 +103,9 @@ impl UserManageCase {
     /// # 4. [CASE] - 管理员修改用户状态(下架/冻结/封禁)
     /// * `desc`: 管理员修改用户状态码(0=正常, 1=下架, 2=冻结, 3=封禁)
     pub async fn case_change_state(
-        uid: i64, // 管理员ID
+        uid: i64,               // 管理员ID
         cmd: UpdateUserCommand, // 状态命令
-        ctx: &AppContext, // 全局上下文
+        ctx: &AppContext,       // 全局上下文
     ) -> Result<UserInfo, anyhow::Error> {
         let user_info = ctx
             .user
@@ -123,9 +124,9 @@ impl UserManageCase {
     /// # 5. [CASE] - 管理员修改用户角色
     /// * `desc`: 管理员修改用户角色(普通用户/认证用户/创作者/管理员)
     pub async fn case_change_role(
-        uid: i64, // 管理员ID
+        uid: i64,               // 管理员ID
         cmd: UpdateUserCommand, // 角色命令
-        ctx: &AppContext, // 全局上下文
+        ctx: &AppContext,       // 全局上下文
     ) -> Result<UserInfo, anyhow::Error> {
         let user_info = ctx
             .user
@@ -144,9 +145,9 @@ impl UserManageCase {
     /// # 6. [CASE] - 管理员修改用户类型
     /// * `desc`: 管理员修改用户类型(个人/企业/机构)
     pub async fn case_change_type(
-        uid: i64, // 管理员ID
+        uid: i64,               // 管理员ID
         cmd: UpdateUserCommand, // 类型命令
-        ctx: &AppContext, // 全局上下文
+        ctx: &AppContext,       // 全局上下文
     ) -> Result<UserInfo, anyhow::Error> {
         let user_info = ctx
             .user

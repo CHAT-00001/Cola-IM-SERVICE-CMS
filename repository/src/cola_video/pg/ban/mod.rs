@@ -6,4 +6,5 @@
 
 pub mod clean;
 pub mod publish_repo;
+mod manage;
 // 发布功能

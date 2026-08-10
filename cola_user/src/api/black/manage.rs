@@ -5,10 +5,10 @@
 ////////
 
 use crate::case::black::manage::UserBlackManageCase;
-use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
+use port::ctx::AppContext;
 
 ////////
 
@@ -66,10 +66,8 @@ impl UserBlackManageApi {
 
         // Call Case
         match UserBlackManageCase::case_batch_del(uid, ids, ctx.clone()).await {
-            Ok(qty) => {
-                AppData::ok(format!("✅️ 成功移除 {} 条", qty))
-                    .with_msg(format!("✅️ 批量移除成功，共影响 {} 条记录", qty))
-            }
+            Ok(qty) => AppData::ok(format!("✅️ 成功移除 {} 条", qty))
+                .with_msg(format!("✅️ 批量移除成功，共影响 {} 条记录", qty)),
             Err(e) => AppData::err(
                 error::INTERNAL_ERROR,
                 format!("❌️ 批量移除黑名单失败: {:?}", e),

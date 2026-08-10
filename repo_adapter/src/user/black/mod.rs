@@ -22,5 +22,5 @@ pub mod del;
 pub mod get;
 pub mod list;
 pub mod manage;
-
+pub(crate) mod stat;
 //////// END

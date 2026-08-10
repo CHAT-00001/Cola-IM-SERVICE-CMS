@@ -1,4 +1,5 @@
-// cola_video/src/cola_live/gate_grpc/report.rs  -- 短视频 - 实体 - 举报视频类型
+// cola_video/src/cola_live/gate_grpc/report.rs
+// 🗄 数据 - ⏹ 可乐IM - entity - 举报视频类型
 // 2026/4/24 18:07 by wx: cestbon10080
 
 ////////

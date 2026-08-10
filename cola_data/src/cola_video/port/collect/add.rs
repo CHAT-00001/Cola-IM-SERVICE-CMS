@@ -1,11 +1,11 @@
-// collect/add.rs
-// 视频 - port - 收藏 - 发布
+// cola_data/src/cola_video/collect/add.rs
+// ▶ 可乐视频 - port - 收藏 - 发布
 // 2026/8/5 00:04 Created.
 
 ////////
 
-/// # [CHECK SERVICE] - 检查
-/// * `desc`: `收藏检查服务端口`
+/// # [CHECK SERVICE] - 发布
+/// * `desc`: `可乐视频 - 视频收藏发布端口`
 #[async_trait::async_trait]
 pub trait CollectAddPort: Send + Sync {
     //
@@ -17,7 +17,7 @@ pub trait CollectAddPort: Send + Sync {
         &self,
         uid: i64,
         video_id: i64,
-        is_liked: bool,
+        //is_liked: bool,
     ) -> anyhow::Result<()>;
 
     ////////

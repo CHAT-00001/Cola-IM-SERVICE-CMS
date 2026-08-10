@@ -1,42 +1,27 @@
 // repo_adapter/src/cola_video/share/stat.rs
-// 
+// 🔌 适配器 - ▶ 视频 - 分享记录 - 统计
 // 2026/8/6 20:14 Created.
-
-////////
-
-
-// repo_adapter/src/cola_user/ban/del.rs
-// 🔌 适配器 - 可乐用户 - 浏览 - 删除服务
-// 2026/8/7 05:56 Created.
 
 ////////
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_user::port::view::del::ViewDelPort;
+use port::cola_video::share::stat::VideoShareStatPort;
 
 ////////
 
-/// # [DEL SERVICE] - 删除
-/// * `desc`: `用户浏览删除服务`
-pub struct ViewDelService;
+/// # [STAT ADAPTER] - share stat
+/// * `DESC`: `▶ 视频 - 视频分享记录统计数量适配器`
+#[derive(Debug, Default, Clone)]
+pub struct VideoShareStatAdapter;
 
-// 构造实现
 #[async_trait]
-impl ViewDelPort for ViewDelService {
-    //
-
-    ////////
-
-    /// # 1. [SERVICE] - 单个
-    /// * `desc`: `单个软删除`
-    async fn single_soft_del(&self, uid: i64, id: i64) -> Result<(u16)> {
+impl VideoShareStatPort for VideoShareStatAdapter {
+    async fn stat_count_by_user_id(&self, uid: i64, user_id: i64) -> Result<(u64)> {
         todo!()
     }
 
-    /// # 2. [SERVICE] - 批量
-    /// * `desc`: `批量软删除`
-    async fn batch_soft_del(&self, uid: i64, ids: Vec<i64>) -> Result<(u16)> {
+    async fn stat_count_by_video_id(&self, uid: i64, video_id: i64) -> Result<(u64)> {
         todo!()
     }
 }

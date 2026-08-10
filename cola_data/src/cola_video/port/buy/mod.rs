@@ -14,16 +14,16 @@ use std::sync::Arc;
 use crate::cola_video::port::buy::stat::BuyStatPort;
 
 ////////
-mod active;
-mod add;
-mod alive;
-mod check;
-mod del;
-mod get;
-mod list;
-mod manage;
-mod order;
-mod stat;
+pub mod active;
+pub mod add;
+pub mod alive;
+pub mod check;
+pub mod del;
+pub mod get;
+pub mod list;
+pub mod manage;
+pub mod order;
+pub mod stat;
 
 ////////
 

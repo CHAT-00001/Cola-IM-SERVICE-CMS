@@ -1,9 +1,11 @@
-// cola_data/src/cola_video/entity/mod.rs
-// 数据 - VIDEO - entity - 模块
+// cola_data/src/video/entity/mod.rs
+// 数据 - ▶ 视频 - entity - mod
 // 2026/04/10 10:25 Created.
 
 ////////
-pub mod banned; // 封禁
+
+pub mod ban; // 视频封禁
+pub mod banned; // 用户封禁
 pub mod buy; // 购买
 pub mod category; // 分类
 pub mod collect; // 收藏

@@ -5,7 +5,7 @@
 ////////
 
 use anyhow::{Context, Result};
-use cola_data::app::ctx::AppContext;
+use port::ctx::AppContext;
 use tracing::info;
 
 ////////
@@ -26,7 +26,6 @@ impl UserCategoryStateCase {
         user_id: i64,    // 目标用户ID
         ctx: AppContext, // 全局上下文
     ) -> Result<bool, anyhow::Error> {
-
         // 1. 🗣️ CALL USER PORT.
         let is_black = ctx
             .user

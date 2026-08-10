@@ -5,11 +5,11 @@
 ////////
 
 use anyhow::{Context, Result};
-use cola_data::app::ctx::AppContext;
 use cola_data::cola_fs::rick_check;
-use cola_data::cola_user::command::new::UserCommand;
+use cola_data::cola_user::command::user::add::UserCommand;
 use cola_data::cola_user::command::user::update::UpdateUserCommand;
 use cola_data::cola_user::info::user::UserInfo;
+use port::ctx::AppContext;
 use tracing::info;
 
 ////////
@@ -28,8 +28,6 @@ impl UserAddCase {
         cmd: UserCommand,
         ctx: AppContext,
     ) -> Result<UserInfo, anyhow::Error> {
-
-
         // 2. 核心数据持久化与计数更新 (💡 提示：建议让这个 Service 函数返回刚插入成功的 VideoInfo)
         let user_info = ctx
             .user
@@ -49,9 +47,8 @@ impl UserAddCase {
     pub async fn case_update_profile(
         user_id: i64, // 目标用户ID
         mut cmd: UpdateUserCommand,
-        ctx: AppContext,  // 全局上下文
+        ctx: AppContext, // 全局上下文
     ) -> Result<UserInfo, anyhow::Error> {
-
         // 1. 内容风控
         let check_text = format!("{:?} {:?}", cmd.nickname, cmd.signature);
         let visibility = rick_check(check_text).await;

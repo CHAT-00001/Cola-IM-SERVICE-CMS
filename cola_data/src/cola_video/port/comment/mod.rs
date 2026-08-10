@@ -1,21 +1,6 @@
-// cola_video/port/comment/mod.rs
-// 视频 - port - 评论 - 模块
+// cola_video/comment/mod.rs
+// ⏩️ 端口 - ▶ 可乐视频 - 评论 - mod
 // 2026/8/5 15:11 Created.
-
-////////
-
-mod active; // 活跃
-mod add; // 发布
-mod check; // 检查
-mod del; // 删除
-mod get; // 获取
-mod like; // 点赞
-mod list; // 列表
-mod manage; // 管理
-mod report; // 举报
-mod stat;
-mod dislike;
-// 统计
 
 ////////
 
@@ -31,11 +16,26 @@ use get::GetPort;
 use std::sync::Arc;
 
 ////////
+mod active; // 活跃
+mod add; // 发布
+mod check; // 检查
+mod del; // 删除
+mod get; // 获取
+mod like; // 点赞
+mod list; // 列表
+mod manage; // 管理
+mod report; // 举报
+mod stat;
+mod dislike;
+// 统计
 
-/// # [COMMENT PORT]
-/// * `desc`: `评论 Ports`
+////////
+
+
+/// # [VIDEO COMMENT PORT]
+/// * `desc`: `▶ 可乐视频 - 评论 Ports`
 #[derive(Clone)]
-pub struct CommentPort {
+pub struct VideoCommentPort {
     pub add: Arc<dyn DanmakuAddPort + Send + Sync + 'static>, // 发布
     pub check: Arc<dyn CheckPort + Send + Sync + 'static>,    // 检查
     pub del: Arc<dyn DelPort + Send + Sync + 'static>,        // 删除

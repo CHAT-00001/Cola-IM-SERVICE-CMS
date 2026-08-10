@@ -1,5 +1,6 @@
-// cola_data/src/cola_dynamic/entity/cola_dynamic.rs  -- 动态 - Entity - 动态表
-// 2026/6/19 15:12
+// data/src/cola_dynamic/entity/dynamic.rs
+// 🗄 数据 - ⏹ 可乐动态 - entity - 动态表
+// 2026/6/19 15:12 Created.
 
 ////////
 
@@ -10,12 +11,12 @@ use sqlx::FromRow;
 ////////
 
 /// # [ENTITY] - 动态表
-/// * `table name`: cola_dynamic
-/// * `desc` 需要兼容旧版PHP字段
+///  * `pg schema`: `cola_dynamic` -- PG模式
+/// * `table name`: `dynamic` -- 表名
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow)]
 pub struct DynamicEntity {
-    pub id: i64,                           // 动态ID(自增)
-    pub _id: i64,                          // 雪花ID(可选)
+    pub id: i64,                           // ID(自增 / 雪花)
+    pub _id: Option<String>,               // UUID v4
     pub r#type: i16,                       // 类型
     pub uid: i64,                          // 用户ID
     pub title: String,                     // 标题
@@ -25,7 +26,7 @@ pub struct DynamicEntity {
     pub href: Option<String>,              // 视频地址
     pub voice: Option<String>,             // 语音
     pub length: Option<i16>,               // 语音长度
-    pub media: MediaFs,                      // 媒体负载(新增,支持livephoto)
+    pub media: MediaFs,                    // 媒体负载(新增,支持livephoto)
     pub views: i32,                        // 浏览数量
     pub likes: i32,                        // 点赞数量
     pub collect: i32,                      // 收藏数量
@@ -49,10 +50,10 @@ pub struct DynamicEntity {
     pub view_perm: i16,                    // 浏览权限
     pub comment_perm: i16,                 // 评论权限
     pub share_perm: i16,                   // 分享权限
-    pub add_time: i64,                     // 添加时间(机器)
-    pub upt_time: i64,                     // 更新时间(机器)
-    pub created_at: Option<DateTime<Utc>>, // 创建时间(人类)
-    pub updated_at: Option<DateTime<Utc>>, // 更新时间(人类)
+    pub add_time: i64,                     // 添加时间(兼容旧版PHP)
+    pub upt_time: i64,                     // 更新时间(兼容旧版PHP)
+    pub created_at: Option<DateTime<Utc>>, // 创建时间
+    pub updated_at: Option<DateTime<Utc>>, // 更新时间
 }
 
 /// # [EM] - 媒体负载

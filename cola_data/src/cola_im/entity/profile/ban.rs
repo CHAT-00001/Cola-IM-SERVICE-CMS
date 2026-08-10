@@ -1,5 +1,5 @@
 // cola_data/src/cola_im/entityr/profile/ban.rs
-// 数据中心 - IM - entity - profile - 封禁表
+// 🗄 数据 - ⏹ 可乐IM - entity - profile - 封禁表
 // 2026/4/23 15:55
 
 ////////

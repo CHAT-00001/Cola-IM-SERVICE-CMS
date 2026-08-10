@@ -1,15 +1,14 @@
-// service/src/cola_user/cola_user/active.rs
+// service/src/user/user/active.rs
 // 服务层 - 可乐用户 - 用户 - 活跃
 // 2026/06/05 03:10 Created.
 
 ////////
 
 use anyhow::Result;
-use cola_data::cola_user::command::new::UserCommand;
+use cola_data::cola_user::command::user::add::UserCommand;
 use cola_data::cola_user::info::user::UserInfo;
 use repository::cola_user::pg::user::get::UserGetRepo;
 use std::collections::HashMap;
-
 ////////
 
 /// # [GET SERVICE] - 获取

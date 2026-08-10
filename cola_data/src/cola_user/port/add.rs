@@ -1,11 +1,13 @@
-// cola_data/src/cola_user/port/active  -- 数据中心 - USER - 端口层 ADD
+// cola_data/src/user/port/active  -- 数据中心 - USER - 端口层 ADD
 // 2026/6/10 07:31
 
 ////////
 
-use crate::cola_user::command::new::UserCommand;
+use crate::cola_user::command::user::add::UserCommand;
 use crate::cola_user::command::user::update::UpdateUserCommand;
 use crate::cola_user::info::user::UserInfo;
+
+////////
 
 #[async_trait::async_trait]
 pub trait AddPort : Send + Sync + 'static {

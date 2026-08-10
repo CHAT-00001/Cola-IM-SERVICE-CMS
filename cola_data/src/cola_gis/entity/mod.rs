@@ -9,4 +9,5 @@ pub mod report; // 举报
 pub mod share; // 分享
 pub mod state; // 状态
 pub mod user; // 用户
-pub mod view;  // 浏览记录
+pub mod view; // 浏览记录
+pub mod way; // 道路

@@ -5,7 +5,6 @@
 ////////
 
 use crate::case::black::list::UserBlackListCase;
-use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
@@ -13,7 +12,7 @@ use cola_data::app::page::PageInfo;
 use cola_data::app::response::ListResponse;
 use cola_data::cola_user::info::user::UserInfo;
 use tracing::{error, info};
-
+use port::ctx::AppContext;
 ////////
 
 /// # [API HANDLER] - 列表

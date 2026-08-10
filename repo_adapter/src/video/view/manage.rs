@@ -1,43 +1,87 @@
-// repo_adapter/src/cola_video/view/manage.rs
-// 🔌 插头 - 可乐视频 - 浏览 - 管理
-// 2026/8/6 19:00 Created.
-
-////////
-
-
-// repo_adapter/src/cola_user/ban/del.rs
-// 🔌 适配器 - 可乐用户 - 浏览 - 删除服务
-// 2026/8/7 05:56 Created.
+// repo_adapter/src/video/view/manage.rs  -- 适配器 - 视频浏览管理
+// 2026/8/8 12:00
 
 ////////
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_user::port::view::del::ViewDelPort;
+use cola_data::cola_video::port::view::manage::VideoViewManagePort;
+use cola_data::cola_video::info::video::VideoInfo;
+use cola_data::cola_video::info::view::VideoViewInfo;
 
 ////////
 
-/// # [DEL SERVICE] - 删除
-/// * `desc`: `用户浏览删除服务`
-pub struct ViewDelService;
+/// # [MANAGE SERVICE] - 管理
+/// * `desc`: `视频浏览管理服务适配器`
+pub struct ViewManageService;
 
-// 构造实现
+////////
+
 #[async_trait]
-impl ViewDelPort for ViewDelService {
-    //
-
-    ////////
-
-    /// # 1. [SERVICE] - 单个
-    /// * `desc`: `单个软删除`
-    async fn single_soft_del(&self, uid: i64, id: i64) -> Result<(u16)> {
-        todo!()
+impl VideoViewManagePort for ViewManageService {
+    async fn save_view_record_update_views_count(
+        &self,
+        _uid: i64,       // 用户ID
+        _video_id: i64,  // 视频ID
+    ) -> Result<()> {
+        Ok(())
     }
 
-    /// # 2. [SERVICE] - 批量
-    /// * `desc`: `批量软删除`
-    async fn batch_soft_del(&self, uid: i64, ids: Vec<i64>) -> Result<(u16)> {
-        todo!()
+    async fn view_done_update_done_count(
+        &self,
+        _uid: i64,       // 用户ID
+        _video_id: i64,  // 视频ID
+        _is_done: bool,  // 是否完播
+    ) -> Result<()> {
+        Ok(())
+    }
+
+    async fn single_del_view_record_by_id(
+        &self,
+        _id: i64,        // 记录ID
+    ) -> Result<u16> {
+        Ok(0)
+    }
+
+    async fn batch_del_view_record_by_ids(
+        &self,
+        _ids: Vec<i64>,  // 记录IDs
+    ) -> Result<u16> {
+        Ok(0)
+    }
+
+    async fn get_video_list_by_ids(
+        &self,
+        _video_ids: Vec<i64>, // 视频IDs
+    ) -> Result<Vec<VideoInfo>> {
+        Ok(vec![])
+    }
+
+    async fn get_my_viewed_list(
+        &self,
+        _uid: i64,    // 用户ID
+        _limit: i64,  // 数量
+        _offset: i64, // 页码
+    ) -> Result<Vec<VideoInfo>> {
+        Ok(vec![])
+    }
+
+    async fn get_here_viewed_list(
+        &self,
+        _uid: i64,    // 用户ID
+        _limit: i64,  // 数量
+        _offset: i64, // 页码
+    ) -> Result<Vec<VideoInfo>> {
+        Ok(vec![])
+    }
+
+    async fn get_video_viewed_list(
+        &self,
+        _video_id: i64, // 视频ID
+        _limit: i64,    // 数量
+        _offset: i64,   // 页码
+    ) -> Result<Vec<VideoViewInfo>> {
+        Ok(vec![])
     }
 }
 

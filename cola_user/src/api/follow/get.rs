@@ -5,12 +5,12 @@
 ////////
 
 use crate::case::follow::get::UserFollowGetCase;
-use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::app::response::ListResponse;
 use cola_data::cola_user::info::user::UserInfo;
+use port::ctx::AppContext;
 use tracing::{error, info};
 
 ////////
@@ -50,10 +50,7 @@ impl UserFollowtGetApi {
             }
             Err(e) => {
                 // 打印错误日志
-                error!(
-                    "[🤐 API]: ❌️ 获取关注列表失败: uid={}, error={:?}",
-                    uid, e
-                );
+                error!("[🤐 API]: ❌️ 获取关注列表失败: uid={}, error={:?}", uid, e);
                 AppData::err(
                     error::INTERNAL_ERROR,
                     format!("❌️ 获取关注列表失败: {:?}", e),

@@ -5,8 +5,8 @@
 ////////
 
 use anyhow::{Result, anyhow};
-use cola_data::app::ctx::AppContext;
 use cola_data::cola_user::command::category::UserCategoryCommand;
+use port::ctx::AppContext;
 use tracing::info;
 
 ////////
@@ -60,10 +60,7 @@ impl UserCategoryAddCase {
             .await
             .map_err(|e| anyhow!("[🤐 CASE]: ❌️ 删除分类失败: {}", e))?;
 
-        info!(
-            "[🗣️ CASE] - ✅️ 删除分类成功: uid={}, target_id={}",
-            uid, id
-        );
+        info!("[🗣️ CASE] - ✅️ 删除分类成功: uid={}, target_id={}", uid, id);
         Ok(())
     }
 }

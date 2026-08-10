@@ -1,5 +1,5 @@
 // cola_data/src/cola_im/entity/contact/contact.rs
-// 数据中心 -IM - entity - contact - 联系人
+// 🗄 数据 - ⏹ 可乐IM - entity - contact - 联系人
 // 2026/7/7 14:30
 
 ////////

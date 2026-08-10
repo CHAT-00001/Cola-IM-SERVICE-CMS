@@ -15,14 +15,13 @@ use sqlx::FromRow;
 /// * `table name`: `buy`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct VideoBuyEntity {
-    pub id: i64,                // 购买记录自增 ID
-    pub uid: i64,               // 购买发起者用户 ID
-    pub video_id: i64,          // 被购买的短视频 ID
-    pub folder_id: i64,         // 购买夹 ID：默认 0 (主购买夹/未分类)
-    pub channel: i16,           // 通道
-    pub remark: Option<String>, // 备注
-    pub status: i16,            // 状态：0失效 1有效
-    // 🕒 时间
+    pub id: i64,                           // 购买记录自增 ID
+    pub uid: i64,                          // 购买发起者用户 ID
+    pub video_id: i64,                     // 被购买的短视频 ID
+    pub folder_id: i64,                    // 购买夹 ID：默认 0 (主购买夹/未分类)
+    pub channel: i16,                      // 通道
+    pub remark: Option<String>,            // 备注
+    pub status: i16,                       // 状态：0失效 1有效
     pub add_time: i32,                     // 添加时间 (兼容旧版 PHP)
     pub is_deleted: Option<bool>,          // 是否删除: 默认false
     pub created_at: Option<DateTime<Utc>>, // 创建时间

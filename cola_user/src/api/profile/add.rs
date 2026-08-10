@@ -1,18 +1,17 @@
 // cola_user/src/api/profile/add.rs
 // core - USER - api - profile - 资料名片 接口
 // 2026/8/4 01:02 Created.
-// 2026/8/6 实现
 
 ////////
 
 use crate::case::profile::add::UserProfileAddCase;
-use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::cola_user::command::profile::ProfileCommand;
-use tracing::{error, info};
+use port::ctx::AppContext;
 use serde_json::Value;
+use tracing::{error, info};
 
 ////////
 
@@ -20,16 +19,17 @@ use serde_json::Value;
 pub struct ProfileAddApi;
 
 impl ProfileAddApi {
+    //
 
     ////////
 
     /// # 1. [API HANDLER] - 创建/更新资料名片
     /// * `desc`: 强社交资料模型，独立的资料名片
     pub async fn api_upsert_profile(
-        _uid: i64, // 操作者ID
+        _uid: i64,                 // 操作者ID
         _query: ApiGatewayRequest, // 网关请求
-        cmd: ProfileCommand, // 资料名片命令
-        ctx: &AppContext, // 全局上下文
+        cmd: ProfileCommand,       // 资料名片命令
+        ctx: &AppContext,          // 全局上下文
     ) -> AppData<Value> {
         match UserProfileAddCase::case_upsert_profile(cmd, ctx).await {
             Ok(info) => {
@@ -53,9 +53,9 @@ impl ProfileAddApi {
     /// # 2. [API HANDLER] - 获取资料名片
     /// * `desc`: 根据用户ID查询资料名片
     pub async fn api_get_profile(
-        _uid: i64, // 操作者ID
+        _uid: i64,                // 操作者ID
         query: ApiGatewayRequest, // 网关请求
-        ctx: &AppContext, // 全局上下文
+        ctx: &AppContext,         // 全局上下文
     ) -> AppData<Value> {
         match UserProfileAddCase::case_get_profile(query.id, ctx).await {
             Ok(Some(info)) => {

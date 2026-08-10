@@ -4,15 +4,15 @@
 
 ////////
 
-use cola_data::app::ctx::AppContext;
+use crate::case::user::add::UserAddCase;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::cola_auth::info::auth::AuthContext;
-use cola_data::cola_user::command::new::UserCommand;
+use cola_data::cola_user::command::user::add::UserCommand;
 use cola_data::cola_user::command::user::update::UpdateUserCommand;
 use cola_data::cola_user::info::user::UserInfo;
-use crate::case::user::add::UserAddCase;
+use port::ctx::AppContext;
 
 ////////
 
@@ -60,7 +60,11 @@ impl UserAddApi {
         // 执行核心编辑用户资料逻辑
         match UserAddCase::case_update_profile(uid, cmd, ctx.clone()).await {
             Ok(resp) => AppData::ok(resp).with_msg("修改用户资料成功"),
-            Err(e) => AppData::err(error::INTERNAL_ERROR, format!("修改用户资料失败: {:?}", e), None),
+            Err(e) => AppData::err(
+                error::INTERNAL_ERROR,
+                format!("修改用户资料失败: {:?}", e),
+                None,
+            ),
         }
     }
 }

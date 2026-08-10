@@ -1,5 +1,5 @@
 // cola_video/port/collect/get.rs
-// 视频 - port - 收藏 - 获取
+// ▶ 可乐视频 - port - 收藏 - 获取
 // 2026/8/5 00:04 Created.
 
 ////////
@@ -7,7 +7,7 @@
 ////////
 
 /// # [DEL PORTS] - 获取
-/// `desc`: `视频收藏获取端口`
+/// `desc`: `▶ 可乐视频 - 收藏获取端口`
 #[async_trait::async_trait]
 pub trait CollectGetPort: Send + Sync {
     //

@@ -1,25 +1,21 @@
-// repository/src/cola_video/service/recommend/active
-// 仓储 - VIDEO - service - report - 发布 举报
-// 2026/8/2 19:16 Created.
-
-////////
-
-
-// service/report.rs  - 服务层 举报
+// service/src/cola_video/report/add.rs
+// 👤 服务 - ▶ 可乐视频 - 举报 - 发布
 // 2026/6/10 19:27
 
 ////////
 
 use cola_data::cola_video::command::report::VideoReportCommand;
-
+use cola_data::cola_video::entity::comment::VideoCommentEntity;
 use tracing::log;
-use cola_data::cola_video::entity::comment::comment::VideoCommentEntity;
+
 ////////
 
-/// # [REPORT SERVICE] - 举报 服务
-pub struct ReportService;
+/// # [ADD SERVICE] - 发布
+/// * `desc`: `▶ 可乐视频 - 视频举报发布服务`
+pub struct VideoReportAddService;
 
-impl ReportService {
+// 构造实现
+impl VideoReportAddService {
     //
 
     ////////
@@ -61,7 +57,6 @@ impl ReportService {
     }
 
     ////////
-
 }
 
 //////// END

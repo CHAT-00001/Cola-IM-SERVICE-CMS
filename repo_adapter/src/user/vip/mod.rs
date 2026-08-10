@@ -20,7 +20,7 @@ pub mod del;
 pub mod get;
 pub mod list;
 pub mod manage;
-
+mod stat;
 ////////
 
 /// # [ADAPTER] - VIP 统一适配器

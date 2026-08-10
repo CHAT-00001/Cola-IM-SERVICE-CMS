@@ -1,17 +1,16 @@
-// repo_adapter/src/cola_video/like/mod.rs
-// 🔌 插头 - ▶ 可乐视频 - 点赞 - 模块
-// 2026/8/6 19:21 Created.
+// repo_adapter/src/video/like/mod.rs
+// 🔌 适配器 - ▶ 视频 - 点赞 - mod
+// 2026/8/9 23:11 Created.
 
 ////////
 
+pub mod add;
+pub mod check;
+pub mod del;
+pub mod get;
+pub mod list;
+pub mod manage;
+pub mod stat;
 
+//////// END
 
-/////////
-
-pub mod add; // 添加/修改
-pub mod alive; // 存活
-pub mod del; // 删除
-pub mod get; // 获取IDs
-pub mod list; // 列表记录
-pub mod manage; //管理
-pub mod stat; // 统计

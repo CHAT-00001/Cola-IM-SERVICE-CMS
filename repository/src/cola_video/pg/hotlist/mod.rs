@@ -5,3 +5,5 @@
 ////////
 
 mod clean;
+mod del;
+mod stat;

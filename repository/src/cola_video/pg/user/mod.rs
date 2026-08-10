@@ -6,4 +6,6 @@
 
 pub mod count; // 创作者计数
 pub mod permission; // 权限 (预设)
-pub mod profile; // 资料
+pub mod profile;
+mod manage;
+// 资料

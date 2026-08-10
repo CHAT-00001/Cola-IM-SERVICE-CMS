@@ -1,5 +1,5 @@
 // cola_data/src/cola_im/entity/message/message_fs.rs
-// 数据中心 - IM - entity - message - 文件存储
+// 🗄 数据 - ⏹ 可乐IM - entity - message - 文件存储
 // 2026/7/7 15:24
 
 ////////

@@ -5,7 +5,7 @@
 ////////
 
 use crate::pg_pool;
-use cola_data::cola_video::entity::recommend::recommend::RecommendRecordEntity;
+use cola_data::cola_video::entity::recommend::recommend::VideoRecommendEntity;
 
 ////////
 
@@ -28,7 +28,7 @@ impl VideoRecommendGetRepository {
 
         let query = "
             SELECT video_id
-            FROM cola_video.recommend_record
+            FROM cola_video.recommend
             WHERE user_id = $1 AND status = 1 AND is_deleted = 0
             ORDER BY add_time DESC
             LIMIT $2 OFFSET $3
@@ -48,17 +48,17 @@ impl VideoRecommendGetRepository {
     pub async fn pg_find_record_by_uid_and_video_id(
         uid: i64,
         video_id: i64,
-    ) -> Result<Option<RecommendRecordEntity>, sqlx::Error> {
+    ) -> Result<Option<VideoRecommendEntity>, sqlx::Error> {
         let pool = pg_pool();
 
         let query = "
             SELECT *
-            FROM cola_video.recommend_record
+            FROM cola_video.recommend
             WHERE user_id = $1 AND video_id = $2 AND is_deleted = 0
             LIMIT 1
         ";
 
-        sqlx::query_as::<_, RecommendRecordEntity>(query)
+        sqlx::query_as::<_, VideoRecommendEntity>(query)
             .bind(uid)
             .bind(video_id)
             .fetch_optional(&pool)
@@ -73,7 +73,7 @@ impl VideoRecommendGetRepository {
 
         let query = "
             SELECT COUNT(*)
-            FROM cola_video.recommend_record
+            FROM cola_video.recommend
             WHERE video_id = $1 AND status = 1 AND is_deleted = 0
         ";
 
@@ -92,18 +92,18 @@ impl VideoRecommendGetRepository {
         video_id: i64,
         limit: i64,
         offset: i64,
-    ) -> Result<Vec<RecommendRecordEntity>, sqlx::Error> {
+    ) -> Result<Vec<VideoRecommendEntity>, sqlx::Error> {
         let pool = pg_pool();
 
         let query = "
             SELECT *
-            FROM cola_video.recommend_record
+            FROM cola_video.recommend
             WHERE video_id = $1 AND status = 1 AND is_deleted = 0
             ORDER BY add_time DESC
             LIMIT $2 OFFSET $3
         ";
 
-        sqlx::query_as::<_, RecommendRecordEntity>(query)
+        sqlx::query_as::<_, VideoRecommendEntity>(query)
             .bind(video_id)
             .bind(limit)
             .bind(offset)

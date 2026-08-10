@@ -4,9 +4,16 @@
 
 ////////
 
+use port::cola_music::ColaMusicPort;
+
 pub mod add;
 pub mod check;
 pub mod get;
 pub mod list;
 pub mod manage;
 pub(crate) mod del;
+mod stat;
+
+pub(crate) fn build_user_port() -> ColaMusicPort {
+    todo!()
+}

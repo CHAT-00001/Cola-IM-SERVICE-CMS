@@ -19,7 +19,7 @@ use crate::cola_video::port::ColaVideoPort;
 /// # [CONTEXT] - 应用上下文
 /// * `desc`: `全局注入`
 #[derive(Clone)]
-pub struct AppContext {
+pub struct AppContext0 {
     //pub api: AppServicePorts,
     pub auth: AuthServicePorts, // IAM验证中心
     // pub cola_dynamic: ColaDynamicPort,  // 动态
@@ -34,7 +34,7 @@ pub struct AppContext {
     pub im: ColaImPort,         // 即时通讯
 }
 
-impl AppContext {
+impl AppContext0 {
     pub fn default(
         auth: AuthServicePorts,
         gis: ColaGisPort,

@@ -1,5 +1,5 @@
 // cola_data/src/cola_im/entity/chats/chats_count.rs
-// 数据中心 - IM - entity - chats - 计数
+// 🗄 数据 - ⏹ 可乐IM - entity - chats - 计数
 // 2026/8/3 15:30 Created.
 
 ////////

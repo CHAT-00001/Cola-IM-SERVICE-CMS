@@ -1,12 +1,11 @@
 // cola_user/src/case/follow/add.rs
 // core - USER - case - follow - 关注/取关 用例
 // 2026/6/10 07:00
-// 2026/8/6 对接：FollowPort → repository 关注链路
 
 ////////
 
 use anyhow::{Result, anyhow};
-use cola_data::app::ctx::AppContext;
+use port::ctx::AppContext;
 use tracing::{info, warn};
 
 ////////
@@ -34,7 +33,10 @@ impl UserFollowAddCase {
             .await
             .map_err(|e| anyhow!("[CASE]: ❌️ 添加关注失败: {}", e))?;
 
-        info!("[CASE]: ✅️ 添加关注成功: uid={}, target_id={}", uid, target_id);
+        info!(
+            "[CASE]: ✅️ 添加关注成功: uid={}, target_id={}",
+            uid, target_id
+        );
         Ok(())
     }
 
@@ -55,7 +57,10 @@ impl UserFollowAddCase {
             .await
             .map_err(|e| anyhow!("[CASE]: ❌️ 取消关注失败: {}", e))?;
 
-        info!("[CASE]: ✅️ 取消关注成功: uid={}, target_id={}", uid, target_id);
+        info!(
+            "[CASE]: ✅️ 取消关注成功: uid={}, target_id={}",
+            uid, target_id
+        );
         Ok(())
     }
 
@@ -69,14 +74,18 @@ impl UserFollowAddCase {
         target_id: i64,
         ctx: &AppContext,
     ) -> Result<bool, anyhow::Error> {
-        let is_followed = ctx.user
+        let is_followed = ctx
+            .user
             .follow
             .check
             .is_followed(uid, target_id)
             .await
             .map_err(|e| anyhow!("[CASE]: ❌️ 检查关注状态失败: {}", e))?;
 
-        info!("[CASE]: 关注状态查询成功: uid={}, target_id={}, is_followed={}", uid, target_id, is_followed);
+        info!(
+            "[CASE]: 关注状态查询成功: uid={}, target_id={}, is_followed={}",
+            uid, target_id, is_followed
+        );
         Ok(is_followed)
     }
 }

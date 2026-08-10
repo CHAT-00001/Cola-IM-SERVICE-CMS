@@ -1,5 +1,5 @@
 // repository/src/pg/danmaku/danmaku.rs  -- 弹幕仓储
-// 仓储 - VIDEO - pg - 弹幕
+// 🛢 仓储 - 可乐视频 - pg - 弹幕
 // 2026/6/8 16:57
 
 ////////
@@ -7,7 +7,7 @@
 use crate::pg_pool;
 use cola_data::cola_video::command::danmaku::DanmakuCommand;
 use sqlx::{self, Postgres, QueryBuilder};
-use cola_data::cola_video::entity::danmaku::danmaku::{DanmakuEntity, VIDEO_DANMAKU_COLUMNS};
+use cola_data::cola_video::entity::danmaku::{DanmakuEntity, VIDEO_DANMAKU_COLUMNS};
 
 ////////
 

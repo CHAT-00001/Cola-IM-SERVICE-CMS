@@ -1,13 +1,12 @@
 // data/src/cola_video/port/mod.rs
-// 🗄️ 数据 - ▶ 可乐视频 - port - 模块
+// 🗄 数据 - ▶ 可乐视频 - port - 模块
 // 2026/6/10 06:40 Created.
 
 ////////
 
 use crate::cola_gis::port::add::AddPort;
 use crate::cola_video::port::buy::BuyPort;
-use crate::cola_video::port::collect::CollectPort;
-use crate::cola_video::port::comment::CommentPort;
+use crate::cola_video::port::collect::VideoCollectPort;
 use crate::cola_video::port::danmaku::DanmakuPort;
 use crate::cola_video::port::dislike::DislikePort;
 use crate::cola_video::port::hotlist::HotlistPort;
@@ -18,8 +17,9 @@ use crate::cola_video::port::share::VideoSharePort;
 use crate::cola_video::port::video::VideoPort;
 use crate::cola_video::port::view::VideoViewPort;
 use std::sync::Arc;
-
+use crate::cola_video::port::comment::VideoCommentPort;
 ////////
+
 pub mod ban; // 封禁
 pub mod buy; // 购买
 pub mod collect; // 收藏
@@ -42,8 +42,8 @@ pub mod view; // 浏览
 pub struct ColaVideoPort {
     pub add: Arc<dyn AddPort + Send + Sync + 'static>,
     pub buy: BuyPort,
-    pub collect: CollectPort,
-    pub comment: CommentPort,
+    pub collect: VideoCollectPort,
+    pub comment: VideoCommentPort,
     pub danmaku: DanmakuPort,
     pub dislike: DislikePort,
     pub hotlist: HotlistPort,

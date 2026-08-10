@@ -6,7 +6,7 @@
 
 use crate::pg_pool;
 use cola_data::cola_video::command::comment::CommentCommand;
-use cola_data::cola_video::entity::comment::comment::VideoCommentEntity;
+use cola_data::cola_video::entity::comment::VideoCommentEntity;
 use sqlx::{self, Postgres, QueryBuilder};
 
 ////////
@@ -41,6 +41,8 @@ pub enum SearchOrder {
 pub struct CommentRepo;
 
 impl CommentRepo {
+    //
+
     ////////
 
     /// # 3. [REPOSITORY] - 最新

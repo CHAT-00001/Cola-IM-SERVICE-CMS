@@ -1,11 +1,11 @@
-// cola_live/src/case/like.rs  -- LIVE - case - 点赞
+// cola_live/src/case/like.rs
+// COLA_LIVE - case - 点赞
 // 2026-03-27 06:22
 
 ////////
 
 use anyhow::{Result, anyhow};
 use cola_data::app::ctx::AppContext;
-use repository::cola_video::service::like::LikeService;
 use tracing::{info, warn};
 
 ////////
@@ -22,7 +22,7 @@ impl LikeCase {
     pub async fn case_add_video_like(uid: i64, video_id: i64, is_liked: bool) -> Result<()> {
         // 1. 调用 Service 层
         // 这里使用了 map_err 将数据库错误转换为 anyhow 的 Result，保证外层处理逻辑一致
-        LikeService::save_like_with_update_video_count(uid, video_id, is_liked)
+        VideoLikeService::save_like_with_update_video_count(uid, video_id, is_liked)
             .await
             .map_err(|e| {
                 anyhow!(
@@ -69,7 +69,6 @@ impl LikeCase {
 
         Ok(())
     }
-    
 }
 
 //////// END

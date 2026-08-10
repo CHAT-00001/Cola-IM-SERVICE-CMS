@@ -1,15 +1,17 @@
-// app/src/app_state.rs -- 应用配置 - 应用状态
+// app/src/app_state.rs
+// 🚨 APP - 应用配置 - 应用状态
 // 2026-04-16 07:18
 
 ////////
 
 use crate::db_service::DbService;
-use cola_data::app::ctx::AppContext;
+use port::ctx::AppContext;
 use std::sync::Arc;
 
 ////////
 
-/// AppState 用来在各服务间共享数据库连接和 Repository 实例
+/// # [APP STATE]
+/// * `desc`: `AppState` - 用来在各服务间共享数据库连接和 Repository 实例
 #[derive(Clone)]
 pub struct AppState {
     pub db: Arc<DbService>, // 数据库连接池

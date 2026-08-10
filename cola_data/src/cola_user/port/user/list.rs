@@ -4,8 +4,6 @@
 
 ////////
 
-use crate::cola_user::command::new::UserCommand;
-use crate::cola_user::command::user::update::UpdateUserCommand;
 use crate::cola_user::info::user::UserInfo;
 
 ////////

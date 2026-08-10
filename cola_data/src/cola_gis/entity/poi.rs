@@ -1,5 +1,6 @@
-// cola_data/src/cola_gis/entity/poi.rs  -- 数据中心 - GIS - Entity - 兴趣点
-// 2026/7/6 20:10
+// data/src/cola_gis/entity/poi.rs
+// 🗄 数据 - 可乐GIS - Entity - POI
+// 2026/7/6 20:10 Created.
 
 ////////
 
@@ -9,9 +10,9 @@ use sqlx::FromRow;
 
 ////////
 
-/// # [ENTITY] - 兴趣点 实体表
+/// # [ENTITY] - POI表
 /// * `pg schema`: `cola_gis`
-/// * `table name`: `gis_poi`
+/// * `table name`: `poi`
 #[derive(Debug, Clone, Default, FromRow)]
 pub struct PoiEntity {
     pub id: i64,                           // 兴趣点 ID
@@ -21,7 +22,7 @@ pub struct PoiEntity {
     pub title: String,                     // 标题
     pub name: String,                      // 名称
     pub name_en: Option<String>,           // 英文名称
-    pub thumb: Option<String>,             // 缩略图
+    pub thumb: String,                     // 缩略图
     pub description: Option<String>,       // 描述
     pub thumbnail: Option<String>,         //
     pub cover_url: Option<String>,         //
@@ -65,7 +66,8 @@ pub struct PoiEntity {
 
 ////////
 
-/// # [COLUMNS] - 兴趣点 数据表字段
+/// # [COLUMNS] - POI - 数据表字段
+/// * `desc`: `POI - 静态常量表`
 pub const GIS_POI_COLUMNS: &str = r#"
     id, uid, channel_id,poi_type, title, name, name_en, description, desc_at_uids,
     thumb, thumbnail, cover_url, href, href_w, original_url, tags, lat, lng, duration,

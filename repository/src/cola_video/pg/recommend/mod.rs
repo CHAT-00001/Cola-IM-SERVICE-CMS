@@ -8,3 +8,5 @@ pub mod add;
 pub mod clean;
 pub mod get;
 pub mod manage;
+mod del;
+mod stat;

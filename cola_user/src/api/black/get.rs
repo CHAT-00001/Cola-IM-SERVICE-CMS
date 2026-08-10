@@ -5,10 +5,10 @@
 ////////
 
 use crate::case::black::get::UserBlackGetCase;
-use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
+use port::ctx::AppContext;
 
 ////////
 
@@ -27,7 +27,6 @@ impl UserBlackGetApi {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> AppData<String> {
-
         // 1. 参数
         let offset = url.offset;
         let limit = url.limit;

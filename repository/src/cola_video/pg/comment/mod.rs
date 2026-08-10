@@ -16,6 +16,9 @@ mod dislike;
 mod reply;
 mod alive;
 mod active;
+mod del;
+mod stat;
+mod manage;
 // 状态
 
 

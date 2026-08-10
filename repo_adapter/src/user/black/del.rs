@@ -30,11 +30,10 @@ impl BlackDelPort for BlackDelAdapter {
         &self,
         uid: i64,       // 操作者ID
         target_id: i64, // 目标用户ID
-    ) -> Result<u64> { // 💡 修正：返回值类型为 u64 以匹配 repo 方法
-        // 调用 get repo 的 save 方法，status=0 表示取消拉黑
+    ) -> Result<u16> {
         let rows_affected = UserBlackGetRepo::save_black_record(uid, target_id, "".to_string(), 0).await?;
         info!("[🔌 ADAPTER] - ✅️ 取消拉黑成功: uid={}, target_id={}, affected={}", uid, target_id, rows_affected);
-        Ok(rows_affected)
+        Ok(rows_affected as u16)
     }
 
     ////////
@@ -44,15 +43,14 @@ impl BlackDelPort for BlackDelAdapter {
         &self,
         uid: i64,      // 操作者ID
         ids: Vec<i64>, // 目标用户ID列表
-    ) -> Result<u64> { // 💡 修正：返回值类型为 u64
+    ) -> Result<u16> {
         let mut total_affected = 0;
         for target_id in ids.iter() {
-            // 循环调用 save_black_record
             let rows_affected = UserBlackGetRepo::save_black_record(uid, *target_id, "".to_string(), 0).await?;
             total_affected += rows_affected;
         }
         info!("[🔌 ADAPTER] - ✅️ 批量取消拉黑成功: uid={}, count={}, total_affected={}", uid, ids.len(), total_affected);
-        Ok(total_affected)
+        Ok(total_affected as u16)
     }
 }
 

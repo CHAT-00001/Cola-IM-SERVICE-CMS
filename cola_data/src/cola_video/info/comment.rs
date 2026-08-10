@@ -1,17 +1,17 @@
 // data/src/cola_video/info/comment.rs
-// 🗄️ 数据 - ▶ 可乐视频 - info - 评论
+// 🗄 数据 - ▶ 可乐视频 - info - 评论
 // 2026/5/21 00:58 Created.
 
 ////////
 
-use crate::cola_video::entity::comment::comment::VideoCommentEntity;
+use crate::cola_video::entity::comment::VideoCommentEntity;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
 ////////
 
 /// # [INFO] - 视频 评论
-/// * `desc`: `安全的视频评论信息`
+/// * `desc`: `安全的信息`
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct VideoCommentInfo {
     pub id: i64,                           // 评论 ID
@@ -37,9 +37,14 @@ pub struct VideoCommentInfo {
     pub updated_at: Option<DateTime<Utc>>, // 更新时间
 }
 
-/// # 构造评论
+// 构造实现
 impl VideoCommentInfo {
-    /// 1. 专门用于返回“评论不存在”的空对象
+    //
+
+    ////////
+
+    /// #1. [BUILD] - 空
+    /// * `desc`: `专门用于返回“评论不存在”的空对象`
     pub fn empty() -> Self {
         Self {
             id: 0,
@@ -66,7 +71,10 @@ impl VideoCommentInfo {
         }
     }
 
-    /// 2. 纯净的从数据库实体转换为评论域模型
+    ////////
+
+    /// # 2. [FROM] - 转换
+    /// `desc`: `纯净的从数据库实体转换为评论域模型`
     pub fn from_entity(entity: VideoCommentEntity) -> Self {
         Self {
             id: entity.id,

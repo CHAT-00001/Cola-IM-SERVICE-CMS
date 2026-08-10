@@ -9,7 +9,6 @@ use cola_data::cola_video::command::buy::VideoBuyCommand;
 use cola_data::cola_video::entity::buy::VideoBuyEntity;
 use cola_data::cola_video::entity::video::video::VideoEntity;
 use repository::cola_video::pg::buy::get::VideoBuyGetRepo;
-use repository::cola_video::pg::buy::manage::VideoBuyManageRepo;
 use repository::cola_video::pg::user::profile::UserRepo;
 use repository::cola_video::pg::video::count::VideoCountRepo;
 use tracing::log;
@@ -63,8 +62,7 @@ impl VideoBuyAddService {
         limit: i64,
     ) -> Result<Vec<i64>, anyhow::Error> {
         // 直接调用 Repo 获取 Vec<i64>，并使用 ? 传播错误
-        let buy_ids =
-            VideoBuyGetRepo::find_buy_ids_by_user_id(user_id, keyword, offset, limit).await?;
+        let buy_ids = VideoBuyGetRepo::find_video_ids_by_user_id(user_id, offset, limit).await?;
 
         // 直接返回
         Ok(buy_ids)

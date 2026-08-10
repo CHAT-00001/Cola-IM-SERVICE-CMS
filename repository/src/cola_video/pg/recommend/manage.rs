@@ -1,86 +1,85 @@
 // repository/src/cola_video/pg/recommend/manage.rs
-// 🛢 仓储 - ▶ 可乐视频 - pg - recommend - manage 管理
-// 2026/8/2 13:42 Created.
+// 仓储 - ▶ 视频 - pg - 推荐 - 管理员 仓储
+// 2026/8/10 00:07 Created.
 
 ////////
 
 use crate::pg_pool;
-use cola_data::cola_video::command::recommend::VideoRecommendCommand;
+use cola_data::cola_video::entity::recommend::recommend::VideoRecommendEntity;
+use sqlx::{self, Postgres, QueryBuilder};
 
 ////////
 
-/// # [MANAGE REPOSITORY] - 管理
-/// * `desc`: `▶可乐视频 - 🛢 推荐管理仓储`
-pub struct VideoRecommendManageRepository;
+/// [MANAGE REPOSITORY] - 管理员 repository
+/// * `desc`: `▶ 视频 - 管理员列表仓储`
+pub struct VideoRecommendManageRepo;
 
-// 构造实现
-impl VideoRecommendManageRepository {
+impl VideoRecommendManageRepo {
     //
 
     ////////
 
-    /// # 1. [REPOSITORY] - 保存推荐记录
-    pub async fn save_recommend_record(
-        uid: i64,
-        video_id: i64,
-        cmd: &VideoRecommendCommand,
-    ) -> Result<u64, sqlx::Error> {
+    /// # 9. [REPOSITORY] - 管理员列表
+    pub async fn find_admin_dislike_record_list(
+        user_id: Option<i64>,    // 用户 ID
+        video_id: Option<i64>,   // 视频 ID
+        start_time: Option<i64>, // 开始时间
+        end_time: Option<i64>,   // 结束时间
+        status_code: i16,        // 状态码
+        limit: i64,              // 数量
+        offset: i64,             // 页码
+    ) -> Result<Vec<VideoRecommendEntity>, sqlx::Error> {
         let pool = pg_pool();
 
-        let now = chrono::Utc::now();
-        let timestamp = now.timestamp();
-        let datetime = now.naive_utc();
+        // 初始化 SQL 查询构建器，带上基础固定条件
+        let mut query_builder: QueryBuilder<Postgres> =
+            QueryBuilder::new("SELECT * FROM cola_video.recommend WHERE status = ");
 
-        // 1. 修正：VALUES 必须对应 5 个参数
-        let query = "
-        INSERT INTO cola_video.recommend (user_id, video_id, remark, add_time, created_at)
-        VALUES ($1, $2, $3, $4, $5)
-        ON CONFLICT (user_id, video_id) DO NOTHING
-    ";
+        query_builder.push_bind(status_code);
+        query_builder.push(" AND (is_deleted = false OR is_deleted IS NULL)");
 
-        // 2. 修正：确保 bind 的顺序与 $1 到 $5 完全一致
-        let result = sqlx::query(query)
-            .bind(uid)
-            .bind(video_id)
-            .bind(&cmd.remark) // 对应 $3
-            .bind(timestamp) // 对应 $4
-            .bind(datetime) // 对应 $5
-            .execute(&pool)
-            .await?;
+        // 动态拼接：用户 ID 可选参数
+        if let Some(uid) = user_id {
+            query_builder.push(" AND uid = ");
+            query_builder.push_bind(uid);
+        }
 
-        Ok(result.rows_affected())
-    }
+        // 动态拼接：视频 ID 可选参数
+        if let Some(vid) = video_id {
+            query_builder.push(" AND video_id = ");
+            query_builder.push_bind(vid);
+        }
 
-    ////////
+        // 动态拼接：开始时间可选参数
+        if let Some(start) = start_time {
+            query_builder.push(" AND add_time >= ");
+            query_builder.push_bind(start);
+        }
 
-    /// # 2. [REPOSITORY] - 查询用户点赞记录的视频 IDs (带分页)
-    pub async fn find_recommend_record_by_user_id(
-        uid: i64,
-        limit: i64,
-        offset: i64,
-    ) -> Result<Vec<i64>, sqlx::Error> {
-        let pool = pg_pool();
+        // 动态拼接：结束时间可选参数
+        if let Some(end) = end_time {
+            query_builder.push(" AND add_time <= ");
+            query_builder.push_bind(end);
+        }
 
-        // 🌟 核心修复：
-        // 1. 只 SELECT video_id，精准对齐 Vec<i64>
-        // 2. 加上 user_id = $1 确保用户隔离
-        // 3. 浏览记录一般按“浏览时间（visittime/addtime）”倒序，这里把乱入的 likes 排序去掉了
-        let query = "
-        SELECT video_id
-        FROM video_like
-        WHERE user_id = $1 AND status = 1
-        ORDER BY addtime DESC
-        LIMIT $2 OFFSET $3
-    ";
+        // 排序与分页
+        query_builder.push(" ORDER BY add_time DESC");
+        query_builder.push(" LIMIT ");
+        query_builder.push_bind(limit);
+        query_builder.push(" OFFSET ");
+        query_builder.push_bind(offset);
 
-        // 映射单列数据到基础类型，sqlx 内部用 sqlx::query_scalar
-        // 或者直接 query 迭代 row.get(0)，但最清爽的是 query_scalar! 宏或直接用单列映射
-        sqlx::query_scalar::<_, i64>(query)
-            .bind(uid) // $1
-            .bind(limit) // $2
-            .bind(offset) // $3
-            .fetch_all(&pool)
-            .await
+        // 构建目标实体查询
+        let query = query_builder.build_query_as::<VideoRecommendEntity>();
+
+        // 执行查询并加上错误日志打印
+        query.fetch_all(&pool).await.map_err(|e| {
+            tracing::error!(
+                error = ?e,
+                "[🤐 PG REPO] - ❌️ VideoRecommendManageRepo::find_admin_dislike_record_list query failed"
+            );
+            e
+        })
     }
 }
 

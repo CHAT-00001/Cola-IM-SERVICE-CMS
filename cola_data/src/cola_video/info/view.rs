@@ -1,12 +1,12 @@
-// cola_data/src/cola_video/info/view.rs
-// 数据中心 - 视频 - info - 浏览信息
+// data/src/cola_video/info/view.rs
+// 🗄 数据 - ▶ 可乐视频 - info - 浏览信息
 // 2026/8/4 20:42 Created.
 
 ////////
 
+use crate::cola_video::entity::view::VideoViewEntity;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
-use crate::cola_video::entity::view::VideoViewEntity;
 
 ////////
 
@@ -33,7 +33,12 @@ pub struct VideoViewInfo {
 
 /// 构造浏览信息
 impl VideoViewInfo {
-    /// 1. 专门用于返回“浏览记录不存在”的空对象
+    //
+
+    ////////
+
+    /// # 1. [BUILD] - 空
+    /// * `desc`: `专门用于返回“浏览记录不存在”的空对象`
     pub fn empty() -> Self {
         Self {
             id: 0,
@@ -54,7 +59,10 @@ impl VideoViewInfo {
         }
     }
 
-    /// 2. 纯粹的从数据库实体转换
+    ////////
+
+    /// # 2. [FROM] - 转换
+    /// * `desc`: `纯粹的从数据库实体转换`
     pub fn from_entity(entity: VideoViewEntity) -> Self {
         Self {
             id: entity.id,

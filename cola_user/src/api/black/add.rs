@@ -1,14 +1,14 @@
 // cola_user/src/api/black/active
-// core - USER - api - black - 添加 接口
+// core - 🗣 可乐用户 - api - black - 添加 接口
 // 2026/8/2 22:18 Created.
 
 ////////
 
 use crate::case::black::add::UserBlackAddCase;
-use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
+use port::ctx::AppContext;
 use tracing::{error, info};
 
 ////////

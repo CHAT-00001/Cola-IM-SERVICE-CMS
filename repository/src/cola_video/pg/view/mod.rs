@@ -7,4 +7,7 @@
 pub mod add; // 添加
 pub mod clean; // 清除
 pub mod get; // 获取
-pub mod manage; // 管理
+pub mod manage;
+mod del;
+mod stat;
+// 管理

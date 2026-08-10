@@ -1,88 +1,85 @@
 // repository/src/cola_video/pg/collect/manage.rs
-// 仓储 - ▶ 可乐视频 - pg - 收藏 - 管理
-// 2026/8/2 15:41 Created.
+// 仓储 - ▶ 视频 - pg - 收藏 - 管理员 仓储
+// 2026/8/10 00:06 Created.
 
 ////////
 
 use crate::pg_pool;
-use sqlx::{self, Postgres};
-
+use cola_data::cola_video::entity::collect::VideoCollectEntity;
+use sqlx::{self, Postgres, QueryBuilder};
 ////////
 
-/// # [MANAGE REPOSITORY] - 管理
-/// * `desc`: `▶ 可乐视频 - 👤 收藏管理仓储`
+/// [MANAGE REPOSITORY] - 管理员 repository
+/// * `desc`: `▶ 视频 - 管理员列表仓储`
 pub struct VideoCollectManageRepo;
 
-// 构造实现
 impl VideoCollectManageRepo {
     //
 
     ////////
 
-    /// # 1. [REPOSITORY] - 用户软删除单条收藏记录
-    /// * `uid`: 用户 ID
-    /// * `video_id`: 视频 ID
-    /// * 将 `is_deleted` 置为 `true`，并记录 `deleted_at` 为当前时间
-    pub async fn soft_delete_collect_by_video_id(
-        uid: i64,
-        video_id: i64,
-    ) -> Result<u64, sqlx::Error> {
+    /// # 9. [REPOSITORY] - 管理员列表
+    /// * `DESC`: `🗣 ADMIN` - `查找所有记录` - `无视权限/状态`
+    pub async fn find_admin_list(
+        user_id: Option<i64>,    // 用户 ID
+        video_id: Option<i64>,   // 视频 ID
+        start_time: Option<i64>, // 开始时间
+        end_time: Option<i64>,   // 结束时间
+        status_code: i16,        // 状态码
+        limit: i64,              // 数量
+        offset: i64,             // 页码
+    ) -> Result<Vec<VideoCollectEntity>, sqlx::Error> {
         let pool = pg_pool();
-        let now = chrono::Utc::now();
-        let datetime = now.naive_utc();
 
-        let query = "
-            UPDATE cola_video.collect
-            SET is_deleted = true,
-                deleted_at = $1,
-                updated_at = $1
-            WHERE user_id = $2 AND video_id = $3 AND is_deleted = false
-        ";
+        // 初始化 SQL 查询构建器，带上基础固定条件
+        let mut query_builder: QueryBuilder<Postgres> =
+            QueryBuilder::new("SELECT * FROM cola_video.collect WHERE status = ");
 
-        let result = sqlx::query(query)
-            .bind(datetime)
-            .bind(uid)
-            .bind(video_id)
-            .execute(&pool)
-            .await?;
+        query_builder.push_bind(status_code);
+        query_builder.push(" AND (is_deleted = false OR is_deleted IS NULL)");
 
-        Ok(result.rows_affected())
-    }
-
-    ////////
-
-    /// # 2. [REPOSITORY] - 用户批量软删除收藏记录
-    /// * `uid`: 用户 ID
-    /// * `video_ids`: 视频 ID 列表
-    /// * 将指定的多个视频收藏记录批量标记为软删除
-    pub async fn batch_soft_delete_collect_by_video_ids(
-        uid: i64,
-        video_ids: &[i64],
-    ) -> Result<u64, sqlx::Error> {
-        if video_ids.is_empty() {
-            return Ok(0);
+        // 动态拼接：用户 ID 可选参数
+        if let Some(uid) = user_id {
+            query_builder.push(" AND uid = ");
+            query_builder.push_bind(uid);
         }
 
-        let pool = pg_pool();
-        let now = chrono::Utc::now();
-        let datetime = now.naive_utc();
+        // 动态拼接：视频 ID 可选参数
+        if let Some(vid) = video_id {
+            query_builder.push(" AND video_id = ");
+            query_builder.push_bind(vid);
+        }
 
-        let query = "
-            UPDATE cola_video.collect
-            SET is_deleted = true,
-                deleted_at = $1,
-                updated_at = $1
-            WHERE user_id = $2 AND video_id = ANY($3) AND is_deleted = false
-        ";
+        // 动态拼接：开始时间可选参数
+        if let Some(start) = start_time {
+            query_builder.push(" AND add_time >= ");
+            query_builder.push_bind(start);
+        }
 
-        let result = sqlx::query(query)
-            .bind(datetime)
-            .bind(uid)
-            .bind(video_ids)
-            .execute(&pool)
-            .await?;
+        // 动态拼接：结束时间可选参数
+        if let Some(end) = end_time {
+            query_builder.push(" AND add_time <= ");
+            query_builder.push_bind(end);
+        }
 
-        Ok(result.rows_affected())
+        // 排序与分页
+        query_builder.push(" ORDER BY add_time DESC");
+        query_builder.push(" LIMIT ");
+        query_builder.push_bind(limit);
+        query_builder.push(" OFFSET ");
+        query_builder.push_bind(offset);
+
+        // 构建目标实体查询
+        let query = query_builder.build_query_as::<VideoCollectEntity>();
+
+        // 执行查询并加上错误日志打印
+        query.fetch_all(&pool).await.map_err(|e| {
+            tracing::error!(
+                error = ?e,
+                "VideoCollectManageRepo::find_admin_dislike_record_list query failed"
+            );
+            e
+        })
     }
 }
 

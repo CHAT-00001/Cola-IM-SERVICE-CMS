@@ -1,4 +1,5 @@
-// cola_data/src/cola_im/entity/message_type.rs  -- 数据中心 - IM - entity - 消息类型
+// cola_data/src/cola_im/entity/message_type.rs
+// 🗄 数据 - ⏹ 可乐IM - entity - 消息类型
 // 2026-07-07 14:00
 
 ////////
@@ -31,3 +32,5 @@ pub struct UserActionQty {
     pub follow_count: i64,  // 我关注的人数
     pub updated_at: i64,
 }
+
+//////// END

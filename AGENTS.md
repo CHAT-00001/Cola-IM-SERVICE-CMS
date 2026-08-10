@@ -1,12 +1,12 @@
 # 🤖 AGENTS 编码规范约束
 
-> 本项目所有 Rust 代码必须严格遵守以下规范，AI 助手与开发者共同遵循。
+> 本项目所有 Rust 代码必须严格遵守以下规范，AI 助手与开发者共同遵循。🕒🕒
 
 ---
 
 ## 1. 🔤 代码块分隔符（强制）
 
-- **必须使用 8 个斜杠 `////////`** 作为代码块分隔符，**禁止使用 6 个斜杠 `//////`**
+- **必须使用 8 个斜杠 `////////`** 作为代码块分隔符，
 - 文件内各逻辑段之间使用 `////////` 分隔
 - 文件末尾使用 `//////// END` 标记结束（同样 8 个斜杠)
 
@@ -38,14 +38,19 @@ use xxx::yyy;
 
 每个源文件顶部必须有注释头，格式：
 ```rust
-// 完整路径  -- 简短说明
-// 日期 时间
+// 完整路径
+// 简短说明
+// 日期 时间 Created.
 ```
 
 示例：
 ```rust
-// cola_data/src/cola_auth/port/session.rs  -- 数据 - AUTH - 会话接口
-// 2026/8/1 10:25
+// cola_data/src/cola_auth/port/session.rs
+// 数据 - AUTH - port - 会话接口
+// 2026/8/1 10:25 Created.
+
+////////
+
 ```
 
 ---
@@ -209,6 +214,9 @@ pub async fn case_get_profile(
 参数注释统一使用 `//` 在参数行末尾:
 
 ```rust
+/// # 1. [XX XX] - Title
+/// * `desc`: `dese content`
+/// * `condition`: `⚠️ xxx xxx`
 pub async fn save_record(
     uid: i64,       // 操作者ID
     target_id: i64, // 目标用户ID
@@ -219,6 +227,9 @@ pub async fn save_record(
 ### 结构体字段注释
 
 ```rust
+/// # 1. [XX XX] - Title
+/// * `desc 1`: `dese content`
+/// * `desc 2`: `dese content`
 pub struct ProfileInfo {
     pub user_id: i64,            // 用户 ID
     pub nickname: String,        // 昵称
@@ -227,3 +238,9 @@ pub struct ProfileInfo {
     pub status: i16,             // 状态: 1有效 0失效
 }
 ```
+
+### 工作模式
+GATE > API >  CASE > PORT(可选) > ADAPTER(可选) > SERVICE > REPOSITORY > PG/REDIS
+* CASE 有2种方式向下调用repository层  
+* 1. 纯函数调用, 直接Call SERVICE Layer
+* 2. Port/Adapter (RUST trait抽象的插座/插头) 

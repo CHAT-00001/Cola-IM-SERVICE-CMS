@@ -4,5 +4,7 @@
 
 ////////
 
-pub mod add;
-
+pub mod add; // 发布
+pub mod check; // 检查
+pub mod del; // 软删除
+pub mod list; // 列表

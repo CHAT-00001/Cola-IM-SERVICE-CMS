@@ -1,19 +1,21 @@
-// cola_data/src/cola_dynamic/info/cola_dynamic.rs  -- 动态 - INFO - 动态
-// 2026/6/19 16:48
+// cola_data/src/cola_dynamic/info/cola_dynamic.rs
+// 🗄 数据 - ⏹ 可乐动态 - INFO - 动态信息
+// 2026/6/19 16:48 Created.
 
 ////////
 
+use crate::cola_dynamic::entity::dynamic::DynamicEntity;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
-use crate::cola_dynamic::entity::dynamic::DynamicEntity;
+
 ////////
 
-/// # [ENTITY] - 动态元信息
-/// * `desc` 需要兼容旧版PHP字段
+/// # [ENTITY] - 动态信息
+/// * `desc`: `⏹ 可乐动态 - 动态信息`
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct DynamicInfo {
-    pub id: i64,                           // 动态ID(自增)
-    pub _id: i64,                          // 雪花ID(可选)
+    pub id: i64,                           // ID (自增 / 雪花)
+    pub _id: Option<String>,               // UUID v4
     pub r#type: i16,                       // 类型
     pub uid: i64,                          // 用户ID
     pub title: String,                     // 标题
@@ -41,13 +43,16 @@ pub struct DynamicInfo {
     pub labelid: Option<i32>,              // 主题ID
     pub goodsid: Option<i32>,              // 商品ID
     pub goods_isxiajia: Option<i16>,       // 商品是否下架
-    pub isdel: i16,                        // 是否删除
-    pub del_time: Option<i64>,             // 删除时间(机器)
+    pub isdel: i16,                        // 是否删除(旧版)
     pub recomend: i32,                     // 推荐值
     pub view_perm: i16,                    // 浏览权限
     pub comment_perm: i16,                 // 评论权限
     pub share_perm: i16,                   // 分享权限
-    pub add_time: i64,                     // 添加时间(机器)
+    pub add_time: i64,                     // 添加时间(兼容旧版PHP)
+    pub is_deleted: Option<bool>,          // 是否删除: 默认false
+    pub created_at: Option<DateTime<Utc>>, // 创建时间
+    pub updated_at: Option<DateTime<Utc>>, // 更新时间
+    pub deleted_at: Option<DateTime<Utc>>, // 删除时间 (软删除)
 }
 
 /// # [EM] - 媒体负载
@@ -63,7 +68,6 @@ pub struct Media {
     pub fps: f32,          // 每秒帧数
     pub duration: i32,     // 时长
 }
-
 
 // 转换函数
 // 假设这些引用已存在
@@ -111,12 +115,15 @@ impl From<DynamicEntity> for DynamicInfo {
             goodsid: entity.goodsid,
             goods_isxiajia: entity.goods_isxiajia,
             isdel: entity.isdel,
-            del_time: entity.del_time,
             recomend: entity.recomend,
             view_perm: entity.view_perm,
             comment_perm: entity.comment_perm,
             share_perm: entity.share_perm,
             add_time: entity.add_time,
+            is_deleted: None,
+            created_at: None,
+            updated_at: None,
+            deleted_at: None,
         }
     }
 }
@@ -127,7 +134,7 @@ impl DynamicInfo {
     pub fn new() -> Self {
         Self {
             id: 0,
-            _id: 0,
+            _id: None,
             r#type: 0,
             uid: 0,
             title: String::new(),
@@ -166,12 +173,15 @@ impl DynamicInfo {
             goodsid: None,
             goods_isxiajia: None,
             isdel: 0,
-            del_time: None,
             recomend: 0,
             view_perm: 0,
             comment_perm: 0,
             share_perm: 0,
             add_time: 0,
+            is_deleted: None,
+            created_at: None,
+            updated_at: None,
+            deleted_at: None,
         }
     }
 
@@ -182,3 +192,5 @@ impl DynamicInfo {
         info
     }
 }
+
+//////// END

@@ -50,7 +50,7 @@ impl BlackListPort for BlackListAdapter {
         // }
 
         // 🚧 2. PG 检查 (Cache-Aside: 数据库查询阶段)
-        let (total, entities) = UserBlackListRepo::find_black_logs(
+        let (total, entities) = UserBlackListRepo::find_black_record_list(
             actor_id,
             target_id,
             start_time,

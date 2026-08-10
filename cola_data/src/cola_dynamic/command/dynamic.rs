@@ -1,4 +1,5 @@
-// cola_data/src/cola_dynamic/cmd/cola_dynamic.rs  -- 动态 - CMD - 发布动态
+// cola_data/src/cola_dynamic/cmd/dynamic.rs
+// 数据 - ⏹ 可乐动态 - CMD - 发布命令
 // 2026/6/19 17:12
 
 ////////
@@ -8,6 +9,7 @@ use serde::{Deserialize, Serialize};
 ////////
 
 /// # [COMMAND] - 动态创建命令
+/// * `desc`: `⏹ 可乐动态 - 动态发布命令`
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct DynamicCommand {
     pub r#type: i16,

@@ -1,16 +1,15 @@
-// service/src/cola_user/user/list.rs
+// service/src/user/user/list.rs
 // 👤 服务 - 🗣 可乐用户 - 用户 - 前台列表服务
 // 2026/8/7 17:11 Created.
 
 ////////
 
 use anyhow::Result;
-use cola_data::cola_user::command::new::UserCommand;
 use cola_data::cola_user::info::user::UserInfo;
 use repository::cola_user::pg::user::get::UserGetRepo;
 use repository::cola_user::pg::user::list::UserListRepo;
 use std::collections::HashMap;
-
+use cola_data::cola_user::command::user::add::UserCommand;
 ////////
 
 /// # [LIST SERVICE] - 前台列表
@@ -121,7 +120,7 @@ impl UserListService {
     /// * `desc`: `对接 UserListRepo::find_category_list 并转换为 UserInfo 列表`
     pub async fn get_city_user_list(
         city_id: i64, // 城市 ID
-        limit: i64,  // 数量
+        limit: i64,   // 数量
         offset: i64,  // 页码
     ) -> Result<Vec<UserInfo>, anyhow::Error> {
         let list = UserListRepo::find_category_list(limit, offset)

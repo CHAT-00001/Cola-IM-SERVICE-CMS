@@ -1,5 +1,5 @@
 // data/src/cola_im/entity/chats/mod.rs
-// 数据中心 - IM - entity - chats - mod
+// 🗄 数据 - ⏹ 可乐IM - entity - chats - mod
 // 2026/8/3 15:26 Created.
 
 ////////

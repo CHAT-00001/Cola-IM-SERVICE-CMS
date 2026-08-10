@@ -1,4 +1,4 @@
-// repository/src/cola_video/danmaku/add.rs
+// service/src/cola_video/danmaku/add.rs
 // 👤 服务 - ▶ 可乐视频 - 弹幕 - 发布
 // 2026/8/2 18:54 Created.
 
@@ -11,7 +11,6 @@ use cola_data::cola_video::command::comment::CommentCommand;
 use cola_data::cola_video::command::danmaku::DanmakuCommand;
 use cola_data::cola_video::command::report::VideoReportCommand;
 use cola_data::cola_video::command::share::ShareCommand;
-use cola_data::cola_video::entity::danmaku::danmaku::DanmakuEntity;
 use cola_data::cola_video::entity::video::video::VideoEntity;
 use cola_data::cola_video::info::comment::VideoCommentInfo;
 use cola_data::cola_video::info::danmaku::DanmakuInfo;
@@ -19,6 +18,7 @@ use repository::cola_gis::pg::user::UserRepo;
 use repository::cola_video::pg::danmaku::danmaku::DanmakuRepo;
 use repository::cola_video::pg::video::home::VideoRepo;
 use tracing::log;
+use cola_data::cola_video::entity::danmaku::DanmakuEntity;
 
 ////////
 

@@ -19,15 +19,12 @@ impl VideoBuyGetRepo {
 
     ////////
 
-    /// # 1. [REPOSITORY] - 获取用户购买记录的视频 IDs (带分页)
-    /// * `user_id`: 用户ID
-    /// * `limit`: 返回数量限制
-    /// * `offset`: 分页偏移量
-    pub async fn find_buy_ids_by_user_id(
-        user_id: i64,
-        keyword: Option<String>,
-        limit: i64,
-        offset: i64,
+    /// # 1. [REPOSITORY] - 用户的
+    /// * `desc`: `根据用户ID` - `获取购买的视频IDs`
+    pub async fn find_video_ids_by_user_id(
+        user_id: i64, // 用户 ID
+        limit: i64,   // 数量
+        offset: i64,  // 页码
     ) -> Result<Vec<i64>, sqlx::Error> {
         let pool = pg_pool();
 

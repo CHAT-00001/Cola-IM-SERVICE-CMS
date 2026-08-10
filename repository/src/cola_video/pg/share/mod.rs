@@ -6,3 +6,6 @@
 
 
 pub mod add;
+mod del;
+mod stat;
+mod manage;

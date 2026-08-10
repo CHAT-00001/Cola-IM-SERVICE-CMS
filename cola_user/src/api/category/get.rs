@@ -1,17 +1,17 @@
 // cola_user/src/api/category/get.rs
-// 用户 - api - 分类 - 获取
+// core - 🗣 可乐用户 - api - 分类 - 获取
 // 2026/8/2 22:30 Created.
 
 ////////
 
 use crate::case::category::get::UserCategoryGetCase;
-use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::app::response::ListResponse;
 use cola_data::cola_user::info::category::UserCategoryInfo;
-use tracing::{error, info}; // 引入 info 和 error 宏
+use port::ctx::AppContext;
+use tracing::{error, info};
 
 ////////
 

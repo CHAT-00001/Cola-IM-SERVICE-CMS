@@ -6,7 +6,7 @@
 
 ////////
 
-use crate::cola_user::command::new::UserCommand;
+use crate::cola_user::command::user::add::UserCommand;
 
 /// # [ADD PORTS] - 浏览
 #[async_trait::async_trait]

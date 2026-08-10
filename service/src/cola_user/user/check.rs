@@ -4,7 +4,7 @@
 
 ////////
 
-use cola_data::cola_user::command::new::UserCommand;
+
 use cola_data::cola_user::info::user::UserInfo;
 use repository::cola_user::pg::user::state::UserStateRepo;
 

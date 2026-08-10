@@ -1,14 +1,14 @@
 // cola_user/src/api/black/check.rs
-// 用户 - api - black - 检查接口
+// 🗣 可乐用户 - api - black - 检查接口
 // 2026/8/2 22:21 Created.
 
 ////////
 
 use crate::case::black::check::UserBlackCheckCase;
-use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
+use port::ctx::AppContext;
 
 ////////
 

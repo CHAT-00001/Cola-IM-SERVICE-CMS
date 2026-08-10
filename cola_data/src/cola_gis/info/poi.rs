@@ -1,5 +1,6 @@
-// cola_data/src/cola_gis/info/poi.rs  -- GIS - info - 兴趣点(POI) 信息
-// 2026/7/6 20:40
+// data/src/cola_gis/info/poi.rs
+// 🗄 数据 - 可乐GIS - info - POI信息
+// 2026/7/6 20:40 Created.
 
 ////////
 
@@ -8,7 +9,7 @@ use serde::{Deserialize, Serialize};
 
 ////////
 
-/// # [INFO] - 兴趣点
+/// # [INFO] - POI 信息
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct PoiInfo {
     pub id: i64,
@@ -28,10 +29,14 @@ pub struct PoiInfo {
     pub add_time: i64,
 }
 
+// 构造实现
 impl PoiInfo {
+    //
+
     ////////
 
     /// # [BUILD] - 空的
+    /// * `desc`: `兜底数据`
     pub fn empty() -> Self {
         Self {
             id: 0,
@@ -55,13 +60,14 @@ impl PoiInfo {
     ////////
 
     /// # [FROM] - 实体转换
+    /// * `desc`: `转换对象`
     pub fn from_entity(entity: PoiEntity) -> Self {
         Self {
             id: entity.id,
             uid: entity.uid,
             channel_id: entity.channel_id.unwrap_or_default(),
             title: entity.title,
-            thumb: entity.thumb,
+            thumb: Option::from(entity.thumb),
             href: entity.href,
             views: entity.views,
             likes: entity.likes,

@@ -1,5 +1,5 @@
 // cola_data/src/cola_im/entity/chats/chats_setting.rs
-// 数据中心 - IM - entity - chats - 设置表
+// 🗄 数据 - ⏹ 可乐IM - entity - chats - 设置表
 // 2026/8/3 15:25 Created.
 
 ////////

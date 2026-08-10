@@ -5,14 +5,14 @@
 ////////
 
 use async_trait::async_trait;
-use cola_data::cola_user::command::new::UserCommand;
+use cola_data::cola_user::command::user::add::UserCommand;
 use cola_data::cola_user::command::user::update::UpdateUserCommand;
 use cola_data::cola_user::info::user::UserInfo;
 use cola_data::cola_user::port::user::add::UserAddPort;
-
+use repository::cola_user::pg::user::add::UserAddRepo;
 ////////
 
-/// # [ADD SERVICE] - 发布
+/// # [ADD ADAPTER] - 发布
 /// * `desc`: `用户发布服务`
 pub struct UserAddAdapter;
 
@@ -29,11 +29,25 @@ impl UserAddPort for UserAddAdapter {
         &self,
         cmd: UserCommand, // 命令
     ) -> anyhow::Result<(UserInfo)> {
-        todo!()
+
+        // 1. Call ..
+        let entity = cmd.new();
+
+        // 2. Call ..
+        let saved = UserAddRepo::save_user(entity)
+            .await
+            .map_err(|e| anyhow::anyhow!("[🤐 USER ADD ADAPTER]: ❌️ 保存用户失败: {}", e))?;
+
+        Ok(saved.into())
     }
 
     async fn update_user(&self, cmd: UpdateUserCommand) -> anyhow::Result<(UserInfo)> {
-        todo!()
+        let entity = cmd.to_entity(0);
+        let saved = UserAddRepo::save_user(entity)
+            .await
+            .map_err(|e| anyhow::anyhow!("[🤐 USER UPDATE ADAPTER]: ❌️ 更新用户失败: {}", e))?;
+
+        Ok(saved.into())
     }
 
     async fn update_avatar(&self, uid: i64, media_id: i64) -> anyhow::Result<()> {

@@ -1,4 +1,5 @@
-// cola_data/src/gift/mod.rs  -- 数据中心 - GIFT - mod
+// data/src/cola_gift/mod.rs
+// 🗄 数据 - ⏹ 可乐资产 - mod
 // 2026/6/19 17:50
 
 ////////

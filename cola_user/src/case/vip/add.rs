@@ -1,13 +1,12 @@
 // cola_user/src/case/vip/add.rs
-// 用户 - case - 贵宾 - 添加用例
+// 用户 - case - 贵宾 - 添加 用例
 // 2026/8/2 22:52 Created.
 
 ////////
 
 use anyhow::{Result, anyhow};
-use cola_data::app::ctx::AppContext;
 use tracing::info;
-
+use port::ctx::AppContext;
 ////////
 
 /// # [ADD CASE] - 添加

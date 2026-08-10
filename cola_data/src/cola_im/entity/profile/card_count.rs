@@ -1,4 +1,5 @@
-// cola_data/src/cola_im/entity/count.rs  -- IM - entity - 用户名片统计
+// cola_data/src/cola_im/entity/count.rs
+// 🗄 数据 - ⏹ 可乐IM - entity - 用户名片统计
 // 2026-07-07 14:00
 
 ////////

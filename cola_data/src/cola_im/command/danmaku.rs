@@ -1,11 +1,11 @@
 // cola_data/src/cola_im/command/danmaku.rs
-// 🗄️ 数据 - ✉️ 可乐IM - command - 弹幕
+// 🗄 数据 - ✉️ 可乐IM - command - 弹幕
 // 2026/5/19 22:13 by wx: cestbon10080
 
 ////////
 
 use serde::{Deserialize, Serialize};
-use crate::cola_video::entity::danmaku::danmaku::DanmakuEntity;
+use crate::cola_video::entity::danmaku::DanmakuEntity;
 
 ////////
 

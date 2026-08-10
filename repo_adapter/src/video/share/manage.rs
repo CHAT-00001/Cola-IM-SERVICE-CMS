@@ -1,42 +1,34 @@
-// repo_adapter/src/cola_video/share/manage.rs
+// repo_adapter/src/video/share/manage.rs
 // 🔌 插头 - 可乐视频 - 分享 - 管理
 // 2026/8/6 18:57 Created.
 
 ////////
 
-
-// repo_adapter/src/cola_user/ban/del.rs
-// 🔌 适配器 - 可乐用户 - 浏览 - 删除服务
-// 2026/8/7 05:56 Created.
-
-////////
-
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_user::port::view::del::ViewDelPort;
+use cola_data::cola_video::info::comment::VideoCommentInfo;
+use port::cola_video::share::manage::VideoShareManagePort;
 
 ////////
 
-/// # [DEL SERVICE] - 删除
-/// * `desc`: `用户浏览删除服务`
-pub struct ViewDelService;
+/// # [MANAGE ADAPTER] - share manage
+/// * `DESC`: `▶ 视频 - 视频分享记录管理适配器`
+#[derive(Debug, Default, Clone)]
+pub struct VideoShareManageAdapter;
 
-// 构造实现
 #[async_trait]
-impl ViewDelPort for ViewDelService {
-    //
-
-    ////////
-
-    /// # 1. [SERVICE] - 单个
-    /// * `desc`: `单个软删除`
-    async fn single_soft_del(&self, uid: i64, id: i64) -> Result<(u16)> {
-        todo!()
-    }
-
-    /// # 2. [SERVICE] - 批量
-    /// * `desc`: `批量软删除`
-    async fn batch_soft_del(&self, uid: i64, ids: Vec<i64>) -> Result<(u16)> {
+impl VideoShareManagePort for VideoShareManageAdapter {
+    async fn admin_get_shares_infos(
+        &self,
+        uid: i64,                // UID
+        user_id: Option<i64>,    // 用户 ID
+        video_id: Option<i64>,   // 视频 ID
+        start_time: Option<i64>, // 开始时间
+        end_time: Option<i64>,   // 结束时间
+        status_code: i16,        // 状态码
+        limit: i64,              // 数量
+        offset: i64,             // 页码
+    ) -> Result<(VideoCommentInfo), u64> {
         todo!()
     }
 }

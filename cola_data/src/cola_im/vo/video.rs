@@ -1,4 +1,5 @@
-// cola_data/src/new/vo/new.rs  -- VIDEO - VO - 视频
+// data/src/cola_im/vo/new.rs
+// 🗄 数据 - 可乐IM - VO - 群
 // 2026/6/19 17:35
 
 ////////
@@ -9,9 +10,9 @@ use serde::{Deserialize, Serialize};
 
 ////////
 
-/// # [VO] - 短视频 视图模型 结构体
+/// # [VO] - 群 视图对象
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct VideoVo {
+pub struct GroupVo {
     #[serde(flatten)]
     pub info: VideoInfo,
     pub user: UserVo,

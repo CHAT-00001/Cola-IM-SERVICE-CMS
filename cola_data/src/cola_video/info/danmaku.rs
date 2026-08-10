@@ -1,12 +1,12 @@
-// info/danmaku.rs  -- 数据中心 - VIDEO - 信息 - 弹幕信息
+// data/src/cola_video/info/danmaku.rs
+// 🗄 数据 - ▶ 可乐视频 - 信息 - 弹幕信息
 // 2026/5/22 16:10
 
 ////////
 
 use serde::{Deserialize, Serialize};
 use crate::cola_user::info::user::UserInfo;
-use crate::cola_video::entity::danmaku::danmaku::DanmakuEntity;
-
+use crate::cola_video::entity::danmaku::DanmakuEntity;
 ////////
 
 /// # [INFO] - 弹幕信息
@@ -29,7 +29,7 @@ pub struct DanmakuInfo {
 
 ////////
 
-/// # 构造函数
+/// # 构造实现
 impl DanmakuInfo {
 
     pub fn from_entity(

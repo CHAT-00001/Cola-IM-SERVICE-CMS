@@ -1,5 +1,5 @@
-// entity/notice/mod.rs
-// 数据中心 - IM - entity - notice - mod
+// data/src/cola_im/entity/notice/mod.rs
+// 🗄 数据 - ⏹ 可乐IM - entity - notice - mod
 // 2026/8/3 15:51 Created.
 
 ////////

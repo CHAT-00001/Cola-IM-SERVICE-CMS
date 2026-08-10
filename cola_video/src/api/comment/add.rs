@@ -1,24 +1,17 @@
-// /add.rs
-// 
-// 2026/8/4 18:39 Created.
-
-////////
-
-
-// cola_video/src/api/add  --
-// 视频 - 应用层 - 评论 - 发布
+// cola_video/src/api/comment/add.rs
+// 可乐视频 - api - 评论 - 发布
 // 2026-04-16 08:00
 
 ////////
 
 use crate::case::comment::CommentCase;
-use crate::model::vo::comment::{CommentListResponse, CommentSingleResponse};
 use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::request::ApiUrlParamsQuery;
+use cola_data::app::response::{ListResponse, SingleResponse};
 use cola_data::cola_auth::info::auth::AuthContext;
 use cola_data::cola_video::command::comment::CommentCommand;
-use repository::cola_user::service::state::UserStateService;
+use service::cola_user::user::state::UserStateService;
 
 ////////
 
@@ -42,12 +35,12 @@ impl VideoCommentAddApi {
     ////////
 
     /// # 1. [API HANDLER] - 发布
-    pub async fn handler_add_comment(
+    pub async fn api_add_comment(
         auth: AuthContext, // 验证中心
         url: CommentParamsQuery,
         cmd: CommentCommand, // 评论命令
         ctx: &AppContext,    // 🌟 核心修复：把业务上下文注入进来
-    ) -> AppData<CommentSingleResponse> {
+    ) -> AppData<SingleResponse> {
         // 1. 检查用户状态
 
         // 2. 检查评论权限
@@ -66,12 +59,12 @@ impl VideoCommentAddApi {
     ////////
 
     /// # 2. [API HANDLER] - 视频的评论
-    pub async fn handler_view_video_list(
+    pub async fn api_view_video_list(
         auth: AuthContext,
         video_id: Option<i64>,
         query: ApiUrlParamsQuery,
         ctx: &AppContext,
-    ) -> AppData<CommentListResponse> {
+    ) -> AppData<ListResponse> {
         // 1. 参数校验：获取 uid
         let uid = auth.uid;
 
@@ -96,12 +89,12 @@ impl VideoCommentAddApi {
     ////////
 
     /// # 3. [API HANDLER] - 查看用户的评论
-    pub async fn handler_view_user_list(
+    pub async fn api_view_user_list(
         auth: AuthContext,
         _url: CommentParamsQuery,
         query: ApiUrlParamsQuery,
         ctx: &AppContext,
-    ) -> AppData<CommentListResponse> {
+    ) -> AppData<ListResponse> {
         let uid = auth.uid;
 
         // 2. Call Service 检查用户状态
@@ -120,7 +113,7 @@ impl VideoCommentAddApi {
     }
 
     /// # 4. [API HANDLER] - 单条删除
-    pub async fn handler_del_comment(
+    pub async fn api_del_comment(
         auth: AuthContext,
         url: CommentParamsQuery,
         ctx: &AppContext,
@@ -148,7 +141,7 @@ impl VideoCommentAddApi {
     ////////
 
     /// # 5. [API HANDLER] - 点赞
-    pub async fn handler_add_like(
+    pub async fn api_add_like(
         auth: AuthContext,
         url: CommentParamsQuery,
         is_liked: bool,
@@ -174,7 +167,7 @@ impl VideoCommentAddApi {
     ////////
 
     /// # 6. [API HANDLER] - 不喜欢
-    pub async fn handler_add_unlike(
+    pub async fn api_add_unlike(
         auth: AuthContext,
         url: CommentParamsQuery,
         ctx: &AppContext, // 🌟 已经在这里了

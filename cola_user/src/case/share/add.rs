@@ -6,11 +6,10 @@
 ////////
 
 use anyhow::{Result, anyhow};
-use cola_data::app::ctx::AppContext;
 use cola_data::cola_user::command::share::ShareUserCommand;
 use cola_data::cola_user::info::share::ShareInfo;
 use tracing::info;
-
+use port::ctx::AppContext;
 ////////
 
 /// # [SHARE CASE] - 用户主页分享 用例

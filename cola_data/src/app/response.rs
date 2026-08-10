@@ -1,4 +1,5 @@
-// cola_data/src/app/response.rs -- 数据 - APP - 响应体
+// cola_data/src/app/response.rs
+// 数据 - APP - 响应体
 // 2026/7/27 13:30
 
 ////////

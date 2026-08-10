@@ -1,13 +1,13 @@
-// cola_data/src/cola_video/command/comment.rs
-// 🗄️ 数据 - ▶ 可乐视频 - command - 评论
+// data/src/cola_video/command/comment.rs
+// 🗄 数据 - ▶ 可乐视频 - command - 评论
 // 2026/5/20 12:01
 
 ////////
 
-use crate::cola_video::entity::comment::comment::VideoCommentEntity;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use std::convert::TryFrom;
+use crate::cola_video::entity::comment::VideoCommentEntity;
 
 ////////
 

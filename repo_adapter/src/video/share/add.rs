@@ -6,28 +6,23 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_video::port::view::add::VideoViewAddPort;
+use cola_data::cola_video::command::share::ShareCommand;
+use port::cola_video::share::add::VideoShareAddPort;
 
 ////////
 
-/// # [ADD SERVICE] - 发布
-/// * `desc`: `视频分享发布服务`
-pub struct AddService;
+/// # [ADD ADAPTER] - share add
+/// * `DESC`: `▶ 视频 - 视频分享发布适配器`
+#[derive(Debug, Default, Clone)]
+pub struct VideoShareAddAdapter;
 
-// 构造实现
 #[async_trait]
-impl VideoViewAddPort for AddService {
-    //
-
-    ////////
-
-    /// # 1. [SERVICE] - 发布
-    /// * `desc`: `保存视频浏览记录`
-    async fn save_view(&self, uid: i64, video_id: i64) -> Result<()> {
+impl VideoShareAddPort for VideoShareAddAdapter {
+    async fn save_share_record(&self, uid: i64, video_id: i64, cmd: ShareCommand) -> Result<()> {
         todo!()
     }
 
-    async fn update_done_count(&self, uid: i64, video_id: i64, is_done: bool) -> Result<()> {
+    async fn delete_share_record(&self, uid: i64, video_id: i64) -> Result<()> {
         todo!()
     }
 }

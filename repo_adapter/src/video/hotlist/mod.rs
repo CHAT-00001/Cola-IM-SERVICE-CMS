@@ -1,13 +1,13 @@
-// repo_adapter/src/cola_video/hotlist/mod.rs
-// 🔌 插头 - 可乐视频 - 上热门 - 模块
-// 2026/8/6 19:22 Created.
+// repo_adapter/src/video/hotlist/mod.rs
+// 🔌 适配器 - 视频 - 上热门 - mod
+// 2026/8/9 22:41 Created.
 
 ////////
 
-pub mod add;
-pub mod alive;
-pub mod check;
-pub mod del;
-pub mod get;
-pub mod list;
-pub mod manage;
+pub mod add; // 发布
+pub mod check; // 检查
+pub mod del; // 删除
+pub mod get; // 获取
+pub mod list; // 列表
+pub mod manage; // 管理
+pub mod stat; // 统计

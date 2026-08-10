@@ -1,9 +1,13 @@
-// cola_data/src/cola_im/info/card.rs  -- IM - info - 名片
+// cola_data/src/cola_im/info/card.rs
+// 🗄 数据 - ⏹ 可乐IM - info - 名片
 // 2026-07-07
 
 use crate::cola_im::entity::contacts::contact::ImContactEntity as ContactCardEntity;
 use serde::{Deserialize, Serialize};
 
+////////
+
+/// # [INFO] - 名片信息
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct CardInfo {
     pub id: i64,
@@ -34,3 +38,5 @@ impl CardInfo {
         }
     }
 }
+
+//////// END

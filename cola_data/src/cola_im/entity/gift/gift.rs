@@ -1,5 +1,5 @@
 // cola_data/src/cola_im/entity/gift/gift.rs
-// 数据中心 - IM - entity - gift - 礼物表
+// 🗄 数据 - ⏹ 可乐IM - entityy - gift - 礼物表
 // 2026/6/19 17:51
 
 ////////

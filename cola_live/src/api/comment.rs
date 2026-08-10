@@ -1,16 +1,17 @@
-// cola_live/src/api/add  -- LIVE - 应用层 - 评论
+// cola_live/src/api/add
+// 可乐LIVE - api - 评论
 // 2026-04-16 08:00
 
 ////////
 
-use cola_data::app::ctx::AppContext;
 use crate::case::comment::CommentCase;
+use crate::model::vo::comment::{CommentListResponse, CommentSingleResponse};
+use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::request::ApiUrlParamsQuery;
 use cola_data::cola_auth::info::auth::AuthContext;
 use cola_data::cola_video::command::comment::CommentCommand;
-use repository::cola_user::service::state::UserStateService;
-use crate::model::vo::comment::{CommentListResponse, CommentSingleResponse};
+use service::cola_user::user::state::UserStateService;
 
 ////////
 
@@ -28,11 +29,11 @@ impl CommentApi {
     ////////
 
     /// # 1. [API HANDLER] - 发布
-    pub async fn handler_add_comment(
-        auth: AuthContext,        // 验证中心
+    pub async fn api_add_comment(
+        auth: AuthContext, // 验证中心
         url: CommentParamsQuery,
-        cmd: CommentCommand,      // 评论命令
-        ctx: &AppContext,         // 🌟 核心修复：把业务上下文注入进来
+        cmd: CommentCommand, // 评论命令
+        ctx: &AppContext,    // 🌟 核心修复：把业务上下文注入进来
     ) -> AppData<CommentSingleResponse> {
         // 1. 检查用户状态
 
@@ -52,13 +53,12 @@ impl CommentApi {
     ////////
 
     /// # 2. [API HANDLER] - 视频的评论
-    pub async fn handler_view_video_list(
+    pub async fn api_view_video_list(
         auth: AuthContext,
         video_id: Option<i64>,
         query: ApiUrlParamsQuery,
         ctx: &AppContext,
     ) -> AppData<CommentListResponse> {
-
         // 1. 参数校验：获取 uid
         let uid = auth.uid;
 
@@ -83,13 +83,12 @@ impl CommentApi {
     ////////
 
     /// # 3. [API HANDLER] - 查看用户的评论
-    pub async fn handler_view_user_list(
+    pub async fn api_view_user_list(
         auth: AuthContext,
         _url: CommentParamsQuery,
         query: ApiUrlParamsQuery,
         ctx: &AppContext,
     ) -> AppData<CommentListResponse> {
-
         let uid = auth.uid;
 
         // 2. Call Service 检查用户状态
@@ -108,11 +107,12 @@ impl CommentApi {
     }
 
     /// # 4. [API HANDLER] - 单条删除
-    pub async fn handler_del_comment(
+    pub async fn api_del_comment(
         auth: AuthContext,
         url: CommentParamsQuery,
         ctx: &AppContext,
-    ) -> AppData<String> { // 🌟 核心修复：尊重客观事实，类型改成 String
+    ) -> AppData<String> {
+        // 🌟 核心修复：尊重客观事实，类型改成 String
 
         // 1. 参数校验：comment_id
         let comment_id = match url.comment_id {
@@ -135,13 +135,12 @@ impl CommentApi {
     ////////
 
     /// # 5. [API HANDLER] - 点赞
-    pub async fn handler_add_like(
+    pub async fn api_add_like(
         auth: AuthContext,
         url: CommentParamsQuery,
         is_liked: bool,
         ctx: &AppContext,
     ) -> AppData<bool> {
-
         let uid = auth.uid;
 
         let comment_id = match url.comment_id {
@@ -162,14 +161,15 @@ impl CommentApi {
     ////////
 
     /// # 6. [API HANDLER] - 不喜欢
-    pub async fn handler_add_unlike(
+    pub async fn api_add_unlike(
         auth: AuthContext,
         url: CommentParamsQuery,
         ctx: &AppContext, // 🌟 已经在这里了
     ) -> AppData<()> {
-
         // CALL CASE 🌟 核心修复：在末尾把 ctx 捎上，凑齐 4 个参数
-        match CommentCase::case_add_comment_unlike(auth.uid, url.comment_id, url.is_unliked, ctx).await {
+        match CommentCase::case_add_comment_unlike(auth.uid, url.comment_id, url.is_unliked, ctx)
+            .await
+        {
             Ok(resp) => AppData::ok(resp),
             Err(e) => {
                 tracing::error!("Unlike Error: {:?}", e);

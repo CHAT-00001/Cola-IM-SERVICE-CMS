@@ -1,160 +1,116 @@
-// /manage.rs
-// 
-// 2026/8/2 14:49 Created.
-
-////////
-
-
-// repository/src/cola_video/pg/like/active
-// 仓储 - VIDEO - pg - like - add 点赞/不喜欢
+// repository/src/cola_video/pg/like/manage.rs
+// 仓储 - ▶ 视频 - pg - 点赞 - 管理员 仓储
 // 2026/8/2 14:49 Created.
 
 ////////
 
 use crate::pg_pool;
+use cola_data::cola_video::entity::like::like::VideoLikeEntity;
 use sqlx::{self, Postgres, QueryBuilder};
 
 ////////
 
-/// [ADD REPOSITORY] - 视频 点赞 添加 仓储
-pub struct VideoLikeAddRepo;
+/// [MANAGE REPOSITORY] - 管理员 repository
+/// * `desc`: `▶ 视频 - 管理员列表仓储`
+pub struct VideoLikeManageRepo;
 
-impl VideoLikeAddRepo {
+impl VideoLikeManageRepo {
     //
 
     ////////
 
-    /// # 1. [REPOSITORY] - 保存点赞记录
-    // 简化版本 - 使用upsert逻辑
-    pub async fn pg_save_video_like(
-        uid: i64,
-        video_id: i64,
-        is_liked: bool,
-    ) -> Result<(), sqlx::Error> {
+    /// # 9. [REPOSITORY] - 管理员列表
+    pub async fn find_admin_list(
+        user_id: Option<i64>,    // 用户 ID
+        video_id: Option<i64>,   // 视频 ID
+        start_time: Option<i64>, // 开始时间
+        end_time: Option<i64>,   // 结束时间
+        status_code: i16,        // 状态码
+        limit: i64,              // 数量
+        offset: i64,             // 页码
+    ) -> Result<(Vec<VideoLikeEntity>, u64), sqlx::Error> {
         let pool = pg_pool();
 
-        let query = r#"
-        INSERT INTO video_like (uid, video_id, is_liked, addtime, updatetime)
-        VALUES ($1, $2, $3, $4, $5)
-        ON CONFLICT (uid, video_id)
-        DO UPDATE SET
-            is_liked = EXCLUDED.is_liked,
-            update_time = EXCLUDED.update_time
-    "#;
+        // 1. 查询总条数 (Count)
+        let mut count_builder: QueryBuilder<Postgres> = QueryBuilder::new(
+            "SELECT COUNT(*) FROM cola_video.like WHERE status = ",
+        );
+        count_builder.push_bind(status_code);
+        count_builder.push(" AND (is_deleted = false OR is_deleted IS NULL)");
 
-        let current_timestamp = chrono::Utc::now().timestamp();
+        if let Some(uid) = user_id {
+            count_builder.push(" AND uid = ");
+            count_builder.push_bind(uid);
+        }
+        if let Some(vid) = video_id {
+            count_builder.push(" AND video_id = ");
+            count_builder.push_bind(vid);
+        }
+        if let Some(start) = start_time {
+            count_builder.push(" AND addtime >= ");
+            count_builder.push_bind(start);
+        }
+        if let Some(end) = end_time {
+            count_builder.push(" AND addtime <= ");
+            count_builder.push_bind(end);
+        }
 
-        sqlx::query(query)
-            .bind(uid)
-            .bind(video_id)
-            .bind(is_liked)
-            .bind(current_timestamp)
-            .bind(current_timestamp)
-            .execute(&pool)
-            .await?;
+        let total: i64 = count_builder
+            .build_query_scalar()
+            .fetch_one(&pool)
+            .await
+            .map_err(|e| {
+                tracing::error!(
+                    error = ?e,
+                    "VideoLikeManageRepo::find_admin_list count query failed"
+                );
+                e
+            })?;
 
-        Ok(())
-    }
+        // 2. 查询分页列表数据 (List)
+        let mut query_builder: QueryBuilder<Postgres> = QueryBuilder::new(
+            "SELECT * FROM cola_video.like WHERE status = ",
+        );
+        query_builder.push_bind(status_code);
+        query_builder.push(" AND (is_deleted = false OR is_deleted IS NULL)");
 
+        if let Some(uid) = user_id {
+            query_builder.push(" AND uid = ");
+            query_builder.push_bind(uid);
+        }
+        if let Some(vid) = video_id {
+            query_builder.push(" AND video_id = ");
+            query_builder.push_bind(vid);
+        }
+        if let Some(start) = start_time {
+            query_builder.push(" AND addtime >= ");
+            query_builder.push_bind(start);
+        }
+        if let Some(end) = end_time {
+            query_builder.push(" AND addtime <= ");
+            query_builder.push_bind(end);
+        }
 
-    ////////
+        // 排序与分页
+        query_builder.push(" ORDER BY addtime DESC");
+        query_builder.push(" LIMIT ");
+        query_builder.push_bind(limit);
+        query_builder.push(" OFFSET ");
+        query_builder.push_bind(offset);
 
-    /// # 2. [REPOSITORY] - 保存不喜欢记录
-    // 简化版本 - 使用upsert逻辑
-    pub async fn pg_save_video_unlike(
-        uid: i64,
-        video_id: i64,
-        is_unliked: bool,
-    ) -> Result<(), sqlx::Error> {
-        let pool = pg_pool();
-
-        let query = r#"
-        INSERT INTO video_unlike (uid, video_id, is_unliked, add_time, update_time)
-        VALUES ($1, $2, $3, $4, $5)
-        ON CONFLICT (uid, video_id)
-        DO UPDATE SET
-            is_unliked = EXCLUDED.is_unliked,
-            update_time = EXCLUDED.update_time
-    "#;
-
-        let current_timestamp = chrono::Utc::now().timestamp();
-
-        sqlx::query(query)
-            .bind(uid)
-            .bind(video_id)
-            .bind(is_unliked)
-            .bind(current_timestamp)
-            .bind(current_timestamp)
-            .execute(&pool)
-            .await?;
-
-        Ok(())
-    }
-
-
-
-    ////////
-
-    /// # 8. [REPOSITORY] - 获取用户点赞记录的视频 IDs (带分页)
-    pub async fn find_like_record_by_user_id(
-        uid: i64,
-        limit: i64,
-        offset: i64,
-    ) -> Result<Vec<i64>, sqlx::Error> {
-        let pool = pg_pool();
-
-        // 🌟 核心修复：
-        // 1. 只 SELECT video_id，精准对齐 Vec<i64>
-        // 2. 加上 user_id = $1 确保用户隔离
-        // 3. 浏览记录一般按“浏览时间（visittime/addtime）”倒序，这里把乱入的 likes 排序去掉了
-        let query = "
-        SELECT video_id
-        FROM video_like
-        WHERE user_id = $1 AND status = 1
-        ORDER BY add_time DESC
-        LIMIT $2 OFFSET $3
-    ";
-
-        // 映射单列数据到基础类型，sqlx 内部用 sqlx::query_scalar
-        // 或者直接 query 迭代 row.get(0)，但最清爽的是 query_scalar! 宏或直接用单列映射
-        sqlx::query_scalar::<_, i64>(query)
-            .bind(uid)    // $1
-            .bind(limit)  // $2
-            .bind(offset) // $3
+        let entities = query_builder
+            .build_query_as::<VideoLikeEntity>()
             .fetch_all(&pool)
             .await
-    }
+            .map_err(|e| {
+                tracing::error!(
+                    error = ?e,
+                    "VideoLikeManageRepo::find_admin_list query failed"
+                );
+                e
+            })?;
 
-    ////////
-
-    /// # 9. [REPOSITORY] - 获取用户不喜欢记录的视频 IDs (带分页)
-    pub async fn find_unlike_record_by_user_id(
-        uid: i64,
-        limit: i64,
-        offset: i64,
-    ) -> Result<Vec<i64>, sqlx::Error> {
-        let pool = pg_pool();
-
-        // 🌟 核心修复：
-        // 1. 只 SELECT video_id，精准对齐 Vec<i64>
-        // 2. 加上 user_id = $1 确保用户隔离
-        // 3. 浏览记录一般按“浏览时间（visittime/addtime）”倒序，这里把乱入的 likes 排序去掉了
-        let query = "
-        SELECT video_id
-        FROM video_unlike
-        WHERE user_id = $1 AND status = 1
-        ORDER BY add_time DESC
-        LIMIT $2 OFFSET $3
-    ";
-
-        // 映射单列数据到基础类型，sqlx 内部用 sqlx::query_scalar
-        // 或者直接 query 迭代 row.get(0)，但最清爽的是 query_scalar! 宏或直接用单列映射
-        sqlx::query_scalar::<_, i64>(query)
-            .bind(uid)    // $1
-            .bind(limit)  // $2
-            .bind(offset) // $3
-            .fetch_all(&pool)
-            .await
+        Ok((entities, total as u64))
     }
 }
 

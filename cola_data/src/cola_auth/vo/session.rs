@@ -1,4 +1,5 @@
-// cola_data/src/cola_auth/vo/session.rs -- 数据中心 - AUTH - vo - 会话视图对象
+// data/src/cola_auth/vo/session.rs
+// 🗄 数据 - AUTH - vo - 会话视图对象
 // 2026-07-28 10:26
 
 ////////
@@ -9,10 +10,8 @@ use crate::cola_user::info::user::UserInfo;
 
 ////////
 
-/// # [VO] - 登录/注册响应体
-/// * `cola_auth`       存储认证令牌信息（access_token, refresh_token, 过期时间）
-/// * `user_info`   用户资料
-/// * `is_new_user` 是否为新注册用户
+/// # [VO] - 登录/注册 视图对象
+/// * `desc`: `存储认证令牌信息（access_token, refresh_token, 过期时间）`
 #[derive(Debug, Serialize, Clone)]
 pub struct SignVo {
     pub auth: SessionInfo,
@@ -36,7 +35,13 @@ impl Default for SignResponse {
     }
 }
 
+// 构造实现
 impl SignVo {
+    //
+
+    ////////
+
+    /// # [BUILD] - 新的
     pub fn new(auth: SessionInfo, user_info: UserInfo, is_new_user: bool) -> Self {
         Self {
             auth,
@@ -46,4 +51,4 @@ impl SignVo {
     }
 }
 
-////////
+//////// END

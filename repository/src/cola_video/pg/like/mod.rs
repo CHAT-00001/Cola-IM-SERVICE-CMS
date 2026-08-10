@@ -4,10 +4,9 @@
 
 ////////
 
-pub mod add;
-pub mod clean;
-pub mod get;
-pub mod manage;
-pub mod state;
-
-////////
+pub mod add; // 发布
+pub mod clean; // 清除
+pub mod del; // 删除
+pub mod get; // 获取
+pub mod manage; // 管理
+pub mod stat; // 统计

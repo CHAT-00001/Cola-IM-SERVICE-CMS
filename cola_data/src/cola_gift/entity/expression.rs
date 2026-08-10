@@ -1,5 +1,5 @@
-// cola_data/src/gift/entity/expression.rs
-// 数据中心 - GIFT - entity - gift
+// data/src/gift/entity/expression.rs
+// 🗄 数据 - ⏹ 可乐资产 - entity - gift
 // 2026/6/19 17:58
 
 ////////

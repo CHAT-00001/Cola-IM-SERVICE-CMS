@@ -1,0 +1,19 @@
+#### 端口
+## 2026-08-09 02:07 Created.
+
+[package]
+name = "port"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+#### 内依赖
+cola_data = { path = "../cola_data" }
+
+
+#### 外部依赖
+rust_decimal = { version = "1.42.1" }
+rust_decimal_macros = "1.40.0"
+serde = { version = "1.0.229", features = ["derive"] }
+async-trait = "0.1.92"
+anyhow = "1.0.104"

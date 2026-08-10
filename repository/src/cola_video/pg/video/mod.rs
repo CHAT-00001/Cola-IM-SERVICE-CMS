@@ -12,4 +12,6 @@ pub mod perm_check; // 权限检查
 pub mod perm_update; // 权限更新
 pub mod home;
 mod clean;
+mod del;
+mod manage;
 // 视频

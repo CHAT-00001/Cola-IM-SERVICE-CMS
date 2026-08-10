@@ -1,44 +1,29 @@
-// repo_adapter/src/cola_video/share/del.rs
-// 🔌 插头 - 可乐视频 - 分享 - 删除
+// repo_adapter/src/video/share/del.rs
+// 🔌 插头 - ▶ 视频 - 分享 - 删除
 // 2026/8/6 18:57 Created.
 
 ////////
-
-
-// repo_adapter/src/cola_user/ban/del.rs
-// 🔌 适配器 - 可乐用户 - 浏览 - 删除服务
-// 2026/8/7 05:56 Created.
-
-////////
-
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_user::port::view::del::ViewDelPort;
+use port::cola_video::share::del::VideoShareDelPort;
 
 ////////
 
-/// # [DEL SERVICE] - 删除
-/// * `desc`: `用户浏览删除服务`
-pub struct ViewDelService;
+/// # [ADAPTER] - share del
+/// * `DESC`: `▶ 视频 - 视频分享记录删除适配器`
+#[derive(Debug, Default, Clone)]
+pub struct VideoShareDelAdapter;
 
-// 构造实现
 #[async_trait]
-impl ViewDelPort for ViewDelService {
-    //
-
-    ////////
-
-    /// # 1. [SERVICE] - 单个
-    /// * `desc`: `单个软删除`
-    async fn single_soft_del(&self, uid: i64, id: i64) -> Result<(u16)> {
+impl VideoShareDelPort for VideoShareDelAdapter {
+    async fn single_soft_del_record(&self, uid: i64, video_id: i64, id: i64) -> Result<(u16)> {
         todo!()
     }
 
-    /// # 2. [SERVICE] - 批量
-    /// * `desc`: `批量软删除`
-    async fn batch_soft_del(&self, uid: i64, ids: Vec<i64>) -> Result<(u16)> {
+    async fn batch_soft_del_record(&self, uid: i64, video_id: i64, ids: Vec<i64>) -> Result<(u16)> {
         todo!()
     }
+    // TODO: 瀹炵幇鍏蜂綋鐨勪笟鍔￠€昏緫
 }
 
 //////// END

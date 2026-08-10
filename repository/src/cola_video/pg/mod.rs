@@ -1,5 +1,5 @@
-// repository/src/cola_video/pg/mod.rs
-// 仓储 - VIDEO - pg - mod
+// repository/src/video/pg/mod.rs
+// 🛢 仓储 - ▶ 视频 - pg - mod
 // 2026/5/23 04:58
 
 ////////
@@ -9,8 +9,9 @@ pub mod buy; // 购买
 pub mod collect; // 收藏
 pub mod comment; // 评论
 pub mod danmaku; // 弹幕
+pub mod dislike; // 不喜欢
 pub mod hotlist; // 上热门
-pub mod ids;  // (备用)
+pub mod ids; // (备用)
 pub mod like; // 点赞
 pub mod recommend; // 推荐
 pub mod share; // 分享

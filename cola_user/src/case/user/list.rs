@@ -5,9 +5,9 @@
 ////////
 
 use anyhow::{Result, anyhow};
-use cola_data::app::ctx::AppContext;
 use cola_data::cola_user::info::user::UserInfo;
 use cola_data::cola_user::vo::user::UserVo;
+use port::ctx::AppContext;
 use service::cola_user::user::list::UserListService;
 use tracing::info;
 
@@ -79,7 +79,7 @@ impl UserListCase {
     /// * `desc`: `获取GEO附近用户列表`
     pub async fn case_get_city_users(
         _uid: i64,         // 操作者ID
-        city_id: i64,          // 分类
+        city_id: i64,      // 分类
         offset: i64,       // 分页偏移
         limit: i64,        // 每页数量
         _ctx: &AppContext, // 全局上下文

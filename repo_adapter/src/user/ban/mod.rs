@@ -10,3 +10,4 @@ pub mod del; // 删除
 pub mod get; //获取
 pub mod list; // 列表
 pub mod manage; // 管理
+pub mod stat; // 统计

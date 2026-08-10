@@ -1,5 +1,5 @@
 // cola_data/src/cola_im/entity/profile/permission.rs
-// 数据中心 - IM - entity - profile - 用户权限表
+// 🗄 数据 - ⏹ 可乐IM - entity - profile - 用户权限表
 // 2026/3/30 05:33 Created.
 
 ////////

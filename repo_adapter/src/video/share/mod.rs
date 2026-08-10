@@ -1,13 +1,13 @@
-// repo_adapter/src/cola_video/share/mod.rs
-// 🔌 插头 - 可乐视频 - 分享 - 模块
-// 2026/8/6 19:51 Created.
+// repo_adapter/src/video/share/mod.rs
+// 🔌 适配器 - ▶ 视频 - 分享 - mod
+// 2026/8/10 02:54 Created.
 
 ////////
 
-pub mod add;
-pub mod check;
-pub mod del;
-pub mod get;
-pub mod list;
-pub mod manage;
-mod stat;
+pub mod add; // 发布
+pub mod check; // 检查
+pub mod del; // 删除
+pub mod get; // 获取
+pub mod list; // 列表
+pub mod manage; // 管理
+pub mod stat; // 统计

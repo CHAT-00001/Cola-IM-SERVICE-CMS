@@ -1,11 +1,11 @@
 // repository/src/cola_video/pg/comment/list.rs
-// 🗄️ 仓储 - ▶ 可乐视频 - pg - 评论记录 - 前台列表
+// 🛢 仓储 - ▶ 可乐视频 - pg - 评论记录 - 前台列表
 // 2026/8/8 00:46 Created.
 
 ////////
 
 use crate::pg_pool;
-use cola_data::cola_video::entity::comment::comment::{VIDEO_COMMENT_COLUMNS, VideoCommentEntity};
+use cola_data::cola_video::entity::comment::{VIDEO_COMMENT_COLUMNS, VideoCommentEntity};
 use sqlx::{self, Postgres, QueryBuilder};
 
 ////////

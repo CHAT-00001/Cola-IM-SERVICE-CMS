@@ -1,78 +1,85 @@
 // repository/src/cola_video/pg/view/manage.rs
-// 仓储 - VIDEO - pg - view - manage 管理
-// 2026/8/2 13:19 Created.
+// 仓储 - ▶ 视频 - pg - 浏览 - 管理员 仓储
+// 2026/8/10 00:07 Created.
 
 ////////
 
 use crate::pg_pool;
-use cola_data::cola_video::entity::view::{VIDEO_VIEW_COLUMNS, VideoViewEntity};
-use sqlx::{self, Postgres};
+use cola_data::cola_video::entity::share::VideoShareEntity;
+use sqlx::{self, Postgres, QueryBuilder};
 
 ////////
 
-/// # [MANAGE REPOSITORY] - 管理 仓储
-pub struct VideoViewManageRepo;
+/// [MANAGE REPOSITORY] - 管理员 repository
+/// * `desc`: `▶ 视频 - 管理员列表仓储`
+pub struct VideoLikeManageRepo;
 
-impl VideoViewManageRepo {
+impl VideoLikeManageRepo {
     //
 
     ////////
 
-    /// # 1. [REPOSITORY] - 用户软删除浏览记录 - 单条删除 (uid + video_id)
-    pub async fn pg_soft_delete_single(uid: i64, video_id: i64) -> Result<u64, sqlx::Error> {
+    /// # 9. [REPOSITORY] - 管理员列表
+    pub async fn find_admin_view_record_list(
+        user_id: Option<i64>,    // 用户 ID
+        video_id: Option<i64>,   // 视频 ID
+        start_time: Option<i64>, // 开始时间
+        end_time: Option<i64>,   // 结束时间
+        status_code: i16,        // 状态码
+        limit: i64,              // 数量
+        offset: i64,             // 页码
+    ) -> Result<Vec<VideoShareEntity>, sqlx::Error> {
         let pool = pg_pool();
-        let query = "
-            UPDATE cola_video.view_history
-            SET is_tombstone = 1, is_deleted = 1
-            WHERE uid = $1 AND video_id = $2
-        ";
 
-        let result = sqlx::query(query)
-            .bind(uid)
-            .bind(video_id)
-            .execute(&pool)
-            .await?;
+        // 初始化 SQL 查询构建器，带上基础固定条件
+        let mut query_builder: QueryBuilder<Postgres> =
+            QueryBuilder::new("SELECT * FROM cola_video.view WHERE status = ");
 
-        Ok(result.rows_affected())
-    }
+        query_builder.push_bind(status_code);
+        query_builder.push(" AND (is_deleted = false OR is_deleted IS NULL)");
 
-    ////////
+        // 动态拼接：用户 ID 可选参数
+        if let Some(uid) = user_id {
+            query_builder.push(" AND uid = ");
+            query_builder.push_bind(uid);
+        }
 
-    /// # 2. [REPOSITORY] - 用户软删除浏览记录 - 按时间批量删除 (早于某个时间戳的所有记录)
-    pub async fn pg_soft_delete_by_time_batch(
-        uid: i64,
-        before_time: i64,
-    ) -> Result<u64, sqlx::Error> {
-        let pool = pg_pool();
-        let query = "
-            UPDATE cola_video.view_history
-            SET is_deleted = 1
-            WHERE uid = $1 AND addtime <= $2 AND is_deleted = 0
-        ";
+        // 动态拼接：视频 ID 可选参数
+        if let Some(vid) = video_id {
+            query_builder.push(" AND video_id = ");
+            query_builder.push_bind(vid);
+        }
 
-        let result = sqlx::query(query)
-            .bind(uid)
-            .bind(before_time)
-            .execute(&pool)
-            .await?;
+        // 动态拼接：开始时间可选参数
+        if let Some(start) = start_time {
+            query_builder.push(" AND add_time >= ");
+            query_builder.push_bind(start);
+        }
 
-        Ok(result.rows_affected())
-    }
+        // 动态拼接：结束时间可选参数
+        if let Some(end) = end_time {
+            query_builder.push(" AND add_time <= ");
+            query_builder.push_bind(end);
+        }
 
-    ////////
+        // 排序与分页
+        query_builder.push(" ORDER BY add_time DESC");
+        query_builder.push(" LIMIT ");
+        query_builder.push_bind(limit);
+        query_builder.push(" OFFSET ");
+        query_builder.push_bind(offset);
 
-    /// # 5. [REPOSITORY] - 用户软删除浏览记录 - 全部删除
-    pub async fn pg_soft_delete_all_by_uid(uid: i64) -> Result<u64, sqlx::Error> {
-        let pool = pg_pool();
-        let query = "
-            UPDATE cola_video.view_history
-            SET is_deleted = 1
-            WHERE uid = $1 AND is_deleted = 0
-        ";
+        // 构建目标实体查询
+        let query = query_builder.build_query_as::<VideoShareEntity>();
 
-        let result = sqlx::query(query).bind(uid).execute(&pool).await?;
-
-        Ok(result.rows_affected())
+        // 执行查询并加上错误日志打印
+        query.fetch_all(&pool).await.map_err(|e| {
+            tracing::error!(
+                error = ?e,
+                "VideoLikeManageRepo::find_admin_view_record_list query failed"
+            );
+            e
+        })
     }
 }
 

@@ -4,39 +4,35 @@
 
 ////////
 
-
-// repo_adapter/src/cola_user/ban/del.rs
-// 🔌 适配器 - 可乐用户 - 浏览 - 删除服务
-// 2026/8/7 05:56 Created.
-
-////////
-
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_user::port::view::del::ViewDelPort;
+use cola_data::cola_video::info::comment::VideoCommentInfo;
+use port::cola_video::share::list::VideoShareListPort;
 
 ////////
 
-/// # [DEL SERVICE] - 删除
-/// * `desc`: `用户浏览删除服务`
-pub struct ViewDelService;
+/// # [ADAPTER] - share list
+/// * `DESC`: `▶ 视频 - 视频分享列表适配器`
+#[derive(Debug, Default, Clone)]
+pub struct VideoShareListAdapter;
 
-// 构造实现
 #[async_trait]
-impl ViewDelPort for ViewDelService {
-    //
-
-    ////////
-
-    /// # 1. [SERVICE] - 单个
-    /// * `desc`: `单个软删除`
-    async fn single_soft_del(&self, uid: i64, id: i64) -> Result<(u16)> {
+impl VideoShareListPort for VideoShareListAdapter {
+    async fn get_my_like_record(
+        &self,
+        uid: i64,
+        limit: i64,
+        offset: i64,
+    ) -> Result<(VideoCommentInfo)> {
         todo!()
     }
 
-    /// # 2. [SERVICE] - 批量
-    /// * `desc`: `批量软删除`
-    async fn batch_soft_del(&self, uid: i64, ids: Vec<i64>) -> Result<(u16)> {
+    async fn get_he_like_record(
+        &self,
+        uid: i64,
+        limit: i64,
+        offset: i64,
+    ) -> Result<(VideoCommentInfo)> {
         todo!()
     }
 }

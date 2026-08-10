@@ -1,4 +1,5 @@
-// cola_data/src/cola_im/entity/contact_request.rs  -- 数据中心 -IM - entity - 联系人 添加请求
+// cola_data/src/cola_im/entity/contact_request.rs
+// 🗄 数据 - ⏹ 可乐IM - entity - 联系人 添加请求
 // 2026/7/7 15:53
 
 ////////

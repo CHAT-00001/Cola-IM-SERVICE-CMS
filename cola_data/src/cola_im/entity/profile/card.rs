@@ -1,5 +1,5 @@
 // cola_data/src/cola_im/entity/profile/card.rs
-// 数据中心 - IM - entity - profile - 名片
+// 🗄 数据 - ⏹ 可乐IM - entity - profile - 名片
 // 2026-01-16 09:37:10
 
 ////////

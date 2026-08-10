@@ -5,7 +5,6 @@
 ////////
 
 mod history;
-
 ////////
 
 use chrono::{DateTime, Utc};

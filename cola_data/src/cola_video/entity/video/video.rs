@@ -1,7 +1,6 @@
 // cola_video/entity/cola_video/info
 // 数据 - 视频 - entity - cola_video - 视频表
 // 2026/5/19 21:34 Created.
-// 2026/8/4 21:20 Updated.
 
 ////////
 
@@ -12,9 +11,9 @@ use uuid::Uuid;
 
 ////////
 
-/// # [ENTITY] - 视频 视频表
+/// # [ENTITY] - ▶ 可乐视频 视频表
 /// * `pg schema`: `cola_video`
-/// * `table name`: `cola_video`
+/// * `table name`: `video`
 #[derive(Debug, Clone, Default, FromRow)]
 pub struct VideoEntity {
     pub id: i64,                           // ID (自增 / 雪花)

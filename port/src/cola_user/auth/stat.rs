@@ -1,0 +1,32 @@
+// /stat.rs
+// ⏩️ 端口 - 🗣 可乐用户 - 认证 - 统计
+// 2026/8/10 04:46 Created.
+
+////////
+
+use async_trait::async_trait;
+
+////////
+
+/// # [STAT PORTS]
+/// * `desc`: `🗣 用户 - 用户认证记录统计端口`
+#[async_trait]
+pub trait UserAuthStatPort: Send + Sync + 'static {
+    ////////
+
+    /// # 1. [PORT] - 用户的
+    async fn stat_count_by_user_id(
+        &self,
+        user_id: i64, // 用户 ID
+    ) -> anyhow::Result<(u64)>;
+
+    ////////
+
+    /// # 2. [PORT] - 主页的
+    async fn stat_count_by_profile_id(
+        &self,
+        profile_id: i64, // 主页 ID
+    ) -> anyhow::Result<(u64)>;
+
+    ////////
+}

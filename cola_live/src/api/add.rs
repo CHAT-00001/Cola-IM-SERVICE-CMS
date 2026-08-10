@@ -5,13 +5,13 @@
 ////////
 
 use crate::case;
+use crate::case::add::AddCase;
+use crate::model::vo::video::VideoSingleResponse;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::cola_video::command::video::edit::VideoUpdateCommand;
 use cola_data::cola_video::command::video::new::VideoNewCommand;
-use repository::cola_video::service::permission_check::VideoPermissionsCheckService;
-use crate::case::add::AddCase;
-use crate::model::vo::video::VideoSingleResponse;
+use service::cola_video::video::check::VideoPermissionsCheckService;
 
 ////////
 
@@ -20,7 +20,6 @@ pub struct AddApi;
 
 // 构造函数
 impl AddApi {
-
     ////////
 
     /// # 1. [API HANDLER] - 发布
@@ -28,7 +27,6 @@ impl AddApi {
         user_id: i64,
         cmd: VideoNewCommand,
     ) -> AppData<VideoSingleResponse> {
-
         // 1. 业务级权限检查 - 纯函数调用，不走 Trait 弯弯绕绕
         if let Err(e) = VideoPermissionsCheckService::check_video_publish_perm(user_id).await {
             return AppData::err(
@@ -45,7 +43,6 @@ impl AddApi {
         }
     }
 
-
     ////////
 
     /// # 2. [API HANDLER] - 编辑
@@ -54,7 +51,6 @@ impl AddApi {
         user_id: i64,
         cmd: VideoUpdateCommand,
     ) -> AppData<VideoSingleResponse> {
-
         // 1. 业务级权限检查 - 纯函数调用，不走 Trait 弯弯绕绕
         if let Err(e) = VideoPermissionsCheckService::check_video_publish_perm(user_id).await {
             return AppData::err(

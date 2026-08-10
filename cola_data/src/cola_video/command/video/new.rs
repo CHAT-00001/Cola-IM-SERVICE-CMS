@@ -1,5 +1,5 @@
-// cola_data/src/cola_video/command/cola_video/new.rs
-// 数据 - VIDEO - command - cola_video - new 发布视频
+// data/src/cola_video/command/video/new.rs
+// 数据 - ▶ 可乐视频 - command - video - 发布视频
 // 2026/5/19 21:28
 
 ////////

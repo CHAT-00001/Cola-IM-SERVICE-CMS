@@ -1,11 +1,5 @@
-// /add.rs
-// 
-// 2026/8/4 02:05 Created.
-
-////////
-
-
-// cola_data/src/cola_user/cola_dynamic/state  可乐数据中心 -- 用户 - Command - 创建用户命令
+// cola_data/src/cola_user/command/user/add.rs
+// 数据 - 用户 - Command - 用户 - 发布
 // 2026/5/22 16:35
 
 ////////

@@ -5,7 +5,7 @@
 ////////
 
 use anyhow::Result;
-use cola_data::app::ctx::AppContext;
+use port::ctx::AppContext;
 use tracing::info;
 
 ////////
@@ -35,9 +35,15 @@ impl UserBlackManageCase {
 
         // 2. 可以根据业务需要在这里做判断（可选）
         if qty == 0 {
-            info!("[🗣️ CASE] - ⚠️ 移除黑名单未命中目标: uid={}, target_id={}", uid, id);
+            info!(
+                "[🗣️ CASE] - ⚠️ 移除黑名单未命中目标: uid={}, target_id={}",
+                uid, id
+            );
         } else {
-            info!("[🗣️ CASE] - ✅️ 移除黑名单成功: uid={}, target_id={}", uid, id);
+            info!(
+                "[🗣️ CASE] - ✅️ 移除黑名单成功: uid={}, target_id={}",
+                uid, id
+            );
         }
 
         // 3. 将统计数量返回给 API Handler 组装响应
@@ -61,7 +67,10 @@ impl UserBlackManageCase {
             .await
             .map_err(|e| anyhow::anyhow!("[🗣️ CASE]: ❌️ 批量移除黑名单失败: {}", e))?;
 
-        info!("[🗣️ CASE] - ✅️ 批量移除黑名单成功: uid={}, 共成功移除 {} 条.", uid, qty);
+        info!(
+            "[🗣️ CASE] - ✅️ 批量移除黑名单成功: uid={}, 共成功移除 {} 条.",
+            uid, qty
+        );
 
         // 2. 将统计数量返回给 API Handler 组装响应
         Ok(qty)

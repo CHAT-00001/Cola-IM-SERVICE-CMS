@@ -12,9 +12,9 @@ use sqlx::FromRow;
 
 /// # [ENTITY] - 视频 推荐表
 /// * `pg schema`: `cola_video`
-/// * `table name`: `recommend_record`
+/// * `table name`: `recommend`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
-pub struct RecommendRecordEntity {
+pub struct VideoRecommendEntity {
     pub id: i64,                           // ID
     pub uid: i64,                          // 谁推荐的
     pub video_id: i64,                     // 推荐了哪个视频
@@ -30,7 +30,7 @@ pub struct RecommendRecordEntity {
 ////////
 
 /// # [CONSTANT] - 推荐记录表字段常量定义
-pub const RECOMMEND_RECORD_COLUMNS: &str = "\
+pub const VIDEO_RECOMMEND_COLUMNS: &str = "\
     id, uid, video_id, remark, \
     status, is_deleted, \
     add_time, created_at, updated_at, deleted_at\

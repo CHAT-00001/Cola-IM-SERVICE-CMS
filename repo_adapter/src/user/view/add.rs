@@ -4,16 +4,10 @@
 
 ////////
 
-// /del.rs
-//
-// 2026/8/7 05:56 Created.
-
-////////
-
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_user::command::new::UserCommand;
-use cola_data::cola_user::port::view::add::ViewAddPort;
+use cola_data::cola_user::command::user::add::UserCommand;
+use port::cola_user::view::add::UserViewAddPort;
 
 ////////
 
@@ -23,7 +17,7 @@ pub struct ViewAddService;
 
 // 构造实现
 #[async_trait]
-impl ViewAddPort for ViewAddService {
+impl UserViewAddPort for ViewAddService {
     //
 
     ////////
