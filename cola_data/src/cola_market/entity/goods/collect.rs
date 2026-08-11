@@ -1,4 +1,4 @@
-// cola_market/entity/goods/collect.rs
+// market/entity/goods/collect.rs
 // 数据中心 - MARKET - entity - 商品 - 收藏表
 // 2026/8/3 23:08 Created.
 
@@ -11,7 +11,7 @@ use sqlx::FromRow;
 ////////
 
 /// # [ENTITY] - 市场 - 商品 - 收藏表
-/// * `pg schema`: `cola_market`
+/// * `pg schema`: `market`
 /// * `table name`: `goods_collect`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct GoodsCollectEntity {

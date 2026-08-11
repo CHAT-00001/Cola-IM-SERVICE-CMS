@@ -1,4 +1,4 @@
-// cola_data/src/cola_market/response/mod.rs  -- 数据中心 - MARKET - 响应体 - mod
+// cola_data/src/market/response/mod.rs  -- 数据中心 - MARKET - 响应体 - mod
 // 2026/7/27 15:22
 
 ////////

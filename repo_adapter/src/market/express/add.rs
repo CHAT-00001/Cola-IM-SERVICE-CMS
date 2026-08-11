@@ -6,67 +6,39 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
+use cola_data::cola_market::command::goods::GoodsCommand;
+use cola_data::cola_market::info::express::express::ExpressInfo;
 use cola_data::cola_video::command::video::edit::VideoUpdateCommand;
 use cola_data::cola_video::command::video::new::VideoNewCommand;
 use cola_data::cola_video::command::video::permission::VideoUpdatePermissionCommand;
+use port::market::express::add::ExpressAddPort;
 use port::cola_video::video::add::VideoAddPort;
 
 ////////
 
 /// # [ADD SERVICE] - 发布
 /// * `desc`: `🔌 视频发布插头`
-pub struct VideoAddAdapter;
+pub struct ExpressAddAdapter;
 
 #[async_trait]
-impl ExpressAddPort for VideoAddAdapter {
+impl ExpressAddPort for ExpressAddAdapter {
     //
 
     ////////
 
     /// # 1. [ADAPTER] - 发布新视频
-    async fn add_video(
-        &self,
-        uid: i64,              // 操作者 ID
-        data: VideoNewCommand, // 视频发布命令
-    ) -> Result<()> {
+    async fn save_express(&self, uid: i64, cmd: GoodsCommand) -> Result<(ExpressInfo)> {
         todo!()
     }
 
-    ////////
-
-    /// # 2. [ADAPTER] - 编辑视频
-    async fn edit_video(
-        &self,
-        uid: i64,                 // 操作者 ID
-        video_id: i64,            // 视频 ID
-        data: VideoUpdateCommand, // 视频更新命令
-    ) -> Result<()> {
+    async fn update_express(&self, uid: i64, express_id: i64, cmd: GoodsCommand) -> Result<(ExpressInfo)> {
         todo!()
     }
 
-    ////////
-
-    /// # 3. [ADAPTER] - 修改权限
-    async fn change_permission(
-        &self,
-        uid: i64,                           // 操作者 ID
-        _video_id: i64,                     // 视频 ID
-        data: VideoUpdatePermissionCommand, // 视频风险权限命令
-    ) -> Result<()> {
+    async fn change_status(&self, express_id: i64, status_code: i16) -> Result<()> {
         todo!()
     }
 
-    ////////
-
-    /// # 4. [ADAPTER] - 修改状态
-    async fn change_state(
-        &self,
-        uid: i64,                           // 操作者 ID
-        _video_id: i64,                     // 视频 ID
-        data: VideoUpdatePermissionCommand, // 视频更新权限命令
-    ) -> Result<()> {
-        todo!()
-    }
 }
 
 //////// END

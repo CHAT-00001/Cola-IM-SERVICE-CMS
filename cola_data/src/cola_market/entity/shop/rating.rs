@@ -1,4 +1,4 @@
-// cola_market/entity/shop/rating.rs
+// market/entity/shop/rating.rs
 // 数据中心 - MARKET - entity - 商店 评分表
 // 2026/8/3 22:55 Created.
 
@@ -11,7 +11,7 @@ use sqlx::FromRow;
 ////////
 
 /// # [ENTITY] - 市场 - 商店 - 评分表
-/// * `pg schema`: `cola_market`
+/// * `pg schema`: `market`
 /// * `table name`: `shop_ratingt`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct ShopRatingEntity {

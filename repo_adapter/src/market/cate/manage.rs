@@ -1,5 +1,5 @@
-// repo_adapter/src/cola_video/video/manage.rs
-// 🔌 插头 - VIDEO - 视频 - 管理
+// repo_adapter/src/market/cate/manage.rs
+// 🔌 插头 - MARKET - 商品分类 - 管理
 // 2026/8/6 19:19 Created.
 
 ////////
@@ -7,16 +7,15 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use cola_data::cola_video::info::video::VideoInfo;
-use port::cola_video::video::manage::VideoManagePort;
-
+use port::market::cate::manage::CateManagePort;
 ////////
 
 /// # [MANAGE ADAPTER] - 管理
-/// * `desc`: `🔌 视频管理适配器`
-pub struct VideoManageAdapter;
+/// * `desc`: `商品分类管理适配器`
+pub struct CateManageAdapter;
 
 #[async_trait]
-impl VideoManagePort for VideoManageAdapter {
+impl CateManagePort for CateManageAdapter {
     //
 
     ////////

@@ -7,15 +7,15 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use port::cola_video::video::del::VideoDeletePort;
-
+use port::market::cate::del::CateDeletePort;
 ////////
 
 /// # [DELETE ADAPTER] - 删除
 /// * `desc`: `🔌 视频删除服务`
-pub struct VideoDelAdapter;
+pub struct CateDelAdapter;
 
 #[async_trait]
-impl VideoDeletePort for VideoDelAdapter {
+impl CateDeletePort for CateDelAdapter {
     //
 
     ////////

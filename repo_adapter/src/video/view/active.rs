@@ -12,11 +12,11 @@ use port::cola_video::view::active::VideoViewActivePort;
 
 /// # [ALIVE SERVICE] - 存活
 /// * `desc`: `用户浏览存活服务`
-pub struct AliveService;
+pub struct VideoViewActiveAdapter;
 
 // 构造实现
 #[async_trait]
-impl VideoViewActivePort for AliveService {
+impl VideoViewActivePort for VideoViewActiveAdapter {
     //
 
     ////////

@@ -1,4 +1,4 @@
-// cola_market/info/goods/goods.rs
+// market/info/goods/goods.rs
 // 市场 - info - 商品 - 商品信息
 // 2026/8/3 23:27 Created.
 

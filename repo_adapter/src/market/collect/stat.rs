@@ -1,22 +1,22 @@
-// repo_adapter/src/video/collect/stat.rs
-// 🔌 适配器 - ▶ 视频 - 收藏 - 统计
+// repo_adapter/src/market/collec/stat.rs
+// 🔌 适配器 - MARKET - 商品收藏 - 统计
 // 2026/8/9 20:28 Created.
 
 ////////
 
 use anyhow::Result;
 use async_trait::async_trait;
-use port::cola_video::collect::stat::VideoCollectStatPort;
+use port::market::collect::stat::GoodsCollectStatPort;
 
 ////////
 
 /// # [STAT ADAPTER] - 统计
-/// * `desc`: `▶ 可乐视频 - 统计收藏数量`
+/// * `desc`: `商品收藏统计适配器`
 #[derive(Debug, Default, Clone)]
-pub struct VideoCollectStatAdapter;
+pub struct GoodsCollectStatAdapter;
 
 #[async_trait]
-impl VideoCollectStatPort for VideoCollectStatAdapter {
+impl GoodsCollectStatPort for GoodsCollectStatAdapter {
     //
 
     ////////

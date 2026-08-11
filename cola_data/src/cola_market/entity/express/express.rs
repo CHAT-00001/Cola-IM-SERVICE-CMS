@@ -1,4 +1,4 @@
-// cola_market/entity/express/express.rs
+// market/entity/express/express.rs
 // 数据中心 - MARKET - entity - 快递 - 物流公司表
 // 2026/8/3 22:40 Created.
 
@@ -11,7 +11,7 @@ use sqlx::FromRow;
 ////////
 
 /// # [ENTITY] - 市场 - 快递公司表
-/// * `pg schema`: `cola_market`
+/// * `pg schema`: `market`
 /// * `table name`: `shop_express`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct ExpressEntity {

@@ -1,4 +1,4 @@
-// cola_market/entityr/shop/bond.rs
+// market/entityr/shop/bond.rs
 // 数据中心 - MARKET - entity - 商店 保证金表
 // 2026/8/3 22:50 Created.
 
@@ -11,7 +11,7 @@ use sqlx::FromRow;
 ////////
 
 /// # [ENTITY] - 市场 - 商店 - 保证金表
-/// * `pg sche`: `cola_market`
+/// * `pg sche`: `market`
 /// * `table name`: `shop_bond`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct ShopBondEntity {

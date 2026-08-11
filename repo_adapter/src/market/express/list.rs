@@ -6,82 +6,28 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
+use cola_data::cola_market::info::express::express::ExpressInfo;
 use cola_data::cola_video::info::video::VideoInfo;
+use port::market::express::list::ExpressListPort;
 use port::cola_video::video::list::VideoListPort;
 
 ////////
 
 /// # [ADD ADAPTER] - 发布
 /// * `desc`: `🔌 视频发布插头`
-pub struct VideoListAdapter;
+pub struct ExpressListAdapter;
 
 #[async_trait]
-impl VideoListPort for VideoListAdapter {
-    async fn get_new_infos(&self, uid: i64, limit: i64, offset: i64) -> Result<(Vec<VideoInfo>)> {
+impl ExpressListPort for ExpressListAdapter {
+    async fn get_view_infos_by_user_id(&self, user_id: i64, limit: i64, offset: i64) -> Result<(Vec<ExpressInfo>)> {
         todo!()
     }
 
-    async fn get_hot_infos(&self, uid: i64, limit: i64, offset: i64) -> Result<(Vec<VideoInfo>)> {
+    async fn get_new_infos(&self, limit: i64, offset: i64) -> Result<(Vec<ExpressInfo>)> {
         todo!()
     }
 
-    async fn get_recommend_infos(
-        &self,
-        uid: i64,
-        limit: i64,
-        offset: i64,
-    ) -> Result<(Vec<VideoInfo>)> {
-        todo!()
-    }
-
-    async fn get_category_infos(
-        &self,
-        uid: i64,
-        category_id: i64,
-        limit: i64,
-        offset: i64,
-    ) -> Result<(Vec<VideoInfo>)> {
-        todo!()
-    }
-
-    async fn get_channel_infos(
-        &self,
-        uid: i64,
-        channel_id: i64,
-        limit: i64,
-        offset: i64,
-    ) -> Result<(Vec<VideoInfo>)> {
-        todo!()
-    }
-
-    async fn get_city_infos(
-        &self,
-        uid: i64,
-        city_id: i64,
-        limit: i64,
-        offset: i64,
-    ) -> Result<(Vec<VideoInfo>)> {
-        todo!()
-    }
-
-    async fn get_nearby_infos(
-        &self,
-        lat: f64,
-        lng: f64,
-        range: f64,
-        offset: i64,
-        limit: i64,
-    ) -> Result<(Vec<VideoInfo>)> {
-        todo!()
-    }
-
-    async fn get_search_infos(
-        &self,
-        uid: i64,
-        keyword: Option<String>,
-        limit: i64,
-        offset: i64,
-    ) -> Result<(Vec<VideoInfo>)> {
+    async fn batch_get_infos_by_ids(&self, ids: Vec<i64>) -> Result<(Vec<ExpressInfo>)> {
         todo!()
     }
 }

@@ -1,21 +1,21 @@
-// repo_adapter/src/cola_video/video/del.rs
-// 🔌 插头 - 可乐视频 - 视频 - 删除服务
+// repo_adapter/src/market/shop/del.rs
+// 🔌 插头 - MARKET - 商品 - 删除服务
 // 2026/8/6 19:19 Created.
 
 ////////
 
 use anyhow::Result;
 use async_trait::async_trait;
-use port::cola_video::video::del::VideoDeletePort;
+use port::market::shop::del::ShopDeletePort;
 
 ////////
 
 /// # [DELETE ADAPTER] - 删除
 /// * `desc`: `🔌 视频删除服务`
-pub struct VideoDelAdapter;
+pub struct ShopDelAdapter;
 
 #[async_trait]
-impl VideoDeletePort for VideoDelAdapter {
+impl ShopDeletePort for ShopDelAdapter {
     //
 
     ////////

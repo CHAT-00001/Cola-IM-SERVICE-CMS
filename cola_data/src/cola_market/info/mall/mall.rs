@@ -1,4 +1,4 @@
-// cola_market/info/mall/mall.rs
+// market/info/mall/mall.rs
 // 市场 - info - mall - 商场信息
 // 2026/8/3 23:34 Created.
 

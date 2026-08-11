@@ -6,17 +6,17 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use port::cola_video::view::del::VideoViewDelPort;
+use port::market::view::del::GoodsViewDelPort;
 
 ////////
 
 /// # [DELETE ADAPTER] - 删除
 /// * `desc`: `视频浏览删除适配器`
-pub struct VideoViewDeleteAdapter;
+pub struct GoodsViewDeleteAdapter;
 
 // 构造实现
 #[async_trait]
-impl VideoViewDelPort for VideoViewDeleteAdapter {
+impl GoodsViewDelPort for GoodsViewDeleteAdapter {
     //
 
     ////////

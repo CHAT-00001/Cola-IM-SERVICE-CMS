@@ -1,22 +1,22 @@
-// repo_adapter/src/video/collect/add.rs
-// 🔌 插头 - ▶ 可乐视频 - 收藏 - 发布
+// repo_adapter/src/market/collect/add.rs
+// 🔌 适配器 - MARKET - 商品收藏 - 发布
 // 2026/8/9 20:35 Created.
 
 ////////
 
 use anyhow::Result;
 use async_trait::async_trait;
-use port::cola_video::collect::add::VideoCollectAddPort;
+use port::market::collect::add::GoodsCollectAddPort;
 
 ////////
 
 /// # [ADD ADAPTER] - 发布
-/// * `desc`: `▶可乐视频 - 收藏发布服务`
-pub struct VideoCollectAddAdapter;
+/// * `desc`: `商品收藏发布适配器`
+pub struct GoodsCollectAddAdapter;
 
 // 构造实现
 #[async_trait]
-impl VideoCollectAddPort for VideoCollectAddAdapter {
+impl GoodsCollectAddPort for GoodsCollectAddAdapter {
     //
 
     ////////

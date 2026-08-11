@@ -1,4 +1,4 @@
-// cola_market/entity/shop/count.rs
+// market/entity/shop/count.rs
 // 数据 - MARKET - entity - 商店 - 计数表
 // 2026/8/3 22:50 Created.
 
@@ -11,7 +11,7 @@ use sqlx::FromRow;
 ////////
 
 /// # [ENTITY] - 市场 - 商店 - 计数表
-/// * `pg schema`: `cola_market`
+/// * `pg schema`: `market`
 /// * `table name`: `shop_count`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct ShopCountEntity {

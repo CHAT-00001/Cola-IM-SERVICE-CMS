@@ -1,5 +1,5 @@
-// repo_adapter/src/video/collect/check.rs
-// 🔌 适配器 - ▶ 可乐视频 - 收藏 -  Check Port
+// repo_adapter/src/market/collec/check.rs
+// 🔌 适配器 - MARKET - 商品收藏 - Check Port
 // 2026/8/9 20:36 Created.
 
 ////////
@@ -7,17 +7,17 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use port::cola_video::collect::check::VideoCollectCheckPort;
-
+use port::market::collect::check::GoodsCollectCheckPort;
 ////////
 
 /// # [CHECK ADAPTER] - 检查
-/// * `desc`: `▶可乐视频 - 收藏状态检查`
+/// * `desc`: `商品收藏状态检查`
 #[derive(Debug, Default, Clone)]
-pub struct VideoCollectCheckAdapter;
+pub struct GoodsCollectCheckAdapter;
 
 // 构造实现
 #[async_trait]
-impl VideoCollectCheckPort for VideoCollectCheckAdapter {
+impl GoodsCollectCheckPort for GoodsCollectCheckAdapter {
     //
 
     ////////

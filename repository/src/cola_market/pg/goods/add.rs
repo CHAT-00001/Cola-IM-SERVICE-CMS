@@ -1,4 +1,4 @@
-// repository/src/cola_market/pg/goods/add.rs
+// repository/src/market/pg/goods/add.rs
 // 仓储 - MARKET - pg - 商品 - 发布
 // 2026/8/11 07:21 Created.
 
@@ -37,7 +37,7 @@ impl GoodsAddRepo {
 
         sqlx::query_as::<_, GoodsEntity>(
             r#"
-            INSERT INTO cola_market.goods (
+            INSERT INTO market.goods (
                 uid, city_id, name, name_en, no, one_classid, two_classid, three_classid,
                 video_url, video_thumb, video_length, thumbs, content, pictures, specs,
                 postage, hits, isrecom, sale_nums, refuse_reason, issale, type,
@@ -71,7 +71,7 @@ impl GoodsAddRepo {
         let pool = pg_pool();
         sqlx::query_as::<_, GoodsEntity>(
             r#"
-            UPDATE cola_market.goods
+            UPDATE market.goods
             SET name=$1, name_en=$2, no=$3, one_classid=$4, two_classid=$5, three_classid=$6,
                 thumbs=$7, content=$8, pictures=$9, specs=$10, present_price=$11, original_price=$12, upd_time=$13
             WHERE id=$14
@@ -93,7 +93,7 @@ impl GoodsAddRepo {
     pub async fn toggle_status(id: i64) -> Result<(), sqlx::Error> {
         let pool = pg_pool();
         sqlx::query(
-            "UPDATE cola_market.goods SET issale = CASE WHEN issale = 1 THEN 0 ELSE 1 END WHERE id = $1",
+            "UPDATE market.goods SET issale = CASE WHEN issale = 1 THEN 0 ELSE 1 END WHERE id = $1",
         )
             .bind(id)
             .execute(&pool)

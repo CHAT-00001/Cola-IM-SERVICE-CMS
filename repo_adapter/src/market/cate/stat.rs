@@ -1,22 +1,22 @@
-// repo_adapter/src/cola_video/cola_video/stat.rs
-// 🔌 插头服务 - 可乐视频 - 视频 - 统计服务
+// repo_adapter/src/market/cate/stat.rs
+// 🔌 适配器 -MARKET - 商品分类 - 统计
 // 2026/8/6 19:20 Created.
 
 ////////
 
 use anyhow::Result;
 use async_trait::async_trait;
-use port::cola_video::video::stat::VideoStatPort;
+use port::market::cate::stat::CateStatPort;
 
 ////////
 
-/// # [STAT SERVICE] - 统计
-/// * `desc`: `🔌 视频统计服务`
-pub struct VideoStatAdapter;
+/// # [STAT ADAPTER] - 统计
+/// * `desc`: `商品分类统计服务`
+pub struct CateStatAdapter;
 
 // 构造实现
 #[async_trait]
-impl VideoStatPort for VideoStatAdapter {
+impl CateStatPort for CateStatAdapter {
     //
 
     ////////

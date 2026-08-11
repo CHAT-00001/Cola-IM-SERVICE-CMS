@@ -8,7 +8,7 @@ use crate::cola_auth::AuthServicePorts;
 use crate::cola_gis::ColaGisPort;
 use crate::cola_im::ColaImPort;
 use crate::cola_live::ColaLivePort;
-use crate::cola_market::ColaMarketPort;
+use crate::market::ColaMarketPort;
 use crate::cola_music::ColaMusicPort;
 use crate::cola_three::ColaThreePort;
 use crate::cola_user::ColaUserPort;

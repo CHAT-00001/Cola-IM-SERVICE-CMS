@@ -1,5 +1,5 @@
-// repo_adapter/src/video/collect/get.rs
-// 🔌 适配器 - ▶ 可乐视频 -  收藏 -  获取
+// repo_adapter/src/market/collec/get.rs
+// 🔌 适配器 - MARKET - 商品收藏 - 获取
 // 2026/8/9 20:42 Created.
 
 ////////
@@ -7,16 +7,16 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use port::cola_video::collect::get::VideoCollectGetPort;
-
+use port::market::collect::get::GoodsCollectGetPort;
 ////////
 
 /// # [GET ADAPTER] - 获取
-/// * `desc`: `▶ 可乐视频 - 收藏记录查询适配器`
+/// * `desc`: `商品收藏查询适配器`
 #[derive(Debug, Default, Clone)]
-pub struct VideoCollectGetAdapter;
+pub struct GoodsCollectGetAdapter;
 
 #[async_trait]
-impl VideoCollectGetPort for VideoCollectGetAdapter {
+impl GoodsCollectGetPort for GoodsCollectGetAdapter {
     //
 
     ////////

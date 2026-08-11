@@ -1,10 +1,11 @@
-// cola_market/command/goods.rs
+// market/command/goods.rs
 // data - MARKET - command - 商品
 // 2026/6/18 13:28 Created.
 
 ////////
 
 mod add;
+mod view;
 
 use chrono::{DateTime, Utc};
 use rust_decimal::Decimal;

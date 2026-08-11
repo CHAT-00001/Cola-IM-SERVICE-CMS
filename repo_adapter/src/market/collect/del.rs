@@ -1,5 +1,5 @@
-// repo_adapter/src/video/collect/del.rs
-// 🔌 适配器 - ▶ 视频 - 收藏 - 删除
+// repo_adapter/src/market/collect/del.rs
+// 🔌 适配器 - MARKET - 商品收藏 - 删除
 // 2026/8/9 20:37 Created.
 
 ////////
@@ -7,16 +7,16 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use port::cola_video::collect::del::VideoCollectDelPort;
-
+use port::market::collect::del::GoodsCollectDelPort;
 ////////
 
 /// # [DELETE ADAPTER] - 删除
-/// * `desc`: `▶ 视频 - 收藏记录软删除适配器`
+/// * `desc`: `商品收藏适配器`
 #[derive(Debug, Default, Clone)]
-pub struct VideoCollectDelAdapter;
+pub struct GoodsCollectDelAdapter;
 
 #[async_trait]
-impl VideoCollectDelPort for VideoCollectDelAdapter {
+impl GoodsCollectDelPort for GoodsCollectDelAdapter {
     //
 
     ////////

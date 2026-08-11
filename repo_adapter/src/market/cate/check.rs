@@ -7,15 +7,15 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use port::cola_video::video::check::VideoCheckPort;
-
+use port::market::cate::check::CateCheckPort;
 ////////
 
 /// # [CHECK ADAPTER] - 检查
 /// * `desc`: `🔌 视频检查服务`
-pub struct VideoCheckAdapter;
+pub struct CateCheckAdapter;
 
 #[async_trait]
-impl VideoCheckPort for VideoCheckAdapter {
+impl CateCheckPort for CateCheckAdapter {
     async fn check_health(&self, video_id: i64) -> Result<(bool)> {
         todo!()
     }

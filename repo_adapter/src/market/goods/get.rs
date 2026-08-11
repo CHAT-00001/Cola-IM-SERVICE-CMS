@@ -1,47 +1,61 @@
-// repo_adapter/src/cola_market/goods/get.rs
-// 适配器 - 市场 - 商品 - 获取详情/状态
-// 2026/8/6 解耦: 获取商品详情、状态检查
+// repo_adapter/src/market/goods/get.rs
+// 🔌 适配器 - MARKET - GOODS - 获取详情/状态
+// 2026/8/6 10:23 Created.
 
 ////////
 
-use anyhow::Result;
-use cola_data::cola_market::info::goods::goods::GoodsInfo;
-use repository::cola_market::pg::goods::GoodsRepo;
-
-////////
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_market::command::goods::GoodsCommand;
 use cola_data::cola_market::info::goods::goods::GoodsInfo;
-use port::cola_market::goods::list::GoodsListPort;
-use repository::cola_market::pg::goods::GoodsRepo;
-use crate::market::goods::{add, delete, get, list, manage};
+use port::market::goods::get::GoodsGetPort;
 
 ////////
 /// # [LIST ADAPTER] - 商品 端口适配器
 /// `desc`: `MARKET - 商品适配器`
-pub struct GoodsListAdapter;
+pub struct GoodsGetAdapter;
 
 #[async_trait]
-impl GoodsListPort for crate::market::goods::GoodsListAdapter {}
-/// # [ADAPTER] - 浏览商品详情
-pub async fn get_detail(
-    _uid: i64, // 用户ID
-    goods_id: i64, // 商品ID
-) -> Result<GoodsInfo> {
-    let entity = GoodsRepo::find_by_id(goods_id)
-        .await?
-        .ok_or_else(|| anyhow::anyhow!("商品不存在"))?;
-    Ok(GoodsInfo::from(entity))
-}
+impl GoodsGetPort for GoodsGetAdapter {
+    async fn get_my_list(
+        &self,
+        user_id: i64,
+        keyword: Option<String>,
+        limit: i64,
+        offset: i64,
+        status_code: i16,
+    ) -> Result<(Vec<GoodsInfo>)> {
+        todo!()
+    }
 
-/// # [ADAPTER] - 获取商品状态
-pub async fn get_status(
-    _uid: i64, // 用户ID
-    _goods_id: i64, // 商品ID
-) -> Result<i16> {
-    // 🚧 TODO: 对接 repository cola_market service
-    Ok(1)
+    async fn get_list_by_shop_id(
+        &self,
+        shop_id: i64,
+        keyword: Option<String>,
+        limit: i64,
+        offset: i64,
+        status_code: i16,
+    ) -> Result<(Vec<GoodsInfo>)> {
+        todo!()
+    }
+
+    async fn get_list_by_mall_id(
+        &self,
+        mall_id: i64,
+        keyword: Option<String>,
+        limit: i64,
+        offset: i64,
+        status_code: i16,
+    ) -> Result<(Vec<GoodsInfo>)> {
+        todo!()
+    }
+
+    async fn single_get_list_by_id(&self, goods_ids: i64) -> Result<(Vec<GoodsInfo>)> {
+        todo!()
+    }
+
+    async fn batch_get_list_by_ids(&self, goods_ids: &[i64]) -> Result<(Vec<GoodsInfo>)> {
+        todo!()
+    }
 }
 
 //////// END

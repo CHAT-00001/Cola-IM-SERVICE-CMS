@@ -1,30 +1,28 @@
-// repo_adapter/src/cola_video/cola_video/check.rs
-// 🔌 插头 - 可乐视频 - 视频 - 检查
+// repo_adapter/src/market/express/check.rs
+// 🔌 适配器 - MARKET - EXPRESS - 检查
 // 2026/8/6 19:19 Created.
 
 ////////
 
 use anyhow::Result;
 use async_trait::async_trait;
-use port::cola_video::video::check::VideoCheckPort;
+use port::market::express::check::ExpressCheckPort;
 
 ////////
 
 /// # [CHECK ADAPTER] - 检查
-/// * `desc`: `🔌 视频检查服务`
-pub struct VideoCheckAdapter;
+/// * `desc`: `快递公司检查适配器`
+pub struct ExpressCheckAdapter;
 
 #[async_trait]
-impl VideoCheckPort for VideoCheckAdapter {
-    async fn check_health(&self, video_id: i64) -> Result<(bool)> {
+impl ExpressCheckPort for ExpressCheckAdapter {
+    /// # 1. [ADAPTER] - 健康
+    async fn check_health(&self, express_id: i64) -> Result<(bool)> {
         todo!()
     }
 
-    async fn check_state(&self, video_id: i64) -> Result<(bool)> {
-        todo!()
-    }
-
-    async fn is_owner(&self, uid: i64, video_id: i64) -> Result<(bool)> {
+    /// # 2. [ADAPTER] - 状态
+    async fn check_status(&self, uid: i64, express_id: i64) -> Result<(i16)> {
         todo!()
     }
 }

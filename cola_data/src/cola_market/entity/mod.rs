@@ -1,4 +1,4 @@
-// cola_market/entity/mod.rs
+// market/entity/mod.rs
 // 市场 - entity - 模块
 // 2026/6/18 10:11
 

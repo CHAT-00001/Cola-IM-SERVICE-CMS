@@ -1,4 +1,4 @@
-// repository/src/cola_market/pg/goods/stat.rs
+// repository/src/market/pg/goods/stat.rs
 // 仓储 - MARKET - pg - 商品 - 获取
 // 2026/8/11 07:38 Created.
 
@@ -18,7 +18,7 @@ impl GoodsStatRepo {
     pub async fn count_all_goods() -> Result<u64, sqlx::Error> {
         let pool = pg_pool();
         let row: (i64,) = sqlx::query_as(
-            "SELECT COUNT(*) FROM cola_market.goods"
+            "SELECT COUNT(*) FROM market.goods"
         )
             .fetch_one(&pool)
             .await?;
@@ -32,7 +32,7 @@ impl GoodsStatRepo {
     pub async fn count_offline_goods() -> Result<u64, sqlx::Error> {
         let pool = pg_pool();
         let row: (i64,) = sqlx::query_as(
-            "SELECT COUNT(*) FROM cola_market.goods WHERE issale = 0"
+            "SELECT COUNT(*) FROM market.goods WHERE issale = 0"
         )
             .fetch_one(&pool)
             .await?;
@@ -46,7 +46,7 @@ impl GoodsStatRepo {
     pub async fn count_goods_by_uid(uid: i64) -> Result<u64, sqlx::Error> {
         let pool = pg_pool();
         let row: (i64,) = sqlx::query_as(
-            "SELECT COUNT(*) FROM cola_market.goods WHERE uid = $1"
+            "SELECT COUNT(*) FROM market.goods WHERE uid = $1"
         )
             .bind(uid)
             .fetch_one(&pool)

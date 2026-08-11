@@ -5,6 +5,7 @@
 ////////
 
 pub mod add;
+pub mod alive;
 pub mod check;
 pub mod del;
 pub mod dislike; // 不喜欢评论
@@ -13,5 +14,3 @@ pub mod like; // 点赞评论
 pub mod list;
 pub mod manage;
 pub mod stat;
-mod alive;
-

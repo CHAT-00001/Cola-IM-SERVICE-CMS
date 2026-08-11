@@ -1,4 +1,4 @@
-// repository/src/cola_market/pg/goods/list.rs
+// repository/src/market/pg/goods/list.rs
 // 仓储 - MARKET - pg - 商品 - 获取
 // 2026/8/11 07:25 Created.
 
@@ -19,7 +19,7 @@ impl GoodsListRepo {
     pub async fn find_new(limit: i64, offset: i64) -> Result<Vec<GoodsEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM cola_market.goods ORDER BY add_time DESC LIMIT $1 OFFSET $2",
+            "SELECT {} FROM market.goods ORDER BY add_time DESC LIMIT $1 OFFSET $2",
             GOODS_COLUMNS
         );
         sqlx::query_as::<_, GoodsEntity>(&query)
@@ -35,7 +35,7 @@ impl GoodsListRepo {
     pub async fn find_hot(limit: i64, offset: i64) -> Result<Vec<GoodsEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM cola_market.goods ORDER BY sale_nums DESC, hits DESC LIMIT $1 OFFSET $2",
+            "SELECT {} FROM market.goods ORDER BY sale_nums DESC, hits DESC LIMIT $1 OFFSET $2",
             GOODS_COLUMNS
         );
         sqlx::query_as::<_, GoodsEntity>(&query)
@@ -55,7 +55,7 @@ impl GoodsListRepo {
     ) -> Result<Vec<GoodsEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM cola_market.goods WHERE city = $1 ORDER BY add_time DESC LIMIT $2 OFFSET $3",
+            "SELECT {} FROM market.goods WHERE city = $1 ORDER BY add_time DESC LIMIT $2 OFFSET $3",
             GOODS_COLUMNS
         );
         sqlx::query_as::<_, GoodsEntity>(&query)
@@ -78,7 +78,7 @@ impl GoodsListRepo {
     ) -> Result<Vec<GoodsEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM cola_market.goods ORDER BY (lat - $1)*(lat - $1) + (lng - $2)*(lng - $2) ASC LIMIT $3 OFFSET $4",
+            "SELECT {} FROM market.goods ORDER BY (lat - $1)*(lat - $1) + (lng - $2)*(lng - $2) ASC LIMIT $3 OFFSET $4",
             GOODS_COLUMNS
         );
         sqlx::query_as::<_, GoodsEntity>(&query)
@@ -100,7 +100,7 @@ impl GoodsListRepo {
     ) -> Result<Vec<GoodsEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM cola_market.goods WHERE uid = $1 ORDER BY add_time DESC LIMIT $2 OFFSET $3",
+            "SELECT {} FROM market.goods WHERE uid = $1 ORDER BY add_time DESC LIMIT $2 OFFSET $3",
             GOODS_COLUMNS,
         );
         sqlx::query_as::<_, GoodsEntity>(&query)
@@ -121,7 +121,7 @@ impl GoodsListRepo {
     ) -> Result<Vec<GoodsEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM cola_market.goods WHERE market_id = $1 ORDER BY add_time DESC LIMIT $2 OFFSET $3",
+            "SELECT {} FROM market.goods WHERE market_id = $1 ORDER BY add_time DESC LIMIT $2 OFFSET $3",
             GOODS_COLUMNS,
         );
         sqlx::query_as::<_, GoodsEntity>(&query)
@@ -138,7 +138,7 @@ impl GoodsListRepo {
     pub async fn find_by_id(id: i64) -> Result<Option<GoodsEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM cola_market.goods WHERE id = $1 LIMIT 1",
+            "SELECT {} FROM market.goods WHERE id = $1 LIMIT 1",
             GOODS_COLUMNS,
         );
         sqlx::query_as::<_, GoodsEntity>(&query)
@@ -153,7 +153,7 @@ impl GoodsListRepo {
     pub async fn find_by_ids(ids: &[i64]) -> Result<Vec<GoodsEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM cola_market.goods WHERE id = ANY($1)",
+            "SELECT {} FROM market.goods WHERE id = ANY($1)",
             GOODS_COLUMNS,
         );
         sqlx::query_as::<_, GoodsEntity>(&query)
@@ -171,7 +171,7 @@ impl GoodsListRepo {
     ) -> Result<Vec<GoodsEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM cola_market.goods WHERE isrecom = 1 ORDER BY sale_nums DESC LIMIT $1 OFFSET $2",
+            "SELECT {} FROM market.goods WHERE isrecom = 1 ORDER BY sale_nums DESC LIMIT $1 OFFSET $2",
             GOODS_COLUMNS,
         );
         sqlx::query_as::<_, GoodsEntity>(&query)
@@ -238,12 +238,12 @@ impl GoodsListRepo {
         // 根据是否有 keyword 动态调整占位符索引
         let query = if has_keyword {
             format!(
-                "SELECT {} FROM cola_market.goods WHERE {} {} LIMIT $2 OFFSET $3",
+                "SELECT {} FROM market.goods WHERE {} {} LIMIT $2 OFFSET $3",
                 GOODS_COLUMNS, where_clause, order_by
             )
         } else {
             format!(
-                "SELECT {} FROM cola_market.goods WHERE {} {} LIMIT $1 OFFSET $2",
+                "SELECT {} FROM market.goods WHERE {} {} LIMIT $1 OFFSET $2",
                 GOODS_COLUMNS, where_clause, order_by
             )
         };
@@ -277,7 +277,7 @@ impl GoodsListRepo {
         }
         let where_clause = conditions.join(" AND ");
         let query = format!(
-            "SELECT {} FROM cola_market.goods WHERE {} ORDER BY add_time DESC LIMIT $2 OFFSET $3",
+            "SELECT {} FROM market.goods WHERE {} ORDER BY add_time DESC LIMIT $2 OFFSET $3",
             GOODS_COLUMNS,
             where_clause
         );

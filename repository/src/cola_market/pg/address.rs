@@ -1,4 +1,4 @@
-// repository/src/cola_market/pg/address.rs  -- 仓储 - MARKET - pg - 地址
+// repository/src/market/pg/address.rs  -- 仓储 - MARKET - pg - 地址
 // 2026/6/18 14:10
 
 ////////

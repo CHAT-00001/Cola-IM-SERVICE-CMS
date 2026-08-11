@@ -1,4 +1,4 @@
-// cola_market/info/shop.rs
+// market/info/shop.rs
 // 数据中心 - MARKET - info - 商店
 // 2026/8/3 23:17 Created.
 

@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_market/address.rs
+// repo_adapter/src/market/address.rs
 // 🔌 适配器 - 可乐MARKET - 地址簿
 // 2026/6/18 14:02
 
@@ -8,7 +8,7 @@ use anyhow::Result;
 use async_trait::async_trait;
 use cola_data::cola_market::command::address::AddressCommand;
 use cola_data::cola_market::info::address::AddressInfo;
-use port::cola_market::address::add::AddressAddPort;
+use port::market::address::add::AddressAddPort;
 
 ////////
 

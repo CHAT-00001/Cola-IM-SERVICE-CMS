@@ -1,27 +1,27 @@
-// repo_adapter/src/cola_video/cola_video/list.rs
-// 🔌 插头 - 可乐视频 - 视频 - 列表
+// repo_adapter/src/market/shop/list.rs
+// 🔌 插头 - MARKET - 商品 - 列表
 // 2026/8/7 05:31 Created.
 
 ////////
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_video::info::video::VideoInfo;
-use port::cola_video::video::list::VideoListPort;
+use cola_data::cola_market::info::shop::shop_apply::ShopInfo;
+use port::market::shop::list::ShopListPort;
 
 ////////
 
 /// # [ADD ADAPTER] - 发布
 /// * `desc`: `🔌 视频发布插头`
-pub struct VideoListAdapter;
+pub struct ShopListAdapter;
 
 #[async_trait]
-impl VideoListPort for VideoListAdapter {
-    async fn get_new_infos(&self, uid: i64, limit: i64, offset: i64) -> Result<(Vec<VideoInfo>)> {
+impl ShopListPort for ShopListAdapter {
+    async fn get_new_infos(&self, uid: i64, limit: i64, offset: i64) -> Result<(Vec<ShopInfo>)> {
         todo!()
     }
 
-    async fn get_hot_infos(&self, uid: i64, limit: i64, offset: i64) -> Result<(Vec<VideoInfo>)> {
+    async fn get_hot_infos(&self, uid: i64, limit: i64, offset: i64) -> Result<(Vec<ShopInfo>)> {
         todo!()
     }
 
@@ -30,7 +30,7 @@ impl VideoListPort for VideoListAdapter {
         uid: i64,
         limit: i64,
         offset: i64,
-    ) -> Result<(Vec<VideoInfo>)> {
+    ) -> Result<(Vec<ShopInfo>)> {
         todo!()
     }
 
@@ -40,7 +40,7 @@ impl VideoListPort for VideoListAdapter {
         category_id: i64,
         limit: i64,
         offset: i64,
-    ) -> Result<(Vec<VideoInfo>)> {
+    ) -> Result<(Vec<ShopInfo>)> {
         todo!()
     }
 
@@ -50,7 +50,7 @@ impl VideoListPort for VideoListAdapter {
         channel_id: i64,
         limit: i64,
         offset: i64,
-    ) -> Result<(Vec<VideoInfo>)> {
+    ) -> Result<(Vec<ShopInfo>)> {
         todo!()
     }
 
@@ -60,7 +60,7 @@ impl VideoListPort for VideoListAdapter {
         city_id: i64,
         limit: i64,
         offset: i64,
-    ) -> Result<(Vec<VideoInfo>)> {
+    ) -> Result<(Vec<ShopInfo>)> {
         todo!()
     }
 
@@ -71,7 +71,7 @@ impl VideoListPort for VideoListAdapter {
         range: f64,
         offset: i64,
         limit: i64,
-    ) -> Result<(Vec<VideoInfo>)> {
+    ) -> Result<(Vec<ShopInfo>)> {
         todo!()
     }
 
@@ -81,7 +81,7 @@ impl VideoListPort for VideoListAdapter {
         keyword: Option<String>,
         limit: i64,
         offset: i64,
-    ) -> Result<(Vec<VideoInfo>)> {
+    ) -> Result<(Vec<ShopInfo>)> {
         todo!()
     }
 }

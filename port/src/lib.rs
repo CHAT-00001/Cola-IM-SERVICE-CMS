@@ -11,7 +11,7 @@ pub mod cola_dynamic; // ⚽️ 动态
 pub mod cola_gis; // 📍 GIS
 pub mod cola_im; // 💬 即时通讯
 pub mod cola_live; // 📺 直播
-pub mod cola_market; // 🛒 市场
+pub mod market; // 🛒 市场
 pub mod cola_music; // 🎶 音乐
 pub mod cola_three; // 🔑 三方
 pub mod cola_user; // 👤 用户

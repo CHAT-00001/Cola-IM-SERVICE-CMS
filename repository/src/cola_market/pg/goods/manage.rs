@@ -1,4 +1,4 @@
-// repository/src/cola_market/pg/goods/manage.rs
+// repository/src/market/pg/goods/manage.rs
 // 仓储 - MARKET - pg - 商品 - 管理获取
 // 2026/8/11 08:46 Created.
 
@@ -44,7 +44,7 @@ impl GoodsManageRepo {
         let pool = pg_pool();
 
         let mut query_builder: QueryBuilder<Postgres> = QueryBuilder::new(format!(
-            "SELECT {} FROM cola_market.goods WHERE 1=1 ",
+            "SELECT {} FROM market.goods WHERE 1=1 ",
             GOODS_COLUMNS
         ));
 

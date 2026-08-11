@@ -1,4 +1,4 @@
-// cola_market/info/showroom/room.rs
+// market/info/showroom/room.rs
 // 市场 - info - 展厅 - 厅
 // 2026/8/3 23:29 Created.
 

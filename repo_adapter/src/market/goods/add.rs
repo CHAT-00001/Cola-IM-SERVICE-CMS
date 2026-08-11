@@ -1,6 +1,6 @@
-// repo_adapter/src/cola_market/goods/add.rs
-// 🔌 适配器 - MARKET - 商品 - 发布
-// 2026/8/6 解耦: 发布/编辑商品
+// repo_adapter/src/market/goods/add.rs
+// 🔌 适配器 - MARKET - GOODS - 发布
+// 2026/8/6 10:20 Created.
 
 ////////
 
@@ -8,10 +8,8 @@ use anyhow::Result;
 use async_trait::async_trait;
 use chrono::Utc;
 use cola_data::cola_market::command::goods::GoodsCommand;
-use cola_data::cola_market::info::goods::goods::GoodsInfo;
-use port::cola_market::goods::add::GoodsAddPort;
+use port::market::goods::add::GoodsAddPort;
 use repository::cola_market::pg::goods::add::GoodsAddRepo;
-use repository::cola_market::pg::goods::GoodsRepo;
 
 ////////
 /// # [ADD ADAPTER] - 商品 端口适配器
@@ -26,7 +24,7 @@ impl GoodsAddPort for GoodsAddAdapter {
 
     /// # 1. [ADAPTER] - 保存商品
     async fn add_goods(&self, uid: i64, cmd: GoodsCommand) -> Result<()> {
-        GoodsAddRepo::save_goods(cmd).await;
+        GoodsAddRepo::save_goods(cmd, 0).await;
         todo!()
     }
 

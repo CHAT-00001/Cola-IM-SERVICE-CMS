@@ -1,87 +1,39 @@
-// repo_adapter/src/cola_video/cola_video/list.rs
-// 🔌 插头 - 可乐视频 - 视频 - 列表
+// repo_adapter/src/market/address/list.rs
+// 🔌 插头 - MARKET - ADDRESS - 列表
 // 2026/8/7 05:31 Created.
 
 ////////
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_video::info::video::VideoInfo;
-use port::cola_video::video::list::VideoListPort;
+use cola_data::cola_video::info::view::VideoViewInfo;
+use port::market::address::list::AddressListPort;
 
 ////////
 
-/// # [ADD ADAPTER] - 发布
-/// * `desc`: `🔌 视频发布插头`
-pub struct VideoListAdapter;
+/// # [LIST ADAPTER] - 列表
+/// * `desc`: `MARKET - 地址列表适配器`
+pub struct AddressListAdapter;
 
 #[async_trait]
-impl VideoListPort for VideoListAdapter {
-    async fn get_new_infos(&self, uid: i64, limit: i64, offset: i64) -> Result<(Vec<VideoInfo>)> {
-        todo!()
-    }
+impl AddressListPort for AddressListAdapter {
 
-    async fn get_hot_infos(&self, uid: i64, limit: i64, offset: i64) -> Result<(Vec<VideoInfo>)> {
-        todo!()
-    }
-
-    async fn get_recommend_infos(
+    /// # 1. [ADAPTER] - 用户的
+    async fn get_address_infos_by_user_id(
         &self,
-        uid: i64,
+        user_id: i64,
         limit: i64,
         offset: i64,
-    ) -> Result<(Vec<VideoInfo>)> {
+    ) -> Result<(Vec<VideoViewInfo>)> {
         todo!()
     }
 
-    async fn get_category_infos(
+    async fn get_address_infos_by_video_id(
         &self,
-        uid: i64,
-        category_id: i64,
+        video_id: i64,
         limit: i64,
         offset: i64,
-    ) -> Result<(Vec<VideoInfo>)> {
-        todo!()
-    }
-
-    async fn get_channel_infos(
-        &self,
-        uid: i64,
-        channel_id: i64,
-        limit: i64,
-        offset: i64,
-    ) -> Result<(Vec<VideoInfo>)> {
-        todo!()
-    }
-
-    async fn get_city_infos(
-        &self,
-        uid: i64,
-        city_id: i64,
-        limit: i64,
-        offset: i64,
-    ) -> Result<(Vec<VideoInfo>)> {
-        todo!()
-    }
-
-    async fn get_nearby_infos(
-        &self,
-        lat: f64,
-        lng: f64,
-        range: f64,
-        offset: i64,
-        limit: i64,
-    ) -> Result<(Vec<VideoInfo>)> {
-        todo!()
-    }
-
-    async fn get_search_infos(
-        &self,
-        uid: i64,
-        keyword: Option<String>,
-        limit: i64,
-        offset: i64,
-    ) -> Result<(Vec<VideoInfo>)> {
+    ) -> Result<(Vec<VideoViewInfo>)> {
         todo!()
     }
 }

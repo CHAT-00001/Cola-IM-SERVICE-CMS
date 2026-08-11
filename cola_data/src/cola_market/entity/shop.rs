@@ -1,4 +1,4 @@
-// cola_market/entity/shop.rs
+// market/entity/shop.rs
 // 数据中心 - MARKET - entity - 商店
 // 2026/8/3 22:52 Created.
 

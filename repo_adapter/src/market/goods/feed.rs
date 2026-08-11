@@ -1,5 +1,5 @@
-// repo_adapter/src/cola_market/goods_feed.rs
-// 🔌 适配器 - MARKET - 商品 - FEED
+// repo_adapter/src/market/goods_feed.rs
+// 🔌 适配器 - MARKET - GOODS - FEED
 // 2026/6/18
 
 ////////
@@ -7,8 +7,8 @@
 use async_trait::async_trait;
 use rust_decimal::Decimal;
 use cola_data::cola_market::info::goods::goods::GoodsInfo;
-use port::cola_market::goods::feed::GoodsFeedPort;
-use repository::cola_market::pg::goods::GoodsRepo;
+use port::market::goods::feed::GoodsFeedPort;
+use repository::cola_market::pg::goods::feed::GoodsFeedRepo;
 
 ////////
 
@@ -22,7 +22,7 @@ impl GoodsFeedPort for GoodsFeedAdapter {
     ////////
 
     async fn feed_recommend(&self, _uid: i64, offset: i64, limit: i64) -> anyhow::Result<Vec<GoodsInfo>> {
-        let entities = GoodsRepo::find_recommend(offset, limit).await?;
+        let entities = GoodsFeedRepo::find_recommend(offset, limit).await?;
         Ok(entities.into_iter().map(GoodsInfo::from).collect())
     }
 
@@ -36,7 +36,7 @@ impl GoodsFeedPort for GoodsFeedAdapter {
         offset: i64,
         limit: i64,
     ) -> anyhow::Result<Vec<GoodsInfo>> {
-        let entities = GoodsRepo::find_by_category(one_class_id, two_class_id, three_class_id, offset, limit).await?;
+        let entities = GoodsFeedRepo::find_by_category(one_class_id, two_class_id, three_class_id, offset, limit).await?;
         Ok(entities.into_iter().map(GoodsInfo::from).collect())
     }
 
@@ -62,7 +62,7 @@ impl GoodsFeedPort for GoodsFeedAdapter {
         limit: i64,
     ) -> anyhow::Result<Vec<GoodsInfo>> {
         let kw = keyword.unwrap_or_default();
-        let entities = GoodsRepo::search(&kw, category_id, offset, limit).await?;
+        let entities = GoodsFeedRepo::search(&kw, category_id, offset, limit).await?;
         Ok(entities.into_iter().map(GoodsInfo::from).collect())
     }
 }

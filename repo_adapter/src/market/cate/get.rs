@@ -8,15 +8,16 @@ use anyhow::Result;
 use async_trait::async_trait;
 use cola_data::cola_video::info::video::VideoInfo;
 use port::cola_video::video::get::VideoGetPort;
+use port::market::cate::get::CateGetPort;
 ////////
 
 /// # [ADD ADAPTER] - 发布
 /// * `desc`: `🔌 视频发布插头`
-pub struct VideoGetAdapter;
+pub struct CateGetAdapter;
 
 // 构造实现
 #[async_trait]
-impl VideoGetPort for VideoGetAdapter {
+impl CateGetPort for CateGetAdapter {
     async fn get_my_list(&self, uid: i64, keyword: Option<String>, limit: i64, offset: i64, is_liked: bool) -> Result<(Vec<VideoInfo>)> {
         todo!()
     }

@@ -1,27 +1,30 @@
-// repo_adapter/src/cola_video/cola_video/get.rs
-// 🔌 插头 - 可乐视频 - 视频 - 获取IDs
+// repo_adapter/src/market/address/get.rs
+// 🔌 插头 - MARKET - ADDRESS - 获取
 // 2026/8/6 19:19 Created.
 
 ////////
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_video::info::video::VideoInfo;
-use port::cola_video::video::get::VideoGetPort;
+use cola_data::cola_market::info::address::AddressInfo;
+use port::market::address::get::AddressGetPort;
+
 ////////
 
-/// # [ADD ADAPTER] - 发布
-/// * `desc`: `🔌 视频发布插头`
-pub struct VideoGetAdapter;
+/// # [GET ADAPTER] - 获取
+/// * `desc`: `MARKET - 地址获取适配器`
+pub struct AddressGetAdapter;
 
 // 构造实现
 #[async_trait]
-impl VideoGetPort for VideoGetAdapter {
-    async fn get_my_list(&self, uid: i64, keyword: Option<String>, limit: i64, offset: i64, is_liked: bool) -> Result<(Vec<VideoInfo>)> {
-        todo!()
-    }
-
-    async fn get_he_list(&self, uid: i64, user_id: i64, keyword: Option<String>, limit: i64, offset: i64) -> Result<(Vec<VideoInfo>)> {
+impl AddressGetPort for AddressGetAdapter {
+    /// # [ADAPTER] - 用户的地址
+    async fn get_address_user_id(
+        &self,
+        user_id: i64,
+        limit: i64,
+        offset: i64,
+    ) -> Result<(Vec<AddressInfo>)> {
         todo!()
     }
 }

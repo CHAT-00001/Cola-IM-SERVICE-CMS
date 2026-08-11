@@ -133,7 +133,7 @@ pub fn build_video_port() -> ColaVideoPort {
             stat: Arc::new(video::stat::VideoStatAdapter),
         },
         view: VideoViewPort {
-            active: Arc::new(view::active::AliveService),
+            active: Arc::new(view::active::VideoViewActiveAdapter),
             add: Arc::new(view::add::VideoViewAddAdapter),
             del: Arc::new(view::del::VideoViewDeleteAdapter),
             get: Arc::new(view::get::VideoViewGetAdapter),

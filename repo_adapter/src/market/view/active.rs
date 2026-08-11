@@ -1,12 +1,12 @@
-// repo_adapter/src/cola_video/view/active.rs
-// 🔌 插头 - 可乐视频 - 浏览 - 活跃
+// repo_adapter/src/market/view/active.rs
+// 🔌 插头 - MARKET - 浏览 - 活跃
 // 2026/8/6 19:01 Created.
 
 ////////
 
 use anyhow::Result;
 use async_trait::async_trait;
-use port::cola_video::view::active::VideoViewActivePort;
+use port::market::view::active::GoodsViewActivePort;
 
 ////////
 
@@ -16,7 +16,7 @@ pub struct AliveService;
 
 // 构造实现
 #[async_trait]
-impl VideoViewActivePort for AliveService {
+impl GoodsViewActivePort for AliveService {
     //
 
     ////////

@@ -1,4 +1,4 @@
-// cola_data/src/cola_market/entity/address.rs  -- 数据 - MARKET - entity - 地址表
+// cola_data/src/market/entity/address.rs  -- 数据 - MARKET - entity - 地址表
 // 2026/6/18 10:37
 
 ////////
@@ -12,7 +12,7 @@ use sqlx::FromRow;
 ////////
 
 /// # [ENTITY] - 市场 - 地址簿表
-/// * `pg schema`: `cola_market`
+/// * `pg schema`: `market`
 /// * `table name`: `shop_address`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct AddressEntity {

@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_market/goods/manage.rs
+// repo_adapter/src/market/goods/manage.rs
 // 🔌 适配器 - MARKET - GOODS - 管理
 // 2026/8/11 08:45 Created.
 
@@ -7,7 +7,7 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use cola_data::cola_market::info::goods::goods::GoodsInfo;
-use port::cola_market::goods::manage::GoodsManagePort;
+use port::market::goods::manage::GoodsManagePort;
 use rust_decimal::Decimal;
 
 ////////

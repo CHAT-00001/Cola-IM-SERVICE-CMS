@@ -1,4 +1,4 @@
-// cola_market/info/mod.rs
+// market/info/mod.rs
 // 市场 - info - 模块
 // 2026/6/18 12:15
 

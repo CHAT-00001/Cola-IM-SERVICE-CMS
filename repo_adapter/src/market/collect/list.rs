@@ -1,5 +1,5 @@
-// repo_adapter/src/video/collect/list.rs
-// 🔌 适配器  - ▶ 视频 - 收藏 - 列表
+// repo_adapter/src/market/collec/list.rs
+// 🔌 适配器 - MARKET - 商品收藏 - 列表
 // 2026/8/9 20:24 Created.
 
 ////////
@@ -8,16 +8,16 @@ use anyhow::Result;
 use async_trait::async_trait;
 use cola_data::cola_video::info::comment::VideoCommentInfo;
 use port::cola_video::collect::list::VideoCollectListPort;
-
+use port::market::collect::list::GoodsCollectListPort;
 ////////
 
 /// # [LIST ADAPTER] - 列表
-/// * `desc`: `▶ 视频 - 收藏记录记录`
+/// * `desc`: `商品收藏列表适配器`
 #[derive(Debug, Default, Clone)]
-pub struct VideoCollectListAdapter;
+pub struct GoodsCollectListAdapter;
 
 #[async_trait]
-impl VideoCollectListPort for VideoCollectListAdapter {
+impl GoodsCollectListPort for GoodsCollectListAdapter {
     async fn get_my_like_record(
         &self,
         uid: i64,

@@ -5,7 +5,7 @@
 ////////
 
 
-// repository/src/cola_market/pg/goods/check.rs
+// repository/src/market/pg/goods/check.rs
 // 仓储 - MARKET - pg - 商品 - 状态检查
 // 2026/8/11 07:38 Created.
 
@@ -29,7 +29,7 @@ impl GoodsChangeRepo {
     pub async fn check_health(id: i64, // 商品 ID
     ) -> Result<u64, sqlx::Error> {
         let pool = pg_pool();
-        let query = "SELECT health FROM cola_market.goods WHERE id = $1";
+        let query = "SELECT health FROM market.goods WHERE id = $1";
 
         sqlx::query_scalar::<_, i64>(query)
             .bind(id)
@@ -55,7 +55,7 @@ impl GoodsChangeRepo {
     ) -> Result<GoodsEntity, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM cola_market.goods WHERE id = $1",
+            "SELECT {} FROM market.goods WHERE id = $1",
             GOODS_COLUMNS
         );
 
@@ -92,7 +92,7 @@ impl GoodsChangeRepo {
         id: i64,      // 商品 ID
     ) -> Result<bool, sqlx::Error> {
         let pool = pg_pool();
-        let query = "SELECT 1 FROM cola_market.goods WHERE id = $1 AND uid = $2";
+        let query = "SELECT 1 FROM market.goods WHERE id = $1 AND uid = $2";
 
         sqlx::query_scalar::<_, i32>(query)
             .bind(id)

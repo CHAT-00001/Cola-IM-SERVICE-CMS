@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_market/shop_apply/add.rs
+// repo_adapter/src/market/shop_apply/add.rs
 // 插头 - 市场 - 商店申请 - 添加/更新
 // 2026/8/6 解耦: 发布/编辑商店申请
 
@@ -15,7 +15,7 @@ pub async fn save_shop_apply(
     _uid: i64, // 用户ID
     _cmd: CreatedShopApplyCommand, // 申请命令
 ) -> Result<()> {
-    // 🚧 TODO: 对接 repository cola_market service
+    // 🚧 TODO: 对接 repository market service
     Err(anyhow::anyhow!("not implemented"))
 }
 
@@ -26,7 +26,7 @@ pub async fn update_shop_apply(
     _shop_id: i64, // 店铺ID
     _cmd: CreatedShopApplyCommand, // 申请命令
 ) -> Result<()> {
-    // 🚧 TODO: 对接 repository cola_market service
+    // 🚧 TODO: 对接 repository market service
     Err(anyhow::anyhow!("not implemented"))
 }
 

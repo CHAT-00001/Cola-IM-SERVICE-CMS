@@ -1,4 +1,4 @@
-// data/src/cola_market/entity/goods/goods.rs
+// data/src/market/entity/goods/goods.rs
 // 数据 - MARKET - entity - 商品表
 // 2026/8/3 22:45 Created.
 
@@ -12,7 +12,7 @@ use sqlx::FromRow;
 ////////
 
 /// # [ENTITY] - 市场 - 商品表
-/// * `pg schema`: `cola_market` - PG 模式
+/// * `pg schema`: `market` - PG 模式
 /// * `table name`: `goods` - 表名
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct GoodsEntity {

@@ -6,8 +6,9 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_video::info::view::VideoViewInfo;
-use port::cola_video::view::list::VideoViewListPort;
+use cola_data::cola_video::info::view::{VideoViewInfo};
+use port::market::view::list::GoodsViewListPort;
+
 ////////
 
 /// # [DEL ADAPTER] - 删除
@@ -16,7 +17,7 @@ pub struct ViewListService;
 
 // 构造实现
 #[async_trait]
-impl VideoViewListPort for ViewListService {
+impl GoodsViewListPort for ViewListService {
     //
 
     ////////

@@ -7,18 +7,18 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use cola_data::cola_video::info::view::VideoViewInfo;
-use port::cola_video::view::manage::VideoViewManagePort;
+use port::market::view::manage::GoodsViewManagePort;
 
 ////////
 
 /// # [MANAGE ADAPTER] - 管理
 /// * `desc`: `视频浏览管理服务适配器`
-pub struct VideoViewManageAdapter;
+pub struct GoodsViewManageAdapter;
 
 ////////
 
 #[async_trait]
-impl VideoViewManagePort for VideoViewManageAdapter {
+impl GoodsViewManagePort for GoodsViewManageAdapter {
     //
 
     ////////

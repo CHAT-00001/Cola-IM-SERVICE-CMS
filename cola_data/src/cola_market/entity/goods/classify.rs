@@ -1,4 +1,4 @@
-// cola_market/handler/goods/classify.rs
+// market/handler/goods/classify.rs
 // 数据中心 - MARKET - entity - 商品 - 分类表
 // 2026/6/18 10:59
 
@@ -11,7 +11,7 @@ use sqlx::FromRow;
 ////////
 
 /// # [ENTITY] - 市场 - 商品 - 分类表
-/// * `pg schema`: `cola_market`
+/// * `pg schema`: `market`
 /// * `table name`: `shop_classify`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct ShopClassifyEntity {

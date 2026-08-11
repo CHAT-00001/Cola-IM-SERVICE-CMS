@@ -1,22 +1,22 @@
-// repo_adapter/src/cola_video/view/add.rs
-// 🔌 插头 - 可乐视频 - 浏览 - 发布
+// repo_adapter/src/market/view/add.rs
+// 🔌 插头 - MARKET - Goods - 发布
 // 2026/8/6 19:00 Created.
 
 ////////
 
 use anyhow::Result;
 use async_trait::async_trait;
-use port::cola_video::view::add::VideoViewAddPort;
+use port::market::view::add::GoodsViewAddPort;
 
 ////////
 
 /// # [ADD ADAPTER] - 浏览 发布
 /// * `desc`: `VIDEO - 视频浏览发布适配器`
-pub struct VideoViewAddAdapter;
+pub struct GoodsViewAddAdapter;
 
 // 构造实现
 #[async_trait]
-impl VideoViewAddPort for VideoViewAddAdapter {
+impl GoodsViewAddPort for GoodsViewAddAdapter {
     //
 
     ////////

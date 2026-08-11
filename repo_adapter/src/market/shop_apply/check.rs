@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_market/shop_apply/check.rs
+// repo_adapter/src/market/shop_apply/check.rs
 // 插头 - 市场 - 商店申请 - 状态检查
 // 2026/8/6 解耦: 检查是否已申请/是否可提交等校验
 
@@ -13,7 +13,7 @@ use anyhow::Result;
 pub async fn check_already_applied(
     _uid: i64, // 用户ID
 ) -> Result<bool> {
-    // 🚧 TODO: 对接 repository cola_market service
+    // 🚧 TODO: 对接 repository market service
     Ok(false)
 }
 
@@ -24,7 +24,7 @@ pub async fn check_already_applied(
 pub async fn check_shop_name_available(
     _name: &str, // 商店名称
 ) -> Result<bool> {
-    // 🚧 TODO: 对接 repository cola_market service
+    // 🚧 TODO: 对接 repository market service
     Ok(true)
 }
 
@@ -35,7 +35,7 @@ pub async fn check_shop_name_available(
 pub async fn check_user_can_open_shop(
     _uid: i64, // 用户ID
 ) -> Result<bool> {
-    // 🚧 TODO: 对接 repository cola_market service
+    // 🚧 TODO: 对接 repository market service
     Ok(true)
 }
 

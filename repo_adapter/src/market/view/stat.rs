@@ -6,17 +6,17 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use port::cola_video::view::stat::VideoViewStatPort;
+use port::market::view::stat::GoodsViewStatPort;
 
 ////////
 
 /// # [STAT ADAPTER] - 统计
 /// * `desc`: `视频浏览统计服务`
-pub struct VideoViewStatAdapter;
+pub struct GoodsViewStatAdapter;
 
 // 构造实现
 #[async_trait]
-impl VideoViewStatPort for VideoViewStatAdapter {
+impl GoodsViewStatPort for GoodsViewStatAdapter {
     //
 
     ////////

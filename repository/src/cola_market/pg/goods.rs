@@ -1,4 +1,4 @@
-// repository/src/cola_market/pg/goods.rs
+// repository/src/market/pg/goods.rs
 // 仓储 - MARKET - pg - 商品
 // 2026/6/18 14:29 Created.
 
