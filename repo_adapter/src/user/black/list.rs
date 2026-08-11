@@ -7,7 +7,7 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use cola_data::cola_user::info::black::UserBlackInfo;
-use cola_data::cola_user::port::black::list::BlackListPort;
+use port::cola_user::black::list::UserBlackListPort;
 use repository::cola_user::pg::black::list::UserBlackListRepo;
 use tracing::{error, info};
 
@@ -19,7 +19,7 @@ use tracing::{error, info};
 pub struct BlackListAdapter;
 
 #[async_trait]
-impl BlackListPort for BlackListAdapter {
+impl UserBlackListPort for BlackListAdapter {
     //
 
     ////////
@@ -51,21 +51,16 @@ impl BlackListPort for BlackListAdapter {
 
         // 🚧 2. PG 检查 (Cache-Aside: 数据库查询阶段)
         let (total, entities) = UserBlackListRepo::find_black_record_list(
-            actor_id,
-            target_id,
-            start_time,
-            end_time,
-            limit,
-            offset,
+            actor_id, target_id, start_time, end_time, limit, offset,
         )
-            .await
-            .map_err(|e| {
-                error!(
+        .await
+        .map_err(|e| {
+            error!(
                 "[🔌 ADAPTER] - ❌️ PG 查询黑名单审计日志列表失败: err = {:?}",
                 e
             );
-                e
-            })?;
+            e
+        })?;
 
         // 3. 实体转视图模型 (Entity -> Info)
         let list = entities

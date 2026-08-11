@@ -6,12 +6,12 @@
 
 pub mod add;
 pub mod check;
-pub mod del_port;
+pub mod del;
 pub mod dislike; // 不喜欢评论
-pub mod get_port;
-mod like; // 点赞评论
-pub mod list_port;
-pub mod manage_port;
-pub mod stat_port;
+pub mod get;
+pub mod like; // 点赞评论
+pub mod list;
+pub mod manage;
+pub mod stat;
+mod alive;
 
-//////// END

@@ -1,20 +1,23 @@
 // repo_adapter/src/cola_gis/hot.rs
+// 🔌 适配器 - 可乐GIS - POI - 热门
 // 2026-07-07
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::cola_gis::port::hot::HotlistRepo;
 use cola_data::cola_gis::command::hotlist::HotlistCommand;
+use port::cola_gis::hot::HotlistRepo;
 use repository::cola_gis::service::hotlist::HotlistService;
 
 ////////
 
-/// # [HOTLIST PORT] - 上热门 端口 插头
+/// # [HOTLIST ADAPTER] - 上热门 端口 插头
+/// * `desc`: `GIS - POI 上热门适配器`
 pub struct HotlistPortAdapter;
 
 #[async_trait]
 impl HotlistRepo for HotlistPortAdapter {
+    //
 
     ////////
 

@@ -1,4 +1,5 @@
-// cola_live/src/assembler/home  -- LIVE - 组装 -  视频响应体
+// cola_live/src/assembler/video.rs
+// core - LIVE - 组装器 -  视频VO响应体
 // 2026/06/11 10:20
 
 ////////
@@ -9,7 +10,7 @@ use cola_data::app::page::PageInfo;
 use cola_data::cola_music::info::music::MusicInfo;
 use cola_data::cola_user::info::user::UserInfo;
 use cola_data::cola_video::info::video::VideoInfo;
-use repository::cola_user::service::user::UserService;
+use service::cola_user::user::active::UserService;
 use std::collections::HashMap;
 
 ////////

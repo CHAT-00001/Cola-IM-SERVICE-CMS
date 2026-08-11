@@ -6,7 +6,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_video::port::buy::add::BuyAddPort;
+use port::cola_video::buy::add::VideoBuyAddPort;
 
 ////////
 
@@ -16,7 +16,7 @@ use cola_data::cola_video::port::buy::add::BuyAddPort;
 pub struct BuyAddPortAdapter;
 
 #[async_trait]
-impl BuyAddPort for BuyAddPortAdapter {
+impl VideoBuyAddPort for BuyAddPortAdapter {
     /// # 1. [PORT] - 保存购买记录
     /// * `desc`: 用户购买视频后保存记录
     async fn save_buy_record(&self, _uid: i64, _video_id: i64) -> Result<()> {

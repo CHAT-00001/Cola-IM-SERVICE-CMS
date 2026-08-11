@@ -1,5 +1,5 @@
 // port/src/cola_user/share/get.rs
-// ⏩️ 端口 - 🗣 用户 - 分享 - 获取
+// ⏩️ 端口 - 🗣 USER - 分享 - 获取
 // 2026/6/11 20:13
 
 ////////
@@ -9,55 +9,29 @@ use async_trait::async_trait;
 ////////
 
 /// # [GET PORTS]
-/// * `desc`: `🗣 用户 - 用户分享记录获取端口`
+/// * `desc`: `🗣 USER - 用户分享记录获取端口`
 #[async_trait]
 pub trait UserShareGetPort: Send + Sync + 'static {
     //
 
     ////////
 
-    /// # 1. [PORT] - 我的
-    /// * `desc`: `获取我拉黑的用户IDs`
-    async fn get_my_black_ids(
+    /// # 1. [PORT] - 用户分享的
+    /// * `desc`: `根据用户ID` - `获取用户分享的主页IDs`
+    async fn get_share_ids(
         &self,
-        uid: i64,    // UID
-        id: i64,     // 目标用户ID
+        user_id: i64,     // 用户ID
         limit: i64,  // 数量
         offset: i64, // 页码
     ) -> anyhow::Result<(Vec<i64>)>;
 
     ////////
 
-    /// # 2. [PORT] - 她的
-    /// * `desc`: `获取TA拉黑的用户IDs`
-    async fn get_he_black_ids(
+    /// # 2. [PORT] - 被分享的用户
+    /// * `desc`: `根据用户ID` - `获取用户主页被谁分享了`
+    async fn get_share_me_ids(
         &self,
-        uid: i64,    // UID
-        id: i64,     // 目标用户ID
-        limit: i64,  // 数量
-        offset: i64, // 页码
-    ) -> anyhow::Result<(Vec<i64>)>;
-
-    ////////
-
-    /// # 3. [PORT] - 拉黑我的
-    /// * `desc`: `获取拉黑我的用户IDs`
-    async fn get_black_me_ids(
-        &self,
-        uid: i64,    // UID
-        id: i64,     // 目标用户ID
-        limit: i64,  // 数量
-        offset: i64, // 页码
-    ) -> anyhow::Result<(Vec<i64>)>;
-
-    ////////
-
-    /// # 4. [PORT] - 拉黑她的
-    /// * `desc`: `获取拉黑TA的用户IDs`
-    async fn get_black_he_ids(
-        &self,
-        uid: i64,    // UID
-        id: i64,     // 目录用户ID
+        user_id: i64,     // 用户 ID
         limit: i64,  // 数量
         offset: i64, // 页码
     ) -> anyhow::Result<(Vec<i64>)>;

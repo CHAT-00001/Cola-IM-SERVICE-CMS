@@ -29,7 +29,7 @@ impl UserFollowAddCase {
         ctx.user
             .follow
             .add
-            .upsert_follow_record(uid, target_id)
+            .add_follow(uid, target_id)
             .await
             .map_err(|e| anyhow!("[CASE]: ❌️ 添加关注失败: {}", e))?;
 
@@ -74,16 +74,18 @@ impl UserFollowAddCase {
         target_id: i64,
         ctx: &AppContext,
     ) -> Result<bool, anyhow::Error> {
+        //
+        let user_id = target_id;
         let is_followed = ctx
             .user
             .follow
             .check
-            .is_followed(uid, target_id)
+            .is_followed(uid, user_id)
             .await
-            .map_err(|e| anyhow!("[CASE]: ❌️ 检查关注状态失败: {}", e))?;
+            .map_err(|e| anyhow!("[CASE]: ❌️ 检查是否关注失败: {}", e))?;
 
         info!(
-            "[CASE]: 关注状态查询成功: uid={}, target_id={}, is_followed={}",
+            "[🗣️ CASE]: ✅️ 是否关注查询成功: uid={}, target_id={}, is_followed={}",
             uid, target_id, is_followed
         );
         Ok(is_followed)

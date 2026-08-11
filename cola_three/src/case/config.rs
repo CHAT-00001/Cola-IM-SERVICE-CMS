@@ -1,19 +1,22 @@
-// cola_three/src/case/config  -- 用例 - 配置
+// cola_three/src/case/config.rs
+// core - 第三方 - 用例 - 配置
 // 2026/6/18 16:01
 
 ////////
 
 use cola_data::app::data::AppData;
 use cola_data::cola_three::command::config::UpsertConfigCommand;
-use cola_data::cola_three::port::config::ConfigPort;
 use cola_data::cola_three::vo::config::ConfigVo;
+use port::cola_three::config::ConfigPort;
 
 ////////
 
-/// # [CASE] - 配置用例
+/// # [USE CASE] - 配置用例
 pub struct ConfigCase;
 
 impl ConfigCase {
+    //
+
     ////////
 
     /// 1. 新增或更新

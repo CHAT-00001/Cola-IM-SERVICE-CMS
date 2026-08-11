@@ -13,7 +13,7 @@ use port::cola_user::follow::add::UserFollowAddPort;
 ////////
 
 /// # [ADD ADAPTER] - 发布
-/// * `desc`: `🗣 用户 - 关注发布`
+/// * `desc`: `USER - 关注发布`
 pub struct FollowAddAdapter;
 #[async_trait]
 impl UserFollowAddPort for FollowAddAdapter {
@@ -21,8 +21,8 @@ impl UserFollowAddPort for FollowAddAdapter {
 
     ////////
 
-    /// # 1. [ADAPTER] - 设置关注
-    async fn set_follow(&self, uid: i64, user_id: i64, is_follow: bool) -> Result<()> {
+    /// # 1. [ADAPTER] - 添加关注
+    async fn add_follow(&self, uid: i64, user_id: i64,) -> Result<()> {
         todo!()
     }
 

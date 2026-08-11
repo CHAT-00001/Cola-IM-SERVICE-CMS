@@ -1,4 +1,5 @@
-// cola_data/src/cola_auth/entity/device.rs  -- 数据中心 - AUTH - entity - 设备
+// cola_data/src/cola_auth/entity/device.rs
+// 数据 - AUTH - entity - 设备
 // 2026/5/26 07:40
 
 ////////
@@ -8,17 +9,9 @@ use sqlx::FromRow;
 
 ////////
 
-/// # 1. 统一的设备查询字段 (1:1 严格对齐结构体，干净、便于 SQLx 查询复用)
-pub const DEVICE_COLUMNS: &str = r#"
-    id, user_id, device_sn, platform, device_name, os_version, app_version,
-    access_token, refresh_token, last_ip, is_online, status,
-    expired_time, last_active_at, created_time, updated_time
-"#;
-
-////////
-
 /// # [ENTITY] - 认证中心 - 用户设备信任及多设备状态表
-/// * `table name`: `auth_device`
+/// * `pg schema`: `cola_auth` - PG 模式
+/// * `table name`: `auth_device` - 表名
 /// * 业务场景：支持同平台多设备登录、单设备踢出、设备锁管理、多端推送（如绑定个推/APNs的 Token）
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow, Default)]
 pub struct AuthDeviceEntity {
@@ -40,4 +33,13 @@ pub struct AuthDeviceEntity {
     pub updated_time: chrono::DateTime<chrono::Utc>, // 信息最后同步更新时间
 }
 
+////////
+
+/// # [COLUMNS] SQLx 静态常量表
+/// # 1. 统一的设备查询字段 (1:1 严格对齐结构体，干净、便于 SQLx 查询复用)
+pub const DEVICE_COLUMNS: &str = r#"
+    id, user_id, device_sn, platform, device_name, os_version, app_version,
+    access_token, refresh_token, last_ip, is_online, status,
+    expired_time, last_active_at, created_time, updated_time
+"#;
 //////// END

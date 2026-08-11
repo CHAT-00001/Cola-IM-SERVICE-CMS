@@ -1,4 +1,4 @@
-// repo_adapter/src/user/share/list.rs  -- 
+// repo_adapter/src/user/share/list.rs
 // 🔌 插头 - 可乐用户 - 分享 - 列表
 // 2026/8/8 12:45 Created.
 
@@ -7,24 +7,34 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use cola_data::cola_user::info::black::UserBlackInfo;
-use cola_data::cola_user::port::black::list::BlackListPort;
+use cola_data::cola_user::info::share::ShareInfo;
+use port::cola_user::share::list::UserShareListPort;
 
 ////////
 
 pub struct ShareListAdapter;
 
 #[async_trait]
-impl BlackListPort for ShareListAdapter {
-    async fn get_black_list(
+impl UserShareListPort for ShareListAdapter {
+
+    /// # 1. [ADAPTER] - 用户分享的
+    async fn get_share_infos_by_user_id(
         &self,
-        _actor_id: Option<i64>,
-        _target_id: Option<i64>,
-        _start_time: Option<i64>,
-        _end_time: Option<i64>,
-        _limit: i64,
-        _offset: i64,
-    ) -> Result<(i64, Vec<UserBlackInfo>)> {
-        Ok((0, vec![]))
+        user_id: i64, // 用户ID
+        offset: i64,
+        limit: i64,
+    ) -> Result<(Vec<ShareInfo>)> {
+        todo!()
+    }
+
+    /// # 2. [ADAPTER] - 主页的分享
+    async fn get_share_infos_by_profile_id(
+        &self,
+        profile_id: i64,  // 主页 ID
+        offset: i64,
+        limit: i64,
+    ) -> Result<(Vec<ShareInfo>)> {
+        todo!()
     }
 }
 

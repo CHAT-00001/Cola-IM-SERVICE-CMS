@@ -1,22 +1,28 @@
-// repo_adapter/src/cola_market/goods_view.rs  -- 适配器 - 商品浏览记录
+// repo_adapter/src/cola_market/goods_view.rs
+// 🔌 适配器 - MARKET - 商品 - 浏览记录
 // 2026/6/18
 
-//////
+////////
 
 use async_trait::async_trait;
 use chrono::Utc;
 use cola_data::cola_market::info::address::AddressInfo;
-use cola_data::cola_market::port::goods_view::GoodsViewPort;
+use port::cola_market::goods_view::GoodsViewPort;
 use repository::pg_pool;
 
-//////
+////////
 
-/// # [ADAPTER] - 商品浏览记录 端口适配器
+/// # [VISITED ADAPTER] - 浏览记录
+/// * `desc`: `MARKET - GOODS - VISITED Adapter`
 pub struct GoodsViewAdapter;
 
 #[async_trait]
 impl GoodsViewPort for GoodsViewAdapter {
+    //
 
+    ////////
+
+    /// # 1. [ADAPTER] - 保存浏览记录
     async fn save_view_record(&self, uid: i64, goods_id: i64) -> anyhow::Result<()> {
         let pool = pg_pool();
         let now = Utc::now().timestamp() as i32;

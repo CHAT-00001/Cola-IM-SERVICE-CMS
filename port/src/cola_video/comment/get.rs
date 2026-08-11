@@ -14,30 +14,21 @@ use cola_data::cola_video::info::comment::VideoCommentInfo;
 pub trait VideoCommentGetPort: Send + Sync {
     ////////
 
-    /// # [PORT] - 保存
-    async fn save_comment_record(
+    /// # [PORT] - 用户的
+    async fn get_comment_by_user_id(
         &self,
-        uid: i64,
-        video_id: i64,
-        is_liked: bool,
-    ) -> anyhow::Result<(VideoCommentInfo)>;
+        user_id: i64, // 用户 ID
+        limit: i64,   // 数量
+        offset: i64,  // 页码
+    ) -> anyhow::Result<(Vec<VideoCommentInfo>)>;
 
     ////////
 
-    /// # [PORT] - 编辑
-    async fn edit_comment_record(
+    /// # [PORT] - 视频的
+    async fn get_comment_by_video(
         &self,
-        comment_id: i64,
-        cmd: CommentCommand,
-    ) -> anyhow::Result<(VideoCommentInfo)>;
-
-    ////////
-
-    /// # [PORT] - 删除
-    async fn del_comment_record(&self, comment_id: i64) -> anyhow::Result<()>;
-
-    ////////
-
-    /// # [PORT] - 批量删除
-    async fn del_comments_record(&self, comment_ids: Vec<i64>) -> anyhow::Result<()>;
+        video_id: i64, // 视频 ID
+        limit: i64,    // 数量
+        offset: i64,   // 页码
+    ) -> anyhow::Result<(Vec<VideoCommentInfo>)>;
 }

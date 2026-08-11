@@ -14,43 +14,11 @@ pub struct UserFollowGetAdapter;
 
 #[async_trait]
 impl UserFollowGetPort for UserFollowGetAdapter {
-    async fn get_my_follow_ids(
-        &self,
-        uid: i64,
-        id: i64,
-        limit: i64,
-        offset: i64,
-    ) -> anyhow::Result<(Vec<i64>)> {
+    async fn get_he_follow_ids(&self, user_id: i64, limit: i64, offset: i64) -> anyhow::Result<(Vec<i64>)> {
         todo!()
     }
 
-    async fn get_he_follow_ids(
-        &self,
-        uid: i64,
-        id: i64,
-        limit: i64,
-        offset: i64,
-    ) -> anyhow::Result<(Vec<i64>)> {
-        todo!()
-    }
-
-    async fn get_follow_me_ids(
-        &self,
-        uid: i64,
-        id: i64,
-        limit: i64,
-        offset: i64,
-    ) -> anyhow::Result<(Vec<i64>)> {
-        todo!()
-    }
-
-    async fn get_follow_he_ids(
-        &self,
-        uid: i64,
-        id: i64,
-        limit: i64,
-        offset: i64,
-    ) -> anyhow::Result<(Vec<i64>)> {
+    async fn get_follow_he_ids(&self, id: i64, limit: i64, offset: i64) -> anyhow::Result<(Vec<i64>)> {
         todo!()
     }
 }

@@ -6,12 +6,14 @@
 
 use async_trait::async_trait;
 use cola_data::cola_user::info::user::UserInfo;
-use cola_data::cola_user::port::vip::add::VipAddPort;
-use cola_data::cola_user::port::vip::check::VipCheckPort;
-use cola_data::cola_user::port::vip::del::VipDelPort;
-use cola_data::cola_user::port::vip::get::VipGetPort;
-use cola_data::cola_user::port::vip::list::VipListPort;
-use cola_data::cola_user::port::vip::manage::VipManagePort;
+use port::cola_user::vip::add::VipAddPort;
+use port::cola_user::vip::check::VipCheckPort;
+use port::cola_user::vip::del::VipDelPort;
+use port::cola_user::vip::get::VipGetPort;
+use port::cola_user::vip::list::VipListPort;
+use port::cola_user::vip::manage::VipManagePort;
+
+////////
 
 pub mod add;
 pub mod alive;
@@ -20,10 +22,11 @@ pub mod del;
 pub mod get;
 pub mod list;
 pub mod manage;
-mod stat;
+pub mod stat;
+
 ////////
 
-/// # [ADAPTER] - VIP 统一适配器
+/// # [VIP ADAPTER] - VIP 统一适配器
 pub struct VipAdapter;
 
 #[async_trait]

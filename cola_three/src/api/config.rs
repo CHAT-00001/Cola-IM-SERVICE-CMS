@@ -1,4 +1,5 @@
-// cola_three/src/api/config  -- API - 配置
+// cola_three/src/api/config.rs
+// 可乐三方 - API - 配置
 // 2026/6/18
 
 ////////
@@ -6,8 +7,8 @@
 use crate::case::config::ConfigCase;
 use cola_data::app::data::AppData;
 use cola_data::cola_three::command::config::UpsertConfigCommand;
-use cola_data::cola_three::port::config::ConfigPort;
 use cola_data::cola_three::vo::config::ConfigVo;
+use port::cola_three::config::ConfigPort;
 
 ////////
 
@@ -15,6 +16,13 @@ use cola_data::cola_three::vo::config::ConfigVo;
 pub struct ConfigApi;
 
 impl ConfigApi {
+    //
+
+    ////////
+
+    /// # 1. [API] - 更插
+    /// * `desc`: `🗣 ADMIN - 更新/插入` - `新的配置`
+    /// * `condition`: `⚠️ ADMIN / `
     pub async fn upsert(port: &dyn ConfigPort, cmd: UpsertConfigCommand) -> AppData<ConfigVo> {
         ConfigCase::upsert(port, cmd).await
     }

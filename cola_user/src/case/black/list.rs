@@ -20,8 +20,8 @@ impl UserBlackListCase {
 
     ////////
 
-    /// # 1. [CASE] - 我的
-    /// * `desc`: `获取我的黑名单列表`
+    /// # 1. [CASE] - 用户主动的拉黑记录列表
+    /// * `desc`: `获取用户的拉黑记录列表`
     pub async fn case_get_my_black_list(
         uid: i64,    // 操作者UID
         id: i64,     // 目标用户ID
@@ -30,21 +30,23 @@ impl UserBlackListCase {
         ctx: &AppContext,
     ) -> Result<Vec<UserInfo>, anyhow::Error> {
         // ..
-        // ..
+        // .. 目标用户ID 为操作者ID
+        let user_id = uid;
         // 1. 先查黑名单的ids
         let _ids = ctx
             .user
             .black
             .get
-            .get_my_black_ids(uid, id, offset, limit)
+            .get_black_ids(user_id, limit, offset)
             .await
             .map_err(|e| anyhow!("[CASE]: ❌️ 获取黑名单IDs失败: {}", e))?;
 
         // 2. 再拿ids查找用户资料
         let user_infos = ctx
             .user
-            .info
-            .batch_get_info(_ids)
+            .user
+            .get
+            .batch_get_infos(_ids)
             .await
             .map_err(|e| anyhow!("[CASE]: ❌️ 批量获取用户资料失败: {}", e))?;
 

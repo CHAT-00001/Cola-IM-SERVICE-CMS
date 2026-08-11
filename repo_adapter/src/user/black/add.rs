@@ -6,7 +6,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_user::port::black::add::BlackAddPort;
+use port::cola_user::black::add::UserBlackAddPort;
 use repository::cola_user::pg::black::add::UserBlackAddRepo;
 
 ////////
@@ -16,7 +16,7 @@ use repository::cola_user::pg::black::add::UserBlackAddRepo;
 pub struct BlackAddAdapter;
 
 #[async_trait]
-impl BlackAddPort for BlackAddAdapter {
+impl UserBlackAddPort for BlackAddAdapter {
     //
 
     ////////

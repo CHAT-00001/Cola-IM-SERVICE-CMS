@@ -1,27 +1,27 @@
 // repo_adapter/src/cola_user/friend/mod.rs
 // 🔌 插头 - 可乐用户 - 朋友 - 模块
-// 2026/8/6 解耦: 朋友关系适配器 (子模块实现)
+// 2026/8/6 10:14 Created.
 
 ////////
 
 use async_trait::async_trait;
 use cola_data::cola_user::info::config::UserConfigInfo;
 use cola_data::cola_user::info::user::UserInfo;
-use cola_data::cola_user::port::friend::add::FriendAddPort;
-use cola_data::cola_user::port::friend::check::FriendCheckPort;
-use cola_data::cola_user::port::friend::del::FriendDelPort;
-use cola_data::cola_user::port::friend::get::FriendGetPort;
-use cola_data::cola_user::port::friend::list::FriendListPort;
-use cola_data::cola_user::port::friend::manage::FriendManagePort;
+use port::cola_user::friend::add::FriendAddPort;
+use port::cola_user::friend::check::FriendCheckPort;
+use port::cola_user::friend::del::FriendDelPort;
+use port::cola_user::friend::get::FriendGetPort;
+use port::cola_user::friend::list::FriendListPort;
+use port::cola_user::friend::manage::FriendManagePort;
 
-pub mod add; // 添加/移除
+////////
+pub mod add; // 发布
 pub mod check; // 检查
 pub mod del; // 删除
 pub mod get; // 获取
 pub mod list; // 列表
-pub mod manage;
-mod stat;
-// 管理
+pub mod manage; // 管理
+pub mod stat; // 统计
 
 ////////
 
@@ -50,7 +50,12 @@ impl FriendAddPort for FriendAdapter {
     async fn check_state(&self, uid: i64, user_id: i64) -> anyhow::Result<bool> {
         check::check_state(uid, user_id).await
     }
-    async fn get_list_by_user_id(&self, user_id: i64, offset: i64, limit: i64) -> anyhow::Result<Vec<i64>> {
+    async fn get_list_by_user_id(
+        &self,
+        user_id: i64,
+        offset: i64,
+        limit: i64,
+    ) -> anyhow::Result<Vec<i64>> {
         get::get_list(user_id, offset, limit).await
     }
     async fn get_here_list(&self, uid: i64, user_ids: Vec<i64>) -> anyhow::Result<()> {
@@ -83,16 +88,40 @@ impl FriendDelPort for FriendAdapter {
 
 #[async_trait]
 impl FriendGetPort for FriendAdapter {
-    async fn get_my_friend_ids(&self, uid: i64, id: i64, limit: i64, offset: i64) -> anyhow::Result<Vec<i64>> {
+    async fn get_my_friend_ids(
+        &self,
+        uid: i64,
+        id: i64,
+        limit: i64,
+        offset: i64,
+    ) -> anyhow::Result<Vec<i64>> {
         get::get_my_friend_ids(uid, id, limit, offset).await
     }
-    async fn get_he_friend_ids(&self, uid: i64, id: i64, limit: i64, offset: i64) -> anyhow::Result<Vec<i64>> {
+    async fn get_he_friend_ids(
+        &self,
+        uid: i64,
+        id: i64,
+        limit: i64,
+        offset: i64,
+    ) -> anyhow::Result<Vec<i64>> {
         get::get_he_friend_ids(uid, id, limit, offset).await
     }
-    async fn get_friend_me_ids(&self, uid: i64, id: i64, limit: i64, offset: i64) -> anyhow::Result<Vec<i64>> {
+    async fn get_friend_me_ids(
+        &self,
+        uid: i64,
+        id: i64,
+        limit: i64,
+        offset: i64,
+    ) -> anyhow::Result<Vec<i64>> {
         get::get_friend_me_ids(uid, id, limit, offset).await
     }
-    async fn get_friend_he_ids(&self, uid: i64, id: i64, limit: i64, offset: i64) -> anyhow::Result<Vec<i64>> {
+    async fn get_friend_he_ids(
+        &self,
+        uid: i64,
+        id: i64,
+        limit: i64,
+        offset: i64,
+    ) -> anyhow::Result<Vec<i64>> {
         get::get_friend_he_ids(uid, id, limit, offset).await
     }
 }
@@ -122,7 +151,12 @@ impl FriendListPort for FriendAdapter {
     async fn check_state(&self, uid: i64, user_id: i64) -> anyhow::Result<bool> {
         check::check_state(uid, user_id).await
     }
-    async fn get_list_by_user_id(&self, user_id: i64, offset: i64, limit: i64) -> anyhow::Result<Vec<i64>> {
+    async fn get_list_by_user_id(
+        &self,
+        user_id: i64,
+        offset: i64,
+        limit: i64,
+    ) -> anyhow::Result<Vec<i64>> {
         get::get_list(user_id, offset, limit).await
     }
     async fn get_here_list(&self, uid: i64, user_ids: Vec<i64>) -> anyhow::Result<()> {
@@ -155,7 +189,12 @@ impl FriendManagePort for FriendAdapter {
     async fn check_state(&self, uid: i64, user_id: i64) -> anyhow::Result<bool> {
         check::check_state(uid, user_id).await
     }
-    async fn get_list_by_user_id(&self, user_id: i64, offset: i64, limit: i64) -> anyhow::Result<Vec<i64>> {
+    async fn get_list_by_user_id(
+        &self,
+        user_id: i64,
+        offset: i64,
+        limit: i64,
+    ) -> anyhow::Result<Vec<i64>> {
         get::get_list(user_id, offset, limit).await
     }
     async fn get_here_list(&self, uid: i64, user_ids: Vec<i64>) -> anyhow::Result<()> {

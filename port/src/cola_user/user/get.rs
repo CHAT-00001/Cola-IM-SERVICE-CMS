@@ -1,12 +1,14 @@
 // port/src/cola_user/user/get.rs
-// 用户 - ⏩️ 端口 - 🗣 可乐用户 - 用户 - 获取
+// 用户 - ⏩️ 端口 - USER - 用户 - 获取
 // 2026/8/5 22:02 Created.
 
 ////////
 
-use cola_data::cola_live::info::live::UserInfo;
+
 
 ////////
+
+use cola_data::cola_user::info::user::UserInfo;
 
 /// # [GET PORTS]
 /// `desc`: `获取用户资料`
@@ -17,19 +19,17 @@ pub trait UserGetPort: Send + Sync + 'static {
     ////////
 
     /// # 1. [PORT] - 单个获取
-    /// * `desc`: `单个获取用户资料`
     async fn single_get_info(
         &self,
-        id: i64, // 目标用户ID
+        user_id: i64, // 用户 ID
     ) -> anyhow::Result<(UserInfo)>;
 
     ////////
 
-    /// # [PORT] - 批量获取
-    /// * `desc`: `批量获取用户资料列表`
-    async fn batch_get_info(
+    /// # 2. [PORT] - 批量获取
+    async fn batch_get_infos(
         &self,
-        ids: Vec<i64>, // 用户IDs
+        user_ids: Vec<i64>, // 用户 IDs
     ) -> anyhow::Result<(Vec<UserInfo>)>;
 }
 

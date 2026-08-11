@@ -1,13 +1,14 @@
-// cola_three/src/api/cola_fs  -- API - 服务类型
-// 2026/6/18
+// cola_three/src/api/server_type.rs
+// 可乐三方 - API - 服务类型
+// 2026/6/18 10:20
 
 ////////
 
 use crate::case::category::TypeCase;
 use cola_data::app::data::AppData;
 use cola_data::cola_three::command::category::ThreeServerTypeCommand;
-use cola_data::cola_three::port::category::TypePort;
 use cola_data::cola_three::vo::category::CategoryVo;
+use port::cola_three::category::TypePort;
 
 ////////
 

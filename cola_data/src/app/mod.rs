@@ -1,5 +1,4 @@
 pub mod api;
-pub mod ctx;  // 上下文
 pub mod data;  // 数据壳
 pub mod error;  // 错误信息
 pub mod page;  // 分页信息

@@ -6,7 +6,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_user::port::ban::get::BanGetPort;
+use port::cola_user::ban::get::UserBanGetPort;
 
 ////////
 
@@ -16,7 +16,7 @@ pub struct BanGetService;
 
 // 构造实现
 #[async_trait]
-impl BanGetPort for BanGetService {
+impl UserBanGetPort for BanGetService {
     //
 
     ////////

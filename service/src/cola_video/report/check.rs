@@ -4,6 +4,7 @@
 
 ////////
 
+use anyhow::Result;
 use cola_data::cola_video::command::report::VideoReportCommand;
 use cola_data::cola_video::entity::comment::VideoCommentEntity;
 use tracing::log;
@@ -21,16 +22,17 @@ impl VideoReportCheckService {
     ////////
 
     /// # 1. [SERVICE] - 检查健康
-    pub async fn check_health(video_id: i64) -> Result<i32, sqlx::Error> {
+    pub async fn check_health(video_id: i64) -> Result<i32> {
+        let _ = video_id;
         let code = 4001;
         Ok(code)
     }
 
     ////////
 
-    /// # 3. [SERVICE] - 检查状态
-    // 假设你的项目使用 anyhow 或自定义错误类型
-    pub async fn check_state(video_id: i64) -> Result<i32, sqlx::Error> {
+    /// # 2. [SERVICE] - 检查状态
+    pub async fn check_state(video_id: i64) -> Result<i32> {
+        let _ = video_id;
         let code = 4001;
         Ok(code)
     }

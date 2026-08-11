@@ -1,15 +1,12 @@
-// info/live_repo  -- 构建直播信息
+// data/src/live/info/live.rs
+// 数据 - LIVE - INFO - 直播信息
 // 2026/5/19 18:17 by wx: cestbon10080
 
 use chrono::Utc;
 use serde::{Deserialize, Serialize};
+use crate::cola_user::info::user::UserInfo;
 
-/// 模拟的用户信息结构体（用于获取 nickname，你可以替换为项目中实际的 User 结构体）
-#[derive(Debug, Clone)]
-pub struct UserInfo {
-    pub id: i64,
-    pub nickname: String,
-}
+////////
 
 /// # [INFO] - 直播信息
 #[derive(Debug, Serialize, Deserialize, Clone, Default)]

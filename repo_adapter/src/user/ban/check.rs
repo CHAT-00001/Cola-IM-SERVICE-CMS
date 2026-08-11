@@ -6,8 +6,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_user::port::ban::check::BanCheckPort;
-
+use port::cola_user::ban::check::UserBanCheckPort;
 ////////
 
 /// # [CHECK SERVICE] - 检查
@@ -15,7 +14,7 @@ use cola_data::cola_user::port::ban::check::BanCheckPort;
 pub struct BanCheckService;
 
 #[async_trait]
-impl BanCheckPort for BanCheckService {
+impl UserBanCheckPort for BanCheckService {
     //
 
     ////////

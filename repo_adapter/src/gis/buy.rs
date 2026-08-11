@@ -1,10 +1,11 @@
 // repo_adapter/src/cola_gis/add
-// 2026-07-07
+// 🔌 适配器 - 可乐GIS - POI - 发布
+// 2026-07-07 14:00 Created.
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::cola_gis::port::buy::BuyRepo;
+use port::cola_gis::buy::BuyRepo;
 use repository::cola_gis::service::poi_add::PoiAddService;
 
 ////////

@@ -26,7 +26,7 @@ pub mod goods_view;
 pub fn build_market_port() -> ColaMarketPort {
     ColaMarketPort {
         address: Arc::new(address::AddressAdapter),
-        buy: Arc::new(stub::GeneralStubAdapter),
+        buy: Arc::new(buy::BuyRepo),
         feed: Arc::new(stub::GeneralStubAdapter),
         express: Arc::new(express::ExpressAdapter),
         goods: Arc::new(goods::GoodsAdapter),

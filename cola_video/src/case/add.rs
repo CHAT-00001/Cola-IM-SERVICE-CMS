@@ -10,6 +10,7 @@ use cola_data::cola_fs::rick_check;
 use cola_data::cola_video::command::video::edit::VideoUpdateCommand;
 use cola_data::cola_video::command::video::new::VideoNewCommand;
 use cola_data::cola_video::command::video::permission::VideoUpdatePermissionCommand;
+use cola_data::cola_video::info::video::VideoSingleResponse;
 use repository::cola_video::service::add::AddService;
 use crate::assembler::video::build_video_single_response;
 use crate::model::vo::video::VideoSingleResponse;
@@ -23,7 +24,11 @@ impl AddCase {
     ////////
 
     /// # 1. [CASE] - 发布视频
-    pub async fn case_add_publish(uid: i64, cmd: VideoNewCommand) -> Result<VideoSingleResponse, anyhow::Error> {
+    pub async fn case_add_publish(
+        uid: i64,
+        cmd: VideoNewCommand,
+        ctx: AppContext,
+    ) -> Result<VideoSingleResponse, anyhow::Error> {
         // 1. 内容风控（标题 + 简介 联合过滤）
         let check_text = format!("{} {:?}", cmd.title, cmd.description);
 
@@ -54,7 +59,7 @@ impl AddCase {
         let visibility = rick_check(check_text).await;
 
         // 2. 核心数据持久化与计数更新
-        let video_info = AddService::edit_content(uid, cmd, visibility)
+        let video_info = AddAdapter::edit_content(uid, cmd, visibility)
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 视频发布持久化失败: {}", e))?;
 

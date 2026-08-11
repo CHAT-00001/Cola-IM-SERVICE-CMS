@@ -6,8 +6,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_user::port::ban::del::BanDelPort;
-
+use port::cola_user::ban::del::UserBanDelPort;
 ////////
 
 /// # [DEL SERVICE] - 删除
@@ -16,7 +15,7 @@ pub struct BanDelService;
 
 // 构造实现
 #[async_trait]
-impl BanDelPort for BanDelService {
+impl UserBanDelPort for BanDelService {
     //
 
     ////////

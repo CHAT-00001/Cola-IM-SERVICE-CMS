@@ -6,11 +6,11 @@
 
 use async_trait::async_trait;
 use cola_data::cola_user::info::user::UserInfo;
-use cola_data::cola_user::port::user::get::UserGetPort;
+use port::cola_user::user::get::UserGetPort;
 
 ////////
 
-/// # [GET SERVICE] - 获取
+/// # [GET ADAPTER] - 获取
 /// * `desc`: `用户获取服务`
 pub struct UserGetAdapter;
 
@@ -21,14 +21,15 @@ impl UserGetPort for UserGetAdapter {
 
     ////////
 
-    /// # 1. [SERVICE] - 最新
-    /// * `desc`: `保存新用户记录`
-
-    async fn single_get_info(&self, id: i64) -> anyhow::Result<(UserInfo)> {
+    /// # 1. [ADAPTER] - 单个获取
+    async fn single_get_info(&self, user_id: i64) -> anyhow::Result<(UserInfo)> {
         todo!()
     }
 
-    async fn batch_get_info(&self, ids: Vec<i64>) -> anyhow::Result<(Vec<UserInfo>)> {
+    ////////
+
+    /// # 2. [ADAPTER] - 批量获取
+    async fn batch_get_infos(&self, user_ids: Vec<i64>) -> anyhow::Result<(Vec<UserInfo>)> {
         todo!()
     }
 }

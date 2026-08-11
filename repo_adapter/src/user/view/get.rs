@@ -1,13 +1,12 @@
-// repo_adapter/src/cola_user/view/add.rs
-// 🔌 适配器 - 可乐用户 - 浏览 - 获取服务
+// repo_adapter/src/user/view/add.rs
+// 🔌 适配器 - USER - 浏览 - 获取
 // 2026/8/6 04:18 Created.
 
 ////////
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_video::info::video::VideoInfo;
-use cola_data::cola_video::port::video::get::VideoGetPort;
+use port::cola_user::view::get::UserViewGetPort;
 
 ////////
 
@@ -17,44 +16,17 @@ pub struct ViewGetService;
 
 // 构造实现
 #[async_trait]
-impl VideoGetPort for ViewGetService {
+impl UserViewGetPort for ViewGetService {
+    async fn get_views_ids(&self, user_id: i64, limit: i64, offset: i64) -> Result<(Vec<i64>)> {
+        todo!()
+    }
+
+    async fn get_view_me_ids(&self, user_id: i64, limit: i64, offset: i64) -> Result<(Vec<i64>)> {
+        todo!()
+    }
     //
 
-    ////////
 
-    /// # 1. [SERVICE] - 我的
-    /// * `desc`: `单个软删除`
-    async fn get_my_list(
-        &self,
-        uid: i64,
-        keyword: Option<String>,
-        limit: i64,
-        offset: i64,
-        is_liked: bool,
-    ) -> Result<(Vec<VideoInfo>)> {
-        todo!()
-    }
-
-    async fn get_he_list(
-        &self,
-        uid: i64,
-        keyword: Option<String>,
-        limit: i64,
-        offset: i64,
-    ) -> Result<(Vec<VideoInfo>)> {
-        todo!()
-    }
-
-    async fn get_nearby_list(
-        &self,
-        lat: f64,
-        lng: f64,
-        range: f64,
-        offset: i64,
-        limit: i64,
-    ) -> Result<(Vec<VideoInfo>)> {
-        todo!()
-    }
 }
 
 //////// END

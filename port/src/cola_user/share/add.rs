@@ -32,60 +32,6 @@ pub trait UserShareAddPort: Send + Sync + 'static {
         uid: i64, // UID
         id: i64,  // 目标用户ID
     ) -> anyhow::Result<()>;
-
-    ////////
-
-    /// # 3. [PORT] - 获取
-    async fn get_following(&self, uid: i64) -> anyhow::Result<(UserInfo)>;
-
-    ////////
-
-    /// # 4. [PORT] - 删除
-    async fn single_del(
-        &self,
-        uid: i64, // 操作者ID
-        id: i64,  // 目录用户ID
-    ) -> anyhow::Result<(u16)>;
-
-    ////////
-
-    /// # 5. [PORT] - 批量删除
-    /// * `desc`: `管理员批量移除黑名单`
-    async fn batch_del(
-        &self,
-        uid: i64,      // 操作者ID
-        ids: Vec<i64>, // 目标用户IDs
-    ) -> anyhow::Result<(u16)>;
-
-    ////////
-
-    /// # 6. [PORT] - 检查状态
-    /// * `Parma`: `uid` / `user_id`
-    async fn check_state(
-        &self,
-        uid: i64,     // 操作者ID
-        user_id: i64, // 目标用户ID
-    ) -> anyhow::Result<(bool)>;
-
-    ////////
-
-    /// # 7. [PORT] - 获取用户的黑名单
-    /// * `return` : `cola_user ids`
-    async fn get_list_by_user_id(
-        &self,
-        user_id: i64, // 目标用户ID
-        offset: i64,  // 页数
-        limit: i64,   // 数量
-    ) -> anyhow::Result<(Vec<i64>)>;
-
-    ////////
-
-    /// # 8. [PORT] - 获取TA的黑名单
-    async fn get_here_list(
-        &self,
-        uid: i64,           // 操作者ID
-        user_ids: Vec<i64>, // 返回用户IDs
-    ) -> anyhow::Result<()>;
 }
 
 //////// END

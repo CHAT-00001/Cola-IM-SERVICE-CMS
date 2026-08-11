@@ -7,7 +7,7 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use cola_data::cola_user::info::black::UserBlackInfo;
-use cola_data::cola_user::port::black::manage::BlackManagePort;
+use port::cola_user::black::manage::UserBlackManagePort;
 
 ////////
 
@@ -17,7 +17,7 @@ pub struct BlackManageAdapter;
 
 // 构造实现
 #[async_trait]
-impl BlackManagePort for BlackManageAdapter {
+impl UserBlackManagePort for BlackManageAdapter {
     //
 
     ////////

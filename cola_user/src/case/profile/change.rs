@@ -39,6 +39,7 @@ impl UserProfileChangeCase {
         // 2. 核心数据持久化与计数更新 (💡 提示：建议让这个 Service 函数返回刚插入成功的 VideoInfo)
         let user_info = ctx
             .user
+            .user
             .add
             .save_user(cmd)
             .await
@@ -66,6 +67,7 @@ impl UserProfileChangeCase {
 
         // 2. 核心数据持久化与计数更新
         let user_info = ctx
+            .user
             .user
             .add
             .update_user(cmd)

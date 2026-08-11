@@ -4,6 +4,7 @@
 
 ////////
 
+use crate::stub;
 use port::cola_video::ColaVideoPort;
 use port::cola_video::buy::VideoBuyPort;
 use port::cola_video::collect::VideoCollectPort;
@@ -17,7 +18,6 @@ use port::cola_video::share::VideoSharePort;
 use port::cola_video::video::VideoPort;
 use port::cola_video::view::VideoViewPort;
 use std::sync::Arc;
-use crate::stub;
 
 ////////
 
@@ -39,7 +39,6 @@ pub mod view; // 浏览
 /// * `desc`: 构建视频 Port 聚合体，包含所有视频相关功能
 pub fn build_video_port() -> ColaVideoPort {
     ColaVideoPort {
-        add: Arc::new(stub::GeneralStubAdapter),
         buy: VideoBuyPort {
             add: Arc::new(buy::add::BuyAddPortAdapter),
             check: Arc::new(stub::GeneralStubAdapter),
@@ -50,24 +49,24 @@ pub fn build_video_port() -> ColaVideoPort {
             stat: Arc::new(stub::GeneralStubAdapter),
         },
         collect: VideoCollectPort {
-            add: Arc::new(stub::GeneralStubAdapter),
-            check: Arc::new(stub::GeneralStubAdapter),
-            del: Arc::new(stub::GeneralStubAdapter),
-            get: Arc::new(stub::GeneralStubAdapter),
-            list: Arc::new(stub::GeneralStubAdapter),
+            add: Arc::new(collect::add::VideoCollectAddAdapter),
+            check: Arc::new(collect::check::VideoCollectCheckAdapter),
+            del: Arc::new(collect::del::VideoCollectDelAdapter),
+            get: Arc::new(collect::get::VideoCollectGetAdapter),
+            list: Arc::new(collect::list::VideoCollectListAdapter),
             manage: Arc::new(collect::manage::CollectManageAdapter),
-            stat: Arc::new(stub::GeneralStubAdapter),
+            stat: Arc::new(collect::stat::VideoCollectStatAdapter),
         },
         comment: VideoCommentPort {
             add: Arc::new(comment::add::CommentAddPortAdapter),
-            check: Arc::new(stub::GeneralStubAdapter),
-            del: Arc::new(stub::GeneralStubAdapter),
+            check: Arc::new(comment::check::VideoCommentCheckAdapter),
+            del: Arc::new(comment::del::VideoCommentDelAdapter),
             dislike: Arc::new(comment::dislike::VideoCommentDislikeAdapter),
-            get: Arc::new(stub::GeneralStubAdapter),
-            like: Arc::new(stub::GeneralStubAdapter),
-            list: Arc::new(stub::GeneralStubAdapter),
-            manage: Arc::new(stub::GeneralStubAdapter),
-            stat: Arc::new(stub::GeneralStubAdapter),
+            get: Arc::new(comment::get::VideoCommentLikeAdapter),
+            like: Arc::new(comment::like::VideoCommentLikeAdapter),
+            list: Arc::new(comment::list::VideoCommentListAdapter),
+            manage: Arc::new(comment::manage::VideoCommentManageAdapter),
+            stat: Arc::new(comment::stat::VideoCommentStatAdapter),
         },
         danmaku: VideoDanmakuPort {
             add: Arc::new(stub::GeneralStubAdapter),
@@ -135,12 +134,12 @@ pub fn build_video_port() -> ColaVideoPort {
         },
         view: VideoViewPort {
             active: Arc::new(view::active::AliveService),
-            add: Arc::new(view::add::AddService),
-            del: Arc::new(view::del::ViewDelService),
-            get: Arc::new(view::get::ViewGetService),
+            add: Arc::new(view::add::VideoViewAddAdapter),
+            del: Arc::new(view::del::VideoViewDeleteAdapter),
+            get: Arc::new(view::get::VideoViewGetAdapter),
             list: Arc::new(view::list::ViewListService),
-            manage: Arc::new(view::manage::ViewManageService),
-            stat: Arc::new(view::stat::ViewStatService),
+            manage: Arc::new(view::manage::VideoViewManageAdapter),
+            stat: Arc::new(view::stat::VideoViewStatAdapter),
         },
         report: (),
     }

@@ -6,14 +6,13 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_user::port::black::del::BlackDelPort;
-
+use port::cola_user::black::del::UserBlackDelPort;
 ////////
 
 pub struct ShareDelAdapter;
 
 #[async_trait]
-impl BlackDelPort for ShareDelAdapter {
+impl UserBlackDelPort for ShareDelAdapter {
     async fn single_soft_del(&self, _uid: i64, _id: i64) -> Result<u16> {
         Ok(0)
     }

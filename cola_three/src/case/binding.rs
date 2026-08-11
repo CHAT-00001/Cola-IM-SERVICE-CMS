@@ -1,22 +1,28 @@
-// cola_three/src/case/binding.rs  -- 第三方 - 用例 - 绑定
+// cola_three/src/case/binding.rs
+// core - 第三方 - 用例 - 绑定
 // 2026/6/18 16:10
 
 ////////
 
 use cola_data::app::data::AppData;
 use cola_data::cola_three::command::binding::UpsertBindingCommand;
-use cola_data::cola_three::port::binding::BindingPort;
 use cola_data::cola_three::vo::binding::BindingVo;
+use port::cola_three::binding::BindingPort;
 
 ////////
 
-/// # [CASE] - 业务绑定用例
+/// # [USER CASE] - 业务绑定 用例
+/// * `desc`: `业务绑定到服务`
 pub struct BindingCase;
 
 impl BindingCase {
+    //
+
     ////////
 
     /// 1. 新增或更新
+    /// * `desc`: `添加绑定`
+    /// * `condition`: `⚠️ ADMIN / REVIEWER`
     pub async fn upsert(port: &dyn BindingPort, cmd: UpsertBindingCommand) -> AppData<BindingVo> {
         let info = match port.upsert(cmd.into()).await {
             Ok(info) => info,
@@ -28,6 +34,8 @@ impl BindingCase {
     ////////
 
     /// 2. 列表
+    /// * `desc`: `绑定列表`
+    /// * `condition`: `⚠️ ADMIN / REVIEWER`
     pub async fn list(port: &dyn BindingPort) -> AppData<Vec<BindingVo>> {
         let list = match port.list().await {
             Ok(list) => list,
@@ -39,6 +47,8 @@ impl BindingCase {
     ////////
 
     /// 3. 按业务模块+类型查询
+    /// * `desc`: `查询`
+    /// * `condition`: `⚠️ ADMIN / REVIEWER`
     pub async fn find_by_biz(
         port: &dyn BindingPort,
         biz_module: &str,

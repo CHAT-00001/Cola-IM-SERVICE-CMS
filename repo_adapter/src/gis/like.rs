@@ -1,15 +1,17 @@
 // repo_adapter/src/cola_gis/like.rs
+// 🔌 适配器 - 可乐GIS - POI - 点赞
 // 2026-07-07
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::cola_gis::port::like::LikeRepo;
+use port::cola_gis::like::LikeRepo;
 use repository::cola_gis::service::like::GisLikeService;
 
 ////////
 
-/// # [LIKE PORT] - 点赞 端口 插头
+/// # [LIKE ADAPTER] - 点赞
+/// * `desc`: `GIS - POI点赞适配器`
 pub struct LikePortAdapter;
 
 ////////

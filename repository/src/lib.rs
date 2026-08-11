@@ -1,5 +1,8 @@
-// repository/src/lib.rs -- 仓储 - lib
+// repository/src/lib.rs
+// 仓储 - lib
 // 2026-04-05 14:02
+
+extern crate core;
 
 ////////
 pub mod cola_asset; // 可乐资产

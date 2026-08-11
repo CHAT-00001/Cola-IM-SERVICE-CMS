@@ -19,7 +19,7 @@ pub trait VideoCommentManagePort: Send + Sync {
     /// # [PORT] - 管理员列表
     /// * `desc`: `🗣 ADMIN` - `仅限管理员 / 运营人员`
     /// * `condition`: `⚠️ WARNING`
-    async fn admin_get_comments_infos(
+    async fn admin_list(
         &self,
         uid: i64,                // 操作者 ID
         user_id: Option<i64>,    // 用户 ID

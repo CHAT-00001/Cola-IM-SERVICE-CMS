@@ -1,13 +1,13 @@
 // repo_adapter/src/cola_gis/danmaku.rs
-// 🔌 适配器 - 可乐GIS - danmaku
+// 🔌 适配器 - 可乐GIS - POI - danmaku
 // 2026-07-07 12:00 Created.
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::cola_gis::port::danmaku::DanmakuRepo;
 use cola_data::cola_gis::command::danmaku::PoiDanmakuCommand;
 use cola_data::cola_gis::info::danmaku::PoiDanmakuInfo;
+use port::cola_gis::danmaku::DanmakuRepo;
 use repository::cola_gis::service::poi_danmaku::GisDanmakuService;
 
 ////////
@@ -17,6 +17,9 @@ pub struct DanmakuPortAdapter;
 
 #[async_trait]
 impl DanmakuRepo for DanmakuPortAdapter {
+    //
+
+    ////////
 
     /// # 1. [PORT] - 保存弹幕记录
     async fn save_danmaku_record(
@@ -29,6 +32,8 @@ impl DanmakuRepo for DanmakuPortAdapter {
         Ok(())
     }
 
+    ////////
+
     /// # 2. [PORT] - 编辑弹幕
     async fn edit_danmaku_record(
         &self,
@@ -39,26 +44,22 @@ impl DanmakuRepo for DanmakuPortAdapter {
         GisDanmakuService::delete_danmaku_and_update_count(uid, danmaku_id).await
     }
 
+    ////////
+
     /// # 3. [PORT] - 删除弹幕
-    async fn del_danmaku_record(
-        &self,
-        uid: i64,
-        danmaku_id: i64,
-    ) -> anyhow::Result<()> {
+    async fn del_danmaku_record(&self, uid: i64, danmaku_id: i64) -> anyhow::Result<()> {
         GisDanmakuService::delete_danmaku_and_update_count(uid, danmaku_id).await
     }
 
     /// # 4. [PORT] - 批量删除弹幕
-    async fn del_danmakus_record(
-        &self,
-        uid: i64,
-        danmaku_ids: Vec<i64>,
-    ) -> anyhow::Result<()> {
+    async fn del_danmakus_record(&self, uid: i64, danmaku_ids: Vec<i64>) -> anyhow::Result<()> {
         for id in danmaku_ids {
             GisDanmakuService::delete_danmaku_and_update_count(uid, id).await?;
         }
         Ok(())
     }
+
+    ////////
 
     /// # 5. [PORT] - 根据兴趣点ID获取弹幕
     async fn get_danmaku_by_poi_id(
@@ -72,6 +73,8 @@ impl DanmakuRepo for DanmakuPortAdapter {
         let total = infos.len() as i64;
         Ok((infos, total))
     }
+
+    ////////
 
     /// # 6. [PORT] - 根据用户ID获取弹幕
     async fn get_danmaku_by_user_id(

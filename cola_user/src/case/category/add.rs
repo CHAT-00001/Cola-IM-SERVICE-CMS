@@ -32,6 +32,7 @@ impl UserCategoryAddCase {
         cmd.name = Some(id.to_string());
         ctx.user
             .category
+            .add
             .add_new_one(uid, cmd)
             .await
             .map_err(|e| anyhow!("[🤐 CASE]: ❌️ 添加分类失败: {}", e))?;
@@ -56,9 +57,10 @@ impl UserCategoryAddCase {
         // 🚧 Call Port..
         ctx.user
             .category
-            .batch_del(vec![id])
+            .delete
+            .batch_delete(vec![id])
             .await
-            .map_err(|e| anyhow!("[🤐 CASE]: ❌️ 删除分类失败: {}", e))?;
+            .map_err(|e| anyhow!("[🤐 CASE]: ❌️ 批量删除分类失败: {}", e))?;
 
         info!("[🗣️ CASE] - ✅️ 删除分类成功: uid={}, target_id={}", uid, id);
         Ok(())

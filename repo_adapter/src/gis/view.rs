@@ -1,22 +1,25 @@
-// repo_adapter/src/cola_gis/get
+// repo_adapter/src/cola_gis/view.rs
+// 🔌 适配器 - 可乐GIS - POI - 计数
 // 2026-07-07
 
 ////////
 
 use async_trait::async_trait;
 use cola_data::cola_gis::info::poi::PoiInfo;
-use cola_data::cola_gis::port::view::ViewPort;
+use port::cola_gis::view::ViewPort;
 use repository::cola_gis::service::view::PoiViewService;
 
 ////////
 
-/// # [VIEW PORT] - 浏览 端口 插头
+/// # [VIEW ADAPTER] - 浏览 端口 插头
 pub struct ViewPortAdapter;
 
 //////
 
 #[async_trait]
 impl ViewPort for ViewPortAdapter {
+    //
+
     ////////
 
     /// # 1. 保存浏览记录 + 更新浏览数量

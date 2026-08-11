@@ -6,7 +6,7 @@
 
 use add::UserCategoryAddPort;
 use check::UserCategoryCheckPort;
-use del::UserCategoryDelPort;
+use del::UserCategoryDeletePort;
 use get::UserCategoryGetPort;
 use list::UserCategoryListPort;
 use manage::UserCategoryManagePort;
@@ -31,7 +31,7 @@ mod stat;
 pub struct UserCategoryPort {
     pub add: Arc<dyn UserCategoryAddPort + Send + Sync + 'static>,
     pub check: Arc<dyn UserCategoryCheckPort + Send + Sync + 'static>,
-    pub del: Arc<dyn UserCategoryDelPort + Send + Sync + 'static>,
+    pub delete: Arc<dyn UserCategoryDeletePort + Send + Sync + 'static>,
     pub get: Arc<dyn UserCategoryGetPort + Send + Sync + 'static>,
     pub list: Arc<dyn UserCategoryListPort + Send + Sync + 'static>,
     pub manage: Arc<dyn UserCategoryManagePort + Send + Sync + 'static>,

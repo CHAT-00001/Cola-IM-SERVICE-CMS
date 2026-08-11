@@ -28,20 +28,23 @@ impl UserFollowGetCase {
         offset: i64,      // 页码
         ctx: &AppContext, // 全局上下文
     ) -> Result<Vec<UserInfo>, anyhow::Error> {
+
+        let user_id = uid;
         // 1. 先查关注IDs
         let ids = ctx
             .user
             .follow
             .get
-            .get_my_follow_ids(uid, uid, limit, offset)
+            .get_he_follow_ids(user_id, limit, offset)
             .await
             .map_err(|e| anyhow!("[🤐 CASE]: ❌️ 获取关注的IDs失败: {}", e))?;
 
         // 2. 再拿ids查找用户资料
         let user_infos = ctx
             .user
-            .info
-            .batch_get_info(ids)
+            .user
+            .get
+            .batch_get_infos(ids)
             .await
             .map_err(|e| anyhow!("[🤐 CASE]: ❌️ 获取关注的用户列表失败: {}", e))?;
 

@@ -6,12 +6,12 @@
 
 use async_trait::async_trait;
 use cola_data::cola_user::info::user::UserInfo;
-use cola_data::cola_user::port::user::list::UserListPort;
+use port::cola_user::user::list::UserListPort;
 
 ////////
 
-/// # [LIST SERVICE] - 发布
-/// * `desc`: `用户列表服务`
+/// # [LIST ADAPTER] - 列表
+/// * `desc`: `USER - 用户信息列表适配器`
 pub struct UserListAdapter;
 
 // 构造实现
@@ -21,7 +21,7 @@ impl UserListPort for UserListAdapter {
 
     ////////
 
-    /// # 1. [SERVICE] - 最新
+    /// # 1. [ADAPTER] - 最新
     /// * `desc`: `保存新用户记录`
     async fn get_new_list(
         &self,

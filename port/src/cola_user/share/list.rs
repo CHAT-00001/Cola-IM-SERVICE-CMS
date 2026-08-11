@@ -18,10 +18,10 @@ pub trait UserShareListPort: Send + Sync + 'static {
     ////////
 
     /// # 1. [PORT] - 用户的
-    /// * `desc` : `🗣 USER` - `根据用户ID - 查看TA的分享的记录信息`
+    /// * `desc` : `根据用户ID` - `查看TA的分享的记录信息`
     async fn get_share_infos_by_user_id(
         &self,
-        user_id: i64, // 目标用户ID
+        user_id: i64, // 用户 ID
         offset: i64,  // 页数
         limit: i64,   // 数量
     ) -> anyhow::Result<(Vec<ShareInfo>)>;
@@ -29,12 +29,12 @@ pub trait UserShareListPort: Send + Sync + 'static {
     ////////
 
     /// # 1. [PORT] - 资料的
-    /// * `desc` : `🗣 USER` - `根据资料ID - 查看被谁分享的记录信息`
+    /// * `desc` : `根据资料ID` - `查看被谁分享的记录信息`
     async fn get_share_infos_by_profile_id(
         &self,
-        user_id: i64, // 目标用户ID
-        offset: i64,  // 页数
-        limit: i64,   // 数量
+        profile_id: i64, // 资料 ID
+        offset: i64,     // 页数
+        limit: i64,      // 数量
     ) -> anyhow::Result<(Vec<ShareInfo>)>;
 }
 

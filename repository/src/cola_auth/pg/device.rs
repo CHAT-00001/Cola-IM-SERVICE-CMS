@@ -1,20 +1,14 @@
-// repository/src/cola_auth/pg/device.rs  -- 存储 - AUTH  - PG - 设备
+// repository/src/cola_auth/pg/device.rs
+// 仓储 - AUTH  - PG - 设备
 // 2026/5/26 07:55 by wx: cestbon10080
 
 ////////
 
 use sqlx::{PgPool, Postgres, Transaction};
 use app_config::app_state::AppState;
-use cola_data::cola_auth::entity::device::AuthDeviceEntity;
+use cola_data::cola_auth::entity::device::{AuthDeviceEntity, DEVICE_COLUMNS};
 
 ////////
-
-/// # 1. 统一的设备查询字段 (1:1 严格对齐我们最新的 AuthDeviceEntity 属性)
-const DEVICE_COLUMNS: &str = r#"
-    id, user_id, device_sn, platform, device_name, os_version, app_version,
-    access_token, refresh_token, last_ip, is_online, status,
-    expired_time, last_active_at, created_time, updated_time
-"#;
 
 pub struct DeviceRepo;
 
@@ -29,7 +23,7 @@ impl DeviceRepo {
         let pool = &app_state.db.pg_pool;
 
         // 使用强隔离事务，保证“同平台下线”和“新令牌落地”绝对原子化
-        let mut tx = pool.begin().await?;
+        let mut tx: Transaction<'_, Postgres> = pool.begin().await?;
 
         // 1. 踢人制裁逻辑：将当前用户、同平台、状态为正常的【其他设备】标记为“被挤下线” (-1)
         sqlx::query(

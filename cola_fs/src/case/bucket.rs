@@ -1,6 +1,117 @@
-// cola_fs/src/case/bucket.rs  -- FS - case - 存储桶
+// cola_fs/src/case/bucket.rs  --
+// FS - case - 存储桶
 // 2026/7/30 21:16
 
 ////////
 
+use anyhow::{Context, Result};
+use tracing::info;
+use cola_data::cola_fs::rick_check;
+use cola_data::cola_video::command::video::edit::VideoUpdateCommand;
+use cola_data::cola_video::command::video::new::VideoNewCommand;
+use cola_data::cola_video::command::video::permission::VideoUpdatePermissionCommand;
+use cola_data::cola_video::info::video::VideoSingleResponse;
 
+
+////////
+
+pub struct FsBucketAddCase;
+
+impl FsBucketAddCase {
+
+    ////////
+
+    /// # 1. [CASE] - 发布视频
+    pub async fn case_add_publish(
+        uid: i64,
+        cmd: VideoNewCommand,
+        ctx: &AppContext,
+    ) -> Result<VideoSingleResponse, anyhow::Error> {
+        // 1. 内容风控（标题 + 简介 联合过滤）
+        let check_text = format!("{} {:?}", cmd.title, cmd.description);
+
+        // ✅ 核心修复：rick_check 异步执行后出来就是 i16，直接 await 拿值，删掉多余的 map_err!?
+        let visibility = rick_check(check_text).await;
+
+        // 2. 核心数据持久化与计数更新 (💡 提示：建议让这个 Service 函数返回刚插入成功的 VideoInfo)
+        let video_info = AddService::save_video_and_update_count(uid, cmd, visibility)
+            .await
+            .map_err(|e| anyhow::anyhow!("[🗣️ BIZ]: 视频发布持久化失败: {}", e))?;
+
+        info!("[🗣️ BIZ] - 视频发布成功: uid={}, visibility={}", uid, visibility);
+
+        // 3. 🌟 架构对齐：用我们刚才写好的高质量总装器，动态拼装博主信息后返回给前端
+        let response = build_video_single_response(video_info, Some(uid)).await?;
+
+        Ok(response)
+    }
+
+    ////////
+
+    /// # 2. [CASE] - 编辑视频
+    pub async fn case_edit_publish(uid: i64, cmd: VideoUpdateCommand) -> Result<VideoSingleResponse, anyhow::Error> {
+        // 1. 内容风控（标题 + 简介 联合过滤）
+        let check_text = format!("{} {:?}", cmd.title, cmd.description);
+
+        // ✅ 核心修复：同上，直接接住 i16
+        let visibility = rick_check(check_text).await;
+
+        // 2. 核心数据持久化与计数更新
+        let video_info = AddAdapter::edit_content(uid, cmd, visibility)
+            .await
+            .map_err(|e| anyhow::anyhow!("BIZ: 视频发布持久化失败: {}", e))?;
+
+        info!("[🗣️ BIZ] - 视频发布成功: uid={}, visibility={}", uid, visibility);
+
+        // 3. 🌟 架构对齐：用我们刚才写好的高质量总装器，动态拼装博主信息后返回给前端
+        let response = build_video_single_response(video_info, Some(uid)).await?;
+
+        Ok(response)
+    }
+
+    ////////
+
+    /// # 3. [CASE] - 修改权限
+    pub async fn case_change_permission(uid: i64, cmd: VideoUpdatePermissionCommand) -> Result<VideoSingleResponse, anyhow::Error> {
+        let video_id = cmd.id;
+
+        // 1. 权限修改不涉及文本内容风控，直接调用 Service 持久化更新
+        let video_info = AddService::change_permission(uid, cmd)
+            .await
+            .map_err(|e| anyhow::anyhow!("BIZ: 视频权限修改持久化失败: {}", e))?;
+
+        info!("[👤 BIZ] -  视频权限修改成功: uid={}, video_id={}", uid, video_id);
+
+        // 2. 🌟 架构对齐：用我们写好的高质量总装器，动态拼装博主信息后返回给前端
+        let response = build_video_single_response(video_info, Some(uid)).await?;
+
+        Ok(response)
+    }
+
+    ////////
+
+    /// # 4. [CASE] - 修改状态
+    pub async fn case_change_status(uid: i64, cmd: VideoUpdateCommand) -> Result<VideoSingleResponse, anyhow::Error> {
+        // 1. 内容风控（标题 + 简介 联合过滤）
+        let check_text = format!("{} {:?}", cmd.title, cmd.description);
+
+        // ✅ 核心修复：同上，直接接住 i16
+        let visibility = rick_check(check_text).await;
+
+        // 2. 核心数据持久化与计数更新
+        let video_info = AddService::edit_content(uid, cmd, visibility)
+            .await
+            .map_err(|e| anyhow::anyhow!("BIZ: 视频发布持久化失败: {}", e))?;
+
+        info!("[👤 BIZ] -  视频发布成功: uid={}, visibility={}", uid, visibility);
+
+        // 3. 🌟 架构对齐：用我们刚才写好的高质量总装器，动态拼装博主信息后返回给前端
+        let response = build_video_single_response(video_info, Some(uid)).await?;
+
+        Ok(response)
+    }
+
+    ////////
+}
+
+//////// END

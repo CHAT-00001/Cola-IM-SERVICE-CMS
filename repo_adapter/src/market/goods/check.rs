@@ -8,6 +8,23 @@ use anyhow::Result;
 
 ////////
 
+use anyhow::Result;
+use async_trait::async_trait;
+use cola_data::cola_market::command::goods::GoodsCommand;
+use cola_data::cola_market::info::goods::goods::GoodsInfo;
+use port::cola_market::goods::list::GoodsListPort;
+use repository::cola_market::pg::goods::GoodsRepo;
+use crate::market::goods::{add, delete, get, list, manage};
+
+////////
+/// # [LIST ADAPTER] - 商品 端口适配器
+/// `desc`: `MARKET - 商品适配器`
+pub struct GoodsListAdapter;
+
+#[async_trait]
+impl GoodsListPort for crate::market::goods::GoodsListAdapter {}
+
+
 /// # [ADAPTER] - 检查商品是否存在
 pub async fn check_exists(
     _uid: i64, // 用户ID

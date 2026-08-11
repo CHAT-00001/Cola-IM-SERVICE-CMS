@@ -15,7 +15,6 @@ use crate::cola_video::recommend::VideoRecommendPort;
 use crate::cola_video::share::VideoSharePort;
 use crate::cola_video::video::VideoPort;
 use crate::cola_video::view::VideoViewPort;
-use cola_data::cola_gis::port::add::AddPort;
 use std::sync::Arc;
 
 ////////
@@ -39,7 +38,6 @@ pub mod view; // 浏览
 /// * `desc`: `▶ 可乐视频 - Cola Video Service Port`
 #[derive(Clone)]
 pub struct ColaVideoPort {
-    pub add: Arc<dyn AddPort + Send + Sync + 'static>,
     pub buy: VideoBuyPort,
     pub collect: VideoCollectPort,
     pub comment: VideoCommentPort,

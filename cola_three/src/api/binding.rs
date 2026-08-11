@@ -1,4 +1,5 @@
-// cola_data/src/cola_three/command/binding  -- 数据中心 - 第三方 - command - 服务绑定
+// cola_data/src/cola_three/command/binding.rs
+// 数据 - 第三方 - command - 服务绑定
 // 2026/6/18 16:40
 
 ////////
@@ -6,8 +7,8 @@
 use crate::case::binding::BindingCase;
 use cola_data::app::data::AppData;
 use cola_data::cola_three::command::binding::UpsertBindingCommand;
-use cola_data::cola_three::port::binding::BindingPort;
 use cola_data::cola_three::vo::binding::BindingVo;
+use port::cola_three::binding::BindingPort;
 
 ////////
 

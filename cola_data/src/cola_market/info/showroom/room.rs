@@ -4,8 +4,10 @@
 
 ////////
 
+use std::str::FromStr;
 use crate::cola_market::entity::goods::goods::GoodsEntity;
 use chrono::Utc;
+use rust_decimal::Decimal;
 use serde::{Deserialize, Serialize};
 
 ////////
@@ -13,41 +15,33 @@ use serde::{Deserialize, Serialize};
 /// # [INFO] - 商品 信息
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct ShowRoomInfo {
-    // 基础信息
     pub id: i64,
     pub uid: i64,
     pub name: String,
     pub name_en: String,
     pub no: String,
-
-    // 分类信息
     pub one_classid: i64,
     pub two_classid: i64,
     pub three_classid: i64,
-
-    // 多媒体与展示
     pub thumbs: String,
     pub video_url: String,
     pub video_thumb: String,
     pub content: String,
     pub pictures: String,
     pub specs: String,
-
-    // 价格与营销
     pub original_price: String,
     pub present_price: String,
     pub commission: String,
     pub share_income: String,
     pub sale_nums: i32,
     pub is_recom: bool,
-
-    // 状态与逻辑控制
     pub r#type: i16,
     pub status: i16, // 对应原表 status 或相关逻辑字段
     pub address: String,
     pub city: String,
 }
 
+// 构造函数
 impl ShowRoomInfo {
     /// # 兜底函数：返回一个空的“占位”商品，防止前端崩溃
     pub fn not_found() -> Self {
@@ -98,8 +92,8 @@ impl From<GoodsEntity> for ShowRoomInfo {
             content: e.content,
             pictures: e.pictures,
             specs: e.specs,
-            original_price: e.original_price.unwrap_or_else(|| "0.00".to_string()),
-            present_price: e.present_price.unwrap_or_else(|| "0.00".to_string()),
+            original_price: e.original_price.unwrap_or_else(|| Decimal::from_str("0.00").unwrap()).to_string(),
+            present_price: e.present_price.unwrap_or_else(|| Decimal::from_str("0.00").unwrap()).to_string(),
             commission: e.commission.unwrap_or_else(|| "0.00".to_string()),
             share_income: e.share_income.unwrap_or_else(|| "0.00".to_string()),
             sale_nums: e.sale_nums,

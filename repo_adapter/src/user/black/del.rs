@@ -6,12 +6,10 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-// 💡 修正：使用 user 路径以保持项目一致性
-
-// 💡 修正：Adapter 层应该调用 Repository，删除操作通过 get_repo 的 save 方法实现
-use tracing::info;
-use cola_data::cola_user::port::black::del::BlackDelPort;
+use port::cola_user::black::del::UserBlackDelPort;
 use repository::cola_user::pg::black::get::UserBlackGetRepo;
+use tracing::info;
+
 ////////
 
 /// # [DEL ADAPTER] - 删除
@@ -19,7 +17,7 @@ use repository::cola_user::pg::black::get::UserBlackGetRepo;
 pub struct BlackDelAdapter;
 
 #[async_trait]
-impl BlackDelPort for BlackDelAdapter {
+impl UserBlackDelPort for BlackDelAdapter {
     //
 
     ////////
@@ -31,8 +29,12 @@ impl BlackDelPort for BlackDelAdapter {
         uid: i64,       // 操作者ID
         target_id: i64, // 目标用户ID
     ) -> Result<u16> {
-        let rows_affected = UserBlackGetRepo::save_black_record(uid, target_id, "".to_string(), 0).await?;
-        info!("[🔌 ADAPTER] - ✅️ 取消拉黑成功: uid={}, target_id={}, affected={}", uid, target_id, rows_affected);
+        let rows_affected =
+            UserBlackGetRepo::save_black_record(uid, target_id, "".to_string(), 0).await?;
+        info!(
+            "[🔌 ADAPTER] - ✅️ 取消拉黑成功: uid={}, target_id={}, affected={}",
+            uid, target_id, rows_affected
+        );
         Ok(rows_affected as u16)
     }
 
@@ -46,10 +48,16 @@ impl BlackDelPort for BlackDelAdapter {
     ) -> Result<u16> {
         let mut total_affected = 0;
         for target_id in ids.iter() {
-            let rows_affected = UserBlackGetRepo::save_black_record(uid, *target_id, "".to_string(), 0).await?;
+            let rows_affected =
+                UserBlackGetRepo::save_black_record(uid, *target_id, "".to_string(), 0).await?;
             total_affected += rows_affected;
         }
-        info!("[🔌 ADAPTER] - ✅️ 批量取消拉黑成功: uid={}, count={}, total_affected={}", uid, ids.len(), total_affected);
+        info!(
+            "[🔌 ADAPTER] - ✅️ 批量取消拉黑成功: uid={}, count={}, total_affected={}",
+            uid,
+            ids.len(),
+            total_affected
+        );
         Ok(total_affected as u16)
     }
 }

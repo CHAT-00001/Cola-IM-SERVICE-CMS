@@ -8,8 +8,9 @@ use async_trait::async_trait;
 use cola_data::cola_user::command::user::add::UserCommand;
 use cola_data::cola_user::command::user::update::UpdateUserCommand;
 use cola_data::cola_user::info::user::UserInfo;
-use cola_data::cola_user::port::user::add::UserAddPort;
+use port::cola_user::user::add::UserAddPort;
 use repository::cola_user::pg::user::add::UserAddRepo;
+
 ////////
 
 /// # [ADD ADAPTER] - 发布
@@ -29,7 +30,6 @@ impl UserAddPort for UserAddAdapter {
         &self,
         cmd: UserCommand, // 命令
     ) -> anyhow::Result<(UserInfo)> {
-
         // 1. Call ..
         let entity = cmd.new();
 

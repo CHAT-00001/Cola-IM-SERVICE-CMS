@@ -1,4 +1,4 @@
-#### 第三方接口
+#### 可乐第三方接口
 # 2026-06-18 16:00
 
 [package]
@@ -9,6 +9,7 @@ edition.workspace = true
 [dependencies]
 ## 内部依赖
 cola_data = { path = "../cola_data" }
+port = {path = "../port" }
 repository = {path = "../repository" }
 service = { path = "../service" }  ## 全函数调用service层
 

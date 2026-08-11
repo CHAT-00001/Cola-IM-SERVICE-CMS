@@ -1,16 +1,18 @@
-// cola_three/src/case/server_type.rs  --第三方 -  用例 - 服务类型
+// cola_three/src/case/server_type.rs
+// core - 第三方 -  用例 - 服务类型
 // 2026/6/18 16:40
 
 ////////
 
 use cola_data::app::data::AppData;
-use cola_data::cola_three::command::category::{ThreeServerTypeCommand};
-use cola_data::cola_three::port::category::TypePort;
+use cola_data::cola_three::command::category::ThreeServerTypeCommand;
 use cola_data::cola_three::vo::category::CategoryVo;
+use port::cola_three::category::TypePort;
 
 ////////
 
-/// # [CASE] - 服务类型用例
+/// # [USER CASE] - 服务类型用例
+/// * `desc`: `服务类型` - 短信 / OSS / SIGN / STREAM / ..
 pub struct TypeCase;
 
 impl TypeCase {
@@ -18,7 +20,7 @@ impl TypeCase {
 
     ////////
 
-    /// # 1. [API HANDLER] - 新增或更新
+    /// # 1. [CASE] - 新增或更新
     pub async fn upsert(port: &dyn TypePort, cmd: ThreeServerTypeCommand) -> AppData<CategoryVo> {
         let info = match port.upsert(cmd.into()).await {
             Ok(info) => info,
@@ -29,7 +31,7 @@ impl TypeCase {
 
     ////////
 
-    /// # 2. [API HANDLER] - 列表
+    /// # 2. [CASE] - 列表
     pub async fn list(port: &dyn TypePort) -> AppData<Vec<CategoryVo>> {
         let list = match port.list().await {
             Ok(list) => list,
@@ -40,7 +42,7 @@ impl TypeCase {
 
     ////////
 
-    /// # 3. [API HANDLER] - 按 code 查询
+    /// # 3. [CASE] - 按 code 查询
     pub async fn find_by_code(port: &dyn TypePort, code: &str) -> AppData<CategoryVo> {
         let info = match port.find_by_code(code).await {
             Ok(Some(info)) => info,

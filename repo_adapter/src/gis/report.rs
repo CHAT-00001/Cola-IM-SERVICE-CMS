@@ -1,22 +1,24 @@
 // repo_adapter/src/cola_gis/report.rs
+// 🔌 适配器 - 可乐GIS - POI - 举报
 // 2026-07-07 12:10
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::cola_gis::port::report::ReportRepo;
 use cola_data::cola_gis::command::report::PoiReportCommand;
+use port::cola_gis::report::ReportRepo;
 use repository::cola_gis::service::report::ReportService;
 
 ////////
 
-/// # [REPORT PORT] - 举报 端口 插头
+/// # [REPORT ADAPTER] - 举报 端口 插头
 pub struct ReportPortAdapter;
 
 ////////
 
 #[async_trait]
 impl ReportRepo for ReportPortAdapter {
+    //
 
     ////////
 

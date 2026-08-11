@@ -6,7 +6,7 @@
 use async_trait::async_trait;
 use cola_data::cola_three::command::config::UpsertConfigCommand;
 use cola_data::cola_three::info::config::ConfigInfo;
-use cola_data::cola_three::port::config::ConfigPort;
+use port::cola_three::config::ConfigPort;
 use repository::cola_three::pg::config_repo::ConfigRepo;
 
 ////////

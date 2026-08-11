@@ -6,64 +6,40 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_user::info::config::UserConfigInfo;
-use cola_data::cola_user::info::user::UserInfo;
-use cola_data::cola_user::port::ban::del::BanDelPort;
-use cola_data::cola_user::port::view::list::ViewListPort;
+use port::cola_user::view::list::UserViewListPort;
+
 ////////
 
-/// # [LIST SERVICE] - 列表
-/// * `desc`: `用户浏览记录列表`
+/// # [LIST ADAPTER] - 列表
+/// * `desc`: `USER - 用户主页浏览记录列表`
 pub struct ViewListService;
 
 // 构造实现
 #[async_trait]
-impl ViewListPort for ViewListService {
+impl UserViewListPort for ViewListService {
     //
 
     ////////
 
-    /// # 1. [SERVICE] - 单个
-    /// * `desc`: `单个软删除`
-
-    async fn get_config(&self, user_id: i64) -> Result<(UserConfigInfo)> {
-        todo!()
-    }
-
-    async fn add_black(&self, uid: i64, id: i64) -> Result<()> {
-        todo!()
-    }
-
-    async fn del_black(&self, uid: i64, id: i64) -> Result<()> {
-        todo!()
-    }
-
-    async fn get_following(&self, uid: i64) -> Result<(UserInfo)> {
-        todo!()
-    }
-
-    async fn single_del(&self, uid: i64, id: i64) -> Result<(u16)> {
-        todo!()
-    }
-
-    async fn batch_del(&self, uid: i64, ids: Vec<i64>) -> Result<(u16)> {
-        todo!()
-    }
-
-    async fn check_state(&self, uid: i64, user_id: i64) -> Result<(bool)> {
-        todo!()
-    }
-
-    async fn get_list_by_user_id(
+    /// # 1. [ADAPTER] - 用户主动看的
+    async fn get_view_infos_by_user_id(
         &self,
-        user_id: i64,
-        offset: i64,
+        user_id: i64, // 用户 ID
         limit: i64,
+        offset: i64,
     ) -> Result<(Vec<i64>)> {
         todo!()
     }
 
-    async fn get_here_list(&self, uid: i64, user_ids: Vec<i64>) -> Result<()> {
+    ////////
+
+    /// # 2. [ADAPTER] - 资料被动看的
+    async fn get_view_infos_by_profile_id(
+        &self,
+        profile_id: i64, // 资料 ID
+        limit: i64,
+        offset: i64,
+    ) -> Result<(Vec<i64>)> {
         todo!()
     }
 }

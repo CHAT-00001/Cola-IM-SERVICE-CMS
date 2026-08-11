@@ -1,12 +1,13 @@
-// cola_three/src/case/vendor  -- 用例 - 厂商
+// cola_three/src/case/vendor.rs
+// core - 第三方 - 用例 - 厂商
 // 2026/6/18
 
 ////////
 
 use cola_data::app::data::AppData;
 use cola_data::cola_three::command::vendor::UpsertVendorCommand;
-use cola_data::cola_three::port::vendor::VendorPort;
 use cola_data::cola_three::vo::vendor::VendorVo;
+use port::cola_three::vendor::VendorPort;
 
 ////////
 

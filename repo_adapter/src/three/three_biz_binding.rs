@@ -1,4 +1,5 @@
-// repo_adapter/src/cola_three/binding  -- 适配器 - 绑定
+// repo_adapter/src/cola_three/binding  --
+// 🔌 适配器 - THREE - 绑定
 // 2026/6/30
 
 ////////
@@ -6,16 +7,19 @@
 use async_trait::async_trait;
 use cola_data::cola_three::command::binding::UpsertBindingCommand;
 use cola_data::cola_three::info::binding::BindingInfo;
-use cola_data::cola_three::port::binding::BindingPort;
+use port::cola_three::binding::BindingPort;
 use repository::cola_three::pg::binding_repo::BindingRepo;
 
 ////////
 
-/// # [ADAPTER] - 业务绑定 端口适配器
+/// # [BINDING ADAPTER] - 业务绑定
+/// * `desc`: `THREE - BINDING 绑定是撇清`
 pub struct BindingAdapter;
 
 #[async_trait]
 impl BindingPort for BindingAdapter {
+    //
+
     ////////
 
     /// 1. #[ADAPTER] - 插入或更新

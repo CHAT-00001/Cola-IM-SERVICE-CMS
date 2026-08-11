@@ -9,8 +9,11 @@ edition = "2024"
 [dependencies]
 ## 内部依赖
 cola_data = { path = "../cola_data" }
+port = { path = "../port"}
 repository = {path = "../repository" }
 service = { path = "../service" }  ## 全函数调用service层
 
 ## 外部依赖
 aws-sdk-s3 = { version = "1.140.0" }
+tracing = "0.1.44"
+anyhow = "1.0.104"

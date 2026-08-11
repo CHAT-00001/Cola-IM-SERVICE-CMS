@@ -15,10 +15,4 @@ app_config = { path = "../app" }
 tracing = "0.1.41"
 tokio = "1.47.1"
 chrono = "0.4.44"
-sqlx = "0.8.6"
-uuid = { version = "1.23.0", features = ["v4"] }
-serde = { version = "1.0.228", features = ["derive"] }
 ipnetwork = "0.20.0"
-futures = "0.3.32"
-validator = "0.20.0"
-futures-util = "0.3.32"

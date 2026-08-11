@@ -5,7 +5,6 @@
 ////////
 
 use repository::pg_pool;
-use sqlx::{self, PgPool};
 
 ////////
 

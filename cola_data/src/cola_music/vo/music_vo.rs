@@ -7,12 +7,12 @@
 use crate::app::page::PageInfo;
 use crate::cola_music::info::music::MusicInfo;
 use crate::cola_user::info::user::UserInfo;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
 ////////
 
 /// # [VO] - 音乐视图模型
-#[derive(Debug, Serialize, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct MusicVo {
     #[serde(flatten)]
     pub music: MusicInfo,

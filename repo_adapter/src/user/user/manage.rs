@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_user/cola_user/manage.rs
+// repo_adapter/src/cola_user/user/manage.rs
 // 🔌 适配器 - 用户 - 用户 - 列表服务
 // 2026/8/6 04:19 Created.
 
@@ -7,7 +7,7 @@
 use async_trait::async_trait;
 use cola_data::cola_user::command::user::update::UpdateUserCommand;
 use cola_data::cola_user::info::user::UserInfo;
-use cola_data::cola_user::port::user::manage::UserManagePort;
+use port::cola_user::user::manage::UserManagePort;
 
 ////////
 

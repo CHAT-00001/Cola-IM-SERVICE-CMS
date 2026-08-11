@@ -15,10 +15,20 @@ pub struct UserFollowCheckAdapter;
 
 #[async_trait]
 impl UserFollowCheckPort for UserFollowCheckAdapter {
-    async fn is_followe(&self, uid: i64, user_id: i64) -> anyhow::Result<(bool)> {
-        todo!()
+    //
+
+    ////////
+
+    /// 1. # [ADAPTER] - 是否关注
+    async fn is_followed(&self, uid: i64, user_id: i64) -> anyhow::Result<(bool)> {
+
+        let is_followed = true;
+        Ok(is_followed)
     }
 
+    ////////
+
+    /// 2. # [ADAPTER] - 检查状态
     async fn check_state(&self, uid: i64, user_id: i64) -> anyhow::Result<(bool)> {
         todo!()
     }

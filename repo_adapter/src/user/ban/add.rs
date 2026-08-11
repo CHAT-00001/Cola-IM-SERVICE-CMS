@@ -6,21 +6,21 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_user::port::ban::add::BanAddPort;
+use port::cola_user::ban::add::UserBanAddPort;
 
 ////////
 
-/// # [ADD SERVICE] - 发布
+/// # [ADD ADAPTER] - 发布
 /// * `desc`: `用户封禁发布服务`
 pub struct BanAddService;
 
 #[async_trait]
-impl BanAddPort for BanAddService {
+impl UserBanAddPort for BanAddService {
     //
 
     ////////
 
-    /// # 1. [SERVICE] - 发布
+    /// # 1. [ADAPTER] - 发布
     /// * `desc`: `管理员封禁/改权限`
     /// * `warning`: `风控触发 + 审核人员发布`
     async fn save_banned(&self, uid: i64, id: i64) -> Result<()> {
@@ -29,7 +29,7 @@ impl BanAddPort for BanAddService {
 
     ////////
 
-    /// # 2. [SERVICE] - 解封
+    /// # 2. [ADAPTER] - 解封
     /// * `desc`: `解除封禁状态`
     /// * `warning`: `需要 审核人员 + 系统管理员 权限`
     async fn remove_banned(&self, uid: i64, id: i64) -> Result<()> {

@@ -13,6 +13,7 @@ pub mod dislike; // 不喜欢
 pub mod hotlist; // 上热门
 pub mod ids; // (备用)
 pub mod like; // 点赞
+pub mod permission; // 权限
 pub mod recommend; // 推荐
 pub mod share; // 分享
 pub mod user; // 创作者中心

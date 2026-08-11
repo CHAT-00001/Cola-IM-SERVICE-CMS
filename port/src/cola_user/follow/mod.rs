@@ -32,7 +32,7 @@ pub mod stat; // 统计
 pub struct UserFollowPort {
     pub add: Arc<dyn UserFollowAddPort + Send + Sync + 'static>,
     pub check: Arc<dyn UserFollowCheckPort + Send + Sync + 'static>,
-    pub del: Arc<dyn UserFollowDelPort + Send + Sync + 'static>,
+    pub delete: Arc<dyn UserFollowDelPort + Send + Sync + 'static>,
     pub get: Arc<dyn UserFollowGetPort + Send + Sync + 'static>,
     pub list: Arc<dyn UserFollowListPort + Send + Sync + 'static>,
     pub manage: Arc<dyn UserFollowManagePort + Send + Sync + 'static>,

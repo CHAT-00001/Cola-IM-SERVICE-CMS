@@ -18,7 +18,7 @@ pub trait UserFollowCheckPort: Send + Sync + 'static {
 
     /// # 1. [PORT] - 是否关注
     /// * `desc`: `检查是否已经关注`
-    async fn is_followe(
+    async fn is_followed(
         &self,
         uid: i64,     // 操作者ID
         user_id: i64, // 目标用户ID

@@ -13,10 +13,11 @@ kits = { path = "../kits" }
 network = { path = "../network"}
 cola_data = { path = "../cola_data" }
 repository = { path = "../repository" }
+
+## 外部依赖
 anyhow = "1.0.102"
 tracing = "0.1.44"
 chrono = "0.4.44"
 tokio = "1.52.3"
-sqlx = "0.8.6"
 
 #### 外部依赖

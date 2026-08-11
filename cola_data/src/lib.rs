@@ -1,3 +1,9 @@
+// cola_data/src/lib
+// 数据 - lib
+// 2026/4/12 10:00
+
+////////
+
 extern crate core;
 
 pub mod aggregate; // 集合
@@ -16,4 +22,5 @@ pub mod cola_three; // 第三方
 pub mod cola_user; // 用户中心
 pub mod cola_video; // 短视频
 pub mod wallet; // 钱包
-// 钱包
+
+//////// END

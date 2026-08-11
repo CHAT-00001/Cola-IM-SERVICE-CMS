@@ -1,5 +1,5 @@
 // port/src/cola_user/follow/add.rs
-// ⏩️ 端口 - 🗣 用户 - 关注 - 发布
+// ⏩️ 端口 - USER - 关注 - 发布
 // 2026/8/5 21:58 Created.
 
 ////////
@@ -19,11 +19,10 @@ pub trait UserFollowAddPort: Send + Sync + 'static {
 
     /// # 1. [PORT] - 添加
     /// * `desc`: `用户关注/取关`
-    async fn set_follow(
+    async fn add_follow(
         &self,
         uid: i64,        // UID
         user_id: i64,    // 用户 ID
-        is_follow: bool, // 是否关注
     ) -> anyhow::Result<()>;
 
     ////////

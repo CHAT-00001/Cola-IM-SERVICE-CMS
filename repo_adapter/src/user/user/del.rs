@@ -5,7 +5,7 @@
 ////////
 
 use async_trait::async_trait;
-use cola_data::cola_user::port::user::del::UserDelPort;
+use port::cola_user::user::del::UserDelPort;
 
 ////////
 

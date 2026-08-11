@@ -1,28 +1,68 @@
-// repo_adapter/src/cola_im/contact_request.rs  -- 适配器 - IM - 联系人请求
-// 2026-07-07
+// repo_adapter/src/cola_im/contact_request.rs
+// 🔌 适配器 - 可乐IM - 联系人  - 添加请求
+// 2026-07-07 14:20 Created.
 
+////////
 use async_trait::async_trait;
-use cola_data::cola_im::port::contact_request::ContactRequestRepo;
 use cola_data::cola_im::command::contact_request::ContactRequestCommand;
 use cola_data::cola_im::info::contact_request::ContactRequestInfo;
+use port::cola_im::contact_request::ContactRequestRepo;
 
+////////
+
+/// # [ADAPTER] - 联系人请求
+/// * `desc`: `可乐IM - 联系人请求适配器`
 pub struct ContactRequestPortAdapter;
 
 #[async_trait]
 impl ContactRequestRepo for ContactRequestPortAdapter {
-    async fn send_request(&self, _uid: i64, _cmd: ContactRequestCommand) -> anyhow::Result<()> {
+    //
+
+    ////////
+
+    /// # 1. [ADAPTER] - 发送请求
+    async fn send_request(
+        &self,
+        _uid: i64,                   // UID
+        _cmd: ContactRequestCommand, // 命令
+    ) -> anyhow::Result<()> {
         Ok(())
     }
 
-    async fn accept_request(&self, _uid: i64, _request_id: i64) -> anyhow::Result<()> {
+    ////////
+
+    /// # 2. [ADAPTER] - 同意请求
+    async fn accept_request(
+        &self,
+        _uid: i64,        // UID
+        _request_id: i64, // 请求 ID
+    ) -> anyhow::Result<()> {
         Ok(())
     }
 
-    async fn refuse_request(&self, _uid: i64, _request_id: i64, _replay: Option<String>) -> anyhow::Result<()> {
+    ////////
+
+    /// # 3. [ADAPTER] - 拒绝请求
+    async fn refuse_request(
+        &self,
+        _uid: i64,        // UID
+        _request_id: i64, // 请求 ID
+        _replay: Option<String>,
+    ) -> anyhow::Result<()> {
         Ok(())
     }
 
-    async fn list_requests(&self, _uid: i64, _offset: i64, _limit: i64) -> anyhow::Result<Vec<ContactRequestInfo>> {
+    ////////
+
+    /// # 4. [ADAPTER] - 请求列表
+    async fn list_requests(
+        &self,
+        _uid: i64,    // UID
+        _offset: i64, // 页码
+        _limit: i64,  // 数量
+    ) -> anyhow::Result<Vec<ContactRequestInfo>> {
         Ok(vec![])
     }
 }
+
+//////// END

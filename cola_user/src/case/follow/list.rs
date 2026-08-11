@@ -14,36 +14,53 @@ use tracing::info;
 
 ////////
 
-pub struct UserAddCase;
+/// # [ADD CASE] - 关注列表
+/// * `desc`: `关注列表`
+pub struct UserFollowListCase;
 
-impl UserAddCase {
+impl UserFollowListCase {
     //
 
     ////////
 
-    /// # 1. [CASE] - 我关注的
-    /// * `desc` 返回用户资料
-    pub async fn case_add_new(
+    /// # 1. [CASE] - 获取关注列表
+    /// * `desc` 返回用户资料列表
+    pub async fn case_get_list(
         uid: i64,
-        cmd: UserCommand,
+        user_id: i64, // 用户 ID
+        limit: i64,   // 数量
+        offset: i64,  // 页码
         ctx: AppContext,
-    ) -> Result<UserInfo, anyhow::Error> {
-        // 2. 核心数据持久化与计数更新 (💡 提示：建议让这个 Service 函数返回刚插入成功的 VideoInfo)
-        let user_info = ctx
+    ) -> Result<Vec<UserInfo>, anyhow::Error> {
+        // 1. Call .. IDs
+        let user_ids = ctx
             .user
-            .add
-            .save_user(cmd)
+            .follow
+            .get
+            .get_he_follow_ids(user_id, limit, offset)
             .await
-            .map_err(|e| anyhow::anyhow!("CASE: 用户资料保存失败: {}", e))?;
+            .map_err(|e| anyhow::anyhow!("[🤐 CASE]: ❌️ 获取用户IDs失败: {}", e))?;
 
-        info!("CASE - 用户资料保存成功: uid={},", uid);
+        info!("[🗣️ CASE] - ✅️ 用户资料保存成功: uid={},", uid);
 
-        Ok(user_info)
+        // 2. Call .. Infos
+
+        let infos = ctx
+            .user
+            .user
+            .get
+            .batch_get_infos(user_ids)
+            .await
+            .map_err(|e| anyhow::anyhow!("[🤐 CASE]: ❌️ 批量获取用户资料信息失败: {}", e))?;
+
+        info!("[🗣️ CASE] - ✅️ 批量获取用户资料信息成功: uid={},", uid);
+
+        Ok(infos)
     }
 
     ////////
 
-    /// # 2. [CASE] - 她关注的
+    /// # 2. [CASE] - 更新资料
     pub async fn case_update_profile(
         user_id: i64, // 目标用户ID
         mut cmd: UpdateUserCommand,
@@ -56,13 +73,14 @@ impl UserAddCase {
         // 2. 核心数据持久化与计数更新
         let user_info = ctx
             .user
+            .user
             .add
             .update_user(cmd)
             .await
-            .map_err(|e| anyhow::anyhow!("CASE: 修改用户资料失败: {}", e))?;
+            .map_err(|e| anyhow::anyhow!("[🤐 CASE]: ❌️ 修改用户资料失败: {}", e))?;
 
         info!(
-            "CASE - 修改用户资料成功: uid={}, visibility={}",
+            "[🗣️ CASE] - ✅️ 修改用户资料成功: uid={}, visibility={}",
             user_id, visibility
         );
 

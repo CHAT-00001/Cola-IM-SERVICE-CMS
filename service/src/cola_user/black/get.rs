@@ -1,5 +1,5 @@
 // service/src/cola_user/blackk/get.rs
-// 👤 服务 - 🗣 可乐用户 - 黑名单 - 获取
+// 👤 服务 - USER - 黑名单 - 获取
 // 2026/8/3 14:28 Created.
 
 ////////
@@ -7,12 +7,11 @@
 use anyhow::{Result, anyhow};
 use repository::cola_user::pg::black::get::UserBlackGetRepo;
 use repository::pg_pool;
-use sqlx::{self, Postgres};
 
 ////////
 
 /// # [GET SERVICE] -
-/// * `desc`: `🗣 可乐用户 - 👤 获取黑名单服务`
+/// * `desc`: `USER - 获取黑名单服务`
 pub struct BlackGetService;
 
 impl BlackGetService {

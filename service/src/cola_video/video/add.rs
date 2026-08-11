@@ -1,5 +1,5 @@
-// servicey/src/cola_video/vide/add.rs
-// 👤 服务 - 可乐视频 - 视频 - 发布
+// service/src/cola_video/video/add.rs
+// 👤 服务 - VIDEO - 视频 - 发布
 // 2026/8/2 12:39 Created.
 
 ////////
@@ -35,15 +35,10 @@ impl VideoAddService {
         cmd: VideoNewCommand, // 视频创建命令
         visibility: i16,      // 风控可见性
     ) -> Result<VideoInfo, anyhow::Error> {
-        // 🌟 返回值无缝升级为 VideoInfo
-        // 1. Call Repo
-        // * 调用底层仓储 - 保存视频并直接返回插入后的物理实体数据
         let video_entity = VideoAddRepository::pg_save_video_by_uid(uid, cmd, visibility as i64, 4)
             .await
             .map_err(|e| anyhow::anyhow!("[🤐 SERVICE]: ❌️ 写入视频主表失败: {}", e))?;
 
-        // 2. Call Repo
-        // * 联动更新计数器：发布视频数 + 1
         let async_uid = uid;
         tokio::spawn(async move {
             if let Err(e) = UserCountRepo::update_user_count(async_uid, 1, 0, 0, 0, 0, 0).await {
@@ -55,7 +50,6 @@ impl VideoAddService {
             }
         });
 
-        // 3. 🌟 核心升级：就地消化物理 Entity，转换为纯净领域元数据
         let video_info = VideoInfo::from_entity(video_entity);
 
         Ok(video_info)
@@ -70,27 +64,10 @@ impl VideoAddService {
         cmd: VideoUpdateCommand, // 视频创建命令
         visibility: i16,         // 风控可见性
     ) -> Result<VideoInfo, anyhow::Error> {
-        // 🌟 返回值无缝升级为 VideoInfo
-        // 1. Call Repo
-        // * 调用底层仓储 - 保存视频并直接返回插入后的物理实体数据
         let video_entity = VideoAddRepository::update_content_by_video_id(uid, cmd)
             .await
             .map_err(|e| anyhow::anyhow!("[🤐 SERVICE]: ❌️ 写入视频主表失败: {}", e))?;
 
-        // 2. Call Repo
-        // * 联动更新计数器：发布视频数 + 1
-        // let async_uid = uid;
-        // tokio::spawn(async move {
-        //     if let Err(e) = UserRepo::update_user_count(async_uid, 1, 0, 0, 0, 0, 0).await {
-        //         log::error!(
-        //             "SERVICE_ASYNC: 异步更新用户视频计数失败: uid={}, err={:?}",
-        //             async_uid,
-        //             e
-        //         );
-        //     }
-        // });
-
-        // 3. 🌟 核心升级：就地消化物理 Entity，转换为纯净领域元数据
         let video_info = VideoInfo::from_entity(video_entity);
 
         Ok(video_info)
@@ -104,14 +81,10 @@ impl VideoAddService {
         uid: i64,                          // 用户 ID 核心参数
         cmd: VideoUpdatePermissionCommand, // 视频创建命令
     ) -> Result<VideoInfo, anyhow::Error> {
-        // 🌟 返回值无缝升级为 VideoInfo
-        // 1. Call Repo
-        // * 调用底层仓储 - 保存视频并直接返回插入后的物理实体数据
         let video_entity = VideoAddRepository::update_permission_by_video_id(uid, cmd)
             .await
             .map_err(|e| anyhow::anyhow!("[🤐 ADD SERVICE]: - ❌️ 修改权限失败: {}", e))?;
 
-        // 3. 🌟 核心升级：就地消化物理 Entity，转换为纯净领域元数据
         let video_info = VideoInfo::from_entity(video_entity);
 
         Ok(video_info)
@@ -120,41 +93,42 @@ impl VideoAddService {
     ////////
 
     /// # 5. [SERVICE] - 删除一个视频
-    /// * `desc`: `修改视频权限 + 更新缓存`
+    /// * `desc`: `删除视频 + 更新计数`
     pub async fn del_one_video_and_update_count(video_id: i64) -> Result<bool, anyhow::Error> {
-        // Call Repo
         match VideoAddRepository::pg_delete_video_by_id(video_id).await {
-            Ok(_) => Ok(true),                          // 删除成功
-            Err(sqlx::Error::RowNotFound) => Ok(false), // 视频不存在或已删除
-            Err(e) => Err(anyhow::anyhow!(
-                "[🤐 ADD SERVICE]: - ❌️ 删除视频失败: {}",
-                e
-            )),
+            Ok(_) => Ok(true),
+            Err(e) => {
+                if e.to_string().contains("RowNotFound") {
+                    Ok(false)
+                } else {
+                    Err(anyhow::anyhow!("[🤐 ADD SERVICE]: - ❌️ 删除视频失败: {}", e))
+                }
+            }
         }
     }
 
     ////////
 
     /// # 6. [SERVICE] - 批量删除视频
-    /// * `desc`: `修改视频权限 + 更新缓存`
+    /// * `desc`: `批量删除视频 + 更新计数`
     pub async fn del_many_video_and_update_count(
         video_ids: Vec<i64>,
     ) -> Result<bool, anyhow::Error> {
-        // Call Repo
         match VideoAddRepository::pg_delete_video_by_ids(video_ids).await {
-            Ok(_) => Ok(true),                          // 删除成功
-            Err(sqlx::Error::RowNotFound) => Ok(false), // 视频不存在或已删除
-            Err(e) => Err(anyhow::anyhow!(
-                "[🤐 ADD SERVICE]: - ❌️ 批量删除视频失败: {}",
-                e
-            )),
+            Ok(_) => Ok(true),
+            Err(e) => {
+                if e.to_string().contains("RowNotFound") {
+                    Ok(false)
+                } else {
+                    Err(anyhow::anyhow!("[🤐 ADD SERVICE]: - ❌️ 批量删除视频失败: {}", e))
+                }
+            }
         }
     }
 
     ////////
 
     /// # 10. [SERVICE] - 查找最新的视频列表
-    /// * `desc`: `修改视频权限 + 更新缓存`
     pub async fn find_new_video_list(
         limit: i64,
         offset: i64,
@@ -167,7 +141,6 @@ impl VideoAddService {
     ////////
 
     /// # 11. [SERVICE] - 查找热门的视频列表
-    /// * `desc`: `修改视频权限 + 更新缓存`
     pub async fn find_hot_video_list(
         limit: i64,
         offset: i64,
@@ -180,7 +153,6 @@ impl VideoAddService {
     ////////
 
     /// # 12. [SERVICE] - 查找推荐的视频列表
-    /// * `desc`: `修改视频权限 + 更新缓存`
     pub async fn find_recommend_video_list(
         limit: i64,
         offset: i64,

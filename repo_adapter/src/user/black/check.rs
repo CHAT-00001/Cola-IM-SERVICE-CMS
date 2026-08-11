@@ -6,7 +6,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_user::port::black::check::BlackCheckPort;
+use port::cola_user::black::check::UserBlackCheckPort;
 use repository::cola_user::pg::black::state::UserBlackStateRepo;
 use tracing::{error, info};
 
@@ -18,7 +18,7 @@ pub struct BlackCheckAdapter;
 
 // 构造实现
 #[async_trait]
-impl BlackCheckPort for BlackCheckAdapter {
+impl UserBlackCheckPort for BlackCheckAdapter {
     //
 
     ////////

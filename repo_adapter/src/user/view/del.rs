@@ -6,28 +6,28 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_user::port::view::del::ViewDelPort;
+use port::cola_user::view::del::UserViewDelPort;
 
 ////////
 
-/// # [DEL SERVICE] - 删除
+/// # [DEL ADAPTER] - 删除
 /// * `desc`: `用户浏览删除服务`
 pub struct ViewDelService;
 
 // 构造实现
 #[async_trait]
-impl ViewDelPort for ViewDelService {
+impl UserViewDelPort for ViewDelService {
     //
 
     ////////
 
-    /// # 1. [SERVICE] - 单个
+    /// # 1. [ADAPTER] - 单个
     /// * `desc`: `单个软删除`
     async fn single_soft_del(&self, uid: i64, id: i64) -> Result<(u16)> {
         todo!()
     }
 
-    /// # 2. [SERVICE] - 批量
+    /// # 2. [ADAPTER] - 批量
     /// * `desc`: `批量软删除`
     async fn batch_soft_del(&self, uid: i64, ids: Vec<i64>) -> Result<(u16)> {
         todo!()

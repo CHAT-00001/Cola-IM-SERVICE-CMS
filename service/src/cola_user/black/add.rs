@@ -8,8 +8,7 @@ use anyhow::{Result, anyhow};
 use cola_data::cola_video::entity::collect::{VIDEO_COLLECT_COLUMNS, VideoCollectEntity};
 use repository::cola_user::pg::black::add::UserBlackAddRepo;
 use repository::cola_user::pg::black::get::UserBlackGetRepo;
-use repository::pg_pool;
-use sqlx::{self, Postgres};
+
 ////////
 
 /// # [BLACK ADD SERVICE] - 发布

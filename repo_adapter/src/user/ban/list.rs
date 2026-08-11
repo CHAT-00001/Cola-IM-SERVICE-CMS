@@ -4,16 +4,9 @@
 
 ////////
 
-
-// /add.rs
-//
-// 2026/8/7 03:32 Created.
-
-////////
-
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_user::port::ban::list::BanListPort;
+use port::cola_user::ban::list::UserBanListPort;
 
 ////////
 
@@ -22,7 +15,7 @@ use cola_data::cola_user::port::ban::list::BanListPort;
 pub struct BanListService;
 
 #[async_trait]
-impl BanListPort for BanListService {
+impl UserBanListPort for BanListService {
     //
 
     ////////

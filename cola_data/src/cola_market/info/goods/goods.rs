@@ -4,7 +4,9 @@
 
 ////////
 
+use std::str::FromStr;
 use chrono::Utc;
+use rust_decimal::Decimal;
 use serde::{Deserialize, Serialize};
 use crate::cola_market::entity::goods::goods::GoodsEntity;
 
@@ -90,8 +92,8 @@ impl From<GoodsEntity> for GoodsInfo {
             content: e.content,
             pictures: e.pictures,
             specs: e.specs,
-            original_price: e.original_price.unwrap_or_else(|| "0.00".to_string()),
-            present_price: e.present_price.unwrap_or_else(|| "0.00".to_string()),
+            original_price: e.original_price.unwrap_or_else(|| Decimal::from_str("0.00").unwrap()).to_string(),
+            present_price: e.present_price.unwrap_or_else(|| Decimal::from_str("0.00").unwrap()).to_string(),
             commission: e.commission.unwrap_or_else(|| "0.00".to_string()),
             share_income: e.share_income.unwrap_or_else(|| "0.00".to_string()),
             sale_nums: e.sale_nums,

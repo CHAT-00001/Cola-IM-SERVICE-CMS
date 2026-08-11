@@ -87,16 +87,16 @@ pub fn build_user_port() -> ColaUserPort {
         },
         // ROLE - 角色
         role: UserRolePort {
-            add: Arc::new(role::RoleAdapter),
-            check: Arc::new(role::RoleAdapter),
-            del: Arc::new(role::RoleAdapter),
-            get: Arc::new(role::RoleAdapter),
-            list: Arc::new(role::RoleAdapter),
-            manage: Arc::new(role::RoleAdapter),
+            add: Arc::new(role::add::RoleAddAdapter),
+            check: Arc::new(role::check::UserRoleCheckAdapter),
+            del: Arc::new(role::del::UserRoleDelAdapter),
+            get: Arc::new(role::get::UserRoleGetAdapter),
+            list: Arc::new(role::list::UserRoleListAdapter),
+            manage: Arc::new(role::manage::UserRoleManageAdapter),
         },
         // SHARE - 分享
         share: UserSharePort {
-            add: Arc::new(share::add::ShareAddAdapter),
+            add: Arc::new(share::add::UserShareAddAdapter),
             check: Arc::new(share::check::ShareCheckAdapter),
             del: Arc::new(share::del::ShareDelAdapter),
             get: Arc::new(share::get::ShareGetAdapter),

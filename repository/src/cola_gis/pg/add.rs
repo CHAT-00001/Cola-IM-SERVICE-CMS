@@ -23,6 +23,8 @@ pub enum SearchOrder {
     Distance, MostViews, MostLikes, Latest,
 }
 
+
+/// # [ADD REPOSITORY] - POI REPO
 pub struct AddRepository;
 
 impl AddRepository {

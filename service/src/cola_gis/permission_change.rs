@@ -5,7 +5,7 @@
 ////////
 
 use anyhow::Result;
-use repository::pg_pool;
+use repository::cola_gis::pg::permission::GisPermissionRepo;
 
 ////////
 
@@ -14,18 +14,15 @@ use repository::pg_pool;
 pub struct PermissionsChangeService;
 
 impl PermissionsChangeService {
-    pub async fn update_user_permission(uid: i64, delta: i32) -> Result<(), sqlx::Error> {
-        let pool = pg_pool();
-        let sql = r#"UPDATE cola_gis.gis_user SET publish_count = GREATEST(0, publish_count + $2), updated_at = NOW() WHERE uid = $1"#;
-        sqlx::query(sql)
-            .bind(uid)
-            .bind(delta)
-            .execute(&pool)
-            .await?;
+    pub async fn update_user_permission(uid: i64, delta: i32) -> Result<()> {
+        GisPermissionRepo::update_user_permission(uid, delta)
+            .await
+            .map_err(|e| anyhow::anyhow!("更新用户权限失败: {}", e))?;
         Ok(())
     }
 
-    pub async fn check_video_permission(user_id: i64) -> Result<i16, sqlx::Error> {
+    pub async fn check_video_permission(user_id: i64) -> Result<i16> {
+        let _ = user_id; // 避免未使用参数警告
         Ok(1)
     }
 
@@ -33,15 +30,10 @@ impl PermissionsChangeService {
         uid: i64,
         video_id: i64,
         comment_perm: i16,
-    ) -> Result<(), sqlx::Error> {
-        let pool = pg_pool();
-        let sql = r#"UPDATE cola_gis.cola_gis SET comment_perm = $3, updated_at = NOW() WHERE id = $2 AND uid = $1"#;
-        sqlx::query(sql)
-            .bind(uid)
-            .bind(video_id)
-            .bind(comment_perm)
-            .execute(&pool)
-            .await?;
+    ) -> Result<()> {
+        GisPermissionRepo::update_video_comment_perm(uid, video_id, comment_perm)
+            .await
+            .map_err(|e| anyhow::anyhow!("更新视频评论权限失败: {}", e))?;
         Ok(())
     }
 }

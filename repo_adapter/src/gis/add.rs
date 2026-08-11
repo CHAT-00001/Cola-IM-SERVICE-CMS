@@ -1,11 +1,12 @@
-// repo_adapter/src/cola_gis/active -- 适配器 - GIS - 添加
+// repo_adapter/src/cola_gis/add.rs
+// 🔌 适配器 - 可乐GIS - POI - 添加
 // 2026-07-07 10:12
 
 ////////
 
 use async_trait::async_trait;
 use cola_data::cola_gis::command::poi::PoiCommand;
-use cola_data::cola_gis::port::add::AddPort;
+use port::cola_gis::add::AddPort;
 use repository::cola_gis::service::poi_add::PoiAddService;
 
 ////////

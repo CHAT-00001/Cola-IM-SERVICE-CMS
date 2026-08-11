@@ -1,41 +1,46 @@
 // repo_adapter/src/cola_market/goods/add.rs
-// 适配器 - 市场 - 商品 - 添加/更新
+// 🔌 适配器 - MARKET - 商品 - 发布
 // 2026/8/6 解耦: 发布/编辑商品
 
 ////////
 
 use anyhow::Result;
+use async_trait::async_trait;
 use chrono::Utc;
 use cola_data::cola_market::command::goods::GoodsCommand;
+use cola_data::cola_market::info::goods::goods::GoodsInfo;
+use port::cola_market::goods::add::GoodsAddPort;
+use repository::cola_market::pg::goods::add::GoodsAddRepo;
 use repository::cola_market::pg::goods::GoodsRepo;
 
 ////////
+/// # [ADD ADAPTER] - 商品 端口适配器
+/// `desc`: `MARKET - 商品适配器`
+pub struct GoodsAddAdapter;
 
-/// # [ADAPTER] - 保存商品
-pub async fn save(
-    uid: i64, // 用户ID
-    cmd: GoodsCommand, // 商品命令
-) -> Result<()> {
-    cmd.validate()?;
-    let mut entity = cmd.to_entity(uid);
-    entity.uid = uid;
-    entity.add_time = Utc::now().timestamp() as i32;
-    entity.upd_time = entity.add_time;
-    GoodsRepo::insert(&entity).await?;
-    Ok(())
-}
+#[async_trait]
+impl GoodsAddPort for GoodsAddAdapter {
+    //
 
-/// # [ADAPTER] - 编辑商品
-pub async fn update(
-    uid: i64, // 用户ID
-    goods_id: i64, // 商品ID
-    cmd: GoodsCommand, // 商品命令
-) -> Result<()> {
-    let mut entity = cmd.to_entity(uid);
-    entity.uid = uid;
-    entity.upd_time = Utc::now().timestamp() as i32;
-    GoodsRepo::update(goods_id, &entity).await?;
-    Ok(())
+    ////////
+
+    /// # 1. [ADAPTER] - 保存商品
+    async fn add_goods(&self, uid: i64, cmd: GoodsCommand) -> Result<()> {
+        GoodsAddRepo::save_goods(cmd).await;
+        todo!()
+    }
+
+    async fn update_goods(&self, uid: i64, goods_id: i64, cmd: GoodsCommand) -> Result<()> {
+        todo!()
+    }
+
+    async fn change_permission(&self, uid: i64, goods_id: i64, status_code: i16) -> Result<()> {
+        todo!()
+    }
+
+    async fn change_status(&self, uid: i64, goods_id: i64, status_code: i16) -> Result<()> {
+        todo!()
+    }
 }
 
 //////// END

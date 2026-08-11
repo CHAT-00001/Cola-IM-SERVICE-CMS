@@ -48,11 +48,16 @@ impl PoiAddService {
     pub async fn del_one_poi(poi_ids: Vec<i64>) -> Result<bool, anyhow::Error> {
         match AddRepository::pg_delete_poi_by_ids(poi_ids).await {
             Ok(_) => Ok(true),
-            Err(sqlx::Error::RowNotFound) => Ok(false),
-            Err(e) => Err(anyhow::anyhow!("[SERVICE]: 👤 用户批量删除兴趣点POI 失败: {}", e)),
+            Err(e) => {
+                // 通过错误文本匹配 RowNotFound，使 Service 层彻底解耦 sqlx 依赖
+                if e.to_string().contains("RowNotFound") {
+                    Ok(false)
+                } else {
+                    Err(anyhow::anyhow!("[SERVICE]: 👤 用户批量删除兴趣点POI 失败: {}", e))
+                }
+            }
         }
     }
 }
 
 //////// END
-

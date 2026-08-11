@@ -4,6 +4,3 @@
 
 ////////
 
-mod permission;
-pub mod permission_change;
-pub mod permission_check;

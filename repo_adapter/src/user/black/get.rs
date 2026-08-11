@@ -6,7 +6,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_user::port::black::get::BlackGetPort;
+use port::cola_user::black::get::UserBlackGetPort;
 use repository::cola_user::pg::black::get::UserBlackGetRepo;
 use tracing::{error, info};
 
@@ -17,32 +17,39 @@ use tracing::{error, info};
 pub struct BlackGetAdapter;
 
 #[async_trait]
-impl BlackGetPort for BlackGetAdapter {
+impl UserBlackGetPort for BlackGetAdapter {
     //
 
     ////////
 
-    /// # 1. [ADAPTER] - 获取我的黑名单IDs列表
-    async fn get_my_black_ids(
+    /// # 1. [ADAPTER] - 用户拉黑的
+    /// * ``: `根据用户ID` - `获取主动拉黑的用户IDs列表`
+    async fn get_black_ids(
         &self,
-        uid: i64,
-        id: i64,
+        user_id: i64,
         offset: i64,
         limit: i64,
     ) -> anyhow::Result<Vec<i64>> {
         // 目标ID转换
-        let target_uid = id;
+        let target_uid = user_id;
 
         // 1. Call The Repo ..
         let result = UserBlackGetRepo::find_black_ids_by_uid(target_uid, offset, limit).await;
 
         match result {
             Ok(ids) => {
-                info!("[🔌 ADAPTER] - ✅️ 获取我的黑名单IDs成功: uid = {}, count = {}", target_uid, ids.len());
+                info!(
+                    "[🔌 ADAPTER] - ✅️ 获取我的黑名单IDs成功: uid = {}, count = {}",
+                    target_uid,
+                    ids.len()
+                );
                 Ok(ids)
             }
             Err(e) => {
-                error!("[🔌 ADAPTER] - ❌️ 获取我的黑名单IDs失败: uid = {}, err = {:?}", target_uid, &e);
+                error!(
+                    "[🔌 ADAPTER] - ❌️ 获取我的黑名单IDs失败: uid = {}, err = {:?}",
+                    target_uid, &e
+                );
                 // 💡 修正：将 sqlx::Error 转换为 anyhow::Error
                 Err(e.into())
             }
@@ -51,79 +58,27 @@ impl BlackGetPort for BlackGetAdapter {
 
     ////////
 
-    /// # [ADAPTER] - 获取她的黑名单IDs列表
-    async fn get_he_black_ids(
-        &self,
-        uid: i64,
-        id: i64,
-        limit: i64,
-        offset: i64,
-    ) -> Result<(Vec<i64>)> {
-        let target_uid = id;
+    /// # 2. [ADAPTER] - 获取黑名单IDs列表
+    /// * `desc`: `根据用户ID` - `获取拉黑用户的用户IDs列表`
+    async fn get_black_me_ids(&self, user_id: i64, limit: i64, offset: i64) -> Result<(Vec<i64>)> {
+        let target_uid = user_id;
 
         let result = UserBlackGetRepo::find_black_ids_by_uid(target_uid, offset, limit).await;
 
         match result {
             Ok(ids) => {
-                info!("[🔌 ADAPTER] - ✅️ 获取她的黑名单IDs成功: uid = {}, count = {}", target_uid, ids.len());
+                info!(
+                    "[🔌 ADAPTER] - ✅️ 获取拉黑我的黑名单IDs成功: uid = {}, count = {}",
+                    target_uid,
+                    ids.len()
+                );
                 Ok(ids)
             }
             Err(e) => {
-                error!("[🔌 ADAPTER] - ❌️ 获取她的黑名单IDs失败: uid = {}, err = {:?}", target_uid, &e);
-                // 💡 修正：将 sqlx::Error 转换为 anyhow::Error
-                Err(e.into())
-            }
-        }
-    }
-
-    ////////
-
-    /// # [ADAPTER] - 获取黑名单IDs列表
-    async fn get_black_me_ids(
-        &self,
-        uid: i64,
-        id: i64,
-        limit: i64,
-        offset: i64,
-    ) -> Result<(Vec<i64>)> {
-        let target_uid = id;
-
-        let result = UserBlackGetRepo::find_black_ids_by_uid(target_uid, offset, limit).await;
-
-        match result {
-            Ok(ids) => {
-                info!("[🔌 ADAPTER] - ✅️ 获取拉黑我的黑名单IDs成功: uid = {}, count = {}", target_uid, ids.len());
-                Ok(ids)
-            }
-            Err(e) => {
-                error!("[🔌 ADAPTER] - ❌️ 获取拉黑我的黑名单IDs失败: uid = {}, err = {:?}", target_uid, &e);
-                // 💡 修正：将 sqlx::Error 转换为 anyhow::Error
-                Err(e.into())
-            }
-        }
-    }
-
-    ////////
-
-    /// # [ADAPTER] - 获取黑名单IDs列表
-    async fn get_black_he_ids(
-        &self,
-        uid: i64,
-        id: i64,
-        limit: i64,
-        offset: i64,
-    ) -> Result<(Vec<i64>)> {
-        let target_uid = id;
-
-        let result = UserBlackGetRepo::find_black_ids_by_uid(target_uid, offset, limit).await;
-
-        match result {
-            Ok(ids) => {
-                info!("[🔌 ADAPTER] - ✅️ 获取拉黑TA的黑名单IDs成功: uid = {}, count = {}", target_uid, ids.len());
-                Ok(ids)
-            }
-            Err(e) => {
-                error!("[🔌 ADAPTER] - ❌️ 获取拉黑TA的黑名单IDs失败: uid = {}, err = {:?}", target_uid, &e);
+                error!(
+                    "[🔌 ADAPTER] - ❌️ 获取拉黑我的黑名单IDs失败: uid = {}, err = {:?}",
+                    target_uid, &e
+                );
                 // 💡 修正：将 sqlx::Error 转换为 anyhow::Error
                 Err(e.into())
             }
