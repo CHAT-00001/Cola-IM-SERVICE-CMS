@@ -2,8 +2,8 @@
     "gate": "1001",
     "node": "cn-gz-04",
     "code": "000000",
-    "service": "video",
-    "action_name": "home_new",
+    "service": "auth",
+    "name": "sign",
     "action": 1004,
     "auth": {
         "access_token": "abc123456",

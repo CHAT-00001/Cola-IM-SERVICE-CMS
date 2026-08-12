@@ -43,7 +43,7 @@ impl VideoAddRepository {
 
         // 📋 根据 VideoEntity 的全量字段补齐 INSERT 语句（请根据数据库实际表结构增减列名）
         let query = format!(
-            "INSERT INTO cola_video.cola_video (
+            "INSERT INTO cola_video.video (
             id, _sn, uid, music_id, title, description, thumbnail, thumb, href, is_4k,
             views, done_views, likes, dislike, comments, danmakus, steps, collects, shares, recommends,
             width, height, bit, addtime, lat, lng,
@@ -108,7 +108,7 @@ impl VideoAddRepository {
         let now = Utc::now();
 
         let query = format!(
-            "UPDATE cola_video.cola_video \
+            "UPDATE cola_video.video \
          SET title = $2, description = $3, thumbnail = $4, updated_at = $5 \
          WHERE video_id = $1 \
          RETURNING {}",
@@ -137,7 +137,7 @@ impl VideoAddRepository {
         let now = Utc::now();
 
         let query = format!(
-            "UPDATE cola_video.cola_video \
+            "UPDATE cola_video.video \
          SET visibility_perm = $2, comment_perm = $3, danmaku_perm = $4, collect_perm = $5, download_perm = $6, updated_at = $7 \
          WHERE video_id = $1 \
          RETURNING {}",
@@ -164,7 +164,7 @@ impl VideoAddRepository {
         let pool = pg_pool();
 
         let query = r#"
-        UPDATE cola_video.cola_video
+        UPDATE cola_video.video
         SET
             is_del = 1,
             del_time = EXTRACT(EPOCH FROM NOW())::BIGINT,
@@ -188,7 +188,7 @@ impl VideoAddRepository {
         let pool = pg_pool();
 
         let query = r#"
-        UPDATE cola_video.cola_video
+        UPDATE cola_video.video
         SET
             is_del = 1,
             del_time = EXTRACT(EPOCH FROM NOW())::BIGINT,
@@ -217,7 +217,7 @@ impl VideoAddRepository {
         let pool = pg_pool();
 
         let query = r#"
-        UPDATE cola_video.cola_video
+        UPDATE cola_video.video
         SET danmaku_count = GREATEST(danmaku_count - $1, 0),
             updated_at = NOW()
         WHERE id = $2
@@ -245,7 +245,7 @@ impl VideoAddRepository {
 
         // 使用参数化查询，避免 SQL 注入
         let query = format!(
-            "SELECT {} FROM cola_video.cola_video WHERE uid = $1 AND status = 1 OFFSET $2 LIMIT $3",
+            "SELECT {} FROM cola_video.video WHERE uid = $1 AND status = 1 OFFSET $2 LIMIT $3",
             VIDEO_COLUMNS
         );
 

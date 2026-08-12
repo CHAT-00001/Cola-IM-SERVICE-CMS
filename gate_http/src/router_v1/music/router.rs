@@ -8,22 +8,19 @@ use actix_web::{HttpResponse, get, web};
 use app_config::app_state::AppState;
 use once_cell::sync::Lazy;
 use serde::{Deserialize, Serialize};
-use sqlx::{Row, query};
 use std::alloc::handle_alloc_error;
 use std::collections::HashMap;
 use std::error::Error;
 use std::time::Instant;
-//use crate::router_v2::cola_user::User;
-use crate::models::response::ApiResponse;
-use crate::models::user::{UserInfo, get_user_info};
-
+use crate::ping::ping;
+use crate::router_v1::response::ApiResponse;
 ////////
 
 /// # [ROUTER] - 音乐 - 路由器
 pub fn music_router(cfg: &mut web::ServiceConfig) {
     cfg.service(
-        web::scope("/cola_music")
-            .route("", web::get().to(get_client_list))
+        web::scope("/music")
+            .route("", web::get().to(ping))
             //  .route("/{id}", web::get().to(get_client_by_id))
             .route("", web::post().to(create))
             .route("/{id}", web::put().to(update))
@@ -152,84 +149,7 @@ pub struct ListResponse<T> {
     pub(crate) pagination: Pagination,
 }
 
-/// ## 获取客户端列表
-/// 默认第1页，每页20条数据
-/// 参数：page、size
-/// 2025-09-11 09:56:10
-async fn get_client_list(
-    state: web::Data<AppState>,
-    query: web::Query<ListQuery>,
-) -> Result<HttpResponse, actix_web::Error> {
-    let start = Instant::now();
 
-    let pool = &state.db.pg_pool;
-
-    // 参数处理
-    let page = query.page.unwrap_or(1).min(50).max(1);
-    let size = query.size.unwrap_or(20).min(50).max(1);
-    let offset = (page - 1) as i64 * size as i64;
-
-    // 构建查询
-    let query = r#"
-        SELECT id, name, title, description, key, add_time
-        FROM client
-        --ORDER BY views DESC, RANDOM()
-        LIMIT $1 OFFSET $2
-    "#;
-
-    // 开始查询
-    let rows = sqlx::query(query)
-        .bind(size as i64)
-        .bind(offset)
-        .fetch_all(pool)
-        .await
-        .map_err(anyhow::Error::from)
-        .map_err(|e| {
-            tracing::error!("DB query failed: {:?}", e);
-            actix_web::error::ErrorInternalServerError("Database error")
-        })?;
-
-    // 是否空值
-    if rows.is_empty() {
-        return Ok(HttpResponse::Ok().json(serde_json::json!({
-            "error": "哇，这里还是空的呀!"
-        })));
-    }
-
-    // 并发获取用户 + 音乐信息
-    // 3. 处理视频数据（先获取用户信息，再处理音乐信息）
-    let mut videos = Vec::with_capacity(rows.len());
-
-    for row in rows {
-        // 提取视频基础字段
-        let id: i64 = row.get("id");
-        let name: String = row.get("name");
-        let title: Option<String> = row.get("title");
-        let description: Option<String> = row.get("description");
-        let key: Option<String> = row.get("key");
-        let add_time: i64 = row.get("add_time");
-
-        // 组装视频数据
-        videos.push(Client {
-            id,
-            name,
-            title,
-            description,
-            key: None,
-            status: 0,
-            add_time: None,
-        });
-    }
-
-    let data = ListResponse {
-        list: videos,
-        pagination: Pagination { page, size },
-    };
-
-    let resp = ApiResponse::ok(data, start);
-
-    Ok(HttpResponse::Ok().json(resp))
-}
 
 ///// # 根据ID获取单个客户端
 ///// 参数：id

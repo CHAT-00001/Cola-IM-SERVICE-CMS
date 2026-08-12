@@ -3,7 +3,6 @@
 ////////
 
 pub mod auth;
-pub mod client;
 pub mod dynamic;
 pub mod gift;
 pub mod live;
@@ -42,7 +41,7 @@ pub fn boot_router_v1(cfg: &mut web::ServiceConfig, app_state: AppState) {
             // 视频
             .configure(video::gateway::video_router)
             // 客户端
-            .configure(client::router::config),
+            ,
     );
 }
 

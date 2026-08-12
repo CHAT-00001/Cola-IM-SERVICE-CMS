@@ -1,22 +1,29 @@
+// data/src/user/command/user/update.rs -- 用户资料 - 更新
+// 2026/5/14 10:20
+
+////////
+
+use crate::cola_user::entity::user::UserEntity;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
-use crate::cola_user::entity::user::UserEntity;
+
+////////
 
 /// # [COMMAND] - 用户修改命令
 /// * `desc`: 用户修改资料
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct UpdateUserCommand {
-    pub nickname: Option<String>,
-    pub signature: Option<String>,
-    pub avatar: Option<String>,
-    pub bg_img: Option<String>,
-    pub sns_url: Option<String>,
-    pub email: Option<String>,
-    pub phone: Option<String>,
-    pub birthday: Option<i64>,
-    pub lat: Option<f64>,
-    pub lng: Option<f64>,
-    pub updated_at: Option<DateTime<Utc>>,
+    pub nickname: Option<String>,          // 昵称
+    pub signature: Option<String>,         // 个签
+    pub avatar: Option<String>,            // 头像
+    pub bg_img: Option<String>,            // 背景图
+    pub sns_url: Option<String>,           // 社交网站
+    pub email: Option<String>,             // 邮箱
+    pub phone: Option<String>,             // 电话
+    pub birthday: Option<i64>,             // 生日
+    pub lat: Option<f64>,                  // 纬度
+    pub lng: Option<f64>,                  // 经度
+    pub updated_at: Option<DateTime<Utc>>, // 更新时间
 }
 
 impl UpdateUserCommand {
@@ -32,14 +39,14 @@ impl UpdateUserCommand {
     pub fn to_entity(&self, user_id: i64) -> UserEntity {
         UserEntity {
             id: user_id,
-            send_id: "".to_string(),
+            _id: Option::from("".to_string()),
             user_type: None,
             user_nickname: self.nickname.clone(),
             signature: self.signature.clone(),
             avatar: self.avatar.clone(),
             bg_img: self.bg_img.clone(),
             sns_url: self.sns_url.clone(),
-            email: self.email.clone(),
+            user_email: self.email.clone(),
             phone: self.phone.clone(),
             birthday: self.birthday,
             sex: None,
@@ -54,9 +61,13 @@ impl UpdateUserCommand {
             login_ip: "".to_string(),
             register_ip: "".to_string(),
             status: None,
+            is_deleted: None,
             create_time: 0,
             created_at: None,
             updated_at: self.updated_at,
+            deleted_at: None,
         }
     }
 }
+
+//////// END

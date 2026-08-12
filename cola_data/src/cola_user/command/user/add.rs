@@ -14,31 +14,30 @@ use uuid::Uuid;
 /// # [COMMAND] - 用户创建与修改命令
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct UserCommand {
-    pub send_id: Option<String>,   // 客户端生成 UUID（可选，不传服务端生成）
-    pub user_type: i16,            // 用户类型: 默认 2 (普通用户)
-    pub nickname: Option<String>,  // 用户昵称
-    pub signature: Option<String>, // 个性签名（修改时可选）
-    pub avatar: Option<String>,    // 头像（修改时可选）
-    pub bg_img: Option<String>,    // 背景图（修改时可选）
-    pub sns_url: Option<String>,   // 社交网络地址
-    pub email: Option<String>,     // 邮箱
-    pub phone: Option<String>,     // 电话号码 （带地区号，比如 008600000000000）
-    pub birthday: Option<i64>,     // 生日 (不填写就是今天)
-    pub description: Option<String>, // 可选的描述
-    pub desc_at: Vec<i64>,         // 描述 - 艾特的用户 IDs
-    pub perm_id: Option<i16>,      // 权限
-    pub lat: Option<f64>,          // 纬度
-    pub lng: Option<f64>,          // 经度
+    pub _id: Option<String>,           // UUID（可选，不传服务端生成）
+    pub user_type: i16,                // 用户类型: 默认 2 (普通用户)
+    pub nickname: Option<String>,      // 用户昵称
+    pub signature: Option<String>,     // 个性签名（修改时可选）
+    pub avatar: Option<String>,        // 头像（修改时可选）
+    pub bg_img: Option<String>,        // 背景图（修改时可选）
+    pub sns_url: Option<String>,       // 社交网络地址
+    pub email: Option<String>,         // 邮箱
+    pub phone: Option<String>,         // 电话号码 （带地区号，比如 008600000000000）
+    pub birthday: Option<i64>,         // 生日 (不填写就是今天)
+    pub description: Option<String>,   // 可选的描述
+    pub desc_at: Vec<i64>,             // 描述 - 艾特的用户 IDs
+    pub perm_id: Option<i16>,          // 权限
+    pub lat: Option<f64>,              // 纬度
+    pub lng: Option<f64>,              // 经度
     pub last_login_ip: Option<String>, // 最后登录IP
-    pub status: Option<i16>,       // 状态：0. 失效 1. 正常
+    pub status: Option<i16>,           // 状态：0. 失效 1. 正常
     pub register_type: Option<i16>, // 注册来源类型（1: 手机, 2: 邮箱, 3: 苹果, 4: 谷歌, 5: 微信）
-    pub created_time: i64,         // 创建时间
-    pub updated_time: i64,         // 更新时间
+    pub created_time: i64,          // 创建时间
+    pub updated_time: i64,          // 更新时间
 }
 
 // 构造函数
 impl UserCommand {
-
     ////////
 
     /// # 0. [QUICK] - 快速构建用于注册的 Command
@@ -80,7 +79,7 @@ impl UserCommand {
 
         // 🆔 处理 send_id：如果客户端不传入，服务端生成一个无分隔符的 UUID v4 取代
         let final_send_id = self
-            .send_id
+            ._id
             .unwrap_or_else(|| Uuid::new_v4().to_string().replace("-", ""));
 
         // 👤 构造默认昵称
@@ -98,7 +97,7 @@ impl UserCommand {
         // 装载到User表
         UserEntity {
             //id: 0, // 👈 数据库自增字段，由数据库处理，这里设为 0
-            send_id: Option::from(final_send_id).unwrap_or_else(|| String::new()), // 最终确定的 UUID 字符串
+            _id: Option::from(Option::from(final_send_id).unwrap_or_else(|| String::new())), // 最终确定的 UUID 字符串
             user_type: Some(2),
             user_nickname: Some(self.nickname.unwrap_or(default_nickname)), // 客户端有传用客户端的，否则用默认生成的
             signature: Option::from(
@@ -115,7 +114,7 @@ impl UserCommand {
             ),
 
             birthday: Option::from(self.birthday.unwrap_or(now_ts)), // 不填写就是当前时间戳
-            email: Option::from(self.email.unwrap_or_else(|| "还没有填写喔😮".to_string())),
+            user_email: Option::from(self.email.unwrap_or_else(|| "还没有填写喔😮".to_string())),
             phone: Option::from(self.phone.unwrap_or_else(|| "还没有填写喔😮".to_string())),
 
             // ✅ login_ip / register_ip 使用网关层注入的客户端真实 IP

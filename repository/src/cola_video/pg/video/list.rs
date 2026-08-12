@@ -41,7 +41,7 @@ impl VideoListRepo {
     ) -> Result<Vec<VideoEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM cola_video.cola_video WHERE status = 1 ORDER BY addtime DESC LIMIT $1 OFFSET $2",
+            "SELECT {} FROM cola_video.video WHERE status = 1 ORDER BY addtime DESC LIMIT $1 OFFSET $2",
             VIDEO_COLUMNS
         );
 
@@ -70,7 +70,7 @@ impl VideoListRepo {
     ) -> Result<Vec<VideoEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM cola_video.cola_video WHERE status = 1 ORDER BY likes DESC, views DESC, addtime DESC LIMIT $1 OFFSET $2",
+            "SELECT {} FROM cola_video.video WHERE status = 1 ORDER BY likes DESC, views DESC, addtime DESC LIMIT $1 OFFSET $2",
             VIDEO_COLUMNS
         );
 
@@ -91,7 +91,7 @@ impl VideoListRepo {
     ) -> Result<Vec<VideoEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM cola_video.cola_video WHERE status = 1 ORDER BY RANDOM() LIMIT $1 OFFSET $2",
+            "SELECT {} FROM cola_video.video WHERE status = 1 ORDER BY RANDOM() LIMIT $1 OFFSET $2",
             VIDEO_COLUMNS
         );
 
@@ -115,7 +115,7 @@ impl VideoListRepo {
         let pool = pg_pool();
         let query = format!(
             "SELECT {}, SQRT(POW(lat - $1, 2) + POW(lng - $2, 2)) AS distance
-             FROM cola_video.cola_video
+             FROM cola_video.video
              WHERE status = 1
              ORDER BY distance ASC
              LIMIT $3 OFFSET $4",
@@ -142,7 +142,7 @@ impl VideoListRepo {
     ) -> Result<Vec<VideoEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM cola_video.cola_video WHERE status = 1 AND category_id = $1 ORDER BY likes DESC, addtime DESC LIMIT $2 OFFSET $3",
+            "SELECT {} FROM cola_video.video WHERE status = 1 AND category_id = $1 ORDER BY likes DESC, addtime DESC LIMIT $2 OFFSET $3",
             VIDEO_COLUMNS
         );
 
@@ -164,7 +164,7 @@ impl VideoListRepo {
     ) -> Result<Vec<VideoEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM cola_video.cola_video WHERE status = 1 ORDER BY likes DESC, addtime DESC LIMIT $1 OFFSET $2",
+            "SELECT {} FROM cola_video.video WHERE status = 1 ORDER BY likes DESC, addtime DESC LIMIT $1 OFFSET $2",
             VIDEO_COLUMNS
         );
 
@@ -191,7 +191,7 @@ impl VideoListRepo {
     ) -> Result<Vec<VideoEntity>, sqlx::Error> {
         let pool = pg_pool();
         let mut sql = format!(
-            "SELECT {}, SQRT(POW(lat - $1, 2) + POW(lng - $2, 2)) AS distance FROM cola_video.cola_video WHERE status = 1",
+            "SELECT {}, SQRT(POW(lat - $1, 2) + POW(lng - $2, 2)) AS distance FROM cola_video.video WHERE status = 1",
             VIDEO_COLUMNS
         );
 

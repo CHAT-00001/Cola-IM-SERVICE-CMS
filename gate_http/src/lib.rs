@@ -3,15 +3,13 @@
 
 ////////
 pub mod kits;
-pub mod middleware;
-pub mod models;
+
 mod router_v1;
 mod router_v2;
 mod ping;
 
 ////////
 
-use crate::middleware::auth_check::JwtAuth;
 use actix_web::middleware::Logger;
 use actix_web::{App, HttpResponse, HttpServer, Responder, web};
 use app_config::app_state::AppState;
@@ -42,7 +40,7 @@ pub async fn start_api(api_config: &Api, app_state: AppState) {
             .wrap(Logger::new(
                 "%a \"%m http://%{Host}i%U% %H\" %share %b \"%{Referer}i\" \"%{User-Agent}i\" %T"
             ))
-            .wrap(JwtAuth)
+            //.wrap(JwtAuth)
             .app_data(web::Data::new(state_for_app.clone()))
             .route("/ping", web::get().to(ping))
 

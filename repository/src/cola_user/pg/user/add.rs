@@ -13,7 +13,7 @@ use sqlx::{self};
 // 数据表原始字段（对应 Entity 的基础字段，1:1 完全一致）
 // ⚠️ login_ip / register_ip 用 COALESCE 兜底：兼容旧数据 NULL 不报错
 const COLUMNS: &str = r#"
-    id, send_id, user_type, user_nickname, signature, avatar, bg_img,
+    id, _id, user_type, user_nickname, signature, avatar, bg_img,
     email, phone, sns_url, birthday, sex, perm_id, likes, fans, follows,
     level, author_level, lat, lng,
     COALESCE(login_ip, '未知IP') AS login_ip,
@@ -24,7 +24,7 @@ const COLUMNS: &str = r#"
 
 // INSERT/RETURNING 用别名确保 COALESCE 不会在写入时报错
 const INSERT_RETURNING: &str = r#"
-    id, send_id, user_type, user_nickname, avatar, bg_img,
+    id, _id, user_type, user_nickname, avatar, bg_img,
     signature, email, phone, birthday, status, perm_id, create_time,
     login_ip, register_ip
 "#;
@@ -47,7 +47,7 @@ impl UserAddRepo {
 
         // INSERT 包含 login_ip / register_ip，确保数据库 NOT NULL 不报错
         let query = format!(r#"
-        INSERT INTO "cola_user"."cola_user" (
+        INSERT INTO "cola_user"."user" (
             send_id, user_type, user_nickname, avatar, bg_img,
             signature, email, phone,sns_url, birthday, status, perm_id, create_time,
             login_ip, register_ip
@@ -57,13 +57,13 @@ impl UserAddRepo {
     "#, INSERT_RETURNING);
 
         let saved_user = sqlx::query_as::<_, UserEntity>(&query)
-            .bind(&entity.send_id)
+            .bind(&entity._id)
             .bind(entity.user_type)
             .bind(&entity.user_nickname)
             .bind(&entity.avatar)
             .bind(&entity.bg_img)
             .bind(&entity.signature)
-            .bind(&entity.email)
+            .bind(&entity.user_email)
             .bind(&entity.phone)
             .bind(&entity.sns_url)
             .bind(entity.birthday)

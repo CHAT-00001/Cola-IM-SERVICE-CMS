@@ -27,7 +27,7 @@ impl VideoItemCleanRepo {
         // 规范做法：限制单次删除条数（例如每次最多删 1000 条），防止大事务锁表
         // 实际定时任务中可以在上层逻辑写一个 loop 循环调用，直到返回影响行数为 0
         let query = r#"
-            DELETE FROM "cola_video"."cola_video"
+            DELETE FROM "cola_video"."video"
             WHERE id IN (
                 SELECT id FROM "cola_video"."cola_video"
                 WHERE is_deleted = 1

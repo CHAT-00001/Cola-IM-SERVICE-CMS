@@ -5,7 +5,7 @@
 ////////
 
 use crate::pg_pool;
-use cola_data::cola_user::entity::user::UserEntity;
+use cola_data::cola_user::entity::user::{UserEntity, USER_COLUMNS};
 use sqlx::{self};
 
 //////
@@ -48,8 +48,8 @@ impl UserGetRepo {
     ) -> Result<Option<UserEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM \"cola_user\".\"cola_user\" WHERE id = $1 LIMIT 1",
-            COLUMNS
+            "SELECT {} FROM \"cola_user\".\"user\" WHERE id = $1 LIMIT 1",
+            USER_COLUMNS
         );
 
         sqlx::query_as::<_, UserEntity>(&query)
@@ -67,8 +67,8 @@ impl UserGetRepo {
     ) -> Result<Vec<UserEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM \"cola_user\".\"cola_user\" WHERE id = ANY($1) AND status = 1 ORDER BY id DESC",
-            COLUMNS
+            "SELECT {} FROM \"cola_user\".\"user\" WHERE id = ANY($1) AND status = 1 ORDER BY id DESC",
+            USER_COLUMNS
         );
 
         sqlx::query_as::<_, UserEntity>(&query)
@@ -86,8 +86,8 @@ impl UserGetRepo {
     ) -> Result<Option<UserEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM \"cola_user\".\"cola_user\" WHERE phone = $1 LIMIT 1",
-            COLUMNS
+            "SELECT {} FROM \"cola_user\".\"user\" WHERE phone = $1 LIMIT 1",
+            USER_COLUMNS
         );
 
         sqlx::query_as::<_, UserEntity>(&query)
