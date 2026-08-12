@@ -4,4 +4,25 @@
 
 ////////
 
+use anyhow::Result;
+use async_trait::async_trait;
+use port::cola_video::hotlist::check::VideoHotlistCheckPort;
 
+////////
+
+/// # [CHECK ADAPTER] - hotlist check
+#[derive(Debug, Default, Clone)]
+pub struct VideoHotlistCheckAdapter;
+
+#[async_trait]
+impl VideoHotlistCheckPort for VideoHotlistCheckAdapter {
+    async fn health(&self, uid: i64, collect_id: i64) -> Result<()> {
+        todo!()
+    }
+
+    async fn state(&self, uid: i64, collect_id: i64) -> Result<()> {
+        todo!()
+    }
+}
+
+//////// END

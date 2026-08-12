@@ -45,7 +45,7 @@ pub fn build_user_port() -> ColaUserPort {
             get: Arc::new(ban::get::BanGetService),
             list: Arc::new(ban::list::BanListService),
             manage: Arc::new(ban::manage::BanManageService),
-            stat: Arc::new(()),
+            stat: Arc::new(ban::stat::UserBankStatAdapter),
         },
         // BLACK - 黑名单
         black: UserBlackPort {
@@ -59,18 +59,18 @@ pub fn build_user_port() -> ColaUserPort {
         },
         // CATEGORY - 分类
         category: UserCategoryPort {
-            add: Arc::new(category::add::FollowAddAdapter),
+            add: Arc::new(category::add::CategoryAddAdapter),
             check: Arc::new(category::check::UserCategoryCheckAdapter),
-            del: Arc::new(()),
-            get: Arc::new(()),
-            list: Arc::new(()),
-            manage: Arc::new(()),
+            delete: Arc::new(category::del::CategoryDeleteAdapter),
+            get: Arc::new(category::get::CategoryGetAdapter),
+            list: Arc::new(category::list::CategoryListAdapter),
+            manage: Arc::new(category::manage::CategoryManageAdapter),
         },
         // FOLLOW - 关注
         follow: UserFollowPort {
             add: Arc::new(follow::add::FollowAddAdapter),
             check: Arc::new(follow::check::UserFollowCheckAdapter),
-            del: Arc::new(follow::del::UserFollowDelAdapter),
+            delete: Arc::new(follow::del::UserFollowDelAdapter),
             get: Arc::new(follow::get::UserFollowGetAdapter),
             list: Arc::new(follow::list::UserFollowListAdapter),
             manage: Arc::new(follow::manage::UserFollowManageAdapter),
@@ -102,7 +102,7 @@ pub fn build_user_port() -> ColaUserPort {
             get: Arc::new(share::get::ShareGetAdapter),
             list: Arc::new(share::list::ShareListAdapter),
             manage: Arc::new(share::manage::ShareManageAdapter),
-            stat: Arc::new(()),
+            stat: Arc::new(share::stat::UserShareStatAdapter),
         },
         // USER - 用户
         user: UserPort {
@@ -121,7 +121,7 @@ pub fn build_user_port() -> ColaUserPort {
             get: Arc::new(view::get::ViewGetService),
             list: Arc::new(view::list::ViewListService),
             manage: Arc::new(view::manage::ViewManageService),
-            stat: Arc::new(()),
+            stat: Arc::new(view::stat::UserViewStatAdapter),
         },
         // VIP - 贵宾
         vip: UserVipPort {

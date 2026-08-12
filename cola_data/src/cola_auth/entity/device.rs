@@ -1,4 +1,4 @@
-// cola_data/src/cola_auth/entity/device.rs
+// cola_data/src/auth/entity/device.rs
 // 数据 - AUTH - entity - 设备
 // 2026/5/26 07:40
 
@@ -10,7 +10,7 @@ use sqlx::FromRow;
 ////////
 
 /// # [ENTITY] - 认证中心 - 用户设备信任及多设备状态表
-/// * `pg schema`: `cola_auth` - PG 模式
+/// * `pg schema`: `auth` - PG 模式
 /// * `table name`: `auth_device` - 表名
 /// * 业务场景：支持同平台多设备登录、单设备踢出、设备锁管理、多端推送（如绑定个推/APNs的 Token）
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow, Default)]

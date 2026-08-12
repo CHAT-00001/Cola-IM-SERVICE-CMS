@@ -6,8 +6,8 @@
 use crate::assembler::poi::build_poi_list_response;
 use crate::model::vo::poi::PoiListResponse;
 use anyhow::{Context, Result};
-use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
+use port::app::ctx::AppContext;
 use repository::cola_gis::service::like::GisLikeService;
 use repository::cola_gis::service::view::PoiViewService;
 

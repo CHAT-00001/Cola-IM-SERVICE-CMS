@@ -1,4 +1,4 @@
-// cola_auth/src/api/active  -- 可乐验证中心 - 接口层 - 登录
+// auth/src/api/active  -- 可乐验证中心 - 接口层 - 登录
 // 2026/6/9 07:54
 
 ////////

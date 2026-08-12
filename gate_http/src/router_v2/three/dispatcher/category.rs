@@ -5,10 +5,9 @@
 
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::cola_three::port::ColaThreePort;
 use serde_json::Value;
 use cola_three::api::server_type::ServerTypeApi;
-
+use port::cola_three::ColaThreePort;
 //////
 
 /// # [ACTION] - 动作码

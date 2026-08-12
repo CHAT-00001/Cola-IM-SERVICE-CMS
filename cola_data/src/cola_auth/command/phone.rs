@@ -1,4 +1,4 @@
-// cola_data/src/cola_auth/command/phone.rs  -- 可乐数据中心 - AUTH - Command - 手机短信验证码登录验证器
+// cola_data/src/auth/command/phone.rs  -- 可乐数据中心 - AUTH - Command - 手机短信验证码登录验证器
 // 2026/4/13 00:49 by wx: cestbon10080
 
 //////

@@ -1,4 +1,4 @@
-// cola_data/src/cola_auth/entity/sign_type  -- 验证中心 - entity - 登录
+// cola_data/src/auth/entity/sign_type  -- 验证中心 - entity - 登录
 // 2026/7/27 18:37
 
 ////////
@@ -10,7 +10,7 @@ use sqlx::FromRow;
 ////////
 
 /// # [ENTITY] - 第三方登录服务配置
-/// * `pg schema`: `cola_auth`  -- 模式
+/// * `pg schema`: `auth`  -- 模式
 /// * `table name`: `sign_type`  -- 登录类型
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct AuthSignTypeEntity {

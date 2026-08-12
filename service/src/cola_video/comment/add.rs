@@ -1,190 +1,52 @@
-// servicey/src/cola_video/comment/get.rs
-// 👤 服务 - ▶ 可乐视频  - 评论 - 发布
-// 2026/8/2 17:15 Created.
+// servicey/src/cola_video/comment/add.rs
+// 服务 - VIDEO - COMMENT - ADD
+// 2026/8/12 05:39 Created.
 
 ////////
 
-use anyhow::Error;
 use cola_data::cola_video::command::comment::CommentCommand;
-use cola_data::cola_video::entity::video::video::VideoEntity;
-use cola_data::cola_video::info::comment::VideoCommentInfo;
-use tracing::log;
-use repository::cola_video::pg::comment::comment::CommentRepo;
-use repository::cola_video::pg::video::count::VideoCountRepo;
+use cola_data::cola_video::info::comment::VideoCommentInfo; // 👈 这里引入 Info 模型
+use repository::cola_video::pg::comment::add::VideoCommentAddRepo;
+use repository::cola_video::pg::comment::check::VideoCommentCheckRepo;
+use tracing::{error, info};
+
 ////////
 
 /// # [ADD SERVICE] - 发布
-/// * `desc`: `▶ 可乐视频 - 👤 视频评论发布服务`
-pub struct CommentAddService;
+pub struct VideoCommentAddService;
 
-// 构造实现
-impl CommentAddService {
-    //
-
-    ////////
-
-    /// # 1. [SERVICE] - 保存评论 + 更新计数
-    pub async fn save_comment_and_update_count(
-        uid: i64,            // 用户 ID
-        video_id: i64,       // 视频 ID
-        cmd: CommentCommand, // 评论创建命令
-        visibility: i16,     // 风控可见性
+impl VideoCommentAddService {
+    pub async fn create_comment(
+        user_id: i64,
+        visibility: i16,
+        cmd: CommentCommand,
     ) -> Result<VideoCommentInfo, anyhow::Error> {
-        // 1. 保存评论
-        let comment_entity = CommentRepo::save_comment_by_video_id(uid, video_id, cmd, visibility)
-            .await
-            .map_err(|e| anyhow::anyhow!("SERVICE: 保存视频评论失败: {}", e))?;
+        // 1. 如果有父级评论 ID，校验父级评论是否存在
+        if let Some(parent_id) = cmd.parent_id {
+            info!("Service: 校验父级评论是否存在, parent_id: {}", parent_id);
 
-        // 2. 更新计数
-        let async_video_id = video_id;
-        tokio::spawn(async move {
-            if let Err(e) = VideoCountRepo::pg_update_video_comments(async_video_id, 1).await {
-                tracing::error!(
-                    "[🔌 ADAPTER]: ▶ 异步更新视频评论计数失败: video_id={}, err={:?}",
-                    async_video_id,
-                    e
+            let exists = VideoCommentCheckRepo::exists_active(parent_id).await?;
+            if !exists {
+                error!(
+                    "Service: 父级评论不存在或已被删除, parent_id: {}",
+                    parent_id
                 );
+                return Err(anyhow::anyhow!(
+                    "Parent comment does not exist or has been deleted"
+                ));
             }
-        });
+        }
 
-        // 3. ✅ 修复 [E0308]：显式进行 Entity -> Info 的类型转换
+        // 2. 校验通过，执行保存 (返回的是 VideoCommentEntity)
+        let comment_entity = VideoCommentAddRepo::save_comment(user_id, visibility, cmd).await?;
+
+        info!("Service: 评论发布成功, comment_id: {}", comment_entity.id);
+
+        // 3. 使用 data 层写好的 from_entity 转换为 VideoCommentInfo
         let comment_info = VideoCommentInfo::from_entity(comment_entity);
 
         Ok(comment_info)
     }
-
-    ////////
-
-    /// # 2. [SERVICE] - 删除评论 + 更新计数
-    pub async fn delete_comment_and_update_count(
-        uid: i64,        // 用户 ID
-        comment_id: i64, // 评论 ID
-    ) -> Result<bool, anyhow::Error> {
-        // 🌟 听哥们的, 简单直接返回 bool
-
-        // 1. 调用底层仓储删除评论，顺便返回被删除的数据行（包含 video_id）
-        let comment_entity = CommentRepo::user_del_comment_by_id(uid, comment_id)
-            .await
-            .map_err(|e| anyhow::anyhow!("SERVICE: 删除视频评论失败: {}", e))?;
-
-        // 2. 🛡️ 安全拦截：从刚删掉的数据里拿到它属于哪个视频
-        let target_video_id = comment_entity.video_id;
-
-        // 3. 联动异步更新计数器：评论数 -1 (用 move 彻底带走 target_video_id)
-        tokio::spawn(async move {
-            if let Err(e) = VideoCountRepo::pg_update_video_comments(target_video_id, -1).await {
-                tracing::error!(
-                    "[🔌 ADAPTER]: ▶ 异步更新视频评论计数失败: video_id={}, err={:?}",
-                    target_video_id,
-                    e
-                );
-            }
-        });
-
-        // 4. ✅ 搞定收工，直接返回 true
-        Ok(true)
-    }
-
-    ////////
-
-    /// # 3. [SERVICE] - 获取视频的评论
-    /// * `video_id`  视频 ID
-    pub async fn find_comments_by_video_id(
-        video_id: i64,
-        offset: i64,
-        limit: i64,
-    ) -> Result<Vec<VideoCommentInfo>, anyhow::Error> {
-        let entities = CommentRepo::find_new_comments_by_video_id(video_id, offset, limit).await?;
-
-        // handler -> info
-        let infos: Vec<VideoCommentInfo> = entities
-            .into_iter()
-            .map(VideoCommentInfo::from_entity)
-            .collect();
-
-        Ok(infos)
-    }
-
-    ////////
-
-    /// # 4. [SERVICE] - 查找用户的评论
-    /// * `user_id`  用户 ID
-    pub async fn find_comments_by_user_id(
-        video_id: i64,
-        offset: i64,
-        limit: i64,
-    ) -> Result<Vec<VideoCommentInfo>, anyhow::Error> {
-        let entities = CommentRepo::find_comments_by_user_id(video_id, offset, limit).await?;
-
-        // handler -> info
-        let infos: Vec<VideoCommentInfo> = entities
-            .into_iter()
-            .map(VideoCommentInfo::from_entity)
-            .collect();
-
-        Ok(infos)
-    }
-
-    ////////
-
-    /// # 5. [SERVICE] - 浏览我发布评论
-    /// * `user_id`  视频 ID
-    pub async fn view_my_publish_comments(
-        user_id: i64,
-        offset: i64,
-        limit: i64,
-    ) -> Result<Vec<VideoCommentInfo>, anyhow::Error> {
-        let entities = CommentRepo::find_comments_by_user_id(user_id, offset, limit).await?;
-
-        // handler -> info
-        let infos: Vec<VideoCommentInfo> = entities
-            .into_iter()
-            .map(VideoCommentInfo::from_entity)
-            .collect();
-
-        Ok(infos)
-    }
-
-    ////////
-
-    /// # 6. [SERVICE] - 点赞
-    /// * `desc` 点赞评论
-    pub async fn update_comment_like_by_id(
-        uid: i64,
-        comment_id: i64,
-        is_liked: bool,
-    ) -> Result<(), anyhow::Error> {
-        // 2. 更新点赞状态（幂等）
-        CommentRepo::update_comment_like_by_id(uid, comment_id, is_liked).await?;
-
-        Ok(())
-    }
-
-    /// # 8. [SERVICE] - 不喜欢
-    /// * `desc` 点赞评论
-    pub async fn update_comment_unlike_by_id(
-        uid: i64,
-        comment_id: i64,
-        is_unliked: bool,
-    ) -> Result<(), anyhow::Error> {
-        // 2. 更新点赞状态（幂等）
-        CommentRepo::update_comment_unlike_by_id(Some(uid), comment_id, is_unliked).await?;
-
-        Ok(())
-    }
-
-    ////////
-
-    /// # 9. [SERVICE] - 检查评论状态
-    pub async fn check_comment_state(_uid: i64, comment_id: i64) -> Result<(), anyhow::Error> {
-        // TODO: 购买付费视频/电商挂载商品落单逻辑
-
-        Ok(())
-    }
-
-    ////////
-
-
 }
 
 //////// END

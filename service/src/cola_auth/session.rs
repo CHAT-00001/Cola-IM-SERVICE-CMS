@@ -1,4 +1,4 @@
-// service/src/cola_auth/session.rs
+// service/src/auth/session.rs
 // 服务 - 可乐验证 -  会话 - 模块
 // 2026/6/5 06:25 Created.
 

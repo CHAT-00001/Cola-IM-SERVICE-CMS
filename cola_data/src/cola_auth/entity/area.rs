@@ -1,4 +1,4 @@
-// cola_data/src/cola_auth/entity/area.rs  -- 数据中心 - AUTH - entity - 地区
+// cola_data/src/auth/entity/area.rs  -- 数据中心 - AUTH - entity - 地区
 // 2026/7/8 09:43
 
 ////////

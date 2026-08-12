@@ -4,12 +4,9 @@
 
 ////////
 
-use crate::assembler::video::build_video_single_response;
 use anyhow::{Result, anyhow};
-use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::cola_video::info::video::{VideoInfo, VideoSingleResponse};
-use std::sync::Arc;
+use port::app::ctx::AppContext;
 use tracing::{error, info};
 
 ////////
@@ -36,11 +33,7 @@ impl VideoViewAddCase {
         );
 
         // Call Service Port
-        let result = ctx
-            .video
-            .view
-            .save_view_record_update_views_count(uid, url.video_id)
-            .await;
+        let result = ctx.video.view.add.save_view(uid, url.video_id).await;
 
         match result {
             Ok(_) => {
@@ -77,11 +70,14 @@ impl VideoViewAddCase {
             uid, url.video_id
         );
 
+        let is_done = true;
+
         // Call Service Port
         let result = ctx
             .video
             .view
-            .save_view_record_update_views_count(uid, url.video_id)
+            .add
+            .update_done_count(uid, url.video_id, is_done)
             .await;
 
         match result {

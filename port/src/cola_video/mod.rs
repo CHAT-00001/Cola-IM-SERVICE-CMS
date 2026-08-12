@@ -49,7 +49,6 @@ pub struct ColaVideoPort {
     pub share: VideoSharePort,
     pub video: VideoPort,
     pub view: VideoViewPort,
-    pub report: ()
 }
 
 //////// END

@@ -1,23 +1,26 @@
-// cola_gis/src/api/danmaku  -- 可乐GIS - 接口层 - 弹幕
-// 2026-07-07
+// cola_gis/src/api/danmaku.rs
+// core - 可乐GIS - 接口层 - 弹幕
+// 2026-07-07 10:50 Created.
 
-//////
+////////
 
 use crate::case::danmaku::DanmakuCase;
-use crate::model::vo::poi_danmaku::{DanmakuListResponse};
+use crate::model::vo::poi_danmaku::DanmakuListResponse;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
-use cola_data::app::ctx::AppContext;
 use cola_data::cola_auth::info::auth::AuthContext;
 use cola_data::cola_gis::command::danmaku::PoiDanmakuCommand;
+use port::app::ctx::AppContext;
 
-//////
+////////
 
 /// # [API] - 弹幕 接口
 pub struct DanmakuApi;
 
 //
 impl DanmakuApi {
+    //
+
     ////////
 
     /// # 1. [API HANDLER] - 发布弹幕
@@ -54,7 +57,8 @@ impl DanmakuApi {
             play_time + segment_size,
             20,
             ctx,
-        ).await
+        )
+        .await
         {
             Ok(list) => AppData::ok(list),
             Err(e) => {

@@ -6,6 +6,7 @@ edition = "2024"
 
 [dependencies]
 #### 内部依赖
+port = { path = "../port" } ## 服务端口
 service = { path = "../service" }  ## 全函数调用service层
 
 #### 外部依赖库

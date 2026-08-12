@@ -1,4 +1,4 @@
-// cola_auth/src/kits/token.rs
+// auth/src/kits/token.rs
 // core - 验证中心 - kits - Token 生成工具
 // 2026-07-19 11:10
 

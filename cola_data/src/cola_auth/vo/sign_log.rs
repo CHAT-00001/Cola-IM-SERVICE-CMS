@@ -1,4 +1,4 @@
-// cola_data/src/cola_auth/vo/sign_log.rs  -- 数据中心 - AUTH - vo - 登录类型
+// cola_data/src/auth/vo/sign_log.rs  -- 数据中心 - AUTH - vo - 登录类型
 // 2026/7/28 10:28
 
 ////////
@@ -10,7 +10,7 @@ use crate::cola_user::info::user::UserInfo;
 ////////
 
 /// # [VO] - 登录日志
-/// * `cola_auth`       存储认证令牌信息（access_token, refresh_token, 过期时间）
+/// * `auth`       存储认证令牌信息（access_token, refresh_token, 过期时间）
 /// * `user_info`   用户资料
 /// * `is_new_user` 是否为新注册用户
 #[derive(Debug, Serialize, Clone)]

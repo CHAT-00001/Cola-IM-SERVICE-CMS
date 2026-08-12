@@ -6,7 +6,7 @@
 
 use crate::cola_video::dislike::add::VideoDislikeAddPort;
 use crate::cola_video::dislike::del::VideoDislikeDelPort;
-use crate::cola_video::dislike::get::VideoDislikeGetService;
+use crate::cola_video::dislike::get::VideoDislikeGetPort;
 use crate::cola_video::dislike::list::VideoDislikeListPort;
 use crate::cola_video::dislike::manage::VideoDislikeManagePort;
 use crate::cola_video::dislike::stat::VideoDislikeStatPort;
@@ -28,8 +28,8 @@ pub mod stat; // 统计
 #[derive(Clone)]
 pub struct VideoDislikePort {
     pub add: Arc<dyn VideoDislikeAddPort + Send + Sync + 'static>, // 发布
-    pub del: Arc<dyn VideoDislikeDelPort + Send + Sync + 'static>,  // 删除
-    pub get: Arc<dyn VideoDislikeGetService + Send + Sync + 'static>, // 获取
+    pub del: Arc<dyn VideoDislikeDelPort + Send + Sync + 'static>, // 删除
+    pub get: Arc<dyn VideoDislikeGetPort + Send + Sync + 'static>, // 获取
     pub list: Arc<dyn VideoDislikeListPort + Send + Sync + 'static>, // 列表
     pub manage: Arc<dyn VideoDislikeManagePort + Send + Sync + 'static>, // 管理
     pub stat: Arc<dyn VideoDislikeStatPort + Send + Sync + 'static>, // 统计

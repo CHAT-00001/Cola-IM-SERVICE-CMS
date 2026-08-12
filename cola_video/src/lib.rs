@@ -7,5 +7,6 @@
 pub mod api;
 pub mod assembler;
 pub mod case;
+pub mod model;
 
 //////// END

@@ -4,10 +4,9 @@
 ////////
 
 use anyhow::{Result, anyhow};
-use cola_data::app::ctx::AppContext;
-use repository::cola_video::service::like::LikeService;
+use port::app::ctx::AppContext;
 use tracing::{info, warn};
-
+use service::cola_video::like::add::VideoLikeAddService;
 ////////
 
 /// # [USE CASE] - 点赞 用例
@@ -22,7 +21,7 @@ impl LikeCase {
     pub async fn case_add_video_like(uid: i64, video_id: i64, is_liked: bool) -> Result<()> {
         // 1. 调用 Service 层
         // 这里使用了 map_err 将数据库错误转换为 anyhow 的 Result，保证外层处理逻辑一致
-        LikeService::save_like_with_update_video_count(uid, video_id, is_liked)
+        VideoLikeAddService::save_like_with_update_video_count(uid, video_id, i16::from(is_liked))
             .await
             .map_err(|e| {
                 anyhow!(
@@ -47,7 +46,7 @@ impl LikeCase {
     pub async fn case_add_video_unlike(uid: i64, video_id: i64, is_like: bool) -> Result<()> {
         // 1. 调用 Service 层
         // 这里使用了 map_err 将数据库错误转换为 anyhow 的 Result，保证外层处理逻辑一致
-        LikeService::save_like_with_update_video_count(uid, video_id, is_like)
+        VideoLikeAddService::save_like_with_update_video_count(uid, video_id, i16::from(is_like))
             .await
             .map_err(|e| {
                 anyhow!(

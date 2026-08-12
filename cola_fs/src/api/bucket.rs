@@ -10,7 +10,7 @@ use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::cola_video::command::video::new::VideoNewCommand;
 use cola_data::cola_video::info::video::VideoSingleResponse;
-use port::ctx::AppContext;
+use port::app::ctx::AppContext;
 use service::cola_video::ban::publish_service::VideoPublishBanService;
 
 ////////

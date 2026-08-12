@@ -4,9 +4,11 @@
 
 ////////
 
-use cola_data::cola_gis::command::hotlist::HotlistCommand;
+
 
 ////////
+
+use cola_data::cola_video::command::hotlist::HotlistCommand;
 
 /// # [ADD PORTS] - 上热门
 /// * `desc`: `▶ 视频 - 上热门发布端口`
@@ -17,7 +19,7 @@ pub trait VideoHotlistAddPort: Send + Sync {
     ////////
 
     /// # 1. [PORT] - 保存
-    async fn send_hotlist(
+    async fn save_hotlist(
         &self,
         uid: i64,            // 操作者 ID
         video_id: i64,       // 视频 ID

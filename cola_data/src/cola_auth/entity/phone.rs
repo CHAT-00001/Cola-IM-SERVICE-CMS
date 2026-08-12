@@ -1,4 +1,4 @@
-// cola_data/src/cola_auth/entity/phone.rs  -- 数据中心 - AUTH - entity - 电话
+// cola_data/src/auth/entity/phone.rs  -- 数据中心 - AUTH - entity - 电话
 // 2026/7/8 09:43
 
 ////////

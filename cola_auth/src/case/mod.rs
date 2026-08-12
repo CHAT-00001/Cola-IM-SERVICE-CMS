@@ -1,4 +1,4 @@
-// cola_video/src/cola_auth/case/mod.rs  -- 验证 - 业务逻辑类
+// cola_video/src/auth/case/mod.rs  -- 验证 - 业务逻辑类
 // 2026/4/13 01:31
 
 ////////

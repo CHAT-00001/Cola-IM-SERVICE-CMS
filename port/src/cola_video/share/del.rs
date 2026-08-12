@@ -6,6 +6,8 @@
 
 ////////
 
+use std::arch::x86_64::CpuidResult;
+
 /// # [DEL SERVICE] - 删除
 /// `desc`: `视频分享删除服务端口`
 #[async_trait::async_trait]
@@ -14,24 +16,19 @@ pub trait VideoShareDelPort: Send + Sync {
 
     ////////
 
-    /// # 1. [PORT] - 单个软删除
-    /// * `desc`: `用户单个软删除分享记录`
-    async fn single_soft_del_record(
+    /// # 1. [PORT] - 单个删除
+    async fn delete_share_record(
         &self,
-        uid: i64,      // UID
-        video_id: i64, // 视频ID
-        id: i64,       // 目标ID
+        uid: i64, // UID
+        id: i64,       // 目标 ID
     ) -> anyhow::Result<(u16)>;
 
     ////////
 
-    /// # 2. [PORT] - 保存
-    /// * `desc`: `用户批量软删除分享记录`
-    async fn batch_soft_del_record(
+    /// # 2. [PORT] - 批量删除
+    async fn batch_delete(
         &self,
-        uid: i64,      // UID
-        video_id: i64, // 视频ID
-        ids: Vec<i64>, // 目标IDs
+        ids: Vec<i64>, // 目标 IDs
     ) -> anyhow::Result<(u16)>;
 }
 

@@ -6,7 +6,8 @@
 
 use anyhow::{Result, anyhow};
 use cola_data::cola_video::info::video::VideoInfo;
-use port::ctx::AppContext;
+use port::app::ctx::AppContext;
+use repository::cola_video::pg::video::get::VideoGetRepo;
 use tracing::info;
 
 ////////
@@ -47,17 +48,15 @@ impl UserGetCase {
     pub async fn case_get_video_detail(
         _uid: i64,        // 操作者ID
         video_id: i64,    // 视频ID
-        ctx: &AppContext, // 全局上下文
+        _ctx: &AppContext, // 全局上下文
     ) -> Result<Option<VideoInfo>, anyhow::Error> {
-        let infos = ctx
-            .video
-            .view
-            .get
-            .get_video_list_by_ids(vec![video_id])
+        // Call REPOSITORY - 根据视频ID查询实体
+        let entity = VideoGetRepo::find_an_single_by_id(video_id)
             .await
             .map_err(|e| anyhow!("[🤐 USER GET CASE]: ❌️ 查询视频详情失败: {}", e))?;
 
-        if let Some(info) = infos.into_iter().next() {
+        if let Some(entity) = entity {
+            let info = VideoInfo::from_entity(entity);
             info!(
                 "[🗣️ USER GET CASE]: ✅️ 查询视频详情成功, video_id={}",
                 video_id

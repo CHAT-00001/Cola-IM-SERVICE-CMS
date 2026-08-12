@@ -1,15 +1,16 @@
-// cola_gis/src/api/report.rs  -- 可乐GIS - 接口层 - 兴趣点 举报
+// cola_gis/src/api/report.rs
+// 可乐GIS - 接口层 - POI 举报
 // 2026/6/10 19:13
 
 ////////
 
 use crate::case::report::PoiReportCase;
-use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::cola_auth::info::auth::AuthContext;
 use cola_data::cola_gis::command::report::PoiReportCommand;
+use port::app::ctx::AppContext;
 
 ////////
 

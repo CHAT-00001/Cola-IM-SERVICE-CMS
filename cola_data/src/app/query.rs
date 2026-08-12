@@ -31,6 +31,8 @@ pub struct ApiGatewayRequest {
     pub lat: Option<f64>, // 纬度
     pub lng: Option<f64>, // 经度
 
+    pub is: Option<bool>, // 是非
+
     // 4. 🆔 身份
     #[serde(default)]
     pub auth: Option<AuthSessionRequest>, // 验证信息(access_token / refresh_token ..)
@@ -91,7 +93,7 @@ pub struct ApiGatewayRequest {
 // 构造函数
 impl ApiGatewayRequest {
     //
-    
+
     ////////
 
     /// # [CASE] - 🚧 核心方法：构建并净化请求参数
@@ -144,6 +146,7 @@ impl ApiGatewayRequest {
             lng: body.lng.or(self.lng),
 
             // 4. 身份
+            is: None,
             auth: body.auth.or(self.auth),
 
             // 5. 业务专属（默认值字段：body 非默认才覆盖）

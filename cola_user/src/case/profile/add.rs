@@ -7,7 +7,7 @@
 use anyhow::{Result, anyhow};
 use cola_data::cola_user::command::profile::ProfileCommand;
 use cola_data::cola_user::info::profile::ProfileInfo;
-use port::ctx::AppContext;
+use port::app::ctx::AppContext;
 use service::cola_user::profile::add::ProfileAddService;
 use tracing::info;
 

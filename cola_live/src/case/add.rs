@@ -1,4 +1,4 @@
-// cola_live/src/case/active  -- LIVE - 用例层 - 发布
+// cola_live/src/case/add.rs  -- LIVE - 用例层 - 发布
 // 2026-06-11 10:41
 
 ////////
@@ -8,7 +8,7 @@ use tracing::info;
 use cola_data::cola_fs::rick_check;
 use cola_data::cola_video::command::video::edit::VideoUpdateCommand;
 use cola_data::cola_video::command::video::new::VideoNewCommand;
-use repository::cola_video::service::add::AddService;
+use service::cola_video::video::add::VideoAddService;
 use crate::assembler::video::build_video_single_response;
 use crate::model::vo::video::VideoSingleResponse;
 
@@ -30,7 +30,7 @@ impl AddCase {
         let visibility = rick_check(check_text).await;
 
         // 2. 核心数据持久化与计数更新 (💡 提示：建议让这个 Service 函数返回刚插入成功的 VideoInfo)
-        let video_info = AddService::save_video_and_update_count(uid, cmd, visibility)
+        let video_info = VideoAddService::save_video_and_update_count(uid, cmd, visibility)
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 视频发布持久化失败: {}", e))?;
 
@@ -53,7 +53,7 @@ impl AddCase {
         let visibility = rick_check(check_text).await;
 
         // 2. 核心数据持久化与计数更新
-        let video_info = AddService::edit_content(uid, cmd, visibility)
+        let video_info = VideoAddService::edit_content(uid, cmd, visibility)
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 视频发布持久化失败: {}", e))?;
 

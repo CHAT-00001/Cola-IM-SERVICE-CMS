@@ -11,7 +11,7 @@ use cola_data::cola_user::info::role::RoleInfo;
 use cola_data::cola_user::info::user::UserInfo;
 use service::cola_user::role::manage::RoleManageService;
 use tracing::info;
-use port::ctx::AppContext;
+use port::app::ctx::AppContext;
 ////////
 
 /// # [MANAGE CASE] - 管理
@@ -175,6 +175,7 @@ impl UserRoleManageCase {
 
         // 3. 核心数据持久化与计数更新
         let user_info = ctx
+            .user
             .user
             .add
             .update_user(cmd)

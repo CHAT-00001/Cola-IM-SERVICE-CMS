@@ -1,5 +1,5 @@
-// servicey/src/cola_video/comment/get.rs
-// 👤 服务 - ▶ 可乐视频  - 评论 - 获取
+// service/src/video/comment/get.rs
+// 服务 - ▶ VIDEO  - 评论 - 获取
 // 2026/8/2 17:15 Created.
 
 ////////
@@ -11,7 +11,7 @@ use tracing::log;
 
 ////////
 
-/// # [SERVICE] - 视频 评论 获取 服务
+/// # [GET SERVICE] - 评论 获取
 pub struct CommentGetService;
 
 impl CommentGetService {
@@ -47,26 +47,6 @@ impl CommentGetService {
         limit: i64,
     ) -> Result<Vec<VideoCommentInfo>, anyhow::Error> {
         let entities = CommentRepo::find_comments_by_user_id(video_id, offset, limit).await?;
-
-        // handler -> info
-        let infos: Vec<VideoCommentInfo> = entities
-            .into_iter()
-            .map(VideoCommentInfo::from_entity)
-            .collect();
-
-        Ok(infos)
-    }
-
-    ////////
-
-    /// # 3. [SERVICE] - 浏览我发布评论
-    /// * `user_id`  视频 ID
-    pub async fn get_my_publish_comments(
-        user_id: i64,
-        offset: i64,
-        limit: i64,
-    ) -> Result<Vec<VideoCommentInfo>, anyhow::Error> {
-        let entities = CommentRepo::find_comments_by_user_id(user_id, offset, limit).await?;
 
         // handler -> info
         let infos: Vec<VideoCommentInfo> = entities

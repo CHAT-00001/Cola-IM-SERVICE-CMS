@@ -6,8 +6,8 @@
 use anyhow::Result;
 use tracing::{info, warn};
 use cola_data::cola_video::command::collect::CollectCommand;
-use repository::cola_video::service::collect::CollectService;
-use repository::cola_video::service::permission_change::{PermissionsChangeService};
+use service::cola_video::collect::add::VideoCollectAddService;
+use service::cola_video::collect::del::VideoCollectDelService;
 
 ////////
 
@@ -27,7 +27,7 @@ impl CollectCase {
     ) -> Result<bool> {
 
         // 修改视频评论权限
-        CollectService::save_collect_and_update_count(uid, video_id, cmd)
+        VideoCollectAddService::save_collect_and_update_count(uid, video_id, cmd)
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 添加收藏失败: {}", e))?;
 
@@ -46,7 +46,7 @@ impl CollectCase {
     ) -> Result<bool> {
 
         // 修改视频评论权限
-        CollectService::save_collect_and_update_count(uid, video_id, cmd)
+        VideoCollectAddService::save_collect_and_update_count(uid, video_id, cmd)
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 编辑失败: {}", e))?;
 
@@ -63,11 +63,11 @@ impl CollectCase {
     pub async fn case_del_collect(
         uid: i64,
         video_id: i64,
-        // collect_id: i64,
+        collect_id: i64,
     ) -> Result<bool> {
 
         // 删除收藏
-        CollectService::del_collect_and_update_count(uid, video_id)
+        VideoCollectDelService::single_delete(uid, collect_id)
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 删除失败: {}", e))?;
 

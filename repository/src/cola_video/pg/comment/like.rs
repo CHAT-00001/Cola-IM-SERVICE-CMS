@@ -1,60 +1,97 @@
-// repository/src/cola_video/pg/comment/like.rs
-// 🗄️ 仓储 - ▶ 可乐视频 - pg - 评论记录 - 点赞
-// 2026/8/8 00:48 Created.
+// repository/src/new/pg/comment/like.rs
+// 仓储 - VIDEO - pg - comment - 点赞/不喜欢
+// 2026/6/8 16:55 Created.
 
 ////////
 
-use crate::cola_video::pg::comment::comment::CommentRepo;
-use anyhow::Error;
-
-use tracing::log;
+use crate::pg_pool;
+use sqlx::{self, Postgres, QueryBuilder};
 
 ////////
 
-/// # [LIKE SERVICE] - 发布
-/// * `desc`: `▶ 可乐视频 - 👤 视频评论点赞服务`
-pub struct CommentLikeService;
 
-// 构造实现
-impl CommentLikeService {
-    //
+/// # [LIKE REPOSITORY] - 评论 点赞/不喜欢
+pub struct CommentLikeRepo;
 
-    ////////
+impl CommentLikeRepo {
 
-    /// # 6. [SERVICE] - 点赞
-    /// * `desc` 点赞评论
+
+    /// # 1. [REPOSITORY] - 更新评论点赞（幂等）
     pub async fn update_comment_like_by_id(
         uid: i64,
         comment_id: i64,
         is_liked: bool,
-    ) -> Result<(), anyhow::Error> {
-        // 2. 更新点赞状态（幂等）
-        CommentRepo::update_comment_like_by_id(uid, comment_id, is_liked).await?;
+    ) -> Result<(), sqlx::Error> {
+        let pool = pg_pool();
 
-        Ok(())
-    }
-
-    /// # 8. [SERVICE] - 不喜欢
-    /// * `desc` 点赞评论
-    pub async fn update_comment_unlike_by_id(
-        uid: i64,
-        comment_id: i64,
-        is_unliked: bool,
-    ) -> Result<(), anyhow::Error> {
-        // 2. 更新点赞状态（幂等）
-        CommentRepo::update_comment_unlike_by_id(Some(uid), comment_id, is_unliked).await?;
+        if is_liked {
+            sqlx::query(
+                r#"
+            INSERT INTO video_comments_like (uid, comment_id, created_at)
+            VALUES ($1, $2, NOW())
+            ON CONFLICT (uid, comment_id)
+            DO NOTHING
+            "#,
+            )
+                .bind(uid)
+                .bind(comment_id)
+                .execute(&pool)
+                .await?;
+        } else {
+            sqlx::query(
+                r#"
+            DELETE FROM video_comments_like
+            WHERE uid = $1 AND comment_id = $2
+            "#,
+            )
+                .bind(uid)
+                .bind(comment_id)
+                .execute(&pool)
+                .await?;
+        }
 
         Ok(())
     }
 
     ////////
 
-    /// # 9. [SERVICE] - 检查评论状态
-    pub async fn check_comment_state(_uid: i64, comment_id: i64) -> Result<(), anyhow::Error> {
-        // TODO: 购买付费视频/电商挂载商品落单逻辑
+    /// # 2. [REPOSITORY] - 更新不喜欢
+    pub async fn update_comment_dislike_by_id(
+        uid: Option<i64>,
+        comment_id: i64,
+        is_unliked: bool,
+    ) -> Result<(), sqlx::Error> {
+        let pool = pg_pool();
+
+        if is_unliked {
+            sqlx::query(
+                r#"
+            INSERT INTO cola_video.comments_dislike (uid, comment_id, created_at)
+            VALUES ($1, $2, NOW())
+            ON CONFLICT (uid, comment_id)
+            DO NOTHING
+            "#,
+            )
+                .bind(uid)
+                .bind(comment_id)
+                .execute(&pool)
+                .await?;
+        } else {
+            sqlx::query(
+                r#"
+            DELETE FROM cola_video.comments_dislike
+            WHERE uid = $1 AND comment_id = $2
+            "#,
+            )
+                .bind(uid)
+                .bind(comment_id)
+                .execute(&pool)
+                .await?;
+        }
 
         Ok(())
     }
+
 }
 
 //////// END

@@ -88,7 +88,7 @@ impl VideoCollectDelRepo {
 
     /// # 3. [REPOSITORY] - 单条软删除
     /// * `desc`: `单条软删除收藏记录`
-    pub async fn single_delete_collects_by_id(
+    pub async fn single_delete_by_id(
         collect_id: i64, // 收藏 ID
     ) -> Result<u64, sqlx::Error> {
         let pool = pg_pool();
@@ -120,7 +120,7 @@ impl VideoCollectDelRepo {
 
     /// # 4. [REPOSITORY] - 批量软删除
     /// * `desc`: `批量软删除收藏记录`
-    pub async fn batch_delete_collect_by_ids(
+    pub async fn batch_delete_by_ids(
         collect_ids: &[i64], // 收藏 IDs
     ) -> Result<u64, sqlx::Error> {
         if collect_ids.is_empty() {

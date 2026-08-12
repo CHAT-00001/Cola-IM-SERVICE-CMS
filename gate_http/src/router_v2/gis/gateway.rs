@@ -17,7 +17,7 @@ use std::time::Instant;
 
 /// # 网关请求体
 struct GatewayRequest {
-    auth: AuthContext,     // 补上 cola_auth 字段
+    auth: AuthContext,     // 补上 auth 字段
     action: i16,           // 🌟 以后使用的 int16 动作代码
     service: String,       // 🌟 兼容 PHP PhalApi 的服务名称 (字符串)
     query: Option<String>, // 查询

@@ -1,4 +1,4 @@
-// cola_data/src/cola_auth/info/port.rs  -- 可乐数据中心 - AUTH - Info - 会话信息
+// cola_data/src/auth/info/port.rs  -- 可乐数据中心 - AUTH - Info - 会话信息
 // 2026/6/9 10:07
 
 ////////

@@ -7,8 +7,7 @@ use anyhow::Result;
 use cola_data::app::page::PageInfo;
 use cola_data::cola_video::info::danmaku::DanmakuInfo;
 use crate::model::vo::danmaku::{DanmakuListResponse, DanmakuSingleResponse, DanmakuVo};
-use repository::cola_user::service::user::UserService;
-
+use service::cola_user::user::active::UserService;
 ////////
 
 /// # [BUILD] - 组装单弹幕响应

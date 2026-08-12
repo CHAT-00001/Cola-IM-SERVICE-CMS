@@ -1,16 +1,16 @@
 // cola_gis/src/case/get  -- 可乐GIS - 用例层 - 浏览
 // 2026-07-07
 
-//////
+////////
 
 use crate::assembler::poi::build_poi_single_response;
 use crate::model::vo::poi::PoiSingleResponse;
 use anyhow::{Result, anyhow};
-use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::cola_gis::info::poi::PoiInfo;
+use port::app::ctx::AppContext;
 
-//////
+////////
 
 /// # [CASE] - 浏览 用例
 pub struct PoiViewCase;
@@ -56,4 +56,4 @@ impl PoiViewCase {
     }
 }
 
-////// END
+//////// END

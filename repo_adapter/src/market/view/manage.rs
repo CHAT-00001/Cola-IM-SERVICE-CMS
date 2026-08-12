@@ -1,18 +1,18 @@
-// repo_adapter/src/video/view/manage.rs
-// 🔌 适配器 - VIDEO - 视频 - 浏览记录 - 管理
+// repo_adapter/src/market/view/manage.rs
+// 🔌 适配器 - MARKET - 商品浏览 - 管理
 // 2026/8/8 12:00
 
 ////////
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_video::info::view::VideoViewInfo;
+use cola_data::cola_market::info::goods::view::GoodsViewInfo;
 use port::market::view::manage::GoodsViewManagePort;
 
 ////////
 
 /// # [MANAGE ADAPTER] - 管理
-/// * `desc`: `视频浏览管理服务适配器`
+/// * `desc`: `商品浏览管理服务适配器`
 pub struct GoodsViewManageAdapter;
 
 ////////
@@ -26,15 +26,15 @@ impl GoodsViewManagePort for GoodsViewManageAdapter {
     /// # [ADAPTER] - 管理员列表
     async fn admin_get_views_infos(
         &self,
-        uid: i64,
-        user_id: Option<i64>,
-        video_id: Option<i64>,
-        start_time: Option<i64>,
-        end_time: Option<i64>,
-        status_code: i16,
-        limit: i64,
-        offset: i64,
-    ) -> Result<(Vec<VideoViewInfo>), u64> {
+        _uid: i64,
+        _user_id: Option<i64>,
+        _video_id: Option<i64>,
+        _start_time: Option<i64>,
+        _end_time: Option<i64>,
+        _status_code: i16,
+        _limit: i64,
+        _offset: i64,
+    ) -> Result<(Vec<GoodsViewInfo>), u64> {
         todo!()
     }
 }

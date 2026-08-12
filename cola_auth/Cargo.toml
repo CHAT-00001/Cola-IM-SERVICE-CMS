@@ -12,6 +12,7 @@ cola_data = { path = "../cola_data" }
 cola_user = { path = "../cola_user" }
 repository = { path = "../repository" }
 app_config = { path = "../app" }
+port = { path = "../port" } ## 服务端口
 service = { path = "../service" }  ## 全函数调用service层
 
 ## 外部依赖

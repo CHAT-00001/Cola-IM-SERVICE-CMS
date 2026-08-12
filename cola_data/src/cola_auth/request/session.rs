@@ -1,4 +1,4 @@
-// cola_data/src/cola_auth/request/session.rs  -- 数据 - AUTH - request - 会话
+// cola_data/src/auth/request/session.rs  -- 数据 - AUTH - request - 会话
 // 2026/7/30 16:10
 
 ////////
@@ -8,7 +8,7 @@ use serde::{Deserialize, Serialize};
 ////////
 
 /// # [AUTH] - 客户端认证请求
-/// * `desc`: `网关接收客户端提交的 cola_auth 信息`
+/// * `desc`: `网关接收客户端提交的 auth 信息`
 /// `不可信数据，需要经过验证后生成 SessionContext`
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct AuthSessionRequest {

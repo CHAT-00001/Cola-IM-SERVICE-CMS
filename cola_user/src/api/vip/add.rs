@@ -8,7 +8,7 @@ use crate::case::vip::add::UserVipAddCase;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
-use port::ctx::AppContext;
+use port::app::ctx::AppContext;
 use tracing::{error, info};
 
 ////////

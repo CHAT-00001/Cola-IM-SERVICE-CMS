@@ -1,4 +1,4 @@
-// cola_auth/src/model/vo/cola_auth.rs  -- 可乐验证中心 -  Model - Vo - 认证上下文
+// auth/src/model/vo/auth.rs  -- 可乐验证中心 -  Model - Vo - 认证上下文
 // 2026/4/16 07:49
 
 ////////

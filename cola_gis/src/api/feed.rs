@@ -1,16 +1,17 @@
-// cola_gis/src/api/feed  -- 可乐GIS - 接口层 - feed流
+// cola_gis/src/api/feed.rs
+// 可乐GIS - 接口层 - feed流
 // 2026-07-07
 
-//////
+////////
 
 use crate::case::feed::FeedCase;
 use crate::model::vo::poi::PoiListResponse;
-use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::cola_auth::info::auth::AuthContext;
+use port::app::ctx::AppContext;
 
-//////
+////////
 
 /// # [API HANDLER] - 用户流 接口
 pub struct FeedApi;

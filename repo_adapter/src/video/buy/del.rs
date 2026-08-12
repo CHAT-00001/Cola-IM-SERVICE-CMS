@@ -22,12 +22,10 @@ impl VideoBuyDelPort for BuyDelPortAdapter {
 
     ////////
 
-    /// # 1. [SERVICE] - 单个删除
+    /// # 1. [ADAPTER] - 单个删除
     /// * `desc`: `逻辑删除购买记录`
-    async fn single_soft_del_record(
+    async fn single_delete(
         &self,
-        uid: i64,      // UID
-        video_id: i64, // 视频 ID
         id: i64,       // 目标 ID
     ) -> Result<(u16)> {
         let count = 1;
@@ -38,12 +36,10 @@ impl VideoBuyDelPort for BuyDelPortAdapter {
 
     ////////
 
-    /// # 2. [SERVICE] - 批量删除
+    /// # 2. [ADAPTER] - 批量删除
     /// * `desc`: `逻辑删除购买记录`
     async fn batch_soft_del_record(
         &self,
-        uid: i64,      // UID
-        video_id: i64, // 视频 ID
         ids: Vec<i64>, // 目标 IDs
     ) -> Result<(u16)> {
         let count = 10;

@@ -1,4 +1,4 @@
-// cola_auth/src/kits/sms.rs  -- AUTH - 工具包 - 构建短信验证码
+// auth/src/kits/sms.rs  -- AUTH - 工具包 - 构建短信验证码
 // 2026/4/13 02:10 by wx: cestbon10080
 
 ////////

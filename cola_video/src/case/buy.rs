@@ -5,9 +5,9 @@
 
 use anyhow::{Result, anyhow};
 use tracing::{info, warn};
-use cola_data::app::ctx::AppContext;
+use port::app::ctx::AppContext;
 use cola_data::cola_video::command::buy::VideoBuyCommand;
-use repository::cola_video::service::like::LikeService;
+
 
 ////////
 
@@ -27,7 +27,9 @@ impl BuyCase {
     ) -> Result<()> {
 
         // 1. 保存购买记录
-        ctx.video.buy
+        ctx.video
+            .buy
+            .add
             .save_buy_record(uid, video_id)
             .await
             .map_err(|e| anyhow!("添加购买记录失败: {}", e))?;
@@ -51,8 +53,10 @@ impl BuyCase {
     ) -> Result<()> {
 
         // 1. 保存购买记录
-        ctx.video.buy
-            .del_buy_record(uid, video_id)
+        ctx.video
+            .buy
+            .del
+            .single_delete(video_id)
             .await
             .map_err(|e| anyhow!("删除购买记录数失败: {}", e))?;
 

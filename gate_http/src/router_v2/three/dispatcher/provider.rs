@@ -5,16 +5,12 @@
 
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::cola_three::port::ColaThreePort;
+use port::cola_three::ColaThreePort;
 use serde_json::Value;
-
 //////
 
 /// # [DISPATCH] - 厂商转发器
-pub async fn provider_dispatch(
-    _three: &ColaThreePort,
-    req: &ApiGatewayRequest,
-) -> AppData<Value> {
+pub async fn provider_dispatch(_three: &ColaThreePort, req: &ApiGatewayRequest) -> AppData<Value> {
     let action = req.action.unwrap_or(0);
     AppData::ok(serde_json::json!({"service":"provider","action":action}))
 }

@@ -25,7 +25,7 @@ pub mod stat;   // 统计
 pub fn build_shop_port() -> ShopPort {
     ShopPort {
         add: Arc::new(add::ShopAddAdapter),
-        appy: Arc::new(),
+        appy: Arc::new(appy::ShopAppyAdapter),
         check: Arc::new(check::ShopCheckAdapter),
         del: Arc::new(del::ShopDelAdapter),
         get: Arc::new(get::ShopGetAdapter),

@@ -4,7 +4,7 @@
 
 ////////
 
-use port::cola_auth::AuthServicePorts;
+use port::auth::AuthServicePorts;
 use std::sync::Arc;
 
 ////////

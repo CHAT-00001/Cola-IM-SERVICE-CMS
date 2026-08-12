@@ -13,6 +13,7 @@ network = { path = "../network"}
 cola_data = { path = "../cola_data" }
 cola_music = { path = "../cola_music"}
 cola_user = { path = "../cola_user"}
+port = { path = "../port" } ## 服务端口
 repository = { path = "../repository" }
 service = { path = "../service" }  ## 全函数调用service层
 

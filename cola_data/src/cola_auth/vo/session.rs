@@ -1,4 +1,4 @@
-// data/src/cola_auth/vo/session.rs
+// data/src/auth/vo/session.rs
 // 🗄 数据 - AUTH - vo - 会话视图对象
 // 2026-07-28 10:26
 

@@ -5,8 +5,8 @@
 
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::cola_three::port::ColaThreePort;
 use serde_json::Value;
+use port::cola_three::ColaThreePort;
 
 //////
 

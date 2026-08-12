@@ -1,4 +1,4 @@
-// cola_data/src/cola_video/entity/interact/step.rs
+// cola_data/src/cola_video/entity/interact/dislike
 // 数据 - VIDEO - Entity - 互动 - 踩
 // 2026/8/2 15:08 Created.
 

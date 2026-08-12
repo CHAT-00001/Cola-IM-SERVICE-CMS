@@ -25,7 +25,7 @@ pub mod stat; // 统计
 
 pub fn build_buy_port() -> GoodsBuyPort {
     GoodsBuyPort {
-        add: Arc::new(add::BuyAddPortAdapter),
+        add: Arc::new(add::GoodsBuyAddAdapter),
         check: Arc::new(check::GoodsBuyCheckAdapter),
         del: Arc::new(del::GoodsBuyDelAdapter),
         get: Arc::new(get::GoodsBuyGetAdapter),

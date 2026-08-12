@@ -4,7 +4,7 @@
 //////
 
 use anyhow::Result;
-use cola_data::app::ctx::AppContext;
+use port::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::cola_im::command::contact::ContactCommand;
 

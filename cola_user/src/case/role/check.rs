@@ -9,7 +9,7 @@ use cola_data::cola_fs::rick_check;
 use cola_data::cola_user::command::user::add::UserCommand;
 use cola_data::cola_user::command::user::update::UpdateUserCommand;
 use cola_data::cola_user::info::user::UserInfo;
-use port::ctx::AppContext;
+use port::app::ctx::AppContext;
 use tracing::info;
 ////////
 
@@ -38,6 +38,7 @@ impl UserRoleCheckCase {
         // 2. 核心数据持久化与计数更新 (💡 提示：建议让这个 Service 函数返回刚插入成功的 VideoInfo)
         let user_info = ctx
             .user
+            .user
             .add
             .save_user(cmd)
             .await
@@ -64,6 +65,7 @@ impl UserRoleCheckCase {
 
         // 2. 核心数据持久化与计数更新
         let user_info = ctx
+            .user
             .user
             .add
             .update_user(cmd)

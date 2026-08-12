@@ -10,7 +10,7 @@ use serde::{Deserialize, Serialize};
 
 /// #  [COMMAND] - 短视频 - 上热门命令
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
-pub struct VideoHotlistCommand {
+pub struct HotlistCommand {
     pub send_id: String,        // 发送 ID
     pub user_id: i64,           // 用户 ID
     pub album_id: Option<i64>,  // 专辑 ID

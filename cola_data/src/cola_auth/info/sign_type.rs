@@ -1,4 +1,4 @@
-// cola_data/src/cola_auth/info/sign_type.rs  -- 数据中心 - AUTH - Info - 登录类型
+// cola_data/src/auth/info/sign_type.rs  -- 数据中心 - AUTH - Info - 登录类型
 // 2026/7/28 10:32
 
 ////////

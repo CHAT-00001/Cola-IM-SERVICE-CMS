@@ -16,14 +16,13 @@ pub struct VideoShareDelAdapter;
 
 #[async_trait]
 impl VideoShareDelPort for VideoShareDelAdapter {
-    async fn single_soft_del_record(&self, uid: i64, video_id: i64, id: i64) -> Result<(u16)> {
+    async fn delete_share_record(&self,uid:i64,  id: i64) -> Result<(u16)> {
         todo!()
     }
 
-    async fn batch_soft_del_record(&self, uid: i64, video_id: i64, ids: Vec<i64>) -> Result<(u16)> {
+    async fn batch_delete(&self, ids: Vec<i64>) -> Result<(u16)> {
         todo!()
     }
-    // TODO: 瀹炵幇鍏蜂綋鐨勪笟鍔￠€昏緫
 }
 
 //////// END

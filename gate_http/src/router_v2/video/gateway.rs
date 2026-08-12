@@ -59,7 +59,7 @@ async fn video_gateway(
     // 2️⃣ 把完整原始 Body JSON 注入 api_req.body，供 dispatcher 读取 body.cmd
     api_req.body = serde_json::from_slice(&body).ok();
 
-    // 3️⃣ 前置身份校验：body.cola_auth.access_token → 数据库验证
+    // 3️⃣ 前置身份校验：body.auth.access_token → 数据库验证
     let session = match &api_req.auth {
         Some(auth) if auth.has_token() => {
             let result = SessionStateApi::verify_session(auth, &ctx.auth).await;
@@ -87,7 +87,7 @@ async fn video_gateway(
         session.is_anonymous,
         api_req.body.as_ref().and_then(|b| b.get("cmd")),
     );
-    tracing::info!("🆔: api_req.cola_auth = {:?}", api_req.auth);
+    tracing::info!("🆔: api_req.auth = {:?}", api_req.auth);
 
     // 4️⃣ 分发
     let service_name = api_req.service.clone().unwrap_or_default();

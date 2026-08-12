@@ -1,4 +1,4 @@
-// cola_data/src/cola_auth/entity/email.rs  -- 数据中心 - AUTH - entity - 邮箱
+// cola_data/src/auth/entity/email.rs  -- 数据中心 - AUTH - entity - 邮箱
 // 2026/7/8 09:44
 
 ////////

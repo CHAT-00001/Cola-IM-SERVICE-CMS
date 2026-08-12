@@ -1,5 +1,5 @@
 // data/src/cola_video/entity/comment.rs
-// 🗄 数据 - ▶ 可乐视频 - entity - 评论表
+// 数据 - ▶ VIDEO - entity - 评论表
 // 2026/1/16 09:37 Created.
 
 ////////
@@ -11,9 +11,9 @@ use uuid::{Uuid, uuid};
 
 ////////
 
-/// # [ENTITY] - 视频 评论 实体表
-/// * `pg schema`: `cola_video`
-/// * `table name`: `comments`
+/// # [ENTITY] - 视频 评论表
+/// * `pg schema`: `cola_video` - PG 模式
+/// * `table name`: `comments` - 表名
 /// * `类型`: `1. 文字 2. 语音 3. 照片 4. 视频 5. 位置 7. 表情包 8. 红包 9. 转账 ...`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct VideoCommentEntity {

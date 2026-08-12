@@ -6,7 +6,7 @@
 
 use crate::case::feed::FeedCase;
 use crate::model::vo::video::VideoListResponse;
-use cola_data::app::ctx::AppContext;
+use port::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::app::request::ApiUrlParamsQuery;
@@ -101,7 +101,7 @@ impl UserFeedApi {
         let uid = auth.uid.clone();
         //
         // // 1. 检查会话状态
-        // let auth_res = ensure_user_active(cola_auth, session_port).await;
+        // let auth_res = ensure_user_active(auth, session_port).await;
         // if auth_res.code != 0 {
         //     return AppData::err(auth_res.code, auth_res.message, None);
         // }

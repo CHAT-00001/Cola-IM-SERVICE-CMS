@@ -4,7 +4,6 @@
 
 ////////
 
-use crate::market::address::active;
 use port::market::express::ExpressPort;
 use std::sync::Arc;
 ////////
@@ -25,8 +24,9 @@ pub mod stat; // 统计
 /// * `desc`: 快递端口构造器
 pub fn build_express_port() -> ExpressPort {
     ExpressPort {
-        active: Arc::new(active::AddressActiveAdapter),
+        active: Arc::new(alive::ExpressAliveAdapter),
         add: Arc::new(add::ExpressAddAdapter),
+        check: Arc::new(check::ExpressCheckAdapter),
         delete: Arc::new(del::ExpressDelAdapter),
         get: Arc::new(get::ExpressGetAdapter),
         list: Arc::new(list::ExpressListAdapter),

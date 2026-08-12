@@ -1,4 +1,4 @@
-// service/src/cola_auth/sms.rs
+// service/src/auth/sms.rs
 // 服务 - 可乐验证 - 短信 - 模块
 // 2026/6/5 09:00 Created.
 

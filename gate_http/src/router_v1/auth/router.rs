@@ -1,4 +1,4 @@
-// gate_http/src/router_v2/cola_auth/router2 -- 路由器 AUTH相关
+// gate_http/src/router_v2/auth/router2 -- 路由器 AUTH相关
 // 2026-01-02 10:25
 
 //////
@@ -14,7 +14,7 @@ use crate::router_v2::auth::handler::send::{send_email_code, send_msm_code};
 /// [ROUTER] -  认证中心 - 三级路由
 pub fn auth_router(cfg: &mut web::ServiceConfig) {
     cfg.service(
-        web::scope("/cola_auth")
+        web::scope("/auth")
             .service(
                 web::scope("/port")
                     .route("/phone", web::get().to(phone_login))

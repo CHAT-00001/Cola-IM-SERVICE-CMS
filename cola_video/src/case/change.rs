@@ -6,7 +6,7 @@
 
 use anyhow::Result;
 use tracing::{info, warn};
-use repository::cola_video::service::permission_change::{PermissionsChangeService};
+use service::cola_video::permission::add::PermissionsChangeService;
 
 ////////
 

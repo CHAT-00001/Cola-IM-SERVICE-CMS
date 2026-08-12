@@ -26,9 +26,9 @@ pub mod stat;   // 统计
 pub fn build_goods_port() -> GoodsPort {
     GoodsPort {
         add: Arc::new(add::GoodsAddAdapter),
-        check: Arc::new(check::GoodsListAdapter),
+        check: Arc::new(check::GoodsCheckAdapter),
         delete: Arc::new(del::GoodsDeleteAdapter),
-        get: Arc::new(get::GoodsListAdapter),
+        get: Arc::new(get::GoodsGetAdapter),
         list: Arc::new(list::GoodsListAdapter),
         manage: Arc::new(manage::GoodsManageAdapter),
         stat: Arc::new(stat::GoodsStatAdapter),

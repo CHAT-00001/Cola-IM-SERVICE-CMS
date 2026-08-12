@@ -3,12 +3,12 @@
 
 ////////
 
-use cola_data::app::ctx::AppContext;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::app::request::ApiUrlParamsQuery;
 use cola_data::cola_auth::info::auth::AuthContext;
 use cola_data::cola_user::info::config::UserConfigInfo;
+use port::app::ctx::AppContext;
 use crate::case;
 use crate::case::home::HomeCase;
 use crate::model::vo::video::VideoListResponse;
@@ -21,28 +21,6 @@ pub struct LiveHomeApi;
 impl LiveHomeApi {
 
 
-    ////////
-
-    /// # 1. [API HANDLER] - 规则配置
-    pub async fn handler_get_con(
-        auth: AuthContext,
-        url: ApiGatewayRequest,
-        ctx: &AppContext,
-    ) -> AppData<UserConfigInfo> {
-
-        let uid = auth.uid;
-
-        // Call Case:
-        match HomeCase::case_get_con(uid, url, ctx).await {
-            Ok(resp) => AppData::ok(resp),
-
-            Err(e) => {
-                tracing::error!("New Videos Error: {:?}", e);
-
-                AppData::err(5001, "获取用户配置失败", None)
-            }
-        }
-    }
 
     ////////
 

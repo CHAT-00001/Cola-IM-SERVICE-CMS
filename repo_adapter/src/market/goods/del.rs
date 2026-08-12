@@ -27,8 +27,7 @@ impl GoodsDeletePort for GoodsDeleteAdapter {
     ) -> anyhow::Result<(u64)> {
 
         // 1. Call REPOSITORY ..
-        GoodsDeleteRepo::delete_by_id(goods_id).await?;
-        Ok((u64))
+        Ok(GoodsDeleteRepo::delete_by_id(goods_id).await?)
     }
 
     ////////
@@ -36,17 +35,16 @@ impl GoodsDeletePort for GoodsDeleteAdapter {
     /// # [ADAPTER] - 批量删除
     async fn batch_delete(
         &self,
-        goods_ids: &[i64], // 商品 IDs
+        goods_ids: Vec<i64>, // 商品 IDs
     ) -> anyhow::Result<(u64)> {
-        Ok(GoodsDeleteRepo::delete_by_ids(goods_ids).await?)
+        Ok(GoodsDeleteRepo::delete_by_ids(&goods_ids).await?)
     }
 
     /////////
 
     /// # [ADAPTER] - 删除用户的商品
     async fn delete_videos_by_user_id(&self, user_id: i64) -> anyhow::Result<(u64)> {
-        GoodsDeleteRepo::delete_by_user_id(user_id).await?;
-        todo!()
+        Ok(GoodsDeleteRepo::delete_by_user_id(user_id).await?)
     }
 }
 

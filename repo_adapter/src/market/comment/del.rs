@@ -1,5 +1,5 @@
-// /del.rs
-// 🔌 插头 - 可乐视频 - 评论 - 逻辑删除
+// video/comment/del.rs
+// 🔌 适配器 - VIDEO - 评论 - 逻辑删除
 // 2026/8/6 19:12 Created.
 
 ////////
@@ -11,17 +11,19 @@ use port::cola_video::comment::del::VideoCommentDelPort;
 ////////
 
 /// # [ADD SERVICE] - 发布
-/// * `desc`: `可乐视频 - 视频评论发布服务`
+/// * `desc`: `VIDEO` - `评论删除适配器`
 #[derive(Debug, Default, Clone)]
 pub struct VideoCommentDelAdapter;
 
 #[async_trait]
 impl VideoCommentDelPort for VideoCommentDelAdapter {
-    async fn single_soft_del_record(&self, uid: i64, video_id: i64, id: i64) -> Result<(u16)> {
+    async fn single_delete(&self, id: i64) -> Result<(u16)> {
         todo!()
     }
 
-    async fn batch_soft_del_record(&self, uid: i64, video_id: i64, ids: Vec<i64>) -> Result<(u16)> {
+    async fn batch_delete(&self, ids: Vec<i64>) -> Result<(u16)> {
         todo!()
     }
 }
+
+//////// END

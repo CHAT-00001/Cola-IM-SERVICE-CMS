@@ -4,14 +4,10 @@
 ////////
 
 use anyhow::{Result, anyhow};
-use tracing::{info, warn};
-use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::cola_video::command::share::ShareCommand;
-
-
-////////
-
+use port::app::ctx::AppContext;
+use tracing::{error, info, warn};
 
 ////////
 
@@ -30,12 +26,14 @@ impl ShareCase {
         cmd: ShareCommand,
         ctx: &AppContext,
     ) -> Result<()> {
-        // 1. 获取当前收藏数 (自动从存储层获取)
+        // Call ..
         ctx.video
             .share
+            .add
             .save_share_record(uid, url.video_id, cmd)
             .await
-            .map_err(|e| anyhow!("保存分享视频记录失败:  {}", e))?;
+            .map_err(|e| anyhow!("发布分享视频记录失败:  {}", e))?;
+        error!("[🤐 CASE] - ❌️ 发布分享记录失败: ID: {}", url.id);
 
         Ok(())
     }
@@ -46,13 +44,16 @@ impl ShareCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> Result<()> {
-        ctx.video.share
-            .delete_share_record(uid, url.video_id)
+        // Call ..
+        ctx.video
+            .share
+            .del
+            .delete_share_record(uid, url.id)
             .await
             .map_err(|e| anyhow!("删除分享记录失败: {}", e))?;
+        error!("[🤐 CASE] - ❌️ 删除分享记录失败: ID: {}", url.id);
         Ok(())
     }
-
 }
 
 //////// END

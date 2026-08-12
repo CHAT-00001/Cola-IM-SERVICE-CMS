@@ -1,4 +1,4 @@
-// cola_auth/src/case/session.rs --
+// auth/src/case/session.rs --
 // 🆔 验证中心 - case - 会话用例编排
 // 2026-07-19
 

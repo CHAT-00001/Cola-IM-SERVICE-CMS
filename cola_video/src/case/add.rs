@@ -7,13 +7,15 @@
 use anyhow::{Context, Result};
 use tracing::info;
 use cola_data::cola_fs::rick_check;
+use cola_data::cola_gis::command::comment::CommentType::Video;
 use cola_data::cola_video::command::video::edit::VideoUpdateCommand;
 use cola_data::cola_video::command::video::new::VideoNewCommand;
 use cola_data::cola_video::command::video::permission::VideoUpdatePermissionCommand;
 use cola_data::cola_video::info::video::VideoSingleResponse;
-use repository::cola_video::service::add::AddService;
+use port::app::ctx::AppContext;
+use service::cola_video::video::add::VideoAddService;
 use crate::assembler::video::build_video_single_response;
-use crate::model::vo::video::VideoSingleResponse;
+
 
 ////////
 
@@ -36,7 +38,7 @@ impl AddCase {
         let visibility = rick_check(check_text).await;
 
         // 2. 核心数据持久化与计数更新 (💡 提示：建议让这个 Service 函数返回刚插入成功的 VideoInfo)
-        let video_info = AddService::save_video_and_update_count(uid, cmd, visibility)
+        let video_info = VideoAddService::save_video_and_update_count(uid, cmd, visibility)
             .await
             .map_err(|e| anyhow::anyhow!("[🗣️ BIZ]: 视频发布持久化失败: {}", e))?;
 
@@ -59,7 +61,7 @@ impl AddCase {
         let visibility = rick_check(check_text).await;
 
         // 2. 核心数据持久化与计数更新
-        let video_info = AddAdapter::edit_content(uid, cmd, visibility)
+        let video_info = VideoAddService::edit_content(uid, cmd, visibility)
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 视频发布持久化失败: {}", e))?;
 
@@ -78,7 +80,7 @@ impl AddCase {
         let video_id = cmd.id;
 
         // 1. 权限修改不涉及文本内容风控，直接调用 Service 持久化更新
-        let video_info = AddService::change_permission(uid, cmd)
+        let video_info = VideoAddService::change_permission(uid, cmd)
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 视频权限修改持久化失败: {}", e))?;
 
@@ -101,7 +103,7 @@ impl AddCase {
         let visibility = rick_check(check_text).await;
 
         // 2. 核心数据持久化与计数更新
-        let video_info = AddService::edit_content(uid, cmd, visibility)
+        let video_info = VideoAddService::edit_content(uid, cmd, visibility)
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 视频发布持久化失败: {}", e))?;
 

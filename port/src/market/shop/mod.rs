@@ -16,7 +16,7 @@ use std::sync::Arc;
 ////////
 
 pub mod add; // 发布
-mod appy;
+pub mod appy;
 pub mod check; // 检查
 pub mod count; // 计数
 pub mod del; // 删除

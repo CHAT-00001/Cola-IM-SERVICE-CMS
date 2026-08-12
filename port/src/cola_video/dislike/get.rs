@@ -9,7 +9,7 @@
 /// # [DEL SERVICE] - 获取
 /// `desc`: `视频不喜欢获取服务端口`
 #[async_trait::async_trait]
-pub trait VideoDislikeGetService: Send + Sync {
+pub trait VideoDislikeGetPort: Send + Sync {
     //
 
     ////////

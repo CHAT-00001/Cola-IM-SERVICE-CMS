@@ -6,6 +6,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
+use cola_data::cola_market::info::express::express::ExpressInfo;
 use port::market::express::check::ExpressCheckPort;
 
 ////////
@@ -17,12 +18,12 @@ pub struct ExpressCheckAdapter;
 #[async_trait]
 impl ExpressCheckPort for ExpressCheckAdapter {
     /// # 1. [ADAPTER] - 健康
-    async fn check_health(&self, express_id: i64) -> Result<(bool)> {
+    async fn check_health(&self, _express_id: i64) -> Result<(ExpressInfo)> {
         todo!()
     }
 
     /// # 2. [ADAPTER] - 状态
-    async fn check_status(&self, uid: i64, express_id: i64) -> Result<(i16)> {
+    async fn check_status(&self, _uid: i64, _express_id: i64) -> Result<(i16)> {
         todo!()
     }
 }

@@ -15,24 +15,18 @@ pub trait VideoBuyDelPort: Send + Sync {
 
     ////////
 
-    /// # 1. [PORT] - 单个软删除
-    /// * `desc`: `用户单个软删除分享记录`
-    async fn single_soft_del_record(
+    /// # 1. [PORT] - 单个删除
+    async fn single_delete(
         &self,
-        uid: i64,      // UID
-        video_id: i64, // 视频ID
-        id: i64,       // 目标ID
+        id: i64,       // 目标 ID
     ) -> anyhow::Result<(u16)>;
 
     ////////
 
-    /// # 2. [PORT] - 保存
-    /// * `desc`: `用户批量软删除分享记录`
+    /// # 2. [PORT] - 批量删除
     async fn batch_soft_del_record(
         &self,
-        uid: i64,      // UID
-        video_id: i64, // 视频ID
-        ids: Vec<i64>, // 目标IDs
+        ids: Vec<i64>, // 目标 IDs
     ) -> anyhow::Result<(u16)>;
 }
 

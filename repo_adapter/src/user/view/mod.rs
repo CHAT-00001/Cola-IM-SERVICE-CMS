@@ -10,5 +10,5 @@ pub mod del;
 pub mod get;
 pub mod list;
 pub mod manage;
-mod stat;
+pub(crate) mod stat;
 

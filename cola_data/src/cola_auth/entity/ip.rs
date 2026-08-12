@@ -1,4 +1,4 @@
-// cola_data/src/cola_auth/entity/ip.rs  -- 数据中心 - AUTH - entity - IP地址
+// cola_data/src/auth/entity/ip.rs  -- 数据中心 - AUTH - entity - IP地址
 // 2026/7/8 09:37
 
 ////////

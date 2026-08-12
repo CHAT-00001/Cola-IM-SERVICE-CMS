@@ -6,7 +6,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_gis::command::hotlist::HotlistCommand;
+use cola_data::cola_video::command::hotlist::HotlistCommand;
 use port::cola_video::hotlist::add::VideoHotlistAddPort;
 
 ////////
@@ -24,7 +24,7 @@ impl VideoHotlistAddPort for hotlistaddPortAdapter {
     ////////
 
     /// # 1. [ADAPTER] - 发布
-    async fn send_hotlist(
+    async fn save_hotlist(
         &self,
         uid: i64,
         video_id: i64,

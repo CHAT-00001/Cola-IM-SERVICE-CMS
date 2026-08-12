@@ -1,4 +1,4 @@
-// cola_data/src/cola_auth/cola_dynamic/email.rs  -- 可乐数据中心 - 验证中心 - Command - 邮箱验证码登录
+// cola_data/src/auth/cola_dynamic/email.rs  -- 可乐数据中心 - 验证中心 - Command - 邮箱验证码登录
 // 2026/6/9 07:39
 
 ////////

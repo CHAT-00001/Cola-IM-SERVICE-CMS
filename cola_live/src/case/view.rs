@@ -8,7 +8,7 @@ use crate::api::view;
 use crate::assembler::video::build_video_single_response;
 use crate::model::vo::video::VideoSingleResponse;
 use anyhow::{Result, anyhow};
-use cola_data::app::ctx::AppContext;
+use port::app::ctx::AppContext;
 use cola_data::cola_video::info::video::VideoInfo;
 use std::sync::Arc;
 use cola_data::app::query::ApiGatewayRequest;
@@ -32,7 +32,8 @@ impl ViewCase {
         // Call Service Port
         ctx.video
             .view
-            .save_view_record_update_views_count(uid, url.video_id)
+            .add
+            .save_view(uid, url.video_id)
             .await
             .map_err(|e| anyhow!("保存浏览记录 + 更新浏览数量失败: {}", e))?;
         Ok(())
@@ -52,7 +53,8 @@ impl ViewCase {
         let info: VideoInfo = ctx
             .video
             .view
-            .get_video_list_by_id(url.video_id)
+            .get
+            .get_video_info_by_id(url.video_id)
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 查询视频详情失败: {}", e))?;
 

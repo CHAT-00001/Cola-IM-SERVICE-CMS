@@ -1,4 +1,4 @@
-// cola_data/src/cola_auth/response/sign/mod.rs  -- 数据中心 - AUTH - response - sign - mod
+// cola_data/src/auth/response/sign/mod.rs  -- 数据中心 - AUTH - response - sign - mod
 // 2026/7/28 10:42
 
 ////////

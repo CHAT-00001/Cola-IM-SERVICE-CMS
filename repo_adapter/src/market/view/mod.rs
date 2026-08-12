@@ -28,7 +28,7 @@ pub fn build_goods_view_port() -> GoodsViewPort {
         add: Arc::new(add::GoodsViewAddAdapter),
         del: Arc::new(del::GoodsViewDeleteAdapter),
         get: Arc::new(get::GoodsViewGetAdapter),
-        list: Arc::new(list::ViewListService),
+        list: Arc::new(list::GoodsViewListAdapter),
         manage: Arc::new(manage::GoodsViewManageAdapter),
         stat: Arc::new(stat::GoodsViewStatAdapter),
     }

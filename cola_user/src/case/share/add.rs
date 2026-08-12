@@ -9,7 +9,7 @@ use anyhow::{Result, anyhow};
 use cola_data::cola_user::command::share::ShareUserCommand;
 use cola_data::cola_user::info::share::ShareInfo;
 use tracing::info;
-use port::ctx::AppContext;
+use port::app::ctx::AppContext;
 ////////
 
 /// # [SHARE CASE] - 用户主页分享 用例

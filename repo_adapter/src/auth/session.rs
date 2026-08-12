@@ -1,11 +1,11 @@
-// repo_adapter/src/cola_auth/session.rs
+// repo_adapter/src/auth/session.rs
 // 🔌 适配器 - AUTH - 会话校验
 // 2026/8/2 10:40 Created.
 
 ////////
 
 use async_trait::async_trait;
-use port::cola_auth::session::{SessionPort, SessionUserInfo, SessionVerifyVo};
+use port::auth::session::{SessionPort, SessionUserInfo, SessionVerifyVo};
 use service::cola_auth::session::SessionService;
 
 ////////

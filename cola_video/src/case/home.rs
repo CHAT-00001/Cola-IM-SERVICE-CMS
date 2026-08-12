@@ -4,13 +4,12 @@
 ////////
 
 use crate::assembler::video::build_video_list_response;
-use crate::model::vo::video::VideoListResponse;
 use anyhow::Result;
-use cola_data::app::ctx::AppContext;
+use port::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::cola_user::info::config::UserConfigInfo;
-use repository::cola_video::service::home::VideoHomeService;
-
+use cola_data::cola_video::info::video::VideoListResponse;
+use service::cola_video::video::list::VideoListService;
 ////////
 
 /// # [HOME CASE] - 主页 用例
@@ -19,16 +18,7 @@ pub struct HomeCase;
 impl HomeCase {
     ////////
 
-    /// # 1. [CASE] - 配置 (保持原样，不处理视频)
-    pub async fn case_get_con(
-        uid: i64, // 操作者 ID
-        url: ApiGatewayRequest,
-        ctx: &AppContext,
-    ) -> Result<UserConfigInfo> {
-        // Call Port
-        let entities = ctx.user.con.get_config(uid).await?;
-        Ok(entities)
-    }
+
 
     ////////
 
@@ -38,7 +28,7 @@ impl HomeCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> Result<VideoListResponse> {
-        let video_infos = VideoHomeService::find_new_video_list(url.limit, url.offset).await?;
+        let video_infos = VideoListService::find_new_video_list(url.limit, url.offset).await?;
 
         let response = build_video_list_response(
             video_infos,
@@ -60,7 +50,7 @@ impl HomeCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> Result<VideoListResponse> {
-        let video_infos = VideoHomeService::find_hot_video_list(url.limit, url.offset).await?;
+        let video_infos = VideoListService::find_hot_video_list(url.limit, url.offset).await?;
 
         let response =
             build_video_list_response(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0).await?;
@@ -77,7 +67,7 @@ impl HomeCase {
         ctx: &AppContext,
     ) -> Result<VideoListResponse> {
         let video_infos =
-            VideoHomeService::find_recommend_video_list(url.limit, url.offset).await?;
+            VideoListService::find_recommend_video_list(url.limit, url.offset).await?;
 
         let response =
             build_video_list_response(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0).await?;
@@ -97,7 +87,7 @@ impl HomeCase {
         let lng = url.lng.unwrap_or(114.016487);
 
         // 🌟 已修正：下层直接返回 info，去掉多余转换逻辑
-        let video_infos = VideoHomeService::find_city_video_list(lat, lng, url.limit, url.offset).await?;
+        let video_infos = VideoListService::find_city_video_list(lat, lng, url.limit, url.offset).await?;
 
         let response =
             build_video_list_response(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0).await?;
@@ -115,7 +105,7 @@ impl HomeCase {
         let lng = url.lng.unwrap_or(114.016487);
 
         // 🌟 已修正：直接一步到位拿到 video_infos
-        let video_infos = VideoHomeService::find_city_video_list(lat, lng, url.limit, url.offset).await?;
+        let video_infos = VideoListService::find_city_video_list(lat, lng, url.limit, url.offset).await?;
 
         let response =
             build_video_list_response(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0).await?;
@@ -135,7 +125,7 @@ impl HomeCase {
         let lng = url.lng.unwrap_or(114.016487);
 
         // 🌟 已修正：直接一步到位拿到 video_infos
-        let video_infos = VideoHomeService::find_city_video_list(lat, lng, url.limit, url.offset).await?;
+        let video_infos = VideoListService::find_city_video_list(lat, lng, url.limit, url.offset).await?;
 
         let response =
             build_video_list_response(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0).await?;
@@ -151,7 +141,7 @@ impl HomeCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> Result<VideoListResponse> {
-        let video_infos = VideoHomeService::find_featured_video_list(url.limit, url.offset).await?;
+        let video_infos = VideoListService::find_featured_video_list(url.limit, url.offset).await?;
 
         let response =
             build_video_list_response(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0).await?;
@@ -169,7 +159,7 @@ impl HomeCase {
         let lng = url.lng.unwrap_or(114.016487);
 
         // 🌟 已修正：去掉底层的 Row 解构，直接接收干净的 video_infos
-        let video_infos = VideoHomeService::search_video_keyword_list(
+        let video_infos = VideoListService::search_video_keyword_list(
             url.keyword,
             lat,
             lng,

@@ -9,7 +9,7 @@ pub mod del;    // BlackDelPort
 pub mod get;    // BlackGetPort
 pub mod list;   // BlackListPort
 pub mod manage;
-mod stat;
+pub(crate) mod stat;
 // BlackManagePort
 
 ////////

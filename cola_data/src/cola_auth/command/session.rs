@@ -1,4 +1,4 @@
-// cola_data/src/cola_auth/command/session.rs
+// cola_data/src/auth/command/session.rs
 // 数据 - AUTH - Command - session - 会话
 // 2026/06/05 06:50
 

@@ -1,4 +1,4 @@
-// cola_auth/src/api/session/ban
+// auth/src/api/session/ban
 // core - AUTH - api - session - 状态
 // 2026/04/13 10:15
 
@@ -6,8 +6,9 @@
 
 use cola_data::app::data::AppData;
 use cola_data::app::error;
-use cola_data::cola_auth::port::AuthServicePorts;
 use cola_data::cola_auth::request::session::{AuthSessionRequest, SessionContext};
+use port::auth::AuthServicePorts;
+
 
 ////////
 

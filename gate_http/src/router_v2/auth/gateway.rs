@@ -1,4 +1,4 @@
-// http/src/v2/cola_auth/gateway.rs  --  HTTP 验证中心 网关
+// http/src/v2/auth/gateway.rs  --  HTTP 验证中心 网关
 // 2026/6/18 09:26
 
 ////////
@@ -14,7 +14,6 @@ use cola_data::app::query::ApiGatewayRequest;
 use cola_data::cola_auth::command::email::EmailLoginCommand;
 use cola_data::cola_auth::command::phone::PhoneLoginCommand;
 use cola_data::cola_auth::info::auth::AuthContext;
-use cola_user::api::home::HomeApi;
 use serde::Deserialize;
 use std::time::Instant;
 
@@ -79,7 +78,7 @@ fn extract_client_ip(req: &HttpRequest) -> String {
 /// # [ROUTER]
 pub fn auth_router(cfg: &mut web::ServiceConfig) {
     cfg.service(
-        web::scope("/cola_auth")
+        web::scope("/auth")
             .route("", web::get().to(ping))
             .route("/", web::get().to(root))
             .route("/gateway", web::get().to(auth_gateway))
@@ -128,21 +127,6 @@ async fn auth_gateway(
 
     match gateway_req.service.as_str() {
         //////// 1xxx HOME
-
-        // 1001 最新
-        "home_new" => {
-            let url = ApiGatewayRequest {
-                uid: Some(uid),
-                page: query.page,
-                qty: query.qty,
-                ..Default::default()
-            }
-            .build();
-
-            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
-                .await
-                .finish(&req, start)
-        }
 
         //////// 2xxx SIGN
 

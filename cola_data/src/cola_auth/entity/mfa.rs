@@ -1,4 +1,4 @@
-// cola_data/src/cola_auth/entity/mfa.rs  -- 数据中心 - AUTH - entity - MFA
+// cola_data/src/auth/entity/mfa.rs  -- 数据中心 - AUTH - entity - MFA
 // 2026/7/8 09:37
 
 ////////

@@ -4,13 +4,15 @@
 ////////
 
 use crate::case;
-use crate::case::danmaku::DanmakuCase;
+
 use crate::model::vo::danmaku::{DanmakuListResponse, DanmakuSingleResponse};
 use cola_data::app::data::AppData;
 use cola_data::app::{data, error};
-use cola_data::app::ctx::AppContext;
 use cola_data::cola_auth::info::auth::AuthContext;
 use cola_data::cola_video::command::danmaku::DanmakuCommand;
+use port::app::ctx::AppContext;
+use crate::case::danmaku::add::DanmakuAddCase;
+use crate::case::danmaku::get::DanmakuGetCase;
 ////////
 
 /// # [API] - 弹幕 接口
@@ -27,7 +29,7 @@ impl DanmakuApi {
         cmd: DanmakuCommand,
     ) -> AppData<String> {
         // 如果弹幕也需要独立校验，这里可以同样加上对应的纯函数
-        match DanmakuCase::case_add_danmaku(auth.uid, video_id, cmd).await {
+        match DanmakuAddCase::case_add_danmaku(auth.uid, video_id, cmd).await {
             Ok(_) => AppData::ok("发布弹幕成功".to_string()).with_msg("发布成功"),
             Err(e) => AppData::err(
                 error::INTERNAL_ERROR,
@@ -48,7 +50,7 @@ impl DanmakuApi {
     ) -> AppData<DanmakuListResponse> { // ✅ 改为具体的结构体类型
         let segment_size = 5000;
 
-        match DanmakuCase::case_video_danmakus(
+        match DanmakuGetCase::case_video_danmakus(
             uid,
             video_id,
             play_time,

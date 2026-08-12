@@ -5,11 +5,9 @@
 
 use crate::assembler::video::build_video_list_response;
 use crate::model::vo::video::VideoListResponse;
-use cola_data::app::ctx::AppContext;
+use port::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
-use repository::cola_video::service::feed::FeedService;
-use repository::cola_video::service::like::LikeService;
-use repository::cola_video::service::view::ViewService;
+
 
 //////////
 

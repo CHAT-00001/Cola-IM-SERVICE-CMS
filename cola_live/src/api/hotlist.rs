@@ -1,15 +1,15 @@
-// api/add  -- 接口层 - 上热门
+// cola_live/src/api/hotlist/add.rs
+// core - LIVE - API - 上热门
 // 2026/6/10 08:33
 
 ////////
 
-use cola_data::app::ctx::AppContext;
+use crate::case::hotlist::add::HotlistCase;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::cola_video::command::hotlist::HotlistCommand;
-use cola_data::cola_video::command::report::VideoReportCommand;
-use crate::case::hotlist::HotlistCase;
+use port::app::ctx::AppContext;
 
 ////////
 
@@ -18,7 +18,7 @@ pub struct HotlistApi;
 
 // 构造函数
 impl HotlistApi {
-    ////////
+    //
 
     ////////
 
@@ -29,30 +29,12 @@ impl HotlistApi {
         cmd: HotlistCommand,
         ctx: &AppContext,
     ) -> AppData<String> {
-
         // Call Case
         match HotlistCase::case_add_hotlist(uid, url, cmd, ctx).await {
             Ok(_) => AppData::ok("上热门成功".to_string()).with_msg("上热门成功"),
             Err(e) => AppData::err(error::INTERNAL_ERROR, format!("上热门失败: {:?}", e), None),
         }
     }
-
-    ////////
-
-    // /// # 2. [API HANDLER] - 获取规则
-    // pub async fn handler_get_rule(
-    //     user_id: i64,
-    //     query: i64,
-    //     ctx: &AppContext,
-    // ) -> AppData<String> {
-    //
-    //
-    //     // Call Case
-    //     match HotlistCase::case_view_hotlist_rule(user_id, query, ctx).await {
-    //         Ok(_) => AppData::ok("获取上热门规则成功".to_string()).with_msg("获取上热门规则成功"),
-    //         Err(e) => AppData::err(error::INTERNAL_ERROR, format!("获取上热门规则失败: {:?}", e), None),
-    //     }
-    // }
 }
 
 //////// END

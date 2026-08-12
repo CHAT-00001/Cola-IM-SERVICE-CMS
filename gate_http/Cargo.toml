@@ -1,4 +1,5 @@
 ##### gate_http/src/cargo.toml
+## HTTP 网关
 
 [package]
 name = "gate_http"
@@ -18,6 +19,7 @@ cola_video = { path = "../cola_video" } # 可乐短视频
 cola_user = { path = "../cola_user" } # 可乐用户中心
 app_config = { path = "../app" } # APP配置
 cola_data = { path = "../cola_data" } # 数据中心
+port = { path = "../port" } # 服务端口
 network = { path = "../network" }
 
 

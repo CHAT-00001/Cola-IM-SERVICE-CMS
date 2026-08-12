@@ -1,33 +1,55 @@
-// repo_adapter/src/cola_user/follow/get.rs
-// 🔌 插头 - 可乐用户 - 关注 - 模块
+// repo_adapter/src/user/category/get.rs
+// 🔌 适配器 - 可乐用户 - 分类 - 获取
 // 2026/8/10 05:39 Created.
 
 ////////
 
 use async_trait::async_trait;
-use port::cola_user::follow::get::UserFollowGetPort;
+use port::cola_user::category::get::UserCategoryGetPort;
 
 ////////
 
-/// # [GET ADAPTER] - 关注适配器
-pub struct UserFollowGetAdapter;
+/// # [GET ADAPTER] - 分类适配器
+pub struct CategoryGetAdapter;
 
 #[async_trait]
-impl UserFollowGetPort for UserFollowGetAdapter {
+impl UserCategoryGetPort for CategoryGetAdapter {
+    async fn get_my_follow_ids(
+        &self,
+        _uid: i64,
+        _id: i64,
+        _limit: i64,
+        _offset: i64,
+    ) -> anyhow::Result<(Vec<i64>)> {
+        todo!()
+    }
+
     async fn get_he_follow_ids(
         &self,
-        user_id: i64,
-        limit: i64,
-        offset: i64,
+        _uid: i64,
+        _id: i64,
+        _limit: i64,
+        _offset: i64,
+    ) -> anyhow::Result<(Vec<i64>)> {
+        todo!()
+    }
+
+    async fn get_follow_me_ids(
+        &self,
+        _uid: i64,
+        _id: i64,
+        _limit: i64,
+        _offset: i64,
     ) -> anyhow::Result<(Vec<i64>)> {
         todo!()
     }
 
     async fn get_follow_he_ids(
         &self,
-        id: i64,
-        limit: i64,
-        offset: i64,
+        _uid: i64,
+        _id: i64,
+        _limit: i64,
+        _offset: i64,
     ) -> anyhow::Result<(Vec<i64>)> {
         todo!()
     }

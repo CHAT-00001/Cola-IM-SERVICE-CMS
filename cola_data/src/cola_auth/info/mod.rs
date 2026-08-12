@@ -1,4 +1,4 @@
-// cola_data/src/cola_auth/info/mod.rs  -- 数据中心 - AUTH - Info - mod
+// cola_data/src/auth/info/mod.rs  -- 数据中心 - AUTH - Info - mod
 // 2026/5/22 17:40
 
 ////////

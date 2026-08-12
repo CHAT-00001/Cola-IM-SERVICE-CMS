@@ -5,11 +5,11 @@
 
 use crate::assembler::poi::build_poi_list_response;
 use crate::model::vo::poi::PoiListResponse;
-use cola_data::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
+use port::app::ctx::AppContext;
 use repository::cola_gis::service::home::PoiHomeService;
-use repository::cola_gis::service::view::PoiViewService;
 use repository::cola_gis::service::like::GisLikeService;
+use repository::cola_gis::service::view::PoiViewService;
 
 //////////
 
@@ -27,7 +27,17 @@ impl FeedCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> anyhow::Result<PoiListResponse> {
-        let ids = ctx.user.following.get_following_ids(uid).await?;
+        let user_id = uid;
+        let limit = 100;
+        let offset = 1;
+
+        //
+        let ids = ctx
+            .user
+            .follow
+            .get
+            .get_he_follow_ids(user_id, limit, offset)
+            .await?;
 
         let infos =
             PoiViewService::batch_uids_get_gis_infos(ids, Some(url.keyword), url.offset, url.limit)
@@ -50,12 +60,16 @@ impl FeedCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> anyhow::Result<PoiListResponse> {
-
-        let infos = PoiViewService::get_gis_infos_by_uid(url.user_id, Some(url.keyword), url.offset, url.limit)
-            .await
-            .map_err(|e| {
-                anyhow::anyhow!("BIZ: 获取用户 {} 发布的兴趣点列表失败: {}", url.user_id, e)
-            })?;
+        let infos = PoiViewService::get_gis_infos_by_uid(
+            url.user_id,
+            Some(url.keyword),
+            url.offset,
+            url.limit,
+        )
+        .await
+        .map_err(|e| {
+            anyhow::anyhow!("BIZ: 获取用户 {} 发布的兴趣点列表失败: {}", url.user_id, e)
+        })?;
 
         let resp =
             build_poi_list_response(infos, Some(url.user_id), url.offset, url.limit, 0).await?;
@@ -92,7 +106,6 @@ impl FeedCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> anyhow::Result<PoiListResponse> {
-
         let lat = url.lat.unwrap_or(0.0);
         let lng = url.lng.unwrap_or(0.0);
         let range = 50000.0;

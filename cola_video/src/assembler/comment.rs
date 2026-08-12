@@ -5,11 +5,9 @@
 
 use anyhow::{anyhow, Result};
 use cola_data::app::page::PageInfo;
-use cola_data::cola_user::info::user::UserInfo;
 use cola_data::cola_video::info::comment::VideoCommentInfo; // 🌟 物理 Entity 可以砍了，全线拥抱 Info
 use crate::model::vo::comment::{CommentListResponse, CommentSingleResponse, CommentVo};
-use repository::cola_user::service::user::UserService;
-
+use service::cola_user::user::active::UserService;
 ////////
 
 /// # [ASSEMBLER] - 组装单评论响应
@@ -19,7 +17,7 @@ pub async fn build_comment_single_response(
 ) -> Result<CommentSingleResponse> {
 
     // 1. 静态调用：获取作者信息
-    let author = UserService::get_user_info_by_id(comment_info.user_id).await?;
+    let author = UserService::get_user_info_by_id(comment_info.id).await?;
 
     // 2. 组装 VO (不再需要从 handler 转换，直接原地起飞)
     let comment_vo = CommentVo::from_info(
@@ -44,13 +42,13 @@ pub async fn build_comment_list_response(
 ) -> Result<CommentListResponse> {
 
     // 1. 静态调用：从 infos 中提取 user_id 批量获取用户信息
-    let author_ids: Vec<i64> = infos.iter().map(|info| info.user_id).collect();
+    let author_ids: Vec<i64> = infos.iter().map(|info| info.id).collect();
     let authors_map = UserService::get_user_info_by_ids(&author_ids).await?;
 
     // 2. 迭代组装
     let comments: Vec<CommentVo> = infos.into_iter().map(|comment_info| {
         // 🚀 从 map 中拿取 author，没找到则默认兜底
-        let author = authors_map.get(&comment_info.user_id).cloned().unwrap_or_default();
+        let author = authors_map.get(&comment_info.id).cloned().unwrap_or_default();
 
         CommentVo::from_info(
             comment_info,

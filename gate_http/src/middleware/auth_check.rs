@@ -1,6 +1,6 @@
 // src/middleware/auth_check.rs - jwt 验证
 // 2026-01-16 13:45:00
-// 2026/8/1 重构：统一使用 cola_auth::kits::token 中的密钥与载荷结构
+// 2026/8/1 重构：统一使用 auth::kits::token 中的密钥与载荷结构
 
 use actix_web::{
     dev::{Service, ServiceRequest, ServiceResponse, Transform},
@@ -64,7 +64,7 @@ where
                     if auth_str.starts_with("Bearer ") {
                         let token = &auth_str[7..];
 
-                        // 2. 校验 JWT：使用与生成端完全一致的密钥（cola_auth 统一管理）
+                        // 2. 校验 JWT：使用与生成端完全一致的密钥（auth 统一管理）
                         let secret = kit_get_jwt_secret();
                         let decoding_key = DecodingKey::from_secret(&secret);
                         let validation = Validation::default();

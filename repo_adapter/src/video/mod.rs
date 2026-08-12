@@ -1,23 +1,10 @@
 // repo_adapter/src/video/mod.rs
-// 🔌 插头 - 可乐视频 - 模块
-// 2026/8/10 20:00 Updated.
+// 🔌 插头 - VIDEO - mod
+// 2026/8/10 20:00 Created.
 
 ////////
 
-use crate::stub;
 use port::cola_video::ColaVideoPort;
-use port::cola_video::buy::VideoBuyPort;
-use port::cola_video::collect::VideoCollectPort;
-use port::cola_video::comment::VideoCommentPort;
-use port::cola_video::danmaku::VideoDanmakuPort;
-use port::cola_video::dislike::VideoDislikePort;
-use port::cola_video::hotlist::VideoHotlistPort;
-use port::cola_video::like::VideoLikePort;
-use port::cola_video::recommend::VideoRecommendPort;
-use port::cola_video::share::VideoSharePort;
-use port::cola_video::video::VideoPort;
-use port::cola_video::view::VideoViewPort;
-use std::sync::Arc;
 
 ////////
 
@@ -39,109 +26,17 @@ pub mod view; // 浏览
 /// * `desc`: 构建视频 Port 聚合体，包含所有视频相关功能
 pub fn build_video_port() -> ColaVideoPort {
     ColaVideoPort {
-        buy: VideoBuyPort {
-            add: Arc::new(buy::add::BuyAddPortAdapter),
-            check: Arc::new(stub::GeneralStubAdapter),
-            del: Arc::new(stub::GeneralStubAdapter),
-            get: Arc::new(stub::GeneralStubAdapter),
-            list: Arc::new(stub::GeneralStubAdapter),
-            manage: Arc::new(stub::GeneralStubAdapter),
-            stat: Arc::new(stub::GeneralStubAdapter),
-        },
-        collect: VideoCollectPort {
-            add: Arc::new(collect::add::VideoCollectAddAdapter),
-            check: Arc::new(collect::check::VideoCollectCheckAdapter),
-            del: Arc::new(collect::del::VideoCollectDelAdapter),
-            get: Arc::new(collect::get::VideoCollectGetAdapter),
-            list: Arc::new(collect::list::VideoCollectListAdapter),
-            manage: Arc::new(collect::manage::CollectManageAdapter),
-            stat: Arc::new(collect::stat::VideoCollectStatAdapter),
-        },
-        comment: VideoCommentPort {
-            add: Arc::new(comment::add::CommentAddPortAdapter),
-            check: Arc::new(comment::check::VideoCommentCheckAdapter),
-            del: Arc::new(comment::del::VideoCommentDelAdapter),
-            dislike: Arc::new(comment::dislike::VideoCommentDislikeAdapter),
-            get: Arc::new(comment::get::VideoCommentLikeAdapter),
-            like: Arc::new(comment::like::VideoCommentLikeAdapter),
-            list: Arc::new(comment::list::VideoCommentListAdapter),
-            manage: Arc::new(comment::manage::VideoCommentManageAdapter),
-            stat: Arc::new(comment::stat::VideoCommentStatAdapter),
-        },
-        danmaku: VideoDanmakuPort {
-            add: Arc::new(stub::GeneralStubAdapter),
-            check: Arc::new(stub::GeneralStubAdapter),
-            del: Arc::new(stub::GeneralStubAdapter),
-            get: Arc::new(stub::GeneralStubAdapter),
-            like: Arc::new(stub::GeneralStubAdapter),
-            list: Arc::new(stub::GeneralStubAdapter),
-            manage: Arc::new(stub::GeneralStubAdapter),
-            stat: Arc::new(stub::GeneralStubAdapter),
-            step: Arc::new(stub::GeneralStubAdapter),
-        },
-        dislike: VideoDislikePort {
-            add: Arc::new(stub::GeneralStubAdapter),
-            del: Arc::new(stub::GeneralStubAdapter),
-            get: Arc::new(stub::GeneralStubAdapter),
-            list: Arc::new(stub::GeneralStubAdapter),
-            manage: Arc::new(stub::GeneralStubAdapter),
-            stat: Arc::new(stub::GeneralStubAdapter),
-        },
-        hotlist: VideoHotlistPort {
-            add: Arc::new(stub::GeneralStubAdapter),
-            check: Arc::new(stub::GeneralStubAdapter),
-            del: Arc::new(stub::GeneralStubAdapter),
-            get: Arc::new(stub::GeneralStubAdapter),
-            list: Arc::new(stub::GeneralStubAdapter),
-            manage: Arc::new(stub::GeneralStubAdapter),
-            stat: Arc::new(stub::GeneralStubAdapter),
-        },
-        like: VideoLikePort {
-            add: Arc::new(stub::GeneralStubAdapter),
-            check: Arc::new(stub::GeneralStubAdapter),
-            del: Arc::new(stub::GeneralStubAdapter),
-            get: Arc::new(stub::GeneralStubAdapter),
-            list: Arc::new(stub::GeneralStubAdapter),
-            manage: Arc::new(stub::GeneralStubAdapter),
-            stat: Arc::new(stub::GeneralStubAdapter),
-        },
-        recommend: VideoRecommendPort {
-            add: Arc::new(stub::GeneralStubAdapter),
-            check: Arc::new(stub::GeneralStubAdapter),
-            del: Arc::new(stub::GeneralStubAdapter),
-            get: Arc::new(stub::GeneralStubAdapter),
-            list: Arc::new(stub::GeneralStubAdapter),
-            manage: Arc::new(stub::GeneralStubAdapter),
-            stat: Arc::new(stub::GeneralStubAdapter),
-        },
-        share: VideoSharePort {
-            add: Arc::new(stub::GeneralStubAdapter),
-            check: Arc::new(stub::GeneralStubAdapter),
-            del: Arc::new(stub::GeneralStubAdapter),
-            get: Arc::new(stub::GeneralStubAdapter),
-            list: Arc::new(stub::GeneralStubAdapter),
-            manage: Arc::new(stub::GeneralStubAdapter),
-            stat: Arc::new(stub::GeneralStubAdapter),
-        },
-        video: VideoPort {
-            add: Arc::new(video::add::VideoAddAdapter),
-            check: Arc::new(video::check::VideoCheckAdapter),
-            del: Arc::new(video::del::VideoDelAdapter),
-            get: Arc::new(video::get::VideoGetAdapter),
-            list: Arc::new(video::list::VideoListAdapter),
-            manage: Arc::new(video::manage::VideoManageAdapter),
-            stat: Arc::new(video::stat::VideoStatAdapter),
-        },
-        view: VideoViewPort {
-            active: Arc::new(view::active::VideoViewActiveAdapter),
-            add: Arc::new(view::add::VideoViewAddAdapter),
-            del: Arc::new(view::del::VideoViewDeleteAdapter),
-            get: Arc::new(view::get::VideoViewGetAdapter),
-            list: Arc::new(view::list::ViewListService),
-            manage: Arc::new(view::manage::VideoViewManageAdapter),
-            stat: Arc::new(view::stat::VideoViewStatAdapter),
-        },
-        report: (),
+        buy: buy::build_video_buy_port(),
+        collect: collect::build_video_collect_port(),
+        comment: comment::build_video_comment_port(),
+        danmaku: danmaku::build_video_danmaku_port(),
+        dislike: dislike::build_video_dislike_port(),
+        hotlist: hotlist::build_video_hotlist_port(),
+        like: like::build_video_like_port(),
+        recommend: recommend::build_video_recommend_port(),
+        share: share::build_video_share_port(),
+        video: video::build_video_video_port(),
+        view: view::build_video_view_port(),
     }
 }
 

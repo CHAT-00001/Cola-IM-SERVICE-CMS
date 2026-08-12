@@ -6,6 +6,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
+use cola_data::cola_video::info::video::VideoInfo;
 use port::cola_video::view::get::VideoViewGetPort;
 
 ////////
@@ -17,6 +18,13 @@ pub struct VideoViewGetAdapter;
 // 构造实现
 #[async_trait]
 impl VideoViewGetPort for VideoViewGetAdapter {
+    async fn get_video_info_by_id(&self, id: i64) -> Result<(VideoInfo)> {
+        todo!()
+    }
+
+    async fn get_video_infos_by_ids(&self, ids: Vec<i64>) -> Result<(Vec<VideoInfo>)> {
+        todo!()
+    }
     //
 
     ////////

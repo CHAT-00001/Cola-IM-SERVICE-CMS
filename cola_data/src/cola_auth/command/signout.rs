@@ -1,4 +1,4 @@
-// cola_data/src/cola_auth/command/signout.rs  -- 可乐数据中心 - AUTH - Command - 退出登录
+// cola_data/src/auth/command/signout.rs  -- 可乐数据中心 - AUTH - Command - 退出登录
 // 2026/6/26
 
 //////

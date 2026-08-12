@@ -58,11 +58,11 @@ impl CollectApi {
     pub async fn handler_del_collect(
         user_id: i64,
         video_id: i64,
-        //collect_id: i64,
+        collect_id: i64,
     ) -> AppData<String> {
 
         // Call Case
-        match CollectCase::case_del_collect(user_id, video_id).await {
+        match CollectCase::case_del_collect(user_id, video_id, collect_id).await {
             Ok(_) => AppData::ok("收藏成功".to_string()).with_msg("删除成功"),
             Err(e) => AppData::err(error::INTERNAL_ERROR, format!("删除失败: {:?}", e), None),
         }

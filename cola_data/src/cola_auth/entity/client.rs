@@ -1,4 +1,4 @@
-// cola_data/src/cola_auth/entity/client.rs  -- 数据中心 - AUTH - entity - 客户端
+// cola_data/src/auth/entity/client.rs  -- 数据中心 - AUTH - entity - 客户端
 // 2026/7/8 09:40
 
 ////////

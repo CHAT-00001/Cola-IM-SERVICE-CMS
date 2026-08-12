@@ -1,13 +1,6 @@
-// repository/src/cola_video/pg/comment/clean.rs
-// 🗄️ 仓储 - ▶ 可乐视频 - pg - 评论记录 - 清除
+// repository/src/video/pg/comment/clean.rs
+// 仓储 - ▶ 可乐视频 - pg - 评论记录 - 清除
 // 2026/8/2 15:28 Created.
-
-////////
-
-
-// repository/src/cola_video/pg/danmaku/clean.rs
-// 仓储 - VIDEO - pg - danmaku - 清除
-// 2026/8/3 12:51 Created.
 
 ////////
 
@@ -16,7 +9,8 @@ use sqlx::{self, PgPool};
 
 ////////
 
-/// # [MANAGE REPOSITORY] - 视频 弹幕 清除 仓储
+/// # [CLEAN REPOSITORY] - 弹幕清除
+/// * `desc`: `物理删除`
 pub struct VideoDanmakuCleanRepo;
 
 // 构造函数
@@ -34,9 +28,9 @@ impl VideoDanmakuCleanRepo {
         // 规范做法：限制单次删除条数（例如每次最多删 1000 条），防止大事务锁表
         // 实际定时任务中可以在上层逻辑写一个 loop 循环调用，直到返回影响行数为 0
         let query = r#"
-            DELETE FROM "cola_video"."danmaku"
+            DELETE FROM "cola_video"."comments"
             WHERE id IN (
-                SELECT id FROM "cola_video"."danmaku"
+                SELECT id FROM "cola_video"."comments"
                 WHERE is_deleted = 1
                   AND deleted_at IS NOT NULL
                   AND deleted_at < NOW() - INTERVAL '180 days'
