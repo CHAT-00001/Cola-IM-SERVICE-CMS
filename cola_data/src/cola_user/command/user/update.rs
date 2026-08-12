@@ -21,8 +21,8 @@ pub struct UpdateUserCommand {
     pub email: Option<String>,             // 邮箱
     pub phone: Option<String>,             // 电话
     pub birthday: Option<i64>,             // 生日
-    pub lat: Option<f64>,                  // 纬度
-    pub lng: Option<f64>,                  // 经度
+    pub lat: Option<String>,                  // 纬度
+    pub lng: Option<String>,                  // 经度
     pub updated_at: Option<DateTime<Utc>>, // 更新时间
 }
 
@@ -51,15 +51,16 @@ impl UpdateUserCommand {
             birthday: self.birthday,
             sex: None,
             perm_id: 0,
+            views: None,
             likes: None,
             fans: None,
             follows: None,
             level: None,
             author_level: None,
-            lat: self.lat,
-            lng: self.lng,
-            login_ip: "".to_string(),
-            register_ip: "".to_string(),
+            lat: self.lat.clone(),
+            lng: self.lng.clone(),
+            login_ip: Some("".to_string()),
+            register_ip: Some("".to_string()),
             status: None,
             is_deleted: None,
             create_time: 0,

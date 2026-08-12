@@ -28,15 +28,16 @@ pub struct UserEntity {
     pub birthday: Option<i64>,             // 生日
     pub sex: Option<i16>,                  // 性别
     pub perm_id: i16,                      // 权限
+    pub views: Option<i64>,                // 粉丝数量
     pub likes: Option<i64>,                // 收到的点赞数量
     pub fans: Option<i64>,                 // 粉丝数量
     pub follows: Option<i64>,              // 关注数量
     pub level: Option<i16>,                // 用户等级
     pub author_level: Option<i16>,         // 主播等级
-    pub lat: Option<f64>,                  // 纬度
-    pub lng: Option<f64>,                  // 经度
-    pub login_ip: String,                  // 当前登录IP
-    pub register_ip: String,               // 注册IP
+    pub lat: Option<String>,                  // 纬度
+    pub lng: Option<String>,                  // 经度
+    pub login_ip: Option<String>,                  // 当前登录IP
+    pub register_ip: Option<String>,               // 注册IP
     pub status: Option<i16>,               // 状态
     pub is_deleted: Option<bool>,          // 逻辑删除
     pub create_time: i64,                  // 创建时间（兼容旧版PHP）
@@ -49,15 +50,15 @@ pub struct UserEntity {
 
 /// #[COLUMNS] - 数据表原始字段（对应 Entity 的基础字段，1:1 完全一致）
 pub const USER_COLUMNS: &str = r#"
-    id, _id, user_type, sex, user_nickname, avatar, bg_img, signature, birthday,
-    user_email, mobile, more, lat, lng, country_code,
-    is_ad, firstcharge_used, praise_num
-    views, likes, fans, follows,
-    last_login_time,goodnum, score, votes, votestotal, province, city,
-    isrecommend, openid, login_type, iszombie, isrecord, iszombiep, issuper,ishot, recommend_time,live_window
-    user_login, user_status, user_pass,
+    id, _id, user_type, user_nickname, avatar, bg_img, signature, birthday,
+    sex, perm_id, user_email, mobile AS phone, sns_url, more, lat, lng, country_code,
+    is_ad, firstcharge_used, praise_num,
+    views, likes, fans, follows, level, author_level, login_ip, register_ip,
+    last_login_time, goodnum, score, votes, votestotal, province, city,
+    isrecommend, openid, login_type, iszombie, isrecord, iszombiep, issuper, ishot, recommend_time, live_window,
+    user_login, user_status AS status, user_pass,
     balance, balance_total, balance_consumption,
-    online, online_expired_at, create_time, created_at, updated_at
+    online, online_expired_at, is_deleted, create_time, created_at, updated_at, deleted_at
 "#;
 
 //////// END

@@ -27,8 +27,8 @@ pub struct UserCommand {
     pub description: Option<String>,   // 可选的描述
     pub desc_at: Vec<i64>,             // 描述 - 艾特的用户 IDs
     pub perm_id: Option<i16>,          // 权限
-    pub lat: Option<f64>,              // 纬度
-    pub lng: Option<f64>,              // 经度
+    pub lat: Option<String>,           // 纬度
+    pub lng: Option<String>,           // 经度
     pub last_login_ip: Option<String>, // 最后登录IP
     pub status: Option<i16>,           // 状态：0. 失效 1. 正常
     pub register_type: Option<i16>, // 注册来源类型（1: 手机, 2: 邮箱, 3: 苹果, 4: 谷歌, 5: 微信）
@@ -119,8 +119,8 @@ impl UserCommand {
 
             // ✅ login_ip / register_ip 使用网关层注入的客户端真实 IP
             // 兜底"未知IP"确保 NOT NULL 列不报错
-            login_ip: client_ip.clone(),
-            register_ip: client_ip,
+            login_ip: Some(client_ip.clone()),
+            register_ip: Some(client_ip),
 
             status: Some(0), // 如果开启了审核，状态默认是 0
             perm_id: perm,

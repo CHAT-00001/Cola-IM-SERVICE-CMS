@@ -67,7 +67,7 @@ impl UserGetRepo {
     ) -> Result<Vec<UserEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM \"cola_user\".\"user\" WHERE id = ANY($1) AND status = 1 ORDER BY id DESC",
+            "SELECT {} FROM \"cola_user\".\"user\" WHERE id = ANY($1) AND user_status = 1 ORDER BY id DESC",
             USER_COLUMNS
         );
 
