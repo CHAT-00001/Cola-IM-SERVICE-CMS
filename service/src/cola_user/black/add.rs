@@ -1,4 +1,4 @@
-// service/src/cola_user/black/add.rs
+// service/src/user/black/add.rs
 // 服务 - 可乐用户 - 黑名单 - 发布
 // 2026/8/3 14:28 Created.
 
@@ -6,8 +6,8 @@
 
 use anyhow::{Result, anyhow};
 use cola_data::cola_video::entity::collect::{VIDEO_COLLECT_COLUMNS, VideoCollectEntity};
-use repository::cola_user::pg::black::add::UserBlackAddRepo;
-use repository::cola_user::pg::black::get::UserBlackGetRepo;
+use repository::user::pg::black::add::UserBlackAddRepo;
+use repository::user::pg::black::get::UserBlackGetRepo;
 
 ////////
 

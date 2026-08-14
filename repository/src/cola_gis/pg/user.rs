@@ -1,4 +1,4 @@
-﻿// repository/src/cola_gis/pg/cola_user.rs  -- 仓储 - GIS - pg - 用户
+﻿// repository/src/cola_gis/pg/user.rs  -- 仓储 - GIS - pg - 用户
 // 2026/7/6 14:01
 
 ////////

@@ -1,4 +1,4 @@
-// service/src/cola_user/mod.rs
+// service/src/user/mod.rs
 // 服务 - 可乐用户 - 模块
 // 2026/6/5 00:03 Created.
 

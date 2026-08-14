@@ -6,8 +6,8 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_market::command::address::AddressCommand;
-use cola_data::cola_market::info::address::AddressInfo;
+use cola_data::market::command::address::AddressCommand;
+use cola_data::market::info::address::AddressInfo;
 use port::market::address::add::AddressAddPort;
 
 ////////

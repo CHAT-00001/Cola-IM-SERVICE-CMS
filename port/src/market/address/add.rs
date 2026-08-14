@@ -4,8 +4,8 @@
 
 ////////
 
-use cola_data::cola_market::command::address::AddressCommand;
-use cola_data::cola_market::info::address::AddressInfo;
+use cola_data::market::command::address::AddressCommand;
+use cola_data::market::info::address::AddressInfo;
 ////////
 
 /// # [ADD PORTS] - 发布

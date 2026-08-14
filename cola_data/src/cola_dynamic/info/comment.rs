@@ -1,4 +1,4 @@
-// cola_data/src/cola_dynamic/info/comment.rs
+// cola_data/src/cola_dynamic/info/identity.rs
 // 🗄 数据 - ⏹ 可乐动态 - info - 评论信息
 // 2026/5/21 00:58
 

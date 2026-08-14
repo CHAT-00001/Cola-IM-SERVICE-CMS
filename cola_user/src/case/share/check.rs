@@ -1,1 +1,1 @@
-// cola_user/src/case/share/check.rs  -- 检查 // 2026/8/6 //////// use anyhow::Result; pub struct UserShareCheckCase; impl UserShareCheckCase { pub async fn case_check(uid: i64, target_id: i64) -> Result<bool> { Ok(false) } }
+// user/src/case/share/check.rs  -- 检查 // 2026/8/6 //////// use anyhow::Result; pub struct UserShareCheckCase; impl UserShareCheckCase { pub async fn case_check(uid: i64, target_id: i64) -> Result<bool> { Ok(false) } }

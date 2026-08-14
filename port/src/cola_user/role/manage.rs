@@ -1,4 +1,4 @@
-//port/src/cola_user/role/manage.rs
+//port/src/user/role/manage.rs
 // ⏩️ 端口 - 🗣 用户 - 角色 - 管理
 // 2026/8/5 21:35 Created.
 
@@ -66,7 +66,7 @@ pub trait UserRoleManagePort: Send + Sync + 'static {
     ////////
 
     /// # 7. [PORT] - 获取用户的黑名单
-    /// * `return` : `cola_user ids`
+    /// * `return` : `user ids`
     async fn get_list_by_user_id(
         &self,
         user_id: i64, // 目标用户ID

@@ -1,4 +1,4 @@
-// repository/src/cola_video/pg/comment/del.rs
+// repository/src/cola_video/pg/identity/del.rs
 // 🛢 仓储 - ▶ 可乐视频 - pg - 评论 - 软删除
 // 2026/8/9 00:50 Created.
 
@@ -32,7 +32,7 @@ impl VideoCommentDelRepo {
 
         let query = format!(
             r#"
-            UPDATE cola_video.comment
+            UPDATE cola_video.identity
             SET is_deleted = true,
                 deleted_at = $1,
                 updated_at = $1
@@ -65,7 +65,7 @@ impl VideoCommentDelRepo {
 
         let query = format!(
             r#"
-            UPDATE cola_video.comment
+            UPDATE cola_video.identity
             SET is_deleted = true,
                 deleted_at = $1,
                 updated_at = $1
@@ -95,7 +95,7 @@ impl VideoCommentDelRepo {
 
         let query = format!(
             r#"
-            UPDATE cola_video.comment
+            UPDATE cola_video.identity
             SET is_deleted = true,
                 deleted_at = $1,
                 updated_at = $1
@@ -131,7 +131,7 @@ impl VideoCommentDelRepo {
 
         let query = format!(
             r#"
-            UPDATE cola_video.comment
+            UPDATE cola_video.identity
             SET is_deleted = true,
                 deleted_at = $1,
                 updated_at = $1

@@ -1,11 +1,11 @@
-// service/src/cola_user/role/get.rs
+// service/src/user/role/get.rs
 // 服务 - 可乐用户 - role - 获取
 // 2026/8/3 14:32 Created.
 
 ////////
 
 use cola_data::cola_user::entity::role::UserRoleEntity;
-use repository::cola_user::pg::role::get::UserRoleGetRepo;
+use repository::user::pg::role::get::UserRoleGetRepo;
 
 ////////
 

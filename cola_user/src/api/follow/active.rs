@@ -1,4 +1,4 @@
-// cola_user/src/api/follow/active.rs
+// user/src/api/follow/active.rs
 // core - USER - api - follow - 活跃
 // 2026/8/2 22:06 Created.
 

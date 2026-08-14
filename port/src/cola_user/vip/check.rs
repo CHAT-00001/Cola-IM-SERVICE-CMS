@@ -1,4 +1,4 @@
-// port/src/cola_user/vip/check.rs
+// port/src/user/vip/check.rs
 // ⏩️ 端口 - 🗣 可乐用户 - 贵宾 - 检查
 // 2026/8/6 00:35 Created.
 

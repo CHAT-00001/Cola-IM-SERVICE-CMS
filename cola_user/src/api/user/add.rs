@@ -1,4 +1,4 @@
-// cola_user/src/api/cola_user/add.rs
+// user/src/api/user/add.rs
 // 用户 - api - 用户 - 发布
 // 2026/4/12 14:45
 
@@ -8,7 +8,7 @@ use crate::case::user::add::UserAddCase;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::cola_auth::info::auth::AuthContext;
+use cola_data::auth::info::auth::AuthContext;
 use cola_data::cola_user::command::user::add::UserCommand;
 use cola_data::cola_user::command::user::update::UpdateUserCommand;
 use cola_data::cola_user::info::user::UserInfo;

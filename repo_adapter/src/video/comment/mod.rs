@@ -30,7 +30,7 @@ pub fn build_video_comment_port() -> VideoCommentPort {
         check: Arc::new(check::VideoCommentCheckAdapter),
         del: Arc::new(del::VideoCommentDelAdapter),
         dislike: Arc::new(dislike::VideoCommentDislikeAdapter),
-        get: Arc::new(get::VideoCommentLikeAdapter),
+        get: Arc::new(get::VideoCommentGetAdapter),
         like: Arc::new(like::VideoCommentLikeAdapter),
         list: Arc::new(list::VideoCommentListAdapter),
         manage: Arc::new(manage::VideoCommentManageAdapter),

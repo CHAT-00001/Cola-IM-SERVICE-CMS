@@ -1,4 +1,4 @@
-// port/src/cola_user/category/list.rs
+// port/src/user/category/list.rs
 // ⏩️ 端口 - USER - 分类 - 列表
 // 2026/8/5 21:58 Created.
 

@@ -1,4 +1,4 @@
-// cola_data/src/cola_user/info/follow.rs
+// cola_data/src/user/info/follow.rs
 // 可乐数据中心 - 用户 - info - 用户信息
 // 2026/8/10 05:53 Created.
 

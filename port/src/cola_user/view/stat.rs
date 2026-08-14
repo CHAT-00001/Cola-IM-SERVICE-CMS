@@ -1,4 +1,4 @@
-// port/src/cola_user/view/stat.rs
+// port/src/user/view/stat.rs
 // ⏩️ 端口 - 🗣 用户 - 浏览 - 统计
 // 2026/8/9 20:17 Created.
 

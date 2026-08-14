@@ -20,7 +20,6 @@ use crate::ping::ping;
 
 /// # [RUN] - Start_api_server
 
-// gate_http/src/lib.rs
 
 pub async fn start_api(api_config: &Api, app_state: AppState) {
 

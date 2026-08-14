@@ -1,4 +1,4 @@
-// servicey/src/cola_user/role/clean.rs
+// servicey/src/user/role/clean.rs
 // 👤 服务 - 可乐用户 - 角色 - 清除服务
 // 2026/8/3 19:27 Created.
 

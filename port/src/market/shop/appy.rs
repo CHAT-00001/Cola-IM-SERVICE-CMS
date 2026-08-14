@@ -1,21 +1,14 @@
-// /appy.rs
-// 
+// port/src/market/shop/appy.rs
+// ⏩️ 端口 - 可乐市场 - 商店 - 申请
 // 2026/8/11 05:43 Created.
 
 ////////
 
-
-// port/src/market/shop_appy.rs
-// ⏩️ 端口 - 可乐市场 - 商店 - 申请
-// 2026/6/18 12:21 Created.
+use cola_data::market::command::shop::add::CreatedShopApplyCommand;
 
 ////////
 
-use cola_data::cola_market::command::shop::add::CreatedShopApplyCommand;
-
-////////
-
-/// # [SERVICE PORT] - 商店申请 服务端口
+/// # [APPY PORT] - 商店申请 服务端口
 #[async_trait::async_trait]
 pub trait ShopAppyPort: Send + Sync {
     ////////

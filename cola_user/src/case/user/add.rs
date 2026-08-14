@@ -1,4 +1,4 @@
-// cola_user/src/case/cola_user/add.rs
+// user/src/case/user/add.rs
 // 用户 - case - 用户 - 发布
 // 2026/8/2 22:45 Created.
 

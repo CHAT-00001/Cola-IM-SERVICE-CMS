@@ -1,9 +1,10 @@
-// repository/src/market/pg/address.rs  -- 仓储 - MARKET - pg - 地址
+// repository/src/market/pg/address.rs  --
+// 仓储 - MARKET - pg - 地址
 // 2026/6/18 14:10
 
 ////////
 
-use cola_data::cola_market::entity::address::AddressEntity;
+use cola_data::market::entity::address::AddressEntity;
 use crate::pg_pool;
 
 ////////

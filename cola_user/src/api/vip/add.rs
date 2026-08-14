@@ -1,4 +1,4 @@
-// cola_user/src/api/vip/add.rs
+// user/src/api/vip/add.rs
 // 用户 - api - 贵宾 - 发布接口
 // 2026/6/10 08:41
 

@@ -1,4 +1,4 @@
-// cola_user/src/case/share/add.rs
+// user/src/case/share/add.rs
 // core - USER - case - share - 用户主页分享 用例
 // 2026/6/10 08:14
 // 2026/8/6 原子化：add/del/get/list/manage/check

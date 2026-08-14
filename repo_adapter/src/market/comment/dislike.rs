@@ -1,18 +1,19 @@
-// video/comment/dislike.rs
-// 🔌 插头 - 可乐视频 - 评论 - 不喜欢
+// repo_adapter/src/market/comment/dislike.rs
+// 🔌 适配器 - MARKET - 商品评论 - 不喜欢
 // 2026/8/6 19:58 Created.
 
 ////////
 
 use async_trait::async_trait;
-use port::cola_video::comment::dislike::VideoCommentDisikePort;
+use port::market::comment::dislike::GoodsCommentDisikePort;
 
+////////
 
-/// # [DISLIKE SERVICE] - 评论不喜欢服务
-pub struct VideoCommentDislikeAdapter;
+/// # [DISLIKE ADAPTER] - 评论不喜欢服务
+pub struct GoodsCommentDislikeAdapter;
 
 #[async_trait]
-impl VideoCommentDisikePort for VideoCommentDislikeAdapter {
+impl GoodsCommentDisikePort for GoodsCommentDislikeAdapter {
     //
 
     ////////

@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_user/black/get.rs
+// repo_adapter/src/user/black/get.rs
 // 🔌 适配器 - USER - 黑名单 - 获取
 // 2026/8/6 解耦: 获取黑名单IDs
 
@@ -7,7 +7,7 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use port::cola_user::black::get::UserBlackGetPort;
-use repository::cola_user::pg::black::get::UserBlackGetRepo;
+use repository::user::pg::black::get::UserBlackGetRepo;
 use tracing::{error, info};
 
 ////////

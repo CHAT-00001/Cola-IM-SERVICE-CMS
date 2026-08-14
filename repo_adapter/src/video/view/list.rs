@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_user/ban/del.rs
+// repo_adapter/src/user/ban/del.rs
 // 🔌 适配器 - 可乐用户 - 浏览 - 删除服务
 // 2026/8/7 05:56 Created.
 

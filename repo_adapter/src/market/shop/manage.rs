@@ -6,8 +6,8 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_market::vo::shop_apply::ShopApplyVo;
-use cola_data::cola_market::vo::shop_apply_history::ShopApplyHistoryVo;
+use cola_data::market::vo::shop_apply::ShopApplyVo;
+use cola_data::market::vo::shop_apply_history::ShopApplyHistoryVo;
 use port::market::shop::manage::ShopManagePort;
 
 ////////

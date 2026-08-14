@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_user/friend/get.rs
+// repo_adapter/src/user/friend/get.rs
 // 🔌 插头 - 可乐用户 - 朋友 - 获取
 // 2026/8/6 解耦: 获取朋友IDs
 

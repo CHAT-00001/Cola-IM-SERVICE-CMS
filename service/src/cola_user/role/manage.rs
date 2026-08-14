@@ -1,4 +1,4 @@
-// service/src/cola_user/role/manage.rs
+// service/src/user/role/manage.rs
 // 👤 服务 - 可乐用户 - role - 管理服务
 // 2026/8/3 14:32 Created.
 
@@ -6,7 +6,7 @@
 
 use anyhow::Result;
 use cola_data::cola_user::info::role::RoleInfo;
-use repository::cola_user::pg::role::manage::UserRoleManageRepo;
+use repository::user::pg::role::manage::UserRoleManageRepo;
 
 ////////
 

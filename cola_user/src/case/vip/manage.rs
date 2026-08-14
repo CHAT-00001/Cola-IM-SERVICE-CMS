@@ -1,4 +1,4 @@
-// cola_user/src/case/vip/manage.rs
+// user/src/case/vip/manage.rs
 // core - USER - case - vip - 管理 用例
 // 2026/8/2 22:53 Created.
 

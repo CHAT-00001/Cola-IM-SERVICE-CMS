@@ -6,7 +6,7 @@
 // ////////
 //
 // use crate::cola_dynamic::info::cola_dynamic::DynamicInfo;
-// use crate::cola_user::info::cola_music::UserInfo;
+// use crate::user::info::cola_music::UserInfo;
 // use serde::{Deserialize, Serialize};
 // use crate::app::page::PageInfo;
 // ////////

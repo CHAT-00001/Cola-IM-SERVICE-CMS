@@ -1,4 +1,4 @@
-// cola_user/src/pkg/error.rs
+// user/src/pkg/error.rs
 // 用户 - pkg - 错误
 // 2026/3/28 08:13
 

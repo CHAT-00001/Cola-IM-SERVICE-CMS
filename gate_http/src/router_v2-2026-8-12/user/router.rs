@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize};
 pub fn user_router2(cfg: &mut web::ServiceConfig) {
     cfg.service(
         // # router dispatcher
-        web::scope("/cola_user")
+        web::scope("/user")
             .route("", web::get().to(get_users))
             .route("/{id}", web::get().to(get_user))
             .route("", web::post().to(create_user))

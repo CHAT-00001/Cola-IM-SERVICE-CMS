@@ -8,12 +8,12 @@ use crate::ping::ping;
 use actix_web::{HttpMessage, HttpRequest, HttpResponse, Responder, web};
 use app_config::app_state::AppState;
 use cola_auth::api::code::AuthCodeApi;
-use cola_auth::api::seesion::add::AuthAddApi;
+use cola_auth::api::seesion::add::SessionAddApi;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::cola_auth::command::email::EmailLoginCommand;
-use cola_data::cola_auth::command::phone::PhoneLoginCommand;
-use cola_data::cola_auth::info::auth::AuthContext;
+use cola_data::auth::command::email::EmailLoginCommand;
+use cola_data::auth::command::phone::PhoneLoginCommand;
+use cola_data::auth::info::auth::AuthContext;
 use serde::Deserialize;
 use std::time::Instant;
 
@@ -137,7 +137,7 @@ async fn auth_gateway(
             // 从 HttpRequest 提取客户端真实 IP 注入 cmd
             cmd.client_ip = extract_client_ip(&req);
 
-            AuthAddApi::handler_sign_in_by_phone(cmd)
+            SessionAddApi::handler_sign_in_by_phone(cmd)
                 .await
                 .finish(&req, start)
         }
@@ -146,7 +146,7 @@ async fn auth_gateway(
         "add_email" => {
             let cmd: EmailLoginCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
 
-            AuthAddApi::handler_sign_in_by_email(cmd)
+            SessionAddApi::handler_sign_in_by_email(cmd)
                 .await
                 .finish(&req, start)
         }
@@ -155,7 +155,7 @@ async fn auth_gateway(
         "add_pwd" => {
             let cmd: EmailLoginCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
 
-            AuthAddApi::handler_sign_in_by_email(cmd)
+            SessionAddApi::handler_sign_in_by_email(cmd)
                 .await
                 .finish(&req, start)
         }
@@ -164,7 +164,7 @@ async fn auth_gateway(
         "add_google" => {
             let cmd: EmailLoginCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
 
-            AuthAddApi::handler_sign_in_by_email(cmd)
+            SessionAddApi::handler_sign_in_by_email(cmd)
                 .await
                 .finish(&req, start)
         }
@@ -173,7 +173,7 @@ async fn auth_gateway(
         "add_apple" => {
             let cmd: EmailLoginCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
 
-            AuthAddApi::handler_sign_in_by_email(cmd)
+            SessionAddApi::handler_sign_in_by_email(cmd)
                 .await
                 .finish(&req, start)
         }
@@ -182,7 +182,7 @@ async fn auth_gateway(
         "add_wechat" => {
             let cmd: EmailLoginCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
 
-            AuthAddApi::handler_sign_in_by_email(cmd)
+            SessionAddApi::handler_sign_in_by_email(cmd)
                 .await
                 .finish(&req, start)
         }
@@ -191,7 +191,9 @@ async fn auth_gateway(
         "add_out" => {
             let cmd: PhoneLoginCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
 
-            AuthAddApi::handler_sign_out(cmd).await.finish(&req, start)
+            SessionAddApi::handler_sign_out(cmd)
+                .await
+                .finish(&req, start)
         }
 
         //////// 3xxx CODE
@@ -252,7 +254,10 @@ async fn auth_gateway(
 
         _ => AppData::<()>::err(
             2004,
-            format!("[🌐 GATEWAY]: ⚠️ Unknown the [🆔 AUTH] service: {}", gateway_req.service),
+            format!(
+                "[🌐 GATEWAY]: ⚠️ Unknown the [🆔 AUTH] service: {}",
+                gateway_req.service
+            ),
             None,
         )
         .finish(&req, start),

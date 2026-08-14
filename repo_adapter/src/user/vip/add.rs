@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_user/vip/add.rs
+// repo_adapter/src/user/vip/add.rs
 // 🔌 适配器 - 可乐用户 - 贵宾 - 开通/取消
 // 2026/8/6 12:40 Created.
 

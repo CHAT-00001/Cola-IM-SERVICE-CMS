@@ -1,4 +1,4 @@
-// cola_user/src/api/black/check.rs
+// user/src/api/black/check.rs
 // 🗣 可乐用户 - api - black - 检查接口
 // 2026/8/2 22:21 Created.
 

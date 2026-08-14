@@ -1,29 +1,24 @@
-// auth/src/api/code.rs  -- 可乐验证中心 - 接口层 - 验证码
+// auth/src/api/sign/code.rs  -- 可乐验证中心 - 接口层 - 登录 - 验证码
 // 2026/6/22 06:48
 
-//////
+////////
 
-use crate::case::session::{SessionCase};
-use cola_data::cola_auth::vo::session::SignResponse;
-use cola_data::app::api::ApiQuery;
-use cola_data::app::data::AppData;
-use cola_data::app::error;
-use cola_data::cola_auth::command::phone::PhoneLoginCommand;
-use tracing::log;
-use validator::Validate;
 use crate::case::code::AuthCodeCase;
-use crate::case::login::LoginCase;
+use cola_data::app::data::AppData;
 
-//////
+////////
 
-/// # [API] - 验证码 接口
+/// # [CODE HANDLER] - 验证码 接口
+/// * `desc`: `登录验证码接口`
 pub struct AuthCodeApi;
 
 impl AuthCodeApi {
+    //
 
     ////////
 
-    /// # [API] - 获取手机短信验证码
+    /// # [API HANDLER] - 获取手机短信验证码
+    /// * `desc`: `获取手机短信验证码`
     pub async fn handler_get_sms_code(phone: &String) -> AppData<String> {
         if phone.is_empty() {
             return AppData::err(4000, "手机号不能为空", None);
@@ -37,7 +32,7 @@ impl AuthCodeApi {
 
     ////////
 
-    /// # 2. [API] - 获取邮箱验证码
+    /// # 2. [API HANDLER] - 获取邮箱验证码
     pub async fn handler_get_email_code(email: &String) -> AppData<String> {
         if email.is_empty() {
             return AppData::err(4000, "邮箱不能为空", None);
@@ -51,7 +46,7 @@ impl AuthCodeApi {
 
     ////////
 
-    /// # 3. [API] - 获取密码验证码
+    /// # 3. [API HANDLER] - 获取密码验证码
     pub async fn handler_get_pwd_code(email: &String) -> AppData<String> {
         if email.is_empty() {
             return AppData::err(4000, "账号不能为空", None);
@@ -62,8 +57,6 @@ impl AuthCodeApi {
             Err(e) => AppData::err(500, &e.to_string(), None),
         }
     }
-    
-
 }
 
 //////// END

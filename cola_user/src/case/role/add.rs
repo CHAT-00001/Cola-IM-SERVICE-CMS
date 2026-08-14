@@ -1,4 +1,4 @@
-// cola_user/src/case/role/add.rs
+// user/src/case/role/add.rs
 // core - 可乐用户 - case - role - 角色添加/删除 用例
 // 2026/8/2 22:49 Created.
 
@@ -52,7 +52,7 @@ impl UserRoleAddCase {
         role_id: i64,      // 角色ID
         _ctx: &AppContext, // 全局上下文
     ) -> Result<(), anyhow::Error> {
-        repository::cola_user::pg::role::add::UserRoleAddRepo::soft_delete_follows_by_uid(uid)
+        repository::user::pg::role::add::UserRoleAddRepo::soft_delete_follows_by_uid(uid)
             .await
             .map_err(|e| anyhow!("[🤐 ROLE CASE]: ❌️ 删除角色失败: {}", e))?;
 

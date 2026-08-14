@@ -1,4 +1,4 @@
-// port/src/cola_user/view/add.rs
+// port/src/user/view/add.rs
 // 用户 - port - 浏览 - 发布
 // 2026/8/6 00:44 Created.
 

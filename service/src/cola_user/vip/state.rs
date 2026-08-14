@@ -1,11 +1,11 @@
-// service/src/cola_user/vip/state.rs
+// service/src/user/vip/state.rs
 // 服务 - 可乐用户 - 贵宾 - 状态
 // 2026/8/7 21:39 Created.
 
 ////////
 
 use anyhow::{Result, anyhow};
-use repository::cola_user::pg::vip::add::VipAddRepo;
+use repository::user::pg::vip::add::VipAddRepo;
 
 ////////
 

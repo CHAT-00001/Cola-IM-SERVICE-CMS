@@ -7,13 +7,13 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use chrono::Utc;
-use cola_data::cola_market::command::goods::GoodsCommand;
+use cola_data::market::command::goods::GoodsCommand;
 use port::market::goods::add::GoodsAddPort;
 use repository::cola_market::pg::goods::add::GoodsAddRepo;
 
 ////////
-/// # [ADD ADAPTER] - 商品 端口适配器
-/// `desc`: `MARKET - 商品适配器`
+/// # [ADD ADAPTER] - 商品 发布
+/// `desc`: `MARKET - 商品发布适配器`
 pub struct GoodsAddAdapter;
 
 #[async_trait]

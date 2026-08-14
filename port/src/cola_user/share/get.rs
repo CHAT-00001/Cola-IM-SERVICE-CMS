@@ -1,4 +1,4 @@
-// port/src/cola_user/share/get.rs
+// port/src/user/share/get.rs
 // ⏩️ 端口 - 🗣 USER - 分享 - 获取
 // 2026/6/11 20:13
 

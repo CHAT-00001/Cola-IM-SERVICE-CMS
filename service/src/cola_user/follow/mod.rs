@@ -1,4 +1,4 @@
-// service/src/cola_user/follow/mod.rs
+// service/src/user/follow/mod.rs
 // 👤 服务 - 🗣 可乐用户 - 关注 - 模块
 // 2026/8/2 21:56 Created.
 

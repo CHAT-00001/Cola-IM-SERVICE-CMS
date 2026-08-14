@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_user/cola_user/del.rs
+// repo_adapter/src/user/user/del.rs
 // 🔌 适配器 - 用户 - 用户 - 列表服务
 // 2026/8/7 04:51 Created.
 

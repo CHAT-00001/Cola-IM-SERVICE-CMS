@@ -1,4 +1,4 @@
-// servicey/src/cola_video/comment/state.rs
+// servicey/src/cola_video/identity/state.rs
 // 👤 服务 - ▶ 可乐视频  - 评论 - 状态
 // 2026/8/2 17:20 Created.
 

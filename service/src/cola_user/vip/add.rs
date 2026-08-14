@@ -1,4 +1,4 @@
-// service/src/cola_user/vip/add.rs
+// service/src/user/vip/add.rs
 // 服务 - 可乐用户 - 贵宾 - 发布
 // 2026/8/7 21:38 Created.
 
@@ -6,7 +6,7 @@
 
 use anyhow::{Result, anyhow};
 use cola_data::cola_user::command::vip::VipCommand;
-use repository::cola_user::pg::vip::add::VipAddRepo;
+use repository::user::pg::vip::add::VipAddRepo;
 
 ////////
 

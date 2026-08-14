@@ -1,4 +1,4 @@
-// cola_data/cola_user/mod.rs  -- 可乐数据中心 - cola_user - mod
+// cola_data/user/mod.rs  -- 可乐数据中心 - user - mod
 // 2026/6/5 00:05
 
 ////////

@@ -5,15 +5,15 @@
 // ////////
 //
 //
-// // repository/src/cola_user/service/role/get.rs
+// // repository/src/user/service/role/get.rs
 // // 仓储 - USER - service - role - 添加
 // // 2026/8/3 14:32 Created.
 //
 // ////////
 //
-// use cola_data::cola_user::entity::role::UserRoleEntity;
+// use cola_data::user::entity::role::UserRoleEntity;
 // use cola_data::cola_video::entity::cola_video::cola_video::VideoEntity;
-// use crate::cola_user::pg::role::get::UserRoleGetRepo;
+// use crate::user::pg::role::get::UserRoleGetRepo;
 //
 // /// # [GET SERVICE] - 用户 角色 前台 服务
 // pub struct UserRoleGetService;

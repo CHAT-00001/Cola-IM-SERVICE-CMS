@@ -1,4 +1,4 @@
-// port/src/cola_user/vip/manage.rs
+// port/src/user/vip/manage.rs
 // ⏩️ 端口 - 🗣 可乐用户 - 贵宾 - 管理
 // 2026/8/6 00:35 Created.
 
@@ -65,7 +65,7 @@ pub trait VipManagePort: Send + Sync + 'static {
     ////////
 
     /// # 7. [PORT] - 获取用户的贵宾
-    /// * `return` : `cola_user ids`
+    /// * `return` : `user ids`
     async fn get_list_by_user_id(
         &self,
         user_id: i64, // 目标用户ID

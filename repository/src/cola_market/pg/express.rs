@@ -5,7 +5,7 @@
 ////////
 
 use crate::pg_pool;
-use cola_data::cola_market::entity::express::express::ExpressEntity;
+use cola_data::market::entity::express::express::ExpressEntity;
 
 ////////
 
@@ -22,7 +22,7 @@ impl ExpressRepo {
     pub async fn find_enabled() -> Result<Vec<ExpressEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM shop_express WHERE express_status = 1 ORDER BY sort ASC",
+            "SELECT {} FROM cola_market.express WHERE express_status = 1 ORDER BY sort ASC",
             Self::COLUMNS
         );
         sqlx::query_as::<_, ExpressEntity>(&query)
@@ -34,7 +34,7 @@ impl ExpressRepo {
     pub async fn find_by_id(id: i64) -> Result<Option<ExpressEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM shop_express WHERE id = $1 LIMIT 1",
+            "SELECT {} FROM cola_market.express WHERE id = $1 LIMIT 1",
             Self::COLUMNS
         );
         sqlx::query_as::<_, ExpressEntity>(&query)

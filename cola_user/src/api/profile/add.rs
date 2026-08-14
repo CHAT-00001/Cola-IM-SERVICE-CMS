@@ -1,4 +1,4 @@
-// cola_user/src/api/profile/add.rs
+// user/src/api/profile/add.rs
 // core - USER - api - profile - 资料名片 接口
 // 2026/8/4 01:02 Created.
 

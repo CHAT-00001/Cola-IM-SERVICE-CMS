@@ -1,5 +1,5 @@
-// repository/src/new/pg/comment/like.rs
-// 仓储 - VIDEO - pg - comment - 点赞/不喜欢
+// repository/src/new/pg/identity/like.rs
+// 仓储 - VIDEO - pg - identity - 点赞/不喜欢
 // 2026/6/8 16:55 Created.
 
 ////////

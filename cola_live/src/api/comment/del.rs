@@ -1,4 +1,4 @@
-// live/api/comment/del.rs
+// live/api/identity/del.rs
 // LIVE - API - COMMENT - DEL
 // 2026/8/12 05:56 Created.
 
@@ -7,7 +7,7 @@
 use crate::case::comment::del::CommentDelCase;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::cola_auth::info::auth::AuthContext;
+use cola_data::auth::info::auth::AuthContext;
 use port::app::ctx::AppContext;
 
 ////////

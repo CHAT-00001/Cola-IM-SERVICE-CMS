@@ -7,9 +7,10 @@
 use anyhow::Result;
 use cola_data::cola_user::command::user::add::UserCommand;
 use cola_data::cola_user::info::user::UserInfo;
-use repository::cola_user::pg::user::get::UserGetRepo;
+use repository::user::pg::user::get::UserGetRepo;
 use std::collections::HashMap;
-use tracing::{info, warn}; // 引入日志宏
+use tracing::{info, warn};
+
 ////////
 
 /// # [GET SERVICE] - 获取

@@ -1,4 +1,4 @@
-// video/comment/dislike.rs
+// repo_adapter/src/video/comment/dislike.rs
 // 🔌 插头 - 可乐视频 - 评论 - 不喜欢
 // 2026/8/6 19:58 Created.
 

@@ -16,7 +16,8 @@ use uuid::Uuid;
 
 ////////
 
-/// # [PAYLOAD] - JWT 载荷（含设备 ID，支持多端登录）
+/// # [PAYLOAD] - JWT 载荷
+/// * `desc`: （含设备 ID，支持多端登录）
 #[derive(Debug, Serialize, Deserialize)]
 pub struct JwtClaims {
     pub sub: i64,          // 用户 ID (uid)
@@ -28,8 +29,8 @@ pub struct JwtClaims {
 
 ////////
 
-/// # 生产级签名密钥
-/// * `pub`: 供网关 middleware (JwtAuth) 复用同一密钥进行解码验证
+/// # [KITS] - 秘钥
+/// * `desc`: 生产级签名密钥 - 供网关 middleware (JwtAuth) 复用同一密钥进行解码验证
 pub fn kit_get_jwt_secret() -> Vec<u8> {
     b"cola_cms_jwt_secret_key_2026_secure_v2!@#".to_vec()
 }
@@ -49,10 +50,10 @@ fn get_aes_key() -> [u8; 32] {
 ////////
 
 /// # 1. [KITS] - 生成 access_token (JWT)，带 device_id
-/// * 有效期: 由 `SessionCommand::ACCESS_TOKEN_TTL_DAYS` 统一控制（默认 10 天）
+/// * `desc`: 有效期: 由 `SessionCommand::ACCESS_TOKEN_TTL_DAYS` 统一控制（默认 10 天）
 pub fn kit_generate_access_token(uid: i64, device_id: &str) -> Result<(String, i64), anyhow::Error> {
     let now = Utc::now();
-    let ttl_days = cola_data::cola_auth::command::session::SessionCommand::ACCESS_TOKEN_TTL_DAYS;
+    let ttl_days = cola_data::auth::command::session::SessionCommand::ACCESS_TOKEN_TTL_DAYS;
     let exp = now + Duration::days(ttl_days);
     let exp_ts = exp.timestamp() as usize;
 
@@ -109,7 +110,7 @@ pub fn kit_generate_access_token_with_ttl(
 /// * 方案: 64 字节随机数 → 128 hex 字符
 pub fn kit_generate_refresh_token() -> Result<(String, i64), anyhow::Error> {
     let now = Utc::now();
-    let ttl_days = cola_data::cola_auth::command::session::SessionCommand::REFRESH_TOKEN_TTL_DAYS;
+    let ttl_days = cola_data::auth::command::session::SessionCommand::REFRESH_TOKEN_TTL_DAYS;
     let exp = now + Duration::days(ttl_days);
     let exp_ts = exp.timestamp();
 
@@ -194,8 +195,8 @@ pub fn kit_build_session_cmd(
     phone: &str,
     platform: &str,
     device_id: &str,
-) -> Result<(cola_data::cola_auth::command::session::SessionCommand, String, String), anyhow::Error> {
-    use cola_data::cola_auth::command::session::SessionCommand;
+) -> Result<(cola_data::auth::command::session::SessionCommand, String, String), anyhow::Error> {
+    use cola_data::auth::command::session::SessionCommand;
 
     let (access_token, access_exp) = kit_generate_access_token(uid, device_id)?;
     let (refresh_token_raw, refresh_exp) = kit_generate_refresh_token()?;

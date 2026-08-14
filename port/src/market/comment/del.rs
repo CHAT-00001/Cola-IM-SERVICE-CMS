@@ -1,15 +1,15 @@
-// cola_video/port/comment/del.rs
-// 视频 - port - 评论 - 删除
+// port/src/market/comment/del.rs
+// ⏩️ 端口 - MARKET - 商品评论 - 删除
 // 2026/8/5 00:03 Created.
 
 ////////
 
 ////////
 
-/// # [DEL SERVICE] - 删除
-/// `desc`: `视频评论删除服务端口`
+/// # [DEL SERVICE] - 逻辑删除
+/// `desc`: `MARKET - 商品评论逻辑删除端口`
 #[async_trait::async_trait]
-pub trait VideoCommentDelPort: Send + Sync {
+pub trait GoodsCommentDelPort: Send + Sync {
     //
 
     ////////

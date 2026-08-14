@@ -1,4 +1,4 @@
-// cola_user/src/case/vip/get.rs
+// user/src/case/vip/get.rs
 // core - USER - case - vip - 获取 用例
 // 2026/8/2 22:53 Created.
 

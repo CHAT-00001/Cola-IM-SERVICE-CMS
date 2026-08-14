@@ -14,7 +14,7 @@ use sqlx::{FromRow, types::JsonValue};
 #[derive(Debug, FromRow, Serialize, Deserialize)]
 pub struct WalletUserManage {
     pub id: i64,                // BIGSERIAL 主键
-    pub user_id: i64,           // 关联主表 cola_user.id
+    pub user_id: i64,           // 关联主表 user.id
     pub wallet_user_no: String, // 钱包用户编号（如：WU + 时间戳 + 随机数）
 
     // 使用 Option 处理 NULL 字段

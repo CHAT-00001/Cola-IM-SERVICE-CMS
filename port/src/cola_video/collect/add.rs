@@ -4,8 +4,8 @@
 
 ////////
 
-/// # [CHECK SERVICE] - 发布
-/// * `desc`: `可乐视频 - 视频收藏发布端口`
+/// # [ADD PORTS] - 发布
+/// * `desc`: `VIDEO - 视频收藏发布端口`
 #[async_trait::async_trait]
 pub trait VideoCollectAddPort: Send + Sync {
     //

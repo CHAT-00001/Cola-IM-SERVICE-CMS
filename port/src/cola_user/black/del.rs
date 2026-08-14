@@ -1,4 +1,4 @@
-// port/src/cola_user/black/del.rs
+// port/src/user/black/del.rs
 // 用户 - port - 黑名单 - 删除
 // 2026/8/5 21:38 Created.
 

@@ -1,4 +1,4 @@
-// repository/src/cola_video/pg/cola_user/count
+// repository/src/cola_video/pg/user/count
 // 仓储 - new - pg - 用户 - count_repo 计数仓储
 // 2026/8/2 11:14 Created.
 

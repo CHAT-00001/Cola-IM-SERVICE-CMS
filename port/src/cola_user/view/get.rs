@@ -1,4 +1,4 @@
-// port/src/cola_user/view/get.rs
+// port/src/user/view/get.rs
 // ⏩️ 端口 - USER - 浏览 - 获取
 // 2026/8/6 00:50 Created.
 

@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_user/vip/del.rs
+// repo_adapter/src/user/vip/del.rs
 // 适配器 - USER - 贵宾 - 删除
 // 2026/8/6 解耦: VIP删除操作
 

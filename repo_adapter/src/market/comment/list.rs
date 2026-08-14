@@ -1,5 +1,5 @@
-// /list.rs
-// 🔌 插头 - 可乐视频 - 评论 - 评论列表
+// repo_adapter/src/market/comment/list.rs
+// 🔌 适配器 - MARKET - 商品评论 - 评论列表
 // 2026/8/6 18:55 Created.
 
 ////////
@@ -7,17 +7,17 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use cola_data::cola_video::info::comment::VideoCommentInfo;
-use port::cola_video::comment::list::VideoCommentListPort;
+use port::market::comment::list::GoodsCommentListPort;
 
 ////////
 
 /// # [ADD SERVICE] - 发布
 /// * `desc`: `可乐视频 - 视频评论发布服务`
 #[derive(Debug, Default, Clone)]
-pub struct VideoCommentListAdapter;
+pub struct GoodsCommentListAdapter;
 
 #[async_trait]
-impl VideoCommentListPort for VideoCommentListAdapter {
+impl GoodsCommentListPort for GoodsCommentListAdapter {
     async fn get_my_like_record(
         &self,
         uid: i64,

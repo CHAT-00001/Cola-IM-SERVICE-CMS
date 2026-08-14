@@ -1,5 +1,5 @@
 // data/src/cola_video/info/comment.rs
-// 🗄 数据 - ▶ 可乐视频 - info - 评论
+// 数据 - VIDEO - info - 评论
 // 2026/5/21 00:58 Created.
 
 ////////

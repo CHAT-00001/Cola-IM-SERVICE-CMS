@@ -1,5 +1,5 @@
-// cola_user/src/case/cola_user/list.rs
-// core - 🗣 可乐用户 - case - cola_user - 列表 用例
+// user/src/case/user/list.rs
+// core - 🗣 可乐用户 - case - user - 列表 用例
 // 2026/6/18 09:06
 
 ////////

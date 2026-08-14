@@ -1,5 +1,5 @@
 // port/src/cola_video/comment/check.rs
-// ⏩️ 端口 - ▶ 可乐视频 - 评论 - 检查
+// ⏩️ 端口 - VIDEO - 评论 - 检查
 // 2026/8/5 00:00 Created.
 
 ////////
@@ -7,7 +7,7 @@
 ////////
 
 /// # [CHECK PORTS] - 检查
-/// * `desc`: `▶ 可乐视频 - 评论检查端口`
+/// * `desc`: `VIDEO - 评论检查端口`
 #[async_trait::async_trait]
 pub trait VideoCommentCheckPort: Send + Sync {
     //

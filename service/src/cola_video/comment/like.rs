@@ -1,4 +1,4 @@
-// servicey/src/video/comment/like.rs
+// servicey/src/video/identity/like.rs
 // 服务 - ▶ VIDEO  - 评论 - 点赞/不喜欢
 // 2026/8/2 17:15 Created.
 

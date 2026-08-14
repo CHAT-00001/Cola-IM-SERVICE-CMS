@@ -1,4 +1,4 @@
-// cola_user/src/api/category/manage.rs
+// user/src/api/category/manage.rs
 // core - USER - api - 分类 - 管理 接口
 // 2026/8/2 22:21 Created.
 

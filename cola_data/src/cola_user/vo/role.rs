@@ -1,4 +1,4 @@
-// cola_data/src/cola_user/vo/role.rs
+// cola_data/src/user/vo/role.rs
 // 可乐数据中心 - 用户 - vo - 角色视图对象
 // 2026/8/6 Created.
 

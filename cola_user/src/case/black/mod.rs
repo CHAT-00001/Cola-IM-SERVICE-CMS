@@ -1,4 +1,4 @@
-// cola_user/src/case/black/mod.rs
+// user/src/case/black/mod.rs
 // 用户 - case - black - mod
 // 2026/8/2 22:45 Created.
 

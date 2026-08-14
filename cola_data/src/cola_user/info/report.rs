@@ -1,4 +1,4 @@
-// cola_data/src/cola_user/info/report.rs
+// cola_data/src/user/info/report.rs
 // 可乐数据中心 - 用户 - info - 举报内容信息
 // 2026/8/5 20:35 Created.
 

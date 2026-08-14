@@ -12,7 +12,7 @@
 ////////
 
 use crate::pg_pool;
-use cola_data::cola_market::entity::goods::goods::{GOODS_COLUMNS, GoodsEntity};
+use cola_data::market::entity::goods::goods::{GOODS_COLUMNS, GoodsEntity};
 
 ////////
 

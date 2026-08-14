@@ -1,13 +1,13 @@
 // cola_video/port/comment/del.rs
-// 视频 - port - 评论 - 删除
+// ⏩️ 端口 - VIDEO - 评论 - 删除
 // 2026/8/5 00:03 Created.
 
 ////////
 
 ////////
 
-/// # [DEL SERVICE] - 删除
-/// `desc`: `视频评论删除服务端口`
+/// # [DEL PORTS] - 删除
+/// `desc`: `VIDEO - 评论删除端口`
 #[async_trait::async_trait]
 pub trait VideoCommentDelPort: Send + Sync {
     //

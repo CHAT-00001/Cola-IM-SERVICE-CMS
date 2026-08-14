@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_user/vip/get.rs
+// repo_adapter/src/user/vip/get.rs
 // 🔌 插头 - 可乐用户 - 贵宾 - 获取
 // 2026/8/6 Created.
 

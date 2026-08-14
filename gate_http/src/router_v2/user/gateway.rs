@@ -1,4 +1,4 @@
-// http/src/cola_user/gateway.rs  -- HTTP 用户 网关
+// http/src/user/gateway.rs  -- HTTP 用户 网关
 // 2026/6/18 07:53
 
 //////
@@ -7,7 +7,7 @@ use crate::kits::response::IntoApi;
 use actix_web::{HttpMessage, HttpRequest, HttpResponse, Responder, web};
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::cola_auth::info::auth::AuthContext;
+use cola_data::auth::info::auth::AuthContext;
 use serde::Deserialize;
 use std::time::Instant;
 use app_config::app_state::AppState;

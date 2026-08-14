@@ -1,4 +1,4 @@
-// port/src/cola_user/view/list.rs
+// port/src/user/view/list.rs
 // ⏩️ 端口 - USER - 浏览 - 列表
 // 2026/8/6 00:44 Created.
 

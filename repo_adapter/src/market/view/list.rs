@@ -6,7 +6,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_market::info::goods::view::GoodsViewInfo;
+use cola_data::market::info::goods::view::GoodsViewInfo;
 use port::market::view::list::GoodsViewListPort;
 
 ////////

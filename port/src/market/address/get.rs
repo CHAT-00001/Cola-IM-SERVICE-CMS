@@ -4,7 +4,7 @@
 
 ////////
 
-use cola_data::cola_market::info::address::AddressInfo;
+use cola_data::market::info::address::AddressInfo;
 
 ////////
 

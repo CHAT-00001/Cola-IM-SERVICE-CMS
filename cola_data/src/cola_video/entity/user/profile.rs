@@ -1,5 +1,5 @@
-// cola_data/src/new/entity/cola_user/profile.rs  --
-// 数据 - VIDEO - Entity - cola_user - 创作者表
+// cola_data/src/new/entity/user/profile.rs  --
+// 数据 - VIDEO - Entity - user - 创作者表
 // 2026/5/22 18:44
 
 ////////

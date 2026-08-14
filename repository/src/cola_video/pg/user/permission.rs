@@ -1,4 +1,4 @@
-// repository/src/cola_video/pg/cola_user/permission.rs
+// repository/src/cola_video/pg/user/permission.rs
 // 仓储 - ▶ 可乐视频 - pg - 创作者 - 权限
 // 2026/8/1 14:29 创建
 

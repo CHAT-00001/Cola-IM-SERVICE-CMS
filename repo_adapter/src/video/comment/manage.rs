@@ -1,4 +1,4 @@
-// /manage.rs
+// repo_adapter/src/video/comment/manage.rs
 // 🔌 插头 - 可乐视频 - 评论 - 管理
 // 2026/8/6 18:55 Created.
 

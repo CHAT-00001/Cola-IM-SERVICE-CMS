@@ -1,4 +1,4 @@
-// cola_data/src/cola_user/entity/profile.rs
+// cola_data/src/user/entity/profile.rs
 // 数据中心 - USER - entity - 用户 资料表
 // 2026/8/3 20:07 Created.
 
@@ -11,7 +11,7 @@ use sqlx::FromRow;
 ////////
 
 /// # [ENTITY] - 用户 - 资料表
-/// * `pg schema`: `cola_user`
+/// * `pg schema`: `user`
 /// * `table name`: `profile`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct UserProfileEntity {

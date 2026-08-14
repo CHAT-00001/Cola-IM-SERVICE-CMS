@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_user/view/manage.rs
+// repo_adapter/src/user/view/manage.rs
 // 🔌 适配器 - 可乐用户 - 浏览 - 管理服务
 // 2026/8/7 06:21 Created.
 

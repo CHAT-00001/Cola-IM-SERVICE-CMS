@@ -1,4 +1,4 @@
-// repository/src/cola_video/pg/comment/stat.rs
+// repository/src/cola_video/pg/identity/stat.rs
 // 仓储 - VIDEO - pg -  评论 - 统计数量
 // 2026/8/9 23:43 Created.
 
@@ -25,7 +25,7 @@ impl VideoCommentStatRepo {
         let pool = pg_pool();
         let query = "
             SELECT COUNT(*)
-            FROM cola_video.comment
+            FROM cola_video.identity
             WHERE uid = $1 AND status = 1 AND (is_deleted = false OR is_deleted IS NULL)
         ";
 
@@ -54,7 +54,7 @@ impl VideoCommentStatRepo {
         let pool = pg_pool();
         let query = "
             SELECT COUNT(*)
-            FROM cola_video.comment
+            FROM cola_video.identity
             WHERE video_id = $1 AND status = 1 AND (is_deleted = false OR is_deleted IS NULL)
         ";
 

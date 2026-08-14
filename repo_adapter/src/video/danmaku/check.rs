@@ -1,5 +1,5 @@
 // repo_adapter/src/cola_video/danmaku/check.rs
-// 🔌 插头 - 可乐视频 - 弹幕 - 检查
+// 🔌 适配器 - VIDEO - 弹幕 - 检查
 // 2026/8/6 19:10 Created.
 
 ////////
@@ -9,7 +9,7 @@ use port::cola_video::danmaku::check::VideoDanmakuCheckPort;
 ////////
 
 /// # [CHECK ADAPTER] - danmaku check
-/// * `desc`: `▶ 视频 - 弹幕检查适配器`
+/// * `desc`: `VIDEO - 视频弹幕检查适配器`
 #[derive(Debug, Default, Clone)]
 pub struct VideDanmakuCheckAdapter;
 

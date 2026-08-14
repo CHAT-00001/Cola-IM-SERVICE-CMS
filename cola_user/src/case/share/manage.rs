@@ -1,1 +1,1 @@
-// cola_user/src/case/share/manage.rs  -- 管理 // 2026/8/6 //////// use anyhow::Result; pub struct UserShareManageCase; impl UserShareManageCase { pub async fn case_ban(uid: i64, share_id: i64) -> Result<()> { Ok(()) } }
+// user/src/case/share/manage.rs  -- 管理 // 2026/8/6 //////// use anyhow::Result; pub struct UserShareManageCase; impl UserShareManageCase { pub async fn case_ban(uid: i64, share_id: i64) -> Result<()> { Ok(()) } }

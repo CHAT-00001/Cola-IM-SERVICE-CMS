@@ -1,4 +1,4 @@
-// port/src/cola_user/user/mod.rs
+// port/src/user/user/mod.rs
 // ⏩️ 端口 - 🗣 可乐用户 - 用户 - 模块
 // 2026/8/5 22:02 Created.
 

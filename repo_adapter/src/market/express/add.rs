@@ -1,23 +1,20 @@
-// repo_adapter/src/video/cola_video/add.rs
-// 🔌 插头 - VIDEO - 视频 - 发布服务
+// repo_adapter/src/marketo/express/add.rs
+// 🔌 适配器 - MARKET - 快递公司 - 发布
 // 2026-06-12 10:52 Created.
 
 ////////
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_market::command::goods::GoodsCommand;
-use cola_data::cola_market::info::express::express::ExpressInfo;
-use cola_data::cola_video::command::video::edit::VideoUpdateCommand;
-use cola_data::cola_video::command::video::new::VideoNewCommand;
-use cola_data::cola_video::command::video::permission::VideoUpdatePermissionCommand;
+use cola_data::market::command::goods::GoodsCommand;
+use cola_data::market::info::express::express::ExpressInfo;
 use port::market::express::add::ExpressAddPort;
-use port::cola_video::video::add::VideoAddPort;
+
 
 ////////
 
 /// # [ADD SERVICE] - 发布
-/// * `desc`: `🔌 视频发布插头`
+/// * `desc`: `MARKET - 快递公司发布适配器`
 pub struct ExpressAddAdapter;
 
 #[async_trait]

@@ -1,4 +1,4 @@
-// cola_user/api/follow/get.rs
+// user/api/follow/get.rs
 // 用户 - api - 关注 - 获取
 // 2026/8/4 02:28 Created.
 

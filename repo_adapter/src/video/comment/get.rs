@@ -1,4 +1,4 @@
-// /get.rs
+// repo_adapter/src/video/comment/get.rs
 // 🔌 插头 - 可乐视频 - 评论 - 获取IDs
 // 2026/8/6 18:55 Created.
 
@@ -11,13 +11,13 @@ use port::cola_video::comment::get::VideoCommentGetPort;
 
 ////////
 
-/// # [GET SERVICE] - 发布
-/// * `desc`: `可乐视频 - 视频评论发布服务`
+/// # [GET ADAPTER] - 发布
+/// * `desc`: `VIDEO - 视频评论获取适配器`
 #[derive(Debug, Default, Clone)]
-pub struct VideoCommentLikeAdapter;
+pub struct VideoCommentGetAdapter;
 
 #[async_trait]
-impl VideoCommentGetPort for VideoCommentLikeAdapter {
+impl VideoCommentGetPort for VideoCommentGetAdapter {
     async fn get_comment_by_user_id(
         &self,
         user_id: i64,

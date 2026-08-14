@@ -1,4 +1,4 @@
-// port/src/cola_user/ban/list.rs
+// port/src/user/ban/list.rs
 // ⏩️ 端口 - 🗣 可乐用户 - 封禁 - 列表
 // 2026/8/5 21:36 Created.
 

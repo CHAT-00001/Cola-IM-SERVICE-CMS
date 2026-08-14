@@ -51,7 +51,7 @@ gate_http/src/models/user.rs:26
 // cola_data/src/app/data.rs:8
 use std::time::Instant;  // ⚠️ 未使用
 
-// cola_data/src/cola_auth/info/auth.rs:6
+// cola_data/src/auth/info/auth.rs:6
 use crate::cola_auth::command::phone::PhoneLoginCommand;  // ⚠️ 未使用
 ```
 

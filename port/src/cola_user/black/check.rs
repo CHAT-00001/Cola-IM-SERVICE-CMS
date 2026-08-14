@@ -1,4 +1,4 @@
-// port/src/cola_user/black/check.rs
+// port/src/user/black/check.rs
 // ⏩️ 端口 - 🗣 可乐用户 - 黑名单 - 检查
 // 2026/8/5 21:34 Created.
 

@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_user/black/add.rs
+// repo_adapter/src/user/black/add.rs
 // 🔌 适配器 - USER - 黑名单 - 发布
 // 2026/8/6 Created.
 
@@ -7,7 +7,7 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use port::cola_user::black::add::UserBlackAddPort;
-use repository::cola_user::pg::black::add::UserBlackAddRepo;
+use repository::user::pg::black::add::UserBlackAddRepo;
 
 ////////
 

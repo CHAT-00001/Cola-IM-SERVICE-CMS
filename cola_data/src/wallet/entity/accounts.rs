@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize, sqlx::FromRow)]
 pub struct WalletAccount {
     pub id: i64,                                 // 账户ID
-    pub user_id: i64,                            // 用户ID（关联 cola_user.id）
+    pub user_id: i64,                            // 用户ID（关联 user.id）
     pub currency_id: i16,                        // 货币ID（关联币种表）
     pub balance: Decimal,                        // 余额（单位：分/个）
     pub frozen_balance: Decimal,                 // 冻结余额（提现中/纠纷中）

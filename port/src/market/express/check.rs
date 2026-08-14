@@ -4,8 +4,8 @@
 
 ////////
 
-use cola_data::cola_market::command::goods::GoodsCommand;
-use cola_data::cola_market::info::express::express::ExpressInfo;
+use cola_data::market::command::goods::GoodsCommand;
+use cola_data::market::info::express::express::ExpressInfo;
 
 ////////
 
@@ -20,7 +20,7 @@ pub trait ExpressCheckPort: Send + Sync {
     /// # 1. [PORT] - 健康
     async fn check_health(
         &self,
-        express_id: i64,          // 快递公司的 ID
+        express_id: i64, // 快递公司的 ID
     ) -> anyhow::Result<(ExpressInfo)>;
 
     ////////
@@ -29,8 +29,8 @@ pub trait ExpressCheckPort: Send + Sync {
     /// * `desc`: `返回状态码`
     async fn check_status(
         &self,
-        uid: i64,          // 操作员 ID
-        express_id: i64,   // 快递公司 ID
+        uid: i64,        // 操作员 ID
+        express_id: i64, // 快递公司 ID
     ) -> anyhow::Result<(i16)>;
 }
 

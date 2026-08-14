@@ -4,7 +4,7 @@
 
 ////////
 
-use cola_data::cola_market::info::goods::goods::GoodsInfo;
+use cola_data::market::info::goods::goods::GoodsInfo;
 use rust_decimal::Decimal;
 
 ////////

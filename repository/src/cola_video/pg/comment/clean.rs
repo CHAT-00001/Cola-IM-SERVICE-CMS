@@ -1,4 +1,4 @@
-// repository/src/video/pg/comment/clean.rs
+// repository/src/video/pg/identity/clean.rs
 // 仓储 - ▶ 可乐视频 - pg - 评论记录 - 清除
 // 2026/8/2 15:28 Created.
 

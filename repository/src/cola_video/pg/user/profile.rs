@@ -1,4 +1,4 @@
-// repository/src/cola_video/pg/cola_user/cola_user.rs
+// repository/src/cola_video/pg/user/user.rs
 // 仓储 - ▶ 可乐视频 - pg - 用户 - 资料
 // 2026/8/1 14:32
 

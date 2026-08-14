@@ -1,5 +1,5 @@
-// repository/src/video/pg/comment/add.rs
-// 仓储 - VIDEO - pg - comment - 发布
+// repository/src/video/pg/identity/add.rs
+// 仓储 - VIDEO - pg - identity - 发布
 // 2026/6/8 16:55
 
 ////////

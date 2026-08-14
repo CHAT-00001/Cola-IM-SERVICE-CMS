@@ -1,4 +1,4 @@
-// cola_live/src/api/comment/add.rs
+// cola_live/src/api/identity/add.rs
 // LIVE - api - 评论
 // 2026/8/12 05:50 Created.
 
@@ -8,7 +8,7 @@ use crate::case::comment::add::LiveCommentAddCase;
 use crate::model::vo::comment::CommentSingleResponse;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::cola_auth::info::auth::AuthContext;
+use cola_data::auth::info::auth::AuthContext;
 use cola_data::cola_video::command::comment::CommentCommand;
 use port::app::ctx::AppContext;
 

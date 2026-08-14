@@ -1,5 +1,5 @@
-// service/src/cola_user/user/manage.rs
-// 👤 服务 - 👧 可乐用户 - 用户 - 管理
+// service/src/user/user/manage.rs
+// 服务 - 可乐用户 - 用户 - 管理
 // 2026/8/7 17:19 Created.
 
 ////////

@@ -1,4 +1,4 @@
-// port/src/cola_user/view/check.rs
+// port/src/user/view/check.rs
 // ⏩️ 端口 - 🗣 可乐用户 - 浏览 - 检查
 // 2026/8/6 00:44 Created.
 

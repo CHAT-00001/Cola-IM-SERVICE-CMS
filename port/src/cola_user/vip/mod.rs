@@ -1,4 +1,4 @@
-// port/src/cola_user/vip/mod.rs
+// port/src/user/vip/mod.rs
 // ⏩️ 端口 - 🗣 可乐用户 - 贵宾 - 模块
 // 2026/8/5 23:33 Created.
 

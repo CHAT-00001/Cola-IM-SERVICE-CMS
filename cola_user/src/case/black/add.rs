@@ -1,4 +1,4 @@
-// cola_user/src/case/black/add.rs
+// user/src/case/black/add.rs
 // 用户 - case - black - 发布用例
 // 2026/8/2 22:51 Created.
 

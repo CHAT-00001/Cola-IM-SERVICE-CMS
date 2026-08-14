@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_user/friend/del.rs
+// repo_adapter/src/user/friend/del.rs
 // 🔌 插头 - 可乐用户 - 朋友 - 删除
 // 2026/8/6 解耦: 单个软删除 / 批量软删除
 

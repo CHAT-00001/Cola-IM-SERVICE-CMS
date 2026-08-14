@@ -1,5 +1,5 @@
-// cola_data/src/cola_video/entity/cola_user/ban
-// 数据 - VIDEO - entity - cola_user - 状态
+// cola_data/src/cola_video/entity/user/ban
+// 数据 - VIDEO - entity - user - 状态
 // 2026/4/23 15:55
 
 ////////

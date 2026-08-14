@@ -1,4 +1,4 @@
-// cola_user/src/api/black/get.rs
+// user/src/api/black/get.rs
 // core - USER - api - black - 获取 接口
 // 2026/8/2 22:21 Created.
 

@@ -1,5 +1,5 @@
-// port/src/cola_video/comment/mod.rs
-// ⏩️ 端口 - ▶ 可乐视频 - 评论 - 模块
+// port/src/cola_video/identity/mod.rs
+// ⏩️ 端口 - VIDEO - 评论 - 模块
 // 2026/8/5 15:11 Created.
 
 ////////
@@ -29,7 +29,7 @@ pub mod stat; // 统计
 ////////
 
 /// # [VIDEO COMMENT PORT]
-/// * `desc`: `▶ 可乐视频 - 评论 Ports`
+/// * `desc`: `VIDEO - 评论 Ports`
 #[derive(Clone)]
 pub struct VideoCommentPort {
     pub add: Arc<dyn VideoCommentAddPort + Send + Sync + 'static>,        // 发布

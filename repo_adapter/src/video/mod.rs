@@ -24,7 +24,7 @@ pub mod view; // 浏览
 
 /// # [BUILD] - 构建 VIDEO Port
 /// * `desc`: 构建视频 Port 聚合体，包含所有视频相关功能
-pub fn build_video_port() -> ColaVideoPort {
+pub fn build_cola_video_port() -> ColaVideoPort {
     ColaVideoPort {
         buy: buy::build_video_buy_port(),
         collect: collect::build_video_collect_port(),

@@ -1,4 +1,4 @@
-// cola_user/port/friend/get.rs
+// user/port/friend/get.rs
 // ⏩️ 端口 - 🗣 用户 - 朋友 - 获取
 // 2026/8/5 21:56 Created.
 

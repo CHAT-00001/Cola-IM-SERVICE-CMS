@@ -1,4 +1,4 @@
-// port/src/cola_user/ban/check.rs
+// port/src/user/ban/check.rs
 // ⏩️ 端口 - 🗣 可乐用户 - 封禁 - 检查
 // 2026/8/5 21:34 Created.
 

@@ -1,18 +1,18 @@
-// repo_adapter/src/video/cola_video/add.rs
-// 🔌 插头 - VIDEO - 视频 - 发布服务
+// repo_adapter/src/market/shop/add.rs
+// 🔌 适配器 - MARKET - 商店 - 发布
 // 2026-06-12 10:52 Created.
 
 ////////
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_market::command::shop::add::CreatedShopApplyCommand;
+use cola_data::market::command::shop::add::CreatedShopApplyCommand;
 use port::market::shop::add::ShopAddPort;
 
 ////////
 
-/// # [ADD SERVICE] - 发布
-/// * `desc`: `🔌 视频发布插头`
+/// # [ADD ADAPTER] - 发布
+/// * `desc`: `MARKET -  商品发布适配器`
 pub struct ShopAddAdapter;
 
 #[async_trait]

@@ -1,4 +1,4 @@
-// port/src/cola_user/port/follow/check.rs
+// port/src/user/port/follow/check.rs
 // ⏩️ 端口 - 🗣 用户 - 关注 - 检查
 // 2026/8/5 21:58 Created.
 

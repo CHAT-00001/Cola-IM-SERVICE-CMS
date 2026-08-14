@@ -1,4 +1,4 @@
-// cola_data/src/cola_user/entity/ban.rs
+// cola_data/src/user/entity/ban.rs
 // 数据中心 - USER - entity - ban表
 // 2026/4/23 15:55
 
@@ -9,7 +9,7 @@ use chrono::{DateTime, Utc};
 ////////
 
 /// # [ENTITY] - 用户 封禁表
-/// * `pg schema`: `cola_user`
+/// * `pg schema`: `user`
 /// * `table name`: `ban`
 pub struct UserBanEntity {
     pub id: i64,

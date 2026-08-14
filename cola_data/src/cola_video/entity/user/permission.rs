@@ -1,5 +1,5 @@
-// cola_data/src/cola_video/entity/cola_user/permission.rs
-// 数据 - VIDEO - entity - cola_user - 权限表
+// cola_data/src/cola_video/entity/user/permission.rs
+// 数据 - VIDEO - entity - user - 权限表
 // 2026/3/30 05:33
 
 ////////

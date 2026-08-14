@@ -1,4 +1,4 @@
-// port/src/cola_user/ban/add.rs
+// port/src/user/ban/add.rs
 // 用户 - port - 封禁 - 发布
 // 2026/8/5 21:33 Created.
 

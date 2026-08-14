@@ -1,4 +1,4 @@
-// data/src/cola_user/info/mod.rs
+// data/src/user/info/mod.rs
 // 数据 - USER - info - 模块
 // 2026/5/22 13:27
 

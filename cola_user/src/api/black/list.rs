@@ -1,4 +1,4 @@
-// cola_user/src/api/black/list.rs
+// user/src/api/black/list.rs
 // 用户 - api - black - 列表接口
 // 2026/8/2 22:21 Created.
 

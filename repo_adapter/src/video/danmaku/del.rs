@@ -1,5 +1,5 @@
 // repo_adapter/src/video/danmaku/del.rs
-// 🔌 插头 - ▶ 可乐视频 - 弹幕 - 删除
+// 🔌 适配器 - VIDEO - 弹幕 - 删除
 // 2026/8/6 18:56 Created.
 
 ////////
@@ -13,7 +13,7 @@ use port::cola_video::danmaku::del::VideoDanmakuDelPort;
 ////////
 
 /// # [DELETE ADAPTER] - danmaku del
-/// * `desc`: `▶ 视频 - 弹幕记录软删除适配器`
+/// * `desc`: `VIDEO - 视频弹幕逻辑删除适配器`
 #[derive(Debug, Default, Clone)]
 pub struct VideoDanmakuDelAdapter;
 

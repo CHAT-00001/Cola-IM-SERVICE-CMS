@@ -1,4 +1,4 @@
-// cola_user/src/case/follow/list.rs
+// user/src/case/follow/list.rs
 // 用户 - case - 关注 - 列表
 // 2026/8/2 22:51 Created.
 

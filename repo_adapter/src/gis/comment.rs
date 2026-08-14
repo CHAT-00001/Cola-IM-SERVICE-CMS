@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_gis/comment.rs
+// repo_adapter/src/cola_gis/identity.rs
 // // 🔌 适配器 - 可乐GIS - POI - 评论
 // 2026-07-07 07:10 Created.
 

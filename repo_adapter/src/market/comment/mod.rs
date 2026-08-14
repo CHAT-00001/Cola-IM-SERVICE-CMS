@@ -21,19 +21,19 @@ pub mod stat;
 ////////
 
 /// # [BUILD] - 构建 BUY Port
-/// * `desc`: 购买订单评论端口构造器
+/// * `desc`: 购买商品订单评论端口构造器
 
-pub fn build_comment_port() -> GoodsCommentPort {
+pub fn build_goods_comment_port() -> GoodsCommentPort {
     GoodsCommentPort {
-        add: Arc::new(add::CommentAddPortAdapter),
-        check: Arc::new(check::VideoCommentCheckAdapter),
-        del: Arc::new(del::VideoCommentDelAdapter),
-        dislike: Arc::new(dislike::VideoCommentDislikeAdapter),
-        get: Arc::new(get::VideoCommentLikeAdapter),
-        like: Arc::new(like::VideoCommentLikeAdapter),
-        list: Arc::new(list::VideoCommentListAdapter),
-        manage: Arc::new(manage::VideoCommentManageAdapter),
-        stat: Arc::new(stat::VideoCommentStatAdapter),
+        add: Arc::new(add::GoodsCommentAddAdapter),
+        check: Arc::new(check::GoodsCommentCheckAdapter),
+        del: Arc::new(del::GoodsCommentDelAdapter),
+        dislike: Arc::new(dislike::GoodsCommentDislikeAdapter),
+        get: Arc::new(get::GoodsCommentLikeAdapter),
+        like: Arc::new(like::GoodsCommentLikeAdapter),
+        list: Arc::new(list::GoodsCommentListAdapter),
+        manage: Arc::new(manage::GoodsCommentManageAdapter),
+        stat: Arc::new(stat::GoodsCommentStatAdapter),
     }
 }
 

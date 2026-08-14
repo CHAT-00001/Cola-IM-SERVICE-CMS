@@ -1,4 +1,4 @@
-// cola_data/src/cola_user/info/black.rs
+// cola_data/src/user/info/black.rs
 // 可乐数据中心 - USER - info - 黑名单信息
 // 2026/8/7 03:08 Created.
 

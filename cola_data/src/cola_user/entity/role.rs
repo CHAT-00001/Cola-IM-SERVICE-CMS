@@ -1,4 +1,4 @@
-// cola_data/src/cola_user/entity/role.rs
+// cola_data/src/user/entity/role.rs
 // 数字中心 - USER - entity - 角色
 // 2026/8/3 14:45 Created.
 
@@ -11,7 +11,7 @@ use sqlx::FromRow;
 ////////
 
 /// # [ENTITY] - 用户 - 角色表
-/// * `pg schema`: `cola_user`
+/// * `pg schema`: `user`
 /// * `table name`: `role`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct UserRoleEntity {

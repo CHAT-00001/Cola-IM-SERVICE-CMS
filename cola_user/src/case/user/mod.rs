@@ -1,5 +1,5 @@
-// cola_user/src/case/cola_user/mod.rs
-// 用户 - case - cola_user - 模块
+// user/src/case/user/mod.rs
+// 用户 - case - user - 模块
 // 2026/8/2 22:45 Created.
 
 ////////

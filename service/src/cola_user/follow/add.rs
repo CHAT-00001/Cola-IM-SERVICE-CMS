@@ -1,11 +1,11 @@
-// service/src/cola_user/follow/add.rs
+// service/src/user/follow/add.rs
 // 👤 服务 - 🗣 可乐用户 - 关注 - 发布(关注/取关)
 // 2026/8/3 14:33 Created.
 
 ////////
 
 use anyhow::{Result, anyhow};
-use repository::cola_user::pg::follow::add::UserFollowAddRepo;
+use repository::user::pg::follow::add::UserFollowAddRepo;
 
 ////////
 

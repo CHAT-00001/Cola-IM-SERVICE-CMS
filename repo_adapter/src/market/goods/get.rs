@@ -6,11 +6,12 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_market::info::goods::goods::GoodsInfo;
+use cola_data::market::info::goods::goods::GoodsInfo;
 use port::market::goods::get::GoodsGetPort;
 
 ////////
-/// # [LIST ADAPTER] - 商品 端口适配器
+
+/// # [GET ADAPTER] - 商品 获取
 /// `desc`: `MARKET - 商品适配器`
 pub struct GoodsGetAdapter;
 

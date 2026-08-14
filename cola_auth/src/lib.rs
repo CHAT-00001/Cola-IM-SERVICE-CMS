@@ -1,4 +1,4 @@
-// auth /lib -- AUTH lib
+// auth/src/lib -- AUTH lib
 // 2026-06-01 14:20
 
 ////////

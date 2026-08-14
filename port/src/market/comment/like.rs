@@ -1,5 +1,5 @@
-// port/src/cola_video/comment/like.rs
-// ⏩️ 端口 - ▶ 可乐视频 - 评论 - 点赞
+// port/src/market/comment/like.rs
+// ⏩️ 端口 - MARKET - 商品评论 - 点赞
 // 2026/8/9 03:28 Created.
 
 ////////
@@ -7,9 +7,9 @@
 ////////
 
 /// # [LIKE PORTS] - 点赞
-/// * `desc`: `▶ 可乐视频 - 评论点赞端口`
+/// * `desc`: `MARKET - 商品评论点赞端口`
 #[async_trait::async_trait]
-pub trait VideoCommentLikePort: Send + Sync {
+pub trait GoodsCommentLikePort: Send + Sync {
     //
 
     ////////

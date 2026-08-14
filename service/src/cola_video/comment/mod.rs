@@ -1,4 +1,4 @@
-// servicey/src/video/comment/mod.rs
+// servicey/src/video/identity/mod.rs
 // 服务 - VIDEO - COMMENT - mod
 // 2026/8/2 19:06 Created.
 

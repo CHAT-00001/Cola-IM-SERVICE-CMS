@@ -9,7 +9,7 @@ use actix_web::{HttpMessage, HttpRequest, HttpResponse, Responder, web};
 use app_config::app_state::AppState;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::cola_auth::request::session::SessionContext;
+use cola_data::auth::request::session::SessionContext;
 use std::time::Instant;
 use crate::router_v2::three::dispatcher;
 

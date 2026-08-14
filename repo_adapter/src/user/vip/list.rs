@@ -1,1 +1,1 @@
-// repo_adapter/src/cola_user/vip/list.rs  -- VIP列表 // 2026/8/6 //////// use anyhow::Result; pub async fn get_here_list(uid: i64, offset: i64, limit: i64) -> Result<Vec<i64>> { Ok(vec![]) }
+// repo_adapter/src/user/vip/list.rs  -- VIP列表 // 2026/8/6 //////// use anyhow::Result; pub async fn get_here_list(uid: i64, offset: i64, limit: i64) -> Result<Vec<i64>> { Ok(vec![]) }

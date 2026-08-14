@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_user/friend/list.rs
+// repo_adapter/src/user/friend/list.rs
 // 🔌 插头 - 可乐用户 - 朋友 - 列表
 // 2026/8/6 解耦: 朋友列表/配置
 

@@ -4,9 +4,9 @@
 
 ////////
 
-use cola_data::cola_market::command::goods::GoodsCommand;
 use crate::pg_pool;
-use cola_data::cola_market::entity::goods::goods::GoodsEntity;
+use cola_data::market::command::goods::GoodsCommand;
+use cola_data::market::entity::goods::goods::GoodsEntity;
 
 ////////
 
@@ -29,7 +29,10 @@ impl GoodsAddRepo {
     ////////
 
     /// # 1. [REPOSITORY] - 添加商品
-    pub async fn save_goods(command: GoodsCommand, admin_id: i64) -> Result<GoodsEntity, sqlx::Error> {
+    pub async fn save_goods(
+        command: GoodsCommand,
+        admin_id: i64,
+    ) -> Result<GoodsEntity, sqlx::Error> {
         let pool = pg_pool();
 
         // 核心：将前端传进来的简易 Command 转换为包含 40 多个字段的完整 Entity
@@ -37,7 +40,7 @@ impl GoodsAddRepo {
 
         sqlx::query_as::<_, GoodsEntity>(
             r#"
-            INSERT INTO market.goods (
+            INSERT INTO cola_market.goods (
                 uid, city_id, name, name_en, no, one_classid, two_classid, three_classid,
                 video_url, video_thumb, video_length, thumbs, content, pictures, specs,
                 postage, hits, isrecom, sale_nums, refuse_reason, issale, type,
@@ -48,20 +51,50 @@ impl GoodsAddRepo {
                 $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,
                 $21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$40
             ) RETURNING *
-            "#
+            "#,
         )
-            .bind(entity.uid).bind(entity.city_id).bind(entity.name).bind(entity.name_en).bind(entity.no)
-            .bind(entity.one_classid).bind(entity.two_classid).bind(entity.three_classid)
-            .bind(entity.video_url).bind(entity.video_thumb).bind(entity.video_length)
-            .bind(entity.thumbs).bind(entity.content).bind(entity.pictures).bind(entity.specs)
-            .bind(entity.postage).bind(entity.hits).bind(entity.isrecom).bind(entity.sale_nums)
-            .bind(entity.refuse_reason).bind(entity.issale).bind(entity.r#type)
-            .bind(entity.original_price).bind(entity.present_price).bind(entity.goods_desc).bind(entity.href)
-            .bind(entity.live_isshow).bind(entity.low_price).bind(entity.admin_id).bind(entity.commission)
-            .bind(entity.share_income).bind(entity.lat).bind(entity.lng).bind(entity.city).bind(entity.address)
-            .bind(entity.label_id).bind(entity.collects).bind(entity.shares).bind(entity.add_time).bind(entity.upd_time)
-            .fetch_one(&pool)
-            .await
+        .bind(entity.uid)
+        .bind(entity.city_id)
+        .bind(entity.name)
+        .bind(entity.name_en)
+        .bind(entity.no)
+        .bind(entity.one_classid)
+        .bind(entity.two_classid)
+        .bind(entity.three_classid)
+        .bind(entity.video_url)
+        .bind(entity.video_thumb)
+        .bind(entity.video_length)
+        .bind(entity.thumbs)
+        .bind(entity.content)
+        .bind(entity.pictures)
+        .bind(entity.specs)
+        .bind(entity.postage)
+        .bind(entity.hits)
+        .bind(entity.isrecom)
+        .bind(entity.sale_nums)
+        .bind(entity.refuse_reason)
+        .bind(entity.issale)
+        .bind(entity.r#type)
+        .bind(entity.original_price)
+        .bind(entity.present_price)
+        .bind(entity.goods_desc)
+        .bind(entity.href)
+        .bind(entity.live_isshow)
+        .bind(entity.low_price)
+        .bind(entity.admin_id)
+        .bind(entity.commission)
+        .bind(entity.share_income)
+        .bind(entity.lat)
+        .bind(entity.lng)
+        .bind(entity.city)
+        .bind(entity.address)
+        .bind(entity.label_id)
+        .bind(entity.collects)
+        .bind(entity.shares)
+        .bind(entity.add_time)
+        .bind(entity.upd_time)
+        .fetch_one(&pool)
+        .await
     }
 
     ////////
@@ -71,7 +104,7 @@ impl GoodsAddRepo {
         let pool = pg_pool();
         sqlx::query_as::<_, GoodsEntity>(
             r#"
-            UPDATE market.goods
+            UPDATE cola_market.goods
             SET name=$1, name_en=$2, no=$3, one_classid=$4, two_classid=$5, three_classid=$6,
                 thumbs=$7, content=$8, pictures=$9, specs=$10, present_price=$11, original_price=$12, upd_time=$13
             WHERE id=$14
@@ -93,11 +126,11 @@ impl GoodsAddRepo {
     pub async fn toggle_status(id: i64) -> Result<(), sqlx::Error> {
         let pool = pg_pool();
         sqlx::query(
-            "UPDATE market.goods SET issale = CASE WHEN issale = 1 THEN 0 ELSE 1 END WHERE id = $1",
+            "UPDATE cola_market.goods SET issale = CASE WHEN issale = 1 THEN 0 ELSE 1 END WHERE id = $1",
         )
-            .bind(id)
-            .execute(&pool)
-            .await?;
+        .bind(id)
+        .execute(&pool)
+        .await?;
         Ok(())
     }
 }

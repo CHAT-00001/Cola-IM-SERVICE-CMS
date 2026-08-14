@@ -1,4 +1,4 @@
-// // cola_user/src/case/report/get.rs
+// // user/src/case/report/get.rs
 // // core - USER - case - report - 获取举报列表 用例
 // // 2026/8/2 23:15 Created.
 //

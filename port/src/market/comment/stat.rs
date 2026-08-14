@@ -1,14 +1,15 @@
-// port/src/cola_video/comment/stat.rs
-// ⏩️ 端口 - ▶ 可乐视频 - 评论 - 统计
+// port/src/market/comment/stat.rs
+// ⏩️ 端口 - MARKET - 商品评论 - 统计
 // 2026/8/5 00:03 Created.
 
 ////////
 
 ////////
 
-/// # [SERVICE PORT] - 统计
+/// # [STAT PORTS] - 统计
+/// * `desc`: `MARKET - 商品评论统计端口`
 #[async_trait::async_trait]
-pub trait VideoCommentStatPort: Send + Sync {
+pub trait GoodsCommentStatPort: Send + Sync {
     //
 
     ////////

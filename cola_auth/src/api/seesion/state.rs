@@ -1,4 +1,4 @@
-// auth/src/api/session/ban
+// auth/src/api/session/state.rs
 // core - AUTH - api - session - 状态
 // 2026/04/13 10:15
 
@@ -6,13 +6,13 @@
 
 use cola_data::app::data::AppData;
 use cola_data::app::error;
-use cola_data::cola_auth::request::session::{AuthSessionRequest, SessionContext};
+use cola_data::auth::request::session::{AuthSessionRequest, SessionContext};
 use port::auth::AuthServicePorts;
 
 
 ////////
 
-/// # [HANDLER] - 会话 状态
+/// # [STATE HANDLER] - 会话 状态
 pub struct SessionStateApi;
 
 // 构造实现
@@ -21,7 +21,7 @@ impl SessionStateApi {
 
     ////////
 
-    /// # [CASE] - verify_session
+    /// # 1. [API] - verify_session
     /// 从验证中心（Auth）校验 Token，并生成可信 SessionContext
     pub async fn verify_session(
         auth: &AuthSessionRequest,
@@ -70,7 +70,7 @@ impl SessionStateApi {
 
     ////////
 
-    /// # [CASE] - verify_login
+    /// # 2. [API] - verify_login
     /// 校验必须登录，游客将返回未登录
     pub async fn verify_login(
         auth: &AuthSessionRequest,
@@ -91,7 +91,7 @@ impl SessionStateApi {
 
     ////////
 
-    /// # [CASE] - verify_uid
+    /// # 3. [API] - verify_uid
     /// 获取当前操作者 UID
     pub async fn verify_uid(
         auth: &AuthSessionRequest,

@@ -1,5 +1,5 @@
 // repo_adapter/src/cola_video/danmaku/manage.rs
-// 🔌 插头 - VIDEO - 弹幕 - 管理
+// 🔌 适配器 - VIDEO - 弹幕 - 管理
 // 2026/8/6 18:56 Created.
 
 ////////
@@ -11,7 +11,8 @@ use port::cola_video::danmaku::manage::VideoDanmakuManagePort;
 
 ////////
 
-/// # [ADAPTER] - danmaku manage
+/// # [MANAGE ADAPTER] - danmaku manage
+/// * `desc`: `VIDEO - 视频弹幕管理适配器`
 #[derive(Debug, Default, Clone)]
 pub struct VideoDanmakuManageAdapter;
 

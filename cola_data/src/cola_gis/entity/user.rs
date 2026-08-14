@@ -1,4 +1,4 @@
-﻿// cola_data/src/new/handler/state  -- 鍙箰鏁版嵁 - new - handler - 鐢ㄦ埛
+﻿// cola_data/src/gisentity/user.rs -- 数据 - GIS - entity - user
 // 2026/5/19 21:34
 
 ////////
@@ -9,13 +9,14 @@ use sqlx::FromRow;
 
 ////////
 
-/// # [ENTITY] - 鐭棰?鐢ㄦ埛瀹炰綋
-/// * table name: video_user
+/// # [ENTITY] - 短视频创作者表
+/// * ``: `PG schema` - PG 模式
+/// * `table name`: `video_user` - 表名
 #[derive(Debug, Clone, Default, FromRow, Serialize, Deserialize)]
 pub struct VideoUserEntity {
     // ==== 鍩虹韬唤鏍囪瘑 ====
     pub uid: i64,                          // 鐢ㄦ埛ID
-    pub send_id: Option<String>,           // 鍙戦€?ID UUID 锛堝鎴风鐢熸垚锛?
+    pub id: Option<String>,           // 鍙戦€?ID UUID 锛堝鎴风鐢熸垚锛?
     pub show_id: Option<String>,           // 鏄剧ず ID
     pub sync_id: Option<String>,           // 鍚屾 ID
     pub user_type: i16,                    // 鐢ㄦ埛绫诲瀷锛?-鏅€氳浼? 2-鍒涗綔鑰? 3-浼佷笟鍙?钃漋) 馃憟 鏂板

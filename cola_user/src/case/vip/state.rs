@@ -1,4 +1,4 @@
-// cola_user/src/case/vipr/ban
+// user/src/case/vipr/ban
 // core - USER - case - vip - 状态 用例
 // 2026/8/2 22:52 Created.
 

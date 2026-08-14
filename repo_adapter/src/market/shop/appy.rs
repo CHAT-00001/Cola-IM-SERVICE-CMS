@@ -6,7 +6,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_market::command::shop::add::CreatedShopApplyCommand;
+use cola_data::market::command::shop::add::CreatedShopApplyCommand;
 use port::market::shop::appy::ShopAppyPort;
 
 ////////

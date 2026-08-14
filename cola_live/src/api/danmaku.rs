@@ -8,7 +8,7 @@ use crate::case;
 use crate::model::vo::danmaku::{DanmakuListResponse, DanmakuSingleResponse};
 use cola_data::app::data::AppData;
 use cola_data::app::{data, error};
-use cola_data::cola_auth::info::auth::AuthContext;
+use cola_data::auth::info::auth::AuthContext;
 use cola_data::cola_video::command::danmaku::DanmakuCommand;
 use port::app::ctx::AppContext;
 use crate::case::danmaku::add::DanmakuAddCase;

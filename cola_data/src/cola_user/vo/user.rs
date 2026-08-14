@@ -1,4 +1,4 @@
-// cola_date/src/cola_user/vo/cola_user.rs  --
+// cola_date/src/user/vo/user.rs  --
 // 数据 - USER - VO - 用户VO
 // 2026/6/18 09:58
 

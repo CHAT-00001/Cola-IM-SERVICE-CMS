@@ -1,4 +1,4 @@
-// cola_data/src/cola_user/entity/report.rs
+// cola_data/src/user/entity/report.rs
 // 可乐数据中心 - 用户 - entity - 举报内容表
 // 2026/8/5 20:36 Created.
 
@@ -11,7 +11,7 @@ use sqlx::FromRow;
 ////////
 
 /// # [ENTITY] - 用户 - 举报内容表
-/// * `pg schema`: `cola_user` -- 模式
+/// * `pg schema`: `user` -- 模式
 /// * `table name`: `report_content` -- 举报内容
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct UserReportContentEntity {

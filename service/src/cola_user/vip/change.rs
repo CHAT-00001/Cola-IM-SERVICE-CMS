@@ -1,11 +1,11 @@
-// service/src/cola_user/vip/change.rs
+// service/src/user/vip/change.rs
 // 服务 - 可乐用户 - 贵宾 - 修改
 // 2026/8/7 21:39 Created.
 
 ////////
 
 use anyhow::{Result, anyhow};
-use repository::cola_user::pg::vip::add::VipAddRepo;
+use repository::user::pg::vip::add::VipAddRepo;
 
 ////////
 

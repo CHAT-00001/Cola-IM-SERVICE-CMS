@@ -1,5 +1,5 @@
-// port/src/cola_user/user/add.rs
-// ⏩️ 端口 - 🗣 可乐用户 - 用户 - 发布
+// port/src/user/user/add.rs
+// ⏩️ 端口 - USER - 用户 - 发布
 // 2026/8/5 22:02 Created.
 
 ////////

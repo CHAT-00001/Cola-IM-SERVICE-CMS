@@ -1,4 +1,4 @@
-// cola_user/src/api/mod.rs
+// user/src/api/mod.rs
 // 用户 - 接口层 - mod
 // 2026/1/5 12:10
 

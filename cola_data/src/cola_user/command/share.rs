@@ -1,4 +1,4 @@
-// cola_data/src/cola_user/command/share.rs
+// cola_data/src/user/command/share.rs
 // 数据中心 - USER - command - 分享
 // 2026/8/6 Created.
 

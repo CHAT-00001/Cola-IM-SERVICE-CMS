@@ -1,4 +1,4 @@
-// service/src/cola_user/profile/add.rs
+// service/src/user/profile/add.rs
 // 服务 - 可乐用户 - 资料名片 - 发布
 // 2026/8/2 21:53 Created.
 
@@ -7,7 +7,7 @@
 use anyhow::{Result, anyhow};
 use cola_data::cola_user::command::profile::ProfileCommand;
 use cola_data::cola_user::info::profile::ProfileInfo;
-use repository::cola_user::pg::profile::add::ProfileAddRepo;
+use repository::user::pg::profile::add::ProfileAddRepo;
 
 ////////
 

@@ -6,14 +6,14 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_market::info::goods::goods::GoodsInfo;
+use cola_data::market::info::goods::goods::GoodsInfo;
 use port::market::goods::manage::GoodsManagePort;
 use rust_decimal::Decimal;
 
 ////////
 
 /// # [MANAGE ADAPTER] - 管理
-/// `desc`: `MARKET - 管理员商品列表适配器`
+/// `desc`: `MARKET - 商品管理适配器`
 pub struct GoodsManageAdapter;
 
 #[async_trait]

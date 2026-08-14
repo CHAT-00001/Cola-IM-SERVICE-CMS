@@ -1,4 +1,4 @@
-// port/src/cola_user/user/list.rs
+// port/src/user/user/list.rs
 // 用户 - port - 用户 - 列表
 // 2026/8/5 22:03 Created.
 

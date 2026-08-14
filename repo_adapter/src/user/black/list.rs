@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_user/black/list.rs
+// repo_adapter/src/user/black/list.rs
 // 🔌 适配器 - USER - 黑名单 - 列表查询
 // 2026/8/6 解耦: 列表查询接口
 
@@ -8,7 +8,7 @@ use anyhow::Result;
 use async_trait::async_trait;
 use cola_data::cola_user::info::black::UserBlackInfo;
 use port::cola_user::black::list::UserBlackListPort;
-use repository::cola_user::pg::black::list::UserBlackListRepo;
+use repository::user::pg::black::list::UserBlackListRepo;
 use tracing::{error, info};
 
 ////////
@@ -41,7 +41,7 @@ impl UserBlackListPort for BlackListAdapter {
 
         // 🚧 1. 旁路缓存检查 (Cache-Aside: 缓存读取阶段 - 暂时注释)
         // let cache_key = format!(
-        //     "cola_user:black:list:{:?}:{:?}:{}:{}:{}:{}",
+        //     "user:black:list:{:?}:{:?}:{}:{}:{}:{}",
         //     actor_id, target_id, start_time.unwrap_or(0), end_time.unwrap_or(0), limit, offset
         // );
         // if let Some(cached_data) = CacheClient::get::<(i64, Vec<UserBlackInfo>)>(&cache_key).await? {

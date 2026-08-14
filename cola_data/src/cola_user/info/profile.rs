@@ -1,4 +1,4 @@
-// cola_data/src/cola_user/info/profile.rs
+// cola_data/src/user/info/profile.rs
 // 数据中心 - USER - info - 资料名片
 // 2026/8/6 Created.
 

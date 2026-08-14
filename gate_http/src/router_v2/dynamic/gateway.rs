@@ -7,7 +7,7 @@ use crate::kits::response::IntoApi;
 use actix_web::{HttpMessage, HttpRequest, HttpResponse, Responder, web};
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::cola_auth::info::auth::AuthContext;
+use cola_data::auth::info::auth::AuthContext;
 use cola_video::api::video::home::HomeApi;
 use serde::Deserialize;
 use std::time::Instant;
@@ -162,28 +162,28 @@ async fn dynamic_gateway(
         }
 
         // 3001 发布
-        "comment.add" => {
+        "identity.add" => {
             // 发布评论命令
             let cmd: DynamicCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
             AppData::ok(cmd).finish(&req, start)
         }
 
         // 3002 点赞
-        "comment.like" => {
+        "identity.like" => {
             // 发布评论命令
             let cmd: DynamicCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
             AppData::ok(cmd).finish(&req, start)
         }
 
         // 3003 不喜欢
-        "comment.dislike" => {
+        "identity.dislike" => {
             // 发布评论命令
             let cmd: DynamicCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
             AppData::ok(cmd).finish(&req, start)
         }
 
         // 3004 举报
-        "comment.report" => {
+        "identity.report" => {
             // 发布评论命令
             let cmd: DynamicCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
             AppData::ok(cmd).finish(&req, start)

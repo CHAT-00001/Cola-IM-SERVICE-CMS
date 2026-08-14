@@ -1,5 +1,5 @@
-// cola_data/src/cola_video/entity/cola_user/mod.rs
-// 数据 - VIDEO - entity - cola_user - mod
+// cola_data/src/cola_video/entity/user/mod.rs
+// 数据 - VIDEO - entity - user - mod
 // 2026/8/1 14:50 创建
 
 ////////

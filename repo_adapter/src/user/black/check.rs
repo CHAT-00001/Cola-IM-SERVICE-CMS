@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_user/black/check.rs
+// repo_adapter/src/user/black/check.rs
 // 🔌 适配器 - USER - 黑名单 - 状态检查
 // 2026/8/6 解耦: 检查是否在黑名单
 
@@ -7,7 +7,7 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use port::cola_user::black::check::UserBlackCheckPort;
-use repository::cola_user::pg::black::state::UserBlackStateRepo;
+use repository::user::pg::black::state::UserBlackStateRepo;
 use tracing::{error, info};
 
 ////////
@@ -36,7 +36,7 @@ impl UserBlackCheckPort for BlackCheckAdapter {
 
         // 🚧 1. 缓存检查 (Cache Check)
         // 提示：如果项目中引入了 Redis 缓存，可在此处优先查询缓存
-        // let cache_key = format!("cola_user:black:{}:{}", uid, id);
+        // let cache_key = format!("user:black:{}:{}", uid, id);
         // if let Some(cached_status) = CacheClient::get(&cache_key).await? {
         //     info!("[🔌 ADAPTER] - ⚡ 缓存命中黑名单状态: uid = {}, target_id = {}, result = {}", uid, id, cached_status);
         //     return Ok(cached_status);

@@ -5,7 +5,7 @@
 ////////
 
 use anyhow::Result;
-use cola_data::cola_market::command::shop::add::CreatedShopApplyCommand;
+use cola_data::market::command::shop::add::CreatedShopApplyCommand;
 
 ////////
 

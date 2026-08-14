@@ -1,4 +1,4 @@
-// cola_user/src/case/black/list.rs
+// user/src/case/black/list.rs
 // 用户 - case - 黑名单 - 列表
 // 2026/8/5 22:56 Created.
 

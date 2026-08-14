@@ -1,5 +1,5 @@
 // port/src/cola_video/comment/manage.rs
-// ⏩️ 端口 - ▶ 可乐视频 - 评论 - 管理
+// ⏩️ 端口 - VIDEO - 评论 - 管理
 // 2026/8/5 15:23 Created.
 
 ////////
@@ -9,7 +9,7 @@ use cola_data::cola_video::info::comment::VideoCommentInfo;
 ////////
 
 /// # [MANAGE PORTS] - 管理
-/// * `desc`: `▶ 可乐视频 - 评论管理端口`
+/// * `desc`: `VIDEO - 评论管理端口`
 #[async_trait::async_trait]
 pub trait VideoCommentManagePort: Send + Sync {
     //

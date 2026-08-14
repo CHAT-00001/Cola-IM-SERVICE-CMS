@@ -1,4 +1,4 @@
-// service/src/cola_user/role/mod.rs
+// service/src/user/role/mod.rs
 // 服务 - 可乐用户 - 角色 - 模块
 // 2026/8/3 14:32 Created.
 

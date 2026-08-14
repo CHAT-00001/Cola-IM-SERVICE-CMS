@@ -80,6 +80,6 @@ impl VisitedCache {
     // 4. key 统一管理
     // =========================
     fn key(user_id: i64) -> String {
-        format!("visited:cola_user:{}", user_id)
+        format!("visited:user:{}", user_id)
     }
 }

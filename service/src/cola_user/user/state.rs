@@ -1,19 +1,19 @@
-// service/src/cola_user/cola_user/state.rs
-// 👤 服务 - 🗣 可乐用户 - 用户 - 状态
+// service/src/user/user/state.rs
+// 服务 - 可乐用户 - 用户 - 状态
 // 2026/6/5 00:38
 
 ////////
 
 use cola_data::cola_user::command::user::add::UserCommand;
 use cola_data::cola_user::info::user::UserInfo;
-use repository::cola_user::pg::user::add::UserAddRepo;
-use repository::cola_user::pg::user::get::UserGetRepo;
-use repository::cola_user::pg::user::state::UserStateRepo;
+use repository::user::pg::user::add::UserAddRepo;
+use repository::user::pg::user::get::UserGetRepo;
+use repository::user::pg::user::state::UserStateRepo;
 
 ////////
 
 /// # [USER STATE SERVICE] - 状态检查
-/// * `desc`: `🗣 可乐用户 - 👤 用户状态检查服务`
+/// * `desc`: `USER - 用户状态检查服务`
 pub struct UserStateService;
 
 // 构造函数
@@ -34,7 +34,7 @@ impl UserStateService {
 
     /// # 2. [SERVICE] - 检查用户封禁
     pub async fn check_user_banned(uid: i64) -> Result<bool, anyhow::Error> {
-        // 先走 Redis 布隆过滤器或者查 cola_user 表的 status 是否等于特定封禁码
+        // 先走 Redis 布隆过滤器或者查 user 表的 status 是否等于特定封禁码
         let user = UserGetRepo::single_find_user_by_id(uid).await?;
         Ok(user.map(|u| u.status.unwrap_or(1) == 0).unwrap_or(false)) // 假设 status = 0 为封禁
     }
@@ -42,11 +42,10 @@ impl UserStateService {
     ////////
 
     /// # 3. [SERVICE] - 查找和创建 Orchestrator
-    /// * 返回 (用户信息, 是否为新用户)
-    /// * `client_ip`: 客户端真实 IP（来自网关层提取）
+    /// * `desc`: `返回 (用户信息, 是否为新用户)`
     pub async fn upsert_user_by_phone(
-        phone_no: String,
-        client_ip: Option<String>,
+        phone_no: String,          // 电话号码
+        client_ip: Option<String>, // 客户端真实 IP（来自网关层提取）
     ) -> Result<(UserInfo, bool), anyhow::Error> {
         // 1. 查找现有用户
         if let Some(user) = UserStateRepo::find_user_by_phone(&phone_no).await? {

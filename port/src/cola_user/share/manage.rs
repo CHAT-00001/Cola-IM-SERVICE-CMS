@@ -1,4 +1,4 @@
-// port/src/cola_user/sharek/manage.rs
+// port/src/user/sharek/manage.rs
 // ⏩️ 端口 - 🗣 用户 - 分享 - 管理
 // 2026/8/5 21:35 Created.
 

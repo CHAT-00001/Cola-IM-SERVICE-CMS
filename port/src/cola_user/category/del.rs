@@ -1,4 +1,4 @@
-// port/src/cola_user/category/del.rs
+// port/src/user/category/del.rs
 // ⏩️ 端口 - USER -  分类 - 删除
 // 2026/8/5 21:58 Created.
 

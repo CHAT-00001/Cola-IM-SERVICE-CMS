@@ -1,4 +1,4 @@
-// port/src/cola_user/view/del.rs
+// port/src/user/view/del.rs
 // 用户 - port - 浏览 - 删除
 // 2026/8/6 00:44 Created.
 

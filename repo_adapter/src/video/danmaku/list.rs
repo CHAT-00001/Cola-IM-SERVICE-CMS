@@ -1,5 +1,5 @@
 // repo_adapter/src/cola_video/danmaku/list.rs
-// 🔌 插头 - VIDEO - 弹幕 - 弹幕列表
+// 🔌 适配器 - VIDEO - 弹幕 - 弹幕列表
 // 2026/8/6 18:56 Created.
 
 ////////
@@ -12,6 +12,7 @@ use port::cola_video::danmaku::list::VideoDanmakuListPort;
 ////////
 
 /// # [LIST ADAPTER] - danmaku 列表
+/// * `desc`: `VIDEO - 视频弹幕列表适配器`
 #[derive(Debug, Default, Clone)]
 pub struct VideoDanmakuListAdapter;
 

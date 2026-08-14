@@ -1,15 +1,15 @@
-// port/src/cola_video/danmaku/dislike.rs
-// ⏩️ 端口 - 可乐视频 - 评论 - 列表
+// port/src/market/comment/dislike.rs
+// ⏩️ 端口 - MARKET - 商品评论 - 列表
 // 2026/8/9 03:30 Created.
 
 ////////
 
 ////////
 
-/// # [LIKE PORTS] - 不喜欢
-/// * `desc`: `▶ 可乐视频 - 评论不喜欢端口`
+/// # [DISLIKE PORTS] - 不喜欢
+/// * `desc`: `MARKET - 商品评论不喜欢端口`
 #[async_trait::async_trait]
-pub trait VideoCommentDisikePort: Send + Sync {
+pub trait GoodsCommentDisikePort: Send + Sync {
     //
 
     ////////

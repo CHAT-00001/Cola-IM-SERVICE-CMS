@@ -1,4 +1,4 @@
-// // port/src/cola_user/vip/stat.rs
+// // port/src/user/vip/stat.rs
 // // ⏩️ 端口 - 🗣 用户 - 贵宾 - 统计
 // // 2026/8/9 20:17 Created.
 //

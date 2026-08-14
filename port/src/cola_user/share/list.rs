@@ -1,4 +1,4 @@
-// port/src/cola_user/share/list.rs
+// port/src/user/share/list.rs
 // ⏩️ 端口 - 🗣 用户 - 分享 - 类别
 // 2026/8/5 21:36 Created.
 

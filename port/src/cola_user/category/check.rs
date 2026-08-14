@@ -1,4 +1,4 @@
-// port/src/cola_user/category/check.rs
+// port/src/user/category/check.rs
 // 用户 - port - 关注 - 检查
 // 2026/8/5 21:58 Created.
 

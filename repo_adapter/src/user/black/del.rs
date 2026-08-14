@@ -7,7 +7,7 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use port::cola_user::black::del::UserBlackDelPort;
-use repository::cola_user::pg::black::get::UserBlackGetRepo;
+use repository::user::pg::black::get::UserBlackGetRepo;
 use tracing::info;
 
 ////////

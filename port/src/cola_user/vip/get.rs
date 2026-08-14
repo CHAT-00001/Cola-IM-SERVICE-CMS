@@ -1,4 +1,4 @@
-// port/src/cola_user/vip/get.rs
+// port/src/user/vip/get.rs
 // 用户 - port - 贵宾 - 获取
 // 2026/8/6 00:35 Created.
 

@@ -1,4 +1,4 @@
-// repo_adapter/src/market/goods_feed.rs
+// repo_adapter/src/market/goods/feed.rs
 // 🔌 适配器 - MARKET - GOODS - FEED
 // 2026/6/18
 
@@ -6,7 +6,7 @@
 
 use async_trait::async_trait;
 use rust_decimal::Decimal;
-use cola_data::cola_market::info::goods::goods::GoodsInfo;
+use cola_data::market::info::goods::goods::GoodsInfo;
 use port::market::goods::feed::GoodsFeedPort;
 use repository::cola_market::pg::goods::feed::GoodsFeedRepo;
 

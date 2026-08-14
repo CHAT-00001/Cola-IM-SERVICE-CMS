@@ -1,11 +1,11 @@
-// service/src/cola_user/blackk/get.rs
+// service/src/user/blackk/get.rs
 // 👤 服务 - USER - 黑名单 - 获取
 // 2026/8/3 14:28 Created.
 
 ////////
 
 use anyhow::{Result, anyhow};
-use repository::cola_user::pg::black::get::UserBlackGetRepo;
+use repository::user::pg::black::get::UserBlackGetRepo;
 use repository::pg_pool;
 
 ////////

@@ -1,1 +1,1 @@
-// cola_user/src/case/share/list.rs  -- 分享列表 // 2026/8/6 //////// use anyhow::Result; pub struct UserShareListCase; impl UserShareListCase { pub async fn case_get_list(offset: i64, limit: i64) -> Result<Vec<()>> { Ok(vec![]) } }
+// user/src/case/share/list.rs  -- 分享列表 // 2026/8/6 //////// use anyhow::Result; pub struct UserShareListCase; impl UserShareListCase { pub async fn case_get_list(offset: i64, limit: i64) -> Result<Vec<()>> { Ok(vec![]) } }

@@ -1,4 +1,4 @@
-// cola_user/src/api/follow/mange.rs
+// user/src/api/follow/mange.rs
 // core - USER - api - follow - 管理 接口
 // 2026/8/2 22:21 Created.
 

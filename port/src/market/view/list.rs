@@ -4,7 +4,7 @@
 
 ////////
 
-use cola_data::cola_market::info::goods::view::GoodsViewInfo;
+use cola_data::market::info::goods::view::GoodsViewInfo;
 
 ////////
 

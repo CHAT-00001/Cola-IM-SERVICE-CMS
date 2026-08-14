@@ -1,4 +1,4 @@
-// cola_data/src/cola_user/entit/view.rs
+// cola_data/src/user/entit/view.rs
 // 数据中心 - 可乐用户 - entity - 浏览表
 // 2026/8/7 15:59 Created.
 
@@ -11,7 +11,7 @@ use sqlx::FromRow;
 ////////
 
 /// # [ENTITY] - 用户 - 浏览记录表
-/// * `pg schema`: `cola_user` -- 可乐用户
+/// * `pg schema`: `user` -- 可乐用户
 /// * `table name`: `view` -- 浏览记录表
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct UserViewEntity {

@@ -1,5 +1,5 @@
-// cola_user/src/case/cola_user/get.rs
-// core - USER - case - cola_user - 获取 用例
+// user/src/case/user/get.rs
+// core - USER - case - user - 获取 用例
 // 2026/8/3 12:18 Created.
 
 ////////

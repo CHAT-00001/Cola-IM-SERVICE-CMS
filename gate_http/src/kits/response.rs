@@ -15,7 +15,7 @@ impl<T: serde::Serialize> IntoApi for AppData<T> {
         let log_id = req.headers()
             .get("X-Log-ID")
             .and_then(|v| v.to_str().ok())
-            .unwrap_or("REQ_INTERNAL")
+            .unwrap_or("2024")
             .to_string();
 
         let mut final_res = self;

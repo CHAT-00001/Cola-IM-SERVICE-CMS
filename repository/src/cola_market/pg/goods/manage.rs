@@ -5,13 +5,14 @@
 ////////
 
 use crate::pg_pool;
-use cola_data::cola_market::entity::goods::goods::{GoodsEntity, GOODS_COLUMNS};
+use cola_data::market::entity::goods::goods::{GoodsEntity, GOODS_COLUMNS};
 use rust_decimal::Decimal;
 use sqlx::{Postgres, QueryBuilder};
 
 ////////
 
 /// # [MANAGE REPOSITORY] - 管理员列表
+/// * `desc`: `MARKET - 商品管理仓储`
 pub struct GoodsManageRepo;
 
 impl GoodsManageRepo {
@@ -44,7 +45,7 @@ impl GoodsManageRepo {
         let pool = pg_pool();
 
         let mut query_builder: QueryBuilder<Postgres> = QueryBuilder::new(format!(
-            "SELECT {} FROM market.goods WHERE 1=1 ",
+            "SELECT {} FROM cola_market.goods WHERE 1=1 ",
             GOODS_COLUMNS
         ));
 
@@ -99,3 +100,5 @@ impl GoodsManageRepo {
             .await
     }
 }
+
+//////// END

@@ -1,4 +1,4 @@
-// cola_user/case/black/check.rs
+// user/case/black/check.rs
 // 用户 - case - black - 检查
 // 2026/8/5 21:29 Created.
 

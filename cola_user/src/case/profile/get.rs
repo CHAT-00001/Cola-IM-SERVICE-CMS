@@ -1,4 +1,4 @@
-// cola_user/src/case/profiler/get.rs
+// user/src/case/profiler/get.rs
 // 用户 - case - profile - 获取 用例
 // 2026/8/2 22:50 Created.
 

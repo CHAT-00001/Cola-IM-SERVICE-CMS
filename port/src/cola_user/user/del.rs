@@ -1,4 +1,4 @@
-// port/src/cola_user/user/del.rs
+// port/src/user/user/del.rs
 // 用户 - port - 用户 - 删除
 // 2026/8/5 22:02 Created.
 

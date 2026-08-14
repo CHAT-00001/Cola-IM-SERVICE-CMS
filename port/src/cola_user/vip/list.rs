@@ -1,4 +1,4 @@
-// port/src/cola_user/vip/list.rs
+// port/src/user/vip/list.rs
 // ⏩️ 端口 - 🗣 可乐用户 - 贵宾 - 列表
 // 2026/8/6 00:35 Created.
 
@@ -66,7 +66,7 @@ pub trait VipListPort: Send + Sync + 'static {
     ////////
 
     /// # 7. [PORT] - 获取用户的黑名单
-    /// * `return` : `cola_user ids`
+    /// * `return` : `user ids`
     async fn get_list_by_user_id(
         &self,
         user_id: i64, // 目标用户ID

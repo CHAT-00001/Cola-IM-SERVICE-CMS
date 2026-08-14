@@ -1,4 +1,4 @@
-// port/src/cola_user/ban/del.rs
+// port/src/user/ban/del.rs
 // 用户 - port - 封禁 - 删除
 // 2026/8/5 21:38 Created.
 

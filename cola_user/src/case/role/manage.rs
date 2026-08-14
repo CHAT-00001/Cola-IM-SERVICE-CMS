@@ -1,4 +1,4 @@
-// cola_user/src/case/role/manage.rs
+// user/src/case/role/manage.rs
 // core - 可乐用户 - case - 角色管理 用例
 // 2026/8/2 22:49 Created.
 

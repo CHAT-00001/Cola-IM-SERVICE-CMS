@@ -1,4 +1,4 @@
-// http/src/cola_user/gateway.rs  -- HTTP 用户 网关
+// http/src/user/gateway.rs  -- HTTP 用户 网关
 // 2026/6/18 07:53
 
 //////

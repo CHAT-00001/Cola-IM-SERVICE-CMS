@@ -1,4 +1,4 @@
-// cola_user/src/api/ban/mod.rs
+// user/src/api/ban/mod.rs
 // 用户 - api - 封禁 - 模块
 // 2026/8/6 13:39 Created.
 

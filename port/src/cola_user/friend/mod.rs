@@ -1,4 +1,4 @@
-// cola_user/port/friend/mod.rs
+// user/port/friend/mod.rs
 // ⏩️ 端口 - 🗣 可乐用户 - 朋友 - 模块
 // 2026/8/5 21:56 Created.
 

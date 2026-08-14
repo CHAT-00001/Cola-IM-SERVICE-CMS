@@ -1,4 +1,4 @@
-// cola_user/port/friendt/list.rs
+// user/port/friendt/list.rs
 // ⏩️ 端口 - 🗣 用户 - 朋友 - 列表
 // 2026/8/5 21:58 Created.
 
@@ -65,7 +65,7 @@ pub trait FriendListPort: Send + Sync + 'static {
     ////////
 
     /// # 7. [PORT] - 获取用户的黑名单
-    /// * `return` : `cola_user ids`
+    /// * `return` : `user ids`
     async fn get_list_by_user_id(
         &self,
         user_id: i64, // 目标用户ID

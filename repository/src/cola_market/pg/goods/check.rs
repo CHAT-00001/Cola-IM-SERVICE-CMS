@@ -5,7 +5,7 @@
 ////////
 
 use crate::pg_pool;
-use cola_data::cola_market::entity::goods::goods::{GOODS_COLUMNS, GoodsEntity};
+use cola_data::market::entity::goods::goods::{GOODS_COLUMNS, GoodsEntity};
 
 ////////
 
@@ -23,7 +23,7 @@ impl GoodsChangeRepo {
     ) -> Result<u64, sqlx::Error> {
         let pool = pg_pool();
         let res = sqlx::query_scalar::<_, i64>(
-            "SELECT health FROM market.goods WHERE id = $1",
+            "SELECT health FROM cola_market.goods WHERE id = $1",
         )
             .bind(id)
             .fetch_optional(&pool)
@@ -45,7 +45,7 @@ impl GoodsChangeRepo {
     pub async fn check_status(id: i64, // 商品 ID
     ) -> Result<GoodsEntity, sqlx::Error> {
         let pool = pg_pool();
-        let sql = format!("SELECT {} FROM market.goods WHERE id = $1", GOODS_COLUMNS);
+        let sql = format!("SELECT {} FROM cola_market.goods WHERE id = $1", GOODS_COLUMNS);
         let res = sqlx::query_as::<_, GoodsEntity>(&sql)
             .bind(id)
             .fetch_optional(&pool)
@@ -74,7 +74,7 @@ impl GoodsChangeRepo {
     ) -> Result<bool, sqlx::Error> {
         let pool = pg_pool();
         let res = sqlx::query_scalar::<_, i64>(
-            "SELECT 1 FROM market.goods WHERE id = $1 AND uid = $2",
+            "SELECT 1 FROM cola_market.goods WHERE id = $1 AND uid = $2",
         )
             .bind(id)
             .bind(user_id)

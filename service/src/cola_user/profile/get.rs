@@ -1,11 +1,11 @@
-// service/src/cola_user/profile/get.rs
+// service/src/user/profile/get.rs
 // 服务 - 可乐用户 - 资料名片 - 获取
 // 2026/8/3 14:32 Created.
 
 ////////
 
 use cola_data::cola_user::entity::profile::UserProfileEntity;
-use repository::cola_user::pg::profile::get::UserProfileGetRepo;
+use repository::user::pg::profile::get::UserProfileGetRepo;
 
 ////////
 

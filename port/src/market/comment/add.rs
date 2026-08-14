@@ -1,5 +1,5 @@
-// port/src/cola_video/comment/add.rs
-// ⏩️ 端口 - 可乐视频 - 评论 - 列表
+// port/src/market/comment/add.rs
+// ⏩️ 端口 - MARKET - 商品评论 - 列表
 // 2026/8/5 00:03 Created.
 
 ////////
@@ -9,10 +9,10 @@ use cola_data::cola_video::info::comment::VideoCommentInfo;
 
 ////////
 
-/// # [LIST SERVICE] - 发布
-/// * `desc`: `视频评论发布服务端口`
+/// # [ADD PORTS] - 发布
+/// * `desc`: `MARKET - 商品评论发布端口`
 #[async_trait::async_trait]
-pub trait VideoCommentAddPort: Send + Sync {
+pub trait GoodsCommentAddPort: Send + Sync {
     //
 
     ////////

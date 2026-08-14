@@ -1,20 +1,18 @@
-// repo_adapter/src/cola_video/cola_video/list.rs
-// 🔌 插头 - 可乐视频 - 视频 - 列表
+// repo_adapter/src/market/express/list.rs
+// 🔌 适配器 - MARKET - 快递公司 - 列表
 // 2026/8/7 05:31 Created.
 
 ////////
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_market::info::express::express::ExpressInfo;
-use cola_data::cola_video::info::video::VideoInfo;
+use cola_data::market::info::express::express::ExpressInfo;
 use port::market::express::list::ExpressListPort;
-use port::cola_video::video::list::VideoListPort;
 
 ////////
 
-/// # [ADD ADAPTER] - 发布
-/// * `desc`: `🔌 视频发布插头`
+/// # [LIST ADAPTER] - 列表
+/// * `desc`: `MARKER - 快递公司列表适配器`
 pub struct ExpressListAdapter;
 
 #[async_trait]

@@ -1,4 +1,4 @@
-// port/src/cola_user/follow/add.rs
+// port/src/user/follow/add.rs
 // ⏩️ 端口 - USER - 关注 - 发布
 // 2026/8/5 21:58 Created.
 

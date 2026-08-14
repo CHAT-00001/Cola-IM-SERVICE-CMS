@@ -1,4 +1,4 @@
-// cola_user/src/api/category/get.rs
+// user/src/api/category/get.rs
 // core - 🗣 可乐用户 - api - 分类 - 获取
 // 2026/8/2 22:30 Created.
 

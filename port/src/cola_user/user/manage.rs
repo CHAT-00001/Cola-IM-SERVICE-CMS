@@ -1,4 +1,4 @@
-// port/src/cola_user/user/manage.rs
+// port/src/user/user/manage.rs
 // 用户 - port - 用户 - 管理
 // 2026/8/5 22:02 Created.
 

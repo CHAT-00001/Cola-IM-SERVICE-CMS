@@ -1,5 +1,5 @@
-// /manage.rs
-// 🔌 插头 - 可乐视频 - 评论 - 管理
+// repo_adapter/src/market/comment/manage.rs
+// 🔌 适配器 - MARKET - 商品评论 - 管理
 // 2026/8/6 18:55 Created.
 
 ////////
@@ -7,17 +7,17 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use cola_data::cola_video::info::comment::VideoCommentInfo;
-use port::cola_video::comment::manage::VideoCommentManagePort;
+use port::market::comment::manage::GoodsCommentManagePort;
 
 ////////
 
-/// # [ADD ADAPTER] - 发布
-/// * `desc`: `可乐视频 - 视频评论管理适配器`
+/// # [MANAGE ADAPTER] - 管理
+/// * `desc`: `VIDEO - 视频评论管理适配器`
 #[derive(Debug, Default, Clone)]
-pub struct VideoCommentManageAdapter;
+pub struct GoodsCommentManageAdapter;
 
 #[async_trait]
-impl VideoCommentManagePort for VideoCommentManageAdapter {
+impl GoodsCommentManagePort for GoodsCommentManageAdapter {
     async fn admin_list(
         &self,
         uid: i64,
@@ -28,7 +28,9 @@ impl VideoCommentManagePort for VideoCommentManageAdapter {
         status_code: i16,
         limit: i64,
         offset: i64,
-    ) -> Result<(VideoCommentInfo)> {
+    ) -> anyhow::Result<(Vec<VideoCommentInfo>)> {
         todo!()
     }
 }
+
+//////// END

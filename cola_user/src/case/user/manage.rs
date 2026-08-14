@@ -1,4 +1,4 @@
-// cola_user/src/case/cola_user/manage.rs
+// user/src/case/user/manage.rs
 // 用户 - case - 用户 - 管理用例
 // 2026/8/2 22:48 Created.
 

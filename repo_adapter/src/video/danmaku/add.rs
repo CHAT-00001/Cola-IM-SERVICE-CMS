@@ -1,5 +1,5 @@
-// repo_adapter/src/cola_video/danmaku/add.rs
-// 🔌 插头 - ▶ 可乐视频 - 弹幕 - 发布
+// repo_adapter/src/video/danmaku/add.rs
+// 🔌 适配器 - VIDEO - 弹幕 - 发布
 // 2026/8/9 22:12 Created.
 
 ////////
@@ -13,6 +13,7 @@ use port::cola_video::danmaku::add::VideoDanmakuAddPort;
 ////////
 
 /// # [ADD ADAPTER] - danmaku add
+/// * `desc`: `VIDEO - 视频弹幕发布适配器`
 #[derive(Debug, Default, Clone)]
 pub struct VideoDanmakuaddAdapter;
 

@@ -1,4 +1,4 @@
-// cola_user/src/case/follow/add.rs
+// user/src/case/follow/add.rs
 // core - USER - case - follow - 关注/取关 用例
 // 2026/6/10 07:00
 

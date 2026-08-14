@@ -10,6 +10,6 @@ pub mod black; // 黑名单
 pub mod category; // 分类
 pub mod follow; // 关注
 pub mod profile; // 资料名片
-pub mod share;
+pub mod share; // 分享
 pub mod user; // 用户
-pub mod vip; // 贵宾 // 分享
+pub mod vip; // 贵宾

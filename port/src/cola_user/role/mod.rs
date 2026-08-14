@@ -1,4 +1,4 @@
-// port/src/cola_user/role/mod.rs
+// port/src/user/role/mod.rs
 // ⏩️ 端口 - 🗣 用户 - 角色 - 模块
 // 2026/8/5 21:33 Created.
 

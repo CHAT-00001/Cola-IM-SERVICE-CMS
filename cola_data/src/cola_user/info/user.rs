@@ -1,12 +1,12 @@
-// cola_data/src/cola_user/info/cola_user.rs  --
-// 可乐数据中心 - 用户 - info - 用户信息
+// cola_data/src/user/info/user.rs  --
+// 数据 - 用户 - info - 用户信息
 // 2026/06/05 02:10
 
 ////////
 
+use crate::cola_user::entity::user::UserEntity;
 use chrono::{Datelike, TimeZone, Utc};
 use serde::{Deserialize, Serialize};
-use crate::cola_user::entity::user::UserEntity;
 
 ////////
 
@@ -30,6 +30,7 @@ pub struct UserInfo {
     pub is_streaming: bool, // 是否在直播
 }
 
+// 构造实现
 impl UserInfo {
     /// 构造一个带有默认值的 UserInfo，并根据生日动态计算年龄
     pub fn new(birthday: Option<i32>) -> Self {
@@ -102,15 +103,15 @@ impl From<UserEntity> for UserInfo {
             .unwrap_or_else(|| "一罐可乐".to_string()); // 👈 对齐 user_nickname
 
         info.avatar_url = entity.avatar.unwrap_or_default(); // 👈 对齐 avatar
-        info.bg_img = entity.bg_img.unwrap_or_default();     // 👈 对齐 bg_img
+        info.bg_img = entity.bg_img.unwrap_or_default(); // 👈 对齐 bg_img
 
         // 如果实体有签名则覆盖，没有则保留基座默认的 "这里还是空的啊~"
         if entity.signature.is_some() {
             info.signature = entity.signature; // 👈 对齐 signature
         }
 
-        info.status = entity.status.unwrap_or(1);            // 👈 对齐 status
-        info.add_time = entity.create_time as i64;              // 👈 完美强转兼容 PHP 的 i32 时间戳
+        info.status = entity.status.unwrap_or(1); // 👈 对齐 status
+        info.add_time = entity.create_time; // 👈 兼容 PHP 的 i64 时间戳
 
         // 3. 社交状态默认值，等待 Service 层后续通过 Redis 旁路染色填充
         info.is_following = false;

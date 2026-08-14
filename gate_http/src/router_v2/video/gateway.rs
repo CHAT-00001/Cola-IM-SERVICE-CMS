@@ -7,7 +7,7 @@ use crate::kits::response::IntoApi;
 use actix_web::{HttpMessage, HttpRequest, HttpResponse, Responder, web};
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::cola_auth::info::auth::AuthContext;
+use cola_data::auth::info::auth::AuthContext;
 use cola_live::api::home::LiveHomeApi;
 use serde::Deserialize;
 use std::time::Instant;

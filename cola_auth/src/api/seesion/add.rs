@@ -1,29 +1,30 @@
-// auth/src/api/active  -- 可乐验证中心 - 接口层 - 登录
+// auth/src/api/session/add.rs  -- 可乐验证中心 - 接口层 - 登录
 // 2026/6/9 07:54
 
 ////////
 
-use crate::case::add::AuthAddCase;
+use crate::case::session::add::AuthAddCase;
 use crate::case::login::LoginCase;
-use crate::case::session::SessionCase;
-use cola_data::cola_auth::vo::session::SignResponse;
+use cola_data::auth::vo::session::SignResponse;
 use cola_data::app::api::ApiQuery;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
-use cola_data::cola_auth::command::email::EmailLoginCommand;
-use cola_data::cola_auth::command::phone::PhoneLoginCommand;
+use cola_data::auth::command::email::EmailLoginCommand;
+use cola_data::auth::command::phone::PhoneLoginCommand;
 use tracing::log;
 use validator::Validate;
 
 ////////
 
-/// # [API] - 登录 接口
-pub struct AuthAddApi;
+/// # [ADD API] - 登录 接口
+pub struct SessionAddApi;
 
-impl AuthAddApi {
+impl SessionAddApi {
+    //
+
     ////////
 
-    /// # 1. [CASE] - 手机短信验证码登录
+    /// # 1. [API HANDLER] - 手机短信验证码登录
     /// * `action`: 2001
     /// * `desc`: 手机 + 短信
     pub async fn handler_sign_in_by_phone(cmd: PhoneLoginCommand) -> AppData<SignResponse> {
@@ -46,7 +47,7 @@ impl AuthAddApi {
 
     ////////
 
-    /// # 2. [CASE] - 邮箱验证码登录
+    /// # 2. [API HANDLER] - 邮箱验证码登录
     /// * `action`: 2002
     /// * `desc`: email + code
     pub async fn handler_sign_in_by_email(cmd: EmailLoginCommand) -> AppData<SignResponse> {
@@ -67,7 +68,7 @@ impl AuthAddApi {
 
     ////////
 
-    /// # 3. [CASE] - 账号密码登录
+    /// # 3. [API HANDLER] - 账号密码登录
     /// * `action`: 2003
     pub async fn handler_sign_in_by_pwd(cmd: PhoneLoginCommand) -> AppData<SignResponse> {
         if let Err(e) = cmd.validate_params() {
@@ -85,7 +86,7 @@ impl AuthAddApi {
 
     ////////
 
-    /// # 4. [CASE] - 谷歌登录
+    /// # 4. [API HANDLER] - 谷歌登录
     /// * `desc`: 2004
     pub async fn handler_sign_in_by_google(cmd: PhoneLoginCommand) -> AppData<SignResponse> {
         if let Err(e) = cmd.validate_params() {
@@ -103,7 +104,7 @@ impl AuthAddApi {
 
     ////////
 
-    /// # 5. [CASE] - 苹果登录
+    /// # 5. [API HANDLER] - 苹果登录
     /// * `action`: 2005
     pub async fn handler_sign_in_by_apple(cmd: PhoneLoginCommand) -> AppData<SignResponse> {
         if let Err(e) = cmd.validate_params() {
@@ -121,7 +122,7 @@ impl AuthAddApi {
 
     ////////
 
-    /// # 6. [CASE] - 微信登录
+    /// # 6. [API HANDLER] - 微信登录
     /// * `action`: 2006
     pub async fn handler_sign_in_by_wechat(cmd: PhoneLoginCommand) -> AppData<SignResponse> {
         if let Err(e) = cmd.validate_params() {
@@ -139,7 +140,7 @@ impl AuthAddApi {
 
     ////////
 
-    /// # 400. [CASE] - 退出登录（单设备下线）
+    /// # 400. [API HANDLER] - 退出登录（单设备下线）
     /// * `action`: 2400 / add.out
     /// * `user_id`   从网关上下文中提取（暂不鉴权，客户端传入）
     /// * `device_id` 设备标识 — 只下线当前设备

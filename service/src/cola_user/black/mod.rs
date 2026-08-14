@@ -1,4 +1,4 @@
-// service/src/cola_user/black/mod.rs
+// service/src/user/black/mod.rs
 // 服务 - 可乐用户 - 黑名单 - 模块
 // 2026/8/3 Created.
 
@@ -12,7 +12,7 @@ pub mod manage;
 pub mod state;
 
 use anyhow::{Result, anyhow};
-use repository::cola_user::pg::black::get::UserBlackGetRepo;
+use repository::user::pg::black::get::UserBlackGetRepo;
 
 ////////
 

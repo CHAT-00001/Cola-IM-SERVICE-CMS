@@ -1,5 +1,5 @@
 // repo_adapter/src/cola_video/danmaku/dislike.rs
-// 🔌 插头 - VIDEO - 弹幕 - 不喜欢弹幕
+// 🔌 适配器 - VIDEO - 弹幕 - 不喜欢弹幕
 // 2026/8/6 19:28 Created.
 
 ////////
@@ -11,6 +11,7 @@ use port::cola_video::danmaku::dislike::VideoDanmakuDislikePort;
 ////////
 
 /// # [DISLIKE ADAPTER] - danmaku 不喜欢
+/// * `desc`: `VIDEO - 视频弹幕不喜欢适配器`
 #[derive(Debug, Default, Clone)]
 pub struct VideoDanmakuDislikeAdapter;
 

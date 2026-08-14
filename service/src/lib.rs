@@ -5,7 +5,7 @@
 ////////
 
 pub mod cola_asset; // 可乐资产
-pub mod cola_auth; // 可乐验证中心
+pub mod auth; // 可乐验证中心
 pub mod cola_gis; // 可乐GIS
 pub mod cola_im; // 可乐IM
 pub mod cola_music; // 可乐音乐

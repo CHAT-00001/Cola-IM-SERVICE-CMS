@@ -1,4 +1,4 @@
-// cola_data/src/cola_user/command/profile.rs
+// cola_data/src/user/command/profile.rs
 // 数据中心 - USER - command - 资料名片
 // 2026/8/6 Created.
 

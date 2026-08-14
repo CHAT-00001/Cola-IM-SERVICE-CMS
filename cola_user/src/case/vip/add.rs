@@ -1,4 +1,4 @@
-// cola_user/src/case/vip/add.rs
+// user/src/case/vip/add.rs
 // 用户 - case - 贵宾 - 添加 用例
 // 2026/8/2 22:52 Created.
 

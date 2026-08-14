@@ -1,5 +1,5 @@
 // repo_adapter/src/cola_video/danmaku/like.rs
-// 🔌 插头 - VIDEO - 弹幕 - 弹幕点赞
+// 🔌 适配器 - VIDEO - 弹幕 - 弹幕点赞
 // 2026/8/6 19:17 Created.
 
 ////////
@@ -11,6 +11,7 @@ use port::cola_video::danmaku::like::VideoDanmakuLikePort;
 ////////
 
 /// # [LIKE ADAPTER] - danmaku 点赞
+/// * `desc`: `VIDEO - 视频弹幕点赞适配器`
 #[derive(Debug, Default, Clone)]
 pub struct VideoDanmakuLikeAdapter;
 

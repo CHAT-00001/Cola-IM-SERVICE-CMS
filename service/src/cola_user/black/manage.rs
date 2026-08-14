@@ -1,4 +1,4 @@
-// service/src/cola_user/black/manage.rs
+// service/src/user/black/manage.rs
 // 服务 - 可乐用户 - 黑名单 - 管理
 // 2026/8/3 19:38 Created.
 

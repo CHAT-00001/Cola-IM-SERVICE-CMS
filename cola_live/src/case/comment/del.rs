@@ -1,4 +1,4 @@
-// cola_live/src/case/comment/del.rs
+// cola_live/src/case/identity/del.rs
 // LIVE - 用例层 - 评论 - 删除
 // 2026/8/12 04:51 Created.
 

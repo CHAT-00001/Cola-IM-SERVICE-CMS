@@ -1,4 +1,4 @@
-// service/src/cola_user/black/del.rs
+// service/src/user/black/del.rs
 // 👤 服务 - 可乐用户 - 黑名单 - 软删除服务
 // 2026/8/8 03:44 Created.
 
@@ -11,9 +11,9 @@
 ////////
 
 use anyhow::Result;
-use repository::cola_user::pg::black::add::UserBlackAddRepo;
-use repository::cola_user::pg::black::del::UserBlackDelRepo;
-use repository::cola_user::pg::role::manage::UserRoleManageRepo;
+use repository::user::pg::black::add::UserBlackAddRepo;
+use repository::user::pg::black::del::UserBlackDelRepo;
+use repository::user::pg::role::manage::UserRoleManageRepo;
 
 ////////
 

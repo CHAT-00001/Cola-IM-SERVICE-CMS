@@ -1,4 +1,4 @@
-// port/src/cola_user/ban/get.rs
+// port/src/user/ban/get.rs
 // 用户 - port - 黑名单 - 获取
 // 2026/6/11 20:13
 

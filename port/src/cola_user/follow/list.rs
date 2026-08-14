@@ -1,4 +1,4 @@
-// cola_user/followt/list.rs
+// user/followt/list.rs
 // ⏩️ 端口 - 🗣 用户 - 关注 - 列表
 // 2026/8/5 21:58 Created.
 
@@ -19,7 +19,7 @@ pub trait UserFollowListPort: Send + Sync + 'static {
     ////////
 
     /// # 1. [PORT] - 自己关注的
-    /// * `return` : `cola_user ids`
+    /// * `return` : `user ids`
     async fn get_follow_infos_by_user_id(
         &self,
         uid: i64,     // 操作者
@@ -31,7 +31,7 @@ pub trait UserFollowListPort: Send + Sync + 'static {
     ////////
 
     /// # 2. [PORT] - 被关注的
-    /// * `return` : `cola_user ids`
+    /// * `return` : `user ids`
     async fn get_follow_infos_by_target_id(
         &self,
         uid: i64,       // 操作者

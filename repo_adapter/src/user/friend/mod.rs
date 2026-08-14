@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_user/friend/mod.rs
+// repo_adapter/src/user/friend/mod.rs
 // 🔌 插头 - 可乐用户 - 朋友 - 模块
 // 2026/8/6 10:14 Created.
 

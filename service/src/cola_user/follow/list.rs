@@ -1,4 +1,4 @@
-// service/src/cola_user/follow/list.rs
+// service/src/user/follow/list.rs
 // 👤 服务 - 🗣 可乐用户 - 关注 - 列表
 // 2026/8/6 Created.
 
@@ -7,7 +7,7 @@
 use anyhow::{Result, anyhow};
 use cola_data::cola_user::entity::user::UserEntity;
 use cola_data::cola_user::info::user::UserInfo;
-use repository::cola_user::pg::follow::list::UserFollowListRepo;
+use repository::user::pg::follow::list::UserFollowListRepo;
 
 ////////
 

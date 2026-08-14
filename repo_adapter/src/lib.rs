@@ -23,7 +23,6 @@ pub mod user; // User
 pub mod video; // Video
 pub mod wallet; // Wallet
 
-
 ////////
 
 // Temporary Stub Adapter - Used as compilation placeholder, delete after implementing actual adapter
@@ -53,11 +52,11 @@ pub fn build_app_context() -> AppContext {
     let auth = auth::build_auth_port();
     let gis = gis::build_gis_port();
     let live = live::build_live_port();
-    let market = market::build_market_port();
+    let market = market::build_cola_market_port();
     let music = music::build_music_port();
     let three = three::build_three_port();
     let user = user::build_user_port();
-    let video = video::build_video_port();
+    let video = video::build_cola_video_port();
     let im = im::build_im_port();
 
     ////////

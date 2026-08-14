@@ -1,5 +1,5 @@
 // repo_adapter/src/video/danmaku/mod.rs
-// 🔌 适配器 - 视频 - 弹幕 - mod
+// 🔌 适配器 - VIDEO - 弹幕 - mod
 // 2026/8/9 22:16 Created.
 
 ////////
@@ -10,6 +10,7 @@ use std::sync::Arc;
 ////////
 
 pub mod add; // 发布
+pub mod alive; // 活跃
 pub mod check; // 检查
 pub mod del; // 删除
 pub mod dislike; // 弹幕不喜欢

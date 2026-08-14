@@ -6,7 +6,7 @@
 use serde::{Deserialize, Serialize};
 use std::cmp;
 use std::collections::HashMap;
-use crate::cola_auth::request::session::AuthSessionRequest;
+use crate::auth::request::session::AuthSessionRequest;
 
 ////////
 

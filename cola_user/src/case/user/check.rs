@@ -1,4 +1,4 @@
-// cola_user/src/case/cola_user/check.rs
+// user/src/case/user/check.rs
 // 用户 - case - 用户 - 检查
 // 2026/8/2 22:48 Created.
 

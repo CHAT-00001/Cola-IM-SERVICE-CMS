@@ -1,4 +1,4 @@
-// port/src/cola_user/view/manage.rs
+// port/src/user/view/manage.rs
 // ⏩️ 端口 - USER - 浏览 - 管理
 // 2026/8/6 00:44 Created.
 

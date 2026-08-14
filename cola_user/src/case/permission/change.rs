@@ -1,4 +1,4 @@
-// cola_user/src/case/permission/manage
+// user/src/case/permission/manage
 // core - USER - case - permission -
 // 2026/5/20 03:19
 

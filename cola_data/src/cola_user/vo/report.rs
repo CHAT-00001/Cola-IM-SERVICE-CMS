@@ -1,4 +1,4 @@
-// cola_data/src/cola_user/vo/report.rs
+// cola_data/src/user/vo/report.rs
 // 可乐数据中心 - 用户 - vo - 审核端举报内容视图对象
 // 2026/8/5 20:17 Created.
 

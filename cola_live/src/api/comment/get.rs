@@ -1,4 +1,4 @@
-// live/api/comment/get.rs
+// live/api/identity/get.rs
 // LIVE - API - COMMENT - GET
 // 2026/8/12 05:55 Created.
 
@@ -8,7 +8,7 @@ use crate::case::comment::get::CommentGetCase;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::app::request::ApiUrlParamsQuery;
-use cola_data::cola_auth::info::auth::AuthContext;
+use cola_data::auth::info::auth::AuthContext;
 
 use port::app::ctx::AppContext;
 use service::cola_user::user::state::UserStateService;

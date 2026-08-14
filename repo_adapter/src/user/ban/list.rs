@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_user/ban/list.rs
+// repo_adapter/src/user/ban/list.rs
 // 🔌 适配器 - 可乐用户 - 封禁 - 列表服务
 // 2026/8/7 05:56 Created.
 

@@ -1,4 +1,4 @@
-// port/src/cola_dynamic/comment/get.rs
+// port/src/cola_dynamic/identity/get.rs
 // ⏩️ 端口 - 可乐动态 - 评论 - 获取
 // 2026/6/10 08:23 Created.
 

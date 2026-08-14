@@ -1,4 +1,4 @@
-// cola_data/src/cola_user/vo/mod.rs
+// cola_data/src/user/vo/mod.rs
 // 数据中心 - 用户 - 视图对象 - 模块
 // 2026/6/18 09:58
 

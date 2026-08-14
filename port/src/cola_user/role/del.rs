@@ -1,4 +1,4 @@
-// port/src/cola_user/role/del.rs
+// port/src/user/role/del.rs
 // ⏩️ 端口 - 🗣 用户 - 角色 - 删除
 // 2026/8/5 21:38 Created.
 

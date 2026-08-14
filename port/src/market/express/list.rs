@@ -4,7 +4,7 @@
 
 ////////
 
-use cola_data::cola_market::info::express::express::ExpressInfo;
+use cola_data::market::info::express::express::ExpressInfo;
 
 ////////
 

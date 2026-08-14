@@ -1,11 +1,11 @@
-// service/src/cola_user/role/del.rs
+// service/src/user/role/del.rs
 // 👤 服务 - 可乐用户 - role - 软删除服务
 // 2026/8/7 21:29 Created.
 
 ////////
 
 use anyhow::Result;
-use repository::cola_user::pg::role::manage::UserRoleManageRepo;
+use repository::user::pg::role::manage::UserRoleManageRepo;
 
 ////////
 

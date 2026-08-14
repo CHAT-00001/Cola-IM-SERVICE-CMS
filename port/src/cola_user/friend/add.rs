@@ -1,4 +1,4 @@
-// cola_user/port/friend/add.rs
+// user/port/friend/add.rs
 // ⏩️ 端口 - 🗣 可乐用户 - 朋友 - 发布
 // 2026/8/5 21:58 Created.
 
@@ -70,7 +70,7 @@ pub trait FriendAddPort: Send + Sync + 'static {
     ////////
 
     /// # 7. [PORT] - 获取用户的朋友
-    /// * `return` : `cola_user ids`
+    /// * `return` : `user ids`
     async fn get_list_by_user_id(
         &self,
         user_id: i64, // 目标用户ID

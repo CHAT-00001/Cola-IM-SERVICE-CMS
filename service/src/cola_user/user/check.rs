@@ -1,4 +1,4 @@
-// service/src/cola_user/cola_user/check.rs
+// service/src/user/user/check.rs
 // 👤 服务 - 🗣 可乐用户 - 用户 - 检查
 // 2026/8/7 17:21 Created.
 
@@ -6,7 +6,7 @@
 
 
 use cola_data::cola_user::info::user::UserInfo;
-use repository::cola_user::pg::user::state::UserStateRepo;
+use repository::user::pg::user::state::UserStateRepo;
 
 ////////
 

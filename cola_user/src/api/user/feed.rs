@@ -1,4 +1,4 @@
-// cola_user/src/api/cola_user/feed.rs
+// user/src/api/user/feed.rs
 // 可乐短用户 - api - 用户 - feed流
 // 2026/5/20 02:04
 

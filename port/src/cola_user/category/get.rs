@@ -1,4 +1,4 @@
-// port/src/cola_user/category/get.rs
+// port/src/user/category/get.rs
 // 用户 - port - 关注 - 获取
 // 2026/8/5 21:56 Created.
 

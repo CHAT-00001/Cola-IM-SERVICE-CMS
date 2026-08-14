@@ -1,4 +1,4 @@
-// cola_user/src/case/profile/manage.rs
+// user/src/case/profile/manage.rs
 // 用户 - case - 资料 - 管理
 // 2026/8/2 22:50 Created.
 

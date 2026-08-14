@@ -1,5 +1,5 @@
 // repo_adapter/src/cola_video/danmaku/get.rs
-// 🔌 插头 - 可乐视频 - 弹幕 - 获取IDs
+// 🔌 适配器 - VIDEO - 弹幕 - 获取IDs
 // 2026/8/6 18:56 Created.
 
 ////////
@@ -12,6 +12,7 @@ use port::cola_video::danmaku::get::VideoDanmakuGetPort;
 ////////
 
 /// # [GET ADAPTER] - danmaku get
+/// * `desc`: `VIDEO - 视频弹幕获取适配器`
 #[derive(Debug, Default, Clone)]
 pub struct VideoDanmakuGetAdapter;
 

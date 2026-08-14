@@ -1,4 +1,4 @@
-// /list.rs
+// repo_adapter/src/video/comment/list.rs
 // 🔌 插头 - 可乐视频 - 评论 - 评论列表
 // 2026/8/6 18:55 Created.
 

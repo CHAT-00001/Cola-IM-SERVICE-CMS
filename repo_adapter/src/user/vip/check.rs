@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_user/vip/check.rs
+// repo_adapter/src/user/vip/check.rs
 // 🔌 适配器 - 可乐用户 - 贵宾 - 检查
 // 2026/8/6 14:20 Created.
 

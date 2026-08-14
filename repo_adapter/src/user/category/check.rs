@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_user/follow/check.rs
+// repo_adapter/src/user/follow/check.rs
 // 🔌 插头 - 可乐用户 - 关注 - 模块
 // 2026/8/10 04:17 Created.
 

@@ -1,4 +1,4 @@
-// cola_user/src/api/category/active
+// user/src/api/category/active
 // core - USER - api - category - 添加 接口
 // 2026/8/2 22:18 Created.
 

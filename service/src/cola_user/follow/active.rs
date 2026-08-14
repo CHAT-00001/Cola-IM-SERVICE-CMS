@@ -1,4 +1,4 @@
-// service/src/cola_user/follow/active.rs
+// service/src/user/follow/active.rs
 // 👤 服务 - 🗣 可乐用户 - 关注 -  活跃
 // 2026/8/3 14:35 Created.
 
@@ -7,7 +7,7 @@
 use anyhow::Result;
 use cola_data::cola_user::command::user::add::UserCommand;
 use cola_data::cola_user::info::user::UserInfo;
-use repository::cola_user::pg::user::get::UserGetRepo;
+use repository::user::pg::user::get::UserGetRepo;
 use std::collections::HashMap;
 
 ////////

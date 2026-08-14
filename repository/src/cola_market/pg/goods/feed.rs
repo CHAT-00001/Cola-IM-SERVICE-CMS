@@ -1,18 +1,11 @@
-// /feed.rs
-// 
-// 2026/8/11 07:38 Created.
-
-////////
-
-
-// repository/src/market/pg/goods/change.rs
+// repository/src/market/pg/goods/feed.rs
 // 仓储 - MARKET - pg - 商品 - 获取
 // 2026/8/11 07:37 Created.
 
 ////////
 
 use crate::pg_pool;
-use cola_data::cola_market::entity::goods::goods::{GOODS_COLUMNS, GoodsEntity};
+use cola_data::market::entity::goods::goods::{GOODS_COLUMNS, GoodsEntity};
 
 ////////
 
@@ -29,7 +22,7 @@ impl GoodsFeedRepo {
     pub async fn toggle_status(id: i64) -> Result<(), sqlx::Error> {
         let pool = pg_pool();
         sqlx::query(
-            "UPDATE shop_goods SET issale = CASE WHEN issale = 1 THEN 0 ELSE 1 END WHERE id = $1",
+            "UPDATE cola_market.goods SET issale = CASE WHEN issale = 1 THEN 0 ELSE 1 END WHERE id = $1",
         )
             .bind(id)
             .execute(&pool)
@@ -42,7 +35,7 @@ impl GoodsFeedRepo {
     /// 6. 删除商品
     pub async fn delete(id: i64) -> Result<(), sqlx::Error> {
         let pool = pg_pool();
-        sqlx::query("DELETE FROM shop_goods WHERE id = $1")
+        sqlx::query("DELETE FROM cola_market.goods WHERE id = $1")
             .bind(id)
             .execute(&pool)
             .await?;
@@ -55,7 +48,7 @@ impl GoodsFeedRepo {
     pub async fn find_recommend(offset: i64, limit: i64) -> Result<Vec<GoodsEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM shop_goods WHERE isrecom = 1 ORDER BY sale_nums DESC LIMIT $1 OFFSET $2",
+            "SELECT {} FROM cola_market.goods WHERE isrecom = 1 ORDER BY sale_nums DESC LIMIT $1 OFFSET $2",
             GOODS_COLUMNS
         );
         sqlx::query_as::<_, GoodsEntity>(&query)
@@ -88,7 +81,7 @@ impl GoodsFeedRepo {
         }
         let where_clause = conditions.join(" AND ");
         let query = format!(
-            "SELECT {} FROM shop_goods WHERE {} ORDER BY add_time DESC LIMIT $1 OFFSET $2",
+            "SELECT {} FROM cola_market.goods WHERE {} ORDER BY add_time DESC LIMIT $1 OFFSET $2",
             GOODS_COLUMNS,
             where_clause
         );
@@ -116,7 +109,7 @@ impl GoodsFeedRepo {
         }
         let where_clause = conditions.join(" AND ");
         let query = format!(
-            "SELECT {} FROM shop_goods WHERE {} ORDER BY add_time DESC LIMIT $2 OFFSET $3",
+            "SELECT {} FROM cola_market.goods WHERE {} ORDER BY add_time DESC LIMIT $2 OFFSET $3",
             GOODS_COLUMNS,
             where_clause
         );

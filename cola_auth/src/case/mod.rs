@@ -3,7 +3,6 @@
 
 ////////
 
-pub mod add;
 pub mod code;
 pub mod login;
 pub mod session;

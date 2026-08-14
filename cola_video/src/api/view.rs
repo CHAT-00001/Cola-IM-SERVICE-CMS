@@ -5,11 +5,11 @@
 //
 // mod add;
 //
-// use crate::model::request::comment::CommentRequest;
+// use crate::model::request::identity::CommentRequest;
 // use crate::model::vo::video::VideoSingleResponse;
 // use cola_data::app::data::AppData;
 // use cola_data::app::query::ApiGatewayRequest;
-// use cola_data::cola_auth::info::auth::AuthContext;
+// use cola_data::auth::info::auth::AuthContext;
 // use port::app::ctx::AppContext;
 //
 // ////////

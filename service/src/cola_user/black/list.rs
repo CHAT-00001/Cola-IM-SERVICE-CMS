@@ -1,4 +1,4 @@
-// service/src/cola_user/black/list.rs
+// service/src/user/black/list.rs
 // 👤 服务 - 🗣 可乐用户 - 黑名单 - 记录列表
 // 2026/8/7 20:51 Created.
 
@@ -6,7 +6,7 @@
 
 use anyhow::{Result, anyhow};
 use cola_data::cola_user::entity::black::UserBlackEntity;
-use repository::cola_user::pg::black::list::UserBlackListRepo;
+use repository::user::pg::black::list::UserBlackListRepo;
 
 ////////
 

@@ -5,7 +5,7 @@
 ////////
 
 use crate::pg_pool;
-use cola_data::cola_market::entity::goods::goods::GoodsEntity;
+use cola_data::market::entity::goods::goods::GoodsEntity;
 
 ////////
 
@@ -35,7 +35,7 @@ impl GoodsGetRepo {
     ) -> Result<Vec<GoodsEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM shop_goods WHERE uid = $1 ORDER BY add_time DESC LIMIT $2 OFFSET $3",
+            "SELECT {} FROM cola_market.goods WHERE uid = $1 ORDER BY add_time DESC LIMIT $2 OFFSET $3",
             Self::COLUMNS
         );
         sqlx::query_as::<_, GoodsEntity>(&query)
@@ -52,7 +52,7 @@ impl GoodsGetRepo {
     pub async fn find_by_id(id: i64) -> Result<Option<GoodsEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM shop_goods WHERE id = $1 LIMIT 1",
+            "SELECT {} FROM cola_market.goods WHERE id = $1 LIMIT 1",
             Self::COLUMNS
         );
         sqlx::query_as::<_, GoodsEntity>(&query)
@@ -67,7 +67,7 @@ impl GoodsGetRepo {
     pub async fn toggle_status(id: i64) -> Result<(), sqlx::Error> {
         let pool = pg_pool();
         sqlx::query(
-            "UPDATE shop_goods SET issale = CASE WHEN issale = 1 THEN 0 ELSE 1 END WHERE id = $1",
+            "UPDATE cola_market.goods SET issale = CASE WHEN issale = 1 THEN 0 ELSE 1 END WHERE id = $1",
         )
             .bind(id)
             .execute(&pool)
@@ -101,7 +101,7 @@ impl GoodsGetRepo {
         }
         let where_clause = conditions.join(" AND ");
         let query = format!(
-            "SELECT {} FROM shop_goods WHERE {} ORDER BY add_time DESC LIMIT $1 OFFSET $2",
+            "SELECT {} FROM cola_market.goods WHERE {} ORDER BY add_time DESC LIMIT $1 OFFSET $2",
             Self::COLUMNS,
             where_clause
         );
@@ -129,7 +129,7 @@ impl GoodsGetRepo {
         }
         let where_clause = conditions.join(" AND ");
         let query = format!(
-            "SELECT {} FROM shop_goods WHERE {} ORDER BY add_time DESC LIMIT $2 OFFSET $3",
+            "SELECT {} FROM cola_market.goods WHERE {} ORDER BY add_time DESC LIMIT $2 OFFSET $3",
             Self::COLUMNS,
             where_clause
         );

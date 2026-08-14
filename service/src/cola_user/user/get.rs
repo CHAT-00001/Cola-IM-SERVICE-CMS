@@ -1,4 +1,4 @@
-// service/src/cola_user/user/get.rs
+// service/src/user/user/get.rs
 // 👤 服务 - 🗣 可乐用户 - 用户 - 获取
 // 2026/8/8 03:19 Created.
 
@@ -7,7 +7,7 @@
 use anyhow::Result;
 use cola_data::cola_user::command::user::add::UserCommand;
 use cola_data::cola_user::info::user::UserInfo;
-use repository::cola_user::pg::user::get::UserGetRepo;
+use repository::user::pg::user::get::UserGetRepo;
 use std::collections::HashMap;
 
 ////////

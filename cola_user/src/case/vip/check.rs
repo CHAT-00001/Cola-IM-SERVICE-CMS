@@ -1,4 +1,4 @@
-// cola_user/src/case/cola_user/check.rs
+// user/src/case/user/check.rs
 // core - USER - case - vip - 检查 用例
 // 2026/8/2 22:53 Created.
 

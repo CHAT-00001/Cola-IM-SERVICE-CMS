@@ -1,4 +1,4 @@
-// cola_user/api/report/list.rs
+// user/api/report/list.rs
 // 可乐用户 - api - 举报 - 列表
 // 2026/8/5 20:11 Created.
 
@@ -8,7 +8,7 @@ use crate::case;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::app::request::ApiUrlParamsQuery;
-use cola_data::cola_auth::info::auth::AuthContext;
+use cola_data::auth::info::auth::AuthContext;
 use cola_data::cola_user::info::config::UserConfigInfo;
 use cola_data::cola_video::info::video::VideoListResponse;
 use port::app::ctx::AppContext;

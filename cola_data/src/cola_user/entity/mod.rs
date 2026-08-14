@@ -1,4 +1,4 @@
-// cola_data/src/cola_user/entity/mod.rs
+// cola_data/src/user/entity/mod.rs
 // 数据中心 - USER - entity - mod
 // 2026/5/22 13:27
 

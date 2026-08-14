@@ -1,4 +1,4 @@
-// port/src/cola_user/ban/manage.rs
+// port/src/user/ban/manage.rs
 // ⏩️ 端口 - 🗣 用户 - 封禁 - 管理
 // 2026/8/5 21:35 Created.
 

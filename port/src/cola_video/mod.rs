@@ -35,7 +35,7 @@ pub mod view; // 浏览
 ////////
 
 /// # [COLA VIDEO PORTS] - 视频
-/// * `desc`: `▶ 可乐视频 - Cola Video Service Port`
+/// * `desc`: `VIDEO - Cola Video Service Port`
 #[derive(Clone)]
 pub struct ColaVideoPort {
     pub buy: VideoBuyPort,

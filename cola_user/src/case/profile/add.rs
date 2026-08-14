@@ -1,4 +1,4 @@
-// cola_user/src/case/profile/add.rs
+// user/src/case/profile/add.rs
 // core - 可乐用户 - case - 资料名片 用例
 // 2026/8/2 22:49 Created.
 

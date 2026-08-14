@@ -1,4 +1,4 @@
-// cola_user/port/friend/check.rs
+// user/port/friend/check.rs
 // ⏩️ 端口 - 🗣 用户 - 朋友 - 检查
 // 2026/8/5 21:58 Created.
 

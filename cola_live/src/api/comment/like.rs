@@ -1,4 +1,4 @@
-// live/api/comment/like.rs
+// live/api/identity/like.rs
 // LIVE - API - COMMENT - LIKE/DISLIKE
 // 2026/8/12 05:57 Created.
 
@@ -8,7 +8,7 @@ use crate::case::comment::like::CommentLikeCase;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::app::request::ApiUrlParamsQuery;
-use cola_data::cola_auth::info::auth::AuthContext;
+use cola_data::auth::info::auth::AuthContext;
 use port::app::ctx::AppContext;
 use service::cola_user::user::state::UserStateService;
 
@@ -41,7 +41,7 @@ impl CommentLikeApi {
         match CommentLikeCase::case_set_comment_like(uid, comment_id, is_liked).await {
             Ok(_) => AppData::ok(true),
             Err(e) => {
-                tracing::error!("like comment error: {:?}", e);
+                tracing::error!("like identity error: {:?}", e);
                 AppData::err(5001, "点赞失败", None)
             }
         }

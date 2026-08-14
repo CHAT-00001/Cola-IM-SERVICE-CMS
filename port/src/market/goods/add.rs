@@ -4,7 +4,7 @@
 
 ////////
 
-use cola_data::cola_market::command::goods::GoodsCommand;
+use cola_data::market::command::goods::GoodsCommand;
 
 ////////
 

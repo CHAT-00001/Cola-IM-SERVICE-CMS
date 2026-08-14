@@ -1,4 +1,4 @@
-// port/src/cola_user/vip/del.rs
+// port/src/user/vip/del.rs
 // 用户 - port - 贵宾 - 删除
 // 2026/8/6 00:39 Created.
 

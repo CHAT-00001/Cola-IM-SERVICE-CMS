@@ -1,4 +1,4 @@
-// video/comment/del.rs
+// repo_adapter/src/video/comment/del.rs
 // 🔌 适配器 - 可乐视频 - 评论 - 逻辑删除
 // 2026/8/6 19:12 Created.
 

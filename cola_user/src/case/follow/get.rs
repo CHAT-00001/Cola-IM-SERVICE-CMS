@@ -1,4 +1,4 @@
-// cola_user/src/case/follow/get.rs
+// user/src/case/follow/get.rs
 // core - USER - case - 关注 - 获取
 // 2026/8/3 12:18 Created.
 

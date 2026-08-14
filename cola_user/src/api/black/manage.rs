@@ -1,4 +1,4 @@
-// cola_user/src/api/black/manage.rs
+// user/src/api/black/manage.rs
 // core - USER - api - black - 管理 接口
 // 2026/8/2 22:21 Created.
 

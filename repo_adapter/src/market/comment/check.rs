@@ -1,22 +1,22 @@
-// repo_adapter/src/video/comment/check.rs
-// 🔌 适配器 - ▶ 视频 -  评论 - 检查
+// repo_adapter/src/market/comment/check.rs
+// 🔌 适配器 - MARKET - 商品评论 - 检查
 // 2026/8/9 20:48 Created.
 
 ////////
 
 use anyhow::Result;
 use async_trait::async_trait;
-use port::cola_video::comment::check::VideoCommentCheckPort;
+use port::market::comment::check::GoodsCommentCheckPort;
 
 ////////
 
 /// # [CHECK ADAPTER] - 检查
-/// * `desc`: `▶ 视频 - 评论记录检查适配器`
+/// * `desc`: `MARKET - 商品评论检查适配器`
 #[derive(Debug, Default, Clone)]
-pub struct VideoCommentCheckAdapter;
+pub struct GoodsCommentCheckAdapter;
 
 #[async_trait]
-impl VideoCommentCheckPort for VideoCommentCheckAdapter {
+impl GoodsCommentCheckPort for GoodsCommentCheckAdapter {
     //
 
     ////////

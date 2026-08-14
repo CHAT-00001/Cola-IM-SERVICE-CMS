@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_user/ban/del.rs
+// repo_adapter/src/user/ban/del.rs
 // 🔌 适配器 - USER - 浏览 - 检查
 // 2026/8/7 05:56 Created.
 

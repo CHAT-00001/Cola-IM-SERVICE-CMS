@@ -1,4 +1,4 @@
-// service/src/cola_user/role/add.rs
+// service/src/user/role/add.rs
 // 服务 - 可乐用户 - role - 添加角色
 // 2026/8/3 14:32 Created.
 
@@ -6,8 +6,8 @@
 
 use anyhow::{Result, anyhow};
 use cola_data::cola_user::info::role::RoleInfo;
-use repository::cola_user::pg::role::add::UserRoleAddRepo;
-use repository::cola_user::pg::role::get::UserRoleGetRepo;
+use repository::user::pg::role::add::UserRoleAddRepo;
+use repository::user::pg::role::get::UserRoleGetRepo;
 
 ////////
 

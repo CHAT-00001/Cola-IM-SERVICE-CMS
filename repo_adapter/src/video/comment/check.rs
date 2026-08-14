@@ -11,7 +11,7 @@ use port::cola_video::comment::check::VideoCommentCheckPort;
 ////////
 
 /// # [CHECK ADAPTER] - 检查
-/// * `desc`: `▶ 视频 - 评论记录检查适配器`
+/// * `desc`: `VIDEO - 视频评论检查适配器`
 #[derive(Debug, Default, Clone)]
 pub struct VideoCommentCheckAdapter;
 
