@@ -4,6 +4,7 @@
 //////
 
 pub mod state;
+mod add;
 
 use cola_data::auth::entity::session::{AuthSessionEntity, AUTH_SESSION_COLUMNS};
 use crate::pg_pool;

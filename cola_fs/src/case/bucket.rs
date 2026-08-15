@@ -1,116 +1,64 @@
-// cola_fs/src/case/bucket.rs  --
-// FS - case - 存储桶
-// 2026/7/30 21:16
+// cola_fs/src/case/bucket.rs
+// 🎬 业务 - FS - 存储桶
+// 2026/8/14 14:00 Created.
 
 ////////
 
-use anyhow::{Context, Result};
+use anyhow::Result;
 use tracing::info;
-use cola_data::cola_fs::rick_check;
-use cola_data::cola_video::command::video::edit::VideoUpdateCommand;
-use cola_data::cola_video::command::video::new::VideoNewCommand;
-use cola_data::cola_video::command::video::permission::VideoUpdatePermissionCommand;
-use cola_data::cola_video::info::video::VideoSingleResponse;
+use cola_data::cola_fs::command::bucket::CreateBucketCmd;
 use port::app::ctx::AppContext;
+
 ////////
 
-pub struct FsBucketAddCase;
+pub struct FsBucketCase;
 
-impl FsBucketAddCase {
-
+impl FsBucketCase {
     ////////
 
-    /// # 1. [CASE] - 发布视频
-    pub async fn case_add_publish(
-        uid: i64,
-        cmd: VideoNewCommand,
+    /// # 1. [CASE] - 创建存储桶
+    /// * `desc`: `业务编排 - 调用 ctx 的 trait 实现`
+    pub async fn case_add_bucket(
+        _uid: i64,
+        cmd: CreateBucketCmd,
         ctx: &AppContext,
-    ) -> Result<VideoSingleResponse, anyhow::Error> {
-        // 1. 内容风控（标题 + 简介 联合过滤）
-        let check_text = format!("{} {:?}", cmd.title, cmd.description);
+    ) -> Result<serde_json::Value> {
+        // 1. 调用 adapter 创建存储桶（通过 ctx 的 trait）
+        let bucket_entity = ctx.fs.bucket.add.create_bucket(
+            cmd.app_id.unwrap_or_default(),
+            cmd.bucket_key,
+            cmd.name,
+            cmd.provider.to_string(),
+            cmd.s3_bucket,
+            cmd.s3_region.unwrap_or_default(),
+            cmd.s3_endpoint.unwrap_or_default(),
+            cmd.access_key.unwrap_or_default(),
+            cmd.secret_key.unwrap_or_default(),
+        )
+        .await?;
 
-        // ✅ 核心修复：rick_check 异步执行后出来就是 i16，直接 await 拿值，删掉多余的 map_err!?
-        let visibility = rick_check(check_text).await;
+        info!("[🗣️ CASE] - ✅️ 存储桶创建成功: bucket_id={}", bucket_entity.id);
 
-        // 2. 核心数据持久化与计数更新 (💡 提示：建议让这个 Service 函数返回刚插入成功的 VideoInfo)
-        let video_info = AddService::save_video_and_update_count(uid, cmd, visibility)
-            .await
-            .map_err(|e| anyhow::anyhow!("[🗣️ BIZ]: 视频发布持久化失败: {}", e))?;
-
-        info!("[🗣️ BIZ] - 视频发布成功: uid={}, visibility={}", uid, visibility);
-
-        // 3. 🌟 架构对齐：用我们刚才写好的高质量总装器，动态拼装博主信息后返回给前端
-        let response = build_video_single_response(video_info, Some(uid)).await?;
-
-        Ok(response)
+        Ok(serde_json::to_value(&bucket_entity)?)
     }
 
     ////////
 
-    /// # 2. [CASE] - 编辑视频
-    pub async fn case_edit_publish(uid: i64, cmd: VideoUpdateCommand) -> Result<VideoSingleResponse, anyhow::Error> {
-        // 1. 内容风控（标题 + 简介 联合过滤）
-        let check_text = format!("{} {:?}", cmd.title, cmd.description);
+    /// # 2. [CASE] - 查询存储桶
+    /// * `desc`: `业务编排 - 按 app_id 查询`
+    pub async fn case_get_bucket(
+        app_id: String,
+        ctx: &AppContext,
+    ) -> Result<serde_json::Value> {
+        // 1. 调用 adapter 查询存储桶
+        let bucket_entity = ctx.fs.bucket.get.get_bucket_by_app_id(&app_id)
+            .await?
+            .ok_or_else(|| anyhow::anyhow!("存储桶不存在: {}", app_id))?;
 
-        // ✅ 核心修复：同上，直接接住 i16
-        let visibility = rick_check(check_text).await;
+        info!("[🗣️ CASE] - ✅️ 存储桶查询成功: app_id={}", app_id);
 
-        // 2. 核心数据持久化与计数更新
-        let video_info = AddAdapter::edit_content(uid, cmd, visibility)
-            .await
-            .map_err(|e| anyhow::anyhow!("BIZ: 视频发布持久化失败: {}", e))?;
-
-        info!("[🗣️ BIZ] - 视频发布成功: uid={}, visibility={}", uid, visibility);
-
-        // 3. 🌟 架构对齐：用我们刚才写好的高质量总装器，动态拼装博主信息后返回给前端
-        let response = build_video_single_response(video_info, Some(uid)).await?;
-
-        Ok(response)
+        Ok(serde_json::to_value(&bucket_entity)?)
     }
-
-    ////////
-
-    /// # 3. [CASE] - 修改权限
-    pub async fn case_change_permission(uid: i64, cmd: VideoUpdatePermissionCommand) -> Result<VideoSingleResponse, anyhow::Error> {
-        let video_id = cmd.id;
-
-        // 1. 权限修改不涉及文本内容风控，直接调用 Service 持久化更新
-        let video_info = AddService::change_permission(uid, cmd)
-            .await
-            .map_err(|e| anyhow::anyhow!("BIZ: 视频权限修改持久化失败: {}", e))?;
-
-        info!("[👤 BIZ] -  视频权限修改成功: uid={}, video_id={}", uid, video_id);
-
-        // 2. 🌟 架构对齐：用我们写好的高质量总装器，动态拼装博主信息后返回给前端
-        let response = build_video_single_response(video_info, Some(uid)).await?;
-
-        Ok(response)
-    }
-
-    ////////
-
-    /// # 4. [CASE] - 修改状态
-    pub async fn case_change_status(uid: i64, cmd: VideoUpdateCommand) -> Result<VideoSingleResponse, anyhow::Error> {
-        // 1. 内容风控（标题 + 简介 联合过滤）
-        let check_text = format!("{} {:?}", cmd.title, cmd.description);
-
-        // ✅ 核心修复：同上，直接接住 i16
-        let visibility = rick_check(check_text).await;
-
-        // 2. 核心数据持久化与计数更新
-        let video_info = AddService::edit_content(uid, cmd, visibility)
-            .await
-            .map_err(|e| anyhow::anyhow!("BIZ: 视频发布持久化失败: {}", e))?;
-
-        info!("[👤 BIZ] -  视频发布成功: uid={}, visibility={}", uid, visibility);
-
-        // 3. 🌟 架构对齐：用我们刚才写好的高质量总装器，动态拼装博主信息后返回给前端
-        let response = build_video_single_response(video_info, Some(uid)).await?;
-
-        Ok(response)
-    }
-
-    ////////
 }
 
 //////// END

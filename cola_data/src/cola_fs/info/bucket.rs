@@ -1,5 +1,5 @@
 // data/src/cola_fs/info/bucket.rs
-// 🗄 数据 - ⏹ 可乐FS - info - 存储桶
+// 数据 - FS - info - 存储桶
 // 2026/8/9 07:38 Created.
 
 ////////

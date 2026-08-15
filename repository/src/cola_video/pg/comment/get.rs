@@ -1,20 +1,20 @@
-// // repository/src/cola_video/pg/identity/get.rs
+// // repository/src/cola_video/pg/file/get.rs
 // // 🗄️ 仓储 - ▶ 可乐视频 - pg - 评论记录 - 获取
 // // 2026/8/2 15:28 Created.
 //
 // ////////
 //
 //
-// // servicey/src/cola_video/identity/get.rs
+// // servicey/src/cola_video/file/get.rs
 // // 👤 服务 - ▶ 可乐视频  - 评论 - 发布
 // // 2026/8/2 17:15 Created.
 //
 // ////////
 //
 // use anyhow::Error;
-// use cola_data::cola_video::command::identity::CommentCommand;
+// use cola_data::cola_video::command::file::CommentCommand;
 // use cola_data::cola_video::entity::video::video::VideoEntity;
-// use cola_data::cola_video::info::identity::VideoCommentInfo;
+// use cola_data::cola_video::info::file::VideoCommentInfo;
 // use tracing::log;
 //
 // ////////

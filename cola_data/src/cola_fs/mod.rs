@@ -1,6 +1,5 @@
-// cola_data/src/cola_fs/mod.rs  --
-// 🗄 数据 - ⏹ 可乐FS - mod
-// 2026/7/27 13:12
+// cola_data/src/cola_fs/mod.rs  -- 数据 - 文件存储 - mod
+// 2026/7/27 13:12 Created.
 
 ////////
 

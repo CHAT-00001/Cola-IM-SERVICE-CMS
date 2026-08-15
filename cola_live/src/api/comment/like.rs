@@ -1,4 +1,4 @@
-// live/api/identity/like.rs
+// live/api/file/like.rs
 // LIVE - API - COMMENT - LIKE/DISLIKE
 // 2026/8/12 05:57 Created.
 
@@ -41,7 +41,7 @@ impl CommentLikeApi {
         match CommentLikeCase::case_set_comment_like(uid, comment_id, is_liked).await {
             Ok(_) => AppData::ok(true),
             Err(e) => {
-                tracing::error!("like identity error: {:?}", e);
+                tracing::error!("like file error: {:?}", e);
                 AppData::err(5001, "点赞失败", None)
             }
         }

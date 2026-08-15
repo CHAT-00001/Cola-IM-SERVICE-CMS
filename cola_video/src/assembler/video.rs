@@ -15,6 +15,26 @@ use service::cola_user::user::active::UserService;
 
 ////////
 
+/// # [HELPER] - CDN 域名归一化处理（兼容 PHP 历史债务）
+fn resolve_cdn_url(path: String, cdn_domain: &str) -> String {
+    if path.is_empty() {
+        return path;
+    }
+    if path.starts_with("http://") || path.starts_with("https://") || path.starts_with("//") {
+        path
+    } else if path.starts_with('/') {
+        format!("{}{}", cdn_domain.trim_end_matches('/'), path)
+    } else {
+        format!("{}/{}", cdn_domain.trim_end_matches('/'), path)
+    }
+}
+
+fn resolve_cdn_url_opt(path_opt: Option<String>, cdn_domain: &str) -> Option<String> {
+    path_opt.map(|p| resolve_cdn_url(p, cdn_domain))
+}
+
+////////
+
 /// # [BUILD] - 构建单视频响应函数
 /// * 机制：纯静态服务层调用，自带未查到博主时的 UserInfo::default 强力兜底
 pub async fn build_video_single_response(
@@ -36,10 +56,18 @@ pub async fn build_video_single_response(
     // 3. 原声占位（统一改为你的 MusicInfo 类型）
     let music_info = MusicInfo::default();
 
-    // 4. 🚀 大聚合：调用 combine 生成前端需要的扁平化 VideoVo
+    // 4. 🚀 CDN 域名组装（兼容 PHP 历史债务）
+    let cdn_domain = std::env::var("CDN_DOMAIN").unwrap_or_else(|_| "https://cdn.shortvideo.com".to_string());
+    let mut video_info = video_info;
+    video_info.href = resolve_cdn_url(video_info.href, &cdn_domain);
+    video_info.thumb = resolve_cdn_url(video_info.thumb, &cdn_domain);
+    video_info.thumbnail = resolve_cdn_url_opt(video_info.thumbnail, &cdn_domain);
+    video_info.original_url = resolve_cdn_url_opt(video_info.original_url, &cdn_domain);
+
+    // 5. 🚀 大聚合：调用 combine 生成前端需要的扁平化 VideoVo
     let video_vo = VideoVo::combine(video_info, author, music_info);
 
-    // 5. 包装进单视频响应体返回
+    // 6. 包装进单视频响应体返回
     Ok(VideoSingleResponse { info: video_vo })
 }
 
@@ -74,6 +102,8 @@ pub async fn build_video_list_response(
             .map_err(|e| anyhow::anyhow!("BIZ: 批量获取用户信息失败: {}", e))?
     };
 
+    let cdn_domain = std::env::var("CDN_DOMAIN").unwrap_or_else(|_| "https://cdn.shortvideo.com".to_string());
+
     // 2. 🌟 迭代组装完美的 VideoVo 列表
     let list: Vec<VideoVo> = infos.into_iter().map(|video_info| {
         let author_uid = video_info.uid;
@@ -82,6 +112,12 @@ pub async fn build_video_list_response(
         // 这里直接 cloned() 拿走即可，无需多余转换。
         let author = authors_map.get(&author_uid).cloned().unwrap_or_default();
         let music_info = MusicInfo::default();
+
+        let mut video_info = video_info;
+        video_info.href = resolve_cdn_url(video_info.href, &cdn_domain);
+        video_info.thumb = resolve_cdn_url(video_info.thumb, &cdn_domain);
+        video_info.thumbnail = resolve_cdn_url_opt(video_info.thumbnail, &cdn_domain);
+        video_info.original_url = resolve_cdn_url_opt(video_info.original_url, &cdn_domain);
 
         // 🌟 核心修正：干掉了旧的 from_entity，直接将纯净的 video_info 拿来融合成大视图对象 Vo
         VideoVo::combine(video_info, author, music_info)

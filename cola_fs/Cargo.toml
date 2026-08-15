@@ -17,3 +17,5 @@ service = { path = "../service" }  ## 全函数调用service层
 aws-sdk-s3 = { version = "1.140.0" }
 tracing = "0.1.44"
 anyhow = "1.0.104"
+serde_json = "1.0.143"
+chrono = { version = "0.4.42", features = ["serde"] }

@@ -1,4 +1,4 @@
-// data/src/cola_dynamic/entity/identity.rs
+// data/src/cola_dynamic/entity/file.rs
 // 🗄 数据 - ⏹ 可乐动态 -  entity - 评论表
 // 2026/6/19 16:22
 

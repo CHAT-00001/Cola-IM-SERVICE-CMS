@@ -1,4 +1,4 @@
-// data/src/cola_video/vo/identity.rs
+// data/src/cola_video/vo/file.rs
 // 数据 - ▶ VIDEO - VO - 评论视图对象
 // 2026/8/8 14:05 Created.
 

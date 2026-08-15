@@ -1,11 +1,10 @@
-// cola_dynamic/mod.rs  -- 动态 mod
-// 🗄 数据 - ⏹ 可乐动态 - mod
-// 2026/6/5 00:48
+// data/src/cola_dynamic/mod.rs  -- 数据 - 动态 - mod
+// 2026/6/5 00:48 Created.
 
 ////////
 
-pub mod command; // 🚧 命令
-pub mod entity; // 🗄️ 数据表实体
-pub mod event; // ⚡ 消息事件
-pub mod info; // ⚠️ 元信息
-pub mod vo; // 📦 视图模型
+pub mod command; // 命令
+pub mod entity; // 数据表实体
+pub mod event; // 消息事件
+pub mod info; // 元信息
+pub mod vo; // 视图模型

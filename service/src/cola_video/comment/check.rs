@@ -1,4 +1,4 @@
-// servicey/src/cola_video/identity/check.rs
+// servicey/src/cola_video/file/check.rs
 // 服务 - ▶ 可乐视频  - 评论 - 状态检查
 // 2026/8/12 05:03 Created.
 

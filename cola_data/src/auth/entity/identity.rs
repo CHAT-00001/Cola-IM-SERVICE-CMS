@@ -1,4 +1,4 @@
-// cola_data/src/auth/entity/identity.rs
+// cola_data/src/auth/entity/file.rs
 // 数据 - 可乐用户 - entity - 身份表
 // 2026/8/14 06:48 Created.
 
@@ -12,7 +12,7 @@ use sqlx::FromRow;
 
 /// # [ENTITY] - 验证中心 - 身份表
 /// * `pg schema`: `cola_auth` -- PG 模式
-/// * `table name`: `identity`  -- 表名
+/// * `table name`: `file`  -- 表名
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct IdentityEntity {
     pub id: i64,                            // ID (自增 / 雪花)

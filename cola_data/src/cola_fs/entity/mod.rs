@@ -3,7 +3,8 @@
 
 ////////
 
-pub mod bucket; // 🛢️ 存储桶
-pub mod cdn; // 🌐 CDN
-pub mod file; // 📃 FILE
-pub mod s3; // 🏠  S3
+pub mod bucket; // 存储桶
+pub mod cdn; // CDN
+pub mod file; // 文件
+pub mod media; // 媒体
+pub mod s3; // S3

@@ -1,4 +1,4 @@
-// service/src/video/identity/get.rs
+// service/src/video/file/get.rs
 // 服务 - ▶ VIDEO  - 评论 - 获取
 // 2026/8/2 17:15 Created.
 

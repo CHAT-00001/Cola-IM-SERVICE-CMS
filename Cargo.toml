@@ -8,7 +8,7 @@ edition = "2024"
 
 #### 工作区
 [workspace]
-members = ["gate_http", "cola_video", "app", "gate_grpc", "health", "cola_infra", "im", "repository", "cola_data", "cola_dynamic", "cola_gis", "kits", "cola_user", "cola_music", "cola_auth", "cola_live", "cola_fs", "cola_im", "cola_three", "repo_adapter", "service", "port", ]
+members = ["gate_http", "cola_video", "app", "gate_grpc", "health", "cola_infra", "im", "repository", "cola_data", "cola_dynamic", "cola_gis", "cola_im", "kits", "cola_user", "cola_music", "cola_auth", "cola_live", "cola_fs", "cola_three", "repo_adapter", "service", "port", ]
 
 [workspace.package]
 version = "0.1.0"

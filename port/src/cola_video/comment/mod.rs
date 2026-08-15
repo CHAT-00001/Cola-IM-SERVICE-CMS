@@ -1,4 +1,4 @@
-// port/src/cola_video/identity/mod.rs
+// port/src/cola_video/file/mod.rs
 // ⏩️ 端口 - VIDEO - 评论 - 模块
 // 2026/8/5 15:11 Created.
 

@@ -1,4 +1,4 @@
-// repository/src/cola_video/pg/identity/list.rs
+// repository/src/cola_video/pg/file/list.rs
 // 🛢 仓储 - ▶ 可乐视频 - pg - 评论记录 - 前台列表
 // 2026/8/8 00:46 Created.
 
@@ -39,7 +39,7 @@ impl VideoCommentListRepo {
     ) -> Result<Vec<VideoCommentEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM cola_video.identity WHERE status = 1 ORDER BY addtime DESC LIMIT $1 OFFSET $2",
+            "SELECT {} FROM cola_video.file WHERE status = 1 ORDER BY addtime DESC LIMIT $1 OFFSET $2",
             VIDEO_COMMENT_COLUMNS
         );
 
@@ -68,7 +68,7 @@ impl VideoCommentListRepo {
     ) -> Result<Vec<VideoCommentEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM cola_video.identity WHERE status = 1 ORDER BY likes DESC, views DESC, addtime DESC LIMIT $1 OFFSET $2",
+            "SELECT {} FROM cola_video.file WHERE status = 1 ORDER BY likes DESC, views DESC, addtime DESC LIMIT $1 OFFSET $2",
             VIDEO_COMMENT_COLUMNS
         );
 
@@ -159,7 +159,7 @@ impl VideoCommentListRepo {
     ) -> Result<Vec<VideoCommentEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM \"cola_video\".\"identity\" WHERE uid = $1 AND status = 1 ORDER BY add_time DESC LIMIT $2 OFFSET $3",
+            "SELECT {} FROM \"cola_video\".\"file\" WHERE uid = $1 AND status = 1 ORDER BY add_time DESC LIMIT $2 OFFSET $3",
             VIDEO_COMMENT_COLUMNS
         );
 
@@ -189,7 +189,7 @@ impl VideoCommentListRepo {
     ) -> Result<Vec<VideoCommentEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM \"cola_video\".\"identity\" WHERE video_id = $1 AND status = 1 ORDER BY add_time DESC LIMIT $2 OFFSET $3",
+            "SELECT {} FROM \"cola_video\".\"file\" WHERE video_id = $1 AND status = 1 ORDER BY add_time DESC LIMIT $2 OFFSET $3",
             VIDEO_COMMENT_COLUMNS
         );
 

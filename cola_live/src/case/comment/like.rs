@@ -1,4 +1,4 @@
-// cola_live/src/case/identity/like.rs
+// cola_live/src/case/file/like.rs
 // LIVE - 用例层 - 评论 - 互动
 // 2026/8/12 04:51 Created.
 

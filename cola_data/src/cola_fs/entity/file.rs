@@ -15,6 +15,7 @@ use sqlx::FromRow;
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct FsFileEntity {
     pub id: i64,                           // ID
+    pub app_id: Option<String>,             // 所属应用/模块标识
     pub vendor_id: i64,                    // FK → three_vendor.id
     pub bucket: String,                    // 存储桶
     pub object_key: String,                // S3 Object Key（唯一）
@@ -30,6 +31,7 @@ pub struct FsFileEntity {
     pub expired_at: Option<DateTime<Utc>>, // 过期时间（临时文件）
     pub created_at: Option<DateTime<Utc>>, // 创建时间
     pub updated_at: Option<DateTime<Utc>>, // 更新时间
+    pub deleted_at: Option<DateTime<Utc>>,  // 删除时间
 }
 
 ////////
@@ -54,4 +56,32 @@ pub const FS_FILE_COLUMNS: &str = r#"
     updated_at
 "#;
 
+////////
+
+impl FsFileEntity {
+    ////////
+
+    /// # 1. [ENTITY] - 转换为缓存信息
+    /// * `desc`: `Entity → Info（用于缓存）`
+    pub fn to_file_info(&self) -> anyhow::Result<crate::cola_fs::info::file::FileInfo> {
+        use crate::cola_fs::info::file::FileInfo;
+        
+        Ok(FileInfo {
+            id: self.id,
+            app_id: self.app_id.clone(),
+            bucket: self.bucket.clone(),
+            object_key: self.object_key.clone(),
+            file_name: self.file_name.clone(),
+            file_ext: self.file_ext.clone(),
+            mime_type: self.mime_type.clone(),
+            file_size: self.file_size,
+            is_public: self.is_public,
+            status: self.status,
+            expired_at: self.expired_at,
+            created_at: self.created_at,
+        })
+    }
+}
+
 //////// END
+

@@ -1,4 +1,4 @@
-// cola_video/port/identity/del.rs
+// cola_video/port/file/del.rs
 // 视频 - port - 评论 - 删除
 // 2026/8/5 00:03 Created.
 

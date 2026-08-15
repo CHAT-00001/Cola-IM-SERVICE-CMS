@@ -1,25 +1,16 @@
-// /audit.rs  -- 
+// /audit.rs  --
 // 2026/7/8 09:37
 
 ////////
-
 
 use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
 
 ////////
 
-/// # 1. 统一的设备查询字段 (1:1 严格对齐结构体，干净、便于 SQLx 查询复用)
-pub const IAM_AUTH_COLUMNS: &str = r#"
-    id, user_id, _sn, name, vendor2, is_banned, is_active,
-    access_key, secret_key, status, is_online, status,
-    banned_expired_at, last_active_at, created_at, updated_at, banned_at
-"#;
-
-////////
-
 /// # [ENTITY] - 认证中心 - 用户绑定的邮箱表
-/// * `table name`: `auth_email`
+/// * `pg schema`: `cola_auth` - PG 模式
+/// * `table name`: `bonding_email` - 表名
 /// * `status`: 状态: 1-正常, 0-已注销, -1-被挤下线, -2-已被管理员强踢/禁用
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow, Default)]
 pub struct AuthEmailEntity {
@@ -40,6 +31,13 @@ pub struct AuthEmailEntity {
     pub banned_at: Option<chrono::DateTime<chrono::Utc>>, // 封禁时间
 }
 
+////////
+
+/// # 1. 统一的设备查询字段 (1:1 严格对齐结构体，干净、便于 SQLx 查询复用)
+pub const IAM_AUTH_COLUMNS: &str = r#"
+    id, user_id, _sn, name, vendor2, is_banned, is_active,
+    access_key, secret_key, status, is_online, status,
+    banned_expired_at, last_active_at, created_at, updated_at, banned_at
+"#;
+
 //////// END
-
-

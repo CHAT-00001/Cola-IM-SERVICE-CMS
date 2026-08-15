@@ -1,4 +1,4 @@
-// data/src/cola_video/command/identity.rs
+// data/src/cola_video/command/file.rs
 // 🗄 数据 - ▶ 可乐视频 - command - 评论
 // 2026/5/20 12:01
 

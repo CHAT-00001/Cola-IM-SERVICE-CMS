@@ -9,15 +9,6 @@ use sqlx::FromRow;
 
 ////////
 
-/// # 1. 统一的设备查询字段 (1:1 严格对齐结构体，干净、便于 SQLx 查询复用)
-pub const IAM_MFA_COLUMNS: &str = r#"
-    id, user_id, _sn, code, email, is_banned, is_active,
-    access_key, secret_key, status, is_online, status,
-    banned_expired_at, last_active_at, created_at, updated_at, banned_at
-"#;
-
-////////
-
 /// # [ENTITY] - 认证中心 - 用户绑定的地区表
 /// * `table name`: `auth_mfa`
 /// * `status`: 状态: 1-正常, 0-已注销, -1-被挤下线, -2-已被管理员强踢/禁用
@@ -39,5 +30,14 @@ pub struct AuthMfaEntity {
     pub updated_at: DateTime<Utc>,        // 更新时间
     pub banned_at: Option<DateTime<Utc>>, // 封禁时间
 }
+
+////////
+
+/// # 1. 统一的设备查询字段 (1:1 严格对齐结构体，干净、便于 SQLx 查询复用)
+pub const IAM_MFA_COLUMNS: &str = r#"
+    id, user_id, _sn, code, email, is_banned, is_active,
+    access_key, secret_key, status, is_online, status,
+    banned_expired_at, last_active_at, created_at, updated_at, banned_at
+"#;
 
 //////// END

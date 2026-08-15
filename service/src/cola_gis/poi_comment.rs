@@ -1,4 +1,4 @@
-﻿// service/src/cola_gis/identity/poi_comment.rs
+﻿// service/src/cola_gis/file/poi_comment.rs
 // 服务 - 可乐GIS - 评论 - 评论服务
 // 2026/7/6 12:04
 

@@ -1,4 +1,4 @@
-// repo_adapter/src/auth/identity/del.rs
+// repo_adapter/src/auth/file/del.rs
 // 🔌 适配器 - AUTH - 身份识别 - 逻辑删除
 // 2026/8/6 19:12 Created.
 

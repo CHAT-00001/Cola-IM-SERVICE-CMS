@@ -5,7 +5,7 @@
 //
 // mod add;
 //
-// use crate::model::request::identity::CommentRequest;
+// use crate::model::request::file::CommentRequest;
 // use crate::model::vo::video::VideoSingleResponse;
 // use cola_data::app::data::AppData;
 // use cola_data::app::query::ApiGatewayRequest;

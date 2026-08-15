@@ -1,4 +1,4 @@
-// data/src/cola_video/entity/identity.rs
+// data/src/cola_video/entity/file.rs
 // 数据 - ▶ VIDEO - entity - 评论表
 // 2026/1/16 09:37 Created.
 

@@ -1,4 +1,4 @@
-// port/src/cola_dynamic/identity/manage.rs
+// port/src/cola_dynamic/file/manage.rs
 // ⏩️ 端口 - 可乐动态 - 评论 - 管理
 // 2026/8/5 15:23 Created.
 

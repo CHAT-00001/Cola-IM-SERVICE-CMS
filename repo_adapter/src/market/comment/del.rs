@@ -1,4 +1,4 @@
-// repo_adapter/src/market/comment/identity/del.rs
+// repo_adapter/src/market/comment/file/del.rs
 // 🔌 适配器 - MARKET - 商品评论 - 逻辑删除
 // 2026/8/6 19:12 Created.
 

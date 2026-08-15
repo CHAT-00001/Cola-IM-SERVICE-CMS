@@ -1,4 +1,4 @@
-// repository/src/cola_video/pg/identity/mod.rs
+// repository/src/cola_video/pg/file/mod.rs
 // 仓储 - ▶ VIDEO - pg - 评论记录 - mod
 // 2026/8/1 14:27
 

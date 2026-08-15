@@ -3,6 +3,7 @@
 
 ////////
 
+pub mod app;
 pub mod binding;
 pub mod config;
 pub mod provider; // 厂商

@@ -1,4 +1,4 @@
-// repo_adapter/src/auth/identity/manage.rs
+// repo_adapter/src/auth/file/manage.rs
 // 🔌 适配器 - AUTH - 身份识别 - 管理
 // 2026/8/6 18:55 Created.
 

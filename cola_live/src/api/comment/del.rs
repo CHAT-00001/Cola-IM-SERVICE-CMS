@@ -1,4 +1,4 @@
-// live/api/identity/del.rs
+// live/api/file/del.rs
 // LIVE - API - COMMENT - DEL
 // 2026/8/12 05:56 Created.
 

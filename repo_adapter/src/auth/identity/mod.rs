@@ -1,4 +1,4 @@
-// repo_adapter/src/auth/identity/mod.rs
+// repo_adapter/src/auth/file/mod.rs
 // 🔌 适配器 - AUTH - 身份识别 - mod
 // 2026/8/8 Created.
 

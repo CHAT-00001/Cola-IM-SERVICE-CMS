@@ -1,4 +1,4 @@
-// repo_adapter/src/auth/identity/list.rs
+// repo_adapter/src/auth/file/list.rs
 // 🔌 适配器 - AUTH - 身份识别 - 评论列表
 // 2026/8/6 18:55 Created.
 

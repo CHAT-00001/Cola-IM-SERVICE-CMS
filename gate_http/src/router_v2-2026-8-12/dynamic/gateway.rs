@@ -162,28 +162,28 @@ async fn dynamic_gateway(
         }
 
         // 3001 发布
-        "identity.add" => {
+        "file.add" => {
             // 发布评论命令
             let cmd: DynamicCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
             AppData::ok(cmd).finish(&req, start)
         }
 
         // 3002 点赞
-        "identity.like" => {
+        "file.like" => {
             // 发布评论命令
             let cmd: DynamicCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
             AppData::ok(cmd).finish(&req, start)
         }
 
         // 3003 不喜欢
-        "identity.dislike" => {
+        "file.dislike" => {
             // 发布评论命令
             let cmd: DynamicCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
             AppData::ok(cmd).finish(&req, start)
         }
 
         // 3004 举报
-        "identity.report" => {
+        "file.report" => {
             // 发布评论命令
             let cmd: DynamicCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
             AppData::ok(cmd).finish(&req, start)

@@ -4,5 +4,6 @@
 
 ////////
 
-pub mod device;
-pub mod session;
+pub mod device; // 登录设备
+pub mod identity; // 身份识别
+pub mod session; // 登录会话

@@ -11,6 +11,7 @@ use std::sync::Arc;
 
 pub mod auth; // Auth Center
 pub mod dynamic; // Dynamic
+pub mod fs; // 文件存储
 pub mod gift; // Gift
 pub mod gis; // GIS
 pub mod im; // Instant Messaging
@@ -47,10 +48,13 @@ pub mod stub {
 /// # [BUILD] - Build APP Context
 /// * `desc`: Aggregate all business module Ports by calling each module's builder function
 pub fn build_app_context() -> AppContext {
+    //
+
     ////////
 
     let auth = auth::build_auth_port();
     let gis = gis::build_gis_port();
+    let fs = fs::build_cola_fs_port();
     let live = live::build_live_port();
     let market = market::build_cola_market_port();
     let music = music::build_music_port();
@@ -61,7 +65,7 @@ pub fn build_app_context() -> AppContext {
 
     ////////
 
-    AppContext::default(auth, gis, live, market, music, three, user, video, im)
+    AppContext::default(auth, fs, gis, live, market, music, three, user, video, im)
 }
 
 //////// END

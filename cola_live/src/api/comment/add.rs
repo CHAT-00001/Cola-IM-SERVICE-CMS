@@ -1,4 +1,4 @@
-// cola_live/src/api/identity/add.rs
+// cola_live/src/api/file/add.rs
 // LIVE - api - 评论
 // 2026/8/12 05:50 Created.
 

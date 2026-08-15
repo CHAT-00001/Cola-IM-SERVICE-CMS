@@ -1,4 +1,4 @@
-// servicey/src/cola_video/identity/add.rs
+// servicey/src/cola_video/file/add.rs
 // 服务 - VIDEO - COMMENT - ADD
 // 2026/8/12 05:39 Created.
 
@@ -32,7 +32,7 @@ impl VideoCommentAddService {
                     parent_id
                 );
                 return Err(anyhow::anyhow!(
-                    "Parent identity does not exist or has been deleted"
+                    "Parent file does not exist or has been deleted"
                 ));
             }
         }

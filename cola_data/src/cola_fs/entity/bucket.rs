@@ -15,6 +15,7 @@ use sqlx::FromRow;
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct BucketEntity {
     pub id: i64,
+    pub app_id: Option<String>, // 应用 ID（绑定子业务模块）
     pub type_id: i64,           // FK → three_type.id
     pub vendor_id: i64,         // FK → three_vendor.id
     pub name: String,           // 服务名称，如"视频主CDN"
@@ -26,17 +27,16 @@ pub struct BucketEntity {
     pub config_json: Option<serde_json::Value>, // 厂商特有配置（JSONB）
     pub remark: Option<String>, // 备注
     pub status: i16,            // 1启用 0禁用
-    pub created_at: Option<DateTime<Utc>>,
-    pub updated_at: Option<DateTime<Utc>>,
+    pub created_at: Option<DateTime<Utc>>, // 创建时间
+    pub updated_at: Option<DateTime<Utc>>, // 更新时间
 }
 
 ////////
 
 /// # [COLUMNS] - 查询字段常量
-pub const THREE_FS_BUCKET_COLUMNS: &str = r#"
-    id, type_id, vendor_id, name, bucket, access_key, secret_key,
+pub const BUCKET_COLUMNS: &str = r#"
+    id, app_id, type_id, vendor_id, name, bucket, access_key, secret_key,
     endpoint, region, config_json, remark, status, created_at, updated_at
 "#;
-
 
 //////// END

@@ -7,3 +7,4 @@ pub mod auth;
 pub mod login;
 pub mod session;
 pub mod sign_type;
+mod identity;

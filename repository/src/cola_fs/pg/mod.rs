@@ -3,6 +3,8 @@
 
 ////////
 
-pub mod bucket_repo; // 存储桶
-pub mod file_repo; // 文件
-pub mod media_repo; // 媒体
+pub mod bucket; // 存储桶
+pub mod file; // 文件
+pub mod media;
+mod cnd;
+// 媒体

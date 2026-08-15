@@ -1,26 +1,47 @@
 // data/src/cola_fs/info/cdn.rs
-// 🗄 数据 - ⏹ 可乐FS - info - CDN
+// 数据 - FS - info - CDN
 // 2026/8/9 07:38 Created.
 
 ////////
 
 use serde::{Deserialize, Serialize};
+use chrono::{DateTime, Utc};
+use crate::cola_fs::entity::cdn::CdnDomainEntity;
 
 ////////
 
-/// # [INFO] - Cdn信息
-/// * `desc`: `安全简洁的信息`
+
+/// # [INFO] - 文件服务 - CDN 配置安全脱敏视图（隐藏鉴权密钥）
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct CdnInfo {
-    pub id: i64,           // ID
-    pub media_type: i16,   // 媒体类型
-    pub fs: String,        // 文件名称
-    pub thumbnail: String, // 缩略图
-    pub url: String,       // 地址
-    pub width: i16,        // 帧宽度
-    pub height: i16,       // 帧高度
-    pub fps: f32,          // 每秒帧数
-    pub duration: i32,     // 时长
+pub struct CdnDomainInfo {
+    pub id: String,
+    pub app_id: Option<String>,
+    pub bucket_key: String,
+    pub cdn_domain: String,
+    pub provider: i16,
+    pub is_https: bool,
+    pub is_enabled: bool,
+    pub auth_type: i16,
+    pub status: i16,
+    pub created_at: DateTime<Utc>,
+}
+
+// 构造实现
+impl From<CdnDomainEntity> for CdnDomainInfo {
+    fn from(entity: CdnDomainEntity) -> Self {
+        Self {
+            id: entity._id.unwrap_or_else(|| entity.id.to_string()),
+            app_id: entity.app_id,
+            bucket_key: entity.bucket_key,
+            cdn_domain: entity.cdn_domain,
+            provider: entity.provider,
+            is_https: entity.is_https,
+            is_enabled: entity.is_enabled,
+            auth_type: entity.auth_type,
+            status: entity.status,
+            created_at: entity.created_at.unwrap_or_else(Utc::now),
+        }
+    }
 }
 
 //////// END

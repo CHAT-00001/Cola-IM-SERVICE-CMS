@@ -3,6 +3,7 @@
 
 //////// 
 
+pub mod app_repo;          // 应用管理
 pub mod stream_repo;         // 5xxx 推流配置
 pub mod config_repo;         // 通用配置（three_config 表）
 pub mod three_type;          // 服务类型
