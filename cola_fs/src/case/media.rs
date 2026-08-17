@@ -32,17 +32,7 @@ impl MediaCase {
             .fs
             .bucket
             .add
-            .create_bucket(
-                cmd.app_id.unwrap_or_default(),
-                cmd.bucket_key,
-                cmd.name,
-                cmd.provider.to_string(),
-                cmd.s3_bucket,
-                cmd.s3_region.unwrap_or_default(),
-                cmd.s3_endpoint.unwrap_or_default(),
-                cmd.access_key.unwrap_or_default(),
-                cmd.secret_key.unwrap_or_default(),
-            )
+            .create_bucket(cmd)
             .await?;
 
         info!(

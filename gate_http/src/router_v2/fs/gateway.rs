@@ -35,6 +35,20 @@ pub async fn root() -> HttpResponse {
 
 ////////
 
+/// # [GATEWAY] - 解析存储桶创建命令
+/// * `desc`: 兼容 Body 直接传命令和 `{ "cmd": { ... } }` 包装格式
+fn parse_create_bucket_cmd(body: &[u8]) -> Result<CreateBucketCmd, String> {
+    let value: serde_json::Value = serde_json::from_slice(body)
+        .map_err(|error| format!("存储桶创建 JSON 解析失败: {}", error))?;
+    let command_value = value.get("cmd").cloned().unwrap_or(value);
+    let mut cmd: CreateBucketCmd = serde_json::from_value(command_value)
+        .map_err(|error| format!("存储桶创建参数解析失败: {}", error))?;
+    cmd.complete_defaults();
+    Ok(cmd)
+}
+
+////////
+
 /// # [GATEWAY] - 可乐FS 网关
 async fn fs_gateway(
     req: HttpRequest,
@@ -69,17 +83,23 @@ async fn fs_gateway(
     // 2. 业务路由分发（按 service/action 分发到 bucket, cdn, file, media）
     match service_name.as_str() {
         // -------- 存储桶 (Bucket) --------
-        "bucket_new" | "bucket_get" => {
+        "bucket_new" => {
+            BucketApi::api_get_bucket_list(api_req.clone(), &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+        "bucket_get" => {
             let app_id = api_req.params.get("app_id").cloned().unwrap_or_default();
             BucketApi::api_get_bucket(app_id, &state.ctx)
                 .await
                 .finish(&req, start)
         }
         "bucket_add" => {
-            let cmd = if !body.is_empty() {
-                serde_json::from_slice::<CreateBucketCmd>(&body).unwrap_or_default()
-            } else {
-                CreateBucketCmd::default()
+            let cmd = match parse_create_bucket_cmd(&body) {
+                Ok(cmd) => cmd,
+                Err(error) => {
+                    return AppData::<()>::err(4001, error, None).finish(&req, start);
+                }
             };
             BucketApi::api_add_bucket(uid, cmd, &state.ctx)
                 .await
@@ -111,16 +131,12 @@ async fn fs_gateway(
                 .await
                 .finish(&req, start)
         }
-        "cdn_bucket_get" => {
-            CdnApi::api_get_cdn_by_bucket_id(api_req.id, &state.ctx)
-                .await
-                .finish(&req, start)
-        }
-        "cdn_id_get" => {
-            CdnApi::api_get_cdn_by_id(api_req.id, &state.ctx)
-                .await
-                .finish(&req, start)
-        }
+        "cdn_bucket_get" => CdnApi::api_get_cdn_by_bucket_id(api_req.id, &state.ctx)
+            .await
+            .finish(&req, start),
+        "cdn_id_get" => CdnApi::api_get_cdn_by_id(api_req.id, &state.ctx)
+            .await
+            .finish(&req, start),
         "cdn_add" => {
             let cmd = match serde_json::from_slice::<CreateCdnDomainCmd>(&body) {
                 Ok(cmd) => cmd,
@@ -164,22 +180,16 @@ async fn fs_gateway(
                     .unwrap_or(1)
             };
             if status != 0 && status != 1 {
-                return AppData::<()>::err(
-                    4001,
-                    "[🌐 GATEWAY]: ❌️ CDN状态参数必须是 0 或 1",
-                    None,
-                )
-                .finish(&req, start);
+                return AppData::<()>::err(4001, "[🌐 GATEWAY]: ❌️ CDN状态参数必须是 0 或 1", None)
+                    .finish(&req, start);
             }
             CdnApi::api_change_cdn_status(uid, api_req.id, status, &state.ctx)
                 .await
                 .finish(&req, start)
         }
-        "cdn_delete" => {
-            CdnApi::api_delete_cdn(uid, api_req.id, &state.ctx)
-                .await
-                .finish(&req, start)
-        }
+        "cdn_delete" => CdnApi::api_delete_cdn(uid, api_req.id, &state.ctx)
+            .await
+            .finish(&req, start),
 
         // -------- 文件对象 (File) --------
         "file_new" | "file_get" => {
@@ -217,14 +227,12 @@ async fn fs_gateway(
                 .finish(&req, start)
         }
 
-        _ => {
-            AppData::<()>::err(
-                4000,
-                format!("[🌐 GATEWAY]: ⚠️ Unknown FS service: {}", service_name),
-                None,
-            )
-            .finish(&req, start)
-        }
+        _ => AppData::<()>::err(
+            4000,
+            format!("[🌐 GATEWAY]: ⚠️ Unknown FS service: {}", service_name),
+            None,
+        )
+        .finish(&req, start),
     }
 }
 

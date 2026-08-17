@@ -1,0 +1,20 @@
+{
+    "service": "bucket_add",
+    "auth": {
+        "access_token": "abc"
+    },
+    "cmd": {
+        "app_id": "short-video",
+        "type_id": 1,
+        "vendor_id": 10,
+        "name": "可爱",
+        "bucket": "qiniu",
+        "cdn_domain": "https://cdn.example.com",
+        "access_key": "xxx",
+        "secret_key": "xxx",
+        "endpoint": "https://s3.example.com",
+        "region": "cn-south-1",
+        "status": 1
+    },
+    "email": "501184768@qq.com"
+}

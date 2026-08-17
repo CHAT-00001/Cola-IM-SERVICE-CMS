@@ -94,14 +94,17 @@ impl CdnCase {
         app_id: String,
         ctx: &AppContext,
     ) -> Result<serde_json::Value> {
-        // 1. 调用 adapter 查询CDN域名
-        let info = ctx.fs.cdn.config.find_by_app_id(&app_id)
+        let bucket = ctx.fs.bucket.get.get_bucket_by_app_id(&app_id)
             .await?
-            .ok_or_else(|| anyhow::anyhow!("CDN域名不存在: {}", app_id))?;
+            .ok_or_else(|| anyhow::anyhow!("存储桶不存在: {}", app_id))?;
 
-        info!("[🗣️ CASE] - ✅️ CDN域名查询成功: app_id={}", app_id);
+        info!("[🗣️ CASE] - ✅️ Bucket CDN查询成功: app_id={}", app_id);
 
-        Ok(serde_json::to_value(info)?)
+        Ok(serde_json::json!({
+            "app_id": bucket.app_id,
+            "bucket": bucket.bucket,
+            "cdn_domain": bucket.cdn_domain
+        }))
     }
 
     ////////
@@ -116,9 +119,9 @@ impl CdnCase {
     ) -> Result<serde_json::Value> {
         let (list, total) = ctx
             .fs
-            .cdn
-            .config
-            .list(app_id.as_deref(), limit, offset)
+            .bucket
+            .list
+            .admin_find_page(app_id.as_deref(), None, limit, offset)
             .await?;
 
         info!(
@@ -144,18 +147,18 @@ impl CdnCase {
         bucket_id: i64,  // 存储桶 ID
         ctx: &AppContext, // 全局上下文
     ) -> Result<serde_json::Value> {
-        // 1. 调用 adapter 查询CDN域名
         let bucket = ctx.fs.bucket.get.get_bucket_by_id(bucket_id)
             .await?
             .ok_or_else(|| anyhow::anyhow!("存储桶不存在: {}", bucket_id))?;
-        let info = ctx.fs.cdn.config
-            .find_by_bucket_key(bucket.app_id.as_deref(), &bucket.bucket)
-            .await?
-            .ok_or_else(|| anyhow::anyhow!("CDN域名不存在: bucket_id={}", bucket_id))?;
 
-        info!("[🗣️ CASE] - ✅️ CDN域名查询成功: bucket_id={}", bucket_id);
+        info!("[🗣️ CASE] - ✅️ Bucket CDN查询成功: bucket_id={}", bucket_id);
 
-        Ok(serde_json::to_value(info)?)
+        Ok(serde_json::json!({
+            "bucket_id": bucket.id,
+            "app_id": bucket.app_id,
+            "bucket": bucket.bucket,
+            "cdn_domain": bucket.cdn_domain
+        }))
     }
 
     ////////

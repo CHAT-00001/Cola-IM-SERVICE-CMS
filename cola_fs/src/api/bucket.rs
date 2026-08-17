@@ -7,6 +7,9 @@
 use crate::case::bucket::FsBucketCase;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
+use cola_data::app::page::ListResponse;
+use cola_data::cola_fs::info::bucket::BucketInfo;
+use cola_data::app::query::ApiGatewayRequest;
 use cola_data::cola_fs::command::bucket::CreateBucketCmd;
 use port::app::ctx::AppContext;
 
@@ -74,6 +77,25 @@ impl BucketApi {
             Err(e) => {
                 tracing::error!("[🤐 API] - €️ 查询存储桶失败: {}", e);
                 AppData::err(error::INTERNAL_ERROR, &e.to_string(), None)
+            }
+        }
+    }
+
+    ////////
+
+    /// # 3. [API] - 管理员分页查询存储桶
+    pub async fn api_get_bucket_list(
+        url: ApiGatewayRequest, // 网关请求参数
+        ctx: &AppContext, // 全局上下文
+    ) -> AppData<ListResponse<BucketInfo>> {
+        match FsBucketCase::case_get_bucket_list(url, ctx).await {
+            Ok(data) => {
+                tracing::info!("[🗣️ API] - ✅️ 管理员存储桶列表查询成功");
+                AppData::ok(data)
+            }
+            Err(error) => {
+                tracing::error!("[🤐 API] - ❌️ 管理员存储桶列表查询失败: {}", error);
+                AppData::err(error::INTERNAL_ERROR, error.to_string(), None)
             }
         }
     }

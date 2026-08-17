@@ -5,6 +5,9 @@
 ////////
 
 use anyhow::Result;
+use cola_data::app::page::ListResponse;
+use cola_data::cola_fs::info::bucket::BucketInfo;
+use cola_data::app::query::ApiGatewayRequest;
 use cola_data::cola_fs::command::bucket::CreateBucketCmd;
 use port::app::ctx::AppContext;
 use tracing::info;
@@ -14,6 +17,8 @@ use tracing::info;
 pub struct FsBucketCase;
 
 impl FsBucketCase {
+    //
+    
     ////////
 
     /// # 1. [CASE] - 创建存储桶
@@ -23,22 +28,14 @@ impl FsBucketCase {
         cmd: CreateBucketCmd,
         ctx: &AppContext,
     ) -> Result<serde_json::Value> {
-        // 1. 调用 adapter 创建存储桶（通过 ctx 的 trait）
+        let mut cmd = cmd;
+        cmd.complete_defaults();
+
         let bucket_entity = ctx
             .fs
             .bucket
             .add
-            .create_bucket(
-                cmd.app_id.unwrap_or_default(),
-                cmd.bucket_key,
-                cmd.name,
-                cmd.provider.to_string(),
-                cmd.s3_bucket,
-                cmd.s3_region.unwrap_or_default(),
-                cmd.s3_endpoint.unwrap_or_default(),
-                cmd.access_key.unwrap_or_default(),
-                cmd.secret_key.unwrap_or_default(),
-            )
+            .create_bucket(cmd)
             .await?;
 
         info!(
@@ -66,6 +63,51 @@ impl FsBucketCase {
         info!("[🗣️ CASE] - ✅️ 存储桶查询成功: app_id={}", app_id);
 
         Ok(serde_json::to_value(&bucket_entity)?)
+    }
+
+    ////////
+
+    /// # 3. [CASE] - 管理员分页查询存储桶
+    /// * `desc`: `使用 page/qty 计算 limit/offset，返回总数`
+    pub async fn case_get_bucket_list(
+        url: ApiGatewayRequest, // 网关请求参数
+        ctx: &AppContext, // 全局上下文
+    ) -> Result<ListResponse<BucketInfo>> {
+        let page = url.page.unwrap_or(1).max(1);
+        let qty = url.qty.unwrap_or(10).clamp(1, 50);
+        let offset = (page - 1) * qty;
+        let app_id = url.params.get("app_id").map(String::as_str);
+        let keyword = if url.keyword.trim().is_empty() {
+            None
+        } else {
+            Some(url.keyword.as_str())
+        };
+
+        let (list, total) = ctx
+            .fs
+            .bucket
+            .list
+            .admin_find_page(app_id, keyword, qty, offset)
+            .await?;
+
+        let list_size = list.len() as i64;
+        let has_more = offset + list_size < total;
+        info!(
+            "[🗣️ CASE] - ✅️ 管理员存储桶列表查询成功: page={}, qty={}, count={}, total={}",
+            page,
+            qty,
+            list_size,
+            total
+        );
+
+        Ok(ListResponse {
+            list,
+            page: Some(page),
+            size: Some(list_size),
+            qty: Some(qty),
+            total: Some(total),
+            has_more: Some(has_more),
+        })
     }
 }
 

@@ -6,7 +6,7 @@
 
 use async_trait::async_trait;
 use anyhow::Result;
-use cola_data::cola_fs::entity::bucket::BucketEntity;
+use cola_data::cola_fs::info::bucket::BucketInfo;
 
 ////////
 
@@ -21,7 +21,7 @@ pub trait BucketGetPort: Send + Sync {
     async fn get_bucket_by_app_id(
         &self,
         app_id: &str, // 应用 ID
-    ) -> Result<Option<BucketEntity>>;
+    ) -> Result<Option<BucketInfo>>;
 
     ////////
 
@@ -30,5 +30,5 @@ pub trait BucketGetPort: Send + Sync {
     async fn get_bucket_by_id(
         &self,
         bucket_id: i64, // 存储桶 ID
-    ) -> Result<Option<BucketEntity>>;
+    ) -> Result<Option<BucketInfo>>;
 }

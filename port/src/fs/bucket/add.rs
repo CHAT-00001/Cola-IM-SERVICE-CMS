@@ -7,6 +7,7 @@
 use async_trait::async_trait;
 use anyhow::Result;
 use cola_data::cola_fs::entity::bucket::BucketEntity;
+use cola_data::cola_fs::command::bucket::CreateBucketCmd;
 
 ////////
 
@@ -18,18 +19,7 @@ pub trait BucketAddPort: Send + Sync {
 
     /// # 1. [PORT] - 创建存储桶
     /// * `desc`: `创建一个新的存储桶配置`
-    async fn create_bucket(
-        &self,
-        app_id: String,          // 应用 ID
-        bucket_key: String,      // 桶唯一键
-        name: String,            // 桶名称
-        provider: String,        // 提供商（如 AWS、Minio）
-        s3_bucket: String,       // S3 bucket 名称
-        s3_region: String,       // S3 区域
-        s3_endpoint: String,     // S3 endpoint
-        access_key: String,      // 访问密钥
-        secret_key: String,      // 秘密密钥
-    ) -> Result<BucketEntity>;
+    async fn create_bucket(&self, cmd: CreateBucketCmd) -> Result<BucketEntity>;
 
     ////////
 

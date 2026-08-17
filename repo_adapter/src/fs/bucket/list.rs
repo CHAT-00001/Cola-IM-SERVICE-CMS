@@ -6,8 +6,10 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_video::info::comment::VideoCommentInfo;
+use cola_data::cola_fs::info::bucket::BucketInfo;
 use port::fs::bucket::list::BucketListPort;
+use repository::cola_fs::pg::bucket::BucketRepo;
+use repository::pg_pool;
 
 ////////
 
@@ -18,21 +20,28 @@ pub struct BucketListAdapter;
 
 #[async_trait]
 impl BucketListPort for BucketListAdapter {
-    async fn get_my_like_record(
+    async fn admin_find_page(
         &self,
-        uid: i64,
+        app_id: Option<&str>,
+        keyword: Option<&str>,
         limit: i64,
         offset: i64,
-    ) -> Result<(VideoCommentInfo)> {
-        todo!()
-    }
-
-    async fn get_he_like_record(
-        &self,
-        uid: i64,
-        limit: i64,
-        offset: i64,
-    ) -> Result<(VideoCommentInfo)> {
-        todo!()
+    ) -> Result<(Vec<BucketInfo>, i64)> {
+        let (entities, total) = BucketRepo::admin_find_page(
+            &pg_pool(),
+            app_id,
+            keyword,
+            limit,
+            offset,
+        )
+        .await?;
+        let list: Vec<BucketInfo> = entities.into_iter().map(Into::into).collect();
+        tracing::info!(
+            "[🔌 ADAPTER] - ✅️ 管理员存储桶列表查询成功: app_id={:?}, count={}, total={}",
+            app_id,
+            list.len(),
+            total
+        );
+        Ok((list, total))
     }
 }

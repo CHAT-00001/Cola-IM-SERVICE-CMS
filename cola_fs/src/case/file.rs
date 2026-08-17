@@ -35,17 +35,7 @@ impl FileCase {
         ctx: &AppContext,
     ) -> Result<serde_json::Value> {
         // 1. 调用 adapter 创建存储桶（通过 ctx 的 trait）
-        let bucket_entity = ctx.fs.bucket.add.create_bucket(
-            cmd.app_id.unwrap_or_default(),
-            cmd.bucket_key,
-            cmd.name,
-            cmd.provider.to_string(),
-            cmd.s3_bucket,
-            cmd.s3_region.unwrap_or_default(),
-            cmd.s3_endpoint.unwrap_or_default(),
-            cmd.access_key.unwrap_or_default(),
-            cmd.secret_key.unwrap_or_default(),
-        )
+        let bucket_entity = ctx.fs.bucket.add.create_bucket(cmd)
             .await?;
 
         info!("[🗣️ CASE] - ✅️ 存储桶创建成功: bucket_id={}", bucket_entity.id);

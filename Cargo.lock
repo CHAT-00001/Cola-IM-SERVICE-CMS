@@ -4901,14 +4901,17 @@ name = "repo_adapter"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "app_config",
  "async-trait",
  "chrono",
  "cola_data",
  "jsonwebtoken",
  "port",
+ "redis",
  "repository",
  "rust_decimal",
  "serde",
+ "serde_json",
  "service",
  "sqlx",
  "tracing",

@@ -15,6 +15,7 @@ use cola_data::cola_fs::entity::bucket::{BucketEntity, BUCKET_COLUMNS};
 pub struct BucketRepo;
 
 impl BucketRepo {
+    //
 
     ////////
 
@@ -65,17 +66,42 @@ impl BucketRepo {
 
     ////////
 
+    /// # 3. [REPOSITORY] - 检查应用 ID 是否已被其他存储桶占用
+    pub async fn exists_by_app_id(
+        pool: &PgPool,
+        app_id: &str,
+        exclude_id: Option<i64>,
+    ) -> Result<bool, sqlx::Error> {
+        let query = r#"
+            SELECT EXISTS(
+                SELECT 1
+                FROM cola_fs.bucket
+                WHERE app_id = $1
+                  AND ($2::BIGINT IS NULL OR id <> $2)
+                  AND is_deleted IS NOT TRUE
+            )
+        "#;
+
+        sqlx::query_scalar(query)
+            .bind(app_id)
+            .bind(exclude_id)
+            .fetch_one(pool)
+            .await
+    }
+
+    ////////
+
     /// # [REPO] - 根据应用标识与逻辑桶编码查询存储桶
     pub async fn find_by_key(
         pool: &PgPool,
         app_id: Option<&str>,
-        bucket_key: &str,
+        bucket: &str,
     ) -> Result<Option<BucketEntity>, sqlx::Error> {
         let query = format!(
             r#"
             SELECT {} FROM cola_fs.bucket
             WHERE app_id IS NOT DISTINCT FROM $1
-              AND bucket_key = $2
+              AND bucket = $2
               AND (is_deleted IS NOT TRUE)
             LIMIT 1
             "#,
@@ -84,7 +110,7 @@ impl BucketRepo {
 
         let entity = sqlx::query_as::<_, BucketEntity>(&query)
             .bind(app_id)
-            .bind(bucket_key)
+            .bind(bucket)
             .fetch_optional(pool)
             .await?;
 
@@ -96,17 +122,15 @@ impl BucketRepo {
     /// # [REPO] - 创建存储桶映射记录
     pub async fn create(pool: &PgPool, cmd: CreateBucketCmd) -> Result<BucketEntity, sqlx::Error> {
         let now = Utc::now();
-        let create_time = now.timestamp();
-
         let query = format!(
             r#"
             INSERT INTO cola_fs.bucket (
-                _id, app_id, bucket_key, name, cdn_domain, provider, s3_bucket,
-                s3_region, s3_endpoint, access_key, secret_key,
-                is_public, upload_policy, status, is_deleted,
-                create_time, created_at, updated_at
+                _id, app_id, type_id, vendor_id, name, bucket, cdn_domain,
+                access_key, secret_key, endpoint, region, config_json,
+                remark, status, created_at, updated_at
             )
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, 1, false, $14, $15, $16)
+            VALUES ($1, $2, $3, $4, $5, $6, $7,
+                    $8, $9, $10, $11, $12, $13, $14, $15, $16)
             RETURNING {}
             "#,
             BUCKET_COLUMNS
@@ -115,18 +139,18 @@ impl BucketRepo {
         let entity = sqlx::query_as::<_, BucketEntity>(&query)
             .bind(cmd._id)
             .bind(cmd.app_id)
-            .bind(cmd.bucket_key)
+            .bind(cmd.type_id)
+            .bind(cmd.vendor_id)
             .bind(cmd.name)
+            .bind(cmd.bucket)
             .bind(cmd.cdn_domain)
-            .bind(cmd.provider)
-            .bind(cmd.s3_bucket)
-            .bind(cmd.s3_region)
-            .bind(cmd.s3_endpoint)
             .bind(cmd.access_key)
             .bind(cmd.secret_key)
-            .bind(cmd.is_public)
-            .bind(cmd.upload_policy)
-            .bind(create_time)
+            .bind(cmd.endpoint)
+            .bind(cmd.region)
+            .bind(cmd.config_json)
+            .bind(cmd.remark)
+            .bind(cmd.status)
             .bind(now)
             .bind(now)
             .fetch_one(pool)
@@ -160,7 +184,7 @@ impl BucketRepo {
 
     /// # [REPO] - 创建存储桶 (wrapper 方法)
     pub async fn create_bucket(
-        _bucket_key: String,
+        _bucket: String,
         _name: String,
         _provider: String,
         _s3_bucket: String,
@@ -183,7 +207,7 @@ impl BucketRepo {
         limit: i64,
         offset: i64,
     ) -> Result<(Vec<BucketEntity>, i64), sqlx::Error> {
-        // 1. 构建基础条件（支持按 app_id 过滤，支持按名称或 bucket_key 模糊搜索）
+        // 1. 构建基础条件（支持按 app_id 过滤，支持按名称或 bucket 模糊搜索）
         // 后台视角默认不强制过滤 is_deleted 和 status，但提供灵活的条件组合
         let kw = keyword.map(|s| format!("%{}%", s));
 
@@ -191,7 +215,7 @@ impl BucketRepo {
         let count_query = r#"
             SELECT COUNT(*) FROM cola_fs.bucket
             WHERE ($1::text IS NULL OR app_id = $1)
-              AND ($2::text IS NULL OR name ILIKE $2 OR bucket_key ILIKE $2)
+              AND ($2::text IS NULL OR name ILIKE $2 OR bucket::text ILIKE $2)
         "#;
 
         let total: i64 = sqlx::query_scalar(count_query)
@@ -205,7 +229,7 @@ impl BucketRepo {
             r#"
             SELECT {} FROM cola_fs.bucket
             WHERE ($1::text IS NULL OR app_id = $1)
-              AND ($2::text IS NULL OR name ILIKE $2 OR bucket_key ILIKE $2)
+              AND ($2::text IS NULL OR name ILIKE $2 OR bucket::text ILIKE $2)
             ORDER BY id DESC
             LIMIT $3 OFFSET $4
             "#,
