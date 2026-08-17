@@ -5,6 +5,7 @@
 
 pub mod auth;
 pub mod dynamic;
+mod fs;
 pub mod gift;
 pub mod gis;
 pub mod live;
@@ -35,6 +36,8 @@ pub fn boot_router_v2(cfg: &mut web::ServiceConfig, app_state: AppState) {
             .configure(auth::gateway::auth_router)
             // 动态
             .configure(dynamic::gateway::dynamic_router)
+            // 文件存储
+            .configure(fs::gateway::fs_router)
             // 动态
             .configure(gis::gateway::gis_router)
             // 直播

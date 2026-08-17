@@ -1,4 +1,5 @@
 pub mod add;
+pub mod storage;
 pub mod buy;
 pub mod category;
 pub mod change;

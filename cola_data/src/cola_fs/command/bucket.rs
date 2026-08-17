@@ -11,11 +11,12 @@ use sqlx::PgPool;
 ////////
 
 /// # [CMD] - 创建存储桶参数载荷
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreateBucketCmd {
     pub _id: Option<String>,           // UUID v4
     pub app_id: Option<String>,        // 应用 ID
     pub bucket_key: String,            // 存储桶key
+    pub cdn_domain: Option<String>,    // CDN 加速域名
     pub name: String,                  // 名称
     pub provider: i16,                 // 厂商
     pub s3_bucket: String,             // 存储桶
@@ -31,6 +32,7 @@ pub struct CreateBucketCmd {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateBucketCmd {
     pub name: Option<String>,
+    pub cdn_domain: Option<String>,
     pub provider: Option<i16>,
     pub s3_bucket: Option<String>,
     pub s3_region: Option<String>,

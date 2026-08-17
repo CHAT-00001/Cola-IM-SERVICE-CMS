@@ -20,6 +20,7 @@ pub struct BucketEntity {
     pub vendor_id: i64,         // FK → three_vendor.id
     pub name: String,           // 服务名称，如"视频主CDN"
     pub bucket: String,         // 存储桶名
+    pub cdn_domain: Option<String>, // CDN 加速域名
     pub access_key: String,     // 访问密钥
     pub secret_key: String,     // 密钥（加密存储）
     pub endpoint: String,       // 接入端点
@@ -35,7 +36,7 @@ pub struct BucketEntity {
 
 /// # [COLUMNS] - 查询字段常量
 pub const BUCKET_COLUMNS: &str = r#"
-    id, app_id, type_id, vendor_id, name, bucket, access_key, secret_key,
+    id, app_id, type_id, vendor_id, name, bucket::text AS bucket, cdn_domain, access_key, secret_key,
     endpoint, region, config_json, remark, status, created_at, updated_at
 "#;
 

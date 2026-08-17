@@ -14,7 +14,8 @@ use cola_data::cola_video::command::video::permission::VideoUpdatePermissionComm
 use cola_data::cola_video::info::video::VideoSingleResponse;
 use port::app::ctx::AppContext;
 use service::cola_video::video::add::VideoAddService;
-use crate::assembler::video::build_video_single_response;
+use crate::assembler::video::{build_video_single_response, build_video_single_response_with_cdn};
+use crate::case::storage::resolve_video_cdn_domain;
 
 
 ////////
@@ -45,7 +46,8 @@ impl AddCase {
         info!("[🗣️ BIZ] - 视频发布成功: uid={}, visibility={}", uid, visibility);
 
         // 3. 🌟 架构对齐：用我们刚才写好的高质量总装器，动态拼装博主信息后返回给前端
-        let response = build_video_single_response(video_info, Some(uid)).await?;
+        let cdn_domain = resolve_video_cdn_domain(&ctx, "short-video").await?;
+        let response = build_video_single_response_with_cdn(video_info, Some(uid), &cdn_domain).await?;
 
         Ok(response)
     }

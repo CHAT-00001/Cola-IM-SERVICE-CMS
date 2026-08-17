@@ -6,5 +6,5 @@
 pub mod bucket; // 存储桶
 pub mod file; // 文件
 pub mod media;
-mod cnd;
+pub mod cnd; // CDN配置
 // 媒体

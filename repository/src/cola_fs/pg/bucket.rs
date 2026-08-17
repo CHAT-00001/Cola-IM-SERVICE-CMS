@@ -40,6 +40,31 @@ impl BucketRepo {
 
     ////////
 
+    /// # 2. [REPOSITORY] - 根据应用标识查询启用存储桶
+    pub async fn find_by_app_id(
+        pool: &PgPool,
+        app_id: &str,
+    ) -> Result<Option<BucketEntity>, sqlx::Error> {
+        let query = format!(
+            r#"
+            SELECT {} FROM cola_fs.bucket
+            WHERE app_id = $1
+              AND status = 1
+              AND (is_deleted IS NOT TRUE)
+            ORDER BY id DESC
+            LIMIT 1
+            "#,
+            BUCKET_COLUMNS
+        );
+
+        sqlx::query_as::<_, BucketEntity>(&query)
+            .bind(app_id)
+            .fetch_optional(pool)
+            .await
+    }
+
+    ////////
+
     /// # [REPO] - 根据应用标识与逻辑桶编码查询存储桶
     pub async fn find_by_key(
         pool: &PgPool,
@@ -76,12 +101,12 @@ impl BucketRepo {
         let query = format!(
             r#"
             INSERT INTO cola_fs.bucket (
-                _id, app_id, bucket_key, name, provider, s3_bucket,
+                _id, app_id, bucket_key, name, cdn_domain, provider, s3_bucket,
                 s3_region, s3_endpoint, access_key, secret_key,
                 is_public, upload_policy, status, is_deleted,
                 create_time, created_at, updated_at
             )
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, 1, false, $13, $14, $15)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, 1, false, $14, $15, $16)
             RETURNING {}
             "#,
             BUCKET_COLUMNS
@@ -92,6 +117,7 @@ impl BucketRepo {
             .bind(cmd.app_id)
             .bind(cmd.bucket_key)
             .bind(cmd.name)
+            .bind(cmd.cdn_domain)
             .bind(cmd.provider)
             .bind(cmd.s3_bucket)
             .bind(cmd.s3_region)

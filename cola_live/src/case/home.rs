@@ -3,7 +3,8 @@
 
 ////////
 
-use crate::assembler::video::build_video_list_response;
+use crate::assembler::video::build_video_list_response_with_cdn;
+use crate::case::storage::resolve_video_cdn_domain;
 use crate::model::vo::video::VideoListResponse;
 use anyhow::Result;
 use port::app::ctx::AppContext;
@@ -28,14 +29,16 @@ impl HomeCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> Result<VideoListResponse> {
+        let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
         let video_infos = VideoListService::find_new_video_list(url.limit, url.offset).await?;
 
-        let response = build_video_list_response(
+        let response = build_video_list_response_with_cdn(
             video_infos,
             Some(uid),
             url.page.unwrap_or(1),
             url.qty.unwrap_or(10),
             0,
+            &cdn_domain,
         )
             .await?;
 
@@ -50,10 +53,11 @@ impl HomeCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> Result<VideoListResponse> {
+        let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
         let video_infos = VideoListService::find_hot_video_list(url.limit, url.offset).await?;
 
         let response =
-            build_video_list_response(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0).await?;
+            build_video_list_response_with_cdn(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0, &cdn_domain).await?;
 
         Ok(response)
     }
@@ -66,11 +70,12 @@ impl HomeCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> Result<VideoListResponse> {
+        let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
         let video_infos =
             VideoListService::find_recommend_video_list(url.limit, url.offset).await?;
 
         let response =
-            build_video_list_response(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0).await?;
+            build_video_list_response_with_cdn(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0, &cdn_domain).await?;
 
         Ok(response)
     }
@@ -83,6 +88,7 @@ impl HomeCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> Result<VideoListResponse> {
+        let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
         let lat = url.lat.unwrap_or(-4.4150144);
         let lng = url.lng.unwrap_or(114.016487);
 
@@ -90,7 +96,7 @@ impl HomeCase {
         let video_infos = VideoListService::find_city_video_list(lat, lng, url.limit, url.offset).await?;
 
         let response =
-            build_video_list_response(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0).await?;
+            build_video_list_response_with_cdn(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0, &cdn_domain).await?;
 
         Ok(response)
     }
@@ -101,6 +107,7 @@ impl HomeCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> Result<VideoListResponse> {
+        let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
         let lat = url.lat.unwrap_or(-4.4150144);
         let lng = url.lng.unwrap_or(114.016487);
 
@@ -108,7 +115,7 @@ impl HomeCase {
         let video_infos = VideoListService::find_city_video_list(lat, lng, url.limit, url.offset).await?;
 
         let response =
-            build_video_list_response(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0).await?;
+            build_video_list_response_with_cdn(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0, &cdn_domain).await?;
 
         Ok(response)
     }
@@ -121,6 +128,7 @@ impl HomeCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> Result<VideoListResponse> {
+        let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
         let lat = url.lat.unwrap_or(-4.4150144);
         let lng = url.lng.unwrap_or(114.016487);
 
@@ -128,7 +136,7 @@ impl HomeCase {
         let video_infos = VideoListService::find_city_video_list(lat, lng, url.limit, url.offset).await?;
 
         let response =
-            build_video_list_response(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0).await?;
+            build_video_list_response_with_cdn(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0, &cdn_domain).await?;
 
         Ok(response)
     }
@@ -141,10 +149,11 @@ impl HomeCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> Result<VideoListResponse> {
+        let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
         let video_infos = VideoListService::find_featured_video_list(url.limit, url.offset).await?;
 
         let response =
-            build_video_list_response(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0).await?;
+            build_video_list_response_with_cdn(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0, &cdn_domain).await?;
 
         Ok(response)
     }
@@ -157,6 +166,7 @@ impl HomeCase {
     ) -> Result<VideoListResponse> {
         let lat = url.lat.unwrap_or(-4.4150144);
         let lng = url.lng.unwrap_or(114.016487);
+        let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
 
         // 🌟 已修正：去掉底层的 Row 解构，直接接收干净的 video_infos
         let video_infos = VideoListService::search_video_keyword_list(
@@ -169,7 +179,7 @@ impl HomeCase {
             .await?;
 
         let response =
-            build_video_list_response(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0).await?;
+            build_video_list_response_with_cdn(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0, &cdn_domain).await?;
 
         Ok(response)
     }

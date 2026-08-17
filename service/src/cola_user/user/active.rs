@@ -82,7 +82,7 @@ impl UserService {
                 anyhow::anyhow!(err_msg)
             })?;
 
-        info!("[✨ SERVICE]: 批量查询底层返回成功，实际命中数量: {}/{}", entity_list.len(), user_ids.len());
+        //info!("[✨ SERVICE]: 批量查询底层返回成功，实际命中数量: {}/{}", entity_list.len(), user_ids.len());
 
         let mut info_map = HashMap::with_capacity(user_ids.len());
         for entity in entity_list {

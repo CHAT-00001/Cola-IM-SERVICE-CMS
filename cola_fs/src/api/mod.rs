@@ -6,4 +6,6 @@
 
 pub mod bucket; // 存储桶
 pub mod cdn; // CDN
+pub mod file; // 文件
+pub mod media; // 媒体
 pub mod upload; // 上传

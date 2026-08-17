@@ -5,7 +5,8 @@
 ////////
 
 use crate::api::view;
-use crate::assembler::video::build_video_single_response;
+use crate::assembler::video::build_video_single_response_with_cdn;
+use crate::case::storage::resolve_video_cdn_domain;
 use crate::model::vo::video::VideoSingleResponse;
 use anyhow::{Result, anyhow};
 use port::app::ctx::AppContext;
@@ -64,7 +65,8 @@ impl ViewCase {
         //     .await;
 
         // 构建响应
-        let resp = build_video_single_response(info, Some(uid)).await?;
+        let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
+        let resp = build_video_single_response_with_cdn(info, Some(uid), &cdn_domain).await?;
 
         Ok(resp)
     }

@@ -3,7 +3,8 @@
 
 //////////
 
-use crate::assembler::video::build_video_list_response;
+use crate::assembler::video::build_video_list_response_with_cdn;
+use crate::case::storage::resolve_video_cdn_domain;
 use crate::model::vo::video::VideoListResponse;
 use port::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
@@ -23,6 +24,7 @@ impl FeedCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> anyhow::Result<VideoListResponse> {
+        let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
         // 1. following
         let ids = ctx.user.following.get_following_ids(uid).await?;
 
@@ -35,7 +37,7 @@ impl FeedCase {
                 })?;
 
         let resp =
-            build_video_list_response(infos, Some(url.user_id), url.offset, url.limit, 0).await?;
+            build_video_list_response_with_cdn(infos, Some(url.user_id), url.offset, url.limit, 0, &cdn_domain).await?;
 
         Ok(resp)
     }
@@ -48,6 +50,7 @@ impl FeedCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> anyhow::Result<VideoListResponse> {
+        let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
         // 1. friend
         let ids = ctx.user.following.get_following_ids(uid).await?;
 
@@ -60,7 +63,7 @@ impl FeedCase {
                 })?;
 
         let resp =
-            build_video_list_response(infos, Some(url.user_id), url.offset, url.limit, 0).await?;
+            build_video_list_response_with_cdn(infos, Some(url.user_id), url.offset, url.limit, 0, &cdn_domain).await?;
 
         Ok(resp)
     }
@@ -73,6 +76,7 @@ impl FeedCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> anyhow::Result<VideoListResponse> {
+        let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
         let ids = ctx.user.following.get_following_ids(uid).await?;
 
         // CALL SERVICE
@@ -83,7 +87,7 @@ impl FeedCase {
             .map_err(|e| anyhow::anyhow!("BIZ: 获取用户 {} 视频列表失败: {}", url.user_id, e))?;
 
         let resp =
-            build_video_list_response(infos, Some(url.user_id), url.offset, url.limit, 0).await?;
+            build_video_list_response_with_cdn(infos, Some(url.user_id), url.offset, url.limit, 0, &cdn_domain).await?;
 
         Ok(resp)
     }
@@ -96,6 +100,7 @@ impl FeedCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> anyhow::Result<VideoListResponse> {
+        let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
 
         // CALL SERVICE
         let infos = ViewService::get_videos_infos_by_uid(url.user_id, Some(url.keyword), url.offset, url.limit)
@@ -105,7 +110,7 @@ impl FeedCase {
             })?;
 
         let resp =
-            build_video_list_response(infos, Some(url.user_id), url.offset, url.limit, 0).await?;
+            build_video_list_response_with_cdn(infos, Some(url.user_id), url.offset, url.limit, 0, &cdn_domain).await?;
 
         Ok(resp)
     }
@@ -128,8 +133,9 @@ impl FeedCase {
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 获取用户 {} 点赞的列表失败: {}", url.user_id, e))?;
 
+        let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
         let resp =
-            build_video_list_response(infos, Some(url.user_id), url.offset, url.limit, 0).await?;
+            build_video_list_response_with_cdn(infos, Some(url.user_id), url.offset, url.limit, 0, &cdn_domain).await?;
         Ok(resp)
     }
 
@@ -151,8 +157,9 @@ impl FeedCase {
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 获取用户 {} 收藏的列表失败: {}", url.user_id, e))?;
 
+        let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
         let resp =
-            build_video_list_response(infos, Some(url.user_id), url.offset, url.limit, 0).await?;
+            build_video_list_response_with_cdn(infos, Some(url.user_id), url.offset, url.limit, 0, &cdn_domain).await?;
         Ok(resp)
     }
 
@@ -174,8 +181,9 @@ impl FeedCase {
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 获取用户 {} 推荐的列表失败: {}", url.user_id, e))?;
 
+        let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
         let resp =
-            build_video_list_response(infos, Some(url.user_id), url.offset, url.limit, 0).await?;
+            build_video_list_response_with_cdn(infos, Some(url.user_id), url.offset, url.limit, 0, &cdn_domain).await?;
         Ok(resp)
     }
 
@@ -200,8 +208,9 @@ impl FeedCase {
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 获取用户 {} 附近视频失败: {}", url.user_id, e))?;
 
+        let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
         let resp =
-            build_video_list_response(infos, Some(url.user_id), url.offset, url.limit, 0).await?;
+            build_video_list_response_with_cdn(infos, Some(url.user_id), url.offset, url.limit, 0, &cdn_domain).await?;
         Ok(resp)
     }
 }

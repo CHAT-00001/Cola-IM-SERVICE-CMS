@@ -26,7 +26,7 @@ pub struct CdnDomainEntity {
     pub auth_key: Option<String>,           // CDN 边缘鉴权密钥 (防盗链签名 Key)
     pub status: i16,                        // 状态码: 1-正常, 0-停用
     pub is_deleted: Option<bool>,           // 逻辑删除
-    pub create_time: i64,                   // 创建时间（兼容旧版PHP）
+    pub created_time: i64,                   // 创建时间（兼容旧版PHP）
     pub created_at: Option<DateTime<Utc>>,  // 创建时间
     pub updated_at: Option<DateTime<Utc>>,  // 更新时间
     pub deleted_at: Option<DateTime<Utc>>,  // 删除时间
@@ -36,7 +36,7 @@ pub struct CdnDomainEntity {
 pub const CDN_DOMAIN_COLUMNS: &str = r#"
     id, _id, app_id, bucket_key, cdn_domain, provider,
     is_https, is_enabled, auth_type, auth_key, status,
-    is_deleted, create_time, created_at, updated_at, deleted_at
+    is_deleted, created_time, created_at, updated_at, deleted_at
 "#;
 
 //////// END

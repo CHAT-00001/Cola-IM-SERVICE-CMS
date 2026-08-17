@@ -15,11 +15,42 @@ use std::collections::HashMap;
 
 ////////
 
+fn resolve_cdn_url(path: String, cdn_domain: &str) -> String {
+    if path.is_empty() || path.starts_with("http://") || path.starts_with("https://") || path.starts_with("//") {
+        return path;
+    }
+    if path.starts_with('/') {
+        format!("{}{}", cdn_domain.trim_end_matches('/'), path)
+    } else {
+        format!("{}/{}", cdn_domain.trim_end_matches('/'), path)
+    }
+}
+
+fn resolve_cdn_url_opt(path: Option<String>, cdn_domain: &str) -> Option<String> {
+    path.map(|value| resolve_cdn_url(value, cdn_domain))
+}
+
+////////
+
 /// # [BUILD] - 构建单视频响应函数
 /// * 机制：纯静态服务层调用，自带未查到博主时的 UserInfo::default 强力兜底
 pub async fn build_video_single_response(
     video_info: VideoInfo,     // 视频源数据
     _current_uid: Option<i64>, // 用户 ID
+) -> Result<VideoSingleResponse> {
+    let cdn_domain = std::env::var("CDN_DOMAIN")
+        .unwrap_or_else(|_| "https://cdn.shortvideo.com".to_string());
+    build_video_single_response_with_cdn(video_info, _current_uid, &cdn_domain).await
+}
+
+////////
+
+/// # [BUILD] - 使用业务层解析出的 CDN 域名构建单视频响应
+/// * `desc`: `CASE 通过 Port 查询 CDN 后，将域名传入组装器`
+pub async fn build_video_single_response_with_cdn(
+    video_info: VideoInfo, // 视频源数据
+    _current_uid: Option<i64>, // 用户 ID
+    cdn_domain: &str, // 已解析的 CDN 域名
 ) -> Result<VideoSingleResponse> {
     // 1. 获取该视频的作者 ID
     let author_uid = video_info.uid;
@@ -36,7 +67,14 @@ pub async fn build_video_single_response(
     // 3. 原声占位（统一改为你的 MusicInfo 类型）
     let music_info = MusicInfo::default();
 
-    // 4. 🚀 大聚合：调用 combine 生成前端需要的扁平化 VideoVo
+    // 4. 🚀 CDN 域名组装
+    let mut video_info = video_info;
+    video_info.href = resolve_cdn_url(video_info.href, cdn_domain);
+    video_info.thumb = resolve_cdn_url(video_info.thumb, cdn_domain);
+    video_info.thumbnail = resolve_cdn_url_opt(video_info.thumbnail, cdn_domain);
+    video_info.original_url = resolve_cdn_url_opt(video_info.original_url, cdn_domain);
+
+    // 5. 🚀 大聚合：调用 combine 生成前端需要的扁平化 VideoVo
     let video_vo = VideoVo::combine(video_info, author, music_info);
 
     // 5. 包装进单视频响应体返回
@@ -54,6 +92,23 @@ pub async fn build_video_list_response(
     page: i64,   // 当前页码
     qty: i64,    // 每页数量
     _total: i64, // 🌟 2. 数量对齐：接收 Case 层传进来的第 6 个参数 total
+) -> Result<VideoListResponse> {
+    let cdn_domain = std::env::var("CDN_DOMAIN")
+        .unwrap_or_else(|_| "https://cdn.shortvideo.com".to_string());
+    build_video_list_response_with_cdn(infos, _current_uid, page, qty, _total, &cdn_domain).await
+}
+
+////////
+
+/// # [BUILD] - 使用业务层解析出的 CDN 域名构建视频列表
+/// * `desc`: `CASE 通过 Port 查询 CDN 后，将域名传入组装器`
+pub async fn build_video_list_response_with_cdn(
+    infos: Vec<VideoInfo>, // 视频源数据
+    _current_uid: Option<i64>, // 用户 ID
+    page: i64, // 当前页码
+    qty: i64, // 每页数量
+    _total: i64, // 总数量
+    cdn_domain: &str, // 已解析的 CDN 域名
 ) -> Result<VideoListResponse> {
     // 1. 批量获取作者用户信息 (全静态服务化)
     let authors_map: HashMap<i64, UserInfo> = if infos.is_empty() {
@@ -84,7 +139,13 @@ pub async fn build_video_list_response(
             let author = authors_map.get(&author_uid).cloned().unwrap_or_default();
             let music_info = MusicInfo::default();
 
-            // 🌟 核心修正：干掉了旧的 from_entity，直接将纯净的 video_info 拿来融合成大视图对象 Vo
+            let mut video_info = video_info;
+            video_info.href = resolve_cdn_url(video_info.href, cdn_domain);
+            video_info.thumb = resolve_cdn_url(video_info.thumb, cdn_domain);
+            video_info.thumbnail = resolve_cdn_url_opt(video_info.thumbnail, cdn_domain);
+            video_info.original_url = resolve_cdn_url_opt(video_info.original_url, cdn_domain);
+
+            // 🌟 核心修正：使用已解析 CDN 域名后的数据组装 VO
             VideoVo::combine(video_info, author, music_info)
         })
         .collect();

@@ -84,7 +84,9 @@ pub async fn run() {
         })
     };
 
-    info!("🗣️🗣️🗣️🗣️✅️✅️✅️✅️ All services started, waiting for them to run...");
+    info!("😊 😊 😊 😊 ✅️ ✅️ ✅️ ✅️ All services started, waiting for them to run...");
+    info!("████████████░░░░░░░░  60% 🟡");
+    info!("████████████████████  100% 🟡");
 
     // 💡 改进方案：使用 tokio::select! 代替 tokio::join!
     // 只要有任何一个底层微服务 handle 崩溃或意外退出，立刻触发 error 日志并结束 run() 退出程序，防止僵尸服务

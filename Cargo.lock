@@ -1542,19 +1542,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "cola_im"
-version = "0.1.0"
-dependencies = [
- "cola_data",
- "cola_music",
- "cola_user",
- "port",
- "repository",
- "service",
- "tracing",
-]
-
-[[package]]
 name = "cola_infra"
 version = "0.1.0"
 dependencies = [
@@ -2663,6 +2650,7 @@ dependencies = [
  "cola_auth",
  "cola_data",
  "cola_dynamic",
+ "cola_fs",
  "cola_gis",
  "cola_live",
  "cola_music",

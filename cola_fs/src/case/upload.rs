@@ -1,5 +1,5 @@
 // cola_fs/src/case/upload.rs
-// 🎬 业务 - FS - 上传
+// 可乐FS - 用例层 - 文件上传
 // 2026/8/14 13:00 Created.
 
 ////////
@@ -12,9 +12,13 @@ use cola_data::cola_fs::command::media::CreateMediaCmd;
 
 ////////
 
+/// # [CASE] - 文件上传
+/// * `desc`: `FS - 文件对象上传`
 pub struct FsUploadCase;
 
 impl FsUploadCase {
+    //
+
     ////////
 
     /// # 1. [CASE] - 获取上传密钥

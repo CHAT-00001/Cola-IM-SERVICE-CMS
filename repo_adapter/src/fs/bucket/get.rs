@@ -8,6 +8,8 @@ use anyhow::Result;
 use async_trait::async_trait;
 use cola_data::cola_fs::entity::bucket::BucketEntity;
 use port::fs::bucket::get::BucketGetPort;
+use repository::cola_fs::pg::bucket::BucketRepo;
+use repository::pg_pool;
 
 ////////
 
@@ -24,11 +26,15 @@ impl BucketGetPort for BucketGetAdapter {
     /// * `desc`: `根据应用 ID 查询存储桶配置`
     async fn get_bucket_by_app_id(
         &self,
-        _app_id: &str, // 应用 ID
+        app_id: &str, // 应用 ID
     ) -> Result<Option<BucketEntity>> {
-        // TODO: 从 repository 查询
-        // BucketRepo::find_by_app_id(app_id).await
-        todo!("get_bucket_by_app_id")
+        let result = BucketRepo::find_by_app_id(&pg_pool(), app_id).await?;
+        tracing::info!(
+            "[🔌 ADAPTER] - ✅️ 按 app_id 查询存储桶完成: app_id={}, found={}",
+            app_id,
+            result.is_some()
+        );
+        Ok(result)
     }
 
     ////////
@@ -37,10 +43,14 @@ impl BucketGetPort for BucketGetAdapter {
     /// * `desc`: `根据存储桶 ID 查询`
     async fn get_bucket_by_id(
         &self,
-        _bucket_id: i64, // 存储桶 ID
+        bucket_id: i64, // 存储桶 ID
     ) -> Result<Option<BucketEntity>> {
-        // TODO: 从 repository 查询
-        // BucketRepo::find_by_id(bucket_id).await
-        todo!("get_bucket_by_id")
+        let result = BucketRepo::find_by_id(&pg_pool(), bucket_id).await?;
+        tracing::info!(
+            "[🔌 ADAPTER] - ✅️ 按 ID 查询存储桶完成: bucket_id={}, found={}",
+            bucket_id,
+            result.is_some()
+        );
+        Ok(result)
     }
 }

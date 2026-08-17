@@ -11,4 +11,5 @@ pub mod info;
 pub mod like;
 
 pub mod share;
+pub mod storage;
 pub mod view;

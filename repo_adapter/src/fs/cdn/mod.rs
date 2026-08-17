@@ -12,6 +12,7 @@ use std::sync::Arc;
 pub mod add; // 发布
 pub mod alive; // 存活
 pub mod check; // 检查
+pub mod config; // 配置管理
 pub mod del; // 删除
 pub mod get; // 获取
 pub mod list; // 列表
@@ -26,6 +27,7 @@ pub fn build_fs_cdn_port() -> FsCdnPort {
     FsCdnPort {
         add: Arc::new(add::CdnAddAdapter),
         check: Arc::new(check::CdnCheckAdapter),
+        config: Arc::new(config::CdnConfigAdapter),
         del: Arc::new(del::CdnDelAdapter),
         get: Arc::new(get::CdnGetAdapter),
         list: Arc::new(list::CdnListAdapter),
