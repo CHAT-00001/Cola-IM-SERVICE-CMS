@@ -1,5 +1,4 @@
-// repo_adapter/src/three/three_app.rs
-// 🔌 适配器 - THREE - 应用管理
+// repo_adapter/src/three/three_app.rs -- 适配器 - THREE - 应用管理
 // 2026/8/15 13:10 Created.
 
 ////////

@@ -29,7 +29,6 @@ pub trait DynamicViewListPort: Send + Sync {
         &self,
         user_id: i64, // 用户 ID
     ) -> anyhow::Result<(Vec<VideoCommentInfo>)>;
-
 }
 
 //////// END

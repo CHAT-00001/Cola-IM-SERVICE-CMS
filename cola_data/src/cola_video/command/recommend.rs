@@ -1,5 +1,4 @@
-// cola_data/src/cola_video/command/recommend.rs
-// 🗄️ 数据 - ▶ 可乐视频 - command - 推荐
+// cola_data/src/cola_video/command/hotlist.rs -- 数据 - VIDEO - command - 推荐 - mod
 // 2026/5/22 20:45 by wx: cestbon10080
 
 ////////

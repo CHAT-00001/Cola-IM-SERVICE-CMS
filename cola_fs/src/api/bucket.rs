@@ -1,5 +1,4 @@
-// cola_fs/src/api/bucket.rs
-// 🌐 网关 - FS - 存储桶
+// cola_fs/src/api/bucket.rs -- FS - 接口层 - 存储桶 - mod
 // 2026/8/14 14:00 Created.
 
 ////////
@@ -8,9 +7,9 @@ use crate::case::bucket::FsBucketCase;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::app::page::ListResponse;
-use cola_data::cola_fs::info::bucket::BucketInfo;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::cola_fs::command::bucket::CreateBucketCmd;
+use cola_data::cola_fs::info::bucket::BucketInfo;
 use port::app::ctx::AppContext;
 
 ////////
@@ -44,7 +43,11 @@ impl BucketApi {
     ) -> AppData<serde_json::Value> {
         // 严格权限检查（仅管理员）
         if let Err(e) = Self::verify_admin_permission(uid) {
-            tracing::error!("[🤐 API] - ❌️ 创建存储桶权限校验失败: uid={}, err={}", uid, e);
+            tracing::error!(
+                "[🤐 API] - ❌️ 创建存储桶权限校验失败: uid={}, err={}",
+                uid,
+                e
+            );
             return AppData::err(4003, e, None);
         }
 
@@ -86,7 +89,7 @@ impl BucketApi {
     /// # 3. [API] - 管理员分页查询存储桶
     pub async fn api_get_bucket_list(
         url: ApiGatewayRequest, // 网关请求参数
-        ctx: &AppContext, // 全局上下文
+        ctx: &AppContext,       // 全局上下文
     ) -> AppData<ListResponse<BucketInfo>> {
         match FsBucketCase::case_get_bucket_list(url, ctx).await {
             Ok(data) => {
@@ -110,7 +113,11 @@ impl BucketApi {
         _ctx: &AppContext,
     ) -> AppData<serde_json::Value> {
         if let Err(e) = Self::verify_admin_permission(uid) {
-            tracing::error!("[🤐 API] - ❌️ 删除存储桶权限校验失败: uid={}, err={}", uid, e);
+            tracing::error!(
+                "[🤐 API] - ❌️ 删除存储桶权限校验失败: uid={}, err={}",
+                uid,
+                e
+            );
             return AppData::err(4003, e, None);
         }
 
@@ -128,11 +135,19 @@ impl BucketApi {
         _ctx: &AppContext,
     ) -> AppData<serde_json::Value> {
         if let Err(e) = Self::verify_admin_permission(uid) {
-            tracing::error!("[🤐 API] - ❌️ 搜索存储桶权限校验失败: uid={}, err={}", uid, e);
+            tracing::error!(
+                "[🤐 API] - ❌️ 搜索存储桶权限校验失败: uid={}, err={}",
+                uid,
+                e
+            );
             return AppData::err(4003, e, None);
         }
 
-        tracing::info!("[🗣️ API] - ✅️ 搜索存储桶成功: uid={}, keyword={}", uid, keyword);
+        tracing::info!(
+            "[🗣️ API] - ✅️ 搜索存储桶成功: uid={}, keyword={}",
+            uid,
+            keyword
+        );
         AppData::ok(serde_json::json!({"keyword": keyword, "list": []}))
     }
 }

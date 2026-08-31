@@ -3,11 +3,11 @@
 
 //////
 
+use crate::case::buy::BuyCase;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::cola_gis::command::buy::PoiBuyCommand;
 use port::app::ctx::AppContext;
-use crate::case::buy::BuyCase;
 
 //////
 
@@ -15,7 +15,6 @@ use crate::case::buy::BuyCase;
 pub struct BuyApi;
 
 impl BuyApi {
-
     ////////
 
     /// # 1. [API HANDLER] - 添加 - 购买

@@ -1,0 +1,10 @@
+{
+    "service": "home_new",
+    "action": 1005,
+    "auth": {
+        "access_token": "aee",
+        "ex_at": "2026-08-08 07:50:40"
+    },
+    "page": 1,
+    "qty": 14
+}

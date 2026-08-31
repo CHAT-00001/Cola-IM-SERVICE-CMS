@@ -3,10 +3,10 @@
 
 ////////
 
+use crate::model::vo::danmaku::{DanmakuListResponse, DanmakuSingleResponse, DanmakuVo};
 use anyhow::Result;
 use cola_data::app::page::PageInfo;
 use cola_data::cola_video::info::danmaku::DanmakuInfo;
-use crate::model::vo::danmaku::{DanmakuListResponse, DanmakuSingleResponse, DanmakuVo};
 use service::cola_user::user::active::UserService;
 
 ////////
@@ -17,7 +17,6 @@ pub async fn build_danmaku_single_response(
     current_uid: Option<i64>,
     video_author_id: i64,
 ) -> Result<DanmakuSingleResponse> {
-
     let _sender_user_info = UserService::get_user_info_by_id(danmaku_info.user_id).await?;
 
     let is_liked = false;
@@ -46,7 +45,6 @@ pub async fn build_danmaku_list_response(
     qty: i64,
     total: i64,
 ) -> Result<DanmakuListResponse> {
-
     // 1. 静态调用：批量获取用户信息
     let author_ids: Vec<i64> = infos.iter().map(|i| i.user_id).collect();
     let _authors_map = UserService::get_user_info_by_ids(&author_ids).await?;
@@ -56,13 +54,7 @@ pub async fn build_danmaku_list_response(
         .into_iter()
         .map(|danmaku_info| {
             // 通过 VO 的顶级流控函数，去计算 is_own, is_author 等复杂身份状态
-            DanmakuVo::from_info(
-                danmaku_info,
-                current_uid,
-                video_author_id,
-                false,
-                false,
-            )
+            DanmakuVo::from_info(danmaku_info, current_uid, video_author_id, false, false)
         })
         .collect();
 

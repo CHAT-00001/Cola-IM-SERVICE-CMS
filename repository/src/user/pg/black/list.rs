@@ -6,7 +6,7 @@
 
 use crate::pg_pool;
 use app_config::GLOBAL_DB;
-use cola_data::cola_user::entity::black::{UserBlackEntity, USER_BLACK_COLUMNS};
+use cola_data::cola_user::entity::black::{USER_BLACK_COLUMNS, UserBlackEntity};
 use sqlx::{self, PgPool};
 
 ////////

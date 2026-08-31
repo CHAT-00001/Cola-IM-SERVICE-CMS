@@ -1,4 +1,4 @@
-// repo_adapter/src/user/ban/mod.rs
+// repo_adapter/src/user/ban/music.rs
 //🔌 适配器 - 可乐用户 - 封禁 - 模块
 // 2026/8/7 03:32 Created.
 

@@ -8,6 +8,8 @@ use anyhow::Result;
 use async_trait::async_trait;
 use cola_data::cola_fs::entity::media::MediaEntity;
 use port::fs::media::get::MediaGetPort;
+use repository::cola_fs::pg::media::MediaRepo;
+use repository::pg_pool;
 
 ////////
 
@@ -21,22 +23,22 @@ impl MediaGetPort for MediaGetAdapter {
     ////////
 
     /// # 1. [ADAPTER] - 按 ID 获取媒体
-    async fn get_media_by_id(
-        &self,
-        _media_id: i64,
-    ) -> Result<Option<MediaEntity>> {
+    async fn get_media_by_id(&self, media_id: i64) -> Result<Option<MediaEntity>> {
         // TODO: 实现媒体获取逻辑
-        todo!("get_media_by_id")
+        Ok(MediaRepo::find_by_id(&pg_pool(), media_id).await?)
     }
 
     ////////
 
     /// # 2. [ADAPTER] - 批量按 ID 获取媒体
-    async fn batch_get_medias(
-        &self,
-        _media_ids: Vec<i64>,
-    ) -> Result<Vec<MediaEntity>> {
+    async fn batch_get_medias(&self, media_ids: Vec<i64>) -> Result<Vec<MediaEntity>> {
         // TODO: 实现批量媒体获取逻辑
-        todo!("batch_get_medias")
+        let mut result = Vec::new();
+        for media_id in media_ids {
+            if let Some(media) = MediaRepo::find_by_id(&pg_pool(), media_id).await? {
+                result.push(media);
+            }
+        }
+        Ok(result)
     }
 }

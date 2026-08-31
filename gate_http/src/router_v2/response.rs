@@ -1,7 +1,7 @@
-use serde::{Deserialize, Serialize};
-use uuid::Uuid;
 use chrono::Utc;
+use serde::{Deserialize, Serialize};
 use std::time::Instant;
+use uuid::Uuid;
 
 /// 统一响应体
 #[derive(Serialize)]
@@ -10,8 +10,8 @@ pub struct ApiResponse<T> {
     pub request_id: String,
     pub data: Option<T>,
     pub msg: String,
-    pub at: String,      // UTC 时间 ISO8601 精确到毫秒
-    pub time: u128,      // 请求耗时（ms）
+    pub at: String, // UTC 时间 ISO8601 精确到毫秒
+    pub time: u128, // 请求耗时（ms）
 }
 
 impl<T> ApiResponse<T> {
@@ -40,7 +40,6 @@ impl<T> ApiResponse<T> {
     }
 }
 
-
 /// # 列表查询参数构建
 /// 2025-09-11 09:48:10
 #[derive(Debug, Deserialize)]
@@ -48,7 +47,6 @@ pub struct ListQuery {
     pub size: Option<i64>,
     pub page: Option<i64>,
 }
-
 
 #[derive(Serialize)]
 pub struct Pagination {
@@ -59,5 +57,5 @@ pub struct Pagination {
 #[derive(Serialize)]
 pub struct ListResponse<T> {
     pub list: Vec<T>,
-    pub pagination:Pagination,
+    pub pagination: Pagination,
 }

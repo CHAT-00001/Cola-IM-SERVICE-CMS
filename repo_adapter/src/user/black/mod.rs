@@ -1,4 +1,4 @@
-// repo_adapter/src/user/black/mod.rs
+// repo_adapter/src/user/black/music.rs
 // 🔌 插头 - 可乐用户 - 黑名单 - 模块
 // 2026-08-02 Created.
 

@@ -4,8 +4,8 @@
 
 ////////
 
-use sqlx::{self, PgPool};
 use crate::pg_pool;
+use sqlx::{self, PgPool};
 
 ////////
 
@@ -20,8 +20,7 @@ impl UserFollowDelRepo {
     ////////
 
     /// # 1. [REPOSITORY] - 🚮 单个软删除
-    pub async fn pg_single_soft_del_by_id(
-        id: i64,       // 角色ID
+    pub async fn pg_single_soft_del_by_id(id: i64, // 角色ID
     ) -> Result<u64, sqlx::Error> {
         let pool = pg_pool();
 
@@ -42,7 +41,7 @@ impl UserFollowDelRepo {
     /// # 2. [REPOSITORY] - 🚮 批量软删除（遍历/批量删除）
     /// * `desc`: 根据一组角色 ID 批量软删除
     pub async fn pg_batch_soft_del_by_ids(
-        ids: &[i64],   // 角色ID列表
+        ids: &[i64], // 角色ID列表
     ) -> Result<u64, sqlx::Error> {
         let pool = pg_pool();
 

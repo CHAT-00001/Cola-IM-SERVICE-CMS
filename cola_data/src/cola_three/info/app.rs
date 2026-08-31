@@ -4,8 +4,8 @@
 
 ////////
 
-use serde::{Deserialize, Serialize};
 use crate::cola_three::entity::app::ColaAppEntity;
+use serde::{Deserialize, Serialize};
 
 ////////
 

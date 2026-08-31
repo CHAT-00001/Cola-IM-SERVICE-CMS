@@ -1,5 +1,4 @@
-// repo_adapter/src/im/mod.rs
-// 🔌 插头 - 可乐 IM - 模块
+// repo_adapter/src/im/mod.rs -- 🔌 适配器 - 可乐 IM - mod
 // 2026/8/10 20:00 Updated.
 
 ////////
@@ -9,11 +8,11 @@ use std::sync::Arc;
 
 ////////
 
+pub mod card;
+pub mod chat;
 pub mod contact;
 pub mod contact_request;
-pub mod card;
 pub mod message;
-pub mod chat;
 
 ////////
 

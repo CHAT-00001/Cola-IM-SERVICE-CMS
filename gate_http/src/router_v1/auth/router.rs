@@ -3,11 +3,13 @@
 
 //////
 
-use actix_web::{web};
-use crate::router_v2::auth::handler::login::{apple_login, email_login, google_login, phone_login, wechat_login};
+use crate::router_v2::auth::handler::login::{
+    apple_login, email_login, google_login, phone_login, wechat_login,
+};
 use crate::router_v2::auth::handler::logout::logout;
 use crate::router_v2::auth::handler::refresh::refresh_token;
 use crate::router_v2::auth::handler::send::{send_email_code, send_msm_code};
+use actix_web::web;
 
 //////
 

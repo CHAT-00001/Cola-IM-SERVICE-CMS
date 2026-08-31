@@ -3,14 +3,15 @@
 
 ////////
 
-use crate::case::session::add::AuthAddCase;
 use crate::case::login::LoginCase;
-use cola_data::auth::vo::session::SignResponse;
+use crate::case::session::add::AuthAddCase;
 use cola_data::app::api::ApiQuery;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::auth::command::email::EmailLoginCommand;
 use cola_data::auth::command::phone::PhoneLoginCommand;
+use cola_data::auth::vo::session::SignResponse;
+use port::app::ctx::AppContext;
 use tracing::log;
 use validator::Validate;
 
@@ -27,7 +28,10 @@ impl SessionAddApi {
     /// # 1. [API HANDLER] - 手机短信验证码登录
     /// * `action`: 2001
     /// * `desc`: 手机 + 短信
-    pub async fn handler_sign_in_by_phone(cmd: PhoneLoginCommand) -> AppData<SignResponse> {
+    pub async fn handler_sign_in_by_phone(
+        cmd: PhoneLoginCommand,
+        ctx: &AppContext,
+    ) -> AppData<SignResponse> {
         log::info!("[API]: 收到 📱 手机号登录原始命令数据: {:?}", cmd);
 
         // 1. 校验
@@ -36,7 +40,7 @@ impl SessionAddApi {
         }
 
         // 2. 调度业务逻辑
-        match AuthAddCase::case_sign_in_by_phone(&cmd).await {
+        match AuthAddCase::case_sign_in_by_phone(&cmd, ctx).await {
             Ok(res) => AppData::ok(res),
             Err(e) => {
                 log::error!("登录失败: {:?}", e);

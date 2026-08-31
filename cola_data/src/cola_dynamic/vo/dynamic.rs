@@ -16,7 +16,7 @@ pub struct DynamicVo {
     #[serde(flatten)]
     pub info: DynamicInfo, // 动态元信息(平铺)
     pub user: UserVo,     // 用户信息
-    pub distance: String,  // 球面距离
+    pub distance: String, // 球面距离
     pub is_like: bool,    // 是否点赞
     pub is_collect: bool, // 是否收藏
 }
@@ -26,7 +26,13 @@ impl DynamicVo {
     ////////
 
     /// # [CASE] - 新
-    pub fn new(info: DynamicInfo, user: UserVo, distance: String, is_like: bool, is_collect: bool) -> Self {
+    pub fn new(
+        info: DynamicInfo,
+        user: UserVo,
+        distance: String,
+        is_like: bool,
+        is_collect: bool,
+    ) -> Self {
         Self {
             info,
             user,

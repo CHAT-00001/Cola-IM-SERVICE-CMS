@@ -1,4 +1,4 @@
-﻿// service/src/cola_gis/poi/add.rs  --
+// service/src/cola_gis/poi/add.rs  --
 // 服务 - 可乐GIS - poi - 发布
 // 2026/7/6 12:10
 
@@ -23,12 +23,20 @@ impl PoiAddService {
     ////////
 
     /// # 1. [SERVICE] - ✅️ 保存新的兴趣点
-    pub async fn save_poi_and_update_count(uid: i64, cmd: PoiCommand, visibility: i16) -> Result<PoiInfo, anyhow::Error> {
+    pub async fn save_poi_and_update_count(
+        uid: i64,
+        cmd: PoiCommand,
+        visibility: i16,
+    ) -> Result<PoiInfo, anyhow::Error> {
         let entity = PoiRepo::save_poi_by_uid(uid, cmd, visibility).await?;
         let async_uid = uid;
         tokio::spawn(async move {
             if let Err(e) = UserRepo::update_user_count(async_uid, 1, 0, 0, 0, 0, 0).await {
-                tracing::error!("[🔌 ADAPTER]: 💾保存新的兴趣点失败! : uid={}, err={:?}", async_uid, e);
+                tracing::error!(
+                    "[🔌 ADAPTER]: 💾保存新的兴趣点失败! : uid={}, err={:?}",
+                    async_uid,
+                    e
+                );
             }
         });
         Ok(PoiInfo::from_entity(entity))
@@ -37,7 +45,11 @@ impl PoiAddService {
     ////////
 
     /// # 2. [SERVICE] - 🌬️ 修改兴趣点
-    pub async fn edit_poi(uid: i64, cmd: PoiCommand, visibility: i16) -> Result<PoiInfo, anyhow::Error> {
+    pub async fn edit_poi(
+        uid: i64,
+        cmd: PoiCommand,
+        visibility: i16,
+    ) -> Result<PoiInfo, anyhow::Error> {
         let entity = PoiRepo::save_poi_by_uid(uid, cmd, visibility).await?;
         Ok(PoiInfo::from_entity(entity))
     }
@@ -53,7 +65,10 @@ impl PoiAddService {
                 if e.to_string().contains("RowNotFound") {
                     Ok(false)
                 } else {
-                    Err(anyhow::anyhow!("[SERVICE]: 👤 用户批量删除兴趣点POI 失败: {}", e))
+                    Err(anyhow::anyhow!(
+                        "[SERVICE]: 👤 用户批量删除兴趣点POI 失败: {}",
+                        e
+                    ))
                 }
             }
         }

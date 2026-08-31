@@ -1,4 +1,4 @@
-// cola_data/user/mod.rs  -- 可乐数据中心 - user - mod
+// cola_data/user/mod.rs  -- 可乐数据中心 - user - music
 // 2026/6/5 00:05
 
 ////////

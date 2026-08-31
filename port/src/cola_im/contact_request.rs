@@ -18,10 +18,20 @@ pub trait ContactRequestRepo: Send + Sync {
     async fn accept_request(&self, uid: i64, request_id: i64) -> anyhow::Result<()>;
 
     /// 拒绝请求
-    async fn refuse_request(&self, uid: i64, request_id: i64, replay: Option<String>) -> anyhow::Result<()>;
+    async fn refuse_request(
+        &self,
+        uid: i64,
+        request_id: i64,
+        replay: Option<String>,
+    ) -> anyhow::Result<()>;
 
     /// 获取请求列表
-    async fn list_requests(&self, uid: i64, offset: i64, limit: i64) -> anyhow::Result<Vec<ContactRequestInfo>>;
+    async fn list_requests(
+        &self,
+        uid: i64,
+        offset: i64,
+        limit: i64,
+    ) -> anyhow::Result<Vec<ContactRequestInfo>>;
 }
 
 //////// END

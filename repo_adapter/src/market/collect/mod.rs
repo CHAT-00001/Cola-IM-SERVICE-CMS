@@ -1,5 +1,4 @@
-// repo_adapter/src/market/collect/mod.rs
-// 🔌 适配器 - MARKET - 商品收藏 - mod
+// repo_adapter/src/market/collect/mod.rs -- 适配器 - MARKET - 商品收藏 - mod
 // 2026/8/10 20:00 Updated.
 
 ////////

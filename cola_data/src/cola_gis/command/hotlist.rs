@@ -1,5 +1,4 @@
-﻿// cola_data/src/cola_gis/command/hotlist.rs
-//🗄️ 数据 - 📍 可乐GIS - command - 上热门
+﻿// cola_data/src/cola_gis/command/hotlist.rs -- 数据 - 可乐GIS - command - 上热门 - mod
 // 2026/5/22 20:45 by wx: cestbon10080
 
 ////////
@@ -10,7 +9,7 @@ use serde::{Deserialize, Serialize};
 
 /// #  [COMMAND] - POI 上热门 命令
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
-pub struct HotlistCommand {
+pub struct PoiHotlistCommand {
     pub send_id: String,        // 鍙戦€?ID
     pub user_id: i64,           // 鐢ㄦ埛 ID
     pub album_id: Option<i64>,  // 涓撹緫 ID

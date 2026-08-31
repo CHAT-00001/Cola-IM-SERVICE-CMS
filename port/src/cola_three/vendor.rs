@@ -7,13 +7,11 @@
 use cola_data::cola_three::command::vendor::UpsertVendorCommand;
 use cola_data::cola_three::info::vendor::VendorInfo;
 
-
 ////////
 
 /// # [PORT] - 厂商端口
 #[async_trait::async_trait]
 pub trait VendorPort: Send + Sync {
-
     /// 新增/更新
     async fn upsert(&self, cmd: UpsertVendorCommand) -> anyhow::Result<VendorInfo>;
 

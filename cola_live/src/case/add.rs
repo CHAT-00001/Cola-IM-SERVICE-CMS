@@ -3,14 +3,14 @@
 
 ////////
 
+use crate::assembler::video::build_video_single_response;
+use crate::model::vo::video::VideoSingleResponse;
 use anyhow::{Context, Result};
-use tracing::info;
 use cola_data::cola_fs::rick_check;
 use cola_data::cola_video::command::video::edit::VideoUpdateCommand;
 use cola_data::cola_video::command::video::new::VideoNewCommand;
 use service::cola_video::video::add::VideoAddService;
-use crate::assembler::video::build_video_single_response;
-use crate::model::vo::video::VideoSingleResponse;
+use tracing::info;
 
 ////////
 
@@ -22,7 +22,10 @@ impl AddCase {
     ////////
 
     /// # 1. [CASE] - 发布视频
-    pub async fn case_add_publish(uid: i64, cmd: VideoNewCommand) -> Result<VideoSingleResponse, anyhow::Error> {
+    pub async fn case_add_publish(
+        uid: i64,
+        cmd: VideoNewCommand,
+    ) -> Result<VideoSingleResponse, anyhow::Error> {
         // 1. 内容风控（标题 + 简介 联合过滤）
         let check_text = format!("{} {:?}", cmd.title, cmd.description);
 
@@ -45,7 +48,10 @@ impl AddCase {
     ////////
 
     /// # 2. [CASE] - 编辑视频
-    pub async fn case_edit_publish(uid: i64, cmd: VideoUpdateCommand) -> Result<VideoSingleResponse, anyhow::Error> {
+    pub async fn case_edit_publish(
+        uid: i64,
+        cmd: VideoUpdateCommand,
+    ) -> Result<VideoSingleResponse, anyhow::Error> {
         // 1. 内容风控（标题 + 简介 联合过滤）
         let check_text = format!("{} {:?}", cmd.title, cmd.description);
 

@@ -34,11 +34,12 @@ impl EmailLoginCommand {
     /// 辅助方法：生成一个脱敏的日志记录，保护用户隐私
     /// 在记录登录日志时，不要打印完整的手机号或验证码
     pub fn to_log_info(&self) -> String {
-        format!("platform: {}, device: {}, phone: {}***{}",
-                self.platform,
-                self.device_id,
-                &self.email[..3],
-                &self.code[self.code.len()-2..]
+        format!(
+            "platform: {}, device: {}, phone: {}***{}",
+            self.platform,
+            self.device_id,
+            &self.email[..3],
+            &self.code[self.code.len() - 2..]
         )
     }
 }

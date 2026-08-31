@@ -3,9 +3,9 @@
 
 //////
 
-use serde::Serialize;
 use cola_data::app::page::PageInfo;
 use cola_data::cola_gis::info::danmaku::PoiDanmakuInfo;
+use serde::Serialize;
 
 //////
 
@@ -30,7 +30,9 @@ impl DanmakuVo {
         is_liked: bool,
         is_disliked: bool,
     ) -> Self {
-        let is_own = current_uid.map(|uid| uid == danmaku.user_id).unwrap_or(false);
+        let is_own = current_uid
+            .map(|uid| uid == danmaku.user_id)
+            .unwrap_or(false);
         let is_author = danmaku.user_id == video_author_id;
 
         Self {

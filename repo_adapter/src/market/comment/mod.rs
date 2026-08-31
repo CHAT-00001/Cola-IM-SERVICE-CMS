@@ -1,5 +1,4 @@
-// repo_adapter/src/market/comment/mod.rs
-// 🔌 适配器 - MARKET - 商品评论 - 模块
+// repo_adapter/src/market/comment/mod.rs -- 适配器 - MARKET - 商品评论 - 模块
 // 2026/8/8 Created.
 
 ////////

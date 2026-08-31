@@ -3,15 +3,15 @@
 
 ////////
 
+use crate::case;
+use crate::case::home::HomeCase;
+use crate::model::vo::video::VideoListResponse;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::app::request::ApiUrlParamsQuery;
 use cola_data::auth::info::auth::AuthContext;
 use cola_data::cola_user::info::config::UserConfigInfo;
 use port::app::ctx::AppContext;
-use crate::case;
-use crate::case::home::HomeCase;
-use crate::model::vo::video::VideoListResponse;
 
 ////////
 
@@ -19,9 +19,6 @@ use crate::model::vo::video::VideoListResponse;
 pub struct LiveHomeApi;
 
 impl LiveHomeApi {
-
-
-
     ////////
 
     /// # 2. [API HANDLER] - 最新
@@ -30,8 +27,6 @@ impl LiveHomeApi {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> AppData<VideoListResponse> {
-
-
         let uid = auth.uid;
 
         match HomeCase::case_get_new_list(uid, url, ctx).await {
@@ -53,7 +48,6 @@ impl LiveHomeApi {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> AppData<VideoListResponse> {
-
         let uid = auth.uid;
 
         match HomeCase::case_get_hot_list(uid, url, ctx).await {
@@ -75,7 +69,6 @@ impl LiveHomeApi {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> AppData<VideoListResponse> {
-
         let uid = auth.uid;
         match HomeCase::case_get_recommend_list(uid, url, ctx).await {
             Ok(resp) => AppData::ok(resp),
@@ -94,7 +87,6 @@ impl LiveHomeApi {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> AppData<VideoListResponse> {
-
         let uid = auth.uid;
         match HomeCase::case_get_city_list(uid, url, ctx).await {
             Ok(resp) => AppData::ok(resp),
@@ -113,7 +105,6 @@ impl LiveHomeApi {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> AppData<VideoListResponse> {
-
         let uid = auth.uid;
         let category_id = url.category_id;
 
@@ -138,7 +129,6 @@ impl LiveHomeApi {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> AppData<VideoListResponse> {
-
         let uid = auth.uid;
         match HomeCase::case_get_featured_list(uid, url, ctx).await {
             Ok(resp) => AppData::ok(resp),
@@ -157,7 +147,6 @@ impl LiveHomeApi {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> AppData<VideoListResponse> {
-
         let uid = auth.uid;
         match HomeCase::case_get_keyword_list(uid, url, ctx).await {
             Ok(resp) => AppData::ok(resp),
@@ -165,6 +154,5 @@ impl LiveHomeApi {
         }
     }
 }
-
 
 //////// END

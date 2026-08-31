@@ -1,5 +1,5 @@
-use actix_web::{web, App, HttpResponse, HttpServer, Responder};
 use actix_web::middleware::Logger;
+use actix_web::{App, HttpResponse, HttpServer, Responder, web};
 use app_config::app_state::AppState;
 use app_config::config::Health;
 use tracing::info;
@@ -21,14 +21,11 @@ pub async fn start_health(health_config: &Health, app_state: AppState) {
         .expect("API server runtime error");
 }
 
-
-
 /// # PING
 /// * PONG
 async fn ping() -> impl Responder {
     HttpResponse::Ok().body("pong")
 }
-
 
 /// # PING
 /// * PONG

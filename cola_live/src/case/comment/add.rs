@@ -33,7 +33,10 @@ impl LiveCommentAddCase {
         mut cmd: CommentCommand, // 👈 1. 改为 mut 以便修改内部字段
         ctx: &AppContext,
     ) -> Result<CommentSingleResponse> {
-        info!("Case: 开始处理发布评论用例, uid: {}, video_id: {}", uid, video_id);
+        info!(
+            "Case: 开始处理发布评论用例, uid: {}, video_id: {}",
+            uid, video_id
+        );
 
         // 2. 将路由路径中的 video_id 赋予 Command，确保仓储层能正确读取
         cmd.video_id = video_id;

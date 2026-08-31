@@ -1,5 +1,4 @@
-// repo_adapter/src/three/mod.rs
-// 🔌 插头 - 可乐第三方 - 模块
+// repo_adapter/src/three/music.rs -- 适配器 - 可乐第三方 - 模块
 // 2026/8/10 20:00 Updated.
 
 ////////
@@ -10,10 +9,10 @@ use std::sync::Arc;
 ////////
 
 pub mod three_app;
+pub mod three_biz_binding;
+pub mod three_config;
 pub mod three_type;
 pub mod three_vendor;
-pub mod three_config;
-pub mod three_biz_binding;
 
 ////////
 

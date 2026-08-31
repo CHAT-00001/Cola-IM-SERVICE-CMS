@@ -4,10 +4,10 @@
 
 ////////
 
+use crate::cola_three::info::app::AppInfo;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
-use crate::cola_three::info::app::AppInfo;
 
 ////////
 
@@ -17,10 +17,10 @@ use crate::cola_three::info::app::AppInfo;
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct ColaAppEntity {
     pub id: i64,
-    pub app_id: String,                     // 业务唯一标识，如 "short_video", "cola_live"
-    pub name: String,                       // 业务中文名，如 "可乐短视频"
-    pub description: Option<String>,        // 描述
-    pub status: i16,                        // 状态：1. 启用 0. 禁用
+    pub app_id: String,              // 业务唯一标识，如 "short_video", "cola_live"
+    pub name: String,                // 业务中文名，如 "可乐短视频"
+    pub description: Option<String>, // 描述
+    pub status: i16,                 // 状态：1. 启用 0. 禁用
     pub created_at: Option<DateTime<Utc>>,
     pub updated_at: Option<DateTime<Utc>>,
 }

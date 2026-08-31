@@ -7,12 +7,21 @@ use cola_data::app::data::AppData;
 
 pub trait IntoApi {
     // 明确返回 HttpResponse，不再使用 impl Responder 这种模糊的写法
-    fn finish(self, req: &actix_web::HttpRequest, start: std::time::Instant) -> actix_web::HttpResponse;
+    fn finish(
+        self,
+        req: &actix_web::HttpRequest,
+        start: std::time::Instant,
+    ) -> actix_web::HttpResponse;
 }
 
 impl<T: serde::Serialize> IntoApi for AppData<T> {
-    fn finish(self, req: &actix_web::HttpRequest, start: std::time::Instant) -> actix_web::HttpResponse {
-        let log_id = req.headers()
+    fn finish(
+        self,
+        req: &actix_web::HttpRequest,
+        start: std::time::Instant,
+    ) -> actix_web::HttpResponse {
+        let log_id = req
+            .headers()
             .get("X-Log-ID")
             .and_then(|v| v.to_str().ok())
             .unwrap_or("2024")

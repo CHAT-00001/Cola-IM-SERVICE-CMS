@@ -1,16 +1,16 @@
-// port/src/user/vip/mod.rs
+// port/src/user/vip/music.rs
 // ⏩️ 端口 - 🗣 可乐用户 - 贵宾 - 模块
 // 2026/8/5 23:33 Created.
 
 ////////
 
-use std::sync::Arc;
 use crate::cola_user::vip::add::VipAddPort;
 use crate::cola_user::vip::check::VipCheckPort;
 use crate::cola_user::vip::del::VipDelPort;
 use crate::cola_user::vip::get::VipGetPort;
 use crate::cola_user::vip::list::VipListPort;
 use crate::cola_user::vip::manage::VipManagePort;
+use std::sync::Arc;
 
 pub mod add; // 开通
 pub mod check; // 检查

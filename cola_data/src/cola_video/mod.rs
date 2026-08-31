@@ -1,5 +1,4 @@
-// data/cola_video/mod.rs
-// 数据中心 - 视频 - 模块
+// cola_data/src/cola_video/mod.rs -- 数据 - VIDEO - mod
 // 2026/8/4 21:04 Created.
 
 ////////

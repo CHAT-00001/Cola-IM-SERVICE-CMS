@@ -5,13 +5,13 @@
 
 use crate::kits::response::IntoApi;
 use crate::ping::ping;
+use crate::router_v2::three::dispatcher;
 use actix_web::{HttpMessage, HttpRequest, HttpResponse, Responder, web};
 use app_config::app_state::AppState;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::auth::request::session::SessionContext;
 use std::time::Instant;
-use crate::router_v2::three::dispatcher;
 
 ////////
 
@@ -63,23 +63,21 @@ async fn three_gateway(
     // 3️⃣ 分发
     let service_name = api_req.service.clone().unwrap_or_default();
     match service_name.as_str() {
-        "cola_fs" => {
-            dispatcher::category::category_dispatch(three, &api_req)
-                .await
-                .finish(&req, start)
-        }
-        "sms" => {
-            dispatcher::sms::sms_dispatch(three, &api_req)
-                .await
-                .finish(&req, start)
-        }
-        "provider" => {
-            dispatcher::provider::provider_dispatch(three, &api_req)
-                .await
-                .finish(&req, start)
-        }
-        _ => AppData::<()>::err(4000, format!("[🌐 GATEWAY]: ⚠️ Unknown service: {}", service_name), None)
+        "cola_fs" => dispatcher::category::category_dispatch(three, &api_req)
+            .await
             .finish(&req, start),
+        "sms" => dispatcher::sms::sms_dispatch(three, &api_req)
+            .await
+            .finish(&req, start),
+        "provider" => dispatcher::provider::provider_dispatch(three, &api_req)
+            .await
+            .finish(&req, start),
+        _ => AppData::<()>::err(
+            4000,
+            format!("[🌐 GATEWAY]: ⚠️ Unknown service: {}", service_name),
+            None,
+        )
+        .finish(&req, start),
     }
 }
 

@@ -1,4 +1,4 @@
-// data/src/im/mod.rs -- 数据 - IM - mod
+// data/src/im/mod.rs -- 数据 - IM - music
 // 2026/6/19 10:14 Created.
 
 ////////

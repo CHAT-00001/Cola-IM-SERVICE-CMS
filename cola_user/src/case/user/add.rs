@@ -6,11 +6,16 @@
 
 use anyhow::{Context, Result};
 use cola_data::cola_fs::rick_check;
+use cola_data::cola_user::command::user::add::UserCommand;
 use cola_data::cola_user::command::user::update::UpdateUserCommand;
 use cola_data::cola_user::info::user::UserInfo;
-use tracing::info;
-use cola_data::cola_user::command::user::add::UserCommand;
+use cola_data::wallet::command::point::WalletPointInitCommand;
 use port::app::ctx::AppContext;
+use tracing::info;
+
+////////
+
+const DEFAULT_REGISTER_POINT_BONUS: i64 = 0;
 ////////
 
 /// # [ADD CASE]
@@ -43,6 +48,16 @@ impl UserAddCase {
             .save_user(cmd)
             .await
             .map_err(|e| anyhow::anyhow!("[🤐 CASE]: ❌️ 用户资料保存失败: {}", e))?;
+
+        // 3. 初始化钱包 POINT 账户；注册赠送积分大于0时同步生成首笔积分交易
+        ctx.wallet
+            .point
+            .init_point_account(WalletPointInitCommand::new(
+                user_info.id,
+                DEFAULT_REGISTER_POINT_BONUS,
+            ))
+            .await
+            .map_err(|e| anyhow::anyhow!("[🤐 CASE]: ❌️ 用户积分账户初始化失败: {}", e))?;
 
         info!("[🗣️ CASE] - ✅️ 用户资料保存成功: uid={},", uid);
 

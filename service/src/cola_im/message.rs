@@ -19,7 +19,11 @@ impl ImMessageService {
         Ok(())
     }
 
-    pub async fn sync_messages(uid: i64, sync_time: i64, limit: i64) -> anyhow::Result<Vec<MessageInfo>> {
+    pub async fn sync_messages(
+        uid: i64,
+        sync_time: i64,
+        limit: i64,
+    ) -> anyhow::Result<Vec<MessageInfo>> {
         let entities = ImMessageRepo::find_messages_by_uid(uid, sync_time, limit).await?;
         Ok(entities.into_iter().map(MessageInfo::from_entity).collect())
     }

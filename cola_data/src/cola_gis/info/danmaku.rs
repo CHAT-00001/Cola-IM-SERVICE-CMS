@@ -1,9 +1,9 @@
-﻿// cola_data/src/cola_gis/info/danmaku.rs  -- 数据中心 - GIS - info - 弹幕
+// cola_data/src/cola_gis/info/danmaku.rs  -- 数据中心 - GIS - info - 弹幕
 // 2026/5/22 16:10
 
 ////////
 
-use crate::cola_gis::entity::danmaku::{PoiDanmakuEntity};
+use crate::cola_gis::entity::danmaku::PoiDanmakuEntity;
 use crate::cola_user::info::user::UserInfo;
 use serde::{Deserialize, Serialize};
 

@@ -1,8 +1,3 @@
-
-
-
-
-
 /// # GET LIVE LIST
 /// ## 获取直播列表
 /// #### params: 1. action  2. page  3. qty  4. sort

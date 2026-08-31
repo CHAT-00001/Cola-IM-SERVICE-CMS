@@ -3,9 +3,9 @@
 
 ////////
 
-use sqlx::{PgPool, postgres::PgPoolOptions};
-use tracing::{info, error};
 use crate::config::Pg;
+use sqlx::{PgPool, postgres::PgPoolOptions};
+use tracing::{error, info};
 
 ////////
 
@@ -15,11 +15,7 @@ pub async fn pg_init(config: &Pg) -> Result<PgPool, sqlx::Error> {
     // 构建 PostgresSQL 连接字符串
     let uri = format!(
         "postgres://{}:{}@{}:{}/{}",
-        config.username,
-        config.password,
-        config.host,
-        config.port,
-        config.database
+        config.username, config.password, config.host, config.port, config.database
     );
 
     // 设置最大连接数，如果未设置，则默认 5

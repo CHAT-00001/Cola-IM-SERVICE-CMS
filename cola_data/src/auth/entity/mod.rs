@@ -1,4 +1,4 @@
-// data/src/auth/entity/mod.rs -- 数据中心 - AUTH - entity - mod
+// data/src/auth/entity/mod.rs -- 数据中心 - AUTH - entity - music
 // 2026-05-14 14:00
 
 ////////

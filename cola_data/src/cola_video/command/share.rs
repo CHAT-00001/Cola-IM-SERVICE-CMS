@@ -1,7 +1,7 @@
-// cola_data/src/new/cola_dynamic/add  -- VIDEO - Command - 分享命令
-// 2026/5/22 20:45 by wx: cestbon10080
-// * --------
-// * --------
+// cola_data/src/video/command/ticket  -- VIDEO - Command - 分享命令
+// 2026/5/22 20:45
+
+////////
 
 use serde::{Deserialize, Serialize};
 

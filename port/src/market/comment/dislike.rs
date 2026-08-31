@@ -18,9 +18,9 @@ pub trait GoodsCommentDisikePort: Send + Sync {
     /// * `desc`: `用户更新/插入不喜欢记录`
     async fn upsert_dislike(
         &self,
-        uid: i64,        // UID
-        comment_id: i64, // 评论 ID
-        is_disliked: bool,  // 状态
+        uid: i64,          // UID
+        comment_id: i64,   // 评论 ID
+        is_disliked: bool, // 状态
     ) -> anyhow::Result<(bool)>;
 
     ////////

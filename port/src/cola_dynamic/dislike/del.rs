@@ -18,9 +18,9 @@ pub trait DynamicDislikeDelPort: Send + Sync {
     /// * `desc`: `⏹ 可乐动态` - `根据ID单个软删除不喜欢记录`
     async fn single_soft_del_record(
         &self,
-        uid: i64,      // UID
-        video_id: i64, // 视频 ID
-        dislike_id: i64,  // 不喜欢 ID
+        uid: i64,        // UID
+        video_id: i64,   // 视频 ID
+        dislike_id: i64, // 不喜欢 ID
     ) -> anyhow::Result<(u16)>;
 
     ////////
@@ -29,8 +29,8 @@ pub trait DynamicDislikeDelPort: Send + Sync {
     /// * `desc`: `⏹ 可乐动态` - `根据IDs批量软删除不喜欢记录`
     async fn batch_soft_del_record(
         &self,
-        uid: i64,           // UID
-        video_id: i64,      // 视频 ID
+        uid: i64,              // UID
+        video_id: i64,         // 视频 ID
         dislike_ids: Vec<i64>, // 不喜欢 IDs
     ) -> anyhow::Result<(u16)>;
 

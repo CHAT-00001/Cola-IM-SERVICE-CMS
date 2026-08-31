@@ -7,7 +7,7 @@
 use anyhow::{Result, anyhow};
 use cola_data::cola_video::info::video::VideoInfo;
 use port::app::ctx::AppContext;
-use repository::cola_video::pg::video::get::VideoGetRepo;
+use repository::video::pg::video::get::VideoGetRepo;
 use tracing::info;
 
 ////////
@@ -46,8 +46,8 @@ impl UserGetCase {
     /// # 2. [CASE] - 获取视频详情
     /// * `desc`: 根据视频ID查询视频Info
     pub async fn case_get_video_detail(
-        _uid: i64,        // 操作者ID
-        video_id: i64,    // 视频ID
+        _uid: i64,         // 操作者ID
+        video_id: i64,     // 视频ID
         _ctx: &AppContext, // 全局上下文
     ) -> Result<Option<VideoInfo>, anyhow::Error> {
         // Call REPOSITORY - 根据视频ID查询实体

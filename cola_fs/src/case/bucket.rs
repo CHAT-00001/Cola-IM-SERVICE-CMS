@@ -1,14 +1,13 @@
-// cola_fs/src/case/bucket.rs
-// 可乐FS - 用例层 - 存储桶
+// cola_fs/src/case/bucket.rs -- FS - 用例层 - 存储桶
 // 2026/8/14 14:00 Created.
 
 ////////
 
 use anyhow::Result;
 use cola_data::app::page::ListResponse;
-use cola_data::cola_fs::info::bucket::BucketInfo;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::cola_fs::command::bucket::CreateBucketCmd;
+use cola_data::cola_fs::info::bucket::BucketInfo;
 use port::app::ctx::AppContext;
 use tracing::info;
 
@@ -18,7 +17,7 @@ pub struct FsBucketCase;
 
 impl FsBucketCase {
     //
-    
+
     ////////
 
     /// # 1. [CASE] - 创建存储桶
@@ -31,12 +30,7 @@ impl FsBucketCase {
         let mut cmd = cmd;
         cmd.complete_defaults();
 
-        let bucket_entity = ctx
-            .fs
-            .bucket
-            .add
-            .create_bucket(cmd)
-            .await?;
+        let bucket_entity = ctx.fs.bucket.add.create_bucket(cmd).await?;
 
         info!(
             "[🗣️ CASE] - ✅️ 存储桶创建成功: bucket_id={}",
@@ -71,7 +65,7 @@ impl FsBucketCase {
     /// * `desc`: `使用 page/qty 计算 limit/offset，返回总数`
     pub async fn case_get_bucket_list(
         url: ApiGatewayRequest, // 网关请求参数
-        ctx: &AppContext, // 全局上下文
+        ctx: &AppContext,       // 全局上下文
     ) -> Result<ListResponse<BucketInfo>> {
         let page = url.page.unwrap_or(1).max(1);
         let qty = url.qty.unwrap_or(10).clamp(1, 50);
@@ -94,10 +88,7 @@ impl FsBucketCase {
         let has_more = offset + list_size < total;
         info!(
             "[🗣️ CASE] - ✅️ 管理员存储桶列表查询成功: page={}, qty={}, count={}, total={}",
-            page,
-            qty,
-            list_size,
-            total
+            page, qty, list_size, total
         );
 
         Ok(ListResponse {

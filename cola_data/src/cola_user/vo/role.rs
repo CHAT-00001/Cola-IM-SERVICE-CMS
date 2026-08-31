@@ -14,13 +14,12 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RoleVo {
     #[serde(flatten)]
-    pub info: RoleInfo,        // 角色基础信息
-    pub label: String,         // 角色标签
-    pub users_count: i64,      // 拥有该角色的用户数量
+    pub info: RoleInfo, // 角色基础信息
+    pub label: String,    // 角色标签
+    pub users_count: i64, // 拥有该角色的用户数量
 }
 
 impl RoleVo {
-
     ////////
 
     /// # 1. [CASE] - 标准构造

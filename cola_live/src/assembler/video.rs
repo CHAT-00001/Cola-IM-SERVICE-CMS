@@ -7,7 +7,7 @@
 use crate::model::vo::video::{VideoListResponse, VideoSingleResponse, VideoVo};
 use anyhow::Result;
 use cola_data::app::page::PageInfo;
-use cola_data::cola_music::info::music::MusicInfo;
+use cola_data::music::info::music::MusicInfo;
 use cola_data::cola_user::info::user::UserInfo;
 use cola_data::cola_video::info::video::VideoInfo;
 use service::cola_user::user::active::UserService;
@@ -16,7 +16,11 @@ use std::collections::HashMap;
 ////////
 
 fn resolve_cdn_url(path: String, cdn_domain: &str) -> String {
-    if path.is_empty() || path.starts_with("http://") || path.starts_with("https://") || path.starts_with("//") {
+    if path.is_empty()
+        || path.starts_with("http://")
+        || path.starts_with("https://")
+        || path.starts_with("//")
+    {
         return path;
     }
     if path.starts_with('/') {
@@ -38,8 +42,8 @@ pub async fn build_video_single_response(
     video_info: VideoInfo,     // 视频源数据
     _current_uid: Option<i64>, // 用户 ID
 ) -> Result<VideoSingleResponse> {
-    let cdn_domain = std::env::var("CDN_DOMAIN")
-        .unwrap_or_else(|_| "https://cdn.shortvideo.com".to_string());
+    let cdn_domain =
+        std::env::var("CDN_DOMAIN").unwrap_or_else(|_| "https://cdn.shortvideo.com".to_string());
     build_video_single_response_with_cdn(video_info, _current_uid, &cdn_domain).await
 }
 
@@ -48,9 +52,9 @@ pub async fn build_video_single_response(
 /// # [BUILD] - 使用业务层解析出的 CDN 域名构建单视频响应
 /// * `desc`: `CASE 通过 Port 查询 CDN 后，将域名传入组装器`
 pub async fn build_video_single_response_with_cdn(
-    video_info: VideoInfo, // 视频源数据
+    video_info: VideoInfo,     // 视频源数据
     _current_uid: Option<i64>, // 用户 ID
-    cdn_domain: &str, // 已解析的 CDN 域名
+    cdn_domain: &str,          // 已解析的 CDN 域名
 ) -> Result<VideoSingleResponse> {
     // 1. 获取该视频的作者 ID
     let author_uid = video_info.uid;
@@ -93,8 +97,8 @@ pub async fn build_video_list_response(
     qty: i64,    // 每页数量
     _total: i64, // 🌟 2. 数量对齐：接收 Case 层传进来的第 6 个参数 total
 ) -> Result<VideoListResponse> {
-    let cdn_domain = std::env::var("CDN_DOMAIN")
-        .unwrap_or_else(|_| "https://cdn.shortvideo.com".to_string());
+    let cdn_domain =
+        std::env::var("CDN_DOMAIN").unwrap_or_else(|_| "https://cdn.shortvideo.com".to_string());
     build_video_list_response_with_cdn(infos, _current_uid, page, qty, _total, &cdn_domain).await
 }
 
@@ -103,12 +107,12 @@ pub async fn build_video_list_response(
 /// # [BUILD] - 使用业务层解析出的 CDN 域名构建视频列表
 /// * `desc`: `CASE 通过 Port 查询 CDN 后，将域名传入组装器`
 pub async fn build_video_list_response_with_cdn(
-    infos: Vec<VideoInfo>, // 视频源数据
+    infos: Vec<VideoInfo>,     // 视频源数据
     _current_uid: Option<i64>, // 用户 ID
-    page: i64, // 当前页码
-    qty: i64, // 每页数量
-    _total: i64, // 总数量
-    cdn_domain: &str, // 已解析的 CDN 域名
+    page: i64,                 // 当前页码
+    qty: i64,                  // 每页数量
+    _total: i64,               // 总数量
+    cdn_domain: &str,          // 已解析的 CDN 域名
 ) -> Result<VideoListResponse> {
     // 1. 批量获取作者用户信息 (全静态服务化)
     let authors_map: HashMap<i64, UserInfo> = if infos.is_empty() {

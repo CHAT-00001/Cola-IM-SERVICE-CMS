@@ -1,4 +1,4 @@
-// cola_dynamic/port/recommend/get.rs
+// cola_dynamic/port/hotlist/get.rs
 // 动态 - port - 推荐 - 获取
 // 2026/8/5 00:01 Created.
 

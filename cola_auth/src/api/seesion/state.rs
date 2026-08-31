@@ -9,7 +9,6 @@ use cola_data::app::error;
 use cola_data::auth::request::session::{AuthSessionRequest, SessionContext};
 use port::auth::AuthServicePorts;
 
-
 ////////
 
 /// # [STATE HANDLER] - 会话 状态

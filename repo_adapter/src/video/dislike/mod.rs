@@ -1,5 +1,4 @@
-﻿// repo_adapter/src/video/dislike/mod.rs
-// 🔌 适配器 - VIDEO - 不喜欢 - mod
+﻿// repo_adapter/src/video/dislike/mod.rs -- 🔌 适配器 - VIDEO - 不喜欢 - mod
 // 2026/8/8 Created.
 
 ////////

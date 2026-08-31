@@ -26,7 +26,7 @@ impl GoodsCollectGetPort for GoodsCollectGetAdapter {
     async fn get_video_ids_by_user_id(
         &self,
         uid: i64,
-        user_id: i64,  // 用户 ID
+        user_id: i64, // 用户 ID
         limit: i64,
         offset: i64,
     ) -> Result<(Vec<i64>)> {

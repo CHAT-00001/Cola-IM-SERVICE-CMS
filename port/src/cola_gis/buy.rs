@@ -9,20 +9,12 @@ pub trait BuyRepo: Send + Sync {
     ////////
 
     /// # [PORT] - 保存
-    async fn save_buy_record(
-        &self,
-        uid: i64,
-        poi_id: i64,
-    ) -> anyhow::Result<()>;
+    async fn save_buy_record(&self, uid: i64, poi_id: i64) -> anyhow::Result<()>;
 
     ////////
 
     /// # [PORT] - 删除
-    async fn del_buy_record(
-        &self,
-        uid: i64,
-        poi_id: i64,
-    ) -> anyhow::Result<()>;
+    async fn del_buy_record(&self, uid: i64, poi_id: i64) -> anyhow::Result<()>;
 
     ////////
 

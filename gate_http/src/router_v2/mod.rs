@@ -1,4 +1,4 @@
-// router_v2/mod  - 路由器 mod
+// router_v2/music  - 路由器 music
 // 2026-06-12 10:40
 
 //////

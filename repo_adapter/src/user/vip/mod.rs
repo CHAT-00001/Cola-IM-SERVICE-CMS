@@ -1,4 +1,4 @@
-// repo_adapter/src/user/vip/mod.rs
+// repo_adapter/src/user/vip/music.rs
 // 🔌 插头 - 可乐用户 - 贵宾 - 模块
 // 2026/8/6 Created.
 
@@ -40,15 +40,26 @@ impl VipAddPort for VipAdapter {
     async fn get_following(&self, _uid: i64) -> anyhow::Result<UserInfo> {
         Err(anyhow::anyhow!("not implemented"))
     }
-    async fn single_del(&self, _uid: i64, _id: i64) -> anyhow::Result<u16> { Ok(0) }
-    async fn batch_del(&self, _uid: i64, _ids: Vec<i64>) -> anyhow::Result<u16> { Ok(0) }
+    async fn single_del(&self, _uid: i64, _id: i64) -> anyhow::Result<u16> {
+        Ok(0)
+    }
+    async fn batch_del(&self, _uid: i64, _ids: Vec<i64>) -> anyhow::Result<u16> {
+        Ok(0)
+    }
     async fn check_state(&self, uid: i64, user_id: i64) -> anyhow::Result<bool> {
         check::check_state(uid, user_id).await
     }
-    async fn get_list_by_user_id(&self, uid: i64, offset: i64, limit: i64) -> anyhow::Result<Vec<i64>> {
+    async fn get_list_by_user_id(
+        &self,
+        uid: i64,
+        offset: i64,
+        limit: i64,
+    ) -> anyhow::Result<Vec<i64>> {
         get::get_vip_ids(uid, offset, limit).await
     }
-    async fn get_here_list(&self, _uid: i64, _user_ids: Vec<i64>) -> anyhow::Result<()> { Ok(()) }
+    async fn get_here_list(&self, _uid: i64, _user_ids: Vec<i64>) -> anyhow::Result<()> {
+        Ok(())
+    }
 }
 
 #[async_trait]
@@ -64,8 +75,12 @@ impl VipCheckPort for VipAdapter {
 
 #[async_trait]
 impl VipDelPort for VipAdapter {
-    async fn single_soft_del(&self, _uid: i64, _id: i64) -> anyhow::Result<u16> { Ok(0) }
-    async fn batch_soft_del(&self, _uid: i64, _ids: Vec<i64>) -> anyhow::Result<u16> { Ok(0) }
+    async fn single_soft_del(&self, _uid: i64, _id: i64) -> anyhow::Result<u16> {
+        Ok(0)
+    }
+    async fn batch_soft_del(&self, _uid: i64, _ids: Vec<i64>) -> anyhow::Result<u16> {
+        Ok(0)
+    }
 
     async fn single_del(&self, uid: i64, id: i64) -> anyhow::Result<u16> {
         todo!()
@@ -78,12 +93,42 @@ impl VipDelPort for VipAdapter {
 
 #[async_trait]
 impl VipGetPort for VipAdapter {
-    async fn get_my_black_ids(&self, uid: i64, _id: i64, limit: i64, offset: i64) -> anyhow::Result<Vec<i64>> {
+    async fn get_my_black_ids(
+        &self,
+        uid: i64,
+        _id: i64,
+        limit: i64,
+        offset: i64,
+    ) -> anyhow::Result<Vec<i64>> {
         get::get_vip_ids(uid, offset, limit).await
     }
-    async fn get_he_black_ids(&self, _uid: i64, _id: i64, _limit: i64, _offset: i64) -> anyhow::Result<Vec<i64>> { Ok(vec![]) }
-    async fn get_black_me_ids(&self, _uid: i64, _id: i64, _limit: i64, _offset: i64) -> anyhow::Result<Vec<i64>> { Ok(vec![]) }
-    async fn get_black_he_ids(&self, _uid: i64, _id: i64, _limit: i64, _offset: i64) -> anyhow::Result<Vec<i64>> { Ok(vec![]) }
+    async fn get_he_black_ids(
+        &self,
+        _uid: i64,
+        _id: i64,
+        _limit: i64,
+        _offset: i64,
+    ) -> anyhow::Result<Vec<i64>> {
+        Ok(vec![])
+    }
+    async fn get_black_me_ids(
+        &self,
+        _uid: i64,
+        _id: i64,
+        _limit: i64,
+        _offset: i64,
+    ) -> anyhow::Result<Vec<i64>> {
+        Ok(vec![])
+    }
+    async fn get_black_he_ids(
+        &self,
+        _uid: i64,
+        _id: i64,
+        _limit: i64,
+        _offset: i64,
+    ) -> anyhow::Result<Vec<i64>> {
+        Ok(vec![])
+    }
 
     async fn get_my_vip(&self, uid: i64, offset: i64, limit: i64) -> anyhow::Result<Vec<i64>> {
         todo!()
@@ -92,36 +137,80 @@ impl VipGetPort for VipAdapter {
 
 #[async_trait]
 impl VipListPort for VipAdapter {
-    async fn get_config(&self, _user_id: i64) -> anyhow::Result<cola_data::cola_user::info::config::UserConfigInfo> {
+    async fn get_config(
+        &self,
+        _user_id: i64,
+    ) -> anyhow::Result<cola_data::cola_user::info::config::UserConfigInfo> {
         Err(anyhow::anyhow!("not implemented"))
     }
-    async fn add_black(&self, _uid: i64, _id: i64) -> anyhow::Result<()> { Ok(()) }
-    async fn del_black(&self, _uid: i64, _id: i64) -> anyhow::Result<()> { Ok(()) }
-    async fn get_following(&self, _uid: i64) -> anyhow::Result<UserInfo> { Err(anyhow::anyhow!("not implemented")) }
-    async fn single_del(&self, _uid: i64, _id: i64) -> anyhow::Result<u16> { Ok(0) }
-    async fn batch_del(&self, _uid: i64, _ids: Vec<i64>) -> anyhow::Result<u16> { Ok(0) }
-    async fn check_state(&self, _uid: i64, _user_id: i64) -> anyhow::Result<bool> { Ok(false) }
-    async fn get_list_by_user_id(&self, uid: i64, offset: i64, limit: i64) -> anyhow::Result<Vec<i64>> {
+    async fn add_black(&self, _uid: i64, _id: i64) -> anyhow::Result<()> {
+        Ok(())
+    }
+    async fn del_black(&self, _uid: i64, _id: i64) -> anyhow::Result<()> {
+        Ok(())
+    }
+    async fn get_following(&self, _uid: i64) -> anyhow::Result<UserInfo> {
+        Err(anyhow::anyhow!("not implemented"))
+    }
+    async fn single_del(&self, _uid: i64, _id: i64) -> anyhow::Result<u16> {
+        Ok(0)
+    }
+    async fn batch_del(&self, _uid: i64, _ids: Vec<i64>) -> anyhow::Result<u16> {
+        Ok(0)
+    }
+    async fn check_state(&self, _uid: i64, _user_id: i64) -> anyhow::Result<bool> {
+        Ok(false)
+    }
+    async fn get_list_by_user_id(
+        &self,
+        uid: i64,
+        offset: i64,
+        limit: i64,
+    ) -> anyhow::Result<Vec<i64>> {
         get::get_vip_ids(uid, offset, limit).await
     }
-    async fn get_here_list(&self, _uid: i64, _user_ids: Vec<i64>) -> anyhow::Result<()> { Ok(()) }
+    async fn get_here_list(&self, _uid: i64, _user_ids: Vec<i64>) -> anyhow::Result<()> {
+        Ok(())
+    }
 }
 
 #[async_trait]
 impl VipManagePort for VipAdapter {
-    async fn get_config(&self, _user_id: i64) -> anyhow::Result<cola_data::cola_user::info::config::UserConfigInfo> {
+    async fn get_config(
+        &self,
+        _user_id: i64,
+    ) -> anyhow::Result<cola_data::cola_user::info::config::UserConfigInfo> {
         Err(anyhow::anyhow!("not implemented"))
     }
-    async fn add_black(&self, _uid: i64, _id: i64) -> anyhow::Result<()> { Ok(()) }
-    async fn del_black(&self, _uid: i64, _id: i64) -> anyhow::Result<()> { Ok(()) }
-    async fn get_following(&self, _uid: i64) -> anyhow::Result<UserInfo> { Err(anyhow::anyhow!("not implemented")) }
-    async fn single_del(&self, _uid: i64, _id: i64) -> anyhow::Result<u16> { Ok(0) }
-    async fn batch_del(&self, _uid: i64, _ids: Vec<i64>) -> anyhow::Result<u16> { Ok(0) }
-    async fn check_state(&self, _uid: i64, _user_id: i64) -> anyhow::Result<bool> { Ok(false) }
-    async fn get_list_by_user_id(&self, uid: i64, offset: i64, limit: i64) -> anyhow::Result<Vec<i64>> {
+    async fn add_black(&self, _uid: i64, _id: i64) -> anyhow::Result<()> {
+        Ok(())
+    }
+    async fn del_black(&self, _uid: i64, _id: i64) -> anyhow::Result<()> {
+        Ok(())
+    }
+    async fn get_following(&self, _uid: i64) -> anyhow::Result<UserInfo> {
+        Err(anyhow::anyhow!("not implemented"))
+    }
+    async fn single_del(&self, _uid: i64, _id: i64) -> anyhow::Result<u16> {
+        Ok(0)
+    }
+    async fn batch_del(&self, _uid: i64, _ids: Vec<i64>) -> anyhow::Result<u16> {
+        Ok(0)
+    }
+    async fn check_state(&self, _uid: i64, _user_id: i64) -> anyhow::Result<bool> {
+        Ok(false)
+    }
+    async fn get_list_by_user_id(
+        &self,
+        uid: i64,
+        offset: i64,
+        limit: i64,
+    ) -> anyhow::Result<Vec<i64>> {
         get::get_vip_ids(uid, offset, limit).await
     }
-    async fn get_here_list(&self, _uid: i64, _user_ids: Vec<i64>) -> anyhow::Result<()> { Ok(()) }
+    async fn get_here_list(&self, _uid: i64, _user_ids: Vec<i64>) -> anyhow::Result<()> {
+        Ok(())
+    }
 }
 
 //////// END

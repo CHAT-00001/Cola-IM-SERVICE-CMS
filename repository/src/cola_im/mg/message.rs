@@ -11,7 +11,11 @@
 use app_config::GLOBAL_DB;
 use chrono::Utc;
 use futures_util::stream::StreamExt;
-use mongodb::{bson::{doc, oid::ObjectId}, options::FindOptions, Collection, Database};
+use mongodb::{
+    Collection, Database,
+    bson::{doc, oid::ObjectId},
+    options::FindOptions,
+};
 use serde::{Deserialize, Serialize};
 
 //////
@@ -328,9 +332,15 @@ impl ImMessageMgRepo {
     /// 软删除: 将三集合中对应消息的 recalled 置为 true
     pub async fn recall_message(msg_id: &str) -> Result<(), mongodb::error::Error> {
         let update = doc! { "$set": { "recalled": true } };
-        messages_col().update_one(doc! { "msg_id": msg_id }, update.clone()).await?;
-        outbox_col().update_one(doc! { "msg_id": msg_id }, update.clone()).await?;
-        inbox_col().update_one(doc! { "msg_id": msg_id }, update).await?;
+        messages_col()
+            .update_one(doc! { "msg_id": msg_id }, update.clone())
+            .await?;
+        outbox_col()
+            .update_one(doc! { "msg_id": msg_id }, update.clone())
+            .await?;
+        inbox_col()
+            .update_one(doc! { "msg_id": msg_id }, update)
+            .await?;
         Ok(())
     }
 

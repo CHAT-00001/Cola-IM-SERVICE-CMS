@@ -14,7 +14,6 @@ use service::cola_user::user::state::UserStateService;
 
 ////////
 
-
 /// # [LIKE API] - 评论点赞/不喜欢
 pub struct CommentLikeApi;
 
@@ -55,16 +54,10 @@ impl CommentLikeApi {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> AppData<()> {
-
         let is_disliked = true;
         // CALL CASE
-        match CommentLikeCase::case_set_comment_dislike(
-            auth.uid,
-            url.comment_id,
-            is_disliked,
-            ctx,
-        )
-        .await
+        match CommentLikeCase::case_set_comment_dislike(auth.uid, url.comment_id, is_disliked, ctx)
+            .await
         {
             Ok(resp) => AppData::ok(resp),
             Err(e) => {

@@ -25,8 +25,6 @@ impl UserViewGetPort for ViewGetService {
         todo!()
     }
     //
-
-
 }
 
 //////// END

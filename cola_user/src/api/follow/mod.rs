@@ -1,5 +1,5 @@
 // user/src/api/follow/mod.rs
-// core - USER - api - follow - mod
+// core - USER - api - follow - music
 // 2026/8/2 22:01 Created.
 
 ////////

@@ -17,18 +17,12 @@ pub trait MediaStatPort: Send + Sync {
     ////////
 
     /// # 1. [PORT] - 用户媒体统计
-    async fn stat_user_media_count(
-        &self,
-        uid: i64,
-    ) -> Result<u64>;
+    async fn stat_user_media_count(&self, uid: i64) -> Result<u64>;
 
     ////////
 
     /// # 2. [PORT] - 应用媒体统计
-    async fn stat_app_media_count(
-        &self,
-        app_id: String,
-    ) -> Result<u64>;
+    async fn stat_app_media_count(&self, app_id: String) -> Result<u64>;
 }
 
 //////// END

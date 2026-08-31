@@ -12,7 +12,6 @@ use uuid::Uuid;
 /// # [PING]
 /// * `PONG`
 pub async fn ping(name: Option<String>) -> impl Responder {
-
     let utc_time = Utc::now().format("%Y-%m-%d %H:%M:%S").to_string();
     let app_name = name.unwrap_or("默认应用名".to_string());
 

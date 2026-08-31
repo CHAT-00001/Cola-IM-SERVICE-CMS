@@ -35,11 +35,7 @@ impl CollectRepo for CollectPortAdapter {
     ////////
 
     /// # 2. [PORT] - 删除收藏记录
-    async fn del_collect_record(
-        &self,
-        uid: i64,
-        poi_id: i64,
-    ) -> anyhow::Result<()> {
+    async fn del_collect_record(&self, uid: i64, poi_id: i64) -> anyhow::Result<()> {
         PoiCollectService::del_collect_and_update_count(uid, poi_id).await
     }
 

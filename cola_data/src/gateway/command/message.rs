@@ -3,11 +3,11 @@
 
 ////////
 
+use crate::auth::info::auth::AuthContext;
 use serde::{Deserialize, Serialize};
 use std::cmp;
 use std::collections::HashMap;
 use std::net::IpAddr;
-use crate::auth::info::auth::AuthContext;
 
 ////////
 
@@ -60,7 +60,6 @@ pub struct GatewayMessage {
     pub limit: i64,
     #[serde(skip, default)]
     pub offset: i64,
-
 }
 
 // 构造函数

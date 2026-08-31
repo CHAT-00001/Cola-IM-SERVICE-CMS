@@ -7,10 +7,10 @@ use crate::model::vo::poi::{PoiListResponse, PoiSingleResponse, PoiVo};
 use anyhow::Result;
 use cola_data::app::page::PageInfo;
 use cola_data::cola_gis::info::poi::PoiInfo;
-use cola_data::cola_music::info::music::MusicInfo;
+use cola_data::music::info::music::MusicInfo;
 use cola_data::cola_user::info::user::UserInfo;
-use std::collections::HashMap;
 use service::cola_user::user::active::UserService;
+use std::collections::HashMap;
 ////////
 
 /// # [BUILD] - 构建单兴趣点响应函数

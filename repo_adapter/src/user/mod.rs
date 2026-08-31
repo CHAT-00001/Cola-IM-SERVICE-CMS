@@ -1,5 +1,4 @@
-// repo_adapter/src/user/mod.rs
-// 🔌 插头 - 可乐用户 - 模块
+// repo_adapter/src/user/mod.rs -- 适配器 - USER - mod
 // 2026/8/10 20:00 Updated.
 
 ////////

@@ -1,4 +1,4 @@
-// port/src/cola_dynamic/port/danmaku/mod.rs
+// port/src/cola_dynamic/port/danmaku/music.rs
 // ⏩️ 端口 - 可乐动态 - 弹幕 - 模块
 // 2026/8/9 04:14 Created.
 

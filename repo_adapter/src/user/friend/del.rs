@@ -11,7 +11,7 @@ use anyhow::Result;
 /// # [ADAPTER] - 单个软删除朋友
 pub async fn single_del(
     _uid: i64, // 操作者ID
-    _id: i64, // 目标用户ID
+    _id: i64,  // 目标用户ID
 ) -> Result<u16> {
     // 🚧 TODO: 对接 FriendService
     Ok(0)
@@ -19,7 +19,7 @@ pub async fn single_del(
 
 /// # [ADAPTER] - 批量软删除朋友
 pub async fn batch_del(
-    _uid: i64, // 操作者ID
+    _uid: i64,      // 操作者ID
     _ids: Vec<i64>, // 目标用户IDs
 ) -> Result<u16> {
     // 🚧 TODO: 对接 FriendService

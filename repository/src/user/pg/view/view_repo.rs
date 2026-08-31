@@ -4,10 +4,10 @@
 
 ////////
 
-use sqlx::{self, PgPool};
-use app_config::GLOBAL_DB;
-use cola_data::cola_user::entity::user::{UserEntity, USER_COLUMNS};
 use crate::pg_pool;
+use app_config::GLOBAL_DB;
+use cola_data::cola_user::entity::user::{USER_COLUMNS, UserEntity};
+use sqlx::{self, PgPool};
 
 //////
 
@@ -25,13 +25,10 @@ pub struct UserViewRepo;
 
 // 构造函数
 impl UserViewRepo {
-
     ////////
 
     /// # 1. [REPOSITORY] - 根据ID 查找一个用户 (精准匹配)
-    pub async fn find_user_by_id(
-        user_id: i64,
-    ) -> Result<Option<UserEntity>, sqlx::Error> {
+    pub async fn find_user_by_id(user_id: i64) -> Result<Option<UserEntity>, sqlx::Error> {
         let pool = pg_pool(); // 👈 抽出来
         let query = format!(
             "SELECT {} FROM \"user\" WHERE id = $1 LIMIT 1",
@@ -47,9 +44,7 @@ impl UserViewRepo {
     ////////
 
     /// # 2. [REPOSITORY] - 根据电话号码查找一个用户
-    pub async fn find_user_by_phone(
-        phone: &str,
-    ) -> Result<Option<UserEntity>, sqlx::Error> {
+    pub async fn find_user_by_phone(phone: &str) -> Result<Option<UserEntity>, sqlx::Error> {
         let pool = pg_pool(); // 👈 抽出来
         let query = format!(
             "SELECT {} FROM \"user\" WHERE phone = $1 LIMIT 1",
@@ -65,9 +60,7 @@ impl UserViewRepo {
     ////////
 
     /// # 3. [REPOSITORY] - 根据邮箱查找一个用户
-    pub async fn find_user_by_email(
-        phone: &str,
-    ) -> Result<Option<UserEntity>, sqlx::Error> {
+    pub async fn find_user_by_email(phone: &str) -> Result<Option<UserEntity>, sqlx::Error> {
         let pool = pg_pool(); // 👈 抽出来
         let query = format!(
             "SELECT {} FROM \"user\" WHERE email = $1 LIMIT 1",
@@ -83,9 +76,7 @@ impl UserViewRepo {
     ////////
 
     /// # 4. [REPOSITORY] - 批量查找用户
-    pub async fn find_batch_users_by_ids(
-        user_ids: &[i64],
-    ) -> Result<Vec<UserEntity>, sqlx::Error> {
+    pub async fn find_batch_users_by_ids(user_ids: &[i64]) -> Result<Vec<UserEntity>, sqlx::Error> {
         let pool = pg_pool(); // 👈 抽出来
         let query = format!(
             "SELECT {} FROM \"user\" WHERE id = ANY($1) AND status = 1 ORDER BY id DESC",
@@ -127,10 +118,7 @@ impl UserViewRepo {
     }
 
     /// # 7. [REPOSITORY] - 分类（频道）下的用户
-    pub async fn find_category(
-        limit: i64,
-        offset: i64,
-    ) -> Result<Vec<UserEntity>, sqlx::Error> {
+    pub async fn find_category(limit: i64, offset: i64) -> Result<Vec<UserEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
             "SELECT {} FROM \"user\" WHERE status = 1 ORDER BY likes DESC NULLS LAST, id DESC LIMIT $1 OFFSET $2",
@@ -145,10 +133,7 @@ impl UserViewRepo {
     }
 
     /// # 8. [REPOSITORY] - 精选用户
-    pub async fn find_featured(
-        limit: i64,
-        offset: i64,
-    ) -> Result<Vec<UserEntity>, sqlx::Error> {
+    pub async fn find_featured(limit: i64, offset: i64) -> Result<Vec<UserEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
             "SELECT {} FROM \"user\" WHERE status = 1 ORDER BY likes DESC NULLS LAST, id DESC LIMIT $1 OFFSET $2",

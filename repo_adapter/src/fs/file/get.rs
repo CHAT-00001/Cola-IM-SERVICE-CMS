@@ -22,10 +22,7 @@ impl FileGetPort for FileGetAdapter {
     ////////
 
     /// # 1. [ADAPTER] - 按 ID 获取文件
-    async fn get_file_by_id(
-        &self,
-        file_id: i64,
-    ) -> Result<Option<FsFileEntity>> {
+    async fn get_file_by_id(&self, file_id: i64) -> Result<Option<FsFileEntity>> {
         // 1. 调用 repo 查询
         let file = FileRepo::get_file_by_id(file_id).await?;
 
@@ -45,10 +42,7 @@ impl FileGetPort for FileGetAdapter {
     ////////
 
     /// # 2. [ADAPTER] - 按 Object Key 获取文件
-    async fn get_file_by_object_key(
-        &self,
-        object_key: String,
-    ) -> Result<Option<FsFileEntity>> {
+    async fn get_file_by_object_key(&self, object_key: String) -> Result<Option<FsFileEntity>> {
         let file = FileRepo::get_file_by_object_key(&object_key).await?;
 
         if let Some(ref entity) = file {
@@ -63,10 +57,7 @@ impl FileGetPort for FileGetAdapter {
     ////////
 
     /// # 3. [ADAPTER] - 批量按 ID 获取文件
-    async fn batch_get_files(
-        &self,
-        file_ids: Vec<i64>,
-    ) -> Result<Vec<FsFileEntity>> {
+    async fn batch_get_files(&self, file_ids: Vec<i64>) -> Result<Vec<FsFileEntity>> {
         let files = FileRepo::batch_get_files(file_ids).await?;
 
         for entity in &files {

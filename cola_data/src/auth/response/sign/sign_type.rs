@@ -3,12 +3,11 @@
 
 ////////
 
-use serde::Serialize;
 use crate::app::page::PageInfo;
 use crate::auth::info::sign_type::SignTypeInfo;
+use serde::Serialize;
 
 ////////
-
 
 /// # [RESPONSE] - 单视频响应
 #[derive(Debug, Serialize)]

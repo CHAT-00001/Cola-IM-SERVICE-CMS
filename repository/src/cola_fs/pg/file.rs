@@ -3,9 +3,9 @@
 
 ////////
 
-use chrono::Utc;
-use cola_data::cola_fs::entity::file::{FsFileEntity, FS_FILE_COLUMNS};
 use crate::pg_pool;
+use chrono::Utc;
+use cola_data::cola_fs::entity::file::{FS_FILE_COLUMNS, FsFileEntity};
 
 ////////
 
@@ -19,9 +19,17 @@ impl FileRepo {
 
     /// 1. #[REPOSITORY] - 插入（新建：created_at & updated_at）
     pub async fn insert(
-        type_id: i64, vendor_id: i64, name: &str, bucket: &str,
-        access_key: &str, secret_key: &str, endpoint: &str, region: &str,
-        config_json: Option<&serde_json::Value>, remark: Option<&str>, status: i16,
+        type_id: i64,
+        vendor_id: i64,
+        name: &str,
+        bucket: &str,
+        access_key: &str,
+        secret_key: &str,
+        endpoint: &str,
+        region: &str,
+        config_json: Option<&serde_json::Value>,
+        remark: Option<&str>,
+        status: i16,
     ) -> Result<FsFileEntity, sqlx::Error> {
         let pool = pg_pool();
         let now = Utc::now();
@@ -32,10 +40,19 @@ impl FileRepo {
             FS_FILE_COLUMNS
         );
         sqlx::query_as::<_, FsFileEntity>(&query)
-            .bind(type_id).bind(vendor_id).bind(name).bind(bucket)
-            .bind(access_key).bind(secret_key).bind(endpoint).bind(region)
-            .bind(config_json).bind(remark).bind(status)
-            .bind(now).bind(now)
+            .bind(type_id)
+            .bind(vendor_id)
+            .bind(name)
+            .bind(bucket)
+            .bind(access_key)
+            .bind(secret_key)
+            .bind(endpoint)
+            .bind(region)
+            .bind(config_json)
+            .bind(remark)
+            .bind(status)
+            .bind(now)
+            .bind(now)
             .fetch_one(&pool)
             .await
     }
@@ -44,9 +61,18 @@ impl FileRepo {
 
     /// 2. #[REPOSITORY] - 更新（仅改 updated_at，不动 created_at）
     pub async fn update(
-        id: i64, type_id: i64, vendor_id: i64, name: &str, bucket: &str,
-        access_key: &str, secret_key: &str, endpoint: &str, region: &str,
-        config_json: Option<&serde_json::Value>, remark: Option<&str>, status: i16,
+        id: i64,
+        type_id: i64,
+        vendor_id: i64,
+        name: &str,
+        bucket: &str,
+        access_key: &str,
+        secret_key: &str,
+        endpoint: &str,
+        region: &str,
+        config_json: Option<&serde_json::Value>,
+        remark: Option<&str>,
+        status: i16,
     ) -> Result<FsFileEntity, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
@@ -55,9 +81,18 @@ impl FileRepo {
             FS_FILE_COLUMNS
         );
         sqlx::query_as::<_, FsFileEntity>(&query)
-            .bind(type_id).bind(vendor_id).bind(name).bind(bucket)
-            .bind(access_key).bind(secret_key).bind(endpoint).bind(region)
-            .bind(config_json).bind(remark).bind(status).bind(id)
+            .bind(type_id)
+            .bind(vendor_id)
+            .bind(name)
+            .bind(bucket)
+            .bind(access_key)
+            .bind(secret_key)
+            .bind(endpoint)
+            .bind(region)
+            .bind(config_json)
+            .bind(remark)
+            .bind(status)
+            .bind(id)
             .fetch_one(&pool)
             .await
     }
@@ -102,7 +137,8 @@ impl FileRepo {
             FS_FILE_COLUMNS
         );
         sqlx::query_as::<_, FsFileEntity>(&query)
-            .bind(status).bind(id)
+            .bind(status)
+            .bind(id)
             .fetch_optional(&pool)
             .await
     }
@@ -126,12 +162,11 @@ impl FileRepo {
     /// 7. #[REPOSITORY] - 检查文件是否存在
     pub async fn check_file_exists(file_id: i64) -> Result<bool, sqlx::Error> {
         let pool = pg_pool();
-        let result = sqlx::query_scalar::<_, i64>(
-            "SELECT COUNT(*) FROM cola_fs.file WHERE id = $1"
-        )
-        .bind(file_id)
-        .fetch_one(&pool)
-        .await?;
+        let result =
+            sqlx::query_scalar::<_, i64>("SELECT COUNT(*) FROM cola_fs.file WHERE id = $1")
+                .bind(file_id)
+                .fetch_one(&pool)
+                .await?;
         Ok(result > 0)
     }
 
@@ -141,7 +176,7 @@ impl FileRepo {
     pub async fn check_file_available(file_id: i64) -> Result<bool, sqlx::Error> {
         let pool = pg_pool();
         let result = sqlx::query_scalar::<_, i64>(
-            "SELECT COUNT(*) FROM cola_fs.file WHERE id = $1 AND status = 1"
+            "SELECT COUNT(*) FROM cola_fs.file WHERE id = $1 AND status = 1",
         )
         .bind(file_id)
         .fetch_one(&pool)
@@ -155,7 +190,7 @@ impl FileRepo {
     pub async fn check_file_owner(uid: i64, file_id: i64) -> Result<bool, sqlx::Error> {
         let pool = pg_pool();
         let result = sqlx::query_scalar::<_, i64>(
-            "SELECT COUNT(*) FROM cola_fs.file WHERE id = $1 AND vendor_id = $2"
+            "SELECT COUNT(*) FROM cola_fs.file WHERE id = $1 AND vendor_id = $2",
         )
         .bind(file_id)
         .bind(uid)
@@ -188,7 +223,9 @@ impl FileRepo {
     ////////
 
     /// 13. #[REPOSITORY] - 按 object_key 获取文件
-    pub async fn get_file_by_object_key(_object_key: &str) -> Result<Option<FsFileEntity>, sqlx::Error> {
+    pub async fn get_file_by_object_key(
+        _object_key: &str,
+    ) -> Result<Option<FsFileEntity>, sqlx::Error> {
         todo!("get_file_by_object_key - 未实现")
     }
 
@@ -202,28 +239,42 @@ impl FileRepo {
     ////////
 
     /// 15. #[REPOSITORY] - 列表查询用户文件
-    pub async fn list_user_files(_uid: i64, _limit: i64, _offset: i64) -> Result<Vec<FsFileEntity>, sqlx::Error> {
+    pub async fn list_user_files(
+        _uid: i64,
+        _limit: i64,
+        _offset: i64,
+    ) -> Result<Vec<FsFileEntity>, sqlx::Error> {
         todo!("list_user_files - 未实现")
     }
 
     ////////
 
     /// 16. #[REPOSITORY] - 列表查询应用文件
-    pub async fn list_app_files(_app_id: &str, _limit: i64, _offset: i64) -> Result<Vec<FsFileEntity>, sqlx::Error> {
+    pub async fn list_app_files(
+        _app_id: &str,
+        _limit: i64,
+        _offset: i64,
+    ) -> Result<Vec<FsFileEntity>, sqlx::Error> {
         todo!("list_app_files - 未实现")
     }
 
     ////////
 
     /// 17. #[REPOSITORY] - 标记文件为正式
-    pub async fn mark_files_as_official(_uid: i64, _file_ids: Vec<i64>) -> Result<u64, sqlx::Error> {
+    pub async fn mark_files_as_official(
+        _uid: i64,
+        _file_ids: Vec<i64>,
+    ) -> Result<u64, sqlx::Error> {
         todo!("mark_files_as_official - 未实现")
     }
 
     ////////
 
     /// 18. #[REPOSITORY] - 更新文件元数据
-    pub async fn update_file_metadata(_file_id: i64, _new_name: Option<String>) -> Result<FsFileEntity, sqlx::Error> {
+    pub async fn update_file_metadata(
+        _file_id: i64,
+        _new_name: Option<String>,
+    ) -> Result<FsFileEntity, sqlx::Error> {
         todo!("update_file_metadata - 未实现")
     }
 

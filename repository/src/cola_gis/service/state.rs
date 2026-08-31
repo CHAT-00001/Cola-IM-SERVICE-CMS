@@ -1,3 +1,2 @@
-﻿pub struct StateService;
+pub struct StateService;
 impl StateService {}
-

@@ -1,4 +1,4 @@
-// port/src/cola_dynamic/recommend/list.rs
+// port/src/cola_dynamic/hotlist/list.rs
 // ⏩️ 端口 - ⏹ 可乐动态 - 推荐 - 列表
 // 2026/8/5 18:38 Created.
 

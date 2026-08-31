@@ -7,13 +7,21 @@ use cola_data::cola_im::info::contact::ContactInfo;
 pub struct ImContactService;
 
 impl ImContactService {
-    pub async fn add_contact(uid: i64, card_id: i64, remark_name: Option<String>) -> anyhow::Result<()> {
+    pub async fn add_contact(
+        uid: i64,
+        card_id: i64,
+        remark_name: Option<String>,
+    ) -> anyhow::Result<()> {
         let entity = ImContactRepo::save_contact(uid, card_id, remark_name).await?;
         let _ = ContactInfo::from_entity(entity);
         Ok(())
     }
 
-    pub async fn sync_contacts(uid: i64, offset: i64, limit: i64) -> anyhow::Result<Vec<ContactInfo>> {
+    pub async fn sync_contacts(
+        uid: i64,
+        offset: i64,
+        limit: i64,
+    ) -> anyhow::Result<Vec<ContactInfo>> {
         let entities = ImContactRepo::find_contacts_by_uid(uid, offset, limit).await?;
         Ok(entities.into_iter().map(ContactInfo::from_entity).collect())
     }

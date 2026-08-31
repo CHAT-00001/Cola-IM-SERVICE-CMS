@@ -1,5 +1,4 @@
-// repo_adapter/src/auth/session/mod.rs
-// 🔌 适配器 - AUTH - SESSION - mod
+// repo_adapter/src/fs/session/mod.rs -- 🔌 适配器 - FS - SESSION - mod
 // 2026/8/8 Created.
 
 ////////
@@ -15,7 +14,6 @@ pub mod add; // 发布
 pub mod alive; // 存活
 pub mod check; // 检查
 pub mod del; // 删除
-
 pub mod get; // 获取
 pub mod list; // 列表
 pub mod manage; // 管理

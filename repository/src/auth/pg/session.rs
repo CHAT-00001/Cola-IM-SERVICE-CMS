@@ -3,11 +3,11 @@
 
 //////
 
-pub mod state;
 mod add;
+pub mod state;
 
-use cola_data::auth::entity::session::{AuthSessionEntity, AUTH_SESSION_COLUMNS};
 use crate::pg_pool;
+use cola_data::auth::entity::session::{AUTH_SESSION_COLUMNS, AuthSessionEntity};
 
 //////
 
@@ -19,6 +19,7 @@ pub type SessionRepo = AuthSessionRepo;
 
 // 构造函数
 impl AuthSessionRepo {
+    //
 
     ////////
 
@@ -37,12 +38,12 @@ impl AuthSessionRepo {
         UPDATE "cola_auth"."session"
         SET status = -1, updated_at = NOW()
         WHERE user_id = $1 AND status = 1 AND id != COALESCE($2, 0)
-        "#
+        "#,
         )
-            .bind(entity.user_id)
-            .bind(entity.id)  // 排除当前会话 ID（新会话 id=0 时全部踢下线）
-            .execute(&mut *tx)
-            .await?;
+        .bind(entity.user_id)
+        .bind(entity.id) // 排除当前会话 ID（新会话 id=0 时全部踢下线）
+        .execute(&mut *tx)
+        .await?;
 
         // ② 插入新记录
         // 注意：确保 VALUES 列表与 bind 顺序严格对应
@@ -54,20 +55,20 @@ impl AuthSessionRepo {
             status, platform
         ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
         RETURNING id
-        "#
+        "#,
         )
-            .bind(entity.user_id)
-            .bind(&entity.access_token)
-            .bind(&entity.refresh_token)
-            .bind(&entity.client_id)
-            .bind(&entity.device_id)
-            .bind(entity.access_expires_at)
-            .bind(entity.refresh_expires_at)
-            .bind(entity.last_active_at)
-            .bind(entity.status)
-            .bind(&entity.platform)            // 一并写入 platform
-            .fetch_one(&mut *tx)
-            .await?;
+        .bind(entity.user_id)
+        .bind(&entity.access_token)
+        .bind(&entity.refresh_token)
+        .bind(&entity.client_id)
+        .bind(&entity.device_id)
+        .bind(entity.access_expires_at)
+        .bind(entity.refresh_expires_at)
+        .bind(entity.last_active_at)
+        .bind(entity.status)
+        .bind(&entity.platform) // 一并写入 platform
+        .fetch_one(&mut *tx)
+        .await?;
 
         tx.commit().await?;
         Ok(id)
@@ -78,8 +79,8 @@ impl AuthSessionRepo {
     /// # 2. [REPOSITORY] - ❌️ 注销登录 (主动退出)
     /// * `desc`: `session id 和 device id 双命中`
     pub async fn update_session_by_device_id(
-        session_id: &str,  // 会话 ID
-        device_id: &str,   // 设备 ID
+        session_id: &str, // 会话 ID
+        device_id: &str,  // 设备 ID
     ) -> Result<u64, sqlx::Error> {
         let pool = pg_pool();
 
@@ -88,12 +89,12 @@ impl AuthSessionRepo {
             UPDATE "cola_auth"."session"
             SET status = 0, updated_at = NOW()
             WHERE id = $1 AND device_id = $2
-            "#
+            "#,
         )
-            .bind(session_id)
-            .bind(device_id)
-            .execute(&pool)
-            .await?;
+        .bind(session_id)
+        .bind(device_id)
+        .execute(&pool)
+        .await?;
 
         Ok(result.rows_affected())
     }
@@ -170,14 +171,14 @@ impl AuthSessionRepo {
                access_expires_at = $1,
                refresh_expires_at = $1,
                updated_time = $2
-           WHERE user_id = $3 AND device_id = $4 AND status = 1"#
+           WHERE user_id = $3 AND device_id = $4 AND status = 1"#,
         )
-            .bind(now)
-            .bind(chrono::Utc::now())
-            .bind(user_id)
-            .bind(device_id)
-            .execute(&pool)
-            .await?;
+        .bind(now)
+        .bind(chrono::Utc::now())
+        .bind(user_id)
+        .bind(device_id)
+        .execute(&pool)
+        .await?;
 
         Ok(result.rows_affected())
     }
@@ -206,6 +207,5 @@ impl AuthSessionRepo {
             .await
     }
 }
-
 
 //////// END

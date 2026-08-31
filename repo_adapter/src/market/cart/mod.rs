@@ -1,5 +1,4 @@
-// repo_adapter/src/market/cart/mod.rs
-// 🔌 适配器 - MARKET - 购物车
+// repo_adapter/src/market/cart/mod.rs -- 适配器 - MARKET - 购物车
 // 2026/8/10 20:00 Updated.
 
 ////////

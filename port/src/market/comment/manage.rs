@@ -4,8 +4,8 @@
 
 ////////
 
-use std::todo;
 use cola_data::cola_video::info::comment::VideoCommentInfo;
+use std::todo;
 
 ////////
 

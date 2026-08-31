@@ -1,4 +1,4 @@
-// user/port/follow/mod.rs
+// user/port/follow/music.rs
 // ⏩️ 端口 - 🗣 用户 - 关注 - 模块
 // 2026/8/5 21:56 Created.
 

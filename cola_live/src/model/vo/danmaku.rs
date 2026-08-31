@@ -3,9 +3,9 @@
 
 ////////
 
-use serde::Serialize;
 use cola_data::app::page::PageInfo;
 use cola_data::cola_video::info::danmaku::DanmakuInfo;
+use serde::Serialize;
 
 ////////
 
@@ -14,24 +14,26 @@ use cola_data::cola_video::info::danmaku::DanmakuInfo;
 pub struct DanmakuVo {
     #[serde(flatten)]
     pub danmaku: DanmakuInfo, // 🌟 已修正：改回小写 snake_case 规范
-    pub is_liked: bool,       // 是否点赞
-    pub is_disliked: bool,    // 是否不喜欢
-    pub is_author: bool,      // 是否是视频作者发的
-    pub is_own: bool,         // 是否是当前登录用户自己发的
+    pub is_liked: bool,    // 是否点赞
+    pub is_disliked: bool, // 是否不喜欢
+    pub is_author: bool,   // 是否是视频作者发的
+    pub is_own: bool,      // 是否是当前登录用户自己发的
 }
 
 /// # [BUILD] - 构造函数
 impl DanmakuVo {
     /// 从已有的 DanmakuInfo 组装成最终的 VO 对象
     pub fn from_info(
-        danmaku: DanmakuInfo,      // 🌟 已修正：去掉了 mut，不污染底层元数据
-        current_uid: Option<i64>,  // 传入当前登录用户的 UID (用来判断 is_own)
-        video_author_id: i64,      // 传入视频作者的 UID (用来判断 is_author)
-        is_liked: bool,            // 外部点赞状态
-        is_disliked: bool,         // 外部不喜欢状态
+        danmaku: DanmakuInfo,     // 🌟 已修正：去掉了 mut，不污染底层元数据
+        current_uid: Option<i64>, // 传入当前登录用户的 UID (用来判断 is_own)
+        video_author_id: i64,     // 传入视频作者的 UID (用来判断 is_author)
+        is_liked: bool,           // 外部点赞状态
+        is_disliked: bool,        // 外部不喜欢状态
     ) -> Self {
         // 1. 判断是不是当前登录用户自己发的弹幕
-        let is_own = current_uid.map(|uid| uid == danmaku.user_id).unwrap_or(false);
+        let is_own = current_uid
+            .map(|uid| uid == danmaku.user_id)
+            .unwrap_or(false);
 
         // 2. 判断是不是视频作者发的弹幕
         let is_author = danmaku.user_id == video_author_id;

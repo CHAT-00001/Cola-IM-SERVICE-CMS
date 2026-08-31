@@ -1,5 +1,5 @@
-// data/src/cola_dynamic/info/mod.rs
-// 🗄 数据 - ⏹ 可乐动态 - info - mod
+// data/src/cola_dynamic/info/music.rs
+// 🗄 数据 - ⏹ 可乐动态 - info - music
 // 2026/6/19 16:48
 
 ////////

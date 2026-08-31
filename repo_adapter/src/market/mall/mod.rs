@@ -1,5 +1,4 @@
-// repo_adapter/src/cola_video/cola_video/mod.rs
-// 🔌 适配器 - VIDEO - 视频 - 模块
+// repo_adapter/src/market/mall/mod.rs -- 适配器 - MARKET - 商场 - mod
 // 2026/8/6 19:19 Created.
 
 ////////

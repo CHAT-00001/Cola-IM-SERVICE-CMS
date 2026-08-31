@@ -30,13 +30,13 @@ pub mod stat; // 统计
 /// * `desc`: `⏹ 可乐动态 - 收藏 Ports`
 #[derive(Clone)]
 pub struct DynamicCollectPort {
-    pub add: Arc<dyn CollectAddPort + Send + Sync + 'static>,     // 发布
+    pub add: Arc<dyn CollectAddPort + Send + Sync + 'static>, // 发布
     pub check: Arc<dyn CollectCheckPort + Send + Sync + 'static>, // 检查
-    pub del: Arc<dyn CollectDelPort + Send + Sync + 'static>,     // 删除
-    pub get: Arc<dyn CollectGetPort + Send + Sync + 'static>,     // 获取
-    pub list: Arc<dyn CollectListPort + Send + Sync + 'static>,   // 列表
-    pub manage: Arc<dyn ManagePort + Send + Sync + 'static>,      // 管理
-    pub stat: Arc<dyn CollectStatPort + Send + Sync + 'static>,   // 统计
+    pub del: Arc<dyn CollectDelPort + Send + Sync + 'static>, // 删除
+    pub get: Arc<dyn CollectGetPort + Send + Sync + 'static>, // 获取
+    pub list: Arc<dyn CollectListPort + Send + Sync + 'static>, // 列表
+    pub manage: Arc<dyn ManagePort + Send + Sync + 'static>,  // 管理
+    pub stat: Arc<dyn CollectStatPort + Send + Sync + 'static>, // 统计
 }
 
 //////// END

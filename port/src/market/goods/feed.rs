@@ -4,8 +4,8 @@
 
 ////////
 
-use rust_decimal::Decimal;
 use cola_data::market::info::goods::goods::GoodsInfo;
+use rust_decimal::Decimal;
 
 ////////
 

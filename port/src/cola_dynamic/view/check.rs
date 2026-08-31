@@ -32,7 +32,6 @@ pub trait DynamicViewCheckPort: Send + Sync {
         user_id: i64,    // 用户 ID
         profile_id: i64, // 主页 ID
     ) -> anyhow::Result<(bool)>;
-
 }
 
 //////// END

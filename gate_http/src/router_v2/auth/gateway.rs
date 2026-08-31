@@ -137,7 +137,7 @@ async fn auth_gateway(
             // 从 HttpRequest 提取客户端真实 IP 注入 cmd
             cmd.client_ip = extract_client_ip(&req);
 
-            SessionAddApi::handler_sign_in_by_phone(cmd)
+            SessionAddApi::handler_sign_in_by_phone(cmd, &state.ctx)
                 .await
                 .finish(&req, start)
         }

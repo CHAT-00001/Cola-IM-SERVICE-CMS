@@ -1,5 +1,4 @@
-// cola_data/src/user/entity/black.rs
-// 数据中心 -可乐用户 - entity - 黑名单表
+// cola_data/src/user/entity/black.rs -- 数据 - USER - entity - 黑名单记录表
 // 2026/6/18 10:08 Created.
 
 ////////
@@ -10,8 +9,8 @@ use sqlx::FromRow;
 
 ////////
 
-/// # [ENTITY] - 用户 - 黑名单记录表
-/// * `pg schema`: `user` -- 可乐用户
+/// # [ENTITY] - 用户中心 - 黑名单记录表
+/// * `pg schema`: `cola_user` -- 可乐用户
 /// * `table name`: `black`  -- 黑名单记录表
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct UserBlackEntity {

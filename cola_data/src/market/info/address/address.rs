@@ -4,8 +4,8 @@
 
 ////////
 
-use serde::{Deserialize, Serialize};
 use crate::market::entity::address::AddressEntity;
+use serde::{Deserialize, Serialize};
 
 ////////
 

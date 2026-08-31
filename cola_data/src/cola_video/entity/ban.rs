@@ -1,5 +1,4 @@
-// data/src/video/entity/ban.rs
-// 🗄 数据 - ▶ 视频 - entity - 封禁
+// data/src/video/entity/ban.rs -- 数据 - VIDEO - entity - 封禁 - mod
 // 2026/8/10 00:20 Created.
 
 ////////

@@ -1,13 +1,14 @@
-// cola_video/src/router/gate_grpc/count.rs  -- 用户资产统计表实体
-// 2026/4/12 21:40 updated by wx: cestbon10080
+// cola_data/src/user/entity/count.rs  -- 数据 - USER - entity - 用户计数表
+// 2026/4/12 21:40
 
 use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
 use sqlx::types::chrono;
 ////////
 
-/// # [ENTITY] - 用户资产统计
-/// 独立于用户主表，承载高频更新的计数逻辑
+/// # [ENTITY] - 用户中心 - 计数表
+/// * `pg schema`: `cola_user`
+/// * `table name`: `user_count`
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow, Default)]
 pub struct UserCountEntity {
     pub id: i64,
@@ -20,12 +21,12 @@ pub struct UserCountEntity {
     pub publish_stream_count: i32,  // 流总数
 
     // --- 互动行为（我发出的） ---
-    pub add_liked_video_count: i32,    // 我点赞的视频数
-    pub add_liked_dynamic_count: i32,  // 我点赞的动态数
-    pub add_collect_video_count: i32,  // 我收藏的视频数
-    pub add_collect_dynamic_count: i32,// 我收藏的动态数
-    pub send_comment_count: i32,       // 我发的评论数
-    pub send_danmaku_count: i32,       // 我发的弹幕数
+    pub add_liked_video_count: i32,     // 我点赞的视频数
+    pub add_liked_dynamic_count: i32,   // 我点赞的动态数
+    pub add_collect_video_count: i32,   // 我收藏的视频数
+    pub add_collect_dynamic_count: i32, // 我收藏的动态数
+    pub send_comment_count: i32,        // 我发的评论数
+    pub send_danmaku_count: i32,        // 我发的弹幕数
 
     // --- 荣誉资产（我收到的/被动的） ---
     pub be_liked_count: i64,      // 总获赞数（视频+动态+评论等，高频重要）

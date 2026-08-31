@@ -3,18 +3,16 @@
 
 ////////
 
-use anyhow::{anyhow, Result};
+use anyhow::{Result, anyhow};
 use redis::AsyncCommands;
 
 ////////
-
 
 /// # [CACHE] - 短信缓存
 /// * `desc`: `手机验证码Redis缓存`
 pub struct SmsCache;
 
 impl SmsCache {
-
     ////////
 
     /// # [CACHE] - 保存短信验证码到 Redis

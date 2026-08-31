@@ -3,9 +3,9 @@
 
 ////////
 
+use crate::cola_video::entity::video::video::VideoEntity;
 use chrono::Utc;
 use serde::{Deserialize, Serialize};
-use crate::cola_video::entity::video::video::VideoEntity;
 
 ////////
 
@@ -14,9 +14,9 @@ use crate::cola_video::entity::video::video::VideoEntity;
 pub struct ProfileInfo {
     pub id: i64, // 视频 ID
     // -- by id
-    pub uid: i64,         // 用户
+    pub uid: i64, // 用户
     //pub category_id: i16, // 分类
-    pub channel_id: i16,  // 频道
+    pub channel_id: i16, // 频道
     // -- info
     pub title: String, // 标题
     pub thumb: String, // 缩略图地址

@@ -4,16 +4,15 @@
 
 ////////
 
-use sqlx::{PgPool, Postgres, Transaction};
 use app_config::app_state::AppState;
 use cola_data::auth::entity::device::{AuthDeviceEntity, DEVICE_COLUMNS};
+use sqlx::{PgPool, Postgres, Transaction};
 
 ////////
 
 pub struct DeviceRepo;
 
 impl DeviceRepo {
-
     /// # [REPOSITORY] - 核心登录：绑定/更新设备并执行同平台单设备挤下线
     /// * 核心逻辑：利用 PostgreSQL 的 `ON CONFLICT` 做设备级 UPSERT，并利用事务确保挤人原子性
     pub async fn login_and_kickout_device(
@@ -31,13 +30,13 @@ impl DeviceRepo {
             UPDATE public.auth_device
             SET status = -1, is_online = 0
             WHERE user_id = $1 AND platform = $2 AND status = 1 AND device_sn != $3
-            "#
+            "#,
         )
-            .bind(entity.user_id)
-            .bind(entity.platform)
-            .bind(&entity.device_sn) // 👈 字符串加 &，稳如泰山
-            .execute(&mut *tx)
-            .await?;
+        .bind(entity.user_id)
+        .bind(entity.platform)
+        .bind(&entity.device_sn) // 👈 字符串加 &，稳如泰山
+        .execute(&mut *tx)
+        .await?;
 
         // 2. 插入或覆盖设备：采用高性能 UPSERT，同一个用户在同一个设备上再次登录时只更新令牌和指标
         let row: (i64,) = sqlx::query_as(
@@ -93,12 +92,12 @@ impl DeviceRepo {
             UPDATE public.auth_device
             SET status = 0, is_online = 0
             WHERE user_id = $1 AND device_sn = $2 AND status = 1
-            "#
+            "#,
         )
-            .bind(user_id)
-            .bind(device_sn)
-            .execute(pool)
-            .await?;
+        .bind(user_id)
+        .bind(device_sn)
+        .execute(pool)
+        .await?;
 
         Ok(result.rows_affected())
     }
@@ -138,14 +137,14 @@ impl DeviceRepo {
             UPDATE public.auth_device
             SET last_active_at = $1, last_ip = $2, is_online = 1
             WHERE user_id = $3 AND device_sn = $4 AND status = 1
-            "#
+            "#,
         )
-            .bind(now_ts)
-            .bind(current_ip)
-            .bind(user_id)
-            .bind(device_sn)
-            .execute(pool)
-            .await?;
+        .bind(now_ts)
+        .bind(current_ip)
+        .bind(user_id)
+        .bind(device_sn)
+        .execute(pool)
+        .await?;
 
         Ok(result.rows_affected())
     }
@@ -178,11 +177,11 @@ impl DeviceRepo {
             UPDATE public.auth_device
             SET is_online = 0
             WHERE expired_time < $1 AND is_online = 1
-            "#
+            "#,
         )
-            .bind(now_ts)
-            .execute(pool)
-            .await?;
+        .bind(now_ts)
+        .execute(pool)
+        .await?;
 
         Ok(result.rows_affected())
     }

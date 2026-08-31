@@ -3,11 +3,10 @@
 
 ////////
 
-
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum UserStatus {
-    Normal,  // 正常状态
-    Disabled,  // 禁用状态
+    Normal,   // 正常状态
+    Disabled, // 禁用状态
     Deleted,  // 删除状态
     Banned,
 }

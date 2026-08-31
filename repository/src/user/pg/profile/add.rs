@@ -16,14 +16,11 @@ use sqlx;
 pub struct ProfileAddRepo;
 
 impl ProfileAddRepo {
-
     ////////
 
     /// # 1. [REPOSITORY] - 保存/更新资料名片
     /// * `desc`: UPSERT 模式，存在则更新，不存在则创建
-    pub async fn pg_upsert_profile(
-        cmd: &ProfileCommand,
-    ) -> Result<i64, sqlx::Error> {
+    pub async fn pg_upsert_profile(cmd: &ProfileCommand) -> Result<i64, sqlx::Error> {
         let pool = pg_pool();
         let now = chrono::Utc::now().timestamp();
 

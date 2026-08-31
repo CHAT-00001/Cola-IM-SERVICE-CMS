@@ -3,7 +3,6 @@
 
 ////////
 
-
 ////////
 
 pub struct FeedApi;
@@ -14,18 +13,12 @@ impl FeedApi {
     ////////
 
     /// # 1. [API] - 关注
-    pub async fn health() {
-
-    }
+    pub async fn health() {}
 
     ////////
 
     /// # 2. [API] - 朋友
-    pub async fn state() {
-
-    }
-
-
+    pub async fn state() {}
 }
 
 //////// END

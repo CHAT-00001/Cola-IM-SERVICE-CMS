@@ -1,5 +1,4 @@
-// repo_adapter/src/three/vendor.rs
-// 🔌 适配器 - THREE - 厂商
+// repo_adapter/src/three/vendor.rs -- 适配器 - THREE - 厂商
 // 2026/6/18 18:21
 
 ////////
@@ -17,7 +16,6 @@ pub struct VendorAdapter;
 
 #[async_trait]
 impl VendorPort for VendorAdapter {
-
     async fn upsert(&self, cmd: UpsertVendorCommand) -> anyhow::Result<VendorInfo> {
         let entity = VendorRepo::upsert(&cmd.code, &cmd.name, cmd.sort, cmd.status).await?;
         Ok(VendorInfo::from(entity))

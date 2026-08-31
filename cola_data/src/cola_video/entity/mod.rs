@@ -1,5 +1,4 @@
-// cola_data/src/video/entity/mod.rs
-// 数据 - ▶ 视频 - entity - mod
+// cola_data/src/video/entity/mod.rs -- 数据 - VIDEO - entity - mod
 // 2026/04/10 10:25 Created.
 
 ////////
@@ -14,7 +13,6 @@ pub mod danmaku; // 弹幕
 pub mod download; // 下载
 pub mod like; // 互动
 pub mod recommend; // 推荐
-pub mod report; // 举报
 pub mod share; // 分享
 pub mod user; // 用户中心
 pub mod video; // 视频

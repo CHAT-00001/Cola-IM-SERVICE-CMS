@@ -10,16 +10,11 @@ use cola_data::cola_gis::info::poi::PoiInfo;
 /// # [SERVICE] - Feed
 #[async_trait::async_trait]
 pub trait FeedRepo: Send + Sync {
-
     ////////
 
     /// # 1. [PORT] - 新的
-    async fn new_list(
-        &self,
-        uid: i64,
-        poi_id: i64,
-        is_liked: bool,
-    ) -> anyhow::Result<Vec<PoiInfo>>;
+    async fn new_list(&self, uid: i64, poi_id: i64, is_liked: bool)
+    -> anyhow::Result<Vec<PoiInfo>>;
 
     ////////
 

@@ -1,9 +1,8 @@
 // /shop.rs
-// 
+//
 // 2026/8/3 22:52 Created.
 
 ////////
-
 
 // cola_data/src/market/handler/shop_apply.rs  -- 可乐数据中心 - MARKET - handler - 商店
 // 2026/6/18 10:42

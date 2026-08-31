@@ -46,10 +46,7 @@ impl CommentRepo for CommentPortAdapter {
     ////////
 
     /// # 3. [PORT] - 删除评论 + 更新评论数量
-    async fn del_comment_record(
-        &self,
-        comment_id: i64,
-    ) -> anyhow::Result<()> {
+    async fn del_comment_record(&self, comment_id: i64) -> anyhow::Result<()> {
         PoiCommentService::delete_comment_and_update_count(0, comment_id).await?;
         Ok(())
     }
@@ -57,10 +54,7 @@ impl CommentRepo for CommentPortAdapter {
     ////////
 
     /// # 4. [PORT] - 批量删除评论
-    async fn del_comments_record(
-        &self,
-        comment_ids: Vec<i64>,
-    ) -> anyhow::Result<()> {
+    async fn del_comments_record(&self, comment_ids: Vec<i64>) -> anyhow::Result<()> {
         for id in comment_ids {
             PoiCommentService::delete_comment_and_update_count(0, id).await?;
         }

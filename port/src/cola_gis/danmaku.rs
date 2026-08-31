@@ -6,13 +6,11 @@
 use cola_data::cola_gis::command::danmaku::PoiDanmakuCommand;
 use cola_data::cola_gis::info::danmaku::PoiDanmakuInfo;
 
-
 //////
 
 /// # [PORT] - 弹幕
 #[async_trait::async_trait]
 pub trait DanmakuRepo: Send + Sync {
-
     ////////
 
     /// # 1. [PORT] - 保存弹幕记录
@@ -36,20 +34,12 @@ pub trait DanmakuRepo: Send + Sync {
     ////////
 
     /// # 3. [PORT] - 删除弹幕
-    async fn del_danmaku_record(
-        &self,
-        uid: i64,
-        danmaku_id: i64,
-    ) -> anyhow::Result<()>;
+    async fn del_danmaku_record(&self, uid: i64, danmaku_id: i64) -> anyhow::Result<()>;
 
     ////////
 
     /// # 4. [PORT] - 批量删除弹幕
-    async fn del_danmakus_record(
-        &self,
-        uid: i64,
-        danmaku_ids: Vec<i64>,
-    ) -> anyhow::Result<()>;
+    async fn del_danmakus_record(&self, uid: i64, danmaku_ids: Vec<i64>) -> anyhow::Result<()>;
 
     ////////
 

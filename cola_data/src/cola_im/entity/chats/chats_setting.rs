@@ -15,19 +15,19 @@ use sqlx::FromRow;
 /// * `table name`: `chats_setting`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct ImChatsSettingEntity {
-    pub id: i64,                           // id
-    pub uid: i64,                          // 操作者用户ID
-    pub chat_type: i16,                    // 会话类型: 1单聊 2群聊 3系统 4机器人
-    pub target_id: i64,                    // 目标ID: 用户ID/群ID
+    pub id: i64,        // id
+    pub uid: i64,       // 操作者用户ID
+    pub chat_type: i16, // 会话类型: 1单聊 2群聊 3系统 4机器人
+    pub target_id: i64, // 目标ID: 用户ID/群ID
 
-    pub is_pin: bool,                      // 是否置顶
-    pub is_starred: bool,                  // 是否星标
-    pub is_mute: bool,                     // 是否免打扰
-    pub is_show_notification: bool,        // 是否显示通知
-    pub notify_mode: i16,                  // 通知方式: 0默认 1全部 2仅@我 3关闭
-    pub is_save_to_contacts: bool,         // 是否保存到通讯录
-    pub wallpaper: Option<String>,         // 聊天背景
-    pub ext: Option<String>,               // 扩展JSON
+    pub is_pin: bool,               // 是否置顶
+    pub is_starred: bool,           // 是否星标
+    pub is_mute: bool,              // 是否免打扰
+    pub is_show_notification: bool, // 是否显示通知
+    pub notify_mode: i16,           // 通知方式: 0默认 1全部 2仅@我 3关闭
+    pub is_save_to_contacts: bool,  // 是否保存到通讯录
+    pub wallpaper: Option<String>,  // 聊天背景
+    pub ext: Option<String>,        // 扩展JSON
 
     pub is_deleted: bool,                  // 是否删除: 默认false
     pub status: i16,                       // 状态码: 0无效 1有效

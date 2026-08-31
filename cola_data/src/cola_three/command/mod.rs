@@ -1,4 +1,4 @@
-// cola_data/src/cola_three/cola_dynamic/mod.rs  -- THREE 命令 mod
+// cola_data/src/cola_three/cola_dynamic/mod.rs  -- THREE 命令 music
 // 2026/6/18
 
 ////////

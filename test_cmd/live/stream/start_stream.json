@@ -1,0 +1,11 @@
+{
+    "room_id": 1001,
+    "show_id": 0,
+    "title": "我的直播",
+    "thumb": "https://example.com/live-cover.jpg",
+    "channel_id": 1000,
+    "live_type": "0",
+    "anyway": 1,
+    "device_info": "android",
+    "voice_type": "1"
+}

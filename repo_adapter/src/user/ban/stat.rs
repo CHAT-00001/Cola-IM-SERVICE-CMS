@@ -1,5 +1,5 @@
 // /stat.rs
-// 
+//
 // 2026/8/10 05:29 Created.
 
 ////////
@@ -22,4 +22,3 @@ impl UserBanStatPort for UserBankStatAdapter {
         todo!()
     }
 }
-

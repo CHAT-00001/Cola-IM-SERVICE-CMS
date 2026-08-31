@@ -1,5 +1,4 @@
-// cola_fs/src/case/media.rs
-// 可乐FS - 用例层 - 媒体对象
+// cola_fs/src/case/media.rs -- 可乐FS - 用例层 - 媒体对象
 // 2026/8/11 04:41 Created.
 
 ////////
@@ -28,12 +27,7 @@ impl MediaCase {
         ctx: &AppContext,
     ) -> Result<serde_json::Value> {
         // 1. 调用 adapter 创建媒体对象（通过 ctx 的 trait）
-        let bucket_entity = ctx
-            .fs
-            .bucket
-            .add
-            .create_bucket(cmd)
-            .await?;
+        let bucket_entity = ctx.fs.bucket.add.create_bucket(cmd).await?;
 
         info!(
             "[🗣️ CASE] - ✅️ 媒体对象创建成功: bucket_id={}",

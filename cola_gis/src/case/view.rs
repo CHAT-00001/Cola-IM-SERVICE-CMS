@@ -23,8 +23,8 @@ impl PoiViewCase {
     pub async fn case_add_poi_view(
         uid: i64,
         url: ApiGatewayRequest,
-        ctx: &AppContext) -> Result<()> {
-
+        ctx: &AppContext,
+    ) -> Result<()> {
         // Call Service Port
         ctx.gis
             .view
@@ -42,7 +42,6 @@ impl PoiViewCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> Result<PoiSingleResponse> {
-
         // Call Service Port
         let info: PoiInfo = ctx
             .gis

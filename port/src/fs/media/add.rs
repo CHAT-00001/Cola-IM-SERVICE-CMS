@@ -20,11 +20,7 @@ pub trait MediaAddPort: Send + Sync {
 
     /// # 1. [PORT] - 创建媒体资源
     /// * `desc`: `创建媒体记录（支持普通图片、视频、LivePhoto、HLS）`
-    async fn create_media(
-        &self,
-        uid: i64,
-        cmd: CreateMediaCmd,
-    ) -> Result<MediaEntity>;
+    async fn create_media(&self, uid: i64, cmd: CreateMediaCmd) -> Result<MediaEntity>;
 
     ////////
 

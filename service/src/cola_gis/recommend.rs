@@ -1,3 +1,2 @@
-﻿pub struct RecommendService;
+pub struct RecommendService;
 impl RecommendService {}
-

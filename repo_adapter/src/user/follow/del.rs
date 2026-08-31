@@ -23,5 +23,4 @@ impl UserFollowDelPort for UserFollowDelAdapter {
     }
 }
 
-
 //////// END

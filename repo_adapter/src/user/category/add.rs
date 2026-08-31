@@ -37,7 +37,12 @@ impl UserCategoryAddPort for CategoryAddAdapter {
     ////////
 
     /// # [ADAPTER] - 获取
-    async fn get_new_list(&self, _uid: i64, _limit: i64, _offset: i64) -> Result<Vec<UserCategoryInfo>> {
+    async fn get_new_list(
+        &self,
+        _uid: i64,
+        _limit: i64,
+        _offset: i64,
+    ) -> Result<Vec<UserCategoryInfo>> {
         todo!()
     }
 

@@ -1,5 +1,4 @@
-// repo_adapter/src/market/shop_apply/mod.rs
-// 🔌 适配器 - MARKET - SHOP
+// repo_adapter/src/market/shop_apply/music.rs -- 适配器 - MARKET - SHOP
 // 2026/6/18 14:20 Created.
 
 ////////

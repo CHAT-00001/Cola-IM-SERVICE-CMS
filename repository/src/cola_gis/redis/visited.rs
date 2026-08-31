@@ -1,8 +1,8 @@
-﻿// repository/src/cola_gis/redis/visited.rs -- 浠撳偍 - GIS - Redis - visited
+// repository/src/cola_gis/redis/visited.rs -- 浠撳偍 - GIS - Redis - visited
 // 2026/7/6
 
-use redis::AsyncCommands;
 use app_config::DbService;
+use redis::AsyncCommands;
 
 #[derive(Clone)]
 pub struct VisitedCache {
@@ -25,10 +25,17 @@ impl VisitedCache {
         Ok(())
     }
 
-    pub async fn get_user_gis_ids(&self, user_id: i64, offset: i64, limit: i64) -> anyhow::Result<Vec<i64>> {
+    pub async fn get_user_gis_ids(
+        &self,
+        user_id: i64,
+        offset: i64,
+        limit: i64,
+    ) -> anyhow::Result<Vec<i64>> {
         let mut conn = self.db.redis_conn.clone();
         let key = Self::key(user_id);
-        let ids: Vec<i64> = conn.zrevrange(key, offset as isize, (offset + limit - 1) as isize).await?;
+        let ids: Vec<i64> = conn
+            .zrevrange(key, offset as isize, (offset + limit - 1) as isize)
+            .await?;
         Ok(ids)
     }
 
@@ -39,4 +46,3 @@ impl VisitedCache {
         Ok(())
     }
 }
-

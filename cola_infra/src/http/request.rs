@@ -17,8 +17,6 @@ pub struct ApiRequest {
     pub body: Vec<u8>,                         // 主体
 }
 
-
-
 pub type Headers = HashMap<String, Vec<String>>;
 
 pub struct Body(pub Vec<u8>);

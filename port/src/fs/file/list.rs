@@ -19,12 +19,8 @@ pub trait FileListPort: Send + Sync {
 
     /// # 1. [PORT] - 用户文件列表
     /// * `desc`: `获取用户上传的文件列表`
-    async fn list_user_files(
-        &self,
-        uid: i64,
-        limit: i64,
-        offset: i64,
-    ) -> Result<Vec<FsFileEntity>>;
+    async fn list_user_files(&self, uid: i64, limit: i64, offset: i64)
+    -> Result<Vec<FsFileEntity>>;
 
     ////////
 

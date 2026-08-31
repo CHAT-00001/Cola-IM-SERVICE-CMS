@@ -27,12 +27,14 @@ impl MineCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> anyhow::Result<PoiListResponse> {
-        let infos = PoiViewService::get_gis_infos_by_uid(uid, Some(url.keyword), url.offset, url.limit)
-            .await
-            .map_err(|e| anyhow::anyhow!("BIZ: 获取用户 {} 发布的兴趣点列表失败: {}", uid, e))?;
+        let infos =
+            PoiViewService::get_gis_infos_by_uid(uid, Some(url.keyword), url.offset, url.limit)
+                .await
+                .map_err(|e| {
+                    anyhow::anyhow!("BIZ: 获取用户 {} 发布的兴趣点列表失败: {}", uid, e)
+                })?;
 
-        let resp =
-            build_poi_list_response(infos, Some(uid), url.offset, url.limit, 0).await?;
+        let resp = build_poi_list_response(infos, Some(uid), url.offset, url.limit, 0).await?;
 
         Ok(resp)
     }
@@ -53,8 +55,7 @@ impl MineCase {
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 获取用户 {} 点赞的兴趣点失败: {}", uid, e))?;
 
-        let resp =
-            build_poi_list_response(infos, Some(uid), url.offset, url.limit, 0).await?;
+        let resp = build_poi_list_response(infos, Some(uid), url.offset, url.limit, 0).await?;
         Ok(resp)
     }
 
@@ -77,8 +78,7 @@ impl MineCase {
             .await
             .map_err(|e| anyhow::anyhow!("BIZ: 获取附近兴趣点失败: {}", e))?;
 
-        let resp =
-            build_poi_list_response(infos, Some(uid), url.offset, url.limit, 0).await?;
+        let resp = build_poi_list_response(infos, Some(uid), url.offset, url.limit, 0).await?;
         Ok(resp)
     }
 }

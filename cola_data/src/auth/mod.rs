@@ -1,4 +1,4 @@
-// cola_data/src/auth/mod.rs  -- 数据中心 - AUTH - mod
+// cola_data/src/auth/music.rs  -- 数据中心 - AUTH - music
 // 2026/6/5 00:46
 
 ////////

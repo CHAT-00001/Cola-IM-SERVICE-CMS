@@ -6,9 +6,9 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use port::market::buy::get::GoodsBuyGetPort;
 use port::cola_video::buy::get::VideoBuyGetPort;
-use repository::cola_video::pg::buy::get::VideoBuyGetRepo;
+use port::market::buy::get::GoodsBuyGetPort;
+use repository::video::pg::buy::get::VideoBuyGetRepo;
 
 ////////
 

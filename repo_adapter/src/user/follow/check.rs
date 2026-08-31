@@ -21,7 +21,6 @@ impl UserFollowCheckPort for UserFollowCheckAdapter {
 
     /// 1. # [ADAPTER] - 是否关注
     async fn is_followed(&self, uid: i64, user_id: i64) -> anyhow::Result<(bool)> {
-
         let is_followed = true;
         Ok(is_followed)
     }

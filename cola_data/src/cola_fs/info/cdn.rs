@@ -4,12 +4,11 @@
 
 ////////
 
-use serde::{Deserialize, Serialize};
-use chrono::{DateTime, Utc};
 use crate::cola_fs::entity::cdn::CdnDomainEntity;
+use chrono::{DateTime, Utc};
+use serde::{Deserialize, Serialize};
 
 ////////
-
 
 /// # [INFO] - 文件服务 - CDN 配置安全脱敏视图（隐藏鉴权密钥）
 #[derive(Debug, Clone, Serialize, Deserialize)]

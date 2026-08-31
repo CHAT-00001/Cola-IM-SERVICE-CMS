@@ -1,25 +1,29 @@
-// /withdrawals.rs  --
-// 2026/6/26 01:48
+// cola_data/src/wallet/entity/withdrawals.rs
+// ✅ WALLET - 提现订单实体
+// 2026/8/20  Created.
 
 ////////
 
 use chrono::{DateTime, Utc};
+use rust_decimal::Decimal;
 use serde::{Deserialize, Serialize};
 use sqlx::{FromRow, types::JsonValue};
 
 ////////
 
 /// # [ENTITY] - 提现记录表
+/// * `pg schema`: `cola_wallet` - PG 模式
 /// * `table_name`: `wallet_withdrawals`
 #[derive(Debug, FromRow, Serialize, Deserialize)]
 pub struct WalletWithdrawal {
     pub id: i64,                             // BIGSERIAL 主键
     pub tx_no: String,                       // 交易编号
     pub user_id: i64,                        // 用户ID
+    pub currency_id: i16,                    // 提现资产ID
     pub wallet_id: i64,                      // 钱包ID
-    pub amount: i64,                         // 提现金额（分）
-    pub fee: i64,                            // 手续费
-    pub actual_amount: i64,                  // 实际到账金额
+    pub amount: Decimal,                     // 提现金额
+    pub fee: Decimal,                        // 手续费
+    pub actual_amount: Decimal,              // 实际到账金额
     pub status: i16,                         // 状态：0-待审核 1-处理中 2-成功 3-失败 4-已取消
     pub bank_name: Option<String>,           // 银行名称
     pub bank_card_no: Option<String>,        // 银行卡号（脱敏）

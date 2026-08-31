@@ -1,5 +1,4 @@
-// repo_adapter/src/video/mod.rs
-// 🔌 插头 - VIDEO - mod
+// repo_adapter/src/video/mod.rs -- 🔌 插头 - VIDEO - mod
 // 2026/8/10 20:00 Created.
 
 ////////

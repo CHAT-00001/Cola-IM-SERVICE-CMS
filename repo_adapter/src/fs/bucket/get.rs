@@ -9,9 +9,9 @@ use async_trait::async_trait;
 use cola_data::cola_fs::entity::bucket::BucketEntity;
 use cola_data::cola_fs::info::bucket::BucketInfo;
 use port::fs::bucket::get::BucketGetPort;
+use redis::AsyncCommands;
 use repository::cola_fs::pg::bucket::BucketRepo;
 use repository::pg_pool;
-use redis::AsyncCommands;
 
 ////////
 
@@ -63,7 +63,11 @@ impl BucketGetPort for BucketGetAdapter {
         let info = result.map(BucketInfo::from);
         if let Some(info_ref) = info.as_ref() {
             if let Err(error) = set_cache(&key, info_ref).await {
-                tracing::warn!("[🔌 ADAPTER] - ⚠️ Bucket缓存写入失败: app_id={}, error={}", app_id, error);
+                tracing::warn!(
+                    "[🔌 ADAPTER] - ⚠️ Bucket缓存写入失败: app_id={}, error={}",
+                    app_id,
+                    error
+                );
             }
         }
         tracing::info!(
@@ -92,7 +96,11 @@ impl BucketGetPort for BucketGetAdapter {
         let info = result.map(BucketInfo::from);
         if let Some(info_ref) = info.as_ref() {
             if let Err(error) = set_cache(&key, info_ref).await {
-                tracing::warn!("[🔌 ADAPTER] - ⚠️ Bucket缓存写入失败: bucket_id={}, error={}", bucket_id, error);
+                tracing::warn!(
+                    "[🔌 ADAPTER] - ⚠️ Bucket缓存写入失败: bucket_id={}, error={}",
+                    bucket_id,
+                    error
+                );
             }
         }
         tracing::info!(

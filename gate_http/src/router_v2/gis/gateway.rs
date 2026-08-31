@@ -358,7 +358,10 @@ async fn gis_gateway(
 
         _ => AppData::<()>::err(
             400,
-            format!("[🌐 GATEWAY]: ⚠️ Unknown Api [📍 GIS] service: {}", gateway_req.service),
+            format!(
+                "[🌐 GATEWAY]: ⚠️ Unknown Api [📍 GIS] service: {}",
+                gateway_req.service
+            ),
             None,
         )
         .finish(&req, start),

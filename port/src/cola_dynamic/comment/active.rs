@@ -4,7 +4,6 @@
 
 ////////
 
-
 ////////
 
 /// # [SERVICE PORT] - 评论
@@ -15,13 +14,7 @@ pub trait CommentRepo: Send + Sync {
     ////////
 
     /// # 1. [PORT] - 保活
-    async fn active_item(
-        &self,
-        uid: i64,
-        video_id: i64,
-        is_liked: bool,
-    ) -> anyhow::Result<()>;
+    async fn active_item(&self, uid: i64, video_id: i64, is_liked: bool) -> anyhow::Result<()>;
 
     ////////
-
 }

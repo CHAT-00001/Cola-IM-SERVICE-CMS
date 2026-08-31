@@ -25,7 +25,7 @@ impl CommentVo {
     /// 从已有的 CommentInfo 组装成最终的 VO 对象
     pub fn from_info(
         comment: VideoCommentInfo, // 🌟 去掉了 mut，因为不需要修改内部字段了
-        video_author_id: i64, // 传入视频作者的 UID
+        video_author_id: i64,      // 传入视频作者的 UID
         is_liked: bool,
         is_disliked: bool,
     ) -> Self {

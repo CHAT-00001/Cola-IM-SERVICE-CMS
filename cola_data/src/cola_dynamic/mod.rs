@@ -1,4 +1,4 @@
-// data/src/cola_dynamic/mod.rs  -- 数据 - 动态 - mod
+// data/src/cola_dynamic/mod.rs  -- 数据 - 动态 - music
 // 2026/6/5 00:48 Created.
 
 ////////

@@ -1,3 +1,2 @@
-﻿pub struct ReportService;
+pub struct ReportService;
 impl ReportService {}
-

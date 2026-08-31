@@ -5,14 +5,14 @@
 
 use crate::case;
 
+use crate::case::danmaku::add::DanmakuAddCase;
+use crate::case::danmaku::get::DanmakuGetCase;
 use crate::model::vo::danmaku::{DanmakuListResponse, DanmakuSingleResponse};
 use cola_data::app::data::AppData;
 use cola_data::app::{data, error};
 use cola_data::auth::info::auth::AuthContext;
 use cola_data::cola_video::command::danmaku::DanmakuCommand;
 use port::app::ctx::AppContext;
-use crate::case::danmaku::add::DanmakuAddCase;
-use crate::case::danmaku::get::DanmakuGetCase;
 ////////
 
 /// # [API] - 弹幕 接口
@@ -47,7 +47,8 @@ impl DanmakuApi {
         video_id: i64,
         play_time: i32,
         ctx: &mut AppContext,
-    ) -> AppData<DanmakuListResponse> { // ✅ 改为具体的结构体类型
+    ) -> AppData<DanmakuListResponse> {
+        // ✅ 改为具体的结构体类型
         let segment_size = 5000;
 
         match DanmakuGetCase::case_video_danmakus(
@@ -56,8 +57,9 @@ impl DanmakuApi {
             play_time,
             play_time + segment_size,
             20,
-            ctx
-        ).await
+            ctx,
+        )
+        .await
         {
             Ok(list) => AppData::ok(list), // ✅ 现在 list 的类型匹配了！
             Err(e) => {

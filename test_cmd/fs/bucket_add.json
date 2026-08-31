@@ -1,5 +1,6 @@
 {
     "service": "bucket_add",
+    "desc": "存储桶发布",
     "auth": {
         "access_token": "abc"
     },

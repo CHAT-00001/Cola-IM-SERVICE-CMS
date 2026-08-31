@@ -7,12 +7,12 @@
 use crate::case::black::list::UserBlackListCase;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
-use cola_data::app::query::ApiGatewayRequest;
 use cola_data::app::page::PageInfo;
+use cola_data::app::query::ApiGatewayRequest;
 use cola_data::app::response::ListResponse;
 use cola_data::cola_user::info::user::UserInfo;
-use tracing::{error, info};
 use port::app::ctx::AppContext;
+use tracing::{error, info};
 ////////
 
 /// # [API HANDLER] - 列表
@@ -37,7 +37,11 @@ impl UserBlackListApi {
             .await
         {
             Ok(infos) => {
-                info!("[🗣️ API]: ✅️ 获取我的黑名单成功: uid={}, count={}", uid, infos.len());
+                info!(
+                    "[🗣️ API]: ✅️ 获取我的黑名单成功: uid={}, count={}",
+                    uid,
+                    infos.len()
+                );
                 let page_info = PageInfo {
                     page: url.page.unwrap_or(1),
                     qty: url.qty.unwrap_or(10),

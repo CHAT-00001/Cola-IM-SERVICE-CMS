@@ -12,7 +12,7 @@ use serde_json::Value;
 /// # [CMD] - 创建存储桶参数载荷
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreateBucketCmd {
-    pub _id: Option<String>,          // UUID v4 无分隔符副 ID
+    pub _id: Option<String>,        // UUID v4 无分隔符副 ID
     pub app_id: Option<String>,     // 应用 ID
     pub type_id: i64,               // 存储类型 ID
     pub vendor_id: i64,             // 厂商 ID
@@ -28,15 +28,19 @@ pub struct CreateBucketCmd {
     pub status: i16,                // 状态码
 
     #[serde(default)]
-    pub is_public: bool,            // 是否公开 (默认 false)
+    pub is_public: bool, // 是否公开 (默认 false)
 
     #[serde(default)]
-    pub is_deleted: bool,           // 逻辑删除 (默认 false)
+    pub is_deleted: bool, // 逻辑删除 (默认 false)
 }
 
 ////////
 
 impl CreateBucketCmd {
+    //
+
+    ////////
+
     /// # 1. [CMD] - 创建存储桶命令构造器
     /// * `desc`: 自动生成无分隔符 UUID，名称为空时使用默认名称，其余存储配置由客户端提交
     pub fn new(
@@ -73,7 +77,7 @@ impl CreateBucketCmd {
             config_json,
             remark,
             status,
-            is_public: is_public.unwrap_or(false),   // 默认值 false
+            is_public: is_public.unwrap_or(false), // 默认值 false
             is_deleted: is_deleted.unwrap_or(false), // 默认值 false
         }
     }

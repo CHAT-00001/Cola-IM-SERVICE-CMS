@@ -14,7 +14,6 @@ use repository::user::pg::follow::add::UserFollowAddRepo;
 pub struct FollowService;
 
 impl FollowService {
-
     ////////
 
     /// # 1. [SERVICE] - 关注用户
@@ -25,7 +24,11 @@ impl FollowService {
             .await
             .map_err(|e| anyhow!("[FOLLOW SERVICE]: 保存关注记录失败: {}", e))?;
 
-        tracing::info!("[FOLLOW SERVICE]: 关注成功, uid={}, target_id={}", uid, target_id);
+        tracing::info!(
+            "[FOLLOW SERVICE]: 关注成功, uid={}, target_id={}",
+            uid,
+            target_id
+        );
         Ok(rows)
     }
 
@@ -39,7 +42,11 @@ impl FollowService {
             .await
             .map_err(|e| anyhow!("[FOLLOW SERVICE]: 取消关注失败: {}", e))?;
 
-        tracing::info!("[FOLLOW SERVICE]: 取消关注成功, uid={}, target_id={}", uid, target_id);
+        tracing::info!(
+            "[FOLLOW SERVICE]: 取消关注成功, uid={}, target_id={}",
+            uid,
+            target_id
+        );
         Ok(rows)
     }
 
@@ -52,7 +59,11 @@ impl FollowService {
             .await
             .map_err(|e| anyhow!("[FOLLOW SERVICE]: 查询关注列表失败: {}", e))?;
 
-        tracing::info!("[FOLLOW SERVICE]: 关注列表查询成功, uid={}, count={}", uid, ids.len());
+        tracing::info!(
+            "[FOLLOW SERVICE]: 关注列表查询成功, uid={}, count={}",
+            uid,
+            ids.len()
+        );
         Ok(ids)
     }
 
@@ -65,7 +76,11 @@ impl FollowService {
             .await
             .map_err(|e| anyhow!("[FOLLOW SERVICE]: 查询粉丝列表失败: {}", e))?;
 
-        tracing::info!("[FOLLOW SERVICE]: 粉丝列表查询成功, user_id={}, count={}", user_id, ids.len());
+        tracing::info!(
+            "[FOLLOW SERVICE]: 粉丝列表查询成功, user_id={}, count={}",
+            user_id,
+            ids.len()
+        );
         Ok(ids)
     }
 }

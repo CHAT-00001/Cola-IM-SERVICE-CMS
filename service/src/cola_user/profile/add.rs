@@ -16,7 +16,6 @@ use repository::user::pg::profile::add::ProfileAddRepo;
 pub struct ProfileAddService;
 
 impl ProfileAddService {
-
     ////////
 
     /// # 1. [SERVICE] - 创建/更新资料名片
@@ -42,7 +41,10 @@ impl ProfileAddService {
             upd_time: 0,
         };
 
-        tracing::info!("[🗣️ PROFILE SERVICE]: ✅️ 资料名片保存成功, user_id={}", cmd.user_id);
+        tracing::info!(
+            "[🗣️ PROFILE SERVICE]: ✅️ 资料名片保存成功, user_id={}",
+            cmd.user_id
+        );
         Ok(info)
     }
 
@@ -72,11 +74,17 @@ impl ProfileAddService {
                     add_time: e.create_time,
                     upd_time: e.create_time,
                 };
-                tracing::info!("[🗣️ PROFILE SERVICE]: ✅️ 查询资料名片成功, user_id={}", user_id);
+                tracing::info!(
+                    "[🗣️ PROFILE SERVICE]: ✅️ 查询资料名片成功, user_id={}",
+                    user_id
+                );
                 Ok(Some(info))
             }
             None => {
-                tracing::info!("[🗣️ PROFILE SERVICE]: ✅️ 资料名片不存在, user_id={}", user_id);
+                tracing::info!(
+                    "[🗣️ PROFILE SERVICE]: ✅️ 资料名片不存在, user_id={}",
+                    user_id
+                );
                 Ok(None)
             }
         }

@@ -20,17 +20,30 @@ pub trait UserCategoryAddPort: Send + Sync + 'static {
 
     /// # [PORT] - 发布
     // 💡 假设 cmd 是你的命令结构体，请根据实际名称替换，例如 UserCategoryCommand
-    async fn add_new_one(&self, uid: i64, cmd: UserCategoryCommand) -> anyhow::Result<UserCategoryInfo>;
+    async fn add_new_one(
+        &self,
+        uid: i64,
+        cmd: UserCategoryCommand,
+    ) -> anyhow::Result<UserCategoryInfo>;
 
     ////////
 
     /// # [PORT] - 编辑
-    async fn add_edit_one(&self, uid: i64, cmd: UserCategoryCommand) -> anyhow::Result<UserCategoryInfo>;
+    async fn add_edit_one(
+        &self,
+        uid: i64,
+        cmd: UserCategoryCommand,
+    ) -> anyhow::Result<UserCategoryInfo>;
 
     ////////
 
     /// # [PORT] - 获取
-    async fn get_new_list(&self, uid: i64, limit: i64, offset: i64) -> anyhow::Result<Vec<UserCategoryInfo>>;
+    async fn get_new_list(
+        &self,
+        uid: i64,
+        limit: i64,
+        offset: i64,
+    ) -> anyhow::Result<Vec<UserCategoryInfo>>;
 
     ////////
 

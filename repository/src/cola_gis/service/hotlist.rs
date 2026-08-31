@@ -1,3 +1,2 @@
-﻿pub struct HotlistService;
+pub struct HotlistService;
 impl HotlistService {}
-

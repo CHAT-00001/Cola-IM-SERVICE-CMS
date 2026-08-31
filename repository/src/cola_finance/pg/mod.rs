@@ -4,4 +4,5 @@
 
 ////////
 
-mod pay_repo;
+pub mod pay_repo;
+pub mod point_repo;

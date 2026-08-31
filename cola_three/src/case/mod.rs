@@ -1,4 +1,4 @@
-// cola_three/src/case/mod.rs  -- 第三方 - 用例 - mod
+// cola_three/src/case/music.rs  -- 第三方 - 用例 - music
 // 2026/6/18 16:01
 
 ////////

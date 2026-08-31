@@ -6,8 +6,8 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use port::market::express::stat::ExpressStatPort;
 use port::cola_video::video::stat::VideoStatPort;
+use port::market::express::stat::ExpressStatPort;
 
 ////////
 

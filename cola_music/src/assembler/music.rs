@@ -1,4 +1,4 @@
-// cola_music/src/assembler/cola_music.rs  --
+// music/src/assembler/music.rs  --
 // 🎶 可乐音乐 - 组装 - 音乐响应体
 // 2026-07-08 12:10 Created.
 
@@ -6,8 +6,8 @@
 
 use anyhow::Result;
 use cola_data::app::page::PageInfo;
-use cola_data::cola_music::info::music::MusicInfo;
-use cola_data::cola_music::vo::music_vo::{MusicListResponse, MusicSingleResponse, MusicVo};
+use cola_data::music::info::music::MusicInfo;
+use cola_data::music::vo::music::{MusicListResponse, MusicSingleResponse, MusicVo};
 use cola_data::cola_user::info::user::UserInfo;
 use service::cola_user::user::active::UserService;
 use std::collections::HashMap;

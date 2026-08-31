@@ -23,9 +23,9 @@ pub struct VideoReport {
 /// # ENTITY - 视频举报分类
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct VideoReportClassify {
-    pub id: i16, // 举报类型 ID
-    pub list_order: i32, // 列表排序
-    pub name: String, // 举报类型名称
+    pub id: i16,             // 举报类型 ID
+    pub list_order: i32,     // 列表排序
+    pub name: String,        // 举报类型名称
     pub create_time: String, // 创建时间
     pub update_time: String, // 更新时间
 }

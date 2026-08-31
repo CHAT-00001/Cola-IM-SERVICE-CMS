@@ -43,7 +43,12 @@ impl UserRoleListPort for UserRoleListAdapter {
         todo!()
     }
 
-    async fn get_list_by_user_id(&self, _user_id: i64, _offset: i64, _limit: i64) -> anyhow::Result<(Vec<i64>)> {
+    async fn get_list_by_user_id(
+        &self,
+        _user_id: i64,
+        _offset: i64,
+        _limit: i64,
+    ) -> anyhow::Result<(Vec<i64>)> {
         todo!()
     }
 

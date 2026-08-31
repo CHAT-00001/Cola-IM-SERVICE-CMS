@@ -79,8 +79,6 @@ impl UserBlackManageRepo {
     }
 
     ////////
-
-
 }
 
 //////// END

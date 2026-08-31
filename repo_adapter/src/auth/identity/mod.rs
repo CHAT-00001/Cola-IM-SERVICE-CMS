@@ -1,5 +1,5 @@
-// repo_adapter/src/auth/file/mod.rs
-// 🔌 适配器 - AUTH - 身份识别 - mod
+// repo_adapter/src/auth/file/music.rs
+// 🔌 适配器 - AUTH - 身份识别 - music
 // 2026/8/8 Created.
 
 ////////
@@ -16,7 +16,8 @@ pub mod del; // 删除
 pub mod get; // 获取
 pub mod list; // 列表
 pub mod manage; // 管理
-pub mod stat; // 统计
+pub mod phone;
+pub mod stat; // 统计 // 手机身份
 
 ////////
 

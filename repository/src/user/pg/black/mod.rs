@@ -1,5 +1,5 @@
 // repository/src/user/pg/black/mod.rs
-// 仓储 - 可乐用户 - pg - black - mod
+// 仓储 - 可乐用户 - pg - black - music
 // 2026/8/3 01:15 Created.
 
 ////////

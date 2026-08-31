@@ -3,9 +3,9 @@
 
 ////////
 
-use serde::Serialize;
 use crate::auth::info::sign_type::SignTypeInfo;
 use crate::cola_user::info::user::UserInfo;
+use serde::Serialize;
 
 ////////
 

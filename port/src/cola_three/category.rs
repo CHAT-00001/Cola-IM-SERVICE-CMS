@@ -13,7 +13,6 @@ use cola_data::cola_three::info::server_type::ServerTypeInfo;
 /// * `desc`: `用于创建/管理第三方服务的分类（有哪些服务分类）`
 #[async_trait::async_trait]
 pub trait TypePort: Send + Sync {
-
     /// 新增/更新服务分类
     async fn upsert(&self, cmd: ThreeServerTypeCommand) -> anyhow::Result<ServerTypeInfo>;
 

@@ -29,7 +29,6 @@ pub struct GiftExpressionEntity {
     pub updated_at: DateTime<Utc>, // 更新时间 - 人类
 }
 
-
 /// # 1. 统一的设备查询字段 (1:1 严格对齐结构体，干净、便于 SQLx 查询复用)
 pub const GIFT_EXPRESSION_COLUMNS: &str = r#"
     id, user_id, classify_id, name, name_en, is_banned, is_active,

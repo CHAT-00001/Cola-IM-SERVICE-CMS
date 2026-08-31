@@ -38,8 +38,6 @@ pub struct AdminPageInfo {
     pub has_more: bool, // 是否还有下一页
 }
 
-
-
 /// # [RESPONSE] - 列表响应 (保持泛型)
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct ListResponse<T> {

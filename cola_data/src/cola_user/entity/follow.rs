@@ -1,5 +1,4 @@
-// cola_data/src/user/entity/follow.rs
-// 可乐数据中心 - USER - entity - 用户 关注表
+// cola_data/src/user/entity/follow.rs -- 数据 - USER - entity - 关注记录表
 // 2026/6/18 10:04 Created.
 
 ////////
@@ -10,8 +9,8 @@ use sqlx::FromRow;
 
 ////////
 
-/// # [ENTITY] - 用户 - 关注表
-/// * `pg schema`: `user`
+/// # [ENTITY] - 用户中心 - 关注记录表
+/// * `pg schema`: `cola_user`
 /// * `table name`: `follow`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct UserFollowEntity {

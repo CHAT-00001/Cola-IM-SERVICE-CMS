@@ -1,5 +1,5 @@
 // repo_adapter/src/auth/session/mod.rs
-// 🔌 适配器 - AUTH - SESSION - mod
+// 🔌 适配器 - AUTH - SESSION - music
 // 2026/8/8 Created.
 
 ////////

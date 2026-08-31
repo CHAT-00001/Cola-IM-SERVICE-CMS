@@ -4,8 +4,8 @@
 
 ////////
 
-use crate::assembler::comment::{build_comment_list_response};
-use crate::model::vo::comment::{CommentListResponse};
+use crate::assembler::comment::build_comment_list_response;
+use crate::model::vo::comment::CommentListResponse;
 use anyhow::Result;
 use cola_data::app::request::ApiUrlParamsQuery;
 
@@ -24,7 +24,7 @@ impl CommentListCase {
     ////////
 
     /// # 2. [CASE] - 最新
-    pub async fn case_new_list (
+    pub async fn case_new_list(
         uid: i64,
         video_id: i64,
         query: ApiUrlParamsQuery,
@@ -46,7 +46,7 @@ impl CommentListCase {
             query.qty.unwrap_or(10),
             current_page_total,
         )
-            .await?;
+        .await?;
 
         Ok(response)
     }
@@ -76,11 +76,10 @@ impl CommentListCase {
             query.qty.unwrap_or(10),
             current_page_total,
         )
-            .await?;
+        .await?;
 
         Ok(response)
     }
-
 }
 
 //////// END

@@ -1,4 +1,4 @@
-﻿// service/src/cola_gis/permission/check.rs
+// service/src/cola_gis/permission/check.rs
 // 服务 - GIS - 权限 - 模块
 // 2026/7/6
 

@@ -19,7 +19,7 @@ pub struct CateSingleResponse {
 #[derive(Debug, Serialize)]
 pub struct CateListResponse {
     pub list: Vec<CategoryVo>, // 分类视图模型
-    pub page_info: PageInfo,        // 分页
+    pub page_info: PageInfo,   // 分页
 }
 
 // 构造实现

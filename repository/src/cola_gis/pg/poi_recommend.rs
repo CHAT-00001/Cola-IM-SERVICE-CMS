@@ -1,4 +1,4 @@
-﻿// repository/src/cola_gis/pg/recommend.rs  -- 仓储 - GIS - pg - 推荐
+// repository/src/cola_gis/pg/hotlist.rs  -- 仓储 - GIS - pg - 推荐
 // 2026/7/6 14:10
 
 ////////
@@ -9,7 +9,6 @@ use sqlx;
 
 ////////
 
-
 /// # [RECOMMEND REPOSITORY] - 推荐 仓储
 pub struct RecommendRepository;
 
@@ -19,7 +18,11 @@ impl RecommendRepository {
     ////////
 
     /// # 1. [REPOSITORY] - 保存
-    pub async fn save_recommend_record(uid: i64, gis_id: i64, cmd: &PoiRecommendCommand) -> Result<u64, sqlx::Error> {
+    pub async fn save_recommend_record(
+        uid: i64,
+        gis_id: i64,
+        cmd: &PoiRecommendCommand,
+    ) -> Result<u64, sqlx::Error> {
         let pool = pg_pool();
         let now = chrono::Utc::now();
         let query = "
@@ -27,9 +30,13 @@ impl RecommendRepository {
             VALUES ($1, $2, $3, $4, $5)
             ON CONFLICT (user_id, gis_id) DO NOTHING";
         let result = sqlx::query(query)
-            .bind(uid).bind(gis_id).bind(&cmd.remark)
-            .bind(now.timestamp()).bind(now.naive_utc())
-            .execute(&pool).await?;
+            .bind(uid)
+            .bind(gis_id)
+            .bind(&cmd.remark)
+            .bind(now.timestamp())
+            .bind(now.naive_utc())
+            .execute(&pool)
+            .await?;
         Ok(result.rows_affected())
     }
 }

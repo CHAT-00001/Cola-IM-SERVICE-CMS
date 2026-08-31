@@ -3,13 +3,13 @@
 
 ////////
 
+use crate::assembler::poi::build_poi_single_response;
+use crate::model::vo::poi::PoiSingleResponse;
 use anyhow::{Context, Result};
-use tracing::info;
 use cola_data::cola_fs::rick_check;
 use cola_data::cola_gis::command::poi::PoiCommand;
 use repository::cola_gis::service::poi_add::PoiAddService;
-use crate::assembler::poi::build_poi_single_response;
-use crate::model::vo::poi::PoiSingleResponse;
+use tracing::info;
 
 ////////
 
@@ -18,11 +18,13 @@ pub struct PoiAddCase;
 
 // 构造实现
 impl PoiAddCase {
-
     ////////
 
     /// # 1. [CASE] - 发布
-    pub async fn case_add_publish(uid: i64, cmd: PoiCommand) -> Result<PoiSingleResponse, anyhow::Error> {
+    pub async fn case_add_publish(
+        uid: i64,
+        cmd: PoiCommand,
+    ) -> Result<PoiSingleResponse, anyhow::Error> {
         // 1. 内容风控（标题 + 简介 联合过滤）
         let check_text = format!("{} {:?}", cmd.title, cmd.description);
 
@@ -45,7 +47,10 @@ impl PoiAddCase {
     ////////
 
     /// # 2. [CASE] - 编辑
-    pub async fn case_edit_publish(uid: i64, cmd: PoiCommand) -> Result<PoiSingleResponse, anyhow::Error> {
+    pub async fn case_edit_publish(
+        uid: i64,
+        cmd: PoiCommand,
+    ) -> Result<PoiSingleResponse, anyhow::Error> {
         // 1. 内容风控（标题 + 简介 联合过滤）
         let check_text = format!("{} {:?}", cmd.title, cmd.description);
 

@@ -9,9 +9,9 @@ use cola_data::cola_fs::rick_check;
 use cola_data::cola_user::command::user::update::UpdateUserCommand;
 use cola_data::cola_user::info::role::RoleInfo;
 use cola_data::cola_user::info::user::UserInfo;
+use port::app::ctx::AppContext;
 use service::cola_user::role::manage::RoleManageService;
 use tracing::info;
-use port::app::ctx::AppContext;
 ////////
 
 /// # [MANAGE CASE] - 管理
@@ -166,7 +166,6 @@ impl UserRoleManageCase {
         mut cmd: UpdateUserCommand,
         ctx: AppContext,
     ) -> Result<UserInfo, anyhow::Error> {
-
         // 1. 内容风控（标题 + 简介 联合过滤）
         let check_text = format!("{:?} {:?}", cmd.nickname, cmd.signature);
 

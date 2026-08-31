@@ -1,5 +1,4 @@
-// repo_adapter/src/market/cate/mod.rs
-// 🔌 适配器 - MARKET - 商品分类 - mod
+// repo_adapter/src/market/cate/mod.rs -- 适配器 - MARKET - 商品分类 - mod
 // 2026/8/10 20:00 Updated.
 
 ////////

@@ -59,7 +59,12 @@ impl ChatRepo for ChatPortAdapter {
     ////////
 
     /// # [ADAPTER] - 同步聊天列表
-    async fn sync_chats(&self, _uid: i64, _offset: i64, _limit: i64) -> anyhow::Result<Vec<ChatInfo>> {
+    async fn sync_chats(
+        &self,
+        _uid: i64,
+        _offset: i64,
+        _limit: i64,
+    ) -> anyhow::Result<Vec<ChatInfo>> {
         Ok(vec![])
     }
 }

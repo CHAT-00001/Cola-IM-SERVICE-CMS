@@ -1,4 +1,4 @@
-﻿// service/src/cola_gis/like.rs
+// service/src/cola_gis/like.rs
 // 服务 - GIS - 点赞 - 模块
 
 ////////
@@ -42,11 +42,7 @@ impl GisLikeService {
         Ok(true)
     }
 
-    pub async fn get_user_like_ids(
-        user_id: i64,
-        offset: i64,
-        limit: i64,
-    ) -> Result<Vec<i64>> {
+    pub async fn get_user_like_ids(user_id: i64, offset: i64, limit: i64) -> Result<Vec<i64>> {
         let ids = LikeRepo::find_like_record_by_user_id(user_id, limit, offset)
             .await
             .map_err(|e| anyhow::anyhow!("获取用户点赞ID列表失败: {}", e))?;

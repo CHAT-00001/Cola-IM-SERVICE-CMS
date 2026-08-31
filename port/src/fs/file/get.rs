@@ -16,26 +16,17 @@ pub trait FileGetPort: Send + Sync {
     ////////
 
     /// # 1. [PORT] - 按 ID 获取文件
-    async fn get_file_by_id(
-        &self,
-        file_id: i64,
-    ) -> Result<Option<FsFileEntity>>;
+    async fn get_file_by_id(&self, file_id: i64) -> Result<Option<FsFileEntity>>;
 
     ////////
 
     /// # 2. [PORT] - 按 Object Key 获取文件
-    async fn get_file_by_object_key(
-        &self,
-        object_key: String,
-    ) -> Result<Option<FsFileEntity>>;
+    async fn get_file_by_object_key(&self, object_key: String) -> Result<Option<FsFileEntity>>;
 
     ////////
 
     /// # 3. [PORT] - 批量按 ID 获取文件
-    async fn batch_get_files(
-        &self,
-        file_ids: Vec<i64>,
-    ) -> Result<Vec<FsFileEntity>>;
+    async fn batch_get_files(&self, file_ids: Vec<i64>) -> Result<Vec<FsFileEntity>>;
 }
 
 //////// END

@@ -6,10 +6,10 @@ use serde::{Deserialize, Serialize};
 /// # [COMMAND] - 服务类型 命令
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct ThreeServerTypeCommand {
-    pub code: String,      // 代码
-    pub name: String,      // 中文名
-    pub sort: i16,         // 排序
-    pub status: i16,       // 1启用 0禁用
+    pub code: String, // 代码
+    pub name: String, // 中文名
+    pub sort: i16,    // 排序
+    pub status: i16,  // 1启用 0禁用
 }
 
 /// # [COMMAND] - 服务类型 分页查询

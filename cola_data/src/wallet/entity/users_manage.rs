@@ -1,16 +1,19 @@
-// entity/users_manage.rs  --
-// 2026/6/26 01:35
+// cola_data/src/wallet/entity/users_manage.rs
+// ✅ WALLET - 钱包用户/KYC管理实体
+// 2026/8/20  Created.
 
 ////////
 
 use chrono::{DateTime, Utc};
+use rust_decimal::Decimal;
 use serde::{Deserialize, Serialize};
 use sqlx::{FromRow, types::JsonValue};
 
 ////////
 
 /// # [ENTITY] - 钱包用户管理
-/// * `table_name`: `wallet_user_manage`
+/// * `pg schema`: `cola_wallet` - PG 模式
+/// * `table_name`: `wallet_users_manage`
 #[derive(Debug, FromRow, Serialize, Deserialize)]
 pub struct WalletUserManage {
     pub id: i64,                // BIGSERIAL 主键
@@ -39,11 +42,11 @@ pub struct WalletUserManage {
     pub status: i16,                   // 状态：0-冻结 1-正常 2-注销
     pub freeze_reason: Option<String>, // 冻结原因
 
-    pub daily_limit: i64,   // 单日限额（0=不限，单位：分）
-    pub single_limit: i64,  // 单笔限额（0=不限，单位：分）
-    pub monthly_limit: i64, // 单月限额（0=不限，单位：分）
-    pub today_used: i64,    // 今日已用额度
-    pub month_used: i64,    // 本月已用额度
+    pub daily_limit: Decimal,   // 单日限额（0=不限）
+    pub single_limit: Decimal,  // 单笔限额（0=不限）
+    pub monthly_limit: Decimal, // 单月限额（0=不限）
+    pub today_used: Decimal,    // 今日已用额度
+    pub month_used: Decimal,    // 本月已用额度
 
     pub last_transfer_at: Option<DateTime<Utc>>, // 最近一次转账时间
     pub last_login_ip: Option<String>,           // 最后登录IP

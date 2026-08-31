@@ -11,7 +11,7 @@ use anyhow::Result;
 /// # [ADAPTER] - 添加朋友(或更新存在关系)
 pub async fn upsert_friend(
     _uid: i64, // 操作者ID
-    _id: i64, // 目标用户ID
+    _id: i64,  // 目标用户ID
 ) -> Result<()> {
     // 🚧 TODO: 对接 FriendService
     Ok(())
@@ -20,7 +20,7 @@ pub async fn upsert_friend(
 /// # [ADAPTER] - 移除朋友
 pub async fn del_friend(
     _uid: i64, // 操作者ID
-    _id: i64, // 目标用户ID
+    _id: i64,  // 目标用户ID
 ) -> Result<()> {
     // 🚧 TODO: 对接 FriendService
     Ok(())

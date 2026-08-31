@@ -29,8 +29,8 @@ impl IdentityAddRepo {
     pub async fn save_identity_by_uid(
         uid: i64,
         cmd: VideoNewCommand,
-        real_video_id: i64,       // 👈 1. 外部注入真实的视频ID（如雪花ID）
-        visibility_perm: i16,     // 👈 2. 接收风控计算后的可见性权限（若没有可直接用 cmd 里的）
+        real_video_id: i64,   // 👈 1. 外部注入真实的视频ID（如雪花ID）
+        visibility_perm: i16, // 👈 2. 接收风控计算后的可见性权限（若没有可直接用 cmd 里的）
     ) -> Result<VideoEntity, sqlx::Error> {
         let pool = pg_pool();
 
@@ -61,37 +61,37 @@ impl IdentityAddRepo {
         );
 
         sqlx::query_as::<_, VideoEntity>(&query)
-            .bind(entity.id)              // $1: id (real_video_id)
-            .bind(entity.uid)             // $2: uid
-            .bind(entity.music_id)        // $3: music_id
-            .bind(entity.title)           // $4: title
-            .bind(entity.description)     // $5: description
-            .bind(entity.thumbnail)       // $6: thumbnail (cover_url)
-            .bind(entity.thumb)           // $7: thumb
-            .bind(entity.href)            // $8: href
-            .bind(entity.is_4k)           // $9: is_4k
-            .bind(entity.views)           // $10: views (默认1)
-            .bind(entity.done_views)      // $11: done_views
-            .bind(entity.likes)           // $12: likes
-            .bind(entity.dislike)         // $13: dislike
-            .bind(entity.comments)        // $14: comments
-            .bind(entity.danmakus)        // $15: danmakus
-            .bind(entity.steps)           // $16: steps
-            .bind(entity.collects)        // $17: collects
-            .bind(entity.shares)          // $18: shares
-            .bind(entity.recommends)      // $19: recommends
-            .bind(entity.width)           // $20: width
-            .bind(entity.height)          // $21: height
-            .bind(entity.bit)             // $22: bit
-            .bind(entity.addtime)         // $23: addtime (秒级时间戳)
-            .bind(entity.lat)             // $24: lat
-            .bind(entity.lng)             // $25: lng
+            .bind(entity.id) // $1: id (real_video_id)
+            .bind(entity.uid) // $2: uid
+            .bind(entity.music_id) // $3: music_id
+            .bind(entity.title) // $4: title
+            .bind(entity.description) // $5: description
+            .bind(entity.thumbnail) // $6: thumbnail (cover_url)
+            .bind(entity.thumb) // $7: thumb
+            .bind(entity.href) // $8: href
+            .bind(entity.is_4k) // $9: is_4k
+            .bind(entity.views) // $10: views (默认1)
+            .bind(entity.done_views) // $11: done_views
+            .bind(entity.likes) // $12: likes
+            .bind(entity.dislike) // $13: dislike
+            .bind(entity.comments) // $14: comments
+            .bind(entity.danmakus) // $15: danmakus
+            .bind(entity.steps) // $16: steps
+            .bind(entity.collects) // $17: collects
+            .bind(entity.shares) // $18: shares
+            .bind(entity.recommends) // $19: recommends
+            .bind(entity.width) // $20: width
+            .bind(entity.height) // $21: height
+            .bind(entity.bit) // $22: bit
+            .bind(entity.addtime) // $23: addtime (秒级时间戳)
+            .bind(entity.lat) // $24: lat
+            .bind(entity.lng) // $25: lng
             .bind(entity.visibility_perm) // $26: visibility_perm
-            .bind(entity.comment_perm)    // $27: comment_perm
-            .bind(entity.danmaku_perm)    // $28: danmaku_perm
-            .bind(entity.collect_perm)    // $29: collect_perm
-            .bind(entity.download_perm)   // $30: download_perm
-            .bind(entity.sync_at)         // $31: sync_at
+            .bind(entity.comment_perm) // $27: comment_perm
+            .bind(entity.danmaku_perm) // $28: danmaku_perm
+            .bind(entity.collect_perm) // $29: collect_perm
+            .bind(entity.download_perm) // $30: download_perm
+            .bind(entity.sync_at) // $31: sync_at
             .fetch_one(&pool)
             .await
     }

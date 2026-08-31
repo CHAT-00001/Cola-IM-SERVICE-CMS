@@ -1,5 +1,4 @@
-// data/src/user/command/mod.rs
-// 数据 - 用户 - Command - mod
+// data/src/user/command/music.rs -- 数据 - USER - Command - music
 // 2026/5/22 16:34
 
 ////////

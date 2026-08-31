@@ -10,8 +10,7 @@ use cola_data::cola_user::info::config::UserConfigInfo;
 ////////
 
 /// # [ADAPTER] - 获取朋友配置
-pub async fn get_config(
-    _user_id: i64, // 用户ID
+pub async fn get_config(_user_id: i64, // 用户ID
 ) -> Result<UserConfigInfo> {
     // 🚧 TODO: 对接 FriendService
     Err(anyhow::anyhow!("not implemented"))

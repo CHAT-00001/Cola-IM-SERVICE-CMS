@@ -5,10 +5,10 @@
 ////////
 
 use async_trait::async_trait;
-use rust_decimal::Decimal;
 use cola_data::market::info::goods::goods::GoodsInfo;
 use port::market::goods::feed::GoodsFeedPort;
-use repository::cola_market::pg::goods::feed::GoodsFeedRepo;
+use repository::market::pg::goods::feed::GoodsFeedRepo;
+use rust_decimal::Decimal;
 
 ////////
 
@@ -21,7 +21,12 @@ impl GoodsFeedPort for GoodsFeedAdapter {
 
     ////////
 
-    async fn feed_recommend(&self, _uid: i64, offset: i64, limit: i64) -> anyhow::Result<Vec<GoodsInfo>> {
+    async fn feed_recommend(
+        &self,
+        _uid: i64,
+        offset: i64,
+        limit: i64,
+    ) -> anyhow::Result<Vec<GoodsInfo>> {
         let entities = GoodsFeedRepo::find_recommend(offset, limit).await?;
         Ok(entities.into_iter().map(GoodsInfo::from).collect())
     }
@@ -36,17 +41,35 @@ impl GoodsFeedPort for GoodsFeedAdapter {
         offset: i64,
         limit: i64,
     ) -> anyhow::Result<Vec<GoodsInfo>> {
-        let entities = GoodsFeedRepo::find_by_category(one_class_id, two_class_id, three_class_id, offset, limit).await?;
+        let entities = GoodsFeedRepo::find_by_category(
+            one_class_id,
+            two_class_id,
+            three_class_id,
+            offset,
+            limit,
+        )
+        .await?;
         Ok(entities.into_iter().map(GoodsInfo::from).collect())
     }
 
-    async fn change_nearby(&self, _lat: f64, _lng: f64, _offset: i64, _limit: i64) -> anyhow::Result<()> {
+    async fn change_nearby(
+        &self,
+        _lat: f64,
+        _lng: f64,
+        _offset: i64,
+        _limit: i64,
+    ) -> anyhow::Result<()> {
         Err(anyhow::anyhow!("not implemented"))
     }
 
     ////////
 
-    async fn delete_city(&self, _city_id: i64, _offset: i64, _limit: i64) -> anyhow::Result<Vec<GoodsInfo>> {
+    async fn delete_city(
+        &self,
+        _city_id: i64,
+        _offset: i64,
+        _limit: i64,
+    ) -> anyhow::Result<Vec<GoodsInfo>> {
         Err(anyhow::anyhow!("not implemented"))
     }
 

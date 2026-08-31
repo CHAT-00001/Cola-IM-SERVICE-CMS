@@ -1,5 +1,5 @@
-// /mod.rs
-// 
+// /music.rs
+//
 // 2026/8/5 15:53 Created.
 
 ////////
@@ -11,9 +11,9 @@
 ////////
 
 mod add;
+mod check;
 mod del;
 mod get;
-mod stat;
-mod check;
 mod list;
 mod manage;
+mod stat;

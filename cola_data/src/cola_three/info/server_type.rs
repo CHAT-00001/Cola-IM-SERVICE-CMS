@@ -3,8 +3,8 @@
 
 ////////
 
-use serde::{Deserialize, Serialize};
 use crate::cola_three::entity::server_type::ThreeServerTypeEntity;
+use serde::{Deserialize, Serialize};
 
 ////////
 
@@ -22,7 +22,6 @@ pub struct ServerTypeInfo {
 // 构造实现
 
 impl From<ThreeServerTypeEntity> for ServerTypeInfo {
-
     // # [CASE] - 实体转换
     fn from(e: ThreeServerTypeEntity) -> Self {
         Self {

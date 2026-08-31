@@ -18,18 +18,12 @@ pub trait MediaGetPort: Send + Sync {
     ////////
 
     /// # 1. [PORT] - 按 ID 获取媒体
-    async fn get_media_by_id(
-        &self,
-        media_id: i64,
-    ) -> Result<Option<MediaEntity>>;
+    async fn get_media_by_id(&self, media_id: i64) -> Result<Option<MediaEntity>>;
 
     ////////
 
     /// # 2. [PORT] - 批量按 ID 获取媒体
-    async fn batch_get_medias(
-        &self,
-        media_ids: Vec<i64>,
-    ) -> Result<Vec<MediaEntity>>;
+    async fn batch_get_medias(&self, media_ids: Vec<i64>) -> Result<Vec<MediaEntity>>;
 }
 
 //////// END

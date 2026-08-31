@@ -1,4 +1,4 @@
-// port/src/cola_dynamic/recommend/del.rs
+// port/src/cola_dynamic/hotlist/del.rs
 // ⏩️ 端口 - ⏹ 可乐动态 - 推荐 - 删除
 // 2026/8/5 01:56 Created.
 
@@ -18,9 +18,9 @@ pub trait DynamicRecommendDelPort: Send + Sync {
     /// * `desc`: `⏹ 可乐动态` - `根据ID单个软删除推荐记录`
     async fn single_soft_del_record(
         &self,
-        uid: i64,      // UID
-        dynamic_id: i64, // 动态 ID
-        recommend_id_id: i64,  // 推荐 ID
+        uid: i64,             // UID
+        dynamic_id: i64,      // 动态 ID
+        recommend_id_id: i64, // 推荐 ID
     ) -> anyhow::Result<(u16)>;
 
     ////////
@@ -29,8 +29,8 @@ pub trait DynamicRecommendDelPort: Send + Sync {
     /// * `desc`: `⏹ 可乐动态` - `根据IDs批量软删除推荐记录`
     async fn batch_soft_del_record(
         &self,
-        uid: i64,           // UID
-        dynamic_id: i64,      // 动态 ID
+        uid: i64,                   // UID
+        dynamic_id: i64,            // 动态 ID
         recommend_id_ids: Vec<i64>, // 推荐 IDs
     ) -> anyhow::Result<(u16)>;
 

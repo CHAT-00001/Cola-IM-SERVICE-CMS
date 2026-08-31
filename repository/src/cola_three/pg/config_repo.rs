@@ -1,11 +1,10 @@
 // repository/src/cola_three/pg/config_repo.rs  -- 仓储 - THREE - 统一配置 PG（遗留兼容）
 // 2026/6/30
 
-
 ////////
 
-use cola_data::cola_three::entity::config::{ThreeConfigEntity, THREE_CONFIG_COLUMNS};
 use crate::pg_pool;
+use cola_data::cola_three::entity::config::{THREE_CONFIG_COLUMNS, ThreeConfigEntity};
 
 ////////
 
@@ -19,9 +18,17 @@ impl ConfigRepo {
 
     /// 1. #[REPOSITORY] - 插入
     pub async fn insert(
-        type_id: i64, vendor_id: i64, name: &str, bucket: &str,
-        access_key: &str, secret_key: &str, endpoint: &str, region: &str,
-        config_json: Option<&serde_json::Value>, remark: Option<&str>, status: i16,
+        type_id: i64,
+        vendor_id: i64,
+        name: &str,
+        bucket: &str,
+        access_key: &str,
+        secret_key: &str,
+        endpoint: &str,
+        region: &str,
+        config_json: Option<&serde_json::Value>,
+        remark: Option<&str>,
+        status: i16,
     ) -> Result<ThreeConfigEntity, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
@@ -31,9 +38,17 @@ impl ConfigRepo {
             THREE_CONFIG_COLUMNS
         );
         sqlx::query_as::<_, ThreeConfigEntity>(&query)
-            .bind(type_id).bind(vendor_id).bind(name).bind(bucket)
-            .bind(access_key).bind(secret_key).bind(endpoint).bind(region)
-            .bind(config_json).bind(remark).bind(status)
+            .bind(type_id)
+            .bind(vendor_id)
+            .bind(name)
+            .bind(bucket)
+            .bind(access_key)
+            .bind(secret_key)
+            .bind(endpoint)
+            .bind(region)
+            .bind(config_json)
+            .bind(remark)
+            .bind(status)
             .fetch_one(&pool)
             .await
     }
@@ -42,9 +57,18 @@ impl ConfigRepo {
 
     /// 2. #[REPOSITORY] - 更新
     pub async fn update(
-        id: i64, type_id: i64, vendor_id: i64, name: &str, bucket: &str,
-        access_key: &str, secret_key: &str, endpoint: &str, region: &str,
-        config_json: Option<&serde_json::Value>, remark: Option<&str>, status: i16,
+        id: i64,
+        type_id: i64,
+        vendor_id: i64,
+        name: &str,
+        bucket: &str,
+        access_key: &str,
+        secret_key: &str,
+        endpoint: &str,
+        region: &str,
+        config_json: Option<&serde_json::Value>,
+        remark: Option<&str>,
+        status: i16,
     ) -> Result<ThreeConfigEntity, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
@@ -53,9 +77,18 @@ impl ConfigRepo {
             THREE_CONFIG_COLUMNS
         );
         sqlx::query_as::<_, ThreeConfigEntity>(&query)
-            .bind(type_id).bind(vendor_id).bind(name).bind(bucket)
-            .bind(access_key).bind(secret_key).bind(endpoint).bind(region)
-            .bind(config_json).bind(remark).bind(status).bind(id)
+            .bind(type_id)
+            .bind(vendor_id)
+            .bind(name)
+            .bind(bucket)
+            .bind(access_key)
+            .bind(secret_key)
+            .bind(endpoint)
+            .bind(region)
+            .bind(config_json)
+            .bind(remark)
+            .bind(status)
+            .bind(id)
             .fetch_one(&pool)
             .await
     }
@@ -93,7 +126,10 @@ impl ConfigRepo {
     ////////
 
     /// 5. #[REPOSITORY] - 按 biz_module + biz_type 查绑定配置（JOIN）
-    pub async fn find_binded(biz_module: &str, biz_type: &str) -> Result<Option<ThreeConfigEntity>, sqlx::Error> {
+    pub async fn find_binded(
+        biz_module: &str,
+        biz_type: &str,
+    ) -> Result<Option<ThreeConfigEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
             r#"SELECT c.{}

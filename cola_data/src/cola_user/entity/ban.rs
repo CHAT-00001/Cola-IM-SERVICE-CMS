@@ -1,5 +1,4 @@
-// cola_data/src/user/entity/ban.rs
-// 数据中心 - USER - entity - ban表
+// cola_data/src/user/entity/ban.rs -- 数据 - USER - entity - ban表
 // 2026/4/23 15:55
 
 ////////

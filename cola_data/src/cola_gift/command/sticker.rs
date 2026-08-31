@@ -25,12 +25,9 @@ pub struct GiftStickerCommand {
 
 // 构造实现
 impl GiftStickerCommand {
-
     // 1. ✅️ new 新建
 
-
     // 2. ❌️ empty 空
-
 
     // 3. ❗️ from 转换
 }

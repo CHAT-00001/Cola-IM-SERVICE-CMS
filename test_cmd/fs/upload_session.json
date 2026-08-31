@@ -1,0 +1,31 @@
+{
+    "service": "upload_session",
+    "auth": {
+        "access_token": "abc"
+    },
+    "cmd": {
+        "session_id": "us_video_xxx",
+        "app_id": "ugc-video",
+        "ugc_type": "video",
+        "bucket": "short-video-2026",
+        "expires_in": 600,
+        "files": [
+            {
+                "role": "cover",
+                "file_name": "cover.jpg",
+                "mime_type": "image/jpeg",
+                "file_size": 245760,
+                "object_key": "ugc-video/.../cover/xxx.jpg",
+                "upload_url": "https://..."
+            },
+            {
+                "role": "main",
+                "file_name": "video.mp4",
+                "mime_type": "video/mp4",
+                "file_size": 52428800,
+                "object_key": "ugc-video/.../main/xxx.mp4",
+                "upload_url": "https://..."
+            }
+        ]
+    }
+}

@@ -1,5 +1,5 @@
-// port/src/cola_dynamic/recommend/mod.rs
-// ⏩️ 端口 - 可乐动态 - 推荐 - mod
+// port/src/cola_dynamic/hotlist/mod.rs
+// ⏩️ 端口 - 可乐动态 - 推荐 - music
 // 2026/8/5 15:48 Created.
 
 ////////

@@ -4,6 +4,4 @@
 ////////
 
 /// # [INFO] - 商店 保证金 信息
-pub struct ShopBondInfo {
-
-}
+pub struct ShopBondInfo {}

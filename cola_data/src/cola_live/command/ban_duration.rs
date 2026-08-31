@@ -3,7 +3,7 @@
 
 ////////
 
-use crate::cola_live::entity::ban_duration::LiveStreamBanDurationEntity;
+use crate::cola_live::entity::anchor::ban_duration::LiveStreamBanDurationEntity;
 use chrono::Utc;
 use serde::{Deserialize, Serialize};
 
@@ -23,11 +23,11 @@ pub enum UserRole {
 /// * `desc` 风控后台管理系统添加封禁时长阶梯的选择项
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LiveBanDurationCommand {
-    pub name: String,         // 中文名称 (例如: "10分钟")
-    pub name_en: String,      // 英文名称 (例如: "10m")
-    pub duration: i64,        // 时长(秒)
-    pub is_admin: Option<i16>,// 是否管理员专属(默认0)
-    pub sort: Option<i16>,    // 排序(默认9999)
+    pub name: String,          // 中文名称 (例如: "10分钟")
+    pub name_en: String,       // 英文名称 (例如: "10m")
+    pub duration: i64,         // 时长(秒)
+    pub is_admin: Option<i16>, // 是否管理员专属(默认0)
+    pub sort: Option<i16>,     // 排序(默认9999)
 }
 
 ////////
@@ -35,10 +35,7 @@ pub struct LiveBanDurationCommand {
 /// # [BUILD] - 构造函数与实体映射
 impl LiveBanDurationCommand {
     /// 构造函数：校验管理员权限，并自动计算时长权限阈值与机器时间
-    pub fn new(
-        role: &UserRole,
-        cmd: Self,
-    ) -> Result<LiveStreamBanDurationEntity, String> {
+    pub fn new(role: &UserRole, cmd: Self) -> Result<LiveStreamBanDurationEntity, String> {
         // 1. 权限硬校验：配置系统核心字典表，必须是管理员
         if role != &UserRole::Admin {
             return Err("权限不足：只有系统管理员可以配置封禁时长字典表".to_string());

@@ -1,4 +1,4 @@
-// data/src/market/entity/comment.rs
+// data/src/market/entity/hotlist
 // 数据 - MARKET - entity - 商品评论表
 // 2026/8/14 09:22 Created.
 

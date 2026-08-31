@@ -1,5 +1,4 @@
-// repo_adapter/src/video/danmaku/add.rs
-// 🔌 适配器 - VIDEO - 弹幕 - 发布
+// repo_adapter/src/video/danmaku/add.rs -- 🔌 适配器 - VIDEO - 弹幕 - 发布
 // 2026/8/9 22:12 Created.
 
 ////////

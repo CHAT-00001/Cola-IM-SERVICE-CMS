@@ -29,7 +29,6 @@ impl UserProfileGetCase {
         offset: i64,
         ctx: AppContext,
     ) -> Result<Vec<UserInfo>, anyhow::Error> {
-
         // 1. 用户信息列表
         let user_info = ctx
             .user
@@ -47,7 +46,6 @@ impl UserProfileGetCase {
     }
 
     ////////
-
 
     /// # 4. [CASE] - 搜索
     pub async fn case_get_keyword_list(

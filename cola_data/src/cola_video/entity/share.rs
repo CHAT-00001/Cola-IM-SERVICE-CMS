@@ -1,5 +1,4 @@
-// cola_data/src/cola_video/entity/share.rs
-// 🗄️ 数据 - ▶ 可乐视频 - entity - 分享表
+// cola_data/src/cola_video/entity/share.rs -- 数据 - VIDEO - entity - 分享记录表
 // 2026/5/20 19:56
 
 ////////

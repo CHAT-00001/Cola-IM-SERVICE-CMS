@@ -21,4 +21,3 @@ pub fn build_stream_name(uid: i64, live_id: i64) -> String {
     // 3. 完美拼接
     format!("{}_{}_{}_{}", uid, live_id, time_str, uuid_short)
 }
-

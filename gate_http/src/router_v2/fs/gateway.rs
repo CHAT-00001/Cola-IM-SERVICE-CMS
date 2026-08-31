@@ -1,4 +1,4 @@
-﻿// gate_http/src/router_v2/fs/gateway.rs  -- HTTP - 可乐FS - 路由器与网关
+// gate_http/src/router_v2/fs/gateway.rs  -- HTTP - 可乐FS - 路由器与网关
 // 2026/5/25 06:49 by wx: cestbon10080
 
 ////////
@@ -10,10 +10,14 @@ use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::cola_fs::command::bucket::CreateBucketCmd;
 use cola_data::cola_fs::command::cdn::{CreateCdnDomainCmd, UpdateCdnDomainCmd};
+use cola_data::cola_fs::command::file::CreateFileCmd;
+use cola_data::cola_fs::command::media::BatchCreateMediaCmd;
+use cola_data::cola_fs::command::upload::CreateUploadSessionRequest;
 use cola_fs::api::bucket::BucketApi;
 use cola_fs::api::cdn::CdnApi;
 use cola_fs::api::file::FileApi;
 use cola_fs::api::media::MediaApi;
+use cola_fs::api::upload::FsUploadApi;
 use std::time::Instant;
 
 ////////
@@ -45,6 +49,18 @@ fn parse_create_bucket_cmd(body: &[u8]) -> Result<CreateBucketCmd, String> {
         .map_err(|error| format!("存储桶创建参数解析失败: {}", error))?;
     cmd.complete_defaults();
     Ok(cmd)
+}
+
+////////
+
+/// # [GATEWAY] - 解析通用上传会话命令
+/// * `desc`: `优先读取统一协议包装中的 cmd，Body 为主`
+fn parse_upload_session_cmd(body: &[u8]) -> Result<CreateUploadSessionRequest, String> {
+    let value: serde_json::Value = serde_json::from_slice(body)
+        .map_err(|error| format!("上传会话 JSON 解析失败: {}", error))?;
+    let command_value = value.get("cmd").cloned().unwrap_or(value);
+    serde_json::from_value(command_value)
+        .map_err(|error| format!("上传会话 cmd 参数解析失败: {}", error))
 }
 
 ////////
@@ -83,11 +99,9 @@ async fn fs_gateway(
     // 2. 业务路由分发（按 service/action 分发到 bucket, cdn, file, media）
     match service_name.as_str() {
         // -------- 存储桶 (Bucket) --------
-        "bucket_new" => {
-            BucketApi::api_get_bucket_list(api_req.clone(), &state.ctx)
-                .await
-                .finish(&req, start)
-        }
+        "bucket_new" => BucketApi::api_get_bucket_list(api_req.clone(), &state.ctx)
+            .await
+            .finish(&req, start),
         "bucket_get" => {
             let app_id = api_req.params.get("app_id").cloned().unwrap_or_default();
             BucketApi::api_get_bucket(app_id, &state.ctx)
@@ -199,12 +213,96 @@ async fn fs_gateway(
                 .finish(&req, start)
         }
         "file_add" => {
-            let cmd = if !body.is_empty() {
-                serde_json::from_slice::<CreateBucketCmd>(&body).unwrap_or_default()
-            } else {
-                CreateBucketCmd::default()
+            let cmd = match serde_json::from_slice::<CreateFileCmd>(&body) {
+                Ok(cmd) => cmd,
+                Err(error) => {
+                    return AppData::<()>::err(
+                        4001,
+                        format!("[🌐 GATEWAY]: ❌️ 文件创建参数解析失败: {}", error),
+                        None,
+                    )
+                    .finish(&req, start);
+                }
             };
-            FileApi::api_add_file(uid, cmd, &state.ctx)
+            FsUploadApi::api_create_temp_file(uid, cmd, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        "upload_session" => {
+            let cmd = match parse_upload_session_cmd(&body) {
+                Ok(cmd) => cmd,
+                Err(error) => {
+                    return AppData::<()>::err(
+                        4001,
+                        format!("[🌐 GATEWAY]: ❌️ 通用上传会话参数解析失败: {}", error),
+                        None,
+                    )
+                    .finish(&req, start);
+                }
+            };
+            FsUploadApi::api_create_upload_session(uid, cmd, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // -------- 通用 UGC 异步上传 --------
+        "upload_key" => {
+            let value: serde_json::Value = match serde_json::from_slice(&body) {
+                Ok(value) => value,
+                Err(error) => {
+                    return AppData::<()>::err(
+                        4001,
+                        format!("[🌐 GATEWAY]: ❌️ 上传凭证参数解析失败: {}", error),
+                        None,
+                    )
+                    .finish(&req, start);
+                }
+            };
+            let app_id = value
+                .get("app_id")
+                .and_then(serde_json::Value::as_str)
+                .or_else(|| api_req.params.get("app_id").map(String::as_str))
+                .unwrap_or_default()
+                .to_string();
+            let file_name = value
+                .get("file_name")
+                .and_then(serde_json::Value::as_str)
+                .unwrap_or_default()
+                .to_string();
+            FsUploadApi::api_get_upload_key(uid, app_id, file_name, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+        "file_create" => {
+            let cmd = match serde_json::from_slice::<CreateFileCmd>(&body) {
+                Ok(cmd) => cmd,
+                Err(error) => {
+                    return AppData::<()>::err(
+                        4001,
+                        format!("[🌐 GATEWAY]: ❌️ 临时文件参数解析失败: {}", error),
+                        None,
+                    )
+                    .finish(&req, start);
+                }
+            };
+            FsUploadApi::api_create_temp_file(uid, cmd, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+        "media_batch_create" => {
+            let cmd = match serde_json::from_slice::<BatchCreateMediaCmd>(&body) {
+                Ok(cmd) => cmd,
+                Err(error) => {
+                    return AppData::<()>::err(
+                        4001,
+                        format!("[🌐 GATEWAY]: ❌️ 批量媒体参数解析失败: {}", error),
+                        None,
+                    )
+                    .finish(&req, start);
+                }
+            };
+            FsUploadApi::api_batch_create_media(uid, cmd, &state.ctx)
                 .await
                 .finish(&req, start)
         }
@@ -217,12 +315,21 @@ async fn fs_gateway(
                 .finish(&req, start)
         }
         "media_add" => {
-            let cmd = if !body.is_empty() {
-                serde_json::from_slice::<CreateBucketCmd>(&body).unwrap_or_default()
-            } else {
-                CreateBucketCmd::default()
+            let cmd = match serde_json::from_slice::<
+                cola_data::cola_fs::command::media::CreateMediaCmd,
+            >(&body)
+            {
+                Ok(cmd) => cmd,
+                Err(error) => {
+                    return AppData::<()>::err(
+                        4001,
+                        format!("[🌐 GATEWAY]: ❌️ 媒体创建参数解析失败: {}", error),
+                        None,
+                    )
+                    .finish(&req, start);
+                }
             };
-            MediaApi::api_add_media(uid, cmd, &state.ctx)
+            FsUploadApi::api_create_media(uid, cmd, &state.ctx)
                 .await
                 .finish(&req, start)
         }

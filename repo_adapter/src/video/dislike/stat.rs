@@ -1,9 +1,7 @@
-// // repo_adapter/src/cola_video/dislike/stat.rs
-// 🔌 插头 - 可乐视频 - 不喜欢 - 获取
+// repo_adapter/src/video/dislike/stat.rs -- 🔌 插头 - VIDEO - 不喜欢 - 统计适配器
 // 2026/8/9 22:28 Created.
 
 ////////
-
 
 use anyhow::Result;
 use async_trait::async_trait;
@@ -18,7 +16,6 @@ pub struct VideoDislikeStatAdapter;
 
 #[async_trait]
 impl VideoDislikeStatPort for VideoDislikeStatAdapter {
-
     async fn stat_count_by_user_id(&self, uid: i64, user_id: i64) -> Result<(u64)> {
         todo!()
     }

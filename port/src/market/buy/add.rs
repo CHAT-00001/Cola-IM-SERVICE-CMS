@@ -20,5 +20,4 @@ pub trait GoodsBuyAddPort: Send + Sync {
     async fn del_order(&self, uid: i64, goods_id: i64) -> anyhow::Result<()>;
 
     ////////
-
 }

@@ -35,7 +35,11 @@ impl FileListPort for FileListAdapter {
             // TODO: cache.set(&format!("file:{}", entity.id), &file_info).await?;
         }
 
-        tracing::info!("[🔌 ADAPTER] - ✅️ 用户文件列表查询成功: uid={}, count={}", uid, files.len());
+        tracing::info!(
+            "[🔌 ADAPTER] - ✅️ 用户文件列表查询成功: uid={}, count={}",
+            uid,
+            files.len()
+        );
 
         Ok(files)
     }
@@ -56,7 +60,11 @@ impl FileListPort for FileListAdapter {
             // TODO: cache.set(&format!("file:{}", entity.id), &file_info).await?;
         }
 
-        tracing::info!("[🔌 ADAPTER] - ✅️ 应用文件列表查询成功: app_id={}, count={}", app_id, files.len());
+        tracing::info!(
+            "[🔌 ADAPTER] - ✅️ 应用文件列表查询成功: app_id={}, count={}",
+            app_id,
+            files.len()
+        );
 
         Ok(files)
     }

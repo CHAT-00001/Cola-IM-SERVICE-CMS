@@ -55,5 +55,4 @@ pub struct ImChatsGroupEntity {
     pub update_time: Option<i32>, // 修改时间 （UTC）
 }
 
-
 //////// END

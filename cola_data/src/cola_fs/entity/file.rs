@@ -15,7 +15,7 @@ use sqlx::FromRow;
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct FsFileEntity {
     pub id: i64,                           // ID
-    pub app_id: Option<String>,             // 所属应用/模块标识
+    pub app_id: Option<String>,            // 所属应用/模块标识
     pub vendor_id: i64,                    // FK → three_vendor.id
     pub bucket: String,                    // 存储桶
     pub object_key: String,                // S3 Object Key（唯一）
@@ -26,12 +26,12 @@ pub struct FsFileEntity {
     pub file_hash: String,                 // SHA256 / MD5
     pub is_public: bool,                   // 是否公开
     pub remark: Option<String>,            // 备注
-    pub storage_class: Option<String>, // STANDARD / IA / GLACIER...
+    pub storage_class: Option<String>,     // STANDARD / IA / GLACIER...
     pub status: i16,                       // 1正常 0删除
     pub expired_at: Option<DateTime<Utc>>, // 过期时间（临时文件）
     pub created_at: Option<DateTime<Utc>>, // 创建时间
     pub updated_at: Option<DateTime<Utc>>, // 更新时间
-    pub deleted_at: Option<DateTime<Utc>>,  // 删除时间
+    pub deleted_at: Option<DateTime<Utc>>, // 删除时间
 }
 
 ////////
@@ -65,7 +65,7 @@ impl FsFileEntity {
     /// * `desc`: `Entity → Info（用于缓存）`
     pub fn to_file_info(&self) -> anyhow::Result<crate::cola_fs::info::file::FileInfo> {
         use crate::cola_fs::info::file::FileInfo;
-        
+
         Ok(FileInfo {
             id: self.id,
             app_id: self.app_id.clone(),
@@ -84,4 +84,3 @@ impl FsFileEntity {
 }
 
 //////// END
-

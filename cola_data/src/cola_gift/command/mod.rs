@@ -1,4 +1,4 @@
-// cola_data/src/gift/command/mod.rs  -- 数据中心 - GIFT - command - mod
+// cola_data/src/gift/command/mod.rs  -- 数据中心 - GIFT - command - music
 // 2026/7/8 11:53
 
 ////////
@@ -9,4 +9,3 @@ pub mod expression; // 表情
 pub mod gift; // 礼物
 pub mod skill; // 皮肤
 pub mod sticker; // 贴图表情包
-

@@ -4,8 +4,8 @@
 
 ////////
 
-use anyhow::Result;
 use crate::pg_pool;
+use anyhow::Result;
 
 ////////
 
@@ -26,5 +26,3 @@ impl GisPermissionCheckRepo {
 }
 
 //////// END
-
-

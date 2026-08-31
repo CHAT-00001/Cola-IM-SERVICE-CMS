@@ -5,8 +5,8 @@
 ////////
 
 use anyhow::Result;
-use tracing::{info, warn};
 use repository::cola_gis::service::permission_change::PermissionsChangeService;
+use tracing::{info, warn};
 
 ////////
 

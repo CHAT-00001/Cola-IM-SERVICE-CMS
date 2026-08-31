@@ -7,8 +7,8 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use port::cola_video::buy::del::VideoBuyDelPort;
-use tracing::info;
 use port::market::buy::del::GoodsBuyDelPort;
+use tracing::info;
 
 ////////
 
@@ -33,7 +33,10 @@ impl GoodsBuyDelPort for GoodsBuyDelAdapter {
     ) -> Result<(u16)> {
         let count = 1;
 
-        info!("[🗣️ DELETE ADAPTER]: - ✅️ 删除购买记录成功! 共 {} 条.", count);
+        info!(
+            "[🗣️ DELETE ADAPTER]: - ✅️ 删除购买记录成功! 共 {} 条.",
+            count
+        );
         todo!()
     }
 
@@ -49,7 +52,10 @@ impl GoodsBuyDelPort for GoodsBuyDelAdapter {
     ) -> Result<(u16)> {
         let count = 10;
 
-        info!("[🗣️ DELETE ADAPTER]: - ✅️ 删除购买记录成功! 共 {} 条.", count);
+        info!(
+            "[🗣️ DELETE ADAPTER]: - ✅️ 删除购买记录成功! 共 {} 条.",
+            count
+        );
         todo!()
     }
 }

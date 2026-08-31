@@ -3,10 +3,10 @@
 
 ////////
 
-use anyhow::{anyhow, Result};
+use crate::model::vo::comment::{CommentListResponse, CommentSingleResponse, CommentVo};
+use anyhow::{Result, anyhow};
 use cola_data::app::page::PageInfo;
 use cola_data::cola_video::info::comment::VideoCommentInfo; // 🌟 物理 Entity 可以砍了，全线拥抱 Info
-use crate::model::vo::comment::{CommentListResponse, CommentSingleResponse, CommentVo};
 use service::cola_user::user::active::UserService;
 ////////
 
@@ -15,7 +15,6 @@ pub async fn build_comment_single_response(
     comment_info: VideoCommentInfo, // 🌟 听哥们的，改成吃 Info
     current_uid: Option<i64>,
 ) -> Result<CommentSingleResponse> {
-
     // 1. 静态调用：获取作者信息
     let author = UserService::get_user_info_by_id(comment_info.id).await?;
 
@@ -23,8 +22,8 @@ pub async fn build_comment_single_response(
     let comment_vo = CommentVo::from_info(
         comment_info,
         current_uid.unwrap_or(0),
-        false,  // is_liked
-        false,  // is_disliked
+        false, // is_liked
+        false, // is_disliked
     );
 
     Ok(CommentSingleResponse { info: comment_vo })
@@ -40,23 +39,23 @@ pub async fn build_comment_list_response(
     qty: i64,
     total: i64,
 ) -> Result<CommentListResponse> {
-
     // 1. 静态调用：从 infos 中提取 user_id 批量获取用户信息
     let author_ids: Vec<i64> = infos.iter().map(|info| info.id).collect();
     let authors_map = UserService::get_user_info_by_ids(&author_ids).await?;
 
     // 2. 迭代组装
-    let comments: Vec<CommentVo> = infos.into_iter().map(|comment_info| {
-        // 🚀 从 map 中拿取 author，没找到则默认兜底
-        let author = authors_map.get(&comment_info.id).cloned().unwrap_or_default();
+    let comments: Vec<CommentVo> = infos
+        .into_iter()
+        .map(|comment_info| {
+            // 🚀 从 map 中拿取 author，没找到则默认兜底
+            let author = authors_map
+                .get(&comment_info.id)
+                .cloned()
+                .unwrap_or_default();
 
-        CommentVo::from_info(
-            comment_info,
-            current_uid.unwrap_or(0),
-            false,
-            false,
-        )
-    }).collect();
+            CommentVo::from_info(comment_info, current_uid.unwrap_or(0), false, false)
+        })
+        .collect();
 
     // 3. 计算分页
     Ok(CommentListResponse {

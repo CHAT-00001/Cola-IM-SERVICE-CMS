@@ -20,9 +20,12 @@ pub struct SessionAddAdapter;
 
 #[async_trait]
 impl SessionAddPort for SessionAddAdapter {
-
-
-    async fn save_session(&self, uid: i64, user_id: i64, cmd: CommentCommand) -> Result<(VideoCommentInfo)> {
+    async fn save_session(
+        &self,
+        uid: i64,
+        user_id: i64,
+        cmd: CommentCommand,
+    ) -> Result<(VideoCommentInfo)> {
         todo!()
     }
 

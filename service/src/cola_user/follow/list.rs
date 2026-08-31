@@ -16,15 +16,10 @@ use repository::user::pg::follow::list::UserFollowListRepo;
 pub struct FollowListService;
 
 impl FollowListService {
-
     ////////
 
     /// # 1. [SERVICE] - 获取我关注的用户Info列表
-    pub async fn get_my_follow_infos(
-        uid: i64,
-        offset: i64,
-        limit: i64,
-    ) -> Result<Vec<UserInfo>> {
+    pub async fn get_my_follow_infos(uid: i64, offset: i64, limit: i64) -> Result<Vec<UserInfo>> {
         // 1. 查询关注的用户IDs
         let ids = UserFollowListRepo::pg_find_my_follow_ids(uid, limit, offset)
             .await
@@ -40,11 +35,13 @@ impl FollowListService {
             .await
             .map_err(|e| anyhow!("[🤐 FOLLOW LIST SERVICE]: ❌️ 批量查询用户实体失败: {}", e))?;
 
-        let infos: Vec<UserInfo> = entities.iter()
-            .map(|e| Self::entity_to_info(e))
-            .collect();
+        let infos: Vec<UserInfo> = entities.iter().map(|e| Self::entity_to_info(e)).collect();
 
-        tracing::info!("[🗣️ FOLLOW LIST SERVICE]: ✅️ 我的关注列表查询成功, uid={}, count={}", uid, infos.len());
+        tracing::info!(
+            "[🗣️ FOLLOW LIST SERVICE]: ✅️ 我的关注列表查询成功, uid={}, count={}",
+            uid,
+            infos.len()
+        );
         Ok(infos)
     }
 
@@ -62,7 +59,10 @@ impl FollowListService {
             .map_err(|e| anyhow!("[🤐 FOLLOW LIST SERVICE]: ❌️ 查询TA关注IDs失败: {}", e))?;
 
         if ids.is_empty() {
-            tracing::info!("[🗣️ FOLLOW LIST SERVICE]: ✅️ TA的关注列表为空, target_id={}", target_id);
+            tracing::info!(
+                "[🗣️ FOLLOW LIST SERVICE]: ✅️ TA的关注列表为空, target_id={}",
+                target_id
+            );
             return Ok(vec![]);
         }
 
@@ -71,11 +71,13 @@ impl FollowListService {
             .await
             .map_err(|e| anyhow!("[🤐 FOLLOW LIST SERVICE]: ❌️ 批量查询用户实体失败: {}", e))?;
 
-        let infos: Vec<UserInfo> = entities.iter()
-            .map(|e| Self::entity_to_info(e))
-            .collect();
+        let infos: Vec<UserInfo> = entities.iter().map(|e| Self::entity_to_info(e)).collect();
 
-        tracing::info!("[🗣️ FOLLOW LIST SERVICE]: ✅️ TA的关注列表查询成功, target_id={}, count={}", target_id, infos.len());
+        tracing::info!(
+            "[🗣️ FOLLOW LIST SERVICE]: ✅️ TA的关注列表查询成功, target_id={}, count={}",
+            target_id,
+            infos.len()
+        );
         Ok(infos)
     }
 
@@ -87,7 +89,11 @@ impl FollowListService {
             .await
             .map_err(|e| anyhow!("[🤐 FOLLOW LIST SERVICE]: ❌️ 查询关注总数失败: {}", e))?;
 
-        tracing::info!("[🗣️ FOLLOW LIST SERVICE]: ✅️ 关注总数查询成功, uid={}, count={}", uid, count);
+        tracing::info!(
+            "[🗣️ FOLLOW LIST SERVICE]: ✅️ 关注总数查询成功, uid={}, count={}",
+            uid,
+            count
+        );
         Ok(count)
     }
 
@@ -105,9 +111,9 @@ impl FollowListService {
             add_time: e.create_time,
             status: e.status.unwrap_or(0),
             age: None,
-            is_following: false,   // 动态组装，后续 CASE 层填充
-            is_online: false,      // 动态组装
-            is_streaming: false,   // 动态组装
+            is_following: false, // 动态组装，后续 CASE 层填充
+            is_online: false,    // 动态组装
+            is_streaming: false, // 动态组装
         }
     }
 }

@@ -8,8 +8,8 @@ use anyhow::Result;
 use async_trait::async_trait;
 use cola_data::cola_video::info::video::VideoInfo;
 use cola_data::cola_video::info::view::VideoViewInfo;
-use port::market::express::manage::ExpressManagePort;
 use port::cola_video::video::manage::VideoManagePort;
+use port::market::express::manage::ExpressManagePort;
 
 ////////
 
@@ -19,13 +19,22 @@ pub struct ExpressManageAdapter;
 
 #[async_trait]
 impl ExpressManagePort for ExpressManageAdapter {
-    async fn admin_get_views_infos(&self, uid: i64, user_id: Option<i64>, video_id: Option<i64>, start_time: Option<i64>, end_time: Option<i64>, status_code: i16, limit: i64, offset: i64) -> Result<(Vec<VideoViewInfo>), u64> {
+    async fn admin_get_views_infos(
+        &self,
+        uid: i64,
+        user_id: Option<i64>,
+        video_id: Option<i64>,
+        start_time: Option<i64>,
+        end_time: Option<i64>,
+        status_code: i16,
+        limit: i64,
+        offset: i64,
+    ) -> Result<(Vec<VideoViewInfo>), u64> {
         todo!()
     }
     //
 
     ////////
-
 }
 
 //////// END

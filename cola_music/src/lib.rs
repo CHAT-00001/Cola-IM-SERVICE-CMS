@@ -1,4 +1,4 @@
-// cola_music/src/lib.rs -- MUSIC - lib
+// music/src/lib.rs -- MUSIC - lib
 // 2026-06-02 10:10
 
 ////////

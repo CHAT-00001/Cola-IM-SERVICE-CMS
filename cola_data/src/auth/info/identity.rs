@@ -4,8 +4,8 @@
 
 ////////
 
-use serde::{Deserialize, Serialize};
 use chrono::{DateTime, Utc};
+use serde::{Deserialize, Serialize};
 
 /// # [DTO] - 验证中心 - 身份信息脱敏视图
 /// 用于 API 响应，确保敏感信息不泄露
@@ -49,7 +49,7 @@ impl From<crate::auth::entity::identity::IdentityEntity> for IdentityInfo {
 /// 简单的脱敏函数示例
 fn mask_identifier(id: String) -> String {
     if id.len() > 7 {
-        format!("{}****{}", &id[0..3], &id[id.len()-4..])
+        format!("{}****{}", &id[0..3], &id[id.len() - 4..])
     } else {
         "***".to_string()
     }

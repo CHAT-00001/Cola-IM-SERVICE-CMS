@@ -4,7 +4,6 @@
 
 ////////
 
-
 ////////
 
 /// # [DISLIKE PORTS] - 不喜欢
@@ -30,8 +29,8 @@ pub trait DynamicDanmakuDislikePort: Send + Sync {
     /// * `desc`: `👀 AUTO` - 检查是否不喜欢弹幕
     async fn check_state(
         &self,
-        uid: i64,            // UID
-        danmaku_id: i64,     // 弹幕ID
+        uid: i64,        // UID
+        danmaku_id: i64, // 弹幕ID
     ) -> anyhow::Result<(bool)>;
 }
 

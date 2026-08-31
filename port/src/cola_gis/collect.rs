@@ -21,11 +21,7 @@ pub trait CollectRepo: Send + Sync {
     ////////
 
     /// # [PORT] - 删除收藏记录
-    async fn del_collect_record(
-        &self,
-        uid: i64,
-        poi_id: i64,
-    ) -> anyhow::Result<()>;
+    async fn del_collect_record(&self, uid: i64, poi_id: i64) -> anyhow::Result<()>;
 
     ////////
 

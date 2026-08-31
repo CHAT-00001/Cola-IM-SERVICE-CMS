@@ -54,7 +54,7 @@ pub trait ShopAppyPort: Send + Sync {
 
     /// # 5. [PORT] - 管理员删除一个商店
     async fn admin_del_one_shop_and_send_event(&self, uid: i64, shop_id: i64)
-                                               -> anyhow::Result<()>;
+    -> anyhow::Result<()>;
 
     ////////
 

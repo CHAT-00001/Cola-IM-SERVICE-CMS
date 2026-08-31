@@ -18,11 +18,7 @@ pub trait MediaManagePort: Send + Sync {
     ////////
 
     /// # 1. [PORT] - 更新媒体状态
-    async fn update_media_status(
-        &self,
-        media_id: i64,
-        status: i16,
-    ) -> Result<()>;
+    async fn update_media_status(&self, media_id: i64, status: i16) -> Result<()>;
 
     ////////
 

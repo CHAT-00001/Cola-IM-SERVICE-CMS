@@ -3,7 +3,7 @@
 
 ////////
 
-use crate::cola_live::entity::ban_reason::LiveStreamAnchorBanReasonEntity;
+use crate::cola_live::entity::anchor::ban_reason::LiveStreamAnchorBanReasonEntity;
 use chrono::Utc;
 use serde::{Deserialize, Serialize};
 

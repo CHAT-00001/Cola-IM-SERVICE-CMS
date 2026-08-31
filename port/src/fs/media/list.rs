@@ -18,12 +18,8 @@ pub trait MediaListPort: Send + Sync {
     ////////
 
     /// # 1. [PORT] - 用户媒体列表
-    async fn list_user_medias(
-        &self,
-        uid: i64,
-        limit: i64,
-        offset: i64,
-    ) -> Result<Vec<MediaEntity>>;
+    async fn list_user_medias(&self, uid: i64, limit: i64, offset: i64)
+    -> Result<Vec<MediaEntity>>;
 
     ////////
 

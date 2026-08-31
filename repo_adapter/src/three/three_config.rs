@@ -16,20 +16,38 @@ pub struct ConfigAdapter;
 
 #[async_trait]
 impl ConfigPort for ConfigAdapter {
-
     async fn upsert(&self, cmd: UpsertConfigCommand) -> anyhow::Result<ConfigInfo> {
         let entity = if let Some(id) = cmd.id {
             ConfigRepo::update(
-                id, cmd.type_id, cmd.vendor_id, &cmd.name, &cmd.bucket,
-                &cmd.access_key, &cmd.secret_key, &cmd.endpoint, &cmd.region,
-                cmd.config_json.as_ref(), cmd.remark.as_deref(), cmd.status,
-            ).await?
+                id,
+                cmd.type_id,
+                cmd.vendor_id,
+                &cmd.name,
+                &cmd.bucket,
+                &cmd.access_key,
+                &cmd.secret_key,
+                &cmd.endpoint,
+                &cmd.region,
+                cmd.config_json.as_ref(),
+                cmd.remark.as_deref(),
+                cmd.status,
+            )
+            .await?
         } else {
             ConfigRepo::insert(
-                cmd.type_id, cmd.vendor_id, &cmd.name, &cmd.bucket,
-                &cmd.access_key, &cmd.secret_key, &cmd.endpoint, &cmd.region,
-                cmd.config_json.as_ref(), cmd.remark.as_deref(), cmd.status,
-            ).await?
+                cmd.type_id,
+                cmd.vendor_id,
+                &cmd.name,
+                &cmd.bucket,
+                &cmd.access_key,
+                &cmd.secret_key,
+                &cmd.endpoint,
+                &cmd.region,
+                cmd.config_json.as_ref(),
+                cmd.remark.as_deref(),
+                cmd.status,
+            )
+            .await?
         };
         Ok(ConfigInfo::from(entity))
     }
@@ -44,7 +62,11 @@ impl ConfigPort for ConfigAdapter {
         Ok(entity.map(ConfigInfo::from))
     }
 
-    async fn find_binded(&self, biz_module: &str, biz_type: &str) -> anyhow::Result<Option<ConfigInfo>> {
+    async fn find_binded(
+        &self,
+        biz_module: &str,
+        biz_type: &str,
+    ) -> anyhow::Result<Option<ConfigInfo>> {
         let entity = ConfigRepo::find_binded(biz_module, biz_type).await?;
         Ok(entity.map(ConfigInfo::from))
     }

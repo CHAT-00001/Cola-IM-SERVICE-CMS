@@ -22,7 +22,7 @@ pub trait SessionAddPort: Send + Sync {
     async fn save_session(
         &self,
         uid: i64,            // UID
-        user_id: i64,       // 用户 ID
+        user_id: i64,        // 用户 ID
         cmd: CommentCommand, // 命令
     ) -> anyhow::Result<(VideoCommentInfo)>;
 

@@ -3,7 +3,6 @@
 
 ////////
 
-
 pub struct ActiveApi;
 
 impl ActiveApi {
@@ -12,16 +11,12 @@ impl ActiveApi {
     ////////
 
     /// # 1. [API] - 检查健康
-    pub async fn health() {
-
-    }
+    pub async fn health() {}
 
     ////////
 
     /// # 2. [API] - 检查状态
-    pub async fn state() {
-
-    }
+    pub async fn state() {}
 }
 
 //////// END

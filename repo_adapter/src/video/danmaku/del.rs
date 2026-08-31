@@ -1,5 +1,4 @@
-// repo_adapter/src/video/danmaku/del.rs
-// 🔌 适配器 - VIDEO - 弹幕 - 删除
+// repo_adapter/src/video/danmaku/del.rs -- 🔌 适配器 - VIDEO - 弹幕 - 删除
 // 2026/8/6 18:56 Created.
 
 ////////

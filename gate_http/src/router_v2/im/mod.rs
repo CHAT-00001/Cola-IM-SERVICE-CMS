@@ -1,4 +1,4 @@
-// gate_http/src/router_v2/im/mod.rs
+// gate_http/src/router_v2/im/music.rs
 // 🔌 IM - 即时通讯 - 模块
 // 2026/8/8 Created.
 

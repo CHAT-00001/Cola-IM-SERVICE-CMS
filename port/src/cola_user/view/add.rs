@@ -8,8 +8,6 @@
 
 use cola_data::cola_user::command::user::add::UserCommand;
 
-
-
 /// # [ADD PORTS] - 浏览
 #[async_trait::async_trait]
 pub trait UserViewAddPort: Send + Sync + 'static {

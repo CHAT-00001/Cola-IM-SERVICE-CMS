@@ -3,9 +3,9 @@
 
 ////////
 
+use crate::auth::info::session::SessionInfo;
 use serde::{Deserialize, Serialize};
 use validator::Validate;
-use crate::auth::info::session::SessionInfo;
 
 ////////
 
@@ -23,11 +23,7 @@ pub struct AuthContextVo {
 // 构造函数
 impl AuthContextVo {
     /// # 组装器：从 SessionInfo 组装认证上下文
-    pub fn from_session(
-        session: SessionInfo,
-        uid: i64,
-        device_id: String
-    ) -> Self {
+    pub fn from_session(session: SessionInfo, uid: i64, device_id: String) -> Self {
         Self {
             uid: Some(uid),
             roles: Vec::new(), // 可在此处从 DB 查询角色进行填充

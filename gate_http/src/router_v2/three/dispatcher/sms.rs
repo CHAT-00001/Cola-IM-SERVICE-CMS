@@ -5,16 +5,13 @@
 
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
-use serde_json::Value;
 use port::cola_three::ColaThreePort;
+use serde_json::Value;
 
 //////
 
 /// # [DISPATCH] - 转发器
-pub async fn sms_dispatch(
-    _three: &ColaThreePort,
-    req: &ApiGatewayRequest,
-) -> AppData<Value> {
+pub async fn sms_dispatch(_three: &ColaThreePort, req: &ApiGatewayRequest) -> AppData<Value> {
     let action = req.action.unwrap_or(0);
     AppData::ok(serde_json::json!({"service":"sms","action":action}))
 }

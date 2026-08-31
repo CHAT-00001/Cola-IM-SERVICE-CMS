@@ -3,9 +3,9 @@
 
 ////////
 
-use chrono::Utc;
-use cola_data::cola_three::entity::vendor::{ThreeVendorEntity, THREE_VENDOR_COLUMNS};
 use crate::pg_pool;
+use chrono::Utc;
+use cola_data::cola_three::entity::vendor::{THREE_VENDOR_COLUMNS, ThreeVendorEntity};
 
 /////////
 
@@ -13,14 +13,18 @@ use crate::pg_pool;
 pub struct VendorRepo;
 
 impl VendorRepo {
-
     /////////
 
     /// 1. #[REPOSITORY] - 插入或更新
     /// * upsert: INSERT ... ON CONFLICT (code) DO UPDATE
     /// * 新建: add_time, upd_time, created_at, updated_at 都是当前时间
     /// * 更新: 仅 upd_time, updated_at 更新
-    pub async fn upsert(code: &str, name: &str, sort: i16, status: i16) -> Result<ThreeVendorEntity, sqlx::Error> {
+    pub async fn upsert(
+        code: &str,
+        name: &str,
+        sort: i16,
+        status: i16,
+    ) -> Result<ThreeVendorEntity, sqlx::Error> {
         let pool = pg_pool();
         let now = Utc::now().timestamp();
         let query = format!(
@@ -31,7 +35,11 @@ impl VendorRepo {
             THREE_VENDOR_COLUMNS
         );
         sqlx::query_as::<_, ThreeVendorEntity>(&query)
-            .bind(code).bind(name).bind(sort).bind(status).bind(now)
+            .bind(code)
+            .bind(name)
+            .bind(sort)
+            .bind(status)
+            .bind(now)
             .fetch_one(&pool)
             .await
     }

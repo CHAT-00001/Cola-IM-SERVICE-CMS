@@ -1,5 +1,4 @@
-// repo_adapter/src/market/address/mod.rs
-// 🔌 适配器 - MARKET - 地址
+// repo_adapter/src/market/address/mod.rs -- 适配器 - MARKET - 地址 - mod
 // 2026/8/10 20:00 Updated.
 
 ////////

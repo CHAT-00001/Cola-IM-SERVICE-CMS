@@ -1,8 +1,8 @@
 // cola_data/src/cola_three/info/vendor  -- THREE - 厂商信息
 // 2026/6/18
 
-use serde::{Deserialize, Serialize};
 use crate::cola_three::entity::vendor::ThreeVendorEntity;
+use serde::{Deserialize, Serialize};
 
 //////
 

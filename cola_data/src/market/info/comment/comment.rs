@@ -1,4 +1,4 @@
-// data/src/market/info/comment.rs
+// data/src/market/info/hotlist
 // 数据 - MARKET - info - 商品评论
 // 2026/8/14 09:22 Created.
 
@@ -53,7 +53,7 @@ impl GoodsCommentInfo {
             goods_id: 0,                                     // 商品 ID
             parent_id: None,                                 // 爸爸评论 ID
             comment_type: 1,                                 // 评论类型
-            content: "商品评论不存在或已被删除".to_string(),    // 内容
+            content: "商品评论不存在或已被删除".to_string(), // 内容
             photos_url: None,                                // 照片地址
             video_url: None,                                 // 视频地址
             voice_url: None,                                 // 音频地址

@@ -1,4 +1,4 @@
-// cola_dynamic/port/recommend/manage.rs
+// cola_dynamic/port/hotlist/manage.rs
 // ⏩️ 端口 - ⏹ 可乐动态 - port - 推荐 - 管理
 // 2026/8/5 00:01 Created.
 

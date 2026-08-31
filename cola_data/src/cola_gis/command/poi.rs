@@ -34,11 +34,7 @@ impl PoiCommand {
     ////////
 
     /// # 1. [BUILD] - 新的
-    pub fn new(
-        self,
-    ){
-
-    }
+    pub fn new(self) {}
 
     /// # [ENTITY]
     pub fn into_entity(

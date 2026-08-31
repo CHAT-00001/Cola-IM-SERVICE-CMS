@@ -5,13 +5,11 @@
 
 use cola_data::cola_gis::command::share::ShareCommand;
 
-
 //////
 
 /// # [SERVICE PORT] - 分享 服务端口
 #[async_trait::async_trait]
 pub trait ShareRepo: Send + Sync {
-
     ////////
 
     /// # [PORT] - 保存分享记录
@@ -25,9 +23,5 @@ pub trait ShareRepo: Send + Sync {
     ////////
 
     /// # [PORT] - 删除分享记录
-    async fn delete_share_record(
-        &self,
-        uid: i64,
-        poi_id: i64,
-    ) -> anyhow::Result<()>;
+    async fn delete_share_record(&self, uid: i64, poi_id: i64) -> anyhow::Result<()>;
 }

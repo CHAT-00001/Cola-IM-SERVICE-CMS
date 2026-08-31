@@ -1,13 +1,11 @@
-// repo_adapter/src/cola_gis/hot.rs
-// 🔌 适配器 - 可乐GIS - POI - 热门
-// 2026-07-07
+// repo_adapter/src/cola_gis/hot.rs -- 🔌 适配器 - 可乐GIS - POI - 热门
+// 2026-07-07 18:41
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::cola_gis::command::hotlist::HotlistCommand;
+use cola_data::cola_gis::command::hotlist::{PoiHotlistCommand};
 use port::cola_gis::hot::HotlistRepo;
-use repository::cola_gis::service::hotlist::HotlistService;
 
 ////////
 
@@ -26,7 +24,7 @@ impl HotlistRepo for HotlistPortAdapter {
         &self,
         _uid: i64,
         _poi_id: i64,
-        _cmd: HotlistCommand,
+        _cmd: PoiHotlistCommand,
     ) -> anyhow::Result<()> {
         // TODO: implement with GIS hotlist service
         Ok(())
@@ -35,11 +33,7 @@ impl HotlistRepo for HotlistPortAdapter {
     ////////
 
     /// # 2. [PORT] - 编辑热门记录
-    async fn edit_hotlist_record(
-        &self,
-        _uid: i64,
-        _poi_id: i64,
-    ) -> anyhow::Result<()> {
+    async fn edit_hotlist_record(&self, _uid: i64, _poi_id: i64) -> anyhow::Result<()> {
         Ok(())
     }
 }

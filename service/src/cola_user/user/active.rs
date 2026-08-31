@@ -35,12 +35,18 @@ impl UserService {
     pub async fn get_user_info_by_id(
         user_id: i64, // 目标用户ID
     ) -> Result<UserInfo, anyhow::Error> {
-        info!("[🔍 SERVICE]: 开始根据 ID 获取用户信息，user_id: {}", user_id);
+        info!(
+            "[🔍 SERVICE]: 开始根据 ID 获取用户信息，user_id: {}",
+            user_id
+        );
 
         let option_entity = UserGetRepo::single_find_user_by_id(user_id)
             .await
             .map_err(|e| {
-                let err_msg = format!("[🤐 SERVICE]: ❌️ 底层查询用户失败，user_id: {}, err: {}", user_id, e);
+                let err_msg = format!(
+                    "[🤐 SERVICE]: ❌️ 底层查询用户失败，user_id: {}, err: {}",
+                    user_id, e
+                );
                 warn!("{}", err_msg);
                 anyhow::anyhow!(err_msg)
             })?;
@@ -52,7 +58,10 @@ impl UserService {
             }
             // 🚀 单条兜底：Repo 返回 None，直接用构造函数吐出空的 UserInfo 扔给上层 VO
             None => {
-                warn!("[⚠️ SERVICE]: 未查询到对应用户，触发兜底返回默认值，user_id: {}", user_id);
+                warn!(
+                    "[⚠️ SERVICE]: 未查询到对应用户，触发兜底返回默认值，user_id: {}",
+                    user_id
+                );
                 Ok(UserInfo::default())
             }
         }
@@ -71,13 +80,20 @@ impl UserService {
             return Ok(HashMap::new());
         }
 
-        info!("[🔍 SERVICE]: 开始批量获取用户信息，请求数量: {}, user_ids: {:?}", user_ids.len(), user_ids);
+        info!(
+            "[🔍 SERVICE]: 开始批量获取用户信息，请求数量: {}, user_ids: {:?}",
+            user_ids.len(),
+            user_ids
+        );
 
         // 1. 物理层击中多少抓多少
         let entity_list = UserGetRepo::batch_find_users_by_ids(user_ids)
             .await
             .map_err(|e| {
-                let err_msg = format!("[🤐 SERVICE]: ❌️ 批量获取用户数据失败，user_ids: {:?}, err: {}", user_ids, e);
+                let err_msg = format!(
+                    "[🤐 SERVICE]: ❌️ 批量获取用户数据失败，user_ids: {:?}, err: {}",
+                    user_ids, e
+                );
                 warn!("{}", err_msg);
                 anyhow::anyhow!(err_msg)
             })?;
@@ -101,10 +117,16 @@ impl UserService {
         }
 
         if missing_count > 0 {
-            warn!("[⚠️ SERVICE]: 批量查询中有 {} 个用户未命中数据，已触发默认值兜底填充", missing_count);
+            warn!(
+                "[⚠️ SERVICE]: 批量查询中有 {} 个用户未命中数据，已触发默认值兜底填充",
+                missing_count
+            );
         }
 
-        info!("[✨ SERVICE]: 批量获取用户信息完成，最终返回结果数量: {}", info_map.len());
+        info!(
+            "[✨ SERVICE]: 批量获取用户信息完成，最终返回结果数量: {}",
+            info_map.len()
+        );
         Ok(info_map)
     }
 

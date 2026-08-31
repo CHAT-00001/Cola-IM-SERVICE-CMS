@@ -7,7 +7,7 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use port::market::goods::delete::GoodsDeletePort;
-use repository::cola_market::pg::goods::delete::GoodsDeleteRepo;
+use repository::market::pg::goods::delete::GoodsDeleteRepo;
 
 ////////
 
@@ -23,9 +23,8 @@ impl GoodsDeletePort for GoodsDeleteAdapter {
     /// # [ADAPTER] - 单个删除
     async fn single_delete(
         &self,
-        goods_id: i64 // 商品 ID
+        goods_id: i64, // 商品 ID
     ) -> anyhow::Result<(u64)> {
-
         // 1. Call REPOSITORY ..
         Ok(GoodsDeleteRepo::delete_by_id(goods_id).await?)
     }

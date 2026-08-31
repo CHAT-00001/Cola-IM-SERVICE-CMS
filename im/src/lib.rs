@@ -7,7 +7,10 @@ pub async fn start_ws(ws_config: &Ws, app_state: AppState) {
     // 从 AppState 获取 Redis client
     let redis_conn = &app_state.db.redis_conn;
 
-    info!("WS service listening on {}:{}", ws_config.host, ws_config.port);
+    info!(
+        "WS service listening on {}:{}",
+        ws_config.host, ws_config.port
+    );
 
     // TODO: 这里启动 WebSocket server 并使用 redis_client
     loop {

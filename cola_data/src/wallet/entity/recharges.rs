@@ -1,15 +1,18 @@
-// /recharges.rs  --
-// 2026/6/26 01:48
+// cola_data/src/wallet/entity/recharges.rs
+// ✅ WALLET - 充值订单实体
+// 2026/8/20  Created.
 
 ////////
 
 use chrono::{DateTime, Utc};
+use rust_decimal::Decimal;
 use serde::{Deserialize, Serialize};
 use sqlx::{FromRow, types::JsonValue};
 
 ////////
 
 /// # [ENTITY] - 充值记录表
+/// * `pg schema`: `cola_wallet` - PG 模式
 /// * `table_name`: `wallet_recharges`
 #[derive(Debug, FromRow, Serialize, Deserialize)]
 pub struct WalletRecharge {
@@ -17,9 +20,10 @@ pub struct WalletRecharge {
     pub tx_no: String,                     // 订单交易流水号（唯一）
     pub user_id: i64,                      // 用户ID
     pub wallet_id: i64,                    // 钱包ID
-    pub amount: i64,                       // 充值金额（分）
-    pub bonus: i64,                        // 赠送金额
-    pub actual_amount: i64,                // 实际到账金额
+    pub currency_id: i16,                  // 充值到账资产ID
+    pub amount: Decimal,                   // 充值金额
+    pub bonus: Decimal,                    // 赠送金额
+    pub actual_amount: Decimal,            // 实际到账金额
     pub status: i16,                       // 状态：0-待支付 1-支付中 2-成功 3-失败 4-已取消
     pub channel: String,                   // 支付渠道：WECHAT, ALIPAY, BANK, APPLE, GOOGLE
     pub channel_order_no: Option<String>,  // 渠道订单号

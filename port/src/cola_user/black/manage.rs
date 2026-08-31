@@ -4,7 +4,6 @@
 
 ////////
 
-
 use async_trait::async_trait;
 use cola_data::cola_user::info::black::UserBlackInfo;
 

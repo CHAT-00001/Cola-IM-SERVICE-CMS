@@ -7,7 +7,6 @@
 use async_trait::async_trait;
 use port::cola_user::category::check::UserCategoryCheckPort;
 
-
 ////////
 
 /// # [CHECK ADAPTER] - 检查
@@ -16,7 +15,6 @@ pub struct UserCategoryCheckAdapter;
 
 #[async_trait]
 impl UserCategoryCheckPort for UserCategoryCheckAdapter {
-
     async fn is_followed(&self, uid: i64, id: i64) -> anyhow::Result<(bool)> {
         todo!()
     }

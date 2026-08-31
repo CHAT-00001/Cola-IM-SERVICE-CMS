@@ -3,7 +3,7 @@
 
 ////////
 
-use crate::cola_live::entity::channel::LiveChannelEntity; // 请根据你实际的 handler 路径微调
+use crate::cola_live::entity::cate::channel::LiveChannelEntity; // 请根据你实际的 handler 路径微调
 use chrono::Utc;
 use serde::{Deserialize, Serialize};
 
@@ -23,12 +23,12 @@ pub enum UserRole {
 /// * `desc` 后台管理系统专门使用的分类创建传输对象
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LiveChannelCommand {
-    pub name: String,                  // 中文名称 (纠正老系统 i64 错误)
-    pub name_en: Option<String>,       // 英文名称 (纠正老系统 i64 错误)
-    pub icon: String,                  // 分类图标 URL / 样式名
-    pub sort: Option<i16>,             // 排序权重 (0-9999)
-    pub is_hot: Option<i16>,           // 是否热门: 0.否 1.是
-    pub is_recommended: Option<i16>,   // 是否推荐: 0.否 1.是
+    pub name: String,                // 中文名称 (纠正老系统 i64 错误)
+    pub name_en: Option<String>,     // 英文名称 (纠正老系统 i64 错误)
+    pub icon: String,                // 分类图标 URL / 样式名
+    pub sort: Option<i16>,           // 排序权重 (0-9999)
+    pub is_hot: Option<i16>,         // 是否热门: 0.否 1.是
+    pub is_recommended: Option<i16>, // 是否推荐: 0.否 1.是
 }
 
 ////////
@@ -39,8 +39,8 @@ impl LiveChannelCommand {
 
     /// # [CASE] - 构造函数：强校验管理员/运维权限，注入操作人进行痕迹溯源，并自动补全所有默认机器字段
     pub fn new(
-        role: &UserRole,       // 🔒 权限控制
-        operator_uid: i64,     // 👁️ 溯源：当前后台操作人员的 UID
+        role: &UserRole,   // 🔒 权限控制
+        operator_uid: i64, // 👁️ 溯源：当前后台操作人员的 UID
         cmd: Self,
     ) -> Result<LiveChannelEntity, String> {
         // 1. 🔒 权限硬校验：只有管理员（Admin）或 运维/运营（Operator）才能添加分类
@@ -71,10 +71,10 @@ impl LiveChannelCommand {
             icon: cmd.icon,
 
             // 📊 字段默认值智能退避
-            sort: cmd.sort.unwrap_or(9999),                 // 默认排在最后面 (9999)
-            is_hot: cmd.is_hot.unwrap_or(0),                 // 默认不热门 (0)
+            sort: cmd.sort.unwrap_or(9999),  // 默认排在最后面 (9999)
+            is_hot: cmd.is_hot.unwrap_or(0), // 默认不热门 (0)
             is_recommended: cmd.is_recommended.unwrap_or(0), // 默认不推荐 (0)
-            status: 1,                                       // 📌 新增加的分类默认严格为 1 (启用)
+            status: 1,                       // 📌 新增加的分类默认严格为 1 (启用)
 
             // 🤖 机器与人类时间同步
             add_time: now_ts,

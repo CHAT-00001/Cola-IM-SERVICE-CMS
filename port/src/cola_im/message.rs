@@ -15,7 +15,12 @@ pub trait MessageRepo: Send + Sync {
     async fn send_message(&self, uid: i64, cmd: MessageCommand) -> anyhow::Result<()>;
 
     /// 增量拉取离线消息
-    async fn sync_messages(&self, uid: i64, sync_time: i64, limit: i64) -> anyhow::Result<Vec<MessageInfo>>;
+    async fn sync_messages(
+        &self,
+        uid: i64,
+        sync_time: i64,
+        limit: i64,
+    ) -> anyhow::Result<Vec<MessageInfo>>;
 
     /// 删除消息
     async fn del_message(&self, uid: i64, msg_id: i64) -> anyhow::Result<()>;

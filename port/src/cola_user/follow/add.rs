@@ -21,8 +21,8 @@ pub trait UserFollowAddPort: Send + Sync + 'static {
     /// * `desc`: `用户关注/取关`
     async fn add_follow(
         &self,
-        uid: i64,        // UID
-        user_id: i64,    // 用户 ID
+        uid: i64,     // UID
+        user_id: i64, // 用户 ID
     ) -> anyhow::Result<()>;
 
     ////////

@@ -4,10 +4,10 @@
 ////////
 
 use chrono::Utc;
-use sqlx::PgPool;
 use cola_data::cola_fs::command::cdn::CreateCdnDomainCmd;
 use cola_data::cola_fs::command::cdn::UpdateCdnDomainCmd;
-use cola_data::cola_fs::entity::cdn::{CdnDomainEntity, CDN_DOMAIN_COLUMNS};
+use cola_data::cola_fs::entity::cdn::{CDN_DOMAIN_COLUMNS, CdnDomainEntity};
+use sqlx::PgPool;
 use tracing::{debug, error, info, warn};
 
 ////////
@@ -17,10 +17,15 @@ use tracing::{debug, error, info, warn};
 pub struct CdnDomainRepo;
 
 impl CdnDomainRepo {
-
     /// # [REPO] - 根据内部 ID 查询 CDN 配置
-    pub async fn find_by_id(pool: &PgPool, id: i64) -> Result<Option<CdnDomainEntity>, sqlx::Error> {
-        debug!("[🗄️ REPOSITORY][CDN] - 🔍 按 ID 查询 CDN 配置: cdn_id={}", id);
+    pub async fn find_by_id(
+        pool: &PgPool,
+        id: i64,
+    ) -> Result<Option<CdnDomainEntity>, sqlx::Error> {
+        debug!(
+            "[🗄️ REPOSITORY][CDN] - 🔍 按 ID 查询 CDN 配置: cdn_id={}",
+            id
+        );
 
         let query = format!(
             r#"
@@ -89,8 +94,7 @@ impl CdnDomainRepo {
             Ok(Some(entity)) => {
                 info!(
                     "[🗄️ REPOSITORY][CDN] - ✅️ 按 app_id 查询成功: app_id={:?}, cdn_id={}",
-                    app_id,
-                    entity.id
+                    app_id, entity.id
                 );
                 Ok(Some(entity))
             }
@@ -104,8 +108,7 @@ impl CdnDomainRepo {
             Err(error) => {
                 error!(
                     "[🗄️ REPOSITORY][CDN] - ❌️ 按 app_id 查询失败: app_id={:?}, error={}",
-                    app_id,
-                    error
+                    app_id, error
                 );
                 Err(error)
             }
@@ -120,8 +123,7 @@ impl CdnDomainRepo {
     ) -> Result<Option<CdnDomainEntity>, sqlx::Error> {
         debug!(
             "[🗄️ REPOSITORY][CDN] - 🔍 按桶查询 CDN 配置: app_id={:?}, bucket_key={:?}",
-            app_id,
-            bucket_key
+            app_id, bucket_key
         );
 
         let query = format!(
@@ -146,17 +148,14 @@ impl CdnDomainRepo {
             Some(entity) => {
                 info!(
                     "[🗄️ REPOSITORY][CDN] - ✅️ 按桶查询成功: app_id={:?}, bucket_key={:?}, cdn_id={}",
-                    app_id,
-                    bucket_key,
-                    entity.id
+                    app_id, bucket_key, entity.id
                 );
                 Ok(Some(entity))
             }
             None => {
                 warn!(
                     "[🗄️ REPOSITORY][CDN] - ⚠️ 按桶查询为空: app_id={:?}, bucket_key={:?}",
-                    app_id,
-                    bucket_key
+                    app_id, bucket_key
                 );
                 Ok(None)
             }
@@ -164,7 +163,10 @@ impl CdnDomainRepo {
     }
 
     /// # [REPO] - 创建 CDN 域名绑定记录
-    pub async fn create(pool: &PgPool, cmd: CreateCdnDomainCmd) -> Result<CdnDomainEntity, sqlx::Error> {
+    pub async fn create(
+        pool: &PgPool,
+        cmd: CreateCdnDomainCmd,
+    ) -> Result<CdnDomainEntity, sqlx::Error> {
         let now = Utc::now();
         let create_time = now.timestamp();
 
@@ -275,9 +277,7 @@ impl CdnDomainRepo {
     ) -> Result<(Vec<CdnDomainEntity>, i64), sqlx::Error> {
         debug!(
             "[🗄️ REPOSITORY][CDN] - 🔍 分页查询 CDN 列表: app_id={:?}, limit={}, offset={}",
-            app_id,
-            limit,
-            offset
+            app_id, limit, offset
         );
 
         let count_query = r#"
@@ -329,11 +329,7 @@ impl CdnDomainRepo {
             WHERE id = $2 AND (is_deleted IS NOT TRUE)
         "#;
 
-        let result = sqlx::query(query)
-            .bind(now)
-            .bind(id)
-            .execute(pool)
-            .await?;
+        let result = sqlx::query(query).bind(now).bind(id).execute(pool).await?;
 
         let affected = result.rows_affected();
         if affected == 0 {

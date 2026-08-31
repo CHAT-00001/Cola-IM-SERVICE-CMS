@@ -1,5 +1,4 @@
-// repo_adapter/src/lib.rs
-// 🔌 适配器 - Adapter - Service layer adapter implementation - lib
+// repo_adapter/src/lib.rs -- 🔌 适配器 - Adapter - lib
 // 2026/8/10 20:00 Updated.
 
 ////////
@@ -10,6 +9,7 @@ use std::sync::Arc;
 ////////
 
 pub mod auth; // Auth Center
+pub mod coc; // 运营中心
 pub mod dynamic; // Dynamic
 pub mod fs; // 文件存储
 pub mod gift; // Gift
@@ -22,7 +22,8 @@ pub mod photo; // Photo
 pub mod three; // Third-party
 pub mod user; // User
 pub mod video; // Video
-pub mod wallet; // Wallet
+pub mod wallet;// Wallet
+
 
 ////////
 
@@ -53,6 +54,7 @@ pub fn build_app_context() -> AppContext {
     ////////
 
     let auth = auth::build_auth_port();
+    let coc = coc::build_cola_coc_port();
     let gis = gis::build_gis_port();
     let fs = fs::build_cola_fs_port();
     let live = live::build_live_port();
@@ -62,10 +64,13 @@ pub fn build_app_context() -> AppContext {
     let user = user::build_user_port();
     let video = video::build_cola_video_port();
     let im = im::build_im_port();
+    let wallet = wallet::build_wallet_port();
 
     ////////
 
-    AppContext::default(auth, fs, gis, live, market, music, three, user, video, im)
+    AppContext::default(
+        auth, coc, fs, gis, live, market, music, three, user, video, im, wallet,
+    )
 }
 
 //////// END

@@ -1,5 +1,4 @@
-// auth/src/case/port.rs
-// 🆔 验证中心 - case - 会话用例编排
+// cola_auth/src/case/login.rs -- 验证中心 - case - 登录用例 - mod
 // 2026/6/9 08:16 Created.
 
 ////////
@@ -19,6 +18,8 @@ use service::cola_user::user::state::UserStateService;
 pub struct LoginCase;
 
 impl LoginCase {
+    //
+
     ////////
 
     /// # 1. [APP USE CASE] - 手机验证码登录

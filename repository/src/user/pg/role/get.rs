@@ -29,7 +29,8 @@ impl UserRoleGetRepo {
         let pool = pg_pool();
 
         // 修复 SQL 语法错误：补充完整查询字段，并修正表名和返回值类型匹配
-        let query = "SELECT * FROM \"user\".\"role\" WHERE status = 1 ORDER BY id DESC LIMIT $1 OFFSET $2";
+        let query =
+            "SELECT * FROM \"user\".\"role\" WHERE status = 1 ORDER BY id DESC LIMIT $1 OFFSET $2";
 
         sqlx::query_as::<_, UserRoleEntity>(query)
             .bind(limit)

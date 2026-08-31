@@ -5,8 +5,8 @@
 ////////
 
 use anyhow::Result;
-use tracing::info;
 use port::app::ctx::AppContext;
+use tracing::info;
 
 ////////
 
@@ -35,7 +35,10 @@ impl UserFollowManageCase {
 
         // 2. 可以根据业务需要在这里做判断（可选）
         if qty == 0 {
-            info!("[🗣️ CASE] - ⚠️ 移除关注未命中目标: uid={}, target_id={}", uid, id);
+            info!(
+                "[🗣️ CASE] - ⚠️ 移除关注未命中目标: uid={}, target_id={}",
+                uid, id
+            );
         } else {
             info!("[🗣️ CASE] - ✅️ 移除关注成功: uid={}, target_id={}", uid, id);
         }
@@ -61,7 +64,10 @@ impl UserFollowManageCase {
             .await
             .map_err(|e| anyhow::anyhow!("[🗣️ CASE]: ❌️ 批量移除关注失败: {}", e))?;
 
-        info!("[🗣️ CASE] - ✅️ 批量移除关注成功: uid={}, 共成功移除 {} 条.", uid, qty);
+        info!(
+            "[🗣️ CASE] - ✅️ 批量移除关注成功: uid={}, 共成功移除 {} 条.",
+            uid, qty
+        );
 
         // 2. 将统计数量返回给 API Handler 组装响应
         Ok(qty)

@@ -1,5 +1,4 @@
-// repo_adapter/src/market/buy/mod.rs
-// 🔌 适配器 - MARKET - 购买订单
+// repo_adapter/src/market/buy/mod.rs -- 适配器 - MARKET - 购买订单
 // 2026/8/10 20:00 Updated.
 
 ////////

@@ -4,7 +4,6 @@
 
 ////////
 
-
 use async_trait::async_trait;
 
 ////////
@@ -28,4 +27,3 @@ pub trait VipCheckPort: Send + Sync + 'static {
 }
 
 //////// END
-

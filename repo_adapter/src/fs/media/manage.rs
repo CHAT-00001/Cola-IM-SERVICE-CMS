@@ -20,11 +20,7 @@ impl MediaManagePort for MediaManageAdapter {
     ////////
 
     /// # 1. [ADAPTER] - 更新媒体状态
-    async fn update_media_status(
-        &self,
-        _media_id: i64,
-        _status: i16,
-    ) -> Result<()> {
+    async fn update_media_status(&self, _media_id: i64, _status: i16) -> Result<()> {
         // TODO: 实现媒体状态更新逻辑
         todo!("update_media_status")
     }

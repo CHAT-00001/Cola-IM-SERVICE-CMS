@@ -1,16 +1,16 @@
-// auth/src/kits/sms.rs  -- AUTH - 工具包 - 构建短信验证码
+// cola_auth/src/kits/sms.rs  -- AUTH - 工具包 - 构建短信验证码
 // 2026/4/13 02:10 by wx: cestbon10080
 
 ////////
 
-use rand::Rng;
+use rand::RngExt;
 
 ////////
 
 /// # 1. [KITS] - 验证码生成器
 /// * `desc`: 生成一个 6 位数字验证码，范围：000000 ~ 999999
 pub fn kit_generate_6digit_code() -> String {
-    let num = rand::thread_rng().gen_range(0..1_000_000);
+    let num = rand::rng().random_range(0..1_000_000);
     format!("{:06}", num)
 }
 
@@ -31,7 +31,6 @@ pub fn kit_make_auth_sms_content() -> (String, String) {
 
     (auth_code, sms)
 }
-
 
 //////// TEST
 

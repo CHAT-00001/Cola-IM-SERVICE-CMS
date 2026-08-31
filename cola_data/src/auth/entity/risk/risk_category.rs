@@ -8,7 +8,6 @@ use sqlx::FromRow;
 
 ////////
 
-
 ////////
 
 /// # [ENTITY] - 认证中心 - 风险种类
@@ -41,6 +40,5 @@ pub const IAM_AUTH_COLUMNS: &str = r#"
     access_key, secret_key, status, is_online, status,
     banned_expired_at, last_active_at, created_at, updated_at, banned_at
 "#;
-
 
 //////// END

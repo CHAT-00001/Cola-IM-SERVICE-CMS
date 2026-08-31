@@ -12,7 +12,6 @@ use cola_data::cola_gis::info::comment::PoiCommentInfo;
 /// # [ADD PORT] - 评论
 #[async_trait::async_trait]
 pub trait CommentRepo: Send + Sync {
-
     ////////
 
     /// # [PORT] - 保存评论记录
@@ -35,18 +34,12 @@ pub trait CommentRepo: Send + Sync {
     ////////
 
     /// # [PORT] - 删除评论
-    async fn del_comment_record(
-        &self,
-        comment_id: i64,
-    ) -> anyhow::Result<()>;
+    async fn del_comment_record(&self, comment_id: i64) -> anyhow::Result<()>;
 
     ////////
 
     /// # [PORT] - 批量删除评论
-    async fn del_comments_record(
-        &self,
-        comment_ids: Vec<i64>,
-    ) -> anyhow::Result<()>;
+    async fn del_comments_record(&self, comment_ids: Vec<i64>) -> anyhow::Result<()>;
 }
 
 //////// END

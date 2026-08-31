@@ -1,4 +1,4 @@
-use actix_web::{web, HttpResponse};
+use actix_web::{HttpResponse, web};
 use serde::{Deserialize, Serialize};
 
 // # [ROUTER] - 用户 - 路由器
@@ -15,8 +15,8 @@ pub fn user_router2(cfg: &mut web::ServiceConfig) {
             .service(
                 web::scope("/profile")
                     .route("", web::get().to(get_profile))
-                    .route("", web::put().to(update_profile))
-            )
+                    .route("", web::put().to(update_profile)),
+            ),
     );
 }
 
@@ -74,7 +74,10 @@ pub async fn create_user(user_req: web::Json<CreateUserRequest>) -> HttpResponse
 }
 
 // 更新用户
-pub async fn update_user(user_id: web::Path<u64>, user_req: web::Json<CreateUserRequest>) -> HttpResponse {
+pub async fn update_user(
+    user_id: web::Path<u64>,
+    user_req: web::Json<CreateUserRequest>,
+) -> HttpResponse {
     let updated_user = User {
         id: *user_id,
         name: user_req.name.clone(),

@@ -26,5 +26,4 @@ pub struct ShopBondEntity {
     pub update_at: Option<DateTime<Utc>>, // 更新时间（人类）
 }
 
-
 //////// END

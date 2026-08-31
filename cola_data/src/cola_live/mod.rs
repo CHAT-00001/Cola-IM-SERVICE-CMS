@@ -1,4 +1,4 @@
-// cola_live/mod.rs  -- 直播 mod
+// cola_live/mod.rs  -- 直播 music
 // 2026/6/5 00:48
 
 ////////

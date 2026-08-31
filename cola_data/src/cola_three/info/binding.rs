@@ -1,8 +1,8 @@
 // cola_data/src/cola_three/info/binding  -- THREE - 绑定信息
 // 2026/6/18
 
-use serde::{Deserialize, Serialize};
 use crate::cola_three::entity::binding::ThreeBizBindingEntity;
+use serde::{Deserialize, Serialize};
 
 //////
 

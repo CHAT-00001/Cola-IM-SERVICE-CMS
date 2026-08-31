@@ -22,7 +22,7 @@ impl UserFollowAddPort for FollowAddAdapter {
     ////////
 
     /// # 1. [ADAPTER] - 添加关注
-    async fn add_follow(&self, uid: i64, user_id: i64,) -> Result<()> {
+    async fn add_follow(&self, uid: i64, user_id: i64) -> Result<()> {
         todo!()
     }
 

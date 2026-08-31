@@ -1,36 +1,39 @@
 // port/src/cola_music/mod.rs
-// ⏩️ 端口 - 可乐音乐 - mod
-// 2026-06-10 06:40 Created.
+// ⏩️ 端口 - 可乐音乐 - 模块聚合
+// 2026/8/22 23:45 Created.
 
 ////////
 
-use std::sync::Arc;
-use crate::cola_music::add::AddPort;
-use crate::cola_music::like::LikeRepo;
-use crate::cola_music::view::ViewPort;
-
-////////
-pub mod add;
-pub mod collect;
-pub mod favorites;
-pub mod feed;
-pub mod home;
-pub mod like;
-pub mod playlist;
-pub mod view;
+use crate::cola_music::album::MusicAlbumPort;
+use crate::cola_music::collect::MusicCollectPort;
+use crate::cola_music::like::MusicLikePort;
+use crate::cola_music::music::MusicContentPort;
+use crate::cola_music::user::MusicUserPort;
+use crate::cola_music::view::MusicViewPort;
 
 ////////
 
-/// # [COLA MUSIC PORT] - 音乐
-/// * `desc`: `🎶 可乐音乐 - Cola Music Service Ports`
+pub mod album; // 专辑
+pub mod collect; // 收藏
+pub mod feed; // 流
+pub mod home; // 主页
+pub mod like; // 点赞
+pub mod music; // 内容
+pub mod user; // 用户资料
+pub mod view; // 浏览
+
+////////
+
+/// # [COLA MUSIC PORTS] - 音乐模块
+/// * `desc`: `主内容与音乐关系模块的端口聚合`
 #[derive(Clone)]
 pub struct ColaMusicPort {
-    pub add: Arc<dyn AddPort + Send + Sync + 'static>,
-    // pub favorites: Arc<dyn FavoritesPort>,
-    // pub collect: Arc<dyn CollectPort>,
-    // pub playlist: Arc<dyn PlaylistPort>,
-    pub like: Arc<dyn LikeRepo + Send + Sync + 'static>,
-    pub view: Arc<dyn ViewPort + Send + Sync + 'static>,
+    pub music: MusicContentPort,   // 主内容
+    pub album: MusicAlbumPort,     // 专辑
+    pub collect: MusicCollectPort, // 收藏
+    pub like: MusicLikePort,       // 点赞(预设)
+    pub user: MusicUserPort,       // 用户
+    pub view: MusicViewPort,       // 浏览(预设)
 }
 
 //////// END

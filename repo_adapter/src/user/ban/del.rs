@@ -26,7 +26,6 @@ impl UserBanDelPort for BanDelService {
         todo!()
     }
 
-
     /// # 2. [SERVICE] - 批量
     /// * `desc`: `批量软删除`
     async fn batch_soft_del(&self, uid: i64, ids: Vec<i64>) -> Result<(u16)> {

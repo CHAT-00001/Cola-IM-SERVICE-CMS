@@ -18,14 +18,13 @@ pub struct RoleAddService;
 
 // 构造实现
 impl RoleAddService {
-
     ////////
 
     /// # 1. [SERVICE] - 添加角色
     /// * `desc`: 管理员添加新角色
     pub async fn add_role(
-        uid: i64, // 管理员ID
-        name: &str, // 角色名称
+        uid: i64,     // 管理员ID
+        name: &str,   // 角色名称
         remark: &str, // 备注
     ) -> Result<RoleInfo, anyhow::Error> {
         let _rows = UserRoleAddRepo::pg_save_new_role_record(uid, 0, remark.to_string(), 1)
@@ -44,7 +43,11 @@ impl RoleAddService {
             upd_time: 0,
         };
 
-        tracing::info!("[🗣️ ROLE SERVICE]: ✅️ 角色添加成功, uid={}, name={}", uid, name);
+        tracing::info!(
+            "[🗣️ ROLE SERVICE]: ✅️ 角色添加成功, uid={}, name={}",
+            uid,
+            name
+        );
         Ok(info)
     }
 
@@ -54,13 +57,14 @@ impl RoleAddService {
     /// * `desc`: 获取所有可用的角色列表
     pub async fn get_role_list(
         offset: i64, // 分页偏移
-        limit: i64, // 每页数量
+        limit: i64,  // 每页数量
     ) -> Result<Vec<RoleInfo>, anyhow::Error> {
         let entities = UserRoleGetRepo::pg_find_new_role_list(limit, offset)
             .await
             .map_err(|e| anyhow!("[🤐 ROLE SERVICE]: ❌️ 查询角色列表失败: {}", e))?;
 
-        let infos: Vec<RoleInfo> = entities.into_iter()
+        let infos: Vec<RoleInfo> = entities
+            .into_iter()
             .map(|e| RoleInfo {
                 id: e.id,
                 uid: e.uid,
@@ -74,11 +78,12 @@ impl RoleAddService {
             })
             .collect();
 
-        tracing::info!("[🗣️ ROLE SERVICE]: ✅️ 角色列表查询成功, count={}", infos.len());
+        tracing::info!(
+            "[🗣️ ROLE SERVICE]: ✅️ 角色列表查询成功, count={}",
+            infos.len()
+        );
         Ok(infos)
     }
 }
 
 //////// END
-
-

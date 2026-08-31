@@ -4,16 +4,16 @@
 //////
 
 use crate::kits::response::IntoApi;
+use crate::ping::ping;
 use actix_web::{HttpMessage, HttpRequest, HttpResponse, Responder, web};
+use app_config::app_state::AppState;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::auth::info::auth::AuthContext;
-use serde::Deserialize;
-use std::time::Instant;
-use app_config::app_state::AppState;
 use cola_gis::api::home::HomeApi;
 use cola_user::api::user::add::UserAddApi;
-use crate::ping::ping;
+use serde::Deserialize;
+use std::time::Instant;
 //////
 
 /// # 网关请求体
@@ -29,11 +29,11 @@ struct GatewayRequest {
 /// # 统一的 Query 提取结构体
 #[derive(Deserialize)]
 pub struct GatewayQuery {
-    pub service: String,         // 🌟 兼容 PhalApi，接收如 "Video.PublishVideo"
-    pub action: Option<i16>,     // 🌟 以后转入的 int16 动作代码，先用 Option 顶住
+    pub service: String,     // 🌟 兼容 PhalApi，接收如 "Video.PublishVideo"
+    pub action: Option<i16>, // 🌟 以后转入的 int16 动作代码，先用 Option 顶住
     pub video_id: Option<i64>,
-    pub page: Option<i64>,       // 页码
-    pub qty: Option<i64>,        // 每页数量
+    pub page: Option<i64>, // 页码
+    pub qty: Option<i64>,  // 每页数量
 }
 
 /// # [ROUTER] - 用户中心 - 路由器
@@ -56,7 +56,6 @@ pub async fn root() -> HttpResponse {
     HttpResponse::Ok().json(vec!["Cole", "VIDEO", "ROUTER"])
 }
 
-
 //////
 
 /// # [GATEWAY] - 可乐用户中心网关
@@ -67,10 +66,8 @@ async fn user_gateway(
     body: web::Bytes,
     state: web::Data<AppState>,
 ) -> impl Responder {
-
     // 开始时间
     let start = Instant::now();
-
 
     // 严格检查登录状态，统一命名操作用户为 uid
     let uid = match req.extensions().get::<i64>().copied() {
@@ -98,8 +95,6 @@ async fn user_gateway(
 
     // 🌟 对齐到 service 字符串进行业务路由分发
     match gateway_req.service.as_str() {
-
-
         // 1001 最新
         "home.new" => {
             let url = ApiGatewayRequest {
@@ -108,7 +103,7 @@ async fn user_gateway(
                 qty: query.qty,
                 ..Default::default()
             }
-                .build();
+            .build();
 
             HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
                 .await
@@ -123,7 +118,7 @@ async fn user_gateway(
                 qty: query.qty,
                 ..Default::default()
             }
-                .build();
+            .build();
 
             UserAddApi::api_add_new(gateway_req.auth, url, &state.ctx)
                 .await
@@ -176,9 +171,12 @@ async fn user_gateway(
 
         _ => AppData::<()>::err(
             2004,
-            format!("[🌐 GATEWAY]: ⚠️ Unknown The [👤 USER] service: {}", gateway_req.service),
+            format!(
+                "[🌐 GATEWAY]: ⚠️ Unknown The [👤 USER] service: {}",
+                gateway_req.service
+            ),
             None,
         )
-            .finish(&req, start),
+        .finish(&req, start),
     }
 }

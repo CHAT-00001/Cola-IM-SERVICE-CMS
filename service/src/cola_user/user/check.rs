@@ -4,7 +4,6 @@
 
 ////////
 
-
 use cola_data::cola_user::info::user::UserInfo;
 use repository::user::pg::user::state::UserStateRepo;
 
@@ -17,8 +16,6 @@ pub struct UserCheckService;
 // 构造实现
 impl UserCheckService {
     //
-
-
 }
 
 //////// END

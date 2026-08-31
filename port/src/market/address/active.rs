@@ -9,7 +9,7 @@
 /// # [VIEW ADD] 浏览发布
 /// * `desc`: `浏览记录发布`
 #[async_trait::async_trait]
-pub trait AddressActivePort:  Send + Sync {
+pub trait AddressActivePort: Send + Sync {
     //
 
     ////////

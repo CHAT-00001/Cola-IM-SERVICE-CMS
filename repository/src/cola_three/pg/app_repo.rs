@@ -3,9 +3,9 @@
 
 ////////
 
-use chrono::Utc;
-use cola_data::cola_three::entity::app::{ColaAppEntity, COLA_APP_COLUMNS};
 use crate::pg_pool;
+use chrono::Utc;
+use cola_data::cola_three::entity::app::{COLA_APP_COLUMNS, ColaAppEntity};
 
 ////////
 

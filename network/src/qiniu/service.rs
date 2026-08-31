@@ -1,10 +1,10 @@
 // network/src/qiniu/client.rs  -- 七牛云客户端
 // 2026-02-07 18:44:01
 
-use redis::aio::MultiplexedConnection;
-use redis::AsyncCommands;
-use sqlx::{FromRow, PgPool};
 use anyhow::Result;
+use redis::AsyncCommands;
+use redis::aio::MultiplexedConnection;
+use sqlx::{FromRow, PgPool};
 
 /// CDN 服务
 pub struct QiniuConfig<'a> {
@@ -19,7 +19,11 @@ struct CdnRecord {
 impl<'a> QiniuConfig<'a> {
     /// 创建服务
     pub fn new(redis: &'a mut MultiplexedConnection, pg_pool: &'a PgPool, ttl_sec: usize) -> Self {
-        Self { redis, pg_pool, ttl_sec }
+        Self {
+            redis,
+            pg_pool,
+            ttl_sec,
+        }
     }
 
     /// 获取 CDN 域名
@@ -36,7 +40,10 @@ impl<'a> QiniuConfig<'a> {
         let domain = self.fetch_cdn_from_db(name).await?;
 
         // 3️⃣ 写入 Redis，带 TTL
-        let _: () = self.redis.set_ex(&key, &domain, self.ttl_sec as u64).await?;
+        let _: () = self
+            .redis
+            .set_ex(&key, &domain, self.ttl_sec as u64)
+            .await?;
 
         Ok(domain)
     }
@@ -45,11 +52,11 @@ impl<'a> QiniuConfig<'a> {
     async fn fetch_cdn_from_db(&self, name: &str) -> Result<String> {
         // 关键：使用 query_as 而非 query!，关闭编译时SQL检查
         let rec: CdnRecord = sqlx::query_as(
-            "SELECT domain FROM cdn_config WHERE name = $1 AND is_active = true LIMIT 1"
+            "SELECT domain FROM cdn_config WHERE name = $1 AND is_active = true LIMIT 1",
         )
-            .bind(name)
-            .fetch_one(self.pg_pool)
-            .await?;
+        .bind(name)
+        .fetch_one(self.pg_pool)
+        .await?;
 
         Ok(rec.domain)
     }

@@ -1,5 +1,4 @@
-// repo_adapter/src/cola_im/contact_request.rs
-// 🔌 适配器 - 可乐IM - 联系人  - 添加请求
+// repo_adapter/src/cola_im/contact_request.rs -- 🔌 适配器 - 可乐IM - 联系人  - 添加请求
 // 2026-07-07 14:20 Created.
 
 ////////

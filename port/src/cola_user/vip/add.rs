@@ -4,7 +4,6 @@
 
 ////////
 
-
 use async_trait::async_trait;
 use cola_data::cola_user::info::user::UserInfo;
 ////////
@@ -89,4 +88,3 @@ pub trait VipAddPort: Send + Sync + 'static {
 }
 
 //////// END
-

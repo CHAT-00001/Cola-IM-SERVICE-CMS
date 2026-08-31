@@ -20,11 +20,7 @@ impl MediaDelPort for MediaDelAdapter {
     ////////
 
     /// # 1. [ADAPTER] - 单个删除媒体
-    async fn delete_media(
-        &self,
-        _uid: i64,
-        _media_id: i64,
-    ) -> Result<u64> {
+    async fn delete_media(&self, _uid: i64, _media_id: i64) -> Result<u64> {
         // TODO: 实现单个媒体删除逻辑
         todo!("delete_media")
     }
@@ -32,11 +28,7 @@ impl MediaDelPort for MediaDelAdapter {
     ////////
 
     /// # 2. [ADAPTER] - 批量删除媒体
-    async fn batch_delete_medias(
-        &self,
-        _uid: i64,
-        _media_ids: Vec<i64>,
-    ) -> Result<u64> {
+    async fn batch_delete_medias(&self, _uid: i64, _media_ids: Vec<i64>) -> Result<u64> {
         // TODO: 实现批量媒体删除逻辑
         todo!("batch_delete_medias")
     }

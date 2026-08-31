@@ -17,20 +17,12 @@ pub trait FileDelPort: Send + Sync {
     ////////
 
     /// # 1. [PORT] - 单个删除文件
-    async fn delete_file(
-        &self,
-        uid: i64,
-        file_id: i64,
-    ) -> Result<u64>;
+    async fn delete_file(&self, uid: i64, file_id: i64) -> Result<u64>;
 
     ////////
 
     /// # 2. [PORT] - 批量删除文件
-    async fn batch_delete_files(
-        &self,
-        uid: i64,
-        file_ids: Vec<i64>,
-    ) -> Result<u64>;
+    async fn batch_delete_files(&self, uid: i64, file_ids: Vec<i64>) -> Result<u64>;
 }
 
 //////// END

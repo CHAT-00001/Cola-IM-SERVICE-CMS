@@ -18,11 +18,25 @@ pub struct CateGetAdapter;
 // 构造实现
 #[async_trait]
 impl CateGetPort for CateGetAdapter {
-    async fn get_my_list(&self, uid: i64, keyword: Option<String>, limit: i64, offset: i64, is_liked: bool) -> Result<(Vec<VideoInfo>)> {
+    async fn get_my_list(
+        &self,
+        uid: i64,
+        keyword: Option<String>,
+        limit: i64,
+        offset: i64,
+        is_liked: bool,
+    ) -> Result<(Vec<VideoInfo>)> {
         todo!()
     }
 
-    async fn get_he_list(&self, uid: i64, user_id: i64, keyword: Option<String>, limit: i64, offset: i64) -> Result<(Vec<VideoInfo>)> {
+    async fn get_he_list(
+        &self,
+        uid: i64,
+        user_id: i64,
+        keyword: Option<String>,
+        limit: i64,
+        offset: i64,
+    ) -> Result<(Vec<VideoInfo>)> {
         todo!()
     }
 }

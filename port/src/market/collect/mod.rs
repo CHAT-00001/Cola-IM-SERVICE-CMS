@@ -1,4 +1,4 @@
-// port/src/market/collect/mod.rs
+// port/src/market/collect/music.rs
 // ⏩️ 端口 - MARKET - 商品收藏 - 模块
 // 2026/6/10 08:23 Created.
 

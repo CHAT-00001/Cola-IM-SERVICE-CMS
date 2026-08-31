@@ -1,5 +1,4 @@
-// repo_adapter/src/cola_gis/add.rs
-// 🔌 适配器 - 可乐GIS - POI - 添加
+// repo_adapter/src/cola_gis/add.rs -- 🔌 适配器 - 可乐GIS - POI - 发布适配器
 // 2026-07-07 10:12
 
 ////////

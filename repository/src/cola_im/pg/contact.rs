@@ -7,7 +7,11 @@ use cola_data::cola_im::entity::contacts::contact::ImContactEntity as ContactEnt
 pub struct ImContactRepo;
 
 impl ImContactRepo {
-    pub async fn save_contact(uid: i64, card_id: i64, remark_name: Option<String>) -> Result<ContactEntity, sqlx::Error> {
+    pub async fn save_contact(
+        uid: i64,
+        card_id: i64,
+        remark_name: Option<String>,
+    ) -> Result<ContactEntity, sqlx::Error> {
         let pool = pg_pool();
         let now = chrono::Utc::now().timestamp();
         let entity = sqlx::query_as::<_, ContactEntity>(
@@ -18,7 +22,11 @@ impl ImContactRepo {
         Ok(entity)
     }
 
-    pub async fn find_contacts_by_uid(uid: i64, offset: i64, limit: i64) -> Result<Vec<ContactEntity>, sqlx::Error> {
+    pub async fn find_contacts_by_uid(
+        uid: i64,
+        offset: i64,
+        limit: i64,
+    ) -> Result<Vec<ContactEntity>, sqlx::Error> {
         let pool = pg_pool();
         sqlx::query_as::<_, ContactEntity>(
             "SELECT * FROM cola_im.contact WHERE owner_id = $1 AND deleted = false ORDER BY upd_time DESC LIMIT $2 OFFSET $3"
@@ -42,7 +50,11 @@ impl ImContactRepo {
         Ok(())
     }
 
-    pub async fn update_favorites(uid: i64, card_id: i64, favorites: bool) -> Result<(), sqlx::Error> {
+    pub async fn update_favorites(
+        uid: i64,
+        card_id: i64,
+        favorites: bool,
+    ) -> Result<(), sqlx::Error> {
         let pool = pg_pool();
         let now = chrono::Utc::now().timestamp();
         sqlx::query("UPDATE cola_im.contact SET favorites = $1, upd_time = $2 WHERE owner_id = $3 AND card_id = $4")

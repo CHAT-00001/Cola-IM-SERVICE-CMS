@@ -1,5 +1,4 @@
-// user/entity/category.rs
-// 用户 - entity - 分类 -  分类表
+// cola_data/src/user/entity/category.rs -- 数据 - USER - entity - 分类表
 // 2026/8/4 02:00 Created.
 
 ////////
@@ -11,7 +10,7 @@ use sqlx::FromRow;
 ////////
 
 /// # [ENTITY] - 用户 - 分类表
-/// * `pg schema`: `user`
+/// * `pg schema`: `cola_user`
 /// * `table name`: `category`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct UserCategoryEntity {

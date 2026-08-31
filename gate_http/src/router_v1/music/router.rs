@@ -1,8 +1,10 @@
-// gate_http/src/router_v2/cola_music/router2 -- 音乐 - 路由器
+// gate_http/src/router_v2/music/router2 -- 音乐 - 路由器
 // 2026/5/25 03:08 by wx: cestbon10080
 
 ////////
 
+use crate::ping::ping;
+use crate::router_v1::response::ApiResponse;
 use actix_web::web::{Data, get};
 use actix_web::{HttpResponse, get, web};
 use app_config::app_state::AppState;
@@ -12,8 +14,6 @@ use std::alloc::handle_alloc_error;
 use std::collections::HashMap;
 use std::error::Error;
 use std::time::Instant;
-use crate::ping::ping;
-use crate::router_v1::response::ApiResponse;
 ////////
 
 /// # [ROUTER] - 音乐 - 路由器
@@ -148,8 +148,6 @@ pub struct ListResponse<T> {
     pub(crate) list: Vec<T>,
     pub(crate) pagination: Pagination,
 }
-
-
 
 ///// # 根据ID获取单个客户端
 ///// 参数：id

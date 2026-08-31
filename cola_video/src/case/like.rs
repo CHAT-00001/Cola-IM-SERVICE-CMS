@@ -5,8 +5,8 @@
 
 use anyhow::{Result, anyhow};
 use port::app::ctx::AppContext;
-use tracing::{info, warn};
 use service::cola_video::like::add::VideoLikeAddService;
+use tracing::{info, warn};
 ////////
 
 /// # [USE CASE] - 点赞 用例
@@ -68,7 +68,6 @@ impl LikeCase {
 
         Ok(())
     }
-    
 }
 
 //////// END

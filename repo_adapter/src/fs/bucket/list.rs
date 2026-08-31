@@ -27,14 +27,8 @@ impl BucketListPort for BucketListAdapter {
         limit: i64,
         offset: i64,
     ) -> Result<(Vec<BucketInfo>, i64)> {
-        let (entities, total) = BucketRepo::admin_find_page(
-            &pg_pool(),
-            app_id,
-            keyword,
-            limit,
-            offset,
-        )
-        .await?;
+        let (entities, total) =
+            BucketRepo::admin_find_page(&pg_pool(), app_id, keyword, limit, offset).await?;
         let list: Vec<BucketInfo> = entities.into_iter().map(Into::into).collect();
         tracing::info!(
             "[🔌 ADAPTER] - ✅️ 管理员存储桶列表查询成功: app_id={:?}, count={}, total={}",

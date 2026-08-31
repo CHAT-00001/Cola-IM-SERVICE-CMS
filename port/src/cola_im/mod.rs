@@ -1,5 +1,5 @@
-// port/src/cola_im/mod.rs
-// ⏩️ 端口 - 可乐IM - mod
+// port/src/cola_im/music.rs
+// ⏩️ 端口 - 可乐IM - music
 // 2026-07-07
 
 ////////

@@ -4,10 +4,10 @@
 ////////
 
 use anyhow::Result;
-use tracing::{info, warn};
 use cola_data::cola_video::command::collect::CollectCommand;
 use service::cola_video::collect::add::VideoCollectAddService;
 use service::cola_video::collect::del::VideoCollectDelService;
+use tracing::{info, warn};
 
 ////////
 
@@ -20,12 +20,7 @@ impl CollectCase {
     ////////
 
     /// # 1. [CASE] - 添加
-    pub async fn case_add_collect(
-        uid: i64,
-        video_id: i64,
-        cmd: CollectCommand,
-    ) -> Result<bool> {
-
+    pub async fn case_add_collect(uid: i64, video_id: i64, cmd: CollectCommand) -> Result<bool> {
         // 修改视频评论权限
         VideoCollectAddService::save_collect_and_update_count(uid, video_id, cmd)
             .await
@@ -35,16 +30,10 @@ impl CollectCase {
         Ok(true)
     }
 
-
     ////////
 
     /// # 2. [CASE] - 编辑
-    pub async fn case_set_collect(
-        uid: i64,
-        video_id: i64,
-        cmd: CollectCommand,
-    ) -> Result<bool> {
-
+    pub async fn case_set_collect(uid: i64, video_id: i64, cmd: CollectCommand) -> Result<bool> {
         // 修改视频评论权限
         VideoCollectAddService::save_collect_and_update_count(uid, video_id, cmd)
             .await
@@ -56,16 +45,10 @@ impl CollectCase {
 
     ////////
 
-
     ////////
 
     /// # 4. [CASE] - 删除一个
-    pub async fn case_del_collect(
-        uid: i64,
-        video_id: i64,
-        collect_id: i64,
-    ) -> Result<bool> {
-
+    pub async fn case_del_collect(uid: i64, video_id: i64, collect_id: i64) -> Result<bool> {
         // 删除收藏
         VideoCollectDelService::single_delete(uid, collect_id)
             .await

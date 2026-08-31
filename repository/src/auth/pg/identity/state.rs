@@ -15,7 +15,6 @@ use cola_data::auth::entity::session::AuthSessionEntity;
 pub struct SessionStateService;
 
 impl SessionStateService {
-
     ////////
 
     /// # 1. [CACHE-FIRST] - 检查会话(按 access_token)
@@ -46,7 +45,8 @@ impl SessionStateService {
                 tracing::warn!("SessionState: 回填 Redis 失败: {}", e);
             }
             // 登记用户设备(多设备支持)
-            if let Err(e) = SessionCache::add_user_device(session.user_id, &session.device_id).await {
+            if let Err(e) = SessionCache::add_user_device(session.user_id, &session.device_id).await
+            {
                 tracing::warn!("SessionState: 登记设备失败: {}", e);
             }
         }
@@ -58,10 +58,7 @@ impl SessionStateService {
 
     /// # 2. [SERVICE] - 检查某用户是否在指定设备登录
     /// * 多设备比对：先去 PG 查该设备是否有活跃 session
-    pub async fn check_device_active(
-        user_id: i64,
-        device_id: &str,
-    ) -> Result<bool> {
+    pub async fn check_device_active(user_id: i64, device_id: &str) -> Result<bool> {
         // Redis 快速检查(Set 成员判断)
         if let Ok(devices) = SessionCache::get_user_devices(user_id).await {
             if devices.iter().any(|d| d == device_id) {
@@ -81,11 +78,7 @@ impl SessionStateService {
     ////////
 
     /// # 3. [SERVICE] - 登出时清理缓存(双删策略)
-    pub async fn invalidate_session(
-        access_token: &str,
-        uid: i64,
-        device_id: &str,
-    ) -> Result<()> {
+    pub async fn invalidate_session(access_token: &str, uid: i64, device_id: &str) -> Result<()> {
         // 删除 token 缓存
         if let Err(e) = SessionCache::del_token_cache(access_token).await {
             tracing::warn!("SessionState: 删除缓存失败: {}", e);

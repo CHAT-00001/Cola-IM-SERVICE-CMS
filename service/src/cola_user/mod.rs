@@ -1,4 +1,4 @@
-// service/src/user/mod.rs
+// service/src/user/music.rs
 // 服务 - 可乐用户 - 模块
 // 2026/6/5 00:03 Created.
 

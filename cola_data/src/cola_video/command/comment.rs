@@ -1,13 +1,12 @@
-// data/src/cola_video/command/file.rs
-// 🗄 数据 - ▶ 可乐视频 - command - 评论
-// 2026/5/20 12:01
+// cola_data/src/video/command/hotlist -- 数据 - VIDEO - command - 评论 - mod
+// 2026/5/20 12:01 Created.
 
 ////////
 
+use crate::cola_video::entity::comment::VideoCommentEntity;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use std::convert::TryFrom;
-use crate::cola_video::entity::comment::VideoCommentEntity;
 
 ////////
 
@@ -40,7 +39,7 @@ impl TryFrom<i16> for CommentType {
 /// # [COMMAND] - 评论发送命令
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct CommentCommand {
-    pub uid: i64,               // 用户 ID
+    pub uid: i64,                   // 用户 ID
     pub video_id: i64,              // 视频 ID
     pub parent_id: Option<i64>,     // 爸爸评论 ID
     pub comment_type: i16,          // 类型 (1..10)
@@ -89,7 +88,7 @@ impl CommentCommand {
         };
 
         VideoCommentEntity {
-            uid: real_uid,       // 动态注入
+            uid: real_uid,           // 动态注入
             video_id: real_video_id, // 动态注入
             parent_id: self.parent_id,
             comment_type: validated_type,

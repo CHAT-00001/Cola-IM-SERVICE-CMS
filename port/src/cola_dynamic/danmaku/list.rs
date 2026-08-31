@@ -52,7 +52,6 @@ pub trait DynamicDanmakuListPort: Send + Sync {
 
     ////////
 
-
     /// # 4. [PORT] - 回复
     async fn get_relay_danmaku_infos(
         &self,

@@ -1,4 +1,4 @@
-﻿// cola_data/src/cola_gis/command/add  -- 数据中心 - GIS - Command - POI 评论
+// cola_data/src/cola_gis/command/add  -- 数据中心 - GIS - Command - POI 评论
 // 2026/5/20 12:01
 
 ////////
@@ -40,7 +40,7 @@ impl TryFrom<i16> for CommentType {
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct PoiCommentCommand {
     pub user_id: i64,               // 用户 ID
-    pub poi_id: i64,              // 兴趣点 ID
+    pub poi_id: i64,                // 兴趣点 ID
     pub parent_id: Option<i64>,     // 父评论 ID
     pub comment_type: i16,          // 评论类型 (1..10)
     pub content: String,            // 内容
@@ -88,7 +88,7 @@ impl PoiCommentCommand {
         };
 
         PoiCommentEntity {
-            user_id: real_uid,       // 用户 ID
+            user_id: real_uid,     // 用户 ID
             poi_id: real_video_id, // poi ID
             parent_id: self.parent_id,
             comment_type: validated_type,
@@ -144,4 +144,3 @@ impl MediaInfo {
 }
 
 //////// END
-

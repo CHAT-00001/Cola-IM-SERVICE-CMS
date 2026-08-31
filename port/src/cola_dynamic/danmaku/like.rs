@@ -4,7 +4,6 @@
 
 ////////
 
-
 ////////
 
 /// # [LIKE PORTS] - 点赞
@@ -30,8 +29,8 @@ pub trait DynamicDanmakuLikePort: Send + Sync {
     /// * `desc`: `👀 AUTO` - 检查是否点赞弹幕
     async fn check_state(
         &self,
-        uid: i64,            // UID
-        danmaku_id: i64,     // 弹幕ID
+        uid: i64,        // UID
+        danmaku_id: i64, // 弹幕ID
     ) -> anyhow::Result<(bool)>;
 }
 

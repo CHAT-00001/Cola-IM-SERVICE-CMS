@@ -45,8 +45,7 @@ use xxx::yyy;
 
 示例：
 ```rust
-// cola_data/src/auth/port/session.rs
-// 数据 - AUTH - port - 会话接口
+// cola_data/src/auth/port/session.rs  -- 数据 - AUTH - port - 会话接口
 // 2026/8/1 10:25 Created.
 
 ////////
@@ -244,3 +243,6 @@ GATE > API >  CASE > PORT(可选) > ADAPTER(可选) > SERVICE > REPOSITORY > PG/
 * CASE 有2种方式向下调用repository层  
 * 1. 纯函数调用, 直接Call SERVICE Layer
 * 2. Port/Adapter (RUST trait抽象的插座/插头) 
+
+### 数据链路
+CMD > ENTITY > INFO(DTO/CACHE LAYER) > VO > BUILDER > APP DATA SHELL > BODY

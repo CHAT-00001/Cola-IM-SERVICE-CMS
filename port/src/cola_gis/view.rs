@@ -11,7 +11,6 @@ use cola_data::cola_gis::info::poi::PoiInfo;
 /// # [GET PORTS] - 浏览 服务
 #[async_trait::async_trait]
 pub trait ViewPort: Send + Sync {
-
     ////////
 
     /// # [PORT] - 保存浏览记录 + 更新浏览数量
@@ -34,16 +33,10 @@ pub trait ViewPort: Send + Sync {
     ////////
 
     /// # [PORT] - 单个获取兴趣点
-    async fn get_poi_list_by_id(
-        &self,
-        poi_id: i64,
-    ) -> anyhow::Result<PoiInfo>;
+    async fn get_poi_list_by_id(&self, poi_id: i64) -> anyhow::Result<PoiInfo>;
 
     ////////
 
     /// # [PORT] - 批量获取兴趣点
-    async fn get_poi_list_by_ids(
-        &self,
-        poi_ids: Vec<i64>,
-    ) -> anyhow::Result<Vec<PoiInfo>>;
+    async fn get_poi_list_by_ids(&self, poi_ids: Vec<i64>) -> anyhow::Result<Vec<PoiInfo>>;
 }

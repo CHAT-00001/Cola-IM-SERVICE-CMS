@@ -1,5 +1,5 @@
-// servicey/src/user/profile/mod.rs
-// 服务 - 可乐用户 - profile - mod
+// servicey/src/user/profile/music.rs
+// 服务 - 可乐用户 - profile - music
 // 2026/8/2 21:49 Created.
 
 ////////

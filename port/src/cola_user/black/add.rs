@@ -31,7 +31,6 @@ pub trait UserBlackAddPort: Send + Sync + 'static {
         uid: i64, // UID
         id: i64,  // 目标用户ID
     ) -> anyhow::Result<()>;
-
 }
 
 //////// END

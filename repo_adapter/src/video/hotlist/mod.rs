@@ -1,11 +1,10 @@
-// repo_adapter/src/video/hotlist/mod.rs
-// 🔌 适配器 - VIDEO - 上热门 - mod
+// repo_adapter/src/video/hotlist/mod.rs -- 🔌 适配器 - VIDEO - 上热门 - mod
 // 2026/8/9 22:41 Created.
 
 ////////
 
-use std::sync::Arc;
 use port::cola_video::hotlist::VideoHotlistPort;
+use std::sync::Arc;
 
 ////////
 
@@ -16,8 +15,6 @@ pub mod get; // 获取
 pub mod list; // 列表
 pub mod manage; // 管理
 pub mod stat; // 统计
-
-
 
 ////////
 

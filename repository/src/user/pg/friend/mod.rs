@@ -1,12 +1,12 @@
-// repository/src/user/pg/role/mod.rs
-// 仓储 - USER - pg - role - mod
+// repository/src/user/pg/role/music.rs
+// 仓储 - USER - pg - role - music
 // 2026/8/3 12:58 Created.
 
 ////////
 
 pub mod active;
 pub mod add;
+pub(crate) mod clean;
 pub mod get;
 pub mod manage;
 pub mod state;
-pub(crate) mod clean;

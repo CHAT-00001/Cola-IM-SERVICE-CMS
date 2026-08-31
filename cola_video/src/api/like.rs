@@ -37,7 +37,6 @@ impl LikeApi {
             Err(e) => AppData::err(error::INTERNAL_ERROR, format!("发布失败: {:?}", e), None),
         }
     }
-
 }
 
 //////// END

@@ -3,9 +3,9 @@
 
 ////////
 
+use crate::cola_three::info::server_type::ServerTypeInfo;
 use crate::cola_user::vo::user::UserVo;
 use serde::{Deserialize, Serialize};
-use crate::cola_three::info::server_type::{ServerTypeInfo};
 
 ////////
 

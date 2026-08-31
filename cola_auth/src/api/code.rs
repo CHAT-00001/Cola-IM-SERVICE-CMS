@@ -1,4 +1,4 @@
-// auth/src/api/sign/code.rs  -- 可乐验证中心 - 接口层 - 登录 - 验证码
+// cola_auth/src/api/code.rs  -- 可乐验证中心 - 接口层 - 验证码 - mod
 // 2026/6/22 06:48
 
 ////////

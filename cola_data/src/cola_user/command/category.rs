@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct UserCategoryCommand {
     pub name: Option<String>,        // 分类名称
-    pub sort: Option<i32>,         // 排序
+    pub sort: Option<i32>,           // 排序
     pub description: Option<String>, // 描述
     pub icon: Option<String>,        // 图标
 }
@@ -26,10 +26,18 @@ impl UserCategoryCommand {
 
     /// 将命令中的变更应用到现有的分类实体上
     pub fn apply(self, mut entity: UserCategoryEntity) -> UserCategoryEntity {
-        if let Some(v) = self.name { entity.name = v; }
-        if let Some(v) = self.sort { entity.sort = v; }
-        if let Some(v) = self.description { entity.description = Some(v); }
-        if let Some(v) = self.icon { entity.icon = Some(v); }
+        if let Some(v) = self.name {
+            entity.name = v;
+        }
+        if let Some(v) = self.sort {
+            entity.sort = v;
+        }
+        if let Some(v) = self.description {
+            entity.description = Some(v);
+        }
+        if let Some(v) = self.icon {
+            entity.icon = Some(v);
+        }
 
         entity
     }

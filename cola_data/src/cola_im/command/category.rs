@@ -8,7 +8,7 @@ use serde::{Deserialize, Serialize};
 ////////
 
 /// # [COMMAND] - 短视频 - 分类创建命令
-#[derive(Debug, Clone,  Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct VideoCategoryCommand {
     pub name: String,        // 分类名称
     pub name_en: String,     // 英文名称

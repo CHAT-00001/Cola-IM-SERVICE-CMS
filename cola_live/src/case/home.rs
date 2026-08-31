@@ -7,9 +7,9 @@ use crate::assembler::video::build_video_list_response_with_cdn;
 use crate::case::storage::resolve_video_cdn_domain;
 use crate::model::vo::video::VideoListResponse;
 use anyhow::Result;
-use port::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::cola_user::info::config::UserConfigInfo;
+use port::app::ctx::AppContext;
 use service::cola_video::video::list::VideoListService;
 ////////
 
@@ -18,8 +18,6 @@ pub struct HomeCase;
 
 impl HomeCase {
     ////////
-
-
 
     ////////
 
@@ -40,7 +38,7 @@ impl HomeCase {
             0,
             &cdn_domain,
         )
-            .await?;
+        .await?;
 
         Ok(response)
     }
@@ -56,8 +54,15 @@ impl HomeCase {
         let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
         let video_infos = VideoListService::find_hot_video_list(url.limit, url.offset).await?;
 
-        let response =
-            build_video_list_response_with_cdn(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0, &cdn_domain).await?;
+        let response = build_video_list_response_with_cdn(
+            video_infos,
+            url.uid,
+            url.page.unwrap_or(1),
+            url.qty.unwrap_or(10),
+            0,
+            &cdn_domain,
+        )
+        .await?;
 
         Ok(response)
     }
@@ -74,8 +79,15 @@ impl HomeCase {
         let video_infos =
             VideoListService::find_recommend_video_list(url.limit, url.offset).await?;
 
-        let response =
-            build_video_list_response_with_cdn(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0, &cdn_domain).await?;
+        let response = build_video_list_response_with_cdn(
+            video_infos,
+            url.uid,
+            url.page.unwrap_or(1),
+            url.qty.unwrap_or(10),
+            0,
+            &cdn_domain,
+        )
+        .await?;
 
         Ok(response)
     }
@@ -93,10 +105,18 @@ impl HomeCase {
         let lng = url.lng.unwrap_or(114.016487);
 
         // 🌟 已修正：下层直接返回 info，去掉多余转换逻辑
-        let video_infos = VideoListService::find_city_video_list(lat, lng, url.limit, url.offset).await?;
+        let video_infos =
+            VideoListService::find_city_video_list(lat, lng, url.limit, url.offset).await?;
 
-        let response =
-            build_video_list_response_with_cdn(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0, &cdn_domain).await?;
+        let response = build_video_list_response_with_cdn(
+            video_infos,
+            url.uid,
+            url.page.unwrap_or(1),
+            url.qty.unwrap_or(10),
+            0,
+            &cdn_domain,
+        )
+        .await?;
 
         Ok(response)
     }
@@ -112,10 +132,18 @@ impl HomeCase {
         let lng = url.lng.unwrap_or(114.016487);
 
         // 🌟 已修正：直接一步到位拿到 video_infos
-        let video_infos = VideoListService::find_city_video_list(lat, lng, url.limit, url.offset).await?;
+        let video_infos =
+            VideoListService::find_city_video_list(lat, lng, url.limit, url.offset).await?;
 
-        let response =
-            build_video_list_response_with_cdn(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0, &cdn_domain).await?;
+        let response = build_video_list_response_with_cdn(
+            video_infos,
+            url.uid,
+            url.page.unwrap_or(1),
+            url.qty.unwrap_or(10),
+            0,
+            &cdn_domain,
+        )
+        .await?;
 
         Ok(response)
     }
@@ -133,10 +161,18 @@ impl HomeCase {
         let lng = url.lng.unwrap_or(114.016487);
 
         // 🌟 已修正：直接一步到位拿到 video_infos
-        let video_infos = VideoListService::find_city_video_list(lat, lng, url.limit, url.offset).await?;
+        let video_infos =
+            VideoListService::find_city_video_list(lat, lng, url.limit, url.offset).await?;
 
-        let response =
-            build_video_list_response_with_cdn(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0, &cdn_domain).await?;
+        let response = build_video_list_response_with_cdn(
+            video_infos,
+            url.uid,
+            url.page.unwrap_or(1),
+            url.qty.unwrap_or(10),
+            0,
+            &cdn_domain,
+        )
+        .await?;
 
         Ok(response)
     }
@@ -152,8 +188,15 @@ impl HomeCase {
         let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
         let video_infos = VideoListService::find_featured_video_list(url.limit, url.offset).await?;
 
-        let response =
-            build_video_list_response_with_cdn(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0, &cdn_domain).await?;
+        let response = build_video_list_response_with_cdn(
+            video_infos,
+            url.uid,
+            url.page.unwrap_or(1),
+            url.qty.unwrap_or(10),
+            0,
+            &cdn_domain,
+        )
+        .await?;
 
         Ok(response)
     }
@@ -176,10 +219,17 @@ impl HomeCase {
             url.limit,
             url.offset,
         )
-            .await?;
+        .await?;
 
-        let response =
-            build_video_list_response_with_cdn(video_infos, url.uid, url.page.unwrap_or(1), url.qty.unwrap_or(10), 0, &cdn_domain).await?;
+        let response = build_video_list_response_with_cdn(
+            video_infos,
+            url.uid,
+            url.page.unwrap_or(1),
+            url.qty.unwrap_or(10),
+            0,
+            &cdn_domain,
+        )
+        .await?;
 
         Ok(response)
     }

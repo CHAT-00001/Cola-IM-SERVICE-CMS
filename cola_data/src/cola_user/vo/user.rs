@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UserVo {
     #[serde(flatten)]
-    pub info: UserInfo,     // 用户基础信息(建议也平铺，与之前的DynamicVo保持风格统一)
+    pub info: UserInfo, // 用户基础信息(建议也平铺，与之前的DynamicVo保持风格统一)
     pub label: String,      // 用户印象标签
     pub lever: String,      // 用户等级
     pub is_following: bool, // 是否关注
@@ -30,7 +30,7 @@ impl UserVo {
         Self {
             info,
             label: String::from("暂无标签"), // 默认值
-            lever: String::from("Lv.1"),    // 默认值
+            lever: String::from("Lv.1"),     // 默认值
             is_following,
             is_online,
             is_streaming,

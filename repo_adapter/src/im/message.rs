@@ -1,5 +1,4 @@
-// repo_adapter/src/cola_im/message.rs
-// 🔌 适配器 - 可乐IM - 消息
+// repo_adapter/src/cola_im/message.rs -- 🔌 适配器 - 可乐IM - 消息
 // 2026-07-07 12:01
 
 ////////

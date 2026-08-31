@@ -1,5 +1,4 @@
-// repo_adapter/src/gis/mod.rs
-// 🔌 插头 - 可乐 GIS - 模块
+// repo_adapter/src/gis/mod.rs -- 🔌 插头 - GIS - mod
 // 2026/8/10 20:00 Updated.
 
 ////////

@@ -1,8 +1,8 @@
-﻿// repository/src/cola_gis/redis/cola_gis.rs  -- 浠撳偍 - GIS - Redis - cola_gis
+// repository/src/cola_gis/redis/cola_gis.rs  -- 浠撳偍 - GIS - Redis - cola_gis
 // 2026/7/6
 
-use redis::AsyncCommands;
 use app_config::DbService;
+use redis::AsyncCommands;
 
 #[derive(Clone)]
 pub struct GisCache {
@@ -39,4 +39,3 @@ impl GisCache {
         Ok(())
     }
 }
-

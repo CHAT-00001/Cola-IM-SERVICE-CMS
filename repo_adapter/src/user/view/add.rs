@@ -1,5 +1,4 @@
-// repo_adapter/src/user/view/add.rs
-// 🔌 适配器 - 可乐用户 - 浏览 - 发布服务
+// repo_adapter/src/user/view/add.rs -- 适配器 - USER - 浏览 - 发布服务
 // 2026/8/6 04:18 Created.
 
 ////////

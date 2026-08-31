@@ -1,21 +1,19 @@
-// cola_live/src/case/hotlist/add.rs
-//  -- LIVE - 用例层 - 上热门
+// cola_live/src/case/hotlist/add.rs -- LIVE - 用例层 - 上热门
 // 2026/6/10 08:37
 
 ////////
 
 use anyhow::{Result, anyhow};
-use tracing::{info, warn};
-use port::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::cola_video::command::hotlist::HotlistCommand;
+use port::app::ctx::AppContext;
+use tracing::{info, warn};
+use cola_data::cola_coc::command::hotlist::record::HotlistCommand;
 ////////
 
 /// # [CASE] - 上热门 用例
 pub struct HotlistCase;
 
 impl HotlistCase {
-
     ////////
 
     /// # 1. [CASE] - 添加
@@ -25,7 +23,6 @@ impl HotlistCase {
         cmd: HotlistCommand,
         ctx: &AppContext,
     ) -> Result<()> {
-
         // 1. 保存上热门(抖+)记录
         ctx.video
             .hotlist
@@ -38,7 +35,6 @@ impl HotlistCase {
     }
 
     ////////
-
 }
 
 //////// END

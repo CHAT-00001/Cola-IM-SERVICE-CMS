@@ -1,12 +1,11 @@
-// repo_adapter/src/video/hotlist/add.rs
-// 🔌 插头 - ▶ 可乐视频 - 上热门 - 发布
+// repo_adapter/src/video/hotlist/add.rs -- 🔌 插头 - VIDEO - 上热门 - 发布适配器
 // 2026/8/6 19:03 Created.
 
 ////////
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_video::command::hotlist::HotlistCommand;
+use cola_data::cola_coc::command::hotlist::record::HotlistCommand;
 use port::cola_video::hotlist::add::VideoHotlistAddPort;
 
 ////////
@@ -24,12 +23,7 @@ impl VideoHotlistAddPort for hotlistaddPortAdapter {
     ////////
 
     /// # 1. [ADAPTER] - 发布
-    async fn save_hotlist(
-        &self,
-        uid: i64,
-        video_id: i64,
-        cmd: HotlistCommand,
-    ) -> Result<()> {
+    async fn save_hotlist(&self, uid: i64, video_id: i64, cmd: HotlistCommand) -> anyhow::Result<()> {
         todo!()
     }
 

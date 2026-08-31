@@ -1,10 +1,11 @@
-// port/src/auth/port/mod.rs
+// port/src/auth/port/music.rs
 // 端口 - 认证 - 中心服务端口
 // 2026/6/10 07:45
 
 ////////
 
 use crate::auth::identity::AuthIdentityPort;
+use crate::auth::identity::phone::PhoneIdentityPort;
 use crate::auth::session::{AuthSessionPort, SessionPort};
 use std::sync::Arc;
 
@@ -19,6 +20,7 @@ pub mod session; // 登录会话
 pub struct AuthServicePorts {
     /// 会话校验端口（Token 验证 → SessionContext）
     pub session: Arc<dyn SessionPort + Send + Sync + 'static>,
+    pub identity: Arc<dyn PhoneIdentityPort + Send + Sync + 'static>, // 手机身份
 }
 
 //////// END

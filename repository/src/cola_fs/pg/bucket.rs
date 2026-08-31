@@ -4,9 +4,9 @@
 ////////
 
 use chrono::{DateTime, Utc};
-use sqlx::PgPool;
 use cola_data::cola_fs::command::bucket::CreateBucketCmd;
-use cola_data::cola_fs::entity::bucket::{BucketEntity, BUCKET_COLUMNS};
+use cola_data::cola_fs::entity::bucket::{BUCKET_COLUMNS, BucketEntity};
+use sqlx::PgPool;
 
 ////////
 
@@ -21,7 +21,6 @@ impl BucketRepo {
 
     /// # [REPO] - 根据内部 ID 查询存储桶
     pub async fn find_by_id(pool: &PgPool, id: i64) -> Result<Option<BucketEntity>, sqlx::Error> {
-
         let query = format!(
             r#"
             SELECT {} FROM cola_fs.bucket
@@ -171,11 +170,7 @@ impl BucketRepo {
             WHERE id = $2 AND (is_deleted IS NOT TRUE)
         "#;
 
-        let result = sqlx::query(query)
-            .bind(now)
-            .bind(id)
-            .execute(pool)
-            .await?;
+        let result = sqlx::query(query).bind(now).bind(id).execute(pool).await?;
 
         Ok(result.rows_affected())
     }

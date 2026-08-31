@@ -1,8 +1,8 @@
 // cola_data/src/cola_three/info/config  -- THREE - 配置信息
 // 2026/6/18
 
-use serde::{Deserialize, Serialize};
 use crate::cola_three::entity::config::ThreeConfigEntity;
+use serde::{Deserialize, Serialize};
 
 //////
 

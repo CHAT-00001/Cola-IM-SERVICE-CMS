@@ -16,10 +16,10 @@ pub trait GoodsBuyGetPort: Send + Sync {
     /// * `desc`: `用户批量获取购买的视频IDs`
     async fn get_my_bought_ids(
         &self,
-        uid: i64,    // UID
+        uid: i64,     // UID
         user_id: i64, // 用户 ID
-        limit: i64,  // 数量
-        offset: i64, // 页码
+        limit: i64,   // 数量
+        offset: i64,  // 页码
     ) -> anyhow::Result<(Vec<i64>)>;
 
     ////////
@@ -28,10 +28,10 @@ pub trait GoodsBuyGetPort: Send + Sync {
     /// * `desc`: `用户批量获取购买的视频IDs`
     async fn get_he_bought_ids(
         &self,
-        uid: i64,    // UID
+        uid: i64,     // UID
         user_id: i64, // 用户 ID
-        limit: i64,  // 数量
-        offset: i64, // 页码
+        limit: i64,   // 数量
+        offset: i64,  // 页码
     ) -> anyhow::Result<(Vec<i64>)>;
 }
 

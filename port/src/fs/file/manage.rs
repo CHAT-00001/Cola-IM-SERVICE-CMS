@@ -40,11 +40,7 @@ pub trait FileManagePort: Send + Sync {
     ////////
 
     /// # 3. [PORT] - 更新文件状态
-    async fn update_file_status(
-        &self,
-        file_id: i64,
-        status: i16,
-    ) -> Result<()>;
+    async fn update_file_status(&self, file_id: i64, status: i16) -> Result<()>;
 }
 
 //////// END

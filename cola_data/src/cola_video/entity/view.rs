@@ -1,5 +1,4 @@
-// cola_data/src/cola_video/entity/view.rs
-// 🗄️ 数据 - ▶ 可乐视频 - entity - view - 浏览记录表
+// cola_data/src/cola_video/entity/view.rs -- 数据 - VIDEO - entity - 浏览 - 记录表
 // 2026/3/28 05:56 Created.
 
 ////////
@@ -13,7 +12,7 @@ use sqlx::FromRow;
 
 ////////
 
-/// # [ENTITY] - 视频 浏览记录表
+/// # [ENTITY] - 视频 - 浏览记录表
 /// * `pg schema`: `cola_video` -- PG模式
 /// * `table name`: `view` -- 数据表
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow)]

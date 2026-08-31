@@ -1,5 +1,4 @@
-// repo_adapter/src/market/view/mod.rs
-// 🔌 适配器 - MARKET - 商品浏览记录
+// repo_adapter/src/market/view/music.rs -- 适配器 - MARKET - 商品浏览记录
 // 2026/8/10 20:00 Updated.
 
 ////////
@@ -9,14 +8,13 @@ use std::sync::Arc;
 
 ////////
 
-
-pub mod add;     // 发布
-pub mod active;  // 存活
-pub mod del;     // 删除
-pub mod get;     // 获取IDs
-pub mod list;    // 浏览列表
-pub mod manage;  // 管理
-pub mod stat;    // 统计
+pub mod active; // 存活
+pub mod add; // 发布
+pub mod del; // 删除
+pub mod get; // 获取IDs
+pub mod list; // 浏览列表
+pub mod manage; // 管理
+pub mod stat; // 统计
 
 ////////
 

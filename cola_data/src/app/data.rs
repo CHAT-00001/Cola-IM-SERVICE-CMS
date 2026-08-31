@@ -5,9 +5,9 @@
 ////////
 
 // 移除了被硬编码的 comment_list_response 引入
-use std::time::Instant;
 use chrono::Utc;
 use serde::{Deserialize, Serialize};
+use std::time::Instant;
 use uuid::Uuid;
 
 ////////
@@ -16,7 +16,7 @@ use uuid::Uuid;
 /// * `desc`: `数据响应壳`
 #[derive(Serialize, Debug)]
 pub struct AppData<T> {
-    pub code: i32,          // 0: 成功, 其他: 错误码
+    pub code: i32, // 0: 成功, 其他: 错误码
     pub message: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub error: Option<String>,
@@ -28,14 +28,14 @@ pub struct AppData<T> {
     pub data: Option<T>,
 }
 
-
 /// # [BUILD] - 构造响应壳
 impl<T> AppData<T> {
     ////////
 
     /// # [CASE] - ✅ 成功响应（恢复彻底泛型化）
     /// `desc` `现在它可以接收 String, AuthSessionResponse, CommentListResponse 等任何类型`
-    pub fn ok(data: T) -> Self { // 👈 核心修改：改为接收泛型 T
+    pub fn ok(data: T) -> Self {
+        // 👈 核心修改：改为接收泛型 T
         Self {
             code: 0,
             message: "success".into(),

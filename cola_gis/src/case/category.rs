@@ -12,8 +12,6 @@ pub async fn logic_check_category_status(category_id: i16) -> bool {
     return true;
 }
 
-
-
 /// # BIZ - LOGIC - 创建分类
 /// * 描述：只能管理员创建分类状态.
 /// * 参数：CategoryEntity
@@ -22,7 +20,6 @@ pub async fn logic_check_category_status(category_id: i16) -> bool {
 pub async fn logic_add_category_item(category_id: i16) -> bool {
     return true;
 }
-
 
 /// # BIZ - LOGIC - 删除分类
 /// * 描述：只能管理员删除分类状态.
@@ -33,8 +30,6 @@ pub async fn logic_del_category_item(category_id: i16) -> bool {
     return true;
 }
 
-
-
 /// # BIZ - LOGIC - 修改分类
 /// * 描述：只能管理员修改分类状态.
 /// * 参数：category_id - 分类ID
@@ -44,7 +39,6 @@ pub async fn logic_change_category_item(category_id: i16) -> bool {
     return true;
 }
 
-
 /// # BIZ - LOGIC - 浏览分类
 /// * 描述：根据分类ID查询分类详情.
 /// * 参数：category_id - 分类ID
@@ -53,7 +47,5 @@ pub async fn logic_change_category_item(category_id: i16) -> bool {
 pub async fn logic_view_category_item(category_id: i16) -> bool {
     return true;
 }
-
-
 
 ////////

@@ -8,7 +8,6 @@ use cola_data::cola_user::command::user::add::UserCommand;
 use cola_data::cola_user::command::user::update::UpdateUserCommand;
 use cola_data::cola_user::info::user::UserInfo;
 
-
 ////////
 
 /// # [ADD PORTS] - 发布

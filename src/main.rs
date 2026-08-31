@@ -3,7 +3,7 @@
 
 ////////
 
-use tracing_subscriber::{fmt, EnvFilter};
+use tracing_subscriber::{EnvFilter, fmt};
 
 ////////
 mod app;
@@ -16,10 +16,7 @@ mod app;
 async fn main() {
     // 初始化全局日志
     let filter = EnvFilter::new("info,short-cola_live = debug");
-    tracing_subscriber::fmt()
-        .with_env_filter(filter)
-
-        .init();
+    tracing_subscriber::fmt().with_env_filter(filter).init();
     tracing::info!("▶▶▶▶ Hello, world! This should be printed.");
 
     // 启动应用

@@ -1,4 +1,4 @@
-// cola_dynamic/port/recommend/pool.rs
+// cola_dynamic/port/hotlist/pool.rs
 // 动态 - port - 推荐 - 推荐池
 // 2026/8/5 00:02 Created.
 

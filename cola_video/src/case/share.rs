@@ -4,13 +4,12 @@
 ////////
 
 use anyhow::{Result, anyhow};
-use tracing::{info, warn};
-use port::app::ctx::AppContext;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::cola_video::command::share::ShareCommand;
+use port::app::ctx::AppContext;
+use tracing::{info, warn};
 
 ////////
-
 
 ////////
 
@@ -18,7 +17,6 @@ use cola_data::cola_video::command::share::ShareCommand;
 pub struct ShareCase;
 
 impl ShareCase {
-
     ////////
 
     /// # 1. [CASE] - 添加分享
@@ -53,7 +51,6 @@ impl ShareCase {
             .map_err(|e| anyhow!("删除分享记录失败: {}", e))?;
         Ok(())
     }
-
 }
 
 //////// END

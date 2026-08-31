@@ -1,8 +1,8 @@
 // cola_video/src/port/api/session -- 登录应用层
 // 2026-03-11 10:56:12
 
-use std::fmt;
 use serde::{Deserialize, Serialize}; // 序列化/反序列化，供transport层交互
+use std::fmt;
 use tracing::info; // 日志
 
 /// 通用返回结果类型（供transport层使用）
@@ -21,23 +21,23 @@ pub struct LoginResponse {
 #[serde(rename_all = "UPPERCASE")] // 序列化时转大写（如CODE/WECHAT）
 pub enum LoginType {
     #[serde(rename = "0")]
-    Code,        // 手机验证码 (默认）
+    Code, // 手机验证码 (默认）
     #[serde(rename = "1")]
-    Email,       // 邮箱密码
+    Email, // 邮箱密码
     #[serde(rename = "2")]
-    Account,     // 账号密码
+    Account, // 账号密码
     #[serde(rename = "3")]
-    Apple,       // 苹果登录
+    Apple, // 苹果登录
     #[serde(rename = "4")]
-    Wechat,      // 微信登录
+    Wechat, // 微信登录
     #[serde(rename = "5")]
-    Alipay,      // 支付宝登录
+    Alipay, // 支付宝登录
     #[serde(rename = "6")]
-    Google,      // Google登录
+    Google, // Google登录
     #[serde(rename = "7")]
-    Facebook,    // Facebook
+    Facebook, // Facebook
     #[serde(rename = "8")]
-    Whatsapp,    // WhatAPP
+    Whatsapp, // WhatAPP
 }
 
 // 为LoginType实现默认值（手机验证码为默认登录方式）
@@ -68,14 +68,14 @@ impl fmt::Display for LoginType {
 #[derive(Debug, Serialize, Deserialize, Default)]
 pub struct LoginQuery {
     #[serde(default)]
-    pub login_type: LoginType,   // 登录类型（默认手机验证码）
-    pub sms_code: Option<String>,  // 短信验证码
+    pub login_type: LoginType, // 登录类型（默认手机验证码）
+    pub sms_code: Option<String>,   // 短信验证码
     pub sms_secret: Option<String>, // 短信秘钥（可选）
     #[serde(default = "default_code")]
-    pub code: String,  // 地区码 默认 +86
-    pub phone_number: Option<String>,  // 电话号码
-    pub email: Option<String>, // 邮箱
-    pub password: Option<String>, // 补充：密码（账号/邮箱登录需要）
+    pub code: String, // 地区码 默认 +86
+    pub phone_number: Option<String>, // 电话号码
+    pub email: Option<String>,      // 邮箱
+    pub password: Option<String>,   // 补充：密码（账号/邮箱登录需要）
     pub third_party_token: Option<String>, // 补充：第三方登录token（微信/苹果等）
 }
 
@@ -164,8 +164,12 @@ fn validate_login_params(query: &LoginQuery) -> Result<(), String> {
             }
         }
         // 第三方登录：必须传token
-        LoginType::Wechat | LoginType::Apple | LoginType::Alipay |
-        LoginType::Google | LoginType::Facebook | LoginType::Whatsapp => {
+        LoginType::Wechat
+        | LoginType::Apple
+        | LoginType::Alipay
+        | LoginType::Google
+        | LoginType::Facebook
+        | LoginType::Whatsapp => {
             if query.third_party_token.is_none() {
                 return Err(format!("{}登录token不能为空", query.login_type));
             }

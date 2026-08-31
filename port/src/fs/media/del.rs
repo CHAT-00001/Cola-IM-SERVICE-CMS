@@ -17,20 +17,12 @@ pub trait MediaDelPort: Send + Sync {
     ////////
 
     /// # 1. [PORT] - 单个删除媒体
-    async fn delete_media(
-        &self,
-        uid: i64,
-        media_id: i64,
-    ) -> Result<u64>;
+    async fn delete_media(&self, uid: i64, media_id: i64) -> Result<u64>;
 
     ////////
 
     /// # 2. [PORT] - 批量删除媒体
-    async fn batch_delete_medias(
-        &self,
-        uid: i64,
-        media_ids: Vec<i64>,
-    ) -> Result<u64>;
+    async fn batch_delete_medias(&self, uid: i64, media_ids: Vec<i64>) -> Result<u64>;
 }
 
 //////// END

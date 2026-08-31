@@ -10,7 +10,6 @@ use cola_data::market::command::goods::GoodsCommand;
 use cola_data::market::info::express::express::ExpressInfo;
 use port::market::express::add::ExpressAddPort;
 
-
 ////////
 
 /// # [ADD SERVICE] - 发布
@@ -28,14 +27,18 @@ impl ExpressAddPort for ExpressAddAdapter {
         todo!()
     }
 
-    async fn update_express(&self, uid: i64, express_id: i64, cmd: GoodsCommand) -> Result<(ExpressInfo)> {
+    async fn update_express(
+        &self,
+        uid: i64,
+        express_id: i64,
+        cmd: GoodsCommand,
+    ) -> Result<(ExpressInfo)> {
         todo!()
     }
 
     async fn change_status(&self, express_id: i64, status_code: i16) -> Result<()> {
         todo!()
     }
-
 }
 
 //////// END

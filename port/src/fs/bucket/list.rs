@@ -6,7 +6,6 @@
 
 use cola_data::cola_fs::info::bucket::BucketInfo;
 
-
 ////////
 
 /// # [LIST SERVICE] - 列表
@@ -17,10 +16,10 @@ pub trait BucketListPort: Send + Sync {
     /// * `desc`: `查询全部存储桶，支持 app_id 和 keyword 条件`
     async fn admin_find_page(
         &self,
-        app_id: Option<&str>, // 应用 ID
+        app_id: Option<&str>,  // 应用 ID
         keyword: Option<&str>, // 搜索关键词
-        limit: i64, // 数量
-        offset: i64, // 偏移
+        limit: i64,            // 数量
+        offset: i64,           // 偏移
     ) -> anyhow::Result<(Vec<BucketInfo>, i64)>;
 }
 

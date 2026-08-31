@@ -4,11 +4,9 @@
 
 ////////
 
-
 pub struct UserRoleAddApi;
 
-
-impl UserRoleAddApi{
+impl UserRoleAddApi {
     //
 
     ////////

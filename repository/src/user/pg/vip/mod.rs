@@ -1,5 +1,5 @@
 // repository/src/user/pg/vip/mod.rs
-// 仓储 - USER - pg - vip - mod
+// 仓储 - USER - pg - vip - music
 // 2026/8/3 12:53 Created.
 
 ////////

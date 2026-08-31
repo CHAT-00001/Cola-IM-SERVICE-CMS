@@ -7,7 +7,7 @@
 /// # [STAT PORTS] 浏览 统计
 /// * `desc`: `动态浏览统计端口`
 #[async_trait::async_trait]
-pub trait DynamicViewStatPort:  Send + Sync {
+pub trait DynamicViewStatPort: Send + Sync {
     //
 
     ////////

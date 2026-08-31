@@ -1,15 +1,13 @@
 // kits/src/adapter/content.rs  -- 工具包 - 适配器  - 内容风控
 // 2026/5/21 02:05 by wx: cestbon10080
-// * 
+// *
 // * --------
 
 ////////
 
-use async_trait::async_trait;
 use crate::port::content::RiskControlPort;
+use async_trait::async_trait;
 ////////
-
-
 
 pub struct LocalRiskAdapter;
 

@@ -1,14 +1,13 @@
-// cola_fs/src/case/upload.rs
-// 可乐FS - 用例层 - 文件上传
+// cola_fs/src/case/upload.rs -- 可乐FS - 用例层 - 文件上传
 // 2026/8/14 13:00 Created.
 
 ////////
 
-use anyhow::{anyhow, Result};
-use tracing::info;
-use port::app::ctx::AppContext;
+use anyhow::{Result, anyhow};
 use cola_data::cola_fs::command::file::CreateFileCmd;
-use cola_data::cola_fs::command::media::CreateMediaCmd;
+use cola_data::cola_fs::command::media::{BatchCreateMediaCmd, CreateMediaCmd};
+use port::app::ctx::AppContext;
+use tracing::info;
 
 ////////
 
@@ -30,7 +29,10 @@ impl FsUploadCase {
         ctx: &AppContext,
     ) -> Result<serde_json::Value> {
         // 1. 查询桶配置
-        let bucket = ctx.fs.bucket.get
+        let bucket = ctx
+            .fs
+            .bucket
+            .get
             .get_bucket_by_app_id(&app_id)
             .await?
             .ok_or_else(|| anyhow!("Bucket not found for app_id: {}", app_id))?;
@@ -40,17 +42,24 @@ impl FsUploadCase {
         let object_key = format!("{}/user_{}/{}", timestamp, uid, file_name);
 
         // 3. 生成预签名 URL
-        let presigned_url = ctx.fs.bucket.add
-            .get_presigned_url(uid, &bucket.bucket, &object_key, 3600)
+        let presigned_url = ctx
+            .fs
+            .bucket
+            .add
+            .get_presigned_url(uid, bucket.id, &object_key, 600)
             .await?;
 
-        info!("[🗣️ CASE] - ✅️ 生成上传密钥成功: uid={}, app_id={}", uid, app_id);
+        info!(
+            "[🗣️ CASE] - ✅️ 生成上传密钥成功: uid={}, app_id={}",
+            uid, app_id
+        );
 
         Ok(serde_json::json!({
             "presigned_url": presigned_url,
             "object_key": object_key,
             "bucket": bucket.bucket,
             "expired_at": chrono::Utc::now().checked_add_signed(chrono::Duration::hours(1)),
+            "expires_in": 600,
         }))
     }
 
@@ -62,7 +71,10 @@ impl FsUploadCase {
         cmd: CreateFileCmd,
         ctx: &AppContext,
     ) -> Result<cola_data::cola_fs::entity::file::FsFileEntity> {
-        let file = ctx.fs.file.add
+        let file = ctx
+            .fs
+            .file
+            .add
             .create_temp_file(
                 uid,
                 cmd.app_id.unwrap_or_default(),
@@ -75,7 +87,10 @@ impl FsUploadCase {
             )
             .await?;
 
-        info!("[🗣️ CASE] - ✅️ 创建临时文件成功: uid={}, file_id={}", uid, file.id);
+        info!(
+            "[🗣️ CASE] - ✅️ 创建临时文件成功: uid={}, file_id={}",
+            uid, file.id
+        );
 
         Ok(file)
     }
@@ -96,9 +111,56 @@ impl FsUploadCase {
         // 2. 创建媒体记录
         let media = ctx.fs.media.add.create_media(uid, cmd).await?;
 
-        info!("[🗣️ CASE] - ✅️ 创建媒体资源成功: uid={}, media_id={}", uid, media.id);
+        info!(
+            "[🗣️ CASE] - ✅️ 创建媒体资源成功: uid={}, media_id={}",
+            uid, media.id
+        );
 
         Ok(media)
+    }
+
+    ////////
+
+    /// # 4. [CASE] - 批量创建媒体资源
+    /// * `desc`: `校验通用 UGC 媒体结构后逐项创建，失败时不返回部分结果`
+    pub async fn case_batch_create_media(
+        uid: i64,
+        cmd: BatchCreateMediaCmd,
+        ctx: &AppContext,
+    ) -> Result<Vec<cola_data::cola_fs::entity::media::MediaEntity>> {
+        if cmd.medias.is_empty() || cmd.medias.len() > 20 {
+            return Err(anyhow!("媒体数量必须在 1 到 20 之间"));
+        }
+
+        let mut result = Vec::with_capacity(cmd.medias.len());
+        for media_cmd in cmd.medias {
+            Self::validate_media_files(&media_cmd)?;
+            let media = ctx.fs.media.add.create_media(uid, media_cmd).await?;
+            result.push(media);
+        }
+        info!(
+            "[🗣️ CASE] - ✅️ 批量媒体创建成功: uid={}, count={}",
+            uid,
+            result.len()
+        );
+        Ok(result)
+    }
+
+    ////////
+
+    fn validate_media_files(cmd: &CreateMediaCmd) -> Result<()> {
+        if !(1..=6).contains(&cmd.media_type) {
+            return Err(anyhow!("不支持的媒体类型: {}", cmd.media_type));
+        }
+        match cmd.media_type {
+            3 if cmd.main_file_id.is_none() || cmd.aux_file_id.is_none() => {
+                Err(anyhow!("LivePhoto 必须同时提供静态图片和动态视频文件"))
+            }
+            1 | 2 | 4 | 5 | 6 if cmd.main_file_id.is_none() => {
+                Err(anyhow!("媒体类型 {} 必须提供主文件", cmd.media_type))
+            }
+            _ => Ok(()),
+        }
     }
 
     ////////
@@ -116,7 +178,10 @@ impl FsUploadCase {
             return Ok(0);
         }
 
-        let count = ctx.fs.file.manage
+        let count = ctx
+            .fs
+            .file
+            .manage
             .mark_files_as_official(uid, file_ids, ref_table, ref_id)
             .await?;
 
@@ -127,4 +192,3 @@ impl FsUploadCase {
 }
 
 //////// END
-

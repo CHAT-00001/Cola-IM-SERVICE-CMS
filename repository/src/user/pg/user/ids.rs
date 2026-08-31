@@ -1,9 +1,8 @@
 // repository/src/user/pg/user/ids.rs
-// 
+//
 // 2026/8/6 22:58 Created.
 
 ////////
-
 
 // repository/src/user/pg/user/list.rs
 // 仓储层 - 可乐用户 - pg - 用户 - 列表仓储
@@ -25,7 +24,6 @@ impl UserIdsRepo {
     //
 
     ////////
-
 
     /// # 2. [REPOSITORY] - 查找一个用户 (精准匹配)
     pub async fn find_user_by_id(user_id: i64) -> Result<Option<UserEntity>, sqlx::Error> {

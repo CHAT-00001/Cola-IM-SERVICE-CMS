@@ -1,5 +1,5 @@
 // repo_adapter/src/auth/mod.rs
-// 🔌 适配器 - AUTH - mod
+// 🔌 适配器 - AUTH - music
 // 2026/8/10 20:00 Updated.
 
 ////////
@@ -18,7 +18,6 @@ pub mod phone; // 电话
 pub mod session; // 会话
 pub mod session22; // 会话
 
-
 ////////
 
 /// # [BUILD] - 构建 AUTH Port
@@ -26,7 +25,7 @@ pub mod session22; // 会话
 pub fn build_auth_port() -> AuthServicePorts {
     AuthServicePorts {
         session: Arc::new(session22::SessionPortAdapter),
-
+        identity: Arc::new(identity::phone::PhoneIdentityAdapter),
     }
 }
 

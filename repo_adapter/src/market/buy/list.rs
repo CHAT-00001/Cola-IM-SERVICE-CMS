@@ -7,8 +7,8 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use cola_data::cola_video::info::buy::VideoBuyInfo;
-use port::market::buy::list::GoodsBuyListPort;
 use port::cola_video::buy::list::VideoBuyListPort;
+use port::market::buy::list::GoodsBuyListPort;
 
 ////////
 

@@ -9,7 +9,7 @@ use async_trait::async_trait;
 use chrono::Utc;
 use cola_data::market::command::goods::GoodsCommand;
 use port::market::goods::add::GoodsAddPort;
-use repository::cola_market::pg::goods::add::GoodsAddRepo;
+use repository::market::pg::goods::add::GoodsAddRepo;
 
 ////////
 /// # [ADD ADAPTER] - 商品 发布

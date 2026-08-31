@@ -1,5 +1,5 @@
-// user/src/api/vip/mod.rs
-// core - api - vip - mod
+// user/src/api/vip/music.rs
+// core - api - vip - music
 // 2026/8/2 22:16 Created.
 
 ////////

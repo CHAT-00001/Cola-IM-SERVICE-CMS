@@ -3,10 +3,7 @@
 
 ////////
 
-
-pub struct ShopInfo {
-
-}
+pub struct ShopInfo {}
 
 impl ShopInfo {
     //

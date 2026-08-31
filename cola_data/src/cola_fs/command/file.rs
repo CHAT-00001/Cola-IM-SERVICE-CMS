@@ -15,11 +15,15 @@ use sqlx::PgPool;
 pub struct CreateFileCmd {
     pub _id: Option<String>,
     pub app_id: Option<String>,
+    #[serde(alias = "bucket")]
     pub bucket_key: String,
     pub object_key: String,
+    #[serde(alias = "file_name")]
     pub original_name: Option<String>,
     pub file_size: i64,
     pub mime_type: Option<String>,
     pub file_hash: Option<String>,
     pub expired_at: Option<chrono::DateTime<chrono::Utc>>,
 }
+
+//////// END

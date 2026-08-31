@@ -1,4 +1,4 @@
-// gate_http/src/router_v2/cola_music/router2 -- 音乐 - 路由器
+// gate_http/src/router_v2/music/router2 -- 音乐 - 路由器
 // 2026/5/25 03:08 by wx: cestbon10080
 
 ////////
@@ -19,7 +19,7 @@ use crate::ping::ping;
 /// # [ROUTER] - 音乐 - 路由器
 pub fn music_router(cfg: &mut web::ServiceConfig) {
     cfg.service(
-        web::scope("/cola_music")
+        web::scope("/music")
             .route("", web::get().to(ping))
             //  .route("/{id}", web::get().to(get_client_by_id))
             .route("", web::post().to(create))

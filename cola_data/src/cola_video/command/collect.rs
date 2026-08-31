@@ -1,6 +1,5 @@
-// cola_data/src/cola_video/command/collect.rs
-// 🗄️ 数据 - ▶ 可乐视频 - command - 收藏
-// 2026/5/22 20:45
+// cola_data/src/cola_video/command/collect.rs -- 数据 - VIDEO - command - 收藏 - mod
+// 2026/5/22 20:45 Created.
 
 ////////
 

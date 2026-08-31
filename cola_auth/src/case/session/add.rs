@@ -11,7 +11,10 @@ use cola_data::auth::command::email::EmailLoginCommand;
 use cola_data::auth::command::phone::PhoneLoginCommand;
 use cola_data::auth::info::session::SessionInfo;
 use cola_data::auth::vo::session::{SignResponse, SignVo};
+use cola_data::cola_user::command::user::add::UserCommand;
 use cola_data::cola_user::info::user::UserInfo;
+use cola_data::wallet::command::point::WalletPointInitCommand;
+use port::app::ctx::AppContext;
 use service::auth::session::SessionService;
 use service::auth::sms::SmsService;
 use service::cola_user::user::state::UserStateService;
@@ -29,7 +32,10 @@ impl AuthAddCase {
 
     /// # 1. [CASE] - 手机验证码登录
     /// * `params`:  area + phone + code
-    pub async fn case_sign_in_by_phone(cmd: &PhoneLoginCommand) -> Result<SignResponse> {
+    pub async fn case_sign_in_by_phone(
+        cmd: &PhoneLoginCommand,
+        ctx: &AppContext,
+    ) -> Result<SignResponse> {
         // 1. 拼接手机号
         let phone = format!("{}{}", cmd.area_code, cmd.phone_no);
 
@@ -43,13 +49,34 @@ impl AuthAddCase {
         // 3. 验证码校验通过 → 立即消费/失效，防止重放攻击
         SmsService::consume_sms_code(&phone).await?;
 
-        // 4. 用户处理 — 传入网关提取的客户端 IP
-        // 💡 如果是第一次登录, 自动创建用户资料
-        let (user_info, is_new_user) = UserStateService::upsert_user_by_phone(
-            cmd.phone_no.clone(),
-            Some(cmd.client_ip.clone()),
-        )
-        .await?;
+        // 4. 先通过 AUTH identity 检查手机号是否已经绑定用户
+        let (user_info, is_new_user) = match ctx.auth.identity.find_user_id_by_phone(&phone).await?
+        {
+            Some(user_id) => {
+                let user = ctx.user.user.get.single_get_info(user_id).await?;
+                (user, false)
+            }
+            None => {
+                // 5. 未命中身份时，使用现有 UserAddPort 创建用户主体
+                let mut user_cmd = UserCommand::new_with_phone(phone.clone());
+                user_cmd.last_login_ip = Some(cmd.client_ip.clone());
+                let user_info = ctx.user.user.add.save_user(user_cmd).await?;
+
+                // 6. 将手机号和新用户ID写入 AUTH identity
+                ctx.auth.identity.bind_phone(user_info.id, &phone).await?;
+
+                // 7. 初始化 Wallet POINT 账户；初始赠送积分按当前配置执行
+                ctx.wallet
+                    .point
+                    .init_point_account(WalletPointInitCommand::new(user_info.id, 0))
+                    .await?;
+
+                // 8. 初始化 LIVE 用户资料：等级1，经验0
+                ctx.live.user.init_live_user(user_info.id).await?;
+
+                (user_info, true)
+            }
+        };
 
         // 5. 构造真实 JWT + 随机 refresh_token（带 device_id 支持多端登录）
         let (session_cmd, raw_access_token, raw_refresh_token) =

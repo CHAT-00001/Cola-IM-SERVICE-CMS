@@ -1,4 +1,4 @@
-// router_v1/mod - 路由器 mod
+// router_v1/music - 路由器 music
 
 ////////
 
@@ -39,9 +39,7 @@ pub fn boot_router_v1(cfg: &mut web::ServiceConfig, app_state: AppState) {
             // 用户
             .configure(user::router::user_router)
             // 视频
-            .configure(video::gateway::video_router)
-            // 客户端
-            ,
+            .configure(video::gateway::video_router), // 客户端
     );
 }
 

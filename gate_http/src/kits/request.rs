@@ -1,7 +1,5 @@
 use serde::{Deserialize, Serialize};
 
-
-
 /// # ApiRequestBody
 /// # 统一的请求体
 /// * 用来追踪请求者的信息
@@ -14,8 +12,6 @@ pub struct ApiRequest<T> {
     pub lon: Option<f64>,
     pub data: Option<T>,
 }
-
-
 
 /// # 客户端信息
 /// # Client Info

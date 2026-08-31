@@ -1,5 +1,4 @@
-// cola_data/src/cola_video/entity/recommend/recommend.rs
-// 数据 - VIDEO - entity - recommend - recommend record 记录
+// cola_data/src/video/entity/recommend/hotlist.rs -- 数据 - VIDEO - entity - 推荐 - 记录表
 // 2026/8/2 14:00 Created.
 
 ////////
@@ -10,9 +9,9 @@ use sqlx::FromRow;
 
 ////////
 
-/// # [ENTITY] - 视频 推荐表
+/// # [ENTITY] - 视频 - 推荐表
 /// * `pg schema`: `cola_video`
-/// * `table name`: `recommend`
+/// * `table name`: `recommend_`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct VideoRecommendEntity {
     pub id: i64,                           // ID

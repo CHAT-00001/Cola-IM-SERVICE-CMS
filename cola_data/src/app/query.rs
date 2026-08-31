@@ -3,10 +3,10 @@
 
 ////////
 
+use crate::auth::request::session::AuthSessionRequest;
 use serde::{Deserialize, Serialize};
 use std::cmp;
 use std::collections::HashMap;
-use crate::auth::request::session::AuthSessionRequest;
 
 ////////
 
@@ -58,6 +58,8 @@ pub struct ApiGatewayRequest {
     pub live_id: i64, // 直播 ID
     #[serde(default)]
     pub music_id: i64, // 音乐 ID
+    #[serde(default)]
+    pub album_id: Option<i64>, // 可选专辑 ID
     #[serde(default)]
     pub photo_id: i64, // 照片 ID
     #[serde(default)]
@@ -153,23 +155,84 @@ impl ApiGatewayRequest {
             id: if body.id != 0 { body.id } else { self.id },
             _id: if body._id != 0 { body._id } else { self._id },
             at: if body.at != 0 { body.at } else { self.at },
-            by: if !body.by.is_empty() { body.by } else { self.by },
-            status: if body.status != 0 { body.status } else { self.status },
-            user_id: if body.user_id != 0 { body.user_id } else { self.user_id },
-            dynamic_id: if body.dynamic_id != 0 { body.dynamic_id } else { self.dynamic_id },
-            gift_id: if body.gift_id != 0 { body.gift_id } else { self.gift_id },
-            live_id: if body.live_id != 0 { body.live_id } else { self.live_id },
-            music_id: if body.music_id != 0 { body.music_id } else { self.music_id },
-            photo_id: if body.photo_id != 0 { body.photo_id } else { self.photo_id },
-            video_id: if body.video_id != 0 { body.video_id } else { self.video_id },
-            category_id: if body.category_id != 0 { body.category_id } else { self.category_id },
-            city_id: if body.city_id != 0 { body.city_id } else { self.city_id },
-            comment_id: if body.comment_id != 0 { body.comment_id } else { self.comment_id },
-            danmaku_id: if body.danmaku_id != 0 { body.danmaku_id } else { self.danmaku_id },
-            keyword: if !body.keyword.is_empty() { body.keyword } else { self.keyword },
+            by: if !body.by.is_empty() {
+                body.by
+            } else {
+                self.by
+            },
+            status: if body.status != 0 {
+                body.status
+            } else {
+                self.status
+            },
+            user_id: if body.user_id != 0 {
+                body.user_id
+            } else {
+                self.user_id
+            },
+            dynamic_id: if body.dynamic_id != 0 {
+                body.dynamic_id
+            } else {
+                self.dynamic_id
+            },
+            gift_id: if body.gift_id != 0 {
+                body.gift_id
+            } else {
+                self.gift_id
+            },
+            live_id: if body.live_id != 0 {
+                body.live_id
+            } else {
+                self.live_id
+            },
+            music_id: if body.music_id != 0 {
+                body.music_id
+            } else {
+                self.music_id
+            },
+            album_id: body.album_id.or(self.album_id),
+            photo_id: if body.photo_id != 0 {
+                body.photo_id
+            } else {
+                self.photo_id
+            },
+            video_id: if body.video_id != 0 {
+                body.video_id
+            } else {
+                self.video_id
+            },
+            category_id: if body.category_id != 0 {
+                body.category_id
+            } else {
+                self.category_id
+            },
+            city_id: if body.city_id != 0 {
+                body.city_id
+            } else {
+                self.city_id
+            },
+            comment_id: if body.comment_id != 0 {
+                body.comment_id
+            } else {
+                self.comment_id
+            },
+            danmaku_id: if body.danmaku_id != 0 {
+                body.danmaku_id
+            } else {
+                self.danmaku_id
+            },
+            keyword: if !body.keyword.is_empty() {
+                body.keyword
+            } else {
+                self.keyword
+            },
 
             // 6. 灵活扩展
-            params: if !body.params.is_empty() { body.params } else { self.params },
+            params: if !body.params.is_empty() {
+                body.params
+            } else {
+                self.params
+            },
 
             // 7. 后端计算辅助字段（取 URL 的，build() 会重算）
             limit: self.limit,

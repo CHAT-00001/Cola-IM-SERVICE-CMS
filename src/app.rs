@@ -3,20 +3,19 @@
 
 ////////
 
-use app_config::{db_service::DbService, app_state::AppState};
-use im::start_ws;
-use health::start_health;
-use tracing::{info, error};
 use app_config::config::config_loader::load_config;
-use repo_adapter::build_app_context;
+use app_config::{app_state::AppState, db_service::DbService};
 use gate_grpc::start_gateway;
 use gate_http::start_api;
+use health::start_health;
+use im::start_ws;
+use repo_adapter::build_app_context;
+use tracing::{error, info};
 
 ////////
 
 /// # [RUN] - 运行
 pub async fn run() {
-
     // 加载配置
     let config = match load_config() {
         Ok(cfg) => cfg,

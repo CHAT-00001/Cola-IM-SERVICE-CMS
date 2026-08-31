@@ -48,7 +48,9 @@ impl ViewPort for ViewPortAdapter {
     /// # 3. [PORT] - 获取一个兴趣点信息
     async fn get_poi_list_by_id(&self, poi_id: i64) -> anyhow::Result<PoiInfo> {
         let mut infos = PoiViewService::batch_get_gis_infos(vec![poi_id]).await?;
-        infos.pop().ok_or_else(|| anyhow::anyhow!("POI not found: {}", poi_id))
+        infos
+            .pop()
+            .ok_or_else(|| anyhow::anyhow!("POI not found: {}", poi_id))
     }
 
     ////////

@@ -3,7 +3,7 @@
 
 ////////
 
-use anyhow::{anyhow, Result};
+use anyhow::{Result, anyhow};
 use cola_data::auth::entity::session::AuthSessionEntity;
 use redis::AsyncCommands;
 
@@ -13,7 +13,6 @@ use redis::AsyncCommands;
 pub struct SessionCache;
 
 impl SessionCache {
-
     ////////
 
     /// # 1. [CACHE] - 按 access_token 读取会话缓存

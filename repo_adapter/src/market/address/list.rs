@@ -17,7 +17,6 @@ pub struct AddressListAdapter;
 
 #[async_trait]
 impl AddressListPort for AddressListAdapter {
-
     /// # 1. [ADAPTER] - 用户的
     async fn get_address_infos_by_user_id(
         &self,

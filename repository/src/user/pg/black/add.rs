@@ -54,8 +54,8 @@ impl UserBlackAddRepo {
 
     /// # 2. [REPOSITORY] - ❌️ 移除黑名单
     pub async fn update_unblock_black(
-        uid: i64,       // 当前用户
-        user_id: i64,   // 目标用户
+        uid: i64,     // 当前用户
+        user_id: i64, // 目标用户
     ) -> Result<u64, sqlx::Error> {
         // 返回受影响的行数或 ()
         let pool = pg_pool();

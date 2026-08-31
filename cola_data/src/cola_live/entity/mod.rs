@@ -1,16 +1,13 @@
-pub mod ban;
-pub mod ban_duration;
-pub mod ban_reason;
-pub mod channel;
-pub mod class;
-pub mod live_room_guard;
-pub mod live_room_kick;
-pub mod live_room;
-pub mod manager;
-pub mod provider;
-pub mod live_stream_record;
-pub mod shut;
-mod anchor_blacklist;
-mod live_room_session;
-mod live_stream_record_count;
-mod live_room_setting;
+// cola_data/src/live/entity/music.rs -- 数据 - LIVE - entity - music
+// 2026-04-10 15:00
+
+////////
+
+// 直播场次计数
+pub mod anchor; //
+pub mod cate; // 分类
+pub mod provider; // 厂商
+pub mod room; // 直播间
+pub mod shut; // 直播禁言
+pub mod stream; // 直播流
+pub mod user; // 用户

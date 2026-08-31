@@ -1,5 +1,5 @@
-// data/src/auth/entity/risk/mod.rs
-// 数据 - AUTH - entity - 风险 - mod
+// data/src/auth/entity/risk/music.rs
+// 数据 - AUTH - entity - 风险 - music
 // 2026/8/14 10:41 Created.
 
 ////////

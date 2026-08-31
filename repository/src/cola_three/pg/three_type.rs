@@ -4,7 +4,9 @@
 ////////
 
 use crate::pg_pool;
-use cola_data::cola_three::entity::server_type::{ThreeServerTypeEntity, THREE_SERVER_TYPE_COLUMNS};
+use cola_data::cola_three::entity::server_type::{
+    THREE_SERVER_TYPE_COLUMNS, ThreeServerTypeEntity,
+};
 
 ////////
 

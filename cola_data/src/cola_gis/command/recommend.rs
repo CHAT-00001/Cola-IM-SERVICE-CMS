@@ -1,4 +1,4 @@
-﻿// cola_data/src/cola_gisc/recommend.rs
+// cola_data/src/cola_gisc/hotlist.rs
 // 🗄️ 数据 - 📍 可乐GIS - command - 推荐
 // 2026/5/22 20:45 by wx: cestbon10080
 
@@ -17,4 +17,3 @@ pub struct PoiRecommendCommand {
     pub video_id: i64,          // 瑙嗛 ID
     pub remark: Option<String>, // 澶囨敞
 }
-

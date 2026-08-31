@@ -13,7 +13,6 @@ use sqlx;
 pub struct UserFollowListRepo;
 
 impl UserFollowListRepo {
-
     ////////
 
     /// # 1. [REPOSITORY] - 查询我关注的用户IDs

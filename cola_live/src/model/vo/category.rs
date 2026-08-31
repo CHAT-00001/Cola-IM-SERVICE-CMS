@@ -3,8 +3,8 @@
 
 ////////
 
-use serde::{Deserialize, Serialize};
 use cola_data::app::page::PageInfo;
+use serde::{Deserialize, Serialize};
 ////////
 
 /// # [VO] - 短视频 - 分类视图对象

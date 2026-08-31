@@ -3,7 +3,7 @@
 
 ////////
 
-use cola_data::cola_live::entity::live_room::{LIVE_COLUMNS, LiveEntity};
+use cola_data::cola_live::entity::room::live_room::{LIVE_COLUMNS, LiveEntity};
 use sqlx::PgPool;
 use uuid::Uuid;
 

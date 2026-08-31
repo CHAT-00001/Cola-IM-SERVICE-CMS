@@ -5,13 +5,13 @@
 
 use crate::kits::response::IntoApi;
 use actix_web::{HttpMessage, HttpRequest, HttpResponse, Responder, web};
+use app_config::app_state::AppState;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::auth::info::auth::AuthContext;
 use cola_live::api::home::LiveHomeApi;
 use serde::Deserialize;
 use std::time::Instant;
-use app_config::app_state::AppState;
 
 ////////
 
@@ -28,11 +28,11 @@ struct GatewayRequest {
 /// # 统一的 Query 提取结构体
 #[derive(Deserialize)]
 pub struct GatewayQuery {
-    pub service: String,         // 🌟 兼容 PhalApi，接收如 "Video.PublishVideo"
-    pub action: Option<i16>,     // 🌟 以后转入的 int16 动作代码，先用 Option 顶住
+    pub service: String,     // 🌟 兼容 PhalApi，接收如 "Video.PublishVideo"
+    pub action: Option<i16>, // 🌟 以后转入的 int16 动作代码，先用 Option 顶住
     pub video_id: Option<i64>,
-    pub page: Option<i64>,       // 页码
-    pub qty: Option<i64>,        // 每页数量
+    pub page: Option<i64>, // 页码
+    pub qty: Option<i64>,  // 每页数量
 }
 
 /// # [ROUTER] - 短视频 - 路由器
@@ -53,7 +53,6 @@ pub async fn root() -> HttpResponse {
     HttpResponse::Ok().json(vec!["Cole", "VIDEO", "ROUTER"])
 }
 
-
 ////////
 
 /// # [GATEWAY] - 可乐短视频网关
@@ -64,10 +63,8 @@ async fn live_gateway(
     body: web::Bytes,
     state: web::Data<AppState>,
 ) -> impl Responder {
-
     // 开始时间
     let start = Instant::now();
-
 
     // 严格检查登录状态，统一命名操作用户为 uid
     let uid = match req.extensions().get::<i64>().copied() {
@@ -95,8 +92,6 @@ async fn live_gateway(
 
     // 🌟 对齐到 service 字符串进行业务路由分发
     match gateway_req.service.as_str() {
-
-
         // 1001 最新
         "home_new" => {
             let url = ApiGatewayRequest {
@@ -105,7 +100,7 @@ async fn live_gateway(
                 qty: query.qty,
                 ..Default::default()
             }
-                .build();
+            .build();
 
             LiveHomeApi::handler_home_new(gateway_req.auth, url, &state.ctx)
                 .await
@@ -120,7 +115,7 @@ async fn live_gateway(
                 qty: query.qty,
                 ..Default::default()
             }
-                .build();
+            .build();
 
             LiveHomeApi::handler_home_new(gateway_req.auth, url, &state.ctx)
                 .await
@@ -135,7 +130,7 @@ async fn live_gateway(
                 qty: query.qty,
                 ..Default::default()
             }
-                .build();
+            .build();
 
             LiveHomeApi::handler_home_new(gateway_req.auth, url, &state.ctx)
                 .await
@@ -150,7 +145,7 @@ async fn live_gateway(
                 qty: query.qty,
                 ..Default::default()
             }
-                .build();
+            .build();
 
             LiveHomeApi::handler_home_new(gateway_req.auth, url, &state.ctx)
                 .await
@@ -165,7 +160,7 @@ async fn live_gateway(
                 qty: query.qty,
                 ..Default::default()
             }
-                .build();
+            .build();
 
             LiveHomeApi::handler_home_new(gateway_req.auth, url, &state.ctx)
                 .await
@@ -180,7 +175,7 @@ async fn live_gateway(
                 qty: query.qty,
                 ..Default::default()
             }
-                .build();
+            .build();
 
             LiveHomeApi::handler_home_new(gateway_req.auth, url, &state.ctx)
                 .await
@@ -188,7 +183,6 @@ async fn live_gateway(
         }
 
         ////////
-
         "view" => {
             // 查看视频详情 - 测试接口
             let video_id = query.video_id.unwrap_or(0);
@@ -238,6 +232,6 @@ async fn live_gateway(
             format!("Unknown PhalApi service: {}", gateway_req.service),
             None,
         )
-            .finish(&req, start),
+        .finish(&req, start),
     }
 }

@@ -21,3 +21,15 @@ pub struct CreateMediaCmd {
     pub width: Option<i32>,
     pub height: Option<i32>,
 }
+
+////////
+
+/// # [CMD] - 批量创建媒体资源参数
+/// * `desc`: `所有 UGC 共用的批量媒体创建命令，单批最多 20 个 Media`
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct BatchCreateMediaCmd {
+    pub app_id: Option<String>,
+    pub medias: Vec<CreateMediaCmd>,
+}
+
+//////// END

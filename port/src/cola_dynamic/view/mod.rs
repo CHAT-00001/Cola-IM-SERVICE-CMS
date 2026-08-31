@@ -1,5 +1,5 @@
-// port/src/cola_dynamic/view/mod.rs
-// ⏩️ 端口 - ⏹ 可乐动态 - 浏览 - mod
+// port/src/cola_dynamic/view/music.rs
+// ⏩️ 端口 - ⏹ 可乐动态 - 浏览 - music
 // 2026/8/5 14:32 Created.
 
 ////////

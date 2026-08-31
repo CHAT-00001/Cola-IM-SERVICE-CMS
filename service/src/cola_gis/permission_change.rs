@@ -1,4 +1,4 @@
-﻿// service/src/cola_gis/permission_change.rs
+// service/src/cola_gis/permission_change.rs
 // 服务 - 可乐GIS - 权限 - 服务
 // 2026/7/6
 

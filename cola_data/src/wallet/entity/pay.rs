@@ -1,5 +1,6 @@
-// cola_data/src/cola_three/entity/pay.rs  --  THREE - 第三方支付配置实体
-// 2026/6/30 04:06
+// cola_data/src/wallet/entity/pay.rs
+// ✅ WALLET - 第三方支付渠道配置实体（兼容 three_pay）
+// 2026/8/20  Updated.
 
 ////////
 
@@ -10,7 +11,8 @@ use sqlx::FromRow;
 ////////
 
 /// # [ENTITY] - 第三方支付服务配置
-/// * `table name`: `three_pay`
+/// * `pg schema`: `cola_wallet` - PG 模式
+/// * `table name`: `three_pay`（历史表名，后续可迁移至 cola_wallet.pay）
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct ThreePayConfigEntity {
     pub id: i64,

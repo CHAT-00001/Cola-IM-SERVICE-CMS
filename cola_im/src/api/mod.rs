@@ -1,4 +1,4 @@
-// cola_im/src/api/mod.rs  -- 可乐IM - 接口层 - mod
+// cola_im/src/api/music.rs  -- 可乐IM - 接口层 - music
 // 2026/7/7 14:18
 
 ////////

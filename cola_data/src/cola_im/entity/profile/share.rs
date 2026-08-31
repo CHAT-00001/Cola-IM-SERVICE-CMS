@@ -1,4 +1,4 @@
-// cola_data/src/cola_im/entity/profile/share.rs
+// cola_data/src/cola_im/entity/profile/ticket
 // 数据 - IM - entity - profile - 名片分享表
 // 2026/5/20 19:56 Created.
 

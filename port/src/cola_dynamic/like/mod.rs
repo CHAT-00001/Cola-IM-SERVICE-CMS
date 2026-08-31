@@ -1,4 +1,4 @@
-// port/src/cola_dynamic/port/like/mod.rs
+// port/src/cola_dynamic/port/like/music.rs
 // ⏩️ 端口 - ⏹ 可乐动态 - port - 点赞 - 模块
 // 2026/8/5 15:42 Created.
 

@@ -19,12 +19,20 @@ pub struct GoodsCommentLikeAdapter;
 
 #[async_trait]
 impl GoodsCommentGetPort for GoodsCommentLikeAdapter {
-
-    async fn save_comment_record(&self, uid: i64, video_id: i64, is_liked: bool) -> Result<(VideoCommentInfo)> {
+    async fn save_comment_record(
+        &self,
+        uid: i64,
+        video_id: i64,
+        is_liked: bool,
+    ) -> Result<(VideoCommentInfo)> {
         todo!()
     }
 
-    async fn edit_comment_record(&self, comment_id: i64, cmd: CommentCommand) -> Result<(VideoCommentInfo)> {
+    async fn edit_comment_record(
+        &self,
+        comment_id: i64,
+        cmd: CommentCommand,
+    ) -> Result<(VideoCommentInfo)> {
         todo!()
     }
 

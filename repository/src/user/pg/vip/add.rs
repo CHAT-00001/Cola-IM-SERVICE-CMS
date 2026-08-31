@@ -48,12 +48,10 @@ impl VipAddRepo {
         .await?;
 
         // 同时更新 user 表的 is_vip 状态
-        let _ = sqlx::query(
-            r#"UPDATE "user" SET is_vip = 1, updated_at = NOW() WHERE id = $1"#,
-        )
-        .bind(target_id)
-        .execute(&pool)
-        .await?;
+        let _ = sqlx::query(r#"UPDATE "user" SET is_vip = 1, updated_at = NOW() WHERE id = $1"#)
+            .bind(target_id)
+            .execute(&pool)
+            .await?;
 
         Ok(id)
     }
@@ -61,10 +59,7 @@ impl VipAddRepo {
     ////////
 
     /// # 2. [REPOSITORY] - 取消 VIP
-    pub async fn pg_cancel_vip_record(
-        uid: i64,
-        target_id: i64,
-    ) -> Result<u64, sqlx::Error> {
+    pub async fn pg_cancel_vip_record(uid: i64, target_id: i64) -> Result<u64, sqlx::Error> {
         let pool = pg_pool();
         let result = sqlx::query(
             r#"UPDATE "user_vip" SET status = 0 WHERE uid = $1 AND target_id = $2 AND status = 1"#,
@@ -75,12 +70,10 @@ impl VipAddRepo {
         .await?;
 
         // 同时取消 user 表的 is_vip
-        let _ = sqlx::query(
-            r#"UPDATE "user" SET is_vip = 0, updated_at = NOW() WHERE id = $1"#,
-        )
-        .bind(target_id)
-        .execute(&pool)
-        .await?;
+        let _ = sqlx::query(r#"UPDATE "user" SET is_vip = 0, updated_at = NOW() WHERE id = $1"#)
+            .bind(target_id)
+            .execute(&pool)
+            .await?;
 
         Ok(result.rows_affected())
     }
@@ -90,12 +83,11 @@ impl VipAddRepo {
     /// # 3. [REPOSITORY] - 检查用户是否已开通 VIP
     pub async fn pg_check_vip_status(user_id: i64) -> Result<bool, sqlx::Error> {
         let pool = pg_pool();
-        let exists: Option<i64> = sqlx::query_scalar(
-            r#"SELECT 1 FROM "user" WHERE id = $1 AND is_vip = 1 LIMIT 1"#,
-        )
-        .bind(user_id)
-        .fetch_optional(&pool)
-        .await?;
+        let exists: Option<i64> =
+            sqlx::query_scalar(r#"SELECT 1 FROM "user" WHERE id = $1 AND is_vip = 1 LIMIT 1"#)
+                .bind(user_id)
+                .fetch_optional(&pool)
+                .await?;
 
         Ok(exists.is_some())
     }

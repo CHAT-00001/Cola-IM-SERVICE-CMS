@@ -4,15 +4,21 @@
 ////////
 
 use crate::kits::response::IntoApi;
+use crate::ping::ping;
 use actix_web::{HttpMessage, HttpRequest, HttpResponse, Responder, web};
+use app_config::app_state::AppState;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::auth::info::auth::AuthContext;
+use cola_data::cola_live::command::class::LiveClassCommand;
+use cola_data::cola_live::command::stream::record::LiveRecordCommand;
+use cola_live::api::category::add::LiveCateAddApi;
 use cola_live::api::home::LiveHomeApi;
+use cola_live::api::stream::add::LiveStreamAddApi;
+use cola_live::api::stream::home::LiveStreamHomeApi;
 use serde::Deserialize;
 use std::time::Instant;
-use app_config::app_state::AppState;
-use crate::ping::ping;
+use tracing::{error, info};
 
 ////////
 
@@ -26,14 +32,38 @@ struct GatewayRequest {
     path: String,          // 路径
 }
 
+////////
+
+/// # [GATEWAY] - 直播列表统一请求构造
+/// * `desc`: `URL 与 Body 双重解析，Body 字段优先，统一由 ApiGatewayRequest::build 计算分页`
+fn merge_live_list_body(url: ApiGatewayRequest, body: &web::Bytes) -> ApiGatewayRequest {
+    if body.is_empty() {
+        return url.build();
+    }
+    match serde_json::from_slice::<ApiGatewayRequest>(body) {
+        Ok(body_req) => url.merge(body_req).build(),
+        Err(err) => {
+            tracing::warn!(
+                "[🌐 GATEWAY] - ⚠️ 直播列表 Body 解析失败，继续使用 URL 参数: {}",
+                err
+            );
+            url.build()
+        }
+    }
+}
+
 /// # 统一的 Query 提取结构体
 #[derive(Deserialize)]
 pub struct GatewayQuery {
-    pub service: String,         // 🌟 兼容 PhalApi，接收如 "Video.PublishVideo"
-    pub action: Option<i16>,     // 🌟 以后转入的 int16 动作代码，先用 Option 顶住
+    pub service: String,     // 🌟 兼容 PhalApi，接收如 "Video.PublishVideo"
+    pub action: Option<i16>, // 🌟 以后转入的 int16 动作代码，先用 Option 顶住
     pub video_id: Option<i64>,
-    pub page: Option<i64>,       // 页码
-    pub qty: Option<i64>,        // 每页数量
+    pub page: Option<i64>,    // 页码
+    pub qty: Option<i64>,     // 每页数量
+    pub id: Option<i64>,      // 分类 ID
+    pub status: Option<i16>,  // 分类状态
+    pub role: Option<String>, // 管理角色
+    pub room_id: Option<i64>, // 直播间 ID
 }
 
 /// # [ROUTER] - 短视频 - 路由器
@@ -60,10 +90,8 @@ async fn live_gateway(
     body: web::Bytes,
     state: web::Data<AppState>,
 ) -> impl Responder {
-
     // 开始时间
     let start = Instant::now();
-
 
     // 严格检查登录状态，统一命名操作用户为 uid
     let uid = match req.extensions().get::<i64>().copied() {
@@ -76,7 +104,7 @@ async fn live_gateway(
         access_token: String::new(),
         refresh_token: String::new(),
         device_id: String::new(),
-        iam_roles: vec![],
+        iam_roles: query.role.clone().into_iter().collect(),
         is_anonymous: false,
     };
 
@@ -89,10 +117,146 @@ async fn live_gateway(
         path: req.path().to_string(),
     };
 
+    let has_session = req.extensions().get::<i64>().is_some();
+
+    info!(
+        "[🌐 GATEWAY] - 📥 LIVE 请求: service={}, uid={}, page={:?}, qty={:?}, id={:?}, status={:?}, has_session={}, method={}",
+        &gateway_req.service,
+        uid,
+        query.page,
+        query.qty,
+        query.id,
+        query.status,
+        has_session,
+        req.method()
+    );
+
     // 🌟 对齐到 service 字符串进行业务路由分发
     match gateway_req.service.as_str() {
-
-
+        "stream_start" => {
+            if !has_session {
+                return AppData::<()>::err(4001, "开播需要有效登录会话", None).finish(&req, start);
+            }
+            let command = match serde_json::from_slice::<LiveRecordCommand>(&gateway_req.body) {
+                Ok(command) => command,
+                Err(err) => {
+                    return AppData::<()>::err(4000, "开播请求体格式错误", Some(err.to_string()))
+                        .finish(&req, start);
+                }
+            };
+            LiveStreamAddApi::start(gateway_req.auth, command, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+        "stream_stop" => {
+            if !has_session {
+                return AppData::<()>::err(4001, "停播需要有效登录会话", None).finish(&req, start);
+            }
+            LiveStreamAddApi::stop(gateway_req.auth, query.id.unwrap_or(0), &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+        "stream_home_new" => {
+            info!(
+                "[🚧 DISPATCH] - ✅️ 分发最新直播列表: page={:?}, qty={:?}",
+                query.page, query.qty
+            );
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+            .build();
+            let url = merge_live_list_body(url, &gateway_req.body);
+            LiveStreamHomeApi::newest(url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+        "stream_home_hot" => {
+            info!(
+                "[🚧 DISPATCH] - ✅️ 分发热门直播列表: page={:?}, qty={:?}",
+                query.page, query.qty
+            );
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+            .build();
+            let url = merge_live_list_body(url, &gateway_req.body);
+            LiveStreamHomeApi::hot(url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+        "stream_home_category" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                category_id: query.id.unwrap_or(0),
+                ..Default::default()
+            }
+            .build();
+            let url = merge_live_list_body(url, &gateway_req.body);
+            LiveStreamHomeApi::category(url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+        "category_create" => {
+            let command = match serde_json::from_slice::<LiveClassCommand>(&gateway_req.body) {
+                Ok(command) => command,
+                Err(err) => {
+                    return AppData::<()>::err(
+                        4000,
+                        "直播分类请求体格式错误",
+                        Some(err.to_string()),
+                    )
+                    .finish(&req, start);
+                }
+            };
+            LiveCateAddApi::api_add_cate(gateway_req.auth, command, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+        "category_edit" => {
+            let command = match serde_json::from_slice::<LiveClassCommand>(&gateway_req.body) {
+                Ok(command) => command,
+                Err(err) => {
+                    return AppData::<()>::err(
+                        4000,
+                        "直播分类请求体格式错误",
+                        Some(err.to_string()),
+                    )
+                    .finish(&req, start);
+                }
+            };
+            LiveCateAddApi::api_edit_cate(gateway_req.auth, command, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+        "category_status" => LiveCateAddApi::api_change_status(
+            gateway_req.auth,
+            query.id.unwrap_or(0),
+            query.status.unwrap_or(-1),
+            &state.ctx,
+        )
+        .await
+        .finish(&req, start),
+        "category_delete" => {
+            LiveCateAddApi::api_delete_cate(gateway_req.auth, query.id.unwrap_or(0), &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+        "category_list" => LiveCateAddApi::api_list(
+            query.status,
+            query.qty.unwrap_or(10).clamp(1, 50),
+            query.page.unwrap_or(1).max(1).saturating_sub(1) * query.qty.unwrap_or(10).clamp(1, 50),
+            &state.ctx,
+        )
+        .await
+        .finish(&req, start),
         // 1001 最新
         "home_new" => {
             let url = ApiGatewayRequest {
@@ -101,7 +265,7 @@ async fn live_gateway(
                 qty: query.qty,
                 ..Default::default()
             }
-                .build();
+            .build();
 
             LiveHomeApi::handler_home_new(gateway_req.auth, url, &state.ctx)
                 .await
@@ -116,7 +280,7 @@ async fn live_gateway(
                 qty: query.qty,
                 ..Default::default()
             }
-                .build();
+            .build();
 
             LiveHomeApi::handler_home_hot(gateway_req.auth, url, &state.ctx)
                 .await
@@ -131,7 +295,7 @@ async fn live_gateway(
                 qty: query.qty,
                 ..Default::default()
             }
-                .build();
+            .build();
 
             LiveHomeApi::handler_home_recommend(gateway_req.auth, url, &state.ctx)
                 .await
@@ -146,7 +310,7 @@ async fn live_gateway(
                 qty: query.qty,
                 ..Default::default()
             }
-                .build();
+            .build();
 
             LiveHomeApi::handler_home_city(gateway_req.auth, url, &state.ctx)
                 .await
@@ -161,7 +325,7 @@ async fn live_gateway(
                 qty: query.qty,
                 ..Default::default()
             }
-                .build();
+            .build();
 
             LiveHomeApi::handler_home_category(gateway_req.auth, url, &state.ctx)
                 .await
@@ -176,7 +340,7 @@ async fn live_gateway(
                 qty: query.qty,
                 ..Default::default()
             }
-                .build();
+            .build();
 
             LiveHomeApi::handler_home_featured(gateway_req.auth, url, &state.ctx)
                 .await
@@ -191,16 +355,12 @@ async fn live_gateway(
                 qty: query.qty,
                 ..Default::default()
             }
-                .build();
+            .build();
 
             LiveHomeApi::handler_home_search(gateway_req.auth, url, &state.ctx)
                 .await
                 .finish(&req, start)
         }
-
-
-
-
 
         "view" => {
             // 查看视频详情 - 测试接口
@@ -246,11 +406,20 @@ async fn live_gateway(
             AppData::ok(data).finish(&req, start)
         }
 
-        _ => AppData::<()>::err(
-            2004,
-            format!("[🌐 GATEWAY]: ⚠️ Unknown The [📺 LIVE] service: {}", gateway_req.service),
-            None,
-        )
-            .finish(&req, start),
+        _ => {
+            error!(
+                "[🌐 GATEWAY] - ❌️ 未知 LIVE service: {}",
+                gateway_req.service
+            );
+            AppData::<()>::err(
+                2004,
+                format!(
+                    "[🌐 GATEWAY]: ⚠️ Unknown The [📺 LIVE] service: {}",
+                    gateway_req.service
+                ),
+                None,
+            )
+            .finish(&req, start)
+        }
     }
 }

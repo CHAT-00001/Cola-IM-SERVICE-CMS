@@ -1,5 +1,4 @@
-// data/src/cola_video/command/danmaku.rs
-// 🗄 数据 - ▶ 可乐视频 - command - 弹幕
+// data/src/cola_video/command/danmaku.rs -- 数据 - VIDEO - command - 弹幕 - mod
 // 2026/5/19 22:13 by wx: cestbon10080
 
 ////////

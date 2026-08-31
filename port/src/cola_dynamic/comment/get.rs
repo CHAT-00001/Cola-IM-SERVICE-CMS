@@ -31,7 +31,6 @@ pub trait DynamicCommentGetPort: Send + Sync {
         cmd: CommentCommand,
     ) -> anyhow::Result<(VideoCommentInfo)>;
 
-
     /// # 5. [PORT] - 获取视频ID的弹幕
     async fn get_danmaku_by_video_id(
         &self,

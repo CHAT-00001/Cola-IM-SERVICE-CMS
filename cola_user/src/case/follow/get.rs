@@ -28,7 +28,6 @@ impl UserFollowGetCase {
         offset: i64,      // 页码
         ctx: &AppContext, // 全局上下文
     ) -> Result<Vec<UserInfo>, anyhow::Error> {
-
         let user_id = uid;
         // 1. 先查关注IDs
         let ids = ctx

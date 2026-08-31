@@ -4,8 +4,6 @@
 
 ////////
 
-
-
 ////////
 
 /// # [MANAGE SERVICE] - 管理
@@ -17,7 +15,6 @@ impl UserAuthManageService {
     //
 
     ////////
-
 }
 
 //////// END

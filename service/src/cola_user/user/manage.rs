@@ -15,7 +15,6 @@ impl UserManageService {
     //
 
     ////////
-
 }
 
 //////// END

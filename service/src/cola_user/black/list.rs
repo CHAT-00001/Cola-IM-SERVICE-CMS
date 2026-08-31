@@ -35,8 +35,8 @@ impl BlackListService {
         let (total, entities) = UserBlackListRepo::find_black_record_list(
             actor_id, target_id, start_time, end_time, limit, offset,
         )
-            .await
-            .map_err(|e| anyhow!("[BLACK SERVICE]: 查询黑名单记录失败: {}", e))?;
+        .await
+        .map_err(|e| anyhow!("[BLACK SERVICE]: 查询黑名单记录失败: {}", e))?;
 
         // 2. 记录日志
         tracing::info!(

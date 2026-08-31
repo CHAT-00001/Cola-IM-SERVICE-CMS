@@ -1,12 +1,12 @@
-﻿// repositoryo/src/cola_gis/pg/add  -- 仓储 - GIS - pg - 兴趣点 分享
+// repositoryo/src/cola_gis/pg/add  -- 仓储 - GIS - pg - 兴趣点 分享
 // 2026/7/6 14:21
 
 ////////
 
 use crate::pg_pool;
+use chrono::Utc;
 use cola_data::cola_gis::entity::share::PoiShareEntity;
-use sqlx;
-use chrono::Utc; // 需要引入 chrono 用于生成时间
+use sqlx; // 需要引入 chrono 用于生成时间
 
 ////////
 
@@ -15,7 +15,6 @@ pub struct PoiShareRepository;
 
 // 构造
 impl PoiShareRepository {
-
     ////////
 
     /// # 1. [REPOSITORY] - 根据兴趣点ID查找最新的分享记录
@@ -31,7 +30,10 @@ impl PoiShareRepository {
     ////////
 
     /// # 2. [REPOSITORY] - 根据兴趣点ID查找热门的分享记录
-    pub async fn find_hot_by_poi_id(poi_id: i64, limit: i64) -> Result<Vec<PoiShareEntity>, sqlx::Error> {
+    pub async fn find_hot_by_poi_id(
+        poi_id: i64,
+        limit: i64,
+    ) -> Result<Vec<PoiShareEntity>, sqlx::Error> {
         let pool = pg_pool();
         sqlx::query_as::<_, PoiShareEntity>(
             "SELECT * FROM cola_gis.poi_share WHERE gis_id = $1 AND is_deleted = 0 ORDER BY share_count DESC LIMIT $2"
@@ -47,17 +49,22 @@ impl PoiShareRepository {
     pub async fn find_by_share_id(share_id: i64) -> Result<Option<PoiShareEntity>, sqlx::Error> {
         let pool = pg_pool();
         sqlx::query_as::<_, PoiShareEntity>(
-            "SELECT * FROM cola_gis.poi_share WHERE id = $1 AND is_deleted = 0"
+            "SELECT * FROM cola_gis.poi_share WHERE id = $1 AND is_deleted = 0",
         )
-            .bind(share_id)
-            .fetch_optional(&pool).await
+        .bind(share_id)
+        .fetch_optional(&pool)
+        .await
     }
 
     ////////
 
     /// # 4. [REPOSITORY] - 根据兴趣点ID查找最新的分享记录
     // (注：与第1点逻辑类似，如需不同排序或筛选可调整)
-    pub async fn list_by_poi_id(poi_id: i64, limit: i64, offset: i64) -> Result<Vec<PoiShareEntity>, sqlx::Error> {
+    pub async fn list_by_poi_id(
+        poi_id: i64,
+        limit: i64,
+        offset: i64,
+    ) -> Result<Vec<PoiShareEntity>, sqlx::Error> {
         let pool = pg_pool();
         sqlx::query_as::<_, PoiShareEntity>(
             "SELECT * FROM cola_gis.poi_share WHERE gis_id = $1 AND is_deleted = 0 ORDER BY create_time DESC LIMIT $2 OFFSET $3"
@@ -92,14 +99,19 @@ impl PoiShareRepository {
     ////////
 
     /// # 6. [REPOSITORY] - 根据用户ID查找分享记录
-    pub async fn find_share_record_by_user_id(uid: i64, limit: i64, offset: i64) -> Result<Vec<i64>, sqlx::Error> {
+    pub async fn find_share_record_by_user_id(
+        uid: i64,
+        limit: i64,
+        offset: i64,
+    ) -> Result<Vec<i64>, sqlx::Error> {
         let pool = pg_pool();
         let query = "SELECT gis_id FROM cola_gis.poi_share WHERE user_id = $1 AND is_deleted = 0 ORDER BY create_time DESC LIMIT $2 OFFSET $3";
         sqlx::query_scalar::<_, i64>(query)
             .bind(uid)
             .bind(limit)
             .bind(offset)
-            .fetch_all(&pool).await
+            .fetch_all(&pool)
+            .await
     }
 
     ////////
@@ -153,14 +165,13 @@ impl PoiShareRepository {
     /// # 10. [REPOSITORY] - 自动遍历硬删除删除分享记录(定时任务清除失效数据)
     pub async fn hard_delete_expired_shares(before_timestamp: i64) -> Result<u64, sqlx::Error> {
         let pool = pg_pool();
-        let result = sqlx::query(
-            "DELETE FROM cola_gis.poi_share WHERE is_deleted = 1 AND del_time < $1"
-        )
-            .bind(before_timestamp)
-            .execute(&pool).await?;
+        let result =
+            sqlx::query("DELETE FROM cola_gis.poi_share WHERE is_deleted = 1 AND del_time < $1")
+                .bind(before_timestamp)
+                .execute(&pool)
+                .await?;
         Ok(result.rows_affected())
     }
-
 }
 
 //////// END

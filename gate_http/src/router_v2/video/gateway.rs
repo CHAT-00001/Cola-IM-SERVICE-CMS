@@ -4,37 +4,15 @@
 ////////
 
 use crate::kits::response::IntoApi;
+use crate::ping::ping;
 use actix_web::{HttpMessage, HttpRequest, HttpResponse, Responder, web};
+use app_config::app_state::AppState;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::auth::info::auth::AuthContext;
-use cola_live::api::home::LiveHomeApi;
-use serde::Deserialize;
+use cola_video::api::video::home::HomeApi;
 use std::time::Instant;
-use app_config::app_state::AppState;
-use crate::ping::ping;
 
 ////////
-
-/// # 网关请求体
-struct GatewayRequest {
-    auth: AuthContext,     // 补上 auth 字段
-    action: i16,           // 🌟 以后使用的 int16 动作代码
-    service: String,       // 🌟 兼容 PHP PhalApi 的服务名称 (字符串)
-    query: Option<String>, // 查询
-    body: web::Bytes,      // body
-    path: String,          // 路径
-}
-
-/// # 统一的 Query 提取结构体
-#[derive(Deserialize)]
-pub struct GatewayQuery {
-    pub service: String,         // 🌟 兼容 PhalApi，接收如 "Video.PublishVideo"
-    pub action: Option<i16>,     // 🌟 以后转入的 int16 动作代码，先用 Option 顶住
-    pub video_id: Option<i64>,
-    pub page: Option<i64>,       // 页码
-    pub qty: Option<i64>,        // 每页数量
-}
 
 /// # [ROUTER] - 短视频 - 路由器
 pub fn video_router(cfg: &mut web::ServiceConfig) {
@@ -55,15 +33,12 @@ pub fn video_router(cfg: &mut web::ServiceConfig) {
 /// # [GATEWAY] - 可乐视频网关
 pub async fn video_gateway(
     req: HttpRequest,
-    // url web::Query<ApiGatewayRequest>,
-    query: web::Query<GatewayQuery>,
+    url: web::Query<ApiGatewayRequest>,
     body: web::Bytes,
     state: web::Data<AppState>,
 ) -> impl Responder {
-
     // 开始时间
     let start = Instant::now();
-
 
     // 严格检查登录状态，统一命名操作用户为 uid
     let uid = match req.extensions().get::<i64>().copied() {
@@ -71,7 +46,43 @@ pub async fn video_gateway(
         None => 1, // 测试环境默认 uid
     };
 
-    let auth = AuthContext {
+    let url_req = url.into_inner();
+    let mut api_req = if body.is_empty() {
+        url_req
+    } else {
+        let body_value: serde_json::Value = match serde_json::from_slice(&body) {
+            Ok(value) => value,
+            Err(error) => {
+                return AppData::<()>::err(
+                    4001,
+                    format!("[🌐 GATEWAY]: ❌️ 视频 Body JSON 解析失败: {}", error),
+                    None,
+                )
+                .finish(&req, start);
+            }
+        };
+        // 兼容 Body 直接传网关参数，以及统一协议的 { "cmd": { ... } } 包装格式。
+        let request_value = body_value
+            .get("cmd")
+            .cloned()
+            .unwrap_or_else(|| body_value.clone());
+        let mut body_req: ApiGatewayRequest = match serde_json::from_value(request_value) {
+            Ok(value) => value,
+            Err(error) => {
+                return AppData::<()>::err(
+                    4001,
+                    format!("[🌐 GATEWAY]: ❌️ 视频 Body 参数解析失败: {}", error),
+                    None,
+                )
+                .finish(&req, start);
+            }
+        };
+        body_req.body = Some(body_value);
+        url_req.merge(body_req)
+    };
+    api_req.uid = Some(uid);
+    api_req = api_req.build();
+    let auth = cola_data::auth::info::auth::AuthContext {
         uid,
         access_token: String::new(),
         refresh_token: String::new(),
@@ -80,131 +91,46 @@ pub async fn video_gateway(
         is_anonymous: false,
     };
 
-    let gateway_req = GatewayRequest {
-        auth,
-        action: query.action.unwrap_or(0), // 先给个默认值 0，留给以后用
-        service: query.service.clone(),    // 对齐并绑定真正的 PhalApi 字符串服务名
-        query: Some(req.query_string().to_string()),
-        body,
-        path: req.path().to_string(),
-    };
-
     // 🌟 对齐到 service 字符串进行业务路由分发
-    match gateway_req.service.as_str() {
-
-
+    match api_req.service.clone().unwrap_or_default().as_str() {
         // 1001 最新
-        "home_new" => {
-            let url = ApiGatewayRequest {
-                uid: Some(uid),
-                page: query.page,
-                qty: query.qty,
-                ..Default::default()
-            }
-                .build();
-
-            LiveHomeApi::handler_home_new(gateway_req.auth, url, &state.ctx)
-                .await
-                .finish(&req, start)
-        }
+        "home_new" => HomeApi::home_new(auth.clone(), api_req.clone(), &state.ctx)
+            .await
+            .finish(&req, start),
 
         // 1002 热门
-        "home_hot" => {
-            let url = ApiGatewayRequest {
-                uid: Some(uid),
-                page: query.page,
-                qty: query.qty,
-                ..Default::default()
-            }
-                .build();
-
-            LiveHomeApi::handler_home_hot(gateway_req.auth, url, &state.ctx)
-                .await
-                .finish(&req, start)
-        }
+        "home_hot" => HomeApi::home_hot(auth.clone(), api_req.clone(), &state.ctx)
+            .await
+            .finish(&req, start),
 
         // 1003 推荐
-        "home_recommend" => {
-            let url = ApiGatewayRequest {
-                uid: Some(uid),
-                page: query.page,
-                qty: query.qty,
-                ..Default::default()
-            }
-                .build();
-
-            LiveHomeApi::handler_home_recommend(gateway_req.auth, url, &state.ctx)
-                .await
-                .finish(&req, start)
-        }
+        "home_recommend" => HomeApi::home_recommend(auth.clone(), api_req.clone(), &state.ctx)
+            .await
+            .finish(&req, start),
 
         // 1004 同城
-        "home_city" => {
-            let url = ApiGatewayRequest {
-                uid: Some(uid),
-                page: query.page,
-                qty: query.qty,
-                ..Default::default()
-            }
-                .build();
-
-            LiveHomeApi::handler_home_city(gateway_req.auth, url, &state.ctx)
-                .await
-                .finish(&req, start)
-        }
+        "home_city" => HomeApi::home_city(auth.clone(), api_req.clone(), &state.ctx)
+            .await
+            .finish(&req, start),
 
         // 1005 分类
-        "home_category" => {
-            let url = ApiGatewayRequest {
-                uid: Some(uid),
-                page: query.page,
-                qty: query.qty,
-                ..Default::default()
-            }
-                .build();
-
-            LiveHomeApi::handler_home_category(gateway_req.auth, url, &state.ctx)
-                .await
-                .finish(&req, start)
-        }
+        "home_category" => HomeApi::home_category(auth.clone(), api_req.clone(), &state.ctx)
+            .await
+            .finish(&req, start),
 
         // 1006 精选
-        "home_featured" => {
-            let url = ApiGatewayRequest {
-                uid: Some(uid),
-                page: query.page,
-                qty: query.qty,
-                ..Default::default()
-            }
-                .build();
-
-            LiveHomeApi::handler_home_featured(gateway_req.auth, url, &state.ctx)
-                .await
-                .finish(&req, start)
-        }
+        "home_featured" => HomeApi::home_featured(auth.clone(), api_req.clone(), &state.ctx)
+            .await
+            .finish(&req, start),
 
         // 1007 搜索
-        "home_search" => {
-            let url = ApiGatewayRequest {
-                uid: Some(uid),
-                page: query.page,
-                qty: query.qty,
-                ..Default::default()
-            }
-                .build();
-
-            LiveHomeApi::handler_home_search(gateway_req.auth, url, &state.ctx)
-                .await
-                .finish(&req, start)
-        }
-
-
-
-
+        "home_search" => HomeApi::home_search(auth.clone(), api_req.clone(), &state.ctx)
+            .await
+            .finish(&req, start),
 
         "view" => {
             // 查看视频详情 - 测试接口
-            let video_id = query.video_id.unwrap_or(0);
+            let video_id = api_req.video_id;
             let data = serde_json::json!({
                 "id": video_id,
                 "user_id": 1,
@@ -240,7 +166,7 @@ pub async fn video_gateway(
             let data = serde_json::json!({
                 "comment_id": 67890,
                 "user_id": uid,
-                "video_id": query.video_id.unwrap_or(0),
+                "video_id": api_req.video_id,
                 "content": "示例评论内容"
             });
             AppData::ok(data).finish(&req, start)
@@ -248,9 +174,14 @@ pub async fn video_gateway(
 
         _ => AppData::<()>::err(
             2004,
-            format!("[🌐 GATEWAY]: ⚠️ Unknown The [▶ VIDEO] service: {}", gateway_req.service),
+            format!(
+                "[🌐 GATEWAY]: ⚠️ Unknown The [▶ VIDEO] service: {}",
+                api_req.service.unwrap_or_default()
+            ),
             None,
         )
-            .finish(&req, start),
+        .finish(&req, start),
     }
 }
+
+//////// END

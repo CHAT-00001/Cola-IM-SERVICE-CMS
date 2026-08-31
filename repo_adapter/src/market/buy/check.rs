@@ -6,7 +6,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use port::market::buy::check::{GoodsBuyCheckPort};
+use port::market::buy::check::GoodsBuyCheckPort;
 
 ////////
 

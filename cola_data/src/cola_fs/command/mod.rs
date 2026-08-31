@@ -1,4 +1,4 @@
-// cola_data/src/cola_fs/command/mod.rs  -- 文件存储 - command - mod
+// cola_data/src/cola_fs/command/mod.rs  -- 文件存储 - command - music
 // 2026/7/27 14:40
 
 ////////
@@ -7,5 +7,5 @@ pub mod bucket; // 存储桶
 pub mod cdn; // CDN
 pub mod file; // 文件
 pub mod media; // 媒体
-pub mod s3;  // S3
-
+pub mod s3;
+pub mod upload; // 通用上传 // S3

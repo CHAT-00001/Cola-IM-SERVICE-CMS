@@ -1,5 +1,4 @@
-// repo_adapter/src/video/dislike/manage.rs
-// 🔌 适配器 - 视频 - 不喜欢 - 管理 服务
+// repo_adapter/src/video/dislike/manage.rs -- 🔌 适配器 - VIDEO - 不喜欢 - 管理适配器
 // 2026/8/9 22:07 Created.
 
 ////////

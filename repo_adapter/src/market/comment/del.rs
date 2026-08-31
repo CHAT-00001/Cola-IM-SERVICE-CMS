@@ -17,7 +17,6 @@ pub struct GoodsCommentDelAdapter;
 
 #[async_trait]
 impl GoodsCommentDelPort for GoodsCommentDelAdapter {
-
     async fn single_soft_del_record(&self, uid: i64, video_id: i64, id: i64) -> Result<(u16)> {
         todo!()
     }

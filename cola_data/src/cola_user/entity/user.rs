@@ -1,5 +1,4 @@
-// cola_data/src/user/entity/user.rs
-// 数据 - 可乐用户 - entity - 用户表
+// cola_data/src/user/entity/user.rs -- 数据 - USER - entity - 用户表
 // 2026/3/30 05:33
 
 ////////
@@ -10,8 +9,8 @@ use sqlx::FromRow;
 
 ////////
 
-/// # [ENTITY] - 用户 - 用户表
-/// * `pg schema`: `user` -- PG 模式
+/// # [ENTITY] - 用户中心 - 用户表
+/// * `pg schema`: `cola.user` -- PG 模式
 /// * `table name`: `user`  -- 表名
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct UserEntity {

@@ -15,11 +15,19 @@ pub struct CategoryListAdapter;
 
 #[async_trait]
 impl UserCategoryListPort for CategoryListAdapter {
-    async fn get_new_list(&self, _limit: i64, _offset: i64) -> anyhow::Result<(Vec<UserCategoryInfo>)> {
+    async fn get_new_list(
+        &self,
+        _limit: i64,
+        _offset: i64,
+    ) -> anyhow::Result<(Vec<UserCategoryInfo>)> {
         todo!()
     }
 
-    async fn get_hot_list(&self, _limit: i64, _offset: i64) -> anyhow::Result<(Vec<UserCategoryInfo>)> {
+    async fn get_hot_list(
+        &self,
+        _limit: i64,
+        _offset: i64,
+    ) -> anyhow::Result<(Vec<UserCategoryInfo>)> {
         todo!()
     }
 }

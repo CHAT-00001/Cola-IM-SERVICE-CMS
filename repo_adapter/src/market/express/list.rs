@@ -17,7 +17,12 @@ pub struct ExpressListAdapter;
 
 #[async_trait]
 impl ExpressListPort for ExpressListAdapter {
-    async fn get_view_infos_by_user_id(&self, user_id: i64, limit: i64, offset: i64) -> Result<(Vec<ExpressInfo>)> {
+    async fn get_view_infos_by_user_id(
+        &self,
+        user_id: i64,
+        limit: i64,
+        offset: i64,
+    ) -> Result<(Vec<ExpressInfo>)> {
         todo!()
     }
 

@@ -22,15 +22,8 @@ pub struct LoginInfo {
 /// *
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct AccessTokenInfo {
-    pub access_token: String,              // 临时 Token (JWT)
-    pub access_expired_at: DateTime<Utc>,  // 临时 Token 过期时间
+    pub access_token: String,             // 临时 Token (JWT)
+    pub access_expired_at: DateTime<Utc>, // 临时 Token 过期时间
 }
 
-
-
-
-
-
-
 //////// EDN
-

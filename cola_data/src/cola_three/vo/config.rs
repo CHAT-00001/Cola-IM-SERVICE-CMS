@@ -3,8 +3,8 @@
 
 ////////
 
-use serde::{Deserialize, Serialize};
 use crate::cola_three::info::config::ConfigInfo;
+use serde::{Deserialize, Serialize};
 
 ////////
 
@@ -42,6 +42,5 @@ impl From<ConfigInfo> for ConfigVo {
         }
     }
 }
-
 
 //////// END

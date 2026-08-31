@@ -1,5 +1,5 @@
-// cola_data/src/cola_im/entity/contact/mod.rs
-// 数据中心 - IM - entity - contact - mod
+// cola_data/src/cola_im/entity/contact/music.rs
+// 数据中心 - IM - entity - contact - music
 // 2026/8/3 15:51 Created.
 
 ////////

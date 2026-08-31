@@ -1,5 +1,5 @@
 // repository/src/user/pg/profile/mod.rs
-// 🛢️ 仓储 - 可乐用户中心 - pg - profile - mod
+// 🛢️ 仓储 - 可乐用户中心 - pg - profile - music
 // 2026/8/3 12:56 Created.
 
 ////////

@@ -1,3 +1,2 @@
-﻿pub struct SettingService;
+pub struct SettingService;
 impl SettingService {}
-

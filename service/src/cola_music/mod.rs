@@ -1,3 +1,3 @@
-// repository/src/cola_music/service/mod.rs  -- 仓储 - MUSIC - Service - mod
+// repository/src/music/service/music.rs  -- 仓储 - MUSIC - Service - music
 
 pub mod add;

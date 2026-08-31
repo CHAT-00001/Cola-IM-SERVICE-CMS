@@ -63,7 +63,6 @@ impl UserAddRepo {
             .bind(&entity.score) // 积分
             .bind(&entity.coin) // 钻石user_status
             .bind(&entity.user_status) // 状态码
-
             .fetch_one(&pool)
             .await
         {

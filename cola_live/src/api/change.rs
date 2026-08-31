@@ -3,10 +3,10 @@
 
 ////////
 
+use crate::case::change::VideoChangeCase;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::auth::info::auth::AuthContext;
-use crate::case::change::VideoChangeCase;
 
 ////////
 
@@ -15,7 +15,6 @@ pub struct ChangeApi;
 
 // 构造函数
 impl ChangeApi {
-
     ////////
 
     ////////
@@ -40,9 +39,7 @@ impl ChangeApi {
 
         let uid = 10048;
 
-        match VideoChangeCase::case_change_visibility_perm(uid, video_id, permission)
-            .await
-        {
+        match VideoChangeCase::case_change_visibility_perm(uid, video_id, permission).await {
             Ok(_) => AppData::ok(true).with_msg("操作成功"),
             Err(e) => {
                 tracing::error!("BIZ CHANGE ERROR: {:?}", e);
@@ -59,7 +56,6 @@ impl ChangeApi {
         video_id: i64,
         permission: i16,
     ) -> AppData<bool> {
-
         // // 1. 检查视频修改权限
         // let auth_res = ensure_user_active(auth, session_port).await;
         // if auth_res.code != 0 {
@@ -73,7 +69,7 @@ impl ChangeApi {
 
         let uid = 10048;
 
-        match VideoChangeCase::case_change_comment_perm(uid, video_id, permission,).await {
+        match VideoChangeCase::case_change_comment_perm(uid, video_id, permission).await {
             Ok(_) => AppData::ok(true).with_msg("操作成功"),
             Err(e) => {
                 tracing::error!("BIZ CHANGE ERROR: {:?}", e);
@@ -90,7 +86,6 @@ impl ChangeApi {
         video_id: i64,
         permission: i16,
     ) -> AppData<bool> {
-
         // // 1. 检查视频修改权限
         // let auth_res = ensure_user_active(auth, session_port).await;
         // if auth_res.code != 0 {
@@ -103,7 +98,7 @@ impl ChangeApi {
         // };
         let uid = 10048;
 
-        match VideoChangeCase::case_change_danmaku_perm(uid, video_id, permission,).await {
+        match VideoChangeCase::case_change_danmaku_perm(uid, video_id, permission).await {
             Ok(_) => AppData::ok(true).with_msg("操作成功"),
             Err(e) => {
                 tracing::error!("BIZ CHANGE ERROR: {:?}", e);
@@ -112,14 +107,12 @@ impl ChangeApi {
         }
     }
 
-
     /// # 5. [API HANDLER] - 修改 - 收藏权限
     pub async fn handler_set_collect_perm(
         auth: &AuthContext,
         video_id: i64,
         permission: i16,
     ) -> AppData<bool> {
-
         // // 1. 检查视频修改权限
         // let auth_res = ensure_user_active(auth, session_port).await;
         // if auth_res.code != 0 {
@@ -133,7 +126,7 @@ impl ChangeApi {
 
         let uid = 10048;
 
-        match VideoChangeCase::case_change_collect_perm(uid, video_id, permission,).await {
+        match VideoChangeCase::case_change_collect_perm(uid, video_id, permission).await {
             Ok(_) => AppData::ok(true).with_msg("操作成功"),
             Err(e) => {
                 tracing::error!("BIZ CHANGE ERROR: {:?}", e);
@@ -150,7 +143,6 @@ impl ChangeApi {
         video_id: i64,
         permission: i16,
     ) -> AppData<bool> {
-
         // // 1. 检查视频修改权限
         // let auth_res = ensure_user_active(auth, session_port).await;
         // if auth_res.code != 0 {
@@ -164,8 +156,7 @@ impl ChangeApi {
 
         let uid = 10048;
 
-        match VideoChangeCase::case_change_download_perm(uid, video_id, permission,).await
-        {
+        match VideoChangeCase::case_change_download_perm(uid, video_id, permission).await {
             Ok(_) => AppData::ok(true).with_msg("操作成功"),
             Err(e) => {
                 tracing::error!("BIZ CHANGE ERROR: {:?}", e);
@@ -182,7 +173,6 @@ impl ChangeApi {
         video_id: i64,
         permission: i16,
     ) -> AppData<bool> {
-
         // // 1. 检查视频修改权限
         // let auth_res = ensure_user_active(auth, session_port).await;
         // if auth_res.code != 0 {
@@ -196,7 +186,7 @@ impl ChangeApi {
 
         let uid = 10048;
 
-        match VideoChangeCase::case_change_buy_perm(uid, video_id, permission,).await {
+        match VideoChangeCase::case_change_buy_perm(uid, video_id, permission).await {
             Ok(_) => AppData::ok(true).with_msg("操作成功"),
             Err(e) => {
                 tracing::error!("BIZ CHANGE ERROR: {:?}", e);

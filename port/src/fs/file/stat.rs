@@ -18,19 +18,13 @@ pub trait FileStatPort: Send + Sync {
 
     /// # 1. [PORT] - 用户文件统计
     /// * `desc`: `统计用户上传的文件总数`
-    async fn stat_user_file_count(
-        &self,
-        uid: i64,
-    ) -> Result<u64>;
+    async fn stat_user_file_count(&self, uid: i64) -> Result<u64>;
 
     ////////
 
     /// # 2. [PORT] - 用户存储容量统计
     /// * `desc`: `统计用户已用存储容量（字节）`
-    async fn stat_user_storage_used(
-        &self,
-        uid: i64,
-    ) -> Result<i64>;
+    async fn stat_user_storage_used(&self, uid: i64) -> Result<i64>;
 }
 
 //////// END

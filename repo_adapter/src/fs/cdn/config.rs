@@ -39,7 +39,11 @@ impl CdnConfigPort for CdnConfigAdapter {
         let entity = CdnDomainRepo::update_status(&pg_pool(), id, status)
             .await?
             .ok_or_else(|| anyhow::anyhow!("CDN域名不存在: {}", id))?;
-        tracing::info!("[🔌 ADAPTER] - ✅️ CDN状态更新成功: id={}, status={}", id, status);
+        tracing::info!(
+            "[🔌 ADAPTER] - ✅️ CDN状态更新成功: id={}, status={}",
+            id,
+            status
+        );
         Ok(entity.into())
     }
 
@@ -54,9 +58,11 @@ impl CdnConfigPort for CdnConfigAdapter {
         app_id: Option<&str>,
         bucket_key: &str,
     ) -> anyhow::Result<Option<CdnDomainInfo>> {
-        Ok(CdnDomainRepo::find_by_bucket_key(&pg_pool(), app_id, bucket_key)
-            .await?
-            .map(Into::into))
+        Ok(
+            CdnDomainRepo::find_by_bucket_key(&pg_pool(), app_id, bucket_key)
+                .await?
+                .map(Into::into),
+        )
     }
 
     async fn find_by_id(&self, id: i64) -> anyhow::Result<Option<CdnDomainInfo>> {
@@ -71,7 +77,8 @@ impl CdnConfigPort for CdnConfigAdapter {
         limit: i64,
         offset: i64,
     ) -> anyhow::Result<(Vec<CdnDomainInfo>, i64)> {
-        let (entities, total) = CdnDomainRepo::admin_find_page(&pg_pool(), app_id, limit, offset).await?;
+        let (entities, total) =
+            CdnDomainRepo::admin_find_page(&pg_pool(), app_id, limit, offset).await?;
         let list: Vec<CdnDomainInfo> = entities.into_iter().map(Into::into).collect();
         tracing::info!(
             "[🔌 ADAPTER] - ✅️ CDN列表查询成功: app_id={:?}, count={}, total={}",

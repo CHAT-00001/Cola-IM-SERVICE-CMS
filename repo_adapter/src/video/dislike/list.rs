@@ -1,5 +1,4 @@
-// repo_adapter/src/cola_video/dislike/list.rs
-// // 🔌 插头 - 可乐视频 - 不喜欢 - 列表
+// repo_adapter/src/video/dislike/list.rs -- 🔌 插头 - VIDEO - 不喜欢 - 列表适配器
 // 2026/8/9 22:30 Created.
 
 ////////

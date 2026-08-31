@@ -20,9 +20,9 @@ pub trait UserShareGetPort: Send + Sync + 'static {
     /// * `desc`: `根据用户ID` - `获取用户分享的主页IDs`
     async fn get_share_ids(
         &self,
-        user_id: i64,     // 用户ID
-        limit: i64,  // 数量
-        offset: i64, // 页码
+        user_id: i64, // 用户ID
+        limit: i64,   // 数量
+        offset: i64,  // 页码
     ) -> anyhow::Result<(Vec<i64>)>;
 
     ////////
@@ -31,9 +31,9 @@ pub trait UserShareGetPort: Send + Sync + 'static {
     /// * `desc`: `根据用户ID` - `获取用户主页被谁分享了`
     async fn get_share_me_ids(
         &self,
-        user_id: i64,     // 用户 ID
-        limit: i64,  // 数量
-        offset: i64, // 页码
+        user_id: i64, // 用户 ID
+        limit: i64,   // 数量
+        offset: i64,  // 页码
     ) -> anyhow::Result<(Vec<i64>)>;
 }
 

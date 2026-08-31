@@ -33,11 +33,7 @@ impl FileManagePort for FileManageAdapter {
         ref_id: i64,
     ) -> Result<u64> {
         // 1. 调用 repo 更新文件状态
-        let count = FileRepo::mark_files_as_official(
-            uid,
-            file_ids.clone(),
-        )
-        .await?;
+        let count = FileRepo::mark_files_as_official(uid, file_ids.clone()).await?;
 
         // 2. 清除缓存中所有这些文件的 info
         for file_id in file_ids {
@@ -58,11 +54,7 @@ impl FileManagePort for FileManageAdapter {
         new_name: Option<String>,
         new_remark: Option<String>,
     ) -> Result<FsFileEntity> {
-        let entity = FileRepo::update_file_metadata(
-            file_id,
-            new_name,
-        )
-        .await?;
+        let entity = FileRepo::update_file_metadata(file_id, new_name).await?;
 
         // 2. Entity → Info（转换）
         let file_info = entity.to_file_info()?;
@@ -78,17 +70,17 @@ impl FileManagePort for FileManageAdapter {
     ////////
 
     /// # 3. [ADAPTER] - 更新文件状态
-    async fn update_file_status(
-        &self,
-        file_id: i64,
-        status: i16,
-    ) -> Result<()> {
+    async fn update_file_status(&self, file_id: i64, status: i16) -> Result<()> {
         FileRepo::update_file_status(file_id, status).await?;
 
         // 清除缓存
         // TODO: cache.del(&format!("file:{}", file_id)).await?;
 
-        tracing::info!("[🔌 ADAPTER] - ✅️ 文件状态更新成功: file_id={}, status={}", file_id, status);
+        tracing::info!(
+            "[🔌 ADAPTER] - ✅️ 文件状态更新成功: file_id={}, status={}",
+            file_id,
+            status
+        );
 
         Ok(())
     }

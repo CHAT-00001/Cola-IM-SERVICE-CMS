@@ -1,4 +1,4 @@
-// user/src/case/user/mod.rs
+// user/src/case/user/music.rs
 // 用户 - case - user - 模块
 // 2026/8/2 22:45 Created.
 

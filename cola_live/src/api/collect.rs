@@ -4,12 +4,12 @@
 ////////
 
 use crate::case;
+use crate::case::collect::CollectCase;
+use crate::model::vo::video::VideoSingleResponse;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::cola_video::command::buy::VideoBuyCommand;
 use cola_data::cola_video::command::collect::CollectCommand;
-use crate::case::collect::CollectCase;
-use crate::model::vo::video::VideoSingleResponse;
 
 ////////
 
@@ -60,7 +60,6 @@ impl CollectApi {
         video_id: i64,
         collect_id: i64,
     ) -> AppData<String> {
-
         // Call Case
         match CollectCase::case_del_collect(user_id, video_id, collect_id).await {
             Ok(_) => AppData::ok("收藏成功".to_string()).with_msg("删除成功"),
@@ -70,15 +69,9 @@ impl CollectApi {
 
     ////////
 
-
-
     ////////
 
-
-
     ////////
-
-
 }
 
 //////// END

@@ -1,5 +1,5 @@
 // data/src/cola_video/info/mod.rs
-// 🗄 数据 - ▶ 可乐视频 - info - mod
+// 🗄 数据 - ▶ 可乐视频 - info - music
 // 2026/8/4 20:59 Created.
 
 ////////
@@ -16,4 +16,3 @@ pub mod recommend; // 推荐信息
 pub mod share; // 分享信息
 pub mod video; // 视频信息(主内容)
 pub mod view; // 浏览信息
-

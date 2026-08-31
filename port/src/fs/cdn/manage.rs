@@ -30,7 +30,6 @@ pub trait CdnManagePort: Send + Sync {
         limit: i64,              // 数量
         offset: i64,             // 页码
     ) -> anyhow::Result<(VideoCommentInfo)>;
-
 }
 
 //////// END

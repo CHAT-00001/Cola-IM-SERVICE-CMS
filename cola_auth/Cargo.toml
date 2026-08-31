@@ -27,7 +27,7 @@ ipnetwork = "0.20.0"
 async-trait = "0.1.89"
 tracing = "0.1.44"
 anyhow = "1.0.102"
-rand = "0.8.5"
+rand = "0.10.2"
 jsonwebtoken = { version = "10", features = ["rust_crypto"] }
 aes-gcm = "0.10"
 base64 = "0.22"

@@ -8,8 +8,8 @@ pub mod active; // 活跃检查
 pub mod add; // 发布
 pub mod change; // 改变
 pub mod check;
+mod get;
 pub mod list;
 pub mod manage;
 pub mod state;
-mod get;
 // 状态

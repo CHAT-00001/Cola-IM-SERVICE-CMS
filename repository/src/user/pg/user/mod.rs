@@ -1,4 +1,4 @@
-// repository/src/user/pg/user/mod.rs
+// repository/src/user/pg/user/music.rs
 // 仓储 - 可乐用户 - pg - 用户 - 模块
 // 2026/8/3 19:01 Created.
 

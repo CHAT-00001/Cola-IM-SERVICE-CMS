@@ -4,8 +4,8 @@
 
 ////////
 
-use serde::{Deserialize, Serialize};
 use crate::market::entity::express::express::ExpressEntity;
+use serde::{Deserialize, Serialize};
 
 ////////
 

@@ -4,8 +4,8 @@
 
 ////////
 
-use serde::{Deserialize, Serialize};
 use crate::cola_video::entity::danmaku::DanmakuEntity;
+use serde::{Deserialize, Serialize};
 
 ////////
 

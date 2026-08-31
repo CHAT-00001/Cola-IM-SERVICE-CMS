@@ -16,7 +16,6 @@ pub struct ShareListAdapter;
 
 #[async_trait]
 impl UserShareListPort for ShareListAdapter {
-
     /// # 1. [ADAPTER] - 用户分享的
     async fn get_share_infos_by_user_id(
         &self,
@@ -30,7 +29,7 @@ impl UserShareListPort for ShareListAdapter {
     /// # 2. [ADAPTER] - 主页的分享
     async fn get_share_infos_by_profile_id(
         &self,
-        profile_id: i64,  // 主页 ID
+        profile_id: i64, // 主页 ID
         offset: i64,
         limit: i64,
     ) -> Result<(Vec<ShareInfo>)> {

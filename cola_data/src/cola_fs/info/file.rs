@@ -4,8 +4,8 @@
 
 ////////
 
-use serde::{Deserialize, Serialize};
 use chrono::{DateTime, Utc};
+use serde::{Deserialize, Serialize};
 
 ////////
 
@@ -22,10 +22,9 @@ pub struct FileInfo {
     pub mime_type: String,
     pub file_size: i64,
     pub is_public: bool,
-    pub status: i16,                    // 1正常 0删除 (临时态为0，正式态为1)
-    pub expired_at: Option<DateTime<Utc>>,  // 过期时间（临时文件）
+    pub status: i16,                       // 1正常 0删除 (临时态为0，正式态为1)
+    pub expired_at: Option<DateTime<Utc>>, // 过期时间（临时文件）
     pub created_at: Option<DateTime<Utc>>,
 }
 
 //////// END
-

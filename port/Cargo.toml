@@ -15,5 +15,7 @@ cola_data = { path = "../cola_data" }
 rust_decimal = { version = "1.42.1" }
 rust_decimal_macros = "1.40.0"
 serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.143"
 async-trait = "0.1.92"
 anyhow = "1.0.104"
+chrono = "0.4.45"

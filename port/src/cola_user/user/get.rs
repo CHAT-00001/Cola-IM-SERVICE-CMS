@@ -4,8 +4,6 @@
 
 ////////
 
-
-
 ////////
 
 use cola_data::cola_user::info::user::UserInfo;

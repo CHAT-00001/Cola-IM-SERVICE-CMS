@@ -1,8 +1,8 @@
-﻿// repository/src/cola_gis/service/check -- 鏈嶅姟灞?- GIS 鏉冮檺妫€鏌?
+// repository/src/cola_gis/service/check -- 鏈嶅姟灞?- GIS 鏉冮檺妫€鏌?
 // 2026/7/6
 
-use anyhow::Result;
 use crate::pg_pool;
+use anyhow::Result;
 
 pub struct VideoPermissionsCheckService;
 
@@ -14,8 +14,10 @@ impl VideoPermissionsCheckService {
     pub async fn check_video_visibility_perm(uid: i64, delta: i32) -> Result<()> {
         let pool = pg_pool();
         let sql = r#"SELECT visibility_perm FROM cola_gis.cola_gis WHERE id = $1"#;
-        sqlx::query_scalar::<_, i16>(sql).bind(uid).fetch_one(&pool).await?;
+        sqlx::query_scalar::<_, i16>(sql)
+            .bind(uid)
+            .fetch_one(&pool)
+            .await?;
         Ok(())
     }
 }
-

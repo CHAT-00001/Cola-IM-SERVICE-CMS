@@ -1,10 +1,9 @@
-// port/src/cola_video/view/mod.rs
+// port/src/cola_video/view/music.rs
 // ⏩️ 端口 - ▶ 可乐视频 -  浏览 - 模块
 // 2026/8/5 14:32 Created.
 
 ////////
 
-use std::sync::Arc;
 use crate::market::view::active::GoodsViewActivePort;
 use crate::market::view::add::GoodsViewAddPort;
 use crate::market::view::del::GoodsViewDelPort;
@@ -12,6 +11,7 @@ use crate::market::view::get::GoodsViewGetPort;
 use crate::market::view::list::GoodsViewListPort;
 use crate::market::view::manage::GoodsViewManagePort;
 use crate::market::view::stat::GoodsViewStatPort;
+use std::sync::Arc;
 
 ////////
 pub mod active; // 活跃

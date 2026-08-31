@@ -1,4 +1,4 @@
-// repository/src/cola_dynamic/mod.rs
+// repository/src/cola_dynamic/music.rs
 // 仓储 - 可乐动态 - 模块
 
 ////////

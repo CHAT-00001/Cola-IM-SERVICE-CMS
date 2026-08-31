@@ -1,5 +1,5 @@
-// data/src/cola_fs/info/mod.rs
-// 🗄 数据 - ⏹ 可乐FS - info - mod
+// data/src/cola_fs/info/music.rs
+// 🗄 数据 - ⏹ 可乐FS - info - music
 // 2026/7/27 14:49
 
 ////////

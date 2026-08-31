@@ -9,10 +9,10 @@ use crate::assembler::video::build_video_single_response_with_cdn;
 use crate::case::storage::resolve_video_cdn_domain;
 use crate::model::vo::video::VideoSingleResponse;
 use anyhow::{Result, anyhow};
-use port::app::ctx::AppContext;
-use cola_data::cola_video::info::video::VideoInfo;
-use std::sync::Arc;
 use cola_data::app::query::ApiGatewayRequest;
+use cola_data::cola_video::info::video::VideoInfo;
+use port::app::ctx::AppContext;
+use std::sync::Arc;
 
 ////////
 
@@ -28,8 +28,8 @@ impl ViewCase {
     pub async fn case_add_video_view(
         uid: i64,
         url: ApiGatewayRequest,
-        ctx: &AppContext) -> Result<()> {
-
+        ctx: &AppContext,
+    ) -> Result<()> {
         // Call Service Port
         ctx.video
             .view
@@ -49,7 +49,6 @@ impl ViewCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> Result<VideoSingleResponse> {
-
         // Call Service Port
         let info: VideoInfo = ctx
             .video

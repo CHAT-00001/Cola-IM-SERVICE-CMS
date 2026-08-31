@@ -3,12 +3,12 @@
 
 ////////
 
+use crate::case::view::PoiViewCase;
+use crate::model::vo::poi::PoiSingleResponse;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::auth::info::auth::AuthContext;
 use port::app::ctx::AppContext;
-use crate::case::view::PoiViewCase;
-use crate::model::vo::poi::PoiSingleResponse;
 
 ////////
 
@@ -18,7 +18,6 @@ pub async fn handler_get_poi_detail(
     url: ApiGatewayRequest,
     ctx: &AppContext,
 ) -> AppData<PoiSingleResponse> {
-
     let uid = auth.uid;
 
     match PoiViewCase::case_get_poi_detail(uid, url, ctx).await {

@@ -1,16 +1,15 @@
-// auth/src/kits/token.rs
-// core - 验证中心 - kits - Token 生成工具
+// cola_auth/src/kits/token.rs -- 验证中心 - kits - Token 生成工具
 // 2026-07-19 11:10
 
 ////////
 
 use aes_gcm::{
-    aead::{Aead, KeyInit, OsRng},
     Aes256Gcm, Nonce,
+    aead::{Aead, KeyInit},
 };
 use chrono::{DateTime, Duration, Utc};
-use jsonwebtoken::{encode, EncodingKey, Header};
-use rand::Rng;
+use jsonwebtoken::{EncodingKey, Header, encode};
+use rand::RngExt;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
@@ -51,7 +50,10 @@ fn get_aes_key() -> [u8; 32] {
 
 /// # 1. [KITS] - 生成 access_token (JWT)，带 device_id
 /// * `desc`: 有效期: 由 `SessionCommand::ACCESS_TOKEN_TTL_DAYS` 统一控制（默认 10 天）
-pub fn kit_generate_access_token(uid: i64, device_id: &str) -> Result<(String, i64), anyhow::Error> {
+pub fn kit_generate_access_token(
+    uid: i64,
+    device_id: &str,
+) -> Result<(String, i64), anyhow::Error> {
     let now = Utc::now();
     let ttl_days = cola_data::auth::command::session::SessionCommand::ACCESS_TOKEN_TTL_DAYS;
     let exp = now + Duration::days(ttl_days);
@@ -116,7 +118,7 @@ pub fn kit_generate_refresh_token() -> Result<(String, i64), anyhow::Error> {
 
     // 64 字节随机数 → 128 hex 字符
     let mut random_bytes = [0u8; 64];
-    rand::thread_rng().fill(&mut random_bytes);
+    rand::rng().fill(&mut random_bytes);
     let raw = format!("{}", hex_encode(&random_bytes));
 
     Ok((raw, exp_ts))
@@ -133,7 +135,7 @@ pub fn kit_encrypt_refresh_token(raw: &str) -> Result<String, anyhow::Error> {
 
     // 12 字节随机 nonce
     let mut nonce_bytes = [0u8; 12];
-    rand::thread_rng().fill(&mut nonce_bytes);
+    rand::rng().fill(&mut nonce_bytes);
     let nonce = Nonce::from_slice(&nonce_bytes);
 
     let ciphertext = cipher
@@ -195,7 +197,14 @@ pub fn kit_build_session_cmd(
     phone: &str,
     platform: &str,
     device_id: &str,
-) -> Result<(cola_data::auth::command::session::SessionCommand, String, String), anyhow::Error> {
+) -> Result<
+    (
+        cola_data::auth::command::session::SessionCommand,
+        String,
+        String,
+    ),
+    anyhow::Error,
+> {
     use cola_data::auth::command::session::SessionCommand;
 
     let (access_token, access_exp) = kit_generate_access_token(uid, device_id)?;
@@ -207,10 +216,8 @@ pub fn kit_build_session_cmd(
     let cmd = SessionCommand {
         access_token: access_token.clone(),
         refresh_token: refresh_token_encrypted,
-        access_expires_at: DateTime::from_timestamp(access_exp, 0)
-            .unwrap_or_else(Utc::now),
-        refresh_expires_at: DateTime::from_timestamp(refresh_exp, 0)
-            .unwrap_or_else(Utc::now),
+        access_expires_at: DateTime::from_timestamp(access_exp, 0).unwrap_or_else(Utc::now),
+        refresh_expires_at: DateTime::from_timestamp(refresh_exp, 0).unwrap_or_else(Utc::now),
         last_active_at: Utc::now(),
         client_id: phone.to_string(),
         device_id: device_id.to_string(),
@@ -265,8 +272,12 @@ mod tests {
 
         let decrypted = kit_decrypt_refresh_token(&encrypted).unwrap();
         assert_eq!(decrypted, raw);
-        println!("AES encrypt/decrypt OK: {} -> {} -> {}",
-            raw.len(), encrypted.len(), decrypted.len());
+        println!(
+            "AES encrypt/decrypt OK: {} -> {} -> {}",
+            raw.len(),
+            encrypted.len(),
+            decrypted.len()
+        );
     }
 
     #[test]

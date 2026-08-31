@@ -1,4 +1,4 @@
-// repository/src/cola_three/redis/mod.rs  -- THREE Redis 实现 mod
+// repository/src/cola_three/redis/mod.rs  -- THREE Redis 实现 music
 // 2026/6/30
 
 ////////

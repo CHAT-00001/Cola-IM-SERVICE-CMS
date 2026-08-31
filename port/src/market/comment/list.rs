@@ -6,7 +6,6 @@
 
 use cola_data::cola_video::info::comment::VideoCommentInfo;
 
-
 ////////
 
 /// # [LIST PORTS] - 列表
@@ -36,7 +35,6 @@ pub trait GoodsCommentListPort: Send + Sync {
         limit: i64,  // 数量
         offset: i64, // 页码
     ) -> anyhow::Result<(VideoCommentInfo)>;
-
 }
 
 //////// END

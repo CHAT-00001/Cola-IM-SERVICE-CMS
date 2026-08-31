@@ -1,4 +1,4 @@
-// repository/src/user/mod.rs
+// repository/src/user/music.rs
 // 仓储 - 可乐用户 - 模块
 // 2026-04-10 14:41
 

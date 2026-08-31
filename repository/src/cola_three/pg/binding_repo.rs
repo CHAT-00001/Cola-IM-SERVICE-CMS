@@ -4,9 +4,7 @@
 ////////
 
 use crate::pg_pool;
-use cola_data::cola_three::entity::binding::{
-    THREE_BIZ_BINDING_COLUMNS, ThreeBizBindingEntity,
-};
+use cola_data::cola_three::entity::binding::{THREE_BIZ_BINDING_COLUMNS, ThreeBizBindingEntity};
 
 ////////
 

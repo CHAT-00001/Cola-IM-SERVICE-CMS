@@ -4,9 +4,9 @@
 
 ////////
 
-use serde::Serialize;
 use crate::auth::info::session::SessionInfo;
 use crate::cola_user::info::user::UserInfo;
+use serde::Serialize;
 
 ////////
 

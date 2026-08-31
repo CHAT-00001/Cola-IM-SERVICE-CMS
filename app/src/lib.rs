@@ -3,14 +3,14 @@
 
 ////////
 
-use std::sync::{Arc, OnceLock};
 pub use crate::db_service::DbService;
+use std::sync::{Arc, OnceLock};
 
 ////////
 
-pub mod db;
 pub mod app_state;
 pub mod config;
+pub mod db;
 pub mod db_service;
 mod kits;
 

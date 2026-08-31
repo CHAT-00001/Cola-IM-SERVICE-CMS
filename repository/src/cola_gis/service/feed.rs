@@ -1,3 +1,2 @@
-﻿pub struct FeedService;
+pub struct FeedService;
 impl FeedService {}
-

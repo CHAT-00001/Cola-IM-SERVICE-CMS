@@ -1,15 +1,14 @@
-// service/src/cola_music/service/add.rs
-// 仓储 - MUSIC - service - 发布（对齐视频发布模式）
-// 2026-07-08
-// 2026/8/4 重构：对齐 cola_video/service/cola_video/add.rs 原子化模式
+// service/src/music/service/add.rs -- service - MUSIC - 内容 - 发布
+// 2026-07-08 14:35
 
 ////////
 
 use anyhow::Result;
-use cola_data::cola_music::command::music::new::MusicCommand;
-use cola_data::cola_music::info::music::MusicInfo;
+use cola_data::music::command::music::new::{MusicCreateCommand, MusicUpdateCommand};
+use cola_data::music::info::music::MusicInfo;
+use repository::music::pg::music::add::MusicAddRepo;
 use tracing::log;
-use repository::cola_music::pg::music::basic::MusicRepo;
+
 ////////
 
 /// # [ADD SERVICE] - 音乐 发布 服务
@@ -22,13 +21,13 @@ impl MusicAddService {
 
     /// # 1. [SERVICE] - 保存音乐 + 更新计数（对齐视频模式）
     pub async fn save_music_and_update_count(
-        uid: i64,
-        cmd: MusicCommand,
-        visibility: i16,
+        uid: i64,                // 操作者 ID
+        cmd: MusicCreateCommand, // 创建命令
+        visibility: i16,         // 可见度
     ) -> Result<MusicInfo, anyhow::Error> {
         // 🌟 返回值无缝升级为 MusicInfo
         // 1. Call Repo - 保存音乐并直接返回插入后的物理实体数据
-        let music_entity = MusicRepo::save_music_by_uid(uid, cmd, visibility)
+        let music_entity = MusicAddRepo::save_music_by_uid(uid, cmd, visibility)
             .await
             .map_err(|e| anyhow::anyhow!("[🎵 SERVICE]: 写入音乐主表失败: {}", e))?;
 
@@ -42,13 +41,21 @@ impl MusicAddService {
 
     /// # 2. [SERVICE] - 编辑音乐（复用保存逻辑）
     pub async fn edit_music(
-        uid: i64,
-        cmd: MusicCommand,
-        visibility: i16,
+        uid: i64,                // 操作者 ID
+        music_id: i64,           // 音乐 ID
+        cmd: MusicUpdateCommand, // 更新命令
+        visibility: i16,         // 可见度
     ) -> Result<MusicInfo, anyhow::Error> {
-        MusicAddService::save_music_and_update_count(uid, cmd, visibility).await
+        // 1. Call REPO ..
+        let music_entity = MusicAddRepo::update_music_by_id(uid, music_id, cmd, visibility)
+            .await
+            .map_err(|e| anyhow::anyhow!("[🎵 SERVICE]: 写入音乐主表失败: {}", e))?;
+
+        // 2. 🌟 核心升级：就地消化物理 Entity，转换为纯净领域元数据
+        let music_info = MusicInfo::from_music_entity(&music_entity);
+
+        Ok(music_info)
     }
 }
-
 
 //////// END

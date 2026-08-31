@@ -5,8 +5,8 @@
 ////////
 
 use anyhow::{Result, anyhow};
-use tracing::info;
 use port::app::ctx::AppContext;
+use tracing::info;
 ////////
 
 /// # [ADD CASE] - 添加
@@ -33,7 +33,10 @@ impl UserVipAddCase {
             .await
             .map_err(|e| anyhow!("[🤐 CASE]: ❌️ 充值会员失败: {}", e))?;
 
-        info!("[🗣️ CASE] - ✅️ 充值会员成功: uid={}, target_id={}", uid, target_id);
+        info!(
+            "[🗣️ CASE] - ✅️ 充值会员成功: uid={}, target_id={}",
+            uid, target_id
+        );
 
         Ok(())
     }
@@ -53,7 +56,10 @@ impl UserVipAddCase {
             .await
             .map_err(|e| anyhow!("[🤐 CASE]: ❌️ 取消VIP失败: {}", e))?;
 
-        info!("[🗣️ CASE] - ✅️ 取消VIP成功: uid={}, target_id={}", uid, target_id);
+        info!(
+            "[🗣️ CASE] - ✅️ 取消VIP成功: uid={}, target_id={}",
+            uid, target_id
+        );
 
         Ok(())
     }

@@ -4,10 +4,10 @@
 
 ////////
 
-use async_trait::async_trait;
 use anyhow::Result;
-use cola_data::cola_fs::entity::bucket::BucketEntity;
+use async_trait::async_trait;
 use cola_data::cola_fs::command::bucket::CreateBucketCmd;
+use cola_data::cola_fs::entity::bucket::BucketEntity;
 
 ////////
 
@@ -27,10 +27,10 @@ pub trait BucketAddPort: Send + Sync {
     /// * `desc`: `为上传生成预签名 URL`
     async fn get_presigned_url(
         &self,
-        uid: i64,        // 用户 ID
-        bucket: &str,    // S3 bucket 名称
+        uid: i64,         // 用户 ID
+        bucket_id: i64,   // 存储桶 ID，适配器内部读取敏感配置
         object_key: &str, // 对象键
-        expires_in: u64, // 有效期（秒）
+        expires_in: u64,  // 有效期（秒）
     ) -> Result<String>;
 }
 

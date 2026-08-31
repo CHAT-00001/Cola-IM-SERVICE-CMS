@@ -1,4 +1,4 @@
-// cola_video/port/recommend/del.rs
+// cola_video/port/hotlist/del.rs
 // 视频 - port - 弹幕 - 发布
 // 2026/8/5 01:49 Created.
 

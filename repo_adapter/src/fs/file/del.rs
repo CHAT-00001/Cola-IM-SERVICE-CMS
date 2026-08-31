@@ -21,11 +21,7 @@ impl FileDelPort for FileDelAdapter {
     ////////
 
     /// # 1. [ADAPTER] - 单个删除文件
-    async fn delete_file(
-        &self,
-        uid: i64,
-        file_id: i64,
-    ) -> Result<u64> {
+    async fn delete_file(&self, uid: i64, file_id: i64) -> Result<u64> {
         let count = FileRepo::delete_file(uid, file_id).await?;
 
         // 清除缓存
@@ -39,11 +35,7 @@ impl FileDelPort for FileDelAdapter {
     ////////
 
     /// # 2. [ADAPTER] - 批量删除文件
-    async fn batch_delete_files(
-        &self,
-        uid: i64,
-        file_ids: Vec<i64>,
-    ) -> Result<u64> {
+    async fn batch_delete_files(&self, uid: i64, file_ids: Vec<i64>) -> Result<u64> {
         let count = FileRepo::batch_delete_files(uid, file_ids.clone()).await?;
 
         // 清除所有缓存

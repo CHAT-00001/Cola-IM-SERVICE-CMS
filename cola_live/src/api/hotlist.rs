@@ -1,5 +1,4 @@
-// cola_live/src/api/hotlist/add.rs
-// core - LIVE - API - 上热门
+// cola_live/src/api/hotlist.rs -- LIVE - API - 上热门 - mod
 // 2026/6/10 08:33
 
 ////////
@@ -8,7 +7,7 @@ use crate::case::hotlist::add::HotlistCase;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::cola_video::command::hotlist::HotlistCommand;
+use cola_data::cola_coc::command::hotlist::record::HotlistCommand;
 use port::app::ctx::AppContext;
 
 ////////

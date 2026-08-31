@@ -5,8 +5,8 @@
 ////////
 
 use anyhow::{Result, anyhow};
-use repository::user::pg::black::get::UserBlackGetRepo;
 use repository::pg_pool;
+use repository::user::pg::black::get::UserBlackGetRepo;
 
 ////////
 

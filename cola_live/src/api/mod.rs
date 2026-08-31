@@ -1,11 +1,10 @@
-// cola_video/src/api/mod.rs  -- 可乐短视频 - 接口层 - mod
+// cola_video/src/api/music.rs  -- LIVE - 接口层 - music
 // 2026-01-05 12:10
 
 ////////
 
-pub mod add; // 发布
+// 发布
 pub mod buy;
-pub mod category;
 pub mod change;
 pub mod collect;
 pub mod comment; // 评论
@@ -15,5 +14,9 @@ pub mod home; // 首页
 pub mod hotlist;
 pub mod manager; // 管理
 
-pub mod view;// 浏览
-
+pub mod category; // 分类
+mod room;
+pub mod stream; // 流
+pub mod user; // 用户
+pub mod view;
+// // 浏览

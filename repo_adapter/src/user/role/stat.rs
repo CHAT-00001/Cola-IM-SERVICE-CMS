@@ -7,7 +7,6 @@
 use async_trait::async_trait;
 use port::cola_user::role::stat::UserRoleStatPort;
 
-
 ////////
 
 /// # [STAT ADAPTER] - 计数

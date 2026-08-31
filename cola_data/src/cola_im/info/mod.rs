@@ -1,5 +1,5 @@
 // cola_data/src/cola_im/info/mod.rs
-// 🗄 数据 - ⏹ 可乐IM - info - mod
+// 🗄 数据 - ⏹ 可乐IM - info - music
 // 2026-07-07 10:45
 
 ////////

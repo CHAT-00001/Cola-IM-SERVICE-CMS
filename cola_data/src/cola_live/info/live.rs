@@ -2,9 +2,9 @@
 // 数据 - LIVE - INFO - 直播信息
 // 2026/5/19 18:17 by wx: cestbon10080
 
+use crate::cola_user::info::user::UserInfo;
 use chrono::Utc;
 use serde::{Deserialize, Serialize};
-use crate::cola_user::info::user::UserInfo;
 
 ////////
 

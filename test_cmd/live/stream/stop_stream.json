@@ -1,0 +1,10 @@
+{
+    "service": "stream_stop",
+    "action": "stop",
+    "auth": {
+        "access_token": "abc"
+    },
+    "cmd": {
+        "stream_id": 100011444
+    }
+}

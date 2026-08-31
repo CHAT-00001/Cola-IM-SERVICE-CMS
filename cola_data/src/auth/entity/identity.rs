@@ -12,7 +12,7 @@ use sqlx::FromRow;
 
 /// # [ENTITY] - 验证中心 - 身份表
 /// * `pg schema`: `cola_auth` -- PG 模式
-/// * `table name`: `file`  -- 表名
+/// * `table name`: `identity`  -- 表名
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct IdentityEntity {
     pub id: i64,                            // ID (自增 / 雪花)

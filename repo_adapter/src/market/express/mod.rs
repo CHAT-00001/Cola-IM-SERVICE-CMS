@@ -1,5 +1,4 @@
-// repo_adapter/src/market/express/mod.rs
-// 🔌 适配器 - MARKET - 快递
+// repo_adapter/src/market/express/mod.rs -- 适配器 - MARKET - 快递
 // 2026/8/10 20:00 Updated.
 
 ////////

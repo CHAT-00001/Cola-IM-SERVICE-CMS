@@ -4,8 +4,8 @@
 
 ////////
 
-use async_trait::async_trait;
 use anyhow::Result;
+use async_trait::async_trait;
 use cola_data::cola_three::info::app::AppInfo;
 
 ////////

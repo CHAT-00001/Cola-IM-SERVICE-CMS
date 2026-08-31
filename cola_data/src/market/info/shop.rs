@@ -6,4 +6,3 @@
 
 pub mod bond;
 pub mod shop_apply;
-

@@ -8,7 +8,7 @@ use anyhow::Result;
 use async_trait::async_trait;
 use cola_data::cola_fs::entity::file::FsFileEntity;
 use port::fs::file::add::FileAddPort;
-use repository::cola_fs::pg::file::{FileRepo};
+use repository::cola_fs::pg::file::FileRepo;
 
 ////////
 
@@ -66,11 +66,13 @@ impl FileAddPort for FileAddAdapter {
             results.push(entity);
         }
 
-        tracing::info!("[🔌 ADAPTER] - ✅️ 批量创建临时文件成功: count={}", results.len());
+        tracing::info!(
+            "[🔌 ADAPTER] - ✅️ 批量创建临时文件成功: count={}",
+            results.len()
+        );
 
         Ok(results)
     }
 }
 
 //////// END
-

@@ -1,5 +1,5 @@
-// port/src/market/goods/mod.rs
-// ⏩️ 端口 - MARKET - 商品 - mod
+// port/src/market/goods/music.rs
+// ⏩️ 端口 - MARKET - 商品 - music
 // 2026/8/5 15:57 Created.
 
 ////////

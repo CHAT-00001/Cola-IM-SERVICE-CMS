@@ -1,4 +1,4 @@
-// repo_adapter/src/cola_gis/share.rs
+// repo_adapter/src/cola_gis/ticket
 // 🔌 适配器 - 可乐GIS - POI - 分享
 // 2026-07-07
 

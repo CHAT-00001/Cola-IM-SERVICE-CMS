@@ -3,9 +3,9 @@
 
 ////////
 
-use serde::Serialize;
 use crate::auth::info::session::SessionInfo;
 use crate::cola_user::info::user::UserInfo;
+use serde::Serialize;
 
 ////////
 
@@ -28,7 +28,6 @@ pub struct SignResponse(pub SignLogVo);
 
 // 构造实现
 impl Default for SignResponse {
-
     ////////
 
     /// # [CASE] - 默认
@@ -53,4 +52,3 @@ impl SignLogVo {
 }
 
 //////// END
-

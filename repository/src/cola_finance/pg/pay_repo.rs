@@ -3,8 +3,8 @@
 
 ////////
 
-use cola_data::wallet::entity::pay::{ThreePayConfigEntity, THREE_PAY_CONFIG_COLUMNS};
 use crate::pg_pool;
+use cola_data::wallet::entity::pay::{THREE_PAY_CONFIG_COLUMNS, ThreePayConfigEntity};
 
 ////////
 
@@ -18,9 +18,15 @@ impl PayRepo {
 
     /// 1. #[REPOSITORY] - 插入（新建）
     pub async fn insert(
-        type_id: i64, vendor_id: i64, name: &str,
-        mch_id: &str, api_key: &str, notify_url: &str,
-        config_json: Option<&serde_json::Value>, remark: Option<&str>, status: i16,
+        type_id: i64,
+        vendor_id: i64,
+        name: &str,
+        mch_id: &str,
+        api_key: &str,
+        notify_url: &str,
+        config_json: Option<&serde_json::Value>,
+        remark: Option<&str>,
+        status: i16,
     ) -> Result<ThreePayConfigEntity, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
@@ -30,9 +36,15 @@ impl PayRepo {
             THREE_PAY_CONFIG_COLUMNS
         );
         sqlx::query_as::<_, ThreePayConfigEntity>(&query)
-            .bind(type_id).bind(vendor_id).bind(name)
-            .bind(mch_id).bind(api_key).bind(notify_url)
-            .bind(config_json).bind(remark).bind(status)
+            .bind(type_id)
+            .bind(vendor_id)
+            .bind(name)
+            .bind(mch_id)
+            .bind(api_key)
+            .bind(notify_url)
+            .bind(config_json)
+            .bind(remark)
+            .bind(status)
             .fetch_one(&pool)
             .await
     }
@@ -41,9 +53,16 @@ impl PayRepo {
 
     /// 2. #[REPOSITORY] - 更新（仅改 updated_at，不动 created_at）
     pub async fn update(
-        id: i64, type_id: i64, vendor_id: i64, name: &str,
-        mch_id: &str, api_key: &str, notify_url: &str,
-        config_json: Option<&serde_json::Value>, remark: Option<&str>, status: i16,
+        id: i64,
+        type_id: i64,
+        vendor_id: i64,
+        name: &str,
+        mch_id: &str,
+        api_key: &str,
+        notify_url: &str,
+        config_json: Option<&serde_json::Value>,
+        remark: Option<&str>,
+        status: i16,
     ) -> Result<ThreePayConfigEntity, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
@@ -52,9 +71,16 @@ impl PayRepo {
             THREE_PAY_CONFIG_COLUMNS
         );
         sqlx::query_as::<_, ThreePayConfigEntity>(&query)
-            .bind(type_id).bind(vendor_id).bind(name)
-            .bind(mch_id).bind(api_key).bind(notify_url)
-            .bind(config_json).bind(remark).bind(status).bind(id)
+            .bind(type_id)
+            .bind(vendor_id)
+            .bind(name)
+            .bind(mch_id)
+            .bind(api_key)
+            .bind(notify_url)
+            .bind(config_json)
+            .bind(remark)
+            .bind(status)
+            .bind(id)
             .fetch_one(&pool)
             .await
     }
@@ -92,14 +118,18 @@ impl PayRepo {
     ////////
 
     /// 5. #[REPOSITORY] - 切换状态
-    pub async fn update_status(id: i64, status: i16) -> Result<Option<ThreePayConfigEntity>, sqlx::Error> {
+    pub async fn update_status(
+        id: i64,
+        status: i16,
+    ) -> Result<Option<ThreePayConfigEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
             "UPDATE cola_wallet.pay SET status=$1, updated_at=NOW() WHERE id=$2 RETURNING {}",
             THREE_PAY_CONFIG_COLUMNS
         );
         sqlx::query_as::<_, ThreePayConfigEntity>(&query)
-            .bind(status).bind(id)
+            .bind(status)
+            .bind(id)
             .fetch_optional(&pool)
             .await
     }

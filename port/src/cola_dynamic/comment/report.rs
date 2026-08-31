@@ -27,11 +27,8 @@ pub trait DynamicCommentReportPort: Send + Sync {
     ////////
 
     /// # [PORT] - 编辑
-    async fn edit_comment_record(
-        &self,
-        comment_id: i64,
-        cmd: CommentCommand,
-    ) -> anyhow::Result<()>;
+    async fn edit_comment_record(&self, comment_id: i64, cmd: CommentCommand)
+    -> anyhow::Result<()>;
 
     ////////
 

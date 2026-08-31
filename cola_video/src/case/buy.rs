@@ -4,10 +4,9 @@
 ////////
 
 use anyhow::{Result, anyhow};
-use tracing::{info, warn};
-use port::app::ctx::AppContext;
 use cola_data::cola_video::command::buy::VideoBuyCommand;
-
+use port::app::ctx::AppContext;
+use tracing::{info, warn};
 
 ////////
 
@@ -15,7 +14,6 @@ use cola_data::cola_video::command::buy::VideoBuyCommand;
 pub struct BuyCase;
 
 impl BuyCase {
-
     ////////
 
     /// # 1. [CASE] - 添加
@@ -25,7 +23,6 @@ impl BuyCase {
         cmd: VideoBuyCommand,
         ctx: &AppContext,
     ) -> Result<()> {
-
         // 1. 保存购买记录
         ctx.video
             .buy
@@ -35,7 +32,6 @@ impl BuyCase {
             .map_err(|e| anyhow!("添加购买记录失败: {}", e))?;
 
         // 2. 校验
-
 
         // 3. 执行收藏
 
@@ -51,7 +47,6 @@ impl BuyCase {
         cmd: VideoBuyCommand,
         ctx: &AppContext,
     ) -> Result<()> {
-
         // 1. 保存购买记录
         ctx.video
             .buy
@@ -62,12 +57,10 @@ impl BuyCase {
 
         // 2. 校验
 
-
         // 3. 执行收藏
 
         Ok(())
     }
-
 }
 
 //////// END

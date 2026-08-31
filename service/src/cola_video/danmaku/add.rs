@@ -1,5 +1,4 @@
-// service/src/cola_video/danmaku/add.rs
-// 👤 服务 - ▶ 可乐视频 - 弹幕 - 发布
+// service/src/cola_video/danmaku/add.rs -- 服务层 - VIDEO - 弹幕 - 发布服务
 // 2026/8/2 18:54 Created.
 
 ////////
@@ -9,21 +8,20 @@ use cola_data::cola_video::command::buy::VideoBuyCommand;
 use cola_data::cola_video::command::collect::CollectCommand;
 use cola_data::cola_video::command::comment::CommentCommand;
 use cola_data::cola_video::command::danmaku::DanmakuCommand;
-use cola_data::cola_video::command::report::VideoReportCommand;
 use cola_data::cola_video::command::share::ShareCommand;
+use cola_data::cola_video::entity::danmaku::DanmakuEntity;
 use cola_data::cola_video::entity::video::video::VideoEntity;
 use cola_data::cola_video::info::comment::VideoCommentInfo;
 use cola_data::cola_video::info::danmaku::DanmakuInfo;
 use repository::cola_gis::pg::user::UserRepo;
-use repository::cola_video::pg::danmaku::danmaku::DanmakuRepo;
-use repository::cola_video::pg::video::home::VideoRepo;
+use repository::video::pg::danmaku::danmaku::DanmakuRepo;
+use repository::video::pg::video::home::VideoRepo;
 use tracing::log;
-use cola_data::cola_video::entity::danmaku::DanmakuEntity;
 
 ////////
 
-/// # [ADD SERVICE] - 发布
-/// * `desc`: `▶可乐视频 - 👤 弹幕发布服务`
+/// # [ADD SERVICE] - 视频弹幕发布服务
+/// * `desc`: `VIDEO - Danmaku Add Service`
 pub struct VideoDanmakuAddService;
 
 // 构造实现

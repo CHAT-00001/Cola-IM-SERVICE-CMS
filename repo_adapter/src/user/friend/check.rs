@@ -11,7 +11,7 @@ use anyhow::Result;
 /// # [ADAPTER] - 检查是否已是朋友
 pub async fn is_friended(
     _uid: i64, // 操作者ID
-    _id: i64, // 目标用户ID
+    _id: i64,  // 目标用户ID
 ) -> Result<bool> {
     // 🚧 TODO: 对接 FriendService
     Ok(false)
@@ -19,7 +19,7 @@ pub async fn is_friended(
 
 /// # [ADAPTER] - 检查朋友关系状态
 pub async fn check_state(
-    _uid: i64, // 操作者ID
+    _uid: i64,     // 操作者ID
     _user_id: i64, // 目标用户ID
 ) -> Result<bool> {
     // 🚧 TODO: 对接 FriendService

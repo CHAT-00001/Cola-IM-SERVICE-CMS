@@ -41,7 +41,6 @@ pub trait DynamicDanmakuCheckPort: Send + Sync {
         uid: i64,        // UID
         danmaku_id: i64, // 弹幕 ID
     ) -> anyhow::Result<(bool)>;
-
 }
 
 //////// END

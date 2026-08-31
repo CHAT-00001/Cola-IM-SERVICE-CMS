@@ -5,9 +5,9 @@
 
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
-use serde_json::Value;
 use cola_three::api::server_type::ServerTypeApi;
 use port::cola_three::ColaThreePort;
+use serde_json::Value;
 //////
 
 /// # [ACTION] - 动作码
@@ -22,11 +22,7 @@ pub mod action {
 //////
 
 /// # [DISPATCH] - 转发器
-pub async fn category_dispatch(
-    three: &ColaThreePort,
-    req: &ApiGatewayRequest,
-) -> AppData<Value> {
-
+pub async fn category_dispatch(three: &ColaThreePort, req: &ApiGatewayRequest) -> AppData<Value> {
     let action = req.action.unwrap_or(1000);
 
     // 🚧 动作转发
@@ -42,7 +38,9 @@ pub async fn category_dispatch(
                 request_id: inner.request_id,
                 at: inner.at,
                 log_id: inner.log_id,
-                data: inner.data.map(|d| serde_json::to_value(d).unwrap_or_default()),
+                data: inner
+                    .data
+                    .map(|d| serde_json::to_value(d).unwrap_or_default()),
             }
         }
         1002 => home_detail(req).await,
@@ -66,7 +64,11 @@ pub async fn category_dispatch(
         7001 => audit_log(req).await,
         7002 => delete(req).await,
 
-        _ => AppData::err(400, format!("[🚧 DISPATCH]: Unknown dispatch action: {}", action), None),
+        _ => AppData::err(
+            400,
+            format!("[🚧 DISPATCH]: Unknown dispatch action: {}", action),
+            None,
+        ),
     }
 }
 

@@ -18,29 +18,19 @@ pub trait FileCheckPort: Send + Sync {
 
     /// # 1. [PORT] - 检查文件存在
     /// * `desc`: `检查文件是否存在`
-    async fn check_file_exists(
-        &self,
-        file_id: i64,
-    ) -> Result<bool>;
+    async fn check_file_exists(&self, file_id: i64) -> Result<bool>;
 
     ////////
 
     /// # 2. [PORT] - 检查文件可用
     /// * `desc`: `检查文件状态是否正常`
-    async fn check_file_available(
-        &self,
-        file_id: i64,
-    ) -> Result<bool>;
+    async fn check_file_available(&self, file_id: i64) -> Result<bool>;
 
     ////////
 
     /// # 3. [PORT] - 检查文件所有权
     /// * `desc`: `检查文件是否属于用户`
-    async fn check_file_owner(
-        &self,
-        uid: i64,
-        file_id: i64,
-    ) -> Result<bool>;
+    async fn check_file_owner(&self, uid: i64, file_id: i64) -> Result<bool>;
 }
 
 //////// END

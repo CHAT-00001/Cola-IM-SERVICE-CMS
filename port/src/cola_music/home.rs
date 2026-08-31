@@ -1,10 +1,10 @@
-// port/src/cola_music/home.rs
+// port/src/music/home.rs
 // ⏩️ 端口 - 可乐音乐 - 主页
 // 2026/7/7 13:24 Created.
 
 ////////
 
-use cola_data::cola_music::info::music::MusicInfo;
+use cola_data::music::info::music::MusicInfo;
 
 ////////
 
