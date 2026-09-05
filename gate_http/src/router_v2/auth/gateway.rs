@@ -1,11 +1,11 @@
-// http/src/v2/auth/gateway.rs  --  HTTP 验证中心 网关
+// gate_http/src/v2/auth/gateway.rs  --  HTTP网关 -  验证中心 - 业务网关
 // 2026/6/18 09:26
 
 ////////
 
 use crate::kits::response::IntoApi;
 use crate::ping::ping;
-use actix_web::{HttpMessage, HttpRequest, HttpResponse, Responder, web};
+use actix_web::{web, HttpMessage, HttpRequest, HttpResponse, Responder};
 use app_config::app_state::AppState;
 use cola_auth::api::code::AuthCodeApi;
 use cola_auth::api::seesion::add::SessionAddApi;
@@ -13,43 +13,44 @@ use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::auth::command::email::EmailLoginCommand;
 use cola_data::auth::command::phone::PhoneLoginCommand;
-use cola_data::auth::info::auth::AuthContext;
-use serde::Deserialize;
 use std::time::Instant;
 
 ////////
 
-/// # 网关请求体
-struct GatewayRequest {
-    auth: AuthContext,
-    action: i16,
-    service: String,
-    query: Option<String>,
-    body: web::Bytes,
-    path: String,
-}
-
-/// # 统一的 Query 提取结构体
-#[derive(Deserialize)]
-pub struct GatewayQuery {
-    pub service: String,
-    pub action: Option<i16>,
-    pub video_id: Option<i64>,
-    pub page: Option<i64>,
-    pub qty: Option<i64>,
+/// # [HELPER] - 合并 URL 参数与 Body 命令
+/// * `desc`: Body 的 cmd 字段优先，URL 的 by 仅作为命令字段缺省值
+fn extract_cmd_with_by<T>(request: &ApiGatewayRequest, field: &str) -> Option<T>
+where
+    T: serde::de::DeserializeOwned,
+{
+    let mut cmd = request
+        .body
+        .as_ref()
+        .and_then(|body| body.get("cmd"))
+        .cloned()
+        .unwrap_or_else(|| serde_json::json!({}));
+    if let Some(cmd_object) = cmd.as_object_mut() {
+        if !cmd_object.contains_key(field) {
+            cmd_object.insert(field.to_string(), serde_json::json!(request.by));
+        }
+    }
+    serde_json::from_value(cmd).ok()
 }
 
 ////////
 
-/// # [HELPER] - 从 body 中提取 cmd（新增，最小侵入）
-fn extract_cmd<T>(body: &web::Bytes) -> Option<T>
-where
-    T: serde::de::DeserializeOwned,
-{
-    let v: serde_json::Value = serde_json::from_slice(body).ok()?;
-    v.get("cmd")
-        .cloned()
-        .and_then(|cmd| serde_json::from_value(cmd).ok())
+/// # [HELPER] - 从 Body cmd 或通用请求字段提取字符串参数
+/// * `desc`: Body 的 `cmd.field` 优先，缺省时回退到 URL/body 顶层的 `by`
+fn extract_cmd_string(request: &ApiGatewayRequest, field: &str) -> String {
+    request
+        .body
+        .as_ref()
+        .and_then(|body| body.get("cmd"))
+        .and_then(|cmd| cmd.get(field))
+        .and_then(serde_json::Value::as_str)
+        .map(str::to_owned)
+        .filter(|value| !value.is_empty())
+        .unwrap_or_else(|| request.by.clone())
 }
 
 ////////
@@ -96,7 +97,6 @@ async fn root() -> HttpResponse {
 async fn auth_gateway(
     req: HttpRequest,
     url: web::Query<ApiGatewayRequest>,
-    query: web::Query<GatewayQuery>,
     body: web::Bytes,
     state: web::Data<AppState>,
 ) -> impl Responder {
@@ -107,32 +107,24 @@ async fn auth_gateway(
         None => 1,
     };
 
-    let auth = AuthContext {
-        uid,
-        access_token: String::new(),
-        refresh_token: String::new(),
-        device_id: String::new(),
-        iam_roles: vec![],
-        is_anonymous: false,
+    let url_request = ApiGatewayRequest {
+        uid: Some(uid),
+        ..url.into_inner()
     };
+    let mut body_request = serde_json::from_slice::<ApiGatewayRequest>(&body).unwrap_or_default();
+    body_request.body = serde_json::from_slice(&body).ok();
+    let request = url_request.merge(body_request).build();
+    let service = request.service.as_deref().unwrap_or_default();
 
-    let gateway_req = GatewayRequest {
-        auth,
-        action: query.action.unwrap_or(0),
-        service: query.service.clone(),
-        query: Some(req.query_string().to_string()),
-        body,
-        path: req.path().to_string(),
-    };
-
-    match gateway_req.service.as_str() {
+    match service {
         //////// 1xxx HOME
 
         //////// 2xxx SIGN
 
         // 2001 手机验证码登录（✔ 改为 cmd）
         "add_phone" => {
-            let mut cmd: PhoneLoginCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
+            let mut cmd: PhoneLoginCommand =
+                extract_cmd_with_by(&request, "phone_no").unwrap_or_default();
 
             // 从 HttpRequest 提取客户端真实 IP 注入 cmd
             cmd.client_ip = extract_client_ip(&req);
@@ -144,7 +136,7 @@ async fn auth_gateway(
 
         // 2002 邮箱验证码登录（✔ 改为 cmd）
         "add_email" => {
-            let cmd: EmailLoginCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
+            let cmd: EmailLoginCommand = extract_cmd_with_by(&request, "email").unwrap_or_default();
 
             SessionAddApi::handler_sign_in_by_email(cmd)
                 .await
@@ -153,7 +145,7 @@ async fn auth_gateway(
 
         // 2003 账密验证码登录（✔ 改为 cmd）
         "add_pwd" => {
-            let cmd: EmailLoginCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
+            let cmd: EmailLoginCommand = extract_cmd_with_by(&request, "email").unwrap_or_default();
 
             SessionAddApi::handler_sign_in_by_email(cmd)
                 .await
@@ -162,7 +154,7 @@ async fn auth_gateway(
 
         // 2004 谷歌登录（✔ 改为 cmd）
         "add_google" => {
-            let cmd: EmailLoginCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
+            let cmd: EmailLoginCommand = extract_cmd_with_by(&request, "email").unwrap_or_default();
 
             SessionAddApi::handler_sign_in_by_email(cmd)
                 .await
@@ -171,7 +163,7 @@ async fn auth_gateway(
 
         // 2005 苹果登录（✔ 改为 cmd）
         "add_apple" => {
-            let cmd: EmailLoginCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
+            let cmd: EmailLoginCommand = extract_cmd_with_by(&request, "email").unwrap_or_default();
 
             SessionAddApi::handler_sign_in_by_email(cmd)
                 .await
@@ -180,7 +172,7 @@ async fn auth_gateway(
 
         // 2006 微信登录（✔ 改为 cmd）
         "add_wechat" => {
-            let cmd: EmailLoginCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
+            let cmd: EmailLoginCommand = extract_cmd_with_by(&request, "email").unwrap_or_default();
 
             SessionAddApi::handler_sign_in_by_email(cmd)
                 .await
@@ -189,7 +181,8 @@ async fn auth_gateway(
 
         // 2400 退出登录
         "add_out" => {
-            let cmd: PhoneLoginCommand = extract_cmd(&gateway_req.body).unwrap_or_default();
+            let cmd: PhoneLoginCommand =
+                extract_cmd_with_by(&request, "phone_no").unwrap_or_default();
 
             SessionAddApi::handler_sign_out(cmd)
                 .await
@@ -200,7 +193,7 @@ async fn auth_gateway(
 
         // 3001 获取短信验证码
         "code_phone" => {
-            let phone = url.by.to_string();
+            let phone = extract_cmd_string(&request, "phone_no");
 
             AuthCodeApi::handler_get_sms_code(&phone)
                 .await
@@ -209,7 +202,7 @@ async fn auth_gateway(
 
         // 3002 获取邮箱验证码
         "code_email" => {
-            let email = url.by.to_string();
+            let email = extract_cmd_string(&request, "email");
 
             AuthCodeApi::handler_get_email_code(&email)
                 .await
@@ -232,7 +225,7 @@ async fn auth_gateway(
         "sign_in.test" => {
             let data = serde_json::json!({
                 "session_id": 123456,
-                "user_id": uid,
+                "user_id": request.uid.unwrap_or(uid),
                 "access_token": "这是access token",
                 "refresh_token": "这是refresh_token",
                 "status": "published"
@@ -245,7 +238,7 @@ async fn auth_gateway(
             let data = serde_json::json!({
                 "comment_id": 67890,
                 "user_id": uid,
-                "video_id": query.video_id.unwrap_or(0),
+                "video_id": request.video_id,
                 "content": "示例评论内容"
             });
 
@@ -256,7 +249,7 @@ async fn auth_gateway(
             2004,
             format!(
                 "[🌐 GATEWAY]: ⚠️ Unknown the [🆔 AUTH] service: {}",
-                gateway_req.service
+                service
             ),
             None,
         )

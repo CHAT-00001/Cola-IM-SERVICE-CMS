@@ -1,5 +1,4 @@
-// repo_adapter/src/auth/file/stat.rs
-// 🔌 适配器 - AUTH - 身份识别 - 统计
+// repo_adapter/src/auth/identity/stat.rs -- 适配器 - AUTH - 身份识别 - 统计
 // 2026/8/6 19:18 Created.
 
 ////////

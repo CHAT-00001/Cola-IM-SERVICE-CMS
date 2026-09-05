@@ -53,14 +53,14 @@ impl AuthAddCase {
         let (user_info, is_new_user) = match ctx.auth.identity.find_user_id_by_phone(&phone).await?
         {
             Some(user_id) => {
-                let user = ctx.user.user.get.single_get_info(user_id).await?;
+                let user = ctx.user.profile.get.single_get_info(user_id).await?;
                 (user, false)
             }
             None => {
                 // 5. 未命中身份时，使用现有 UserAddPort 创建用户主体
                 let mut user_cmd = UserCommand::new_with_phone(phone.clone());
                 user_cmd.last_login_ip = Some(cmd.client_ip.clone());
-                let user_info = ctx.user.user.add.save_user(user_cmd).await?;
+                let user_info = ctx.user.profile.add.save_user(user_cmd).await?;
 
                 // 6. 将手机号和新用户ID写入 AUTH identity
                 ctx.auth.identity.bind_phone(user_info.id, &phone).await?;

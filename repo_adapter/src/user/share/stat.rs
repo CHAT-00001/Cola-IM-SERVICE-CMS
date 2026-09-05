@@ -1,5 +1,4 @@
-// repo_adapter/src/user/share/stat.rs
-// 🔌 适配器 - USER - 分享 - 统计
+// repo_adapter/src/user/share/stat.rs  -- 适配器 - USER - 分享 - 统计适配器
 // 2026/8/10 05:34 Created.
 
 ////////

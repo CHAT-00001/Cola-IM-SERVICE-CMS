@@ -1,5 +1,4 @@
-// repo_adapter/src/auth/file/add.rs  --
-// 🔌 适配器 - AUTH - 身份识别 - 发布
+// repo_adapter/src/auth/file/add.rs -- 适配器 - AUTH - 身份识别 - 发布
 // 2026/8/8 Created.
 
 ////////

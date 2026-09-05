@@ -1,0 +1,35 @@
+#### 可乐内容运营中心 -- Cola Content Operations Center.
+# 2026-09-04 11:48
+
+[package]
+name = "cola_coc"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+#### 内部依赖
+kits = { path = "../kits" }
+network = { path = "../network" }
+cola_data = { path = "../cola_data" }
+cola_music = { path = "../cola_music" }
+cola_user = { path = "../cola_user" }
+port = { path = "../port" } ## 服务端口
+repository = { path = "../repository" }
+service = { path = "../service" }  ## 全函数调用service层
+
+#### 外部依赖
+tracing = "0.1.41"
+tracing-subscriber = "0.3"
+tokio = "1.47.1"
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = "1.0.143"
+chrono = { version = "0.4.42", features = ["serde"] }
+uuid = { version = "1.18.1", features = ["v4"] }
+anyhow = "1.0.99"
+futures-util = "0.3.31"
+# 自动验证
+validator = { version = "0.20.0", features = ["derive"] }
+ipnetwork = "0.20.0"
+
+
+

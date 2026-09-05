@@ -1,5 +1,4 @@
-// repo_adapter/src/user/category/del.rs
-// 🔌 适配器 - 可乐用户 - 分类 - 删除
+// repo_adapter/src/user/category/del.rs -- 适配器 - USER - 分类 - 删除适配器
 // 2026/8/10 04:16 Created.
 
 ////////
@@ -9,7 +8,7 @@ use port::cola_user::category::del::UserCategoryDeletePort;
 
 ////////
 
-/// # [DELETE ADAPTER] - 删除
+/// # [DELETE ADAPTER] - 用户分类删除适配器
 pub struct CategoryDeleteAdapter;
 
 #[async_trait]

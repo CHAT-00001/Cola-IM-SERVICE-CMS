@@ -1,5 +1,4 @@
-// repo_adapter/src/auth/file/get.rs
-// 🔌 适配器 - AUTH - 身份识别 - 获取IDs
+// repo_adapter/src/auth/identity/get.rs -- 适配器 - AUTH - 身份识别 - 获取适配器
 // 2026/8/6 18:55 Created.
 
 ////////

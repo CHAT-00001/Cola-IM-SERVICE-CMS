@@ -1,5 +1,4 @@
-// repo_adapter/src/auth/session/stat.rs
-// 🔌 适配器 - AUTH - SESSION - 统计
+// repo_adapter/src/auth/session/stat.rs -- 适配器 - AUTH - SESSION - 统计适配器
 // 2026/8/6 19:18 Created.
 
 ////////

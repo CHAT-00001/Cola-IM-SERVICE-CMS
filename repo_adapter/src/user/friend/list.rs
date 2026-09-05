@@ -1,19 +1,26 @@
-// repo_adapter/src/user/friend/list.rs
-// 🔌 插头 - 可乐用户 - 朋友 - 列表
-// 2026/8/6 解耦: 朋友列表/配置
+// repo_adapter/src/user/friend/list.rs -- 适配器 - USER - 朋友 - 列表适配器
+// 2026/8/10 04:16 Created.
 
 ////////
 
-use anyhow::Result;
-use cola_data::cola_user::info::config::UserConfigInfo;
+use async_trait::async_trait;
+use cola_data::cola_user::info::user::UserInfo;
+use port::cola_user::friend::list::FriendListPort;
 
 ////////
 
-/// # [ADAPTER] - 获取朋友配置
-pub async fn get_config(_user_id: i64, // 用户ID
-) -> Result<UserConfigInfo> {
-    // 🚧 TODO: 对接 FriendService
-    Err(anyhow::anyhow!("not implemented"))
+/// # [ADAPTER] - 朋友适配器
+pub struct FriendListAdapter;
+
+#[async_trait]
+impl FriendListPort for FriendListAdapter {
+    async fn get_friends_by_user_id(
+        &self,
+        uid: i64,
+        user_id: i64, // 用户 ID
+    ) -> anyhow::Result<(Vec<UserInfo>)> {
+        todo!()
+    }
 }
 
 //////// END

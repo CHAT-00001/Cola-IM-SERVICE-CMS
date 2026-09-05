@@ -1,5 +1,4 @@
-// repo_adapter/src/user/follow/add.rs
-// 🔌 插头 - 可乐用户 - 关注 - 添加/取消
+// repo_adapter/src/user/follow/add.rs -- 适配器 - USER - 关注 - 发布适配器
 // 2026/8/6 Created.
 
 ////////
@@ -10,7 +9,6 @@ use port::cola_user::follow::add::UserFollowAddPort;
 
 ////////
 
-////////
 
 /// # [ADD ADAPTER] - 发布
 /// * `desc`: `USER - 关注发布`

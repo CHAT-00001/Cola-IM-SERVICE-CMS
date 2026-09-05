@@ -1,5 +1,4 @@
-// port/src/user/view/check.rs
-// ⏩️ 端口 - 🗣 可乐用户 - 浏览 - 检查
+// port/src/user/view/check.rs -- 端口 - USER - 浏览 - 检查端口
 // 2026/8/6 00:44 Created.
 
 ////////

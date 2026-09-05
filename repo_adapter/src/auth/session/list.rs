@@ -1,5 +1,4 @@
-// repo_adapter/src/auth/session/list.rs
-// 🔌 适配器 - AUTH - SESSION - 评论列表
+// repo_adapter/src/auth/session/list.rs -- 适配器 - AUTH - SESSION - 列表适配器
 // 2026/8/6 18:55 Created.
 
 ////////

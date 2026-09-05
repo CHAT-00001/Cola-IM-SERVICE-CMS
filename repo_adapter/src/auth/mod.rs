@@ -1,5 +1,4 @@
-// repo_adapter/src/auth/mod.rs
-// 🔌 适配器 - AUTH - music
+// repo_adapter/src/auth/mod.rs -- 适配器 - AUTH - mod
 // 2026/8/10 20:00 Updated.
 
 ////////

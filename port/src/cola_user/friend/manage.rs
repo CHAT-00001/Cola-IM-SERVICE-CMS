@@ -1,86 +1,32 @@
-// user/port/friend/manage.rs
-// ⏩️ 端口 - 🗣 用户 - 朋友 - 管理
+// user/port/friend/manage.rs -- 端口 - USER - 朋友 - 管理
 // 2026/8/5 21:58 Created.
 
 ////////
 
 use async_trait::async_trait;
+use chrono::{DateTime, Utc};
 use cola_data::cola_user::info::config::UserConfigInfo;
 use cola_data::cola_user::info::user::UserInfo;
 ////////
 
-/// # [MANAGE PORTS]
-/// * `desc`: `用户关注管理端口`
+/// # [MANAGE PORTS] - 用户朋友管理端口
 #[async_trait]
 pub trait FriendManagePort: Send + Sync + 'static {
-    ////////
-
-    /// # 1. [PORT] - 配置
-    async fn get_config(&self, user_id: i64) -> anyhow::Result<(UserConfigInfo)>;
+    //
 
     ////////
 
-    /// # 2. [PORT] - 添加
-    async fn add_black(&self, uid: i64, id: i64) -> anyhow::Result<()>;
-
-    ////////
-
-    /// # 2. [PORT] - 移除
-    async fn del_black(&self, uid: i64, id: i64) -> anyhow::Result<()>;
-
-    ////////
-
-    /// # 3. [PORT] - 获取
-    async fn get_friending(&self, uid: i64) -> anyhow::Result<(UserInfo)>;
-
-    ////////
-
-    /// # 4. [PORT] - 删除
-    async fn single_del(
+    /// # 7. [PORT] - 管理员列表
+    async fn get_admin_list(
         &self,
-        uid: i64, // 操作者ID
-        id: i64,  // 目录用户ID
-    ) -> anyhow::Result<(u16)>;
 
-    ////////
-
-    /// # 5. [PORT] - 批量删除
-    /// * `desc`: `管理员批量移除黑名单`
-    async fn batch_del(
-        &self,
-        uid: i64,      // 操作者ID
-        ids: Vec<i64>, // 目标用户IDs
-    ) -> anyhow::Result<(u16)>;
-
-    ////////
-
-    /// # 6. [PORT] - 检查状态
-    /// * `Parma`: `uid` / `user_id`
-    async fn check_state(
-        &self,
-        uid: i64,     // 操作者ID
-        user_id: i64, // 目标用户ID
-    ) -> anyhow::Result<(bool)>;
-
-    ////////
-
-    /// # 7. [PORT] - 获取用户的黑名单
-    /// * `return` : `user ids`
-    async fn get_list_by_user_id(
-        &self,
-        user_id: i64, // 目标用户ID
-        offset: i64,  // 页数
-        limit: i64,   // 数量
+        user_id: Option<i64>,              // 用户 ID
+        to_user_id: Option<i64>,           // 被添加的用户 ID
+        start_time: Option<DateTime<Utc>>, // 开始时间
+        end_time: Option<DateTime<Utc>>,   // 结束时间
+        offset: i64,                       // 页数
+        limit: i64,                        // 数量
     ) -> anyhow::Result<(Vec<i64>)>;
-
-    ////////
-
-    /// # 8. [PORT] - 获取TA的黑名单
-    async fn get_here_list(
-        &self,
-        uid: i64,           // 操作者ID
-        user_ids: Vec<i64>, // 返回用户IDs
-    ) -> anyhow::Result<()>;
 }
 
 //////// END

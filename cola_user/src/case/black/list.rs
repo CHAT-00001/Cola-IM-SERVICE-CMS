@@ -1,5 +1,4 @@
-// user/src/case/black/list.rs
-// 用户 - case - 黑名单 - 列表
+// user/src/case/black/list.rs -- USER - case - 黑名单 - 列表用例
 // 2026/8/5 22:56 Created.
 
 ////////
@@ -11,8 +10,7 @@ use tracing::info;
 
 ////////
 
-/// # [LIST CASE] - 列表
-/// * `desc`: `用户黑名单列表用例`
+/// # [LIST CASE] - 用户黑名单列表用例
 pub struct UserBlackListCase;
 
 impl UserBlackListCase {
@@ -44,7 +42,7 @@ impl UserBlackListCase {
         // 2. 再拿ids查找用户资料
         let user_infos = ctx
             .user
-            .user
+            .profile
             .get
             .batch_get_infos(_ids)
             .await

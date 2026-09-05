@@ -1,5 +1,4 @@
-// port/src/user/category/list.rs
-// ⏩️ 端口 - USER - 分类 - 列表
+// port/src/user/category/list.rs -- 端口 - USER - 分类 - 列表端口
 // 2026/8/5 21:58 Created.
 
 ////////

@@ -1,5 +1,4 @@
-// repo_adapter/src/user/category/add.rs
-// 🔌 适配器 - 可乐用户 - 分类 - 发布
+// repo_adapter/src/user/category/add.rs -- 适配器 - USER - 分类 - 发布适配器
 // 2026/8/6 Created.
 
 ////////
@@ -12,8 +11,8 @@ use port::cola_user::category::add::UserCategoryAddPort;
 
 ////////
 
-/// # [ADD ADAPTER] - 发布
-/// * `desc`: `🗣 用户 - 分类发布`
+/// # [ADD ADAPTER] - 用户分类发布适配器
+/// * `desc`: `COLA USER - Categories Add Adapter`
 pub struct CategoryAddAdapter;
 
 #[async_trait]

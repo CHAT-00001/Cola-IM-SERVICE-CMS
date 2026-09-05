@@ -1,5 +1,4 @@
-// repo_adapter/src/fs/file/add.rs
-// 🔌 适配器 - FS - 文件 - 新增
+// repo_adapter/src/fs/file/add.rs -- 适配器 - FS - 文件 - 新增
 // 2026/8/14 14:00 Created.
 
 ////////

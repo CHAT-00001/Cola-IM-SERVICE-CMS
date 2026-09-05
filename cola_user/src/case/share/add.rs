@@ -1,21 +1,22 @@
-// user/src/case/share/add.rs
-// core - USER - case - share - 用户主页分享 用例
+// cola_user/src/case/share/add.rs -- USER - case - 分享 - 发布用例
 // 2026/6/10 08:14
-// 2026/8/6 原子化：add/del/get/list/manage/check
 
 ////////
 
 use anyhow::{Result, anyhow};
 use cola_data::cola_user::command::share::ShareUserCommand;
-use cola_data::cola_user::info::share::ShareInfo;
+use cola_data::cola_user::info::share::UserShareInfo;
 use port::app::ctx::AppContext;
 use tracing::info;
+
 ////////
 
-/// # [SHARE CASE] - 用户主页分享 用例
+/// # [ADD CASE] - 用户主页分享用例
 pub struct UserShareAddCase;
 
 impl UserShareAddCase {
+    //
+
     ////////
 
     /// # 1. [CASE] - 添加分享
@@ -24,8 +25,8 @@ impl UserShareAddCase {
         uid: i64,              // 操作者ID
         cmd: ShareUserCommand, // 分享命令
         _ctx: &AppContext,     // 全局上下文
-    ) -> Result<ShareInfo, anyhow::Error> {
-        let info = ShareInfo {
+    ) -> Result<UserShareInfo, anyhow::Error> {
+        let info = UserShareInfo {
             id: 0,
             uid,
             target_user_id: cmd.user_id,
@@ -68,7 +69,7 @@ impl UserShareAddCase {
         offset: i64,       // 分页偏移
         limit: i64,        // 每页数量
         _ctx: &AppContext, // 全局上下文
-    ) -> Result<Vec<ShareInfo>, anyhow::Error> {
+    ) -> Result<Vec<UserShareInfo>, anyhow::Error> {
         info!("[🗣️ SHARE CASE]: ✅️ 获取我的分享列表成功, uid={}", uid);
         Ok(vec![])
     }
@@ -82,7 +83,7 @@ impl UserShareAddCase {
         offset: i64,       // 分页偏移
         limit: i64,        // 每页数量
         _ctx: &AppContext, // 全局上下文
-    ) -> Result<Vec<ShareInfo>, anyhow::Error> {
+    ) -> Result<Vec<UserShareInfo>, anyhow::Error> {
         info!(
             "[🗣️ SHARE CASE]: ✅️ 获取TA的分享列表成功, target={}",
             target_id

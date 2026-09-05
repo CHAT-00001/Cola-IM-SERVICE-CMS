@@ -1,5 +1,4 @@
-// user/src/case/user/manage.rs
-// 用户 - case - 用户 - 管理用例
+// user/src/case/user/manage.rs -- 用户 - case - 用户 - 管理用例
 // 2026/8/2 22:48 Created.
 
 ////////
@@ -14,6 +13,7 @@ use tracing::info;
 
 ////////
 
+/// # [MANAGE CASE] - 用户资料管理用例
 pub struct UserManageCase;
 
 impl UserManageCase {
@@ -37,7 +37,7 @@ impl UserManageCase {
         // 2. 核心数据持久化与计数更新 (💡 提示：建议让这个 Service 函数返回刚插入成功的 VideoInfo)
         let user_info = ctx
             .user
-            .user
+            .profile
             .add
             .save_user(cmd)
             .await
@@ -65,7 +65,7 @@ impl UserManageCase {
         // 2. 核心数据持久化与计数更新
         let user_info = ctx
             .user
-            .user
+            .profile
             .add
             .update_user(cmd)
             .await
@@ -90,7 +90,7 @@ impl UserManageCase {
     ) -> Result<UserInfo, anyhow::Error> {
         let user_info = ctx
             .user
-            .user
+            .profile
             .manage
             .change_permission(uid, cmd)
             .await
@@ -111,7 +111,7 @@ impl UserManageCase {
     ) -> Result<UserInfo, anyhow::Error> {
         let user_info = ctx
             .user
-            .user
+            .profile
             .manage
             .change_state(uid, cmd)
             .await
@@ -132,7 +132,7 @@ impl UserManageCase {
     ) -> Result<UserInfo, anyhow::Error> {
         let user_info = ctx
             .user
-            .user
+            .profile
             .manage
             .change_role(uid, cmd)
             .await
@@ -153,7 +153,7 @@ impl UserManageCase {
     ) -> Result<UserInfo, anyhow::Error> {
         let user_info = ctx
             .user
-            .user
+            .profile
             .manage
             .change_type(uid, cmd)
             .await

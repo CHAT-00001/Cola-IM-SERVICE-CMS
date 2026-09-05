@@ -1,5 +1,4 @@
-// repo_adapter/src/user/ban/del.rs
-// 🔌 适配器 - 可乐用户 - 封禁 - 删除服务
+// repo_adapter/src/user/ban/del.rs -- 适配器 - USER - 封禁 - 删除适配器
 // 2026/8/7 05:56 Created.
 
 ////////
@@ -9,13 +8,13 @@ use async_trait::async_trait;
 use port::cola_user::ban::del::UserBanDelPort;
 ////////
 
-/// # [DEL SERVICE] - 删除
-/// * `desc`: `用户封禁删除服务`
-pub struct BanDelService;
+/// # [DEL ADAPTER] - 用户封禁删除适配器
+/// * `desc`: `COLA USER - Ban Delete Adapter`
+pub struct BanDelAdapter;
 
 // 构造实现
 #[async_trait]
-impl UserBanDelPort for BanDelService {
+impl UserBanDelPort for BanDelAdapter {
     //
 
     ////////

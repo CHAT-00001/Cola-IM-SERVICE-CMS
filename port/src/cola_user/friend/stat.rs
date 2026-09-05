@@ -1,5 +1,4 @@
-// /stat.rs
-// ⏩️ 端口 - 🗣 用户 - 朋友 - 统计
+// port/src/user/friend/stat.rs -- 端口 - USER - 朋友 - 统计端口
 // 2026/8/10 04:29 Created.
 
 ////////
@@ -9,9 +8,11 @@ use async_trait::async_trait;
 ////////
 
 /// # [STAT PORTS]
-/// * `desc`: `🗣 用户 - 用户朋友记录统计端口`
+/// * `desc`: `COLA USER - Friend Stat Ports.`
 #[async_trait]
-pub trait UserFriendStatPort: Send + Sync + 'static {
+pub trait FriendStatPort: Send + Sync + 'static {
+    //
+
     ////////
 
     /// # 1. [PORT] - 用户的
@@ -30,3 +31,5 @@ pub trait UserFriendStatPort: Send + Sync + 'static {
 
     ////////
 }
+
+//////// END

@@ -1,5 +1,4 @@
-// user/src/case/user/check.rs
-// 用户 - case - 用户 - 检查
+// user/src/case/user/check.rs -- 用户 - case - 用户 - 检查用例
 // 2026/8/2 22:48 Created.
 
 ////////
@@ -14,11 +13,10 @@ use tracing::info;
 
 ////////
 
-/// # [CHECK CASE] - 检查
-/// * `desc`: `用户状态检查`
-pub struct UserAddCase;
+/// # [CHECK CASE] - 用户资料检查用例
+pub struct UserCheckCase;
 
-impl UserAddCase {
+impl UserCheckCase {
     //
 
     ////////
@@ -39,7 +37,7 @@ impl UserAddCase {
         // 2. 核心数据持久化与计数更新 (💡 提示：建议让这个 Service 函数返回刚插入成功的 VideoInfo)
         let user_info = ctx
             .user
-            .user
+            .profile
             .add
             .save_user(cmd)
             .await
@@ -68,7 +66,7 @@ impl UserAddCase {
         // 2. 核心数据持久化与计数更新
         let user_info = ctx
             .user
-            .user
+            .profile
             .add
             .update_user(cmd)
             .await

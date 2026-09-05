@@ -1,5 +1,4 @@
-// repo_adapter/src/fs/file/get.rs
-// 🔌 适配器 - FS - 文件 - 获取
+// repo_adapter/src/fs/file/get.rs -- 适配器 - FS - 文件 - 获取
 // 2026/8/14 14:00 Created.
 
 ////////

@@ -228,12 +228,14 @@ pub fn kit_build_session_cmd(
 
 ////////
 
-/// 辅助: hex 编码
+/// # [BUILDER] - 辅助: hex 编码
 fn hex_encode(bytes: &[u8]) -> String {
     bytes.iter().map(|b| format!("{:02x}", b)).collect()
 }
 
-/// 辅助: base64 编码
+////////
+
+/// # [BUILDER] - 辅助: base64 编码
 fn base64_encode(bytes: &[u8]) -> String {
     use base64::Engine;
     base64::engine::general_purpose::STANDARD.encode(bytes)
@@ -241,7 +243,7 @@ fn base64_encode(bytes: &[u8]) -> String {
 
 ////////
 
-/// 辅助: base64 解码
+/// # [BUILDER] - 辅助: base64 解码
 fn base64_decode(s: &str) -> Result<Vec<u8>, anyhow::Error> {
     use base64::Engine;
     base64::engine::general_purpose::STANDARD

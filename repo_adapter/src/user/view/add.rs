@@ -1,4 +1,4 @@
-// repo_adapter/src/user/view/add.rs -- 适配器 - USER - 浏览 - 发布服务
+// repo_adapter/src/user/view/add.rs -- 适配器 - USER - 浏览 - 发布适配器
 // 2026/8/6 04:18 Created.
 
 ////////
@@ -10,13 +10,13 @@ use port::cola_user::view::add::UserViewAddPort;
 
 ////////
 
-/// # [ADD SERVICE] - 发布
-/// * `desc`: `用户浏览发布服务`
-pub struct ViewAddService;
+/// # [ADD SERVICE] - 用户浏览发布适配器
+/// * `desc`: `COLA USER - View Add Adapter`
+pub struct ViewAddAdapter;
 
 // 构造实现
 #[async_trait]
-impl UserViewAddPort for ViewAddService {
+impl UserViewAddPort for ViewAddAdapter {
     //
 
     ////////

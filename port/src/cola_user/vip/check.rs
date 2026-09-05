@@ -1,5 +1,4 @@
-// port/src/user/vip/check.rs
-// ⏩️ 端口 - 🗣 可乐用户 - 贵宾 - 检查
+// port/src/user/vip/check.rs -- 端口 - USER - 贵宾 - 检查端口
 // 2026/8/6 00:35 Created.
 
 ////////

@@ -1,5 +1,4 @@
-// port/src/user/category/stat.rs
-// ⏩️ 端口 - 🗣 用户 - 分类 - 统计
+// port/src/user/category/stat.rs -- 端口 - USER - 分类 - 统计端口
 // 2026/8/10 04:29 Created.
 
 ////////
@@ -9,7 +8,7 @@ use async_trait::async_trait;
 ////////
 
 /// # [STAT PORTS]
-/// * `desc`: `🗣 用户 - 用户分类记录统计端口`
+/// * `desc`: `COLA USER - Categories Stat Ports.`
 #[async_trait]
 pub trait UserCategoryStatPort: Send + Sync + 'static {
     ////////

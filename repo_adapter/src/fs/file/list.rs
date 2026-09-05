@@ -1,5 +1,4 @@
-// repo_adapter/src/fs/file/list.rs
-// 🔌 适配器 - FS - 文件 - 列表
+// repo_adapter/src/fs/file/list.rs -- 适配器 - FS - 文件 - 列表
 // 2026/8/14 14:00 Created.
 
 ////////

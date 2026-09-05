@@ -1,5 +1,4 @@
-// repo_adapter/src/user/category/manage.rs
-// 🔌 适配器 - 可乐用户 - 分类 - 管理
+// repo_adapter/src/user/category/manage.rs -- 适配器 - USER - 分类 - 管理适配器
 // 2026/8/10 04:16 Created.
 
 ////////
@@ -11,8 +10,8 @@ use port::cola_user::category::manage::UserCategoryManagePort;
 
 ////////
 
-/// # [MANAGE ADAPTER] - 管理员
-/// * `DESC`: `🗣 用户 - 分类管理适配器`
+/// # [MANAGE ADAPTER] - 用户分类管理适配器
+/// * `DESC`: `COLA USER - Categories Manage Adapter`
 pub struct CategoryManageAdapter;
 
 #[async_trait]

@@ -1,5 +1,4 @@
-// port/src/user/share/stat.rs
-// ⏩️ 端口 - 🗣 用户 - 分享 - 统计
+// port/src/user/share/stat.rs -- 端口 - USER - 分享 - 统计端口
 // 2026/8/10 04:28 Created.
 
 ////////
@@ -9,9 +8,11 @@ use async_trait::async_trait;
 ////////
 
 /// # [STAT PORTS]
-/// * `desc`: `🗣 用户 - 用户分享记录统计端口`
+/// * `desc`: `COLA USER - Share Stat Ports`
 #[async_trait]
 pub trait UserShareStatPort: Send + Sync + 'static {
+    //
+
     ////////
 
     /// # 1. [PORT] - 用户的

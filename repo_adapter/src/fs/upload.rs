@@ -1,5 +1,4 @@
-// repo_adapter/src/fs/upload.rs
-// 🔌 适配器 - FS - 通用上传
+// repo_adapter/src/fs/upload.rs -- 适配器 - FS - 通用上传
 // 2026/8/17 Created.
 
 ////////

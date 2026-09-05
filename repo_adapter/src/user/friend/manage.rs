@@ -1,29 +1,35 @@
-// repo_adapter/src/user/friend/manage.rs
-// 🔌 插头 - 可乐用户 - 朋友 - 管理
-// 2026/8/6 解耦: 管理操作(封禁/删除)
+// repo_adapter/src/user/follow/manage.rs -- 适配器 - USER - 关注 - 管理适配器
+// 2026/8/10 04:16 Created.
 
 ////////
 
-use anyhow::Result;
+use async_trait::async_trait;
+use chrono::{DateTime, Utc};
+use port::cola_user::friend::manage::FriendManagePort;
 
 ////////
 
-/// # [ADAPTER] - 单个删除朋友
-pub async fn single_del(
-    _uid: i64, // 操作者ID
-    _id: i64,  // 目标用户ID
-) -> Result<u16> {
-    // 🚧 TODO: 对接 FriendService
-    Ok(0)
-}
+/// # [MANAGE ADAPTER] - 用户朋友管理适配器
+pub struct FriendManageAdapter;
 
-/// # [ADAPTER] - 批量删除朋友
-pub async fn batch_del(
-    _uid: i64,      // 操作者ID
-    _ids: Vec<i64>, // 目标用户IDs
-) -> Result<u16> {
-    // 🚧 TODO: 对接 FriendService
-    Ok(0)
+#[async_trait]
+impl FriendManagePort for FriendManageAdapter {
+    //
+
+    ////////
+
+    /// # [ADAPTER] - 管理员列表
+    async fn get_admin_list(
+        &self,
+        user_id: Option<i64>,
+        to_user_id: Option<i64>,
+        start_time: Option<DateTime<Utc>>,
+        end_time: Option<DateTime<Utc>>,
+        offset: i64,
+        limit: i64,
+    ) -> anyhow::Result<(Vec<i64>)> {
+        todo!()
+    }
 }
 
 //////// END

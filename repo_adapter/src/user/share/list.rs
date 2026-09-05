@@ -1,13 +1,11 @@
-// repo_adapter/src/user/share/list.rs
-// 🔌 插头 - 可乐用户 - 分享 - 列表
+// repo_adapter/src/user/share/list.rs  -- 适配器 - USER - 分享 - 列表适配器
 // 2026/8/8 12:45 Created.
 
 ////////
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_user::info::black::UserBlackInfo;
-use cola_data::cola_user::info::share::ShareInfo;
+use cola_data::cola_user::info::share::UserShareInfo;
 use port::cola_user::share::list::UserShareListPort;
 
 ////////
@@ -22,7 +20,7 @@ impl UserShareListPort for ShareListAdapter {
         user_id: i64, // 用户ID
         offset: i64,
         limit: i64,
-    ) -> Result<(Vec<ShareInfo>)> {
+    ) -> Result<(Vec<UserShareInfo>)> {
         todo!()
     }
 
@@ -32,7 +30,7 @@ impl UserShareListPort for ShareListAdapter {
         profile_id: i64, // 主页 ID
         offset: i64,
         limit: i64,
-    ) -> Result<(Vec<ShareInfo>)> {
+    ) -> Result<(Vec<UserShareInfo>)> {
         todo!()
     }
 }

@@ -1,24 +1,44 @@
-// port/src/user/role/add.rs
-// ⏩️ 端口 - 🗣 用户 - 角色 - 发布
+// port/src/user/role/add.rs -- 端口 - USER - 角色 - 发布
 // 2026/8/5 21:33 Created.
 
 ////////
 
 use async_trait::async_trait;
+use cola_data::cola_user::command::role::{UserRoleCreateCmd, UserRoleUpdateCmd};
+use cola_data::cola_user::info::role::RoleInfo;
 use cola_data::cola_user::info::user::UserInfo;
 
 ////////
 
-/// # [ADD PORTS]
-/// * `desc`: `用户黑名单发布端口`
+/// # [ADD PORTS] - 用户角色发布端口
+/// * `desc`: `COLA USER - Role Add Ports`
 #[async_trait]
 pub trait UserRoleAddPort: Send + Sync + 'static {
     //
 
     ////////
 
-    /// # 1. [PORT] - 添加
-    async fn add_black(
+    /// # 1. [PORT] - 创建角色
+    async fn create_role(
+        &self,
+        uid: i64,               // UID
+        cmd: UserRoleCreateCmd, // 角色创建命令
+    ) -> anyhow::Result<(RoleInfo)>;
+
+    ////////
+
+    /// # 2. [PORT] - 更新角色
+    async fn update_role(
+        &self,
+        uid: i64,               // 操作者 ID
+        role_id: i64,           // 角色 ID
+        cmd: UserRoleUpdateCmd, // 角色更新命令
+    ) -> anyhow::Result<(RoleInfo)>;
+
+    ////////
+
+    /// # 3. [PORT] - 移除角色
+    async fn delete_role(
         &self,
         uid: i64, // UID
         id: i64,  // 目标用户ID
@@ -26,66 +46,31 @@ pub trait UserRoleAddPort: Send + Sync + 'static {
 
     ////////
 
-    /// # 2. [PORT] - 移除
-    async fn del_black(
+    /// # 4. [PORT] - 修改状态
+    async fn change_status(
         &self,
-        uid: i64, // UID
-        id: i64,  // 目标用户ID
-    ) -> anyhow::Result<()>;
+        uid: i64,    // 操作者 ID
+        status: i16, // 状态码
+    ) -> anyhow::Result<(UserInfo)>;
 
     ////////
 
-    /// # 3. [PORT] - 获取
-    async fn get_following(&self, uid: i64) -> anyhow::Result<(UserInfo)>;
-
-    ////////
-
-    /// # 4. [PORT] - 删除
-    async fn single_del(
-        &self,
-        uid: i64, // 操作者ID
-        id: i64,  // 目录用户ID
-    ) -> anyhow::Result<(u16)>;
-
-    ////////
-
-    /// # 5. [PORT] - 批量删除
-    /// * `desc`: `管理员批量移除黑名单`
-    async fn batch_del(
-        &self,
-        uid: i64,      // 操作者ID
-        ids: Vec<i64>, // 目标用户IDs
-    ) -> anyhow::Result<(u16)>;
-
-    ////////
-
-    /// # 6. [PORT] - 检查状态
-    /// * `Parma`: `uid` / `user_id`
-    async fn check_state(
+    /// # 4. [PORT] - 单个移除
+    async fn single_delete(
         &self,
         uid: i64,     // 操作者ID
-        user_id: i64, // 目标用户ID
-    ) -> anyhow::Result<(bool)>;
+        role_id: i64, // 角色 ID
+    ) -> anyhow::Result<(u16)>;
 
     ////////
 
-    /// # 7. [PORT] - 获取用户的黑名单
-    /// * `return` : `user ids`
-    async fn get_list_by_user_id(
-        &self,
-        user_id: i64, // 目标用户ID
-        offset: i64,  // 页数
-        limit: i64,   // 数量
-    ) -> anyhow::Result<(Vec<i64>)>;
-
-    ////////
-
-    /// # 8. [PORT] - 获取TA的黑名单
-    async fn get_here_list(
+    /// # 5. [PORT] - 批量移除
+    /// * `desc`: `管理员批量移除黑名单`
+    async fn batch_delete(
         &self,
         uid: i64,           // 操作者ID
-        user_ids: Vec<i64>, // 返回用户IDs
-    ) -> anyhow::Result<()>;
+        role_ids: Vec<i64>, // 角色 IDs
+    ) -> anyhow::Result<(u16)>;
 }
 
 //////// END

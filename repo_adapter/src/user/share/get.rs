@@ -1,5 +1,4 @@
-// repo_adapter/src/user/share/get.rs  --
-// 🔌 插头 - 可乐用户 - 分享 - 获取
+// repo_adapter/src/user/share/get.rs  -- 适配器 - USER - 分享 - 获取适配器
 // 2026/8/8 12:45 Created.
 
 ////////
@@ -10,7 +9,7 @@ use port::cola_user::share::get::UserShareGetPort;
 
 ////////
 
-/// # [SHARE ADAPTER] - 获取
+/// # [GET ADAPTER] - 获取
 /// * `desc`: `USER - 主页分享查询适配器`
 pub struct ShareGetAdapter;
 

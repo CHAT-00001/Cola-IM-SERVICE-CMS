@@ -1,5 +1,4 @@
-// repo_adapter/src/auth/session/get.rs
-// 🔌 适配器 - AUTH - SESSION - 获取IDs
+// repo_adapter/src/auth/session/get.rs -- 适配器 - AUTH - SESSION - 获取IDs
 // 2026/8/6 18:55 Created.
 
 ////////

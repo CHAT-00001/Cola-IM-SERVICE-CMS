@@ -1,5 +1,4 @@
-// repo_adapter/src/user/view/add.rs
-// 🔌 适配器 - USER - 浏览 - 获取
+// repo_adapter/src/user/view/add.rs -- 适配器 - USER - 浏览记录 - 获取适配器
 // 2026/8/6 04:18 Created.
 
 ////////
@@ -10,13 +9,13 @@ use port::cola_user::view::get::UserViewGetPort;
 
 ////////
 
-/// # [GET SERVICE] - 获取
-/// * `desc`: `用户浏览获取服务`
-pub struct ViewGetService;
+/// # [GET ADAPTER] - 用户浏览获取服务
+/// * `desc`: `COLA USER - View Record Get Adapter`
+pub struct UserViewGetAdapter;
 
 // 构造实现
 #[async_trait]
-impl UserViewGetPort for ViewGetService {
+impl UserViewGetPort for UserViewGetAdapter {
     async fn get_views_ids(&self, user_id: i64, limit: i64, offset: i64) -> Result<(Vec<i64>)> {
         todo!()
     }

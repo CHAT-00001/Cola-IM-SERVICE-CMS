@@ -1,5 +1,4 @@
-// port/src/user/share/get.rs
-// ⏩️ 端口 - 🗣 USER - 分享 - 获取
+// port/src/user/share/get.rs -- 端口 - USER - 分享 - 获取端口
 // 2026/6/11 20:13
 
 ////////
@@ -9,7 +8,7 @@ use async_trait::async_trait;
 ////////
 
 /// # [GET PORTS]
-/// * `desc`: `🗣 USER - 用户分享记录获取端口`
+/// * `desc`: `COLA USER - Share Get Ports`
 #[async_trait]
 pub trait UserShareGetPort: Send + Sync + 'static {
     //

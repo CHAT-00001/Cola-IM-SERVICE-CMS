@@ -1,5 +1,4 @@
-// repo_adapter/src/user/follow/check.rs
-// 🔌 插头 - 可乐用户 - 关注 - 模块
+// repo_adapter/src/user/category/check.rs -- 适配器 - USER - 分类 - 检查适配器
 // 2026/8/10 04:17 Created.
 
 ////////
@@ -9,8 +8,8 @@ use port::cola_user::category::check::UserCategoryCheckPort;
 
 ////////
 
-/// # [CHECK ADAPTER] - 检查
-/// * `DESC`: `🗣 用户 - 关注记录检查适配器`
+/// # [CHECK ADAPTER] - 用户分类检查适配器
+/// * `DESC`: `COLA USER - Categories Check Adapter`
 pub struct UserCategoryCheckAdapter;
 
 #[async_trait]

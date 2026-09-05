@@ -1,5 +1,4 @@
-// repo_adapter/src/user/view/list.rs
-// 🔌 适配器 - 可乐用户 - 浏览 - 列表服务
+// repo_adapter/src/user/view/list.rs -- 适配器 - USER - 浏览 - 列表适配器
 // 2026/8/6 04:18 Created.
 
 ////////
@@ -10,13 +9,13 @@ use port::cola_user::view::list::UserViewListPort;
 
 ////////
 
-/// # [LIST ADAPTER] - 列表
-/// * `desc`: `USER - 用户主页浏览记录列表`
-pub struct ViewListService;
+/// # [LIST ADAPTER] - 用户主页浏览记录列表适配器
+/// * `desc`: `COLA USER - View Record List Adapter`
+pub struct UserViewListAdapter;
 
 // 构造实现
 #[async_trait]
-impl UserViewListPort for ViewListService {
+impl UserViewListPort for UserViewListAdapter {
     //
 
     ////////

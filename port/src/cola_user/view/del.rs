@@ -1,5 +1,4 @@
-// port/src/user/view/del.rs
-// 用户 - port - 浏览 - 删除
+// port/src/user/view/del.rs -- 端口 - USER - 浏览 - 删除端口
 // 2026/8/6 00:44 Created.
 
 ////////

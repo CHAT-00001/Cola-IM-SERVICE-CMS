@@ -1,5 +1,4 @@
-// port/src/user/category/get.rs
-// 用户 - port - 关注 - 获取
+// port/src/user/category/get.rs -- 端口 - USER - 分类 - 获取端口
 // 2026/8/5 21:56 Created.
 
 ////////

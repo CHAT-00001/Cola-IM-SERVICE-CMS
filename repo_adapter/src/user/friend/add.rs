@@ -1,29 +1,47 @@
-// repo_adapter/src/user/friend/add.rs
-// 🔌 插头 - 可乐用户 - 朋友 - 添加/移除
-// 2026/8/6 解耦: 添加朋友 / 移除朋友
+// repo_adapter/src/user/friend/add.rs -- 适配器 - USER - 朋友 - 发布适配器
+// 2026/8/6 14:20 Created.
 
 ////////
 
 use anyhow::Result;
+use async_trait::async_trait;
+use cola_data::cola_user::info::user::UserInfo;
+use port::cola_user::friend::add::FriendAddPort;
 
 ////////
 
-/// # [ADAPTER] - 添加朋友(或更新存在关系)
-pub async fn upsert_friend(
-    _uid: i64, // 操作者ID
-    _id: i64,  // 目标用户ID
-) -> Result<()> {
-    // 🚧 TODO: 对接 FriendService
-    Ok(())
-}
+/// # [ADD ADAPTER] - 用户朋友发布适配器
+pub struct FriendAddAdapter;
+#[async_trait]
+impl FriendAddPort for FriendAddAdapter {
+    //
 
-/// # [ADAPTER] - 移除朋友
-pub async fn del_friend(
-    _uid: i64, // 操作者ID
-    _id: i64,  // 目标用户ID
-) -> Result<()> {
-    // 🚧 TODO: 对接 FriendService
-    Ok(())
+    ////////
+
+    /// # 1. [ADAPTER] - 添加朋友
+    async fn create_friend(&self, uid: i64, user_id: i64) -> Result<()> {
+        todo!()
+    }
+
+    async fn delete_friend(&self, uid: i64, user_id: i64) -> Result<()> {
+        todo!()
+    }
+
+    async fn upsert_friend(&self, uid: i64, user_id: i64, status: i16) -> Result<()> {
+        todo!()
+    }
+
+    async fn get_friending(&self, uid: i64) -> Result<(UserInfo)> {
+        todo!()
+    }
+
+    async fn update_friend(&self, uid: i64, id: i64, remark: Option<String>) -> Result<(u16)> {
+        todo!()
+    }
+
+    async fn batch_delete(&self, uid: i64, ids: Vec<i64>) -> Result<(u16)> {
+        todo!()
+    }
 }
 
 //////// END

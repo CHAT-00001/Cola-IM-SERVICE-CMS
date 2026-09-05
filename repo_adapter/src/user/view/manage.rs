@@ -1,5 +1,4 @@
-// repo_adapter/src/user/view/manage.rs
-// 🔌 适配器 - 可乐用户 - 浏览 - 管理服务
+// repo_adapter/src/user/view/manage.rs -- 适配器 - USER - 浏览 - 管理适配器
 // 2026/8/7 06:21 Created.
 
 ////////
@@ -10,13 +9,13 @@ use port::cola_user::view::manage::UserViewManagePort;
 
 ////////
 
-/// # [MANAGE SERVICE] - 管理
-/// * `desc`: `用户浏览记录管理服务`
-pub struct ViewManageService;
+/// # [MANAGE ADAPTER] - 用户浏览记录管理适配器
+/// * `desc`: `COLA USER - View Record Manage Adapter`
+pub struct UserViewManageAdapter;
 
 // 构造实现
 #[async_trait]
-impl UserViewManagePort for ViewManageService {
+impl UserViewManagePort for UserViewManageAdapter {
     //
 
     ////////
@@ -24,7 +23,7 @@ impl UserViewManagePort for ViewManageService {
     /// # 1. [ADAPTER] - 管理员列表
     /// * `desc`: `管理员查看所有的浏览记录`
     /// * `condition`: `⚠️ ADMIN / REVIEWER` - `无视身份/权限`
-    async fn admin_views_infos(
+    async fn get_admin_list(
         &self,
         user_id: i64,
         profile_id: Option<i64>,

@@ -1,5 +1,4 @@
-// port/src/user/vip/music.rs
-// ⏩️ 端口 - 🗣 可乐用户 - 贵宾 - 模块
+// port/src/user/vip/mod.rs -- 端口 - USER - 贵宾 - mod
 // 2026/8/5 23:33 Created.
 
 ////////
@@ -10,16 +9,18 @@ use crate::cola_user::vip::del::VipDelPort;
 use crate::cola_user::vip::get::VipGetPort;
 use crate::cola_user::vip::list::VipListPort;
 use crate::cola_user::vip::manage::VipManagePort;
+use crate::cola_user::vip::stat::VipStatPort;
 use std::sync::Arc;
+
+////////
 
 pub mod add; // 开通
 pub mod check; // 检查
 pub mod del; // 删除
 pub mod get; // 获取
 pub mod list; // 列表
-pub mod manage;
-pub mod stat;
-// 管理
+pub mod manage; // 管理
+pub mod stat; // 统计
 
 ////////
 
@@ -33,6 +34,7 @@ pub struct UserVipPort {
     pub get: Arc<dyn VipGetPort + Send + Sync + 'static>,
     pub list: Arc<dyn VipListPort + Send + Sync + 'static>,
     pub manage: Arc<dyn VipManagePort + Send + Sync + 'static>,
+    pub stat: Arc<dyn VipStatPort + Send + Sync + 'static>,
 }
 
 //////// END

@@ -1,5 +1,4 @@
-// user/src/case/user/add.rs
-// 用户 - case - 用户 - 发布
+// user/src/case/user/add.rs -- 用户 - case - 用户 - 发布用例
 // 2026/8/2 22:45 Created.
 
 ////////
@@ -43,7 +42,7 @@ impl UserAddCase {
         // 2. 核心数据持久化与计数更新 (💡 提示：建议让这个 Service 函数返回刚插入成功的 VideoInfo)
         let user_info = ctx
             .user
-            .user
+            .profile
             .add
             .save_user(cmd)
             .await
@@ -82,7 +81,7 @@ impl UserAddCase {
         // 2. 核心数据持久化与计数更新
         let user_info = ctx
             .user
-            .user
+            .profile
             .add
             .update_user(cmd)
             .await

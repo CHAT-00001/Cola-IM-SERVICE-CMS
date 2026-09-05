@@ -1,5 +1,4 @@
-// port/src/user/category/manage.rs
-// ⏩️ 端口 - 🗣 可乐用户 - 关注 - 管理
+// port/src/user/category/manage.rs -- 端口 - USER - 分类 - 管理端口
 // 2026/8/5 21:58 Created.
 
 ////////

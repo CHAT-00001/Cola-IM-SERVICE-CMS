@@ -1,5 +1,4 @@
-// user/src/case/user/check.rs
-// core - USER - case - vip - 检查 用例
+// user/src/case/user/check.rs -- USER - case - vip - 检查用例
 // 2026/8/2 22:53 Created.
 
 ////////
@@ -11,9 +10,10 @@ use cola_data::cola_user::command::user::update::UpdateUserCommand;
 use cola_data::cola_user::info::user::UserInfo;
 use port::app::ctx::AppContext;
 use tracing::info;
+
 ////////
 
-/// # [CHECK CASE] - 用户 贵宾 检查 用例
+/// # [CHECK CASE] - 用户贵宾检查用例
 pub struct UserVipCheckCase;
 
 // 构造实现
@@ -38,7 +38,7 @@ impl UserVipCheckCase {
         // 2. 核心数据持久化与计数更新 (💡 提示：建议让这个 Service 函数返回刚插入成功的 VideoInfo)
         let user_info = ctx
             .user
-            .user
+            .profile
             .add
             .save_user(cmd)
             .await
@@ -66,7 +66,7 @@ impl UserVipCheckCase {
         // 2. 核心数据持久化与计数更新
         let user_info = ctx
             .user
-            .user
+            .profile
             .add
             .update_user(cmd)
             .await

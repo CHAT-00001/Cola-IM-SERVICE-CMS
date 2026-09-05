@@ -1,5 +1,4 @@
-// port/src/user/view/manage.rs
-// ⏩️ 端口 - USER - 浏览 - 管理
+// port/src/user/view/manage.rs -- 端口 - USER - 浏览 - 管理端口
 // 2026/8/6 00:44 Created.
 
 ////////
@@ -17,9 +16,9 @@ pub trait UserViewManagePort: Send + Sync + 'static {
 
     ////////
 
-    /// # 7. [PORT] - 管理员列表
+    /// # 1. [PORT] - 管理员列表
     /// * `desc` : `USER - 管理员查看浏览记录信息`
-    async fn admin_views_infos(
+    async fn get_admin_list(
         &self,
         user_id: i64,            // 用户 ID
         profile_id: Option<i64>, // 主页 ID

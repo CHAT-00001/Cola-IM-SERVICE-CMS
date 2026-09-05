@@ -1,5 +1,4 @@
-// user/src/case/follow/list.rs
-// 用户 - case - 关注 - 列表
+// cola_user/src/case/follow/list.rs -- USER - case - 关注 - 列表
 // 2026/8/2 22:51 Created.
 
 ////////
@@ -14,8 +13,7 @@ use tracing::info;
 
 ////////
 
-/// # [ADD CASE] - 关注列表
-/// * `desc`: `关注列表`
+/// # [LIST CASE] - 用户关注列表用例
 pub struct UserFollowListCase;
 
 impl UserFollowListCase {
@@ -47,7 +45,7 @@ impl UserFollowListCase {
 
         let infos = ctx
             .user
-            .user
+            .profile
             .get
             .batch_get_infos(user_ids)
             .await
@@ -73,7 +71,7 @@ impl UserFollowListCase {
         // 2. 核心数据持久化与计数更新
         let user_info = ctx
             .user
-            .user
+            .profile
             .add
             .update_user(cmd)
             .await

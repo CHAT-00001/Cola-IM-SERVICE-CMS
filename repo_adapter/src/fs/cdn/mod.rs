@@ -1,5 +1,4 @@
-// repo_adapter/src/fs/cdn/mod.rs
-// 🔌 适配器 - FS - CDN - music
+// repo_adapter/src/fs/cdn/mod.rs -- 适配器 - FS - CDN - mod
 // 2026/8/8 Created.
 
 ////////

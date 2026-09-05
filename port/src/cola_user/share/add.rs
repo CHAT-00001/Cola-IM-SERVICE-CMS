@@ -1,5 +1,4 @@
-// port/src/user/share/add.rs
-// ⏩️ 端口 - 🗣 用户 - 分享 - 发布
+// port/src/user/share/add.rs -- 端口 - USER - 分享 - 发布端口
 // 2026/8/5 21:33 Created.
 
 ////////
@@ -10,7 +9,7 @@ use cola_data::cola_user::info::user::UserInfo;
 ////////
 
 /// # [ADD PORTS]
-/// * `desc`: `🗣 用户 - 用户主页分享发布端口`
+/// * `desc`: `COLA USER - Share Add Ports`
 #[async_trait]
 pub trait UserShareAddPort: Send + Sync + 'static {
     //

@@ -1,11 +1,11 @@
-// repo_adapter/src/user/follow/mod.rs
-// 🔌 插头 - 可乐用户 - 关注 - 模块
-// 2026/8/6 Created.
+// repo_adapter/src/user/follow/mod.rs -- 适配器 - USER - 关注 - mod
+// 2026/8/6 10:20 Created.
 
 ////////
 
-use async_trait::async_trait;
+use port::cola_user::follow::UserFollowPort;
 use port::cola_user::follow::add::UserFollowAddPort;
+use std::sync::Arc;
 
 ////////
 
@@ -16,3 +16,21 @@ pub mod get; // 获取
 pub mod list; // 列表
 pub mod manage; // 管理
 pub mod stat; // 统计
+
+////////
+
+/// # [BUILDER] - 构造用户关注端口
+/// * `DESC`: `COLA USER - Follow Ports.`
+pub fn build_user_follow_port() -> UserFollowPort {
+    UserFollowPort {
+        add: Arc::new(add::FollowAddAdapter),
+        check: Arc::new(check::UserFollowCheckAdapter),
+        delete: Arc::new(del::UserFollowDelAdapter),
+        get: Arc::new(get::UserFollowGetAdapter),
+        list: Arc::new(list::UserFollowListAdapter),
+        manage: Arc::new(manage::UserFollowManageAdapter),
+        stat: Arc::new(stat::UserFollowStatAdapter),
+    }
+}
+
+//////// END

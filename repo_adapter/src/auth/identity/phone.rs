@@ -1,5 +1,4 @@
-// repo_adapter/src/auth/identity/phone.rs
-// ✅ ADAPTER - AUTH 手机身份绑定
+// repo_adapter/src/auth/identity/phone.rs -- ADAPTER - AUTH - 身份 - 手机身份绑定
 // 2026/8/20 Created.
 
 ////////

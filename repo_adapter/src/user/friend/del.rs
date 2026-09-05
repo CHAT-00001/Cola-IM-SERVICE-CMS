@@ -1,29 +1,24 @@
-// repo_adapter/src/user/friend/del.rs
-// 🔌 插头 - 可乐用户 - 朋友 - 删除
-// 2026/8/6 解耦: 单个软删除 / 批量软删除
+// repo_adapter/src/user/friend/del.rs -- 适配器 - USER - 朋友 - 删除适配器
+// 2026/8/10 04:16 Created.
 
 ////////
 
-use anyhow::Result;
-
+use async_trait::async_trait;
+use port::cola_user::friend::del::FriendDelPort;
 ////////
 
-/// # [ADAPTER] - 单个软删除朋友
-pub async fn single_del(
-    _uid: i64, // 操作者ID
-    _id: i64,  // 目标用户ID
-) -> Result<u16> {
-    // 🚧 TODO: 对接 FriendService
-    Ok(0)
-}
+/// # [DELETE ADAPTER] - 删除
+pub struct UserFriendDelAdapter;
 
-/// # [ADAPTER] - 批量软删除朋友
-pub async fn batch_del(
-    _uid: i64,      // 操作者ID
-    _ids: Vec<i64>, // 目标用户IDs
-) -> Result<u16> {
-    // 🚧 TODO: 对接 FriendService
-    Ok(0)
+#[async_trait]
+impl FriendDelPort for UserFriendDelAdapter {
+    async fn single_delete(&self, uid: i64, id: i64) -> anyhow::Result<(u16)> {
+        todo!()
+    }
+
+    async fn batch_delete(&self, uid: i64, ids: Vec<i64>) -> anyhow::Result<(u16)> {
+        todo!()
+    }
 }
 
 //////// END

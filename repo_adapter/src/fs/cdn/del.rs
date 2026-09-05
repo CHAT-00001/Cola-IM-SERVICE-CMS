@@ -1,5 +1,4 @@
-// repo_adapter/src/fs/cdn/del.rs
-// 🔌 适配器 - FS - CDN - 逻辑删除
+// repo_adapter/src/fs/cdn/del.rs -- 适配器 - FS - CDN - 删除
 // 2026/8/6 19:12 Created.
 
 ////////

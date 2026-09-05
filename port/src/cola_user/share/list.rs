@@ -1,16 +1,15 @@
-// port/src/user/share/list.rs
-// ⏩️ 端口 - 🗣 用户 - 分享 - 类别
+// port/src/user/share/list.rs -- 端口 - USER - 分享 - 列表端口
 // 2026/8/5 21:36 Created.
 
 ////////
 
 use async_trait::async_trait;
-use cola_data::cola_user::info::share::ShareInfo;
+use cola_data::cola_user::info::share::UserShareInfo;
 
 ////////
 
 /// # [LIST PORT]
-/// * `desc`: `🗣 用户 - 用户分享记录列表列表端口`
+/// * `desc`: `COLA USER - Share List Ports`
 #[async_trait]
 pub trait UserShareListPort: Send + Sync + 'static {
     //
@@ -24,7 +23,7 @@ pub trait UserShareListPort: Send + Sync + 'static {
         user_id: i64, // 用户 ID
         offset: i64,  // 页数
         limit: i64,   // 数量
-    ) -> anyhow::Result<(Vec<ShareInfo>)>;
+    ) -> anyhow::Result<(Vec<UserShareInfo>)>;
 
     ////////
 
@@ -35,7 +34,7 @@ pub trait UserShareListPort: Send + Sync + 'static {
         profile_id: i64, // 资料 ID
         offset: i64,     // 页数
         limit: i64,      // 数量
-    ) -> anyhow::Result<(Vec<ShareInfo>)>;
+    ) -> anyhow::Result<(Vec<UserShareInfo>)>;
 }
 
 //////// END

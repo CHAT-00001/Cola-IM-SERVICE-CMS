@@ -1,5 +1,4 @@
-// user/src/case/user/get.rs
-// core - USER - case - user - 获取 用例
+// cola_user/src/case/black/get.rs -- USER - case - 黑名单 - 获取用例
 // 2026/8/3 12:18 Created.
 
 ////////
@@ -11,6 +10,7 @@ use tracing::info;
 
 ////////
 
+/// # [GET CASE] - 用户黑名单获取用例
 pub struct UserBlackGetCase;
 
 impl UserBlackGetCase {
@@ -39,7 +39,7 @@ impl UserBlackGetCase {
         // 2. 再拿ids查找用户资料
         let user_infos = ctx
             .user
-            .user
+            .profile
             .get
             .batch_get_infos(user_ids)
             .await

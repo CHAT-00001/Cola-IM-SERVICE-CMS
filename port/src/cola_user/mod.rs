@@ -1,21 +1,18 @@
-// port/src/user/music.rs
-// ⏩️ 端口 - USER - music
+// port/src/user/mod.rs -- 端口 - USER - mod
 // 2026/6/10 07:27
 
 ////////
-
-use category::UserCategoryPort;
 
 use crate::cola_user::ban::UserBanPort;
 use crate::cola_user::black::UserBlackPort;
 use crate::cola_user::follow::UserFollowPort;
 use crate::cola_user::friend::UserFriendPort;
+use crate::cola_user::profile::UserProfilePort;
 use crate::cola_user::role::UserRolePort;
 use crate::cola_user::share::UserSharePort;
 use crate::cola_user::view::UserViewPort;
 use crate::cola_user::vip::UserVipPort;
-use std::sync::Arc;
-use user::UserPort;
+use category::UserCategoryPort;
 
 ////////
 
@@ -25,16 +22,16 @@ pub mod black; // 黑名单
 pub mod category; // 分类
 pub mod follow; // 关注
 pub mod friend; // 朋友
+pub mod profile; // 用户资料(主内容)
 pub mod role; // 角色
 pub mod share; // 分享
-pub mod user; // 用户(主内容)
 pub mod view; // 浏览
 pub mod vip; // 贵宾
 
 ////////
 
-/// # [COLA USER SERVICE PORTS] - 用户
-/// * `desc`: `🗣 用户 - 端口`
+/// # [COLA USER SERVICE PORTS] - 可乐用户服务端口
+/// * `desc`: `COLA USER - Ports.`
 #[derive(Clone)]
 pub struct ColaUserPort {
     pub ban: UserBanPort,           // 封禁
@@ -44,7 +41,7 @@ pub struct ColaUserPort {
     pub friend: UserFriendPort,     // 朋友
     pub role: UserRolePort,         // 角色
     pub share: UserSharePort,       // 分享
-    pub user: UserPort,             // 用户(主内容)
+    pub profile: UserProfilePort,   // 用户资料(主内容)
     pub view: UserViewPort,         // 访客浏览
     pub vip: UserVipPort,           // 贵宾
 }

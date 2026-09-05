@@ -1,5 +1,4 @@
-// port/src/user/black/check.rs
-// ⏩️ 端口 - 🗣 可乐用户 - 黑名单 - 检查
+// port/src/user/black/check.rs -- 端口 - USER - 黑名单 - 检查端口
 // 2026/8/5 21:34 Created.
 
 ////////

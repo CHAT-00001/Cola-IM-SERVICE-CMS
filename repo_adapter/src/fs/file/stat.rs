@@ -1,5 +1,4 @@
-// repo_adapter/src/fs/file/stat.rs
-// 🔌 适配器 - FS - 文件 - 统计
+// repo_adapter/src/fs/file/stat.rs -- 适配器 - FS - 文件 - 统计
 // 2026/8/14 14:00 Created.
 
 ////////

@@ -1,5 +1,4 @@
-// cola_live/src/case/stream/add.rs
-// 直播 - CASE - 直播场次 - 开播与停播
+// cola_live/src/case/stream/add.rs -- LIVE - case - 直播场次 - 开播与停播
 // 2026/8/21 09:42 Created.
 
 ////////
@@ -28,7 +27,7 @@ impl LiveStreamAddCase {
         if command.room_id <= 0 {
             anyhow::bail!("直播间ID无效");
         }
-        let user = ctx.user.user.get.single_get_info(auth.uid).await?;
+        let user = ctx.user.profile.get.single_get_info(auth.uid).await?;
         if user.id != auth.uid || user.status != 1 {
             anyhow::bail!("用户状态异常，无法开播");
         }

@@ -1,5 +1,4 @@
-// port/src/user/view/list.rs
-// ⏩️ 端口 - USER - 浏览 - 列表
+// port/src/user/view/list.rs -- 端口 - USER - 浏览 - 列表端口
 // 2026/8/6 00:44 Created.
 
 ////////

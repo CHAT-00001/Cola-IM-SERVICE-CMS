@@ -1,5 +1,4 @@
-// repo_adapter/src/user/ban/add.rs
-// 🔌 适配器 - 可乐用户 - 封禁 - 发布服务
+// repo_adapter/src/user/ban/add.rs -- 适配器 - USER - 封禁 - 发布适配器
 // 2026/8/7 03:32 Created.
 
 ////////
@@ -12,10 +11,10 @@ use port::cola_user::ban::add::UserBanAddPort;
 
 /// # [ADD ADAPTER] - 发布
 /// * `desc`: `用户封禁发布服务`
-pub struct BanAddService;
+pub struct BanAddAdapter;
 
 #[async_trait]
-impl UserBanAddPort for BanAddService {
+impl UserBanAddPort for BanAddAdapter {
     //
 
     ////////

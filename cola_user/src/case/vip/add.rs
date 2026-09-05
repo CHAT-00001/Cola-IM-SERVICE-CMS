@@ -1,5 +1,4 @@
-// user/src/case/vip/add.rs
-// 用户 - case - 贵宾 - 添加 用例
+// user/src/case/vip/add.rs -- 用户 - case - 贵宾 - 发布用例
 // 2026/8/2 22:52 Created.
 
 ////////
@@ -7,10 +6,10 @@
 use anyhow::{Result, anyhow};
 use port::app::ctx::AppContext;
 use tracing::info;
+
 ////////
 
-/// # [ADD CASE] - 添加
-/// * `desc`: `用户贵宾添加用例`
+/// # [ADD CASE] - 用户贵宾发布用例
 pub struct UserVipAddCase;
 
 impl UserVipAddCase {
@@ -29,7 +28,7 @@ impl UserVipAddCase {
         ctx.user
             .vip
             .add
-            .add_black(uid, target_id)
+            .add_vip(uid, target_id)
             .await
             .map_err(|e| anyhow!("[🤐 CASE]: ❌️ 充值会员失败: {}", e))?;
 
@@ -52,7 +51,7 @@ impl UserVipAddCase {
         ctx.user
             .vip
             .add
-            .del_black(uid, target_id)
+            .del_vip(uid, target_id)
             .await
             .map_err(|e| anyhow!("[🤐 CASE]: ❌️ 取消VIP失败: {}", e))?;
 

@@ -1,5 +1,4 @@
-// repo_adapter/src/auth/session/check.rs
-// 🔌 适配器 - AUTH - SESSION - 检查
+// repo_adapter/src/auth/session/check.rs -- 适配器 - AUTH - SESSION - 检查
 // 2026/8/9 20:48 Created.
 
 ////////

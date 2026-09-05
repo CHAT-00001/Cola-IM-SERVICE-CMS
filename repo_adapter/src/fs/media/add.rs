@@ -1,4 +1,4 @@
-// repo_adapter/src/fs/media/add.rs -- 🔌 适配器 - FS - 媒体文件 - 发布
+// repo_adapter/src/fs/media/add.rs -- 适配器 - FS - 媒体文件 - 发布
 // 2026/8/14 15:00 Updated.
 
 ////////

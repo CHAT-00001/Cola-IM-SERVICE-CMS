@@ -1,5 +1,4 @@
-// user/src/case/profile/manage.rs
-// 用户 - case - 资料 - 管理
+// user/src/case/profile/manage.rs -- 用户 - case - 资料 - 管理用例
 // 2026/8/2 22:50 Created.
 
 ////////
@@ -11,8 +10,10 @@ use cola_data::cola_user::command::user::update::UpdateUserCommand;
 use cola_data::cola_user::info::user::UserInfo;
 use port::app::ctx::AppContext;
 use tracing::info;
+
 ////////
 
+/// # [MANAGE CASE] - 用户资料管理用例
 pub struct UserAddCase;
 
 impl UserAddCase {
@@ -36,7 +37,7 @@ impl UserAddCase {
         // 2. 核心数据持久化与计数更新 (💡 提示：建议让这个 Service 函数返回刚插入成功的 VideoInfo)
         let user_info = ctx
             .user
-            .user
+            .profile
             .add
             .save_user(cmd)
             .await
@@ -64,7 +65,7 @@ impl UserAddCase {
         // 2. 核心数据持久化与计数更新
         let user_info = ctx
             .user
-            .user
+            .profile
             .add
             .update_user(cmd)
             .await

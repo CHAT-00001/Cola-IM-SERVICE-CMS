@@ -1,5 +1,4 @@
-// port/src/user/view/stat.rs
-// ⏩️ 端口 - 🗣 用户 - 浏览 - 统计
+// port/src/user/view/stat.rs -- 端口 - USER - 浏览 - 统计端口
 // 2026/8/9 20:17 Created.
 
 ////////
@@ -9,9 +8,11 @@ use async_trait::async_trait;
 ////////
 
 /// # [STAT PORTS]
-/// * `desc`: `🗣 用户 - 用户浏览记录统计端口`
+/// * `desc`: `COLA USER - View Stat Ports`
 #[async_trait]
 pub trait UserViewStatPort: Send + Sync + 'static {
+    //
+
     ////////
 
     /// # 1. [PORT] - 用户的

@@ -7,6 +7,11 @@ use rand::RngExt;
 
 ////////
 
+/// # [TIME] - 验证码有效期 (minute / 分钟)
+const TIMEOUT: u32 = 10;
+
+////////
+
 /// # 1. [KITS] - 验证码生成器
 /// * `desc`: 生成一个 6 位数字验证码，范围：000000 ~ 999999
 pub fn kit_generate_6digit_code() -> String {
@@ -19,7 +24,7 @@ pub fn kit_generate_6digit_code() -> String {
 /// # 2. [KITS] - 构建验证短信内容
 /// * `desc`: 返回 (验证码, 完整短信内容)
 pub fn kit_make_auth_sms_content() -> (String, String) {
-    let minute = 5;
+    let minute = TIMEOUT;
     let auth_code = kit_generate_6digit_code();
     let app_name = "可乐APP";
 

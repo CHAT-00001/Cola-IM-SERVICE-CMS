@@ -1,5 +1,4 @@
-// user/port/friend/music.rs
-// ⏩️ 端口 - 🗣 可乐用户 - 朋友 - 模块
+// port/src/user/friend/music.rs -- 端口 - USER - 朋友 - mod
 // 2026/8/5 21:56 Created.
 
 ////////
@@ -10,6 +9,7 @@ use crate::cola_user::friend::del::FriendDelPort;
 use crate::cola_user::friend::get::FriendGetPort;
 use crate::cola_user::friend::list::FriendListPort;
 use crate::cola_user::friend::manage::FriendManagePort;
+use crate::cola_user::friend::stat::FriendStatPort;
 use std::sync::Arc;
 
 ////////
@@ -25,7 +25,7 @@ pub mod stat;
 ////////
 
 /// # [FRIEND PORTS]
-/// * `desc`: `🗣 用户 - 用户朋友端口`
+/// * `desc`: `COLA USER - Friend Ports.`
 #[derive(Clone)]
 pub struct UserFriendPort {
     pub add: Arc<dyn FriendAddPort + Send + Sync + 'static>,
@@ -34,6 +34,7 @@ pub struct UserFriendPort {
     pub get: Arc<dyn FriendGetPort + Send + Sync + 'static>,
     pub list: Arc<dyn FriendListPort + Send + Sync + 'static>,
     pub manage: Arc<dyn FriendManagePort + Send + Sync + 'static>,
+    pub stat: Arc<dyn FriendStatPort + Send + Sync + 'static>,
 }
 
 //////// END

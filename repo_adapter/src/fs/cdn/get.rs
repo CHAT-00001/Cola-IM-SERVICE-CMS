@@ -1,5 +1,4 @@
-// repo_adapter/src/fs/cdn/get.rs
-// 🔌 适配器 - FS - CDN - 获取IDs
+// repo_adapter/src/fs/cdn/get.rs -- 适配器 - FS - CDN - 获取IDs
 // 2026/8/6 18:55 Created.
 
 ////////

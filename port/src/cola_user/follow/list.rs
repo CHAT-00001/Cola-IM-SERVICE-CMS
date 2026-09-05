@@ -1,5 +1,4 @@
-// user/followt/list.rs
-// ⏩️ 端口 - 🗣 用户 - 关注 - 列表
+// port/src/user/followt/list.rs -- 端口 - USER - 关注 - 列表端口
 // 2026/8/5 21:58 Created.
 
 ////////

@@ -1,5 +1,4 @@
-// repo_adapter/src/user/ban/get.rs
-// 🔌 适配器 - 可乐用户 - 封禁 - 获取服务
+// repo_adapter/src/user/ban/get.rs -- 适配器 - USER - 封禁 - 获取适配器
 // 2026/8/7 06:09 Created.
 
 ////////
@@ -10,13 +9,13 @@ use port::cola_user::ban::get::UserBanGetPort;
 
 ////////
 
-/// # [GET SERVICE] - 获取
-/// * `desc`: `用户封禁获取服务`
-pub struct BanGetService;
+/// # [GET ADAPTER] - 用户封禁获取适配器
+/// * `desc`: `COLA USER - Ban Get Adapter`
+pub struct BanGetAdapter;
 
 // 构造实现
 #[async_trait]
-impl UserBanGetPort for BanGetService {
+impl UserBanGetPort for BanGetAdapter {
     //
 
     ////////

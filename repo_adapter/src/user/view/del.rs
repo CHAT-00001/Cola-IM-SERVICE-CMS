@@ -1,5 +1,4 @@
-// repo_adapter/src/user/ban/del.rs
-// 🔌 适配器 - 可乐用户 - 浏览 - 删除服务
+// repo_adapter/src/user/ban/del.rs -- 适配器 - USER - 浏览记录 - 删除适配器
 // 2026/8/7 05:56 Created.
 
 ////////
@@ -10,13 +9,13 @@ use port::cola_user::view::del::UserViewDelPort;
 
 ////////
 
-/// # [DEL ADAPTER] - 删除
-/// * `desc`: `用户浏览删除服务`
-pub struct ViewDelService;
+/// # [DELETE ADAPTER] - 用户浏览记录删除适配器
+/// * `desc`: `COLA USER - View Record Delete Adapter`
+pub struct UserViewDelAdapter;
 
 // 构造实现
 #[async_trait]
-impl UserViewDelPort for ViewDelService {
+impl UserViewDelPort for UserViewDelAdapter {
     //
 
     ////////

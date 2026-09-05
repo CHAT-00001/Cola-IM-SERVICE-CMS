@@ -1,0 +1,16 @@
+{
+    "gate": "1001",
+    "node": "cn-gz-04",
+    "service": "code_phone",
+    "name": "code",
+    "action": 1004,
+    "auth": {
+        "access_token": "abc123456",
+        "ex_at": ""
+    },
+    "lang": "zh",
+    "cmd": {
+        "area_code": "0086",
+        "phone_no": "18888410001"
+    }
+}

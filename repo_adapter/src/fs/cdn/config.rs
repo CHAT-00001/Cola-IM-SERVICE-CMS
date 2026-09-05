@@ -1,5 +1,4 @@
-// D:\rust\short-video\repo_adapter\src\fs\cdn\config.rs
-// 🔌 适配器 - FS - CDN - 配置管理
+// repo_adapter\src\fs\cdn\config.rs -- 适配器 - FS - CDN - 配置管理
 // 2026/8/16 Created.
 
 ////////

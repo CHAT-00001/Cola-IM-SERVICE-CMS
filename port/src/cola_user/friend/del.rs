@@ -1,5 +1,4 @@
-// user/port/black/del.rs
-// ⏩️ 端口 - 🗣 用户 - 朋友 - 删除
+// user/port/friend/del.rs -- 端口 - USER - 朋友 - 删除端口
 // 2026/8/5 21:58 Created.
 
 ////////
@@ -16,8 +15,8 @@ pub trait FriendDelPort: Send + Sync + 'static {
 
     ////////
 
-    /// # 1. [PORT] - 单个软删除
-    async fn single_soft_del(
+    /// # 1. [PORT] - 单个删除
+    async fn single_delete(
         &self,
         uid: i64, // 操作者ID
         id: i64,  // 目录用户ID
@@ -25,9 +24,9 @@ pub trait FriendDelPort: Send + Sync + 'static {
 
     ////////
 
-    /// # 2. [PORT] - 批量软删除
+    /// # 2. [PORT] - 批量删除
     /// * `desc`: `管理员批量移除黑名单`
-    async fn batch_soft_del(
+    async fn batch_delete(
         &self,
         uid: i64,      // 操作者ID
         ids: Vec<i64>, // 目标用户IDs

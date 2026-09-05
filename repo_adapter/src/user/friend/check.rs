@@ -1,29 +1,26 @@
-// repo_adapter/src/user/friend/check.rs
-// 🔌 插头 - 可乐用户 - 朋友 - 检查
-// 2026/8/6 解耦: 是否已是朋友 / 状态检查
+// repo_adapter/src/user/friend/check.rs -- 适配器 - USER - 朋友 - 发布适配器
+// 2026/8/10 04:17 Created.
 
 ////////
 
-use anyhow::Result;
-
+use async_trait::async_trait;
+use port::cola_user::friend::check::FriendCheckPort;
 ////////
 
-/// # [ADAPTER] - 检查是否已是朋友
-pub async fn is_friended(
-    _uid: i64, // 操作者ID
-    _id: i64,  // 目标用户ID
-) -> Result<bool> {
-    // 🚧 TODO: 对接 FriendService
-    Ok(false)
-}
+/// # [CHECK ADAPTER] - 检查
+/// * `DESC`: `COLA USER - Friend Check Adapter`
+pub struct FriendCheckAdapter;
 
-/// # [ADAPTER] - 检查朋友关系状态
-pub async fn check_state(
-    _uid: i64,     // 操作者ID
-    _user_id: i64, // 目标用户ID
-) -> Result<bool> {
-    // 🚧 TODO: 对接 FriendService
-    Ok(false)
+#[async_trait]
+impl FriendCheckPort for FriendCheckAdapter {
+    //
+
+    ////////
+
+    /// 1. # [ADAPTER] - 是朋友
+    async fn is_friended(&self, uid: i64, id: i64) -> anyhow::Result<(bool)> {
+        todo!()
+    }
 }
 
 //////// END

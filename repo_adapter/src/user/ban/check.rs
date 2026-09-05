@@ -1,5 +1,4 @@
-// repo_adapter/src/user/ban/check.rs
-// 🔌 适配器 - 可乐用户 - 封禁 - 检查服务
+// repo_adapter/src/user/ban/check.rs -- 适配器 - USER - 封禁 - 检查适配器
 // 2026/8/7 05:56 Created.
 
 ////////
@@ -9,17 +8,16 @@ use async_trait::async_trait;
 use port::cola_user::ban::check::UserBanCheckPort;
 ////////
 
-/// # [CHECK SERVICE] - 检查
-/// * `desc`: `检查是否被封禁`
-pub struct BanCheckService;
+/// # [CHECK ADAPTER] - 用户封禁检查适配器
+pub struct BanCheckAdapter;
 
 #[async_trait]
-impl UserBanCheckPort for BanCheckService {
+impl UserBanCheckPort for BanCheckAdapter {
     //
 
     ////////
 
-    /// # 1. [SERVICE] - 检查
+    /// # 1. [ADAPTER] - 检查
     /// * `desc`: `是否被封禁`
     /// * `warning`: `风控触发 + 审核人员发布`
     async fn is_baned(&self, uid: i64, id: i64) -> Result<(bool)> {

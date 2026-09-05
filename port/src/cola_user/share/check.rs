@@ -1,5 +1,4 @@
-// port/src/user/share/check.rs
-// ⏩️ 端口 - 🗣 用户 - 分享 - 检查
+// port/src/user/share/check.rs -- 端口 - USER - 分享 - 检查端口
 // 2026/8/5 21:34 Created.
 
 ////////
@@ -9,7 +8,7 @@ use async_trait::async_trait;
 ////////
 
 /// # [CHECK PORTS]
-/// * `desc`: `黑名单检查端口`
+/// * `desc`: `分享检查端口`
 #[async_trait]
 pub trait UserShareCheckPort: Send + Sync + 'static {
     //

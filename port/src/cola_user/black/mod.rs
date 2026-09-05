@@ -1,5 +1,4 @@
-// port/src/user/black/mod.rs
-// ⏩️ 端口 - 🗣 可乐用户 - 黑名单 - music
+// port/src/user/black/mod.rs -- 端口 - USER - 黑名单 - mod
 // 2026/8/5 21:33 Created.
 
 ////////
@@ -26,7 +25,7 @@ pub mod stat;
 ////////
 
 /// # [BLACK PORTS]
-/// * `desc`: `🗣 用户 - 黑名单端口`
+/// * `desc`: `COLA USER - Black Ports.`
 #[derive(Clone)]
 pub struct UserBlackPort {
     pub add: Arc<dyn UserBlackAddPort + Send + Sync + 'static>,

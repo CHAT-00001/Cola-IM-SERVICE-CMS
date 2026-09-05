@@ -1,5 +1,4 @@
-// repo_adapter/src/user/category/list.rs
-// 🔌 适配器 - 可乐用户 - 分类 - 列表
+// repo_adapter/src/user/category/list.rs -- 适配器 - USER - 分类 - 列表适配器
 // 2026/8/10 04:16 Created.
 
 ////////

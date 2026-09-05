@@ -1,5 +1,4 @@
-// port/src/user/vip/del.rs
-// 用户 - port - 贵宾 - 删除
+// port/src/user/vip/del.rs -- 端口 - USER - 贵宾 - 删除端口
 // 2026/8/6 00:39 Created.
 
 ////////
@@ -16,24 +15,22 @@ pub trait VipDelPort: Send + Sync + 'static {
 
     ////////
 
-    /// # 1. [PORT] - 单个软删除
-    async fn single_soft_del(
+    /// # 1. [PORT] - 单个删除
+    async fn single_delete(
         &self,
         uid: i64, // 操作者ID
         id: i64,  // 目录用户ID
-    ) -> anyhow::Result<(u16)>;
+    ) -> anyhow::Result<(u64)>;
 
     ////////
 
-    /// # 2. [PORT] - 批量软删除
+    /// # 2. [PORT] - 批量删除
     /// * `desc`: `管理员批量移除贵宾`
-    async fn batch_soft_del(
+    async fn batch_delete(
         &self,
-        uid: i64,      // 操作者ID
-        ids: Vec<i64>, // 目标用户IDs
-    ) -> anyhow::Result<(u16)>;
-    async fn single_del(&self, uid: i64, id: i64) -> anyhow::Result<u16>;
-    async fn batch_del(&self, uid: i64, ids: Vec<i64>) -> anyhow::Result<u16>;
+        uid: i64,      // 操作者 ID
+        ids: Vec<i64>, // 目标 IDs
+    ) -> anyhow::Result<(u64)>;
 }
 
 //////// END

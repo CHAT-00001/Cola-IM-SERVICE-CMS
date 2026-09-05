@@ -1,5 +1,4 @@
-// user/src/case/follow/get.rs
-// core - USER - case - 关注 - 获取
+// cola_user/src/case/follow/get.rs -- USER - case - 关注 - 获取用例
 // 2026/8/3 12:18 Created.
 
 ////////
@@ -11,8 +10,7 @@ use tracing::info;
 
 ////////
 
-/// # [GET CASE]
-/// * `desc`: 获取关注的用户列表 case
+/// # [GET CASE] - 用户关注获取用例
 pub struct UserFollowGetCase;
 
 impl UserFollowGetCase {
@@ -41,7 +39,7 @@ impl UserFollowGetCase {
         // 2. 再拿ids查找用户资料
         let user_infos = ctx
             .user
-            .user
+            .profile
             .get
             .batch_get_infos(ids)
             .await

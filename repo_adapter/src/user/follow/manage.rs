@@ -1,5 +1,4 @@
-// repo_adapter/src/user/follow/manage.rs
-// 🔌 插头 - 可乐用户 - 关注 - 模块
+// repo_adapter/src/user/follow/manage.rs -- 适配器 - USER - 关注 - 管理适配器
 // 2026/8/10 04:16 Created.
 
 ////////

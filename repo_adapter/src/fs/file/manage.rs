@@ -1,5 +1,4 @@
-// repo_adapter/src/fs/file/manage.rs
-// 🔌 适配器 - FS - 文件 - 管理
+// repo_adapter/src/fs/file/manage.rs --适配器 - FS - 文件 - 管理
 // 2026/8/14 14:00 Created.
 
 ////////

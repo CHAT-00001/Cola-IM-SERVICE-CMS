@@ -1,5 +1,4 @@
-// repo_adapter/src/auth/file/check.rs
-// 🔌 适配器 - AUTH - 身份识别 - 检查
+// repo_adapter/src/auth/identity/check.rs -- 适配器 - AUTH - 身份识别 - 检查
 // 2026/8/9 20:48 Created.
 
 ////////

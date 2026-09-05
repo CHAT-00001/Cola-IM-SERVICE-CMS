@@ -1,4 +1,4 @@
-// repo_adapter/src/fs/mod.rs -- 🔌 适配器 - FS - mod
+// repo_adapter/src/fs/mod.rs -- 适配器 - FS - mod
 // 2026/8/10 20:00 Updated.
 
 ////////

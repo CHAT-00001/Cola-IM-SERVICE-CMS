@@ -1,6 +1,5 @@
-// repo_adapter/src/auth/sessiony/add.rs  --
-// 🔌 适配器 - AUTH - SESSION - 发布 服务
-// 2026/8/8 Created.
+// repo_adapter/src/auth/sessiony/add.rs  --适配器 - AUTH - SESSION - 发布适配器
+// 2026/8/8 14:02 Created.
 
 ////////
 

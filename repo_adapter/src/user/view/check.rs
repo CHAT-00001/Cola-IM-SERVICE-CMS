@@ -1,5 +1,4 @@
-// repo_adapter/src/user/ban/del.rs
-// 🔌 适配器 - USER - 浏览 - 检查
+// repo_adapter/src/user/ban/del.rs -- 适配器 - USER - 浏览 - 检查适配器
 // 2026/8/7 05:56 Created.
 
 ////////
@@ -10,13 +9,13 @@ use port::cola_user::view::check::UserViewCheckPort;
 
 ////////
 
-/// # [CHECK ADAPTER] - 删除
-/// * `desc`: `USER - 用户主页浏览检查适配器`
-pub struct ViewCheckService;
+/// # [CHECK ADAPTER] - 检查适配器
+/// * `desc`: `COLA USER - View Check Adapter`
+pub struct UserViewCheckAdapter;
 
 // 构造实现
 #[async_trait]
-impl UserViewCheckPort for ViewCheckService {
+impl UserViewCheckPort for UserViewCheckAdapter {
     //
 
     ////////

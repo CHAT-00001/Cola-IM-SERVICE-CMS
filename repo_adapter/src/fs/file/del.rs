@@ -1,5 +1,4 @@
-// repo_adapter/src/fs/file/del.rs
-// 🔌 适配器 - FS - 文件 - 删除
+// repo_adapter/src/fs/file/del.rs -- 适配器 - FS - 文件 - 删除
 // 2026/8/14 14:00 Created.
 
 ////////

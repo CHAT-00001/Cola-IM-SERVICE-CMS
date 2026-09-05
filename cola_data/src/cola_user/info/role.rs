@@ -1,5 +1,4 @@
-// cola_data/src/user/info/role.rs
-// 数据中心 - USER - info - 角色
+// cola_data/src/user/info/role.rs -- 数据 - USER - info - 角色信息
 // 2026/8/6 Created.
 
 ////////

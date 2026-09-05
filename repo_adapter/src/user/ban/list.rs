@@ -1,5 +1,4 @@
-// repo_adapter/src/user/ban/list.rs
-// 🔌 适配器 - 可乐用户 - 封禁 - 列表服务
+// repo_adapter/src/user/ban/list.rs -- 适配器 - USER - 封禁 - 列表适配器
 // 2026/8/7 05:56 Created.
 
 ////////
@@ -10,17 +9,17 @@ use port::cola_user::ban::list::UserBanListPort;
 
 ////////
 
-/// # [LIST SERVICE] - 列表
-/// * `desc`: `用户封禁列表服务`
-pub struct BanListService;
+/// # [LIST ADAPTER] - 用户封禁列表适配器
+/// * `desc`: `COLA USER - Ban List Adapter`
+pub struct BanListAdapter;
 
 #[async_trait]
-impl UserBanListPort for BanListService {
+impl UserBanListPort for BanListAdapter {
     //
 
     ////////
 
-    /// # 1. [SERVICE] - 发布
+    /// # 1. [ADAPTER] - 发布
     /// * `desc`: `管理员封禁/改权限`
     /// * `warning`: `⚠️ 预设接口`
     async fn get_ban_list(&self, user_id: i64, offset: i64, limit: i64) -> Result<(Vec<i64>)> {

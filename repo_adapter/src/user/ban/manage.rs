@@ -1,5 +1,4 @@
-// repo_adapter/src/user/ban/manage.rs
-// 🔌 适配器 - 可乐用户 - 封禁 - 管理服务
+// repo_adapter/src/user/ban/manage.rs -- 适配器 - USER - 封禁 - 管理适配器
 // 2026/8/7 06:05 Created.
 
 ////////
@@ -10,13 +9,12 @@ use port::cola_user::ban::manage::UserBanManagePort;
 
 ////////
 
-/// # [MANAGE SERVICE] - 管理
-/// * `desc`: `管理员管理服务`
-pub struct BanManageService;
+/// # [MANAGE SERVICE] - 用户封禁管理适配器
+/// * `desc`: `COLA USER - Ban Manage Adapter`
+pub struct BanManageAdapter;
 
-// 构造实现
 #[async_trait]
-impl UserBanManagePort for BanManageService {
+impl UserBanManagePort for BanManageAdapter {
     //
 
     ////////

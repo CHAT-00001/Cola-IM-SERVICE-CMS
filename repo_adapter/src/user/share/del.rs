@@ -1,5 +1,4 @@
-// repo_adapter/src/user/share/del.rs
-// 🔌 插头 - 可乐用户 - 分享 - 删除
+// repo_adapter/src/user/share/del.rs  -- 适配器 - USER - 分享 - 删除适配器
 // 2026/8/8 12:45 Created.
 
 ////////
@@ -7,6 +6,7 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use port::cola_user::share::del::UserShareDelPort;
+
 ////////
 
 pub struct ShareDelAdapter;

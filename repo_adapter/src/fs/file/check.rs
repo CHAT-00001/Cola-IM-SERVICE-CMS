@@ -1,5 +1,4 @@
-// repo_adapter/src/fs/file/check.rs
-// 🔌 适配器 - FS - 文件 - 检查
+// repo_adapter/src/fs/file/check.rs -- 适配器 - FS - 文件 - 检查
 // 2026/8/14 14:00 Created.
 
 ////////

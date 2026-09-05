@@ -1,4 +1,4 @@
-// repo_adapter/src/user/category/get.rs
+// repo_adapter/src/user/category/get.rs -- 适配器 - USER - 分类 - 获取适配器
 // 🔌 适配器 - 可乐用户 - 分类 - 获取
 // 2026/8/10 05:39 Created.
 

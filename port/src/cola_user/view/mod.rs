@@ -1,5 +1,4 @@
-// port/src/user/view/music.rs
-// ⏩️ 端口 - 🗣 可乐用户 -  浏览 - 模块
+// port/src/user/view/music.rs -- 端口 - USER -  浏览 - mod
 // 2026/6/10 07:36
 
 ////////
@@ -26,7 +25,7 @@ pub mod stat;
 ////////
 
 /// # [VIEW PORTS]
-/// * `desc`: `🗣 用户 - 用户浏览端口`
+/// * `desc`: `COLA USER - View Ports`
 #[derive(Clone)]
 pub struct UserViewPort {
     pub add: Arc<dyn UserViewAddPort + Send + Sync + 'static>,

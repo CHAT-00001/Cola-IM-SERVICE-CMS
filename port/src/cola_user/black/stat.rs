@@ -1,5 +1,4 @@
-// port/src/user/black/stat.rs
-// ⏩️ 端口 - 🗣 用户 - 黑名单 - 统计
+// port/src/user/black/stat.rs -- 端口 - USER - 黑名单 - 统计端口
 // 2026/8/10 04:30 Created.
 
 ////////
@@ -9,7 +8,7 @@ use async_trait::async_trait;
 ////////
 
 /// # [STAT PORTS]
-/// * `desc`: `🗣 用户 - 用户黑名单记录统计端口`
+/// * `desc`: `COLA USER - Black Stat Ports.`
 #[async_trait]
 pub trait UserBlackStatPort: Send + Sync + 'static {
     ////////
@@ -30,3 +29,5 @@ pub trait UserBlackStatPort: Send + Sync + 'static {
 
     ////////
 }
+
+//////// END

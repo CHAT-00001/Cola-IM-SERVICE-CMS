@@ -1,5 +1,4 @@
-// repo_adapter/src/auth/session/manage.rs
-// 🔌 适配器 - AUTH - SESSION - 管理
+// repo_adapter/src/auth/session/manage.rs -- 适配器 - AUTH - SESSION - 管理
 // 2026/8/6 18:55 Created.
 
 ////////

@@ -1,5 +1,4 @@
-// user/src/case/role/check.rs
-// 用户 - case - 角色 - 检查
+// user/src/case/role/check.rs -- 用户 - case - 角色 - 检查
 // 2026/8/2 22:49 Created.
 
 ////////
@@ -13,8 +12,7 @@ use port::app::ctx::AppContext;
 use tracing::info;
 ////////
 
-/// # [CHECK CASE]
-/// * `desc`: `角色检查用例`
+/// # [CHECK CASE] - 用户角色检查用例
 pub struct UserRoleCheckCase;
 
 impl UserRoleCheckCase {
@@ -38,7 +36,7 @@ impl UserRoleCheckCase {
         // 2. 核心数据持久化与计数更新 (💡 提示：建议让这个 Service 函数返回刚插入成功的 VideoInfo)
         let user_info = ctx
             .user
-            .user
+            .profile
             .add
             .save_user(cmd)
             .await
@@ -66,7 +64,7 @@ impl UserRoleCheckCase {
         // 2. 核心数据持久化与计数更新
         let user_info = ctx
             .user
-            .user
+            .profile
             .add
             .update_user(cmd)
             .await

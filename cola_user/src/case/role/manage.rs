@@ -1,5 +1,4 @@
-// user/src/case/role/manage.rs
-// core - 可乐用户 - case - 角色管理 用例
+// user/src/case/role/manage.rs -- USER - case - 角色 - 管理用例
 // 2026/8/2 22:49 Created.
 
 ////////
@@ -12,11 +11,10 @@ use cola_data::cola_user::info::user::UserInfo;
 use port::app::ctx::AppContext;
 use service::cola_user::role::manage::RoleManageService;
 use tracing::info;
+
 ////////
 
-/// # [MANAGE CASE] - 管理
-/// * `desc`: `管理员管理角色`
-/// * `condition`: `需要登录` + `审核员身份`
+/// # [MANAGE CASE] - 用户角色管理用例
 pub struct UserRoleManageCase;
 
 impl UserRoleManageCase {
@@ -175,7 +173,7 @@ impl UserRoleManageCase {
         // 3. 核心数据持久化与计数更新
         let user_info = ctx
             .user
-            .user
+            .profile
             .add
             .update_user(cmd)
             .await

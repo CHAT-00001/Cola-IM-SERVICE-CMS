@@ -1,5 +1,4 @@
-// user/src/case/profiler/get.rs
-// 用户 - case - profile - 获取 用例
+// user/src/case/profiler/get.rs -- USER - case - 资料 - 获取用例
 // 2026/8/2 22:50 Created.
 
 ////////
@@ -14,6 +13,7 @@ use tracing::info;
 
 ////////
 
+/// # [GET CASE] - 用户资料获取用例
 pub struct UserProfileGetCase;
 
 impl UserProfileGetCase {
@@ -32,7 +32,7 @@ impl UserProfileGetCase {
         // 1. 用户信息列表
         let user_info = ctx
             .user
-            .user
+            .profile
             .list
             .get_new_list(uid, limit, offset)
             .await
@@ -62,7 +62,7 @@ impl UserProfileGetCase {
         // 2. 核心数据持久化与计数更新
         let user_info = ctx
             .user
-            .user
+            .profile
             .add
             .update_user(cmd)
             .await

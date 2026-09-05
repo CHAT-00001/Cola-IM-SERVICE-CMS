@@ -1,5 +1,4 @@
-// repo_adapter/src/user/share/check.rs
-// 🔌 插头 - 可乐用户 - 分享 - 检查
+// repo_adapter/src/user/share/check.rs  -- 适配器 - USER - 分享 - 检查适配器
 // 2026/8/8 12:45 Created.
 
 ////////

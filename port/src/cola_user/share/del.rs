@@ -1,5 +1,4 @@
-// port/src/user/share/del.rs
-// ⏩️ 端口 - 🗣 用户 - 分享 - 删除
+// port/src/user/share/del.rs -- 端口 - USER - 分享 - 删除端口
 // 2026/8/5 21:38 Created.
 
 ////////
@@ -9,7 +8,7 @@ use async_trait::async_trait;
 ////////
 
 /// # [DEL PORTS]
-/// * `desc`: `🗣 用户 - 用户分享记录删除端口`
+/// * `desc`: `COLA USER - Share Delete Ports`
 #[async_trait]
 pub trait UserShareDelPort: Send + Sync + 'static {
     //

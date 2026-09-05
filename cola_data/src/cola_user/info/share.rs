@@ -10,7 +10,7 @@ use serde::{Deserialize, Serialize};
 
 /// # [INFO] - 用户主页分享信息
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
-pub struct ShareInfo {
+pub struct UserShareInfo {
     pub id: i64,                  // 分享记录ID
     pub uid: i64,                 // 分享者ID
     pub target_user_id: i64,      // 被分享的用户ID

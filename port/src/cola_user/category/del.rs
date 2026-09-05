@@ -1,5 +1,4 @@
-// port/src/user/category/del.rs
-// ⏩️ 端口 - USER -  分类 - 删除
+// port/src/user/category/del.rs -- 端口 - USER - 分类 - 删除端口
 // 2026/8/5 21:58 Created.
 
 ////////

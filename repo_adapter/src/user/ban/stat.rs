@@ -1,5 +1,4 @@
-// /stat.rs
-//
+// repo_adapter/src/user/ban/stat.rs -- 适配器 - USER - 封禁 - 统计适配器
 // 2026/8/10 05:29 Created.
 
 ////////
@@ -9,8 +8,8 @@ use port::cola_user::ban::stat::UserBanStatPort;
 
 ////////
 
-/// # [STAT ADAPTER] - 计数
-/// * `desc`: `🗣 用户 - 关注记录统计适配器`
+/// # [STAT ADAPTER] - 用户封禁统计适配器
+/// * `desc`: `COLA USER - Ban Stat Adapter`
 pub struct UserBankStatAdapter;
 #[async_trait]
 impl UserBanStatPort for UserBankStatAdapter {
@@ -22,3 +21,5 @@ impl UserBanStatPort for UserBankStatAdapter {
         todo!()
     }
 }
+
+//////// END

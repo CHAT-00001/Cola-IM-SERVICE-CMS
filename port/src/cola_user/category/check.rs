@@ -1,5 +1,4 @@
-// port/src/user/category/check.rs
-// 用户 - port - 关注 - 检查
+// port/src/user/category/check.rs -- 端口 - USER - 分类 - 检查端口
 // 2026/8/5 21:58 Created.
 
 ////////
