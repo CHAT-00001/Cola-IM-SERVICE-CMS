@@ -5,7 +5,7 @@
 ////////
 
 use crate::pg_pool;
-use cola_data::cola_video::entity::recommend::recommend::VideoRecommendEntity;
+use cola_data::cola_video::entity::recommend::VideoRecommendEntity;
 use sqlx::{self, Postgres, QueryBuilder};
 
 ////////

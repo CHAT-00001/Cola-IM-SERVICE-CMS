@@ -31,6 +31,7 @@ impl VideoDanmakuAddPort for VideoDanmakuaddAdapter {
         uid: i64,            // UID
         video_id: i64,       // 视频 ID
         cmd: DanmakuCommand, // 命令
+        visibility: i16,     // 可见范围
     ) -> Result<(DanmakuInfo)> {
         todo!()
     }
@@ -44,6 +45,7 @@ impl VideoDanmakuAddPort for VideoDanmakuaddAdapter {
         uid: i64,            // UID
         danmaku_id: i64,     // 弹幕 ID
         cmd: DanmakuCommand, // 命令
+        visibility: i16,     // 可见范围
     ) -> Result<(DanmakuInfo)> {
         todo!()
     }

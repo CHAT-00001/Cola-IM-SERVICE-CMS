@@ -71,9 +71,11 @@ pub const USER_COLUMNS: &str = r#"
 
 /// # 2. [COLUMNS] - INSERT/RETURNING 用别名确保 COALESCE 不会在写入时报错
 pub const INSERT_RETURNING: &str = r#"
-    id, _id, user_type, user_nickname, avatar, bg_img,
-    signature, email, phone, birthday, status, perm_id, create_time,
-    login_ip, register_ip
+    id, _id, user_type, user_nickname, signature, avatar, avatar_thumb,
+    bg_img, email, phone, sns_url, birthday, last_login_time, sex, perm_id,
+    views, likes, fans, follows, level, author_level, lat, lng,
+    login_ip, register_ip, status, is_deleted, create_time, created_at,
+    updated_at, deleted_at, last_login_at, score, coin, user_status
 "#;
 
 //////// END

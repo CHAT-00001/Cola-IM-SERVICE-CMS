@@ -10,9 +10,10 @@ use cola_data::cola_user::command::user::update::UpdateUserCommand;
 use cola_data::cola_user::info::user::UserInfo;
 use port::app::ctx::AppContext;
 use tracing::info;
+
 ////////
 
-/// # [MANAGE] - 用户 贵宾 管理 用例
+/// # [MANAGE] - 用户贵宾管理用例
 pub struct UserVipManageCase;
 
 impl UserVipManageCase {
@@ -24,7 +25,7 @@ impl UserVipManageCase {
     /// * `desc` 返回用户资料
     pub async fn case_add_new(
         uid: i64,
-        cmd: UserCommand,
+        cmd: UpdateUserCommand,
         ctx: AppContext,
     ) -> Result<UserInfo, anyhow::Error> {
         // 1. 内容风控（标题 + 简介 联合过滤）
@@ -38,7 +39,7 @@ impl UserVipManageCase {
             .user
             .profile
             .add
-            .save_user(cmd)
+            .update_user(cmd)
             .await
             .map_err(|e| anyhow::anyhow!("CASE: 用户资料保存失败: {}", e))?;
 

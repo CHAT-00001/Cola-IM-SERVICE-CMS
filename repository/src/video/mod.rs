@@ -1,5 +1,4 @@
-// repository/src/cola_video/music.rs
-// 仓储 - 可乐视频 - 模块
+// repository/src/video/mod.rs -- 仓储 - VIDEO - mod
 // 2026-05-10 10:10
 
 ////////

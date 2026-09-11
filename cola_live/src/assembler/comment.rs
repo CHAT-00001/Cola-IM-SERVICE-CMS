@@ -1,4 +1,4 @@
-// cola_live/src/assembler/add  -- LIVE - 组装 - 评论响应体
+// cola_live/src/assembler/comment.rs  -- LIVE - 组装 - 评论响应体
 // 2026/06/05 09:50
 
 ////////
@@ -17,7 +17,7 @@ pub async fn build_comment_single_response(
     current_uid: Option<i64>,
 ) -> Result<CommentSingleResponse> {
     // 1. 静态调用：获取作者信息
-    let author = UserService::get_user_info_by_id(comment_info.uid).await?;
+    let author = UserService::get_user_info_by_id(comment_info.user_id).await?;
 
     // 2. 组装 VO (不再需要从 handler 转换，直接原地起飞)
     let comment_vo = CommentVo::from_info(
@@ -41,7 +41,7 @@ pub async fn build_comment_list_response(
     total: i64,
 ) -> Result<CommentListResponse> {
     // 1. 静态调用：从 infos 中提取 user_id 批量获取用户信息
-    let author_ids: Vec<i64> = infos.iter().map(|info| info.uid).collect();
+    let author_ids: Vec<i64> = infos.iter().map(|info| info.user_id).collect();
     let authors_map = UserService::get_user_info_by_ids(&author_ids).await?;
 
     // 2. 迭代组装
@@ -50,7 +50,7 @@ pub async fn build_comment_list_response(
         .map(|comment_info| {
             // 🚀 从 map 中拿取 author，没找到则默认兜底
             let author = authors_map
-                .get(&comment_info.uid)
+                .get(&comment_info.user_id)
                 .cloned()
                 .unwrap_or_default();
 

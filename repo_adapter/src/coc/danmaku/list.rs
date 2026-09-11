@@ -1,5 +1,4 @@
-// repo_adapter/src/cola_video/danmaku/list.rs
-// 🔌 适配器 - VIDEO - 弹幕 - 弹幕列表
+// repo_adapter/src/cola_video/danmaku/list.rs -- 适配器 - VIDEO - 弹幕 - 弹幕列表
 // 2026/8/6 18:56 Created.
 
 ////////
@@ -35,10 +34,11 @@ impl VideoDanmakuListPort for VideoDanmakuListAdapter {
 
     ////////
 
-    /// # 2. [ADAPTER] - 视频的
-    async fn get_danmaku_by_id(
+    /// # 2. [ADAPTER] - 用户的
+    async fn get_danmaku_by_user_id(
         &self,
         uid: i64,
+        user_id: i64,
         offset: i64,
         limit: i64,
     ) -> Result<(Vec<DanmakuInfo>, i64)> {

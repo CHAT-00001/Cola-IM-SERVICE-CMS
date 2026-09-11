@@ -1,15 +1,22 @@
-// repository/src/new/redis/visited.rs
+// repository/src/new/redis/visited.rs -- 浏览过的视频
 // 2026/6/8 23:03
 
 use app_config::DbService;
 use redis::AsyncCommands;
 
+
+/// # [CACHE] - 浏览过的视频
 #[derive(Clone)]
 pub struct VisitedCache {
     db: DbService,
 }
 
 impl VisitedCache {
+    //
+
+    ////////
+
+    /// # [CACHE] - 新增
     pub fn new(db: DbService) -> Self {
         Self { db }
     }
@@ -67,3 +74,5 @@ impl VisitedCache {
         format!("visited:user:{}", user_id)
     }
 }
+
+//////// END

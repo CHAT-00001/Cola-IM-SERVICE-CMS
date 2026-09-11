@@ -4,7 +4,7 @@
 ////////
 
 use crate::pg_pool;
-use cola_data::cola_video::entity::like::dislike::VideoDislikeEntity;
+use cola_data::cola_video::entity::danmaku::DanmakuEntity;
 use sqlx::{self, Postgres, QueryBuilder};
 
 ////////
@@ -27,7 +27,7 @@ impl VideoDanmakuManageRepo {
         status_code: i16,        // 状态码
         limit: i64,              // 数量
         offset: i64,             // 页码
-    ) -> Result<Vec<VideoDislikeEntity>, sqlx::Error> {
+    ) -> Result<Vec<DanmakuEntity>, sqlx::Error> {
         let pool = pg_pool();
 
         // 初始化 SQL 查询构建器，带上基础固定条件
@@ -69,7 +69,7 @@ impl VideoDanmakuManageRepo {
         query_builder.push_bind(offset);
 
         // 构建目标实体查询
-        let query = query_builder.build_query_as::<VideoDislikeEntity>();
+        let query = query_builder.build_query_as::<DanmakuEntity>();
 
         // 执行查询并加上错误日志打印
         query.fetch_all(&pool).await.map_err(|e| {

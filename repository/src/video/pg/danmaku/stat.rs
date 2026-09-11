@@ -8,8 +8,8 @@ use sqlx::{self, Postgres};
 
 ////////
 
-/// [STAT REPOSITORY] - 视频 弹幕统计 repository
-/// * `desc`: `统计数量`
+/// [STAT REPOSITORY] - 视频弹幕统计仓储
+/// * `desc`: `COLA VIDEO - Danmaku Stat Repo`
 pub struct VideoDanmakuStatRepo;
 
 impl VideoDanmakuStatRepo {
@@ -35,7 +35,7 @@ impl VideoDanmakuStatRepo {
                 tracing::error!(
                     error = ?e,
                     user_id = user_id,
-                    "[🤐 REPO] - ❌️ VideoDanmakuStatRepo::stat_count_by_user_id query failed"
+                    "[🤐 ADD REPO] - ❌️ VideoDanmakuStatRepo::stat_count_by_user_id query failed"
                 );
                 e
             })?;
@@ -63,7 +63,7 @@ impl VideoDanmakuStatRepo {
                 tracing::error!(
                     error = ?e,
                     video_id = video_id,
-                    "[🤐 REPO] - ❌️ VideoDanmakuStatRepo::stat_count_by_video_id query failed"
+                    "[🤐 ADD REPO] - ❌️ VideoDanmakuStatRepo::stat_count_by_video_id query failed"
                 );
                 e
             })?;

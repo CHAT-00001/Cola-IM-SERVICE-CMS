@@ -1,5 +1,4 @@
-// cola_data/src/user/command/user/add.rs
-// 数据 - 用户 - Command - 用户 - 发布
+// cola_data/src/user/command/user/add.rs -- 数据 - USER - Command - 用户 - 发布
 // 2026/5/22 16:35
 
 ////////

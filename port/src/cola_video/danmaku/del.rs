@@ -1,8 +1,5 @@
-// port/src/cola_video/danmaku/del.rs
-// ⏩️ 端口 - ▶ 可乐视频 - 弹幕 - 发布
+// port/src/cola_video/danmaku/del.rs -- 端口 - VIDEO - 弹幕 - 删除端口
 // 2026/8/5 01:49 Created.
-
-////////
 
 ////////
 
@@ -16,7 +13,7 @@ pub trait VideoDanmakuDelPort: Send + Sync {
 
     /// # 1. [PORT] - 单个软删除
     /// * `desc`: `用户单个软删除弹幕记录`
-    async fn single_soft_del_record(
+    async fn single_delete(
         &self,
         uid: i64,        // UID
         danmaku_id: i64, // 弹幕 ID
@@ -26,7 +23,7 @@ pub trait VideoDanmakuDelPort: Send + Sync {
 
     /// # 2. [PORT] - 保存
     /// * `desc`: `用户批量软删除弹幕记录`
-    async fn batch_soft_del_record(
+    async fn batch_delete(
         &self,
         uid: i64,              // UID
         danmaku_ids: Vec<i64>, // 弹幕 IDs

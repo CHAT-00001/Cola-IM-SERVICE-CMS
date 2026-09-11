@@ -1,5 +1,4 @@
-// data/src/cola_video/entity/file.rs
-// 数据 - ▶ VIDEO - entity - 评论表
+// cola_data/src/video/entity/comment.rs -- 数据 - VIDEO - entity - 评论表
 // 2026/1/16 09:37 Created.
 
 ////////
@@ -11,15 +10,14 @@ use uuid::{Uuid, uuid};
 
 ////////
 
-/// # [ENTITY] - 视频 评论表
+/// # [ENTITY] - 视频 - 评论记录表
 /// * `pg schema`: `cola_video` - PG 模式
 /// * `table name`: `comments` - 表名
-/// * `类型`: `1. 文字 2. 语音 3. 照片 4. 视频 5. 位置 7. 表情包 8. 红包 9. 转账 ...`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct VideoCommentEntity {
     pub id: i64,                           // ID (自增 / 雪花)
     pub _id: Option<String>,               // UUID v4
-    pub uid: i64,                          // 作者 ID
+    pub user_id: i64,                      // 作者 ID
     pub video_id: i64,                     // 视频 ID
     pub parent_id: Option<i64>,            // 父评论（可选）
     pub comment_type: i16,                 // 类型
@@ -39,7 +37,6 @@ pub struct VideoCommentEntity {
     pub is_pinned: Option<bool>,           // 是否置顶
     pub is_deleted: Option<bool>,          // 是否删除
     pub add_time: i64,                     // 添加时间（兼容旧版PHP）
-    pub upd_time: i64,                     // 更新时间（兼容旧版PHP）
     pub created_at: Option<DateTime<Utc>>, // 创建时间
     pub updated_at: Option<DateTime<Utc>>, // 更新时间
     pub deleted_at: Option<DateTime<Utc>>, // 删除时间 (软删除)
@@ -50,12 +47,12 @@ pub struct VideoCommentEntity {
 /// # [COLUMNS] - 数据表原始字段
 /// * `desc`: `给SQLx提供的表字段映射`
 pub const VIDEO_COMMENT_COLUMNS: &str = r#"
-    id, _id, uid, video_id,
+    id, _id, user_id, video_id,
     parent_id, comment_type,
     content, photos_url,video_url, voice_url, duration, media_ids,
     likes, dislikes, collects,reply, visibility, region_code,
     status, is_pinned, is_deleted,
-    add_time, upd_time,created_at, updated_at, deleted_at
+    add_time, created_at, updated_at, deleted_at
 "#;
 
 //////// END

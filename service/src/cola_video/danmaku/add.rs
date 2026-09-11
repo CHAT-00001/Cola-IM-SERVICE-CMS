@@ -14,6 +14,7 @@ use cola_data::cola_video::entity::video::video::VideoEntity;
 use cola_data::cola_video::info::comment::VideoCommentInfo;
 use cola_data::cola_video::info::danmaku::DanmakuInfo;
 use repository::cola_gis::pg::user::UserRepo;
+use repository::video::pg::danmaku::add::DanmakuAddRepo;
 use repository::video::pg::danmaku::danmaku::DanmakuRepo;
 use repository::video::pg::video::home::VideoRepo;
 use tracing::log;
@@ -40,7 +41,7 @@ impl VideoDanmakuAddService {
         visibility: i16,     // 风控可见性
     ) -> Result<DanmakuEntity, anyhow::Error> {
         // 调用底层仓储 - 保存视频并直接返回插入后的实体数据
-        let video_entity = DanmakuRepo::save_danmaku_by_video_id(uid, video_id, cmd, visibility)
+        let video_entity = DanmakuAddRepo::save_danmaku_by_video_id(uid, video_id, cmd, visibility)
             .await
             .map_err(|e| anyhow::anyhow!("[🔌 ADAPTER]: 💾 写入视频主表失败: {}", e))?;
 

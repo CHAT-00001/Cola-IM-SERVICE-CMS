@@ -17,8 +17,8 @@ pub trait UserAddPort: Send + Sync + 'static {
 
     ////////
 
-    /// # 1. [PORT] - 保存
-    async fn save_user(
+    /// # 1. [PORT] - 创建用户
+    async fn create_user(
         &self,
         cmd: UserCommand, // 命令
     ) -> anyhow::Result<(UserInfo)>;

@@ -4,7 +4,6 @@
 ////////
 
 use crate::pg_pool;
-use cola_data::cola_video::entity::like::dislike::VideoDislikeEntity;
 use cola_data::cola_video::entity::video::video::VideoEntity;
 use sqlx::{self, Postgres, QueryBuilder};
 ////////

@@ -1,5 +1,4 @@
-// cola_video/src/api/active
-// core - VIDEO - api - add 发布
+// cola_video/src/api/video/add.rs -- VIDEO - api - 视频内容 - 发布接口
 // 2026/4/12 14:45
 
 ////////
@@ -21,6 +20,8 @@ pub struct AddApi;
 
 // 构造函数
 impl AddApi {
+    //
+
     ////////
 
     /// # 1. [API HANDLER] - 发布视频

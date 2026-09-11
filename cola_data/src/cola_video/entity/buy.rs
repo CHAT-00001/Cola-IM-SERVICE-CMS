@@ -1,5 +1,4 @@
-// cola_data/src/cola_video/entity/buy.rs
-// 🗄️ 数据 - ▶ 可乐视频 - entity - buy - 购买
+// cola_data/src/cola_video/entity/buy.rs -- 数据 - VIDEO - entity - 购买记录表
 // 2026/8/3 00:17 Created.
 
 ////////
@@ -10,7 +9,7 @@ use sqlx::FromRow;
 
 ////////
 
-/// # [ENTITY] - 视频购买实体
+/// # [ENTITY] - 视频 购买记录表
 /// * `pg schema`: `cola_video`
 /// * `table name`: `buy`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
@@ -24,7 +23,7 @@ pub struct VideoBuyEntity {
     pub status: i16,                       // 状态：0失效 1有效
     pub add_time: i32,                     // 添加时间 (兼容旧版 PHP)
     pub is_deleted: Option<bool>,          // 是否删除: 默认false
-    pub created_at: Option<DateTime<Utc>>, // 创建时间
+    pub created_at: DateTime<Utc>,         // 创建时间
     pub updated_at: Option<DateTime<Utc>>, // 更新时间
     pub deleted_at: Option<DateTime<Utc>>, // 删除时间
 }

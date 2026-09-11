@@ -22,6 +22,8 @@ pub mod cola_video; // 短视频
 pub mod gateway; //  网关
 pub mod market; // 可乐市场
 pub mod music; // 音乐
-pub mod wallet; // 钱包
+pub mod wallet;
+pub mod common;
+// 钱包
 
 //////// END

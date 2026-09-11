@@ -25,9 +25,9 @@ impl UserProfileChangeCase {
     /// # 1. [CASE] - 昵称
     /// * `desc`: `修改用户资料昵称`
     pub async fn case_change_nickname(
-        uid: i64,
-        cmd: UserCommand,
-        ctx: AppContext,
+        uid: i64,               // 操作者 ID
+        cmd: UpdateUserCommand, // 更新命令
+        ctx: AppContext,        // 应用上下文
     ) -> Result<UserInfo, anyhow::Error> {
         // 1. 内容风控（标题 + 简介 联合过滤）
         let check_text = format!("{:?} {:?}", cmd.nickname, cmd.signature);
@@ -40,7 +40,7 @@ impl UserProfileChangeCase {
             .user
             .profile
             .add
-            .save_user(cmd)
+            .update_user(cmd)
             .await
             .map_err(|e| anyhow::anyhow!("[CASE]: ❌️ 用户资料保存失败: {}", e))?;
 

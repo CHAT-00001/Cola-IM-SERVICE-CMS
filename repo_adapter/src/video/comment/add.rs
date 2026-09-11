@@ -9,6 +9,7 @@ use async_trait::async_trait;
 use cola_data::cola_video::command::comment::CommentCommand;
 use cola_data::cola_video::info::comment::VideoCommentInfo;
 use port::cola_video::comment::add::VideoCommentAddPort;
+use service::cola_video::comment::add::VideoCommentAddService;
 
 ////////
 
@@ -25,7 +26,8 @@ impl VideoCommentAddPort for CommentAddPortAdapter {
         video_id: i64,
         cmd: CommentCommand,
     ) -> Result<(VideoCommentInfo)> {
-        todo!()
+        let entity = VideoCommentAddService::create_comment(uid, 5, cmd).await?;
+        Ok(entity)
     }
 
     async fn edit_comment(

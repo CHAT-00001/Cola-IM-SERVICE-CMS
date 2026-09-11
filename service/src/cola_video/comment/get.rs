@@ -26,7 +26,7 @@ impl CommentGetService {
         offset: i64,
         limit: i64,
     ) -> Result<Vec<VideoCommentInfo>, anyhow::Error> {
-        let entities = CommentRepo::find_new_comments_by_video_id(video_id, offset, limit).await?;
+        let entities = CommentRepo::find_new_comments_by_video_id(video_id, limit, offset).await?;
 
         // handler -> info
         let infos: Vec<VideoCommentInfo> = entities
@@ -46,7 +46,7 @@ impl CommentGetService {
         offset: i64,
         limit: i64,
     ) -> Result<Vec<VideoCommentInfo>, anyhow::Error> {
-        let entities = CommentRepo::find_comments_by_user_id(video_id, offset, limit).await?;
+        let entities = CommentRepo::find_comments_by_user_id(video_id, limit, offset).await?;
 
         // handler -> info
         let infos: Vec<VideoCommentInfo> = entities

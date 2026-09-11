@@ -1,5 +1,4 @@
-// data/src/cola_video/info/hotlist
-// 数据 - VIDEO - info - 评论
+// data/src/cola_video/info/comment.rs -- 数据 - VIDEO - info - 评论信息
 // 2026/5/21 00:58 Created.
 
 ////////
@@ -10,16 +9,16 @@ use serde::{Deserialize, Serialize};
 
 ////////
 
-/// # [INFO] - 视频 评论
-/// * `desc`: `安全的信息`
+/// # [INFO] - 视频 评论信息
+/// * `desc`: `从数据表实体转换来安全的信息 (缓存层)`
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct VideoCommentInfo {
     pub id: i64,                           // 评论 ID
     pub _id: Option<String>,               // UUID v4
-    pub uid: i64,                          // 用户 ID
+    pub user_id: i64,                      // 用户 ID
     pub video_id: i64,                     // 视频 ID
     pub parent_id: Option<i64>,            // 父评论 ID（可选）
-    pub comment_type: i16,                 // 类型 (1. 文字 2. 语音 3. 照片 4. 视频等)
+    pub message_type: i16,                 // 类型 (1. 文字 2. 语音 3. 照片 4. 视频等)
     pub content: String,                   // 内容
     pub photos_url: Option<String>,        // 照片 url
     pub video_url: Option<String>,         // 视频 url
@@ -49,10 +48,10 @@ impl VideoCommentInfo {
         Self {
             id: 0,
             _id: None,
-            uid: 0,
+            user_id: 0,
             video_id: 0,
             parent_id: None,
-            comment_type: 1,
+            message_type: 1,
             content: "评论不存在或已被删除".to_string(),
             photos_url: None,
             video_url: None,
@@ -79,10 +78,10 @@ impl VideoCommentInfo {
         Self {
             id: entity.id,
             _id: entity._id,
-            uid: entity.uid,
+            user_id: entity.user_id,
             video_id: entity.video_id,
             parent_id: entity.parent_id,
-            comment_type: entity.comment_type,
+            message_type: entity.comment_type,
             content: entity.content,
             photos_url: entity.photos_url,
             video_url: entity.video_url,

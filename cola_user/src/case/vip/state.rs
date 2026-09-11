@@ -40,7 +40,7 @@ impl UserVipStateCase {
         let user_info = ctx
             .user
             .add
-            .save_user(cmd)
+            .create_user(cmd)
             .await
             .map_err(|e| anyhow::anyhow!("CASE: 用户资料保存失败: {}", e))?;
 

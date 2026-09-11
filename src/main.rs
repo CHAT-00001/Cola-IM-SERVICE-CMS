@@ -14,6 +14,7 @@ mod app;
 /// * `desc`: `主引擎`
 #[tokio::main]
 async fn main() {
+
     // 初始化全局日志
     let filter = EnvFilter::new("info,short-cola_live = debug");
     tracing_subscriber::fmt().with_env_filter(filter).init();

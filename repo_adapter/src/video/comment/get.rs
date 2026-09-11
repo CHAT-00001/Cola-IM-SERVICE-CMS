@@ -8,6 +8,7 @@ use anyhow::Result;
 use async_trait::async_trait;
 use cola_data::cola_video::info::comment::VideoCommentInfo;
 use port::cola_video::comment::get::VideoCommentGetPort;
+use service::cola_video::comment::get::CommentGetService;
 
 ////////
 
@@ -24,7 +25,7 @@ impl VideoCommentGetPort for VideoCommentGetAdapter {
         limit: i64,
         offset: i64,
     ) -> Result<(Vec<VideoCommentInfo>)> {
-        todo!()
+        CommentGetService::get_comments_by_user_id(user_id, offset, limit).await
     }
 
     async fn get_comment_by_video(
@@ -33,6 +34,6 @@ impl VideoCommentGetPort for VideoCommentGetAdapter {
         limit: i64,
         offset: i64,
     ) -> Result<(Vec<VideoCommentInfo>)> {
-        todo!()
+        CommentGetService::get_comments_by_video_id(video_id, offset, limit).await
     }
 }

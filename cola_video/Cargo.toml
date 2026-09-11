@@ -8,6 +8,7 @@ edition = "2024"
 
 [dependencies]
 #### 内部依赖
+app_config = { path = "../app" }
 kits = { path = "../kits" }
 network = { path = "../network" }
 cola_data = { path = "../cola_data" }
@@ -30,6 +31,7 @@ futures-util = "0.3.31"
 # 自动验证
 validator = { version = "0.20.0", features = ["derive"] }
 ipnetwork = "0.20.0"
+snowflake = { version = "1.3.0"}
 
 
 

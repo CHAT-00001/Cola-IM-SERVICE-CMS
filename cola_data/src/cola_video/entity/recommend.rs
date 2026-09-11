@@ -1,4 +1,4 @@
-// cola_data/src/video/entity/recommend/hotlist.rs -- 数据 - VIDEO - entity - 推荐 - 记录表
+// cola_data/src/video/entity/recommend.rs -- 数据 - VIDEO - entity - 推荐记录表
 // 2026/8/2 14:00 Created.
 
 ////////
@@ -9,20 +9,20 @@ use sqlx::FromRow;
 
 ////////
 
-/// # [ENTITY] - 视频 - 推荐表
+/// # [ENTITY] - 视频 - 推荐记录表
 /// * `pg schema`: `cola_video`
-/// * `table name`: `recommend_`
+/// * `table name`: `recommend`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct VideoRecommendEntity {
-    pub id: i64,                           // ID
-    pub uid: i64,                          // 谁推荐的
-    pub video_id: i64,                     // 推荐了哪个视频
-    pub remark: Option<String>,            // 备注
+    pub id: i64,                           // ID (自增 / 雪花)
+    pub user_id: i64,                      // 用户 ID
+    pub video_id: i64,                     // 视频 ID
+    pub remark: Option<String>,            // 备注 (可选)
     pub status: i16,                       // 状态码: 0失效 1有效
-    pub is_deleted: bool,                  // 是否删除: 默认false
-    pub add_time: i64,                     // 添加时间(时间戳)
+    pub is_deleted: Option<bool>,          // 逻辑删除
+    pub add_time: i64,                     // 添加时间(兼容旧版)
     pub created_at: DateTime<Utc>,         // 创建时间
-    pub updated_at: DateTime<Utc>,         // 更新时间
+    pub updated_at: Option<DateTime<Utc>>, // 更新时间
     pub deleted_at: Option<DateTime<Utc>>, // 删除时间
 }
 
@@ -30,7 +30,7 @@ pub struct VideoRecommendEntity {
 
 /// # [CONSTANT] - 推荐记录表字段常量定义
 pub const VIDEO_RECOMMEND_COLUMNS: &str = "\
-    id, uid, video_id, remark, \
+    id, user_id, video_id, remark, \
     status, is_deleted, \
     add_time, created_at, updated_at, deleted_at\
     ";

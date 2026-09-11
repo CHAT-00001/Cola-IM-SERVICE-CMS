@@ -96,7 +96,7 @@ impl WalletPointRepo {
                 FOR UPDATE
                 "#,
             )
-            .bind(initial_points)
+            .bind(cmd.user_id)
             .bind(currency_id)
             .fetch_one(&mut *tx)
             .await

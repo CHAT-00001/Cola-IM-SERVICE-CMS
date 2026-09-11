@@ -1,5 +1,4 @@
-// repository/src/user/pg/user/add.rs
-// 仓储 - 可乐用户 - pg - 用户 - 发布仓储
+// repository/src/user/pg/user/add.rs -- 仓储 - USER - pg - 用户 - 发布仓储
 // 2026/6/9 09:20 Created.
 
 ////////
@@ -21,9 +20,9 @@ impl UserAddRepo {
 
     ////////
 
-    /// # 1. [REPOSITORY] - 保存用户
-    /// * `desc`: 保存用户并返回实体
-    pub async fn save_user(entity: UserEntity) -> Result<UserEntity, anyhow::Error> {
+    /// # 1. [REPOSITORY] - 创建用户
+    /// * `desc`: 创建用户并返回实体
+    pub async fn create_user(entity: UserEntity) -> Result<UserEntity, anyhow::Error> {
         let pool = pg_pool();
 
         // INSERT 包含 login_ip / register_ip，确保数据库 NOT NULL 不报错

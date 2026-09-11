@@ -1,5 +1,4 @@
-// port/src/cola_video/buy/mod.rs
-// ⏩️ 端口 - ▶ 可乐视频 - 购买 - music
+// port/src/cola_video/buy/mod.rs -- 端口 - VIDEO - 购买 - mod
 // 2026/8/5 15:53 Created.
 
 ////////
@@ -27,8 +26,8 @@ pub mod stat;
 
 ////////
 
-/// # [BUY PORTS]
-/// * `desc`: `▶ 可乐视频 - 视频购买 Ports`
+/// # [VIDEO BUY PORTS]
+/// * `desc`: `COLA VIDEO - 视频购买 Ports`
 #[derive(Clone)]
 pub struct VideoBuyPort {
     pub add: Arc<dyn VideoBuyAddPort + Send + Sync + 'static>, // 发布

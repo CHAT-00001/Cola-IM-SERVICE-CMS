@@ -1,14 +1,18 @@
-// gate_http/router_v2/video/gateway.rs
+// gate_http/router_v2/video/gateway.rs -- HTTP网关 - VIDEO - 网关
 // 2026/6/13 10:21
 
 ////////
 
 use crate::kits::response::IntoApi;
 use crate::ping::ping;
-use actix_web::{HttpMessage, HttpRequest, HttpResponse, Responder, web};
+use actix_web::{HttpMessage, HttpRequest, Responder, web};
 use app_config::app_state::AppState;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
+use cola_video::api::comment::add::CommentAddApi;
+use cola_video::api::comment::get::CommentGetApi;
+use cola_video::api::danmaku::add::DanmakuAddApi;
+use cola_video::api::danmaku::get::DanmakuGetApi;
 use cola_video::api::video::home::HomeApi;
 use std::time::Instant;
 
@@ -61,12 +65,8 @@ pub async fn video_gateway(
                 .finish(&req, start);
             }
         };
-        // 兼容 Body 直接传网关参数，以及统一协议的 { "cmd": { ... } } 包装格式。
-        let request_value = body_value
-            .get("cmd")
-            .cloned()
-            .unwrap_or_else(|| body_value.clone());
-        let mut body_req: ApiGatewayRequest = match serde_json::from_value(request_value) {
+        // Body 负责覆盖 URL 参数；完整 Body 继续透传给 API，用于解析业务 cmd。
+        let mut body_req: ApiGatewayRequest = match serde_json::from_value(body_value.clone()) {
             Ok(value) => value,
             Err(error) => {
                 return AppData::<()>::err(
@@ -161,6 +161,31 @@ pub async fn video_gateway(
             AppData::ok(data).finish(&req, start)
         }
 
+        //////// 评论
+
+        // 发送评论
+        "send_comment" => CommentAddApi::add_comment(auth.clone(), api_req.clone(), &state.ctx)
+            .await
+            .finish(&req, start),
+
+        // 获取评论
+        "get_comment" => CommentGetApi::get_comment(auth.clone(), api_req.clone(), &state.ctx)
+            .await
+            .finish(&req, start),
+
+        //////// 弹幕
+
+        // 发送弹幕
+        "send_danmaku" => DanmakuAddApi::add_danmaku(auth.clone(), api_req.clone(), &state.ctx)
+            .await
+            .finish(&req, start),
+
+        // 获取弹幕
+        "get_danmaku" => DanmakuGetApi::get_danmaku(auth.clone(), api_req.clone(), &state.ctx)
+            .await
+            .finish(&req, start),
+
+        //////// (测试接口)
         "publish_comment" => {
             // 发布评论接口转发
             let data = serde_json::json!({

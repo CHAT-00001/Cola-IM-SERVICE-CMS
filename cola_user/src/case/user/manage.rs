@@ -25,7 +25,7 @@ impl UserManageCase {
     /// * `desc` 返回用户资料
     pub async fn case_add_new(
         uid: i64,
-        cmd: UserCommand,
+        cmd: UpdateUserCommand,
         ctx: AppContext,
     ) -> Result<UserInfo, anyhow::Error> {
         // 1. 内容风控（标题 + 简介 联合过滤）
@@ -39,7 +39,7 @@ impl UserManageCase {
             .user
             .profile
             .add
-            .save_user(cmd)
+            .update_user(cmd)
             .await
             .map_err(|e| anyhow::anyhow!("[🤐 CASE]: ❌️ 用户资料保存失败: {}", e))?;
 

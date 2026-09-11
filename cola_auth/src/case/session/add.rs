@@ -60,19 +60,33 @@ impl AuthAddCase {
                 // 5. 未命中身份时，使用现有 UserAddPort 创建用户主体
                 let mut user_cmd = UserCommand::new_with_phone(phone.clone());
                 user_cmd.last_login_ip = Some(cmd.client_ip.clone());
-                let user_info = ctx.user.profile.add.save_user(user_cmd).await?;
+                let user_info = ctx.user.profile.add.create_user(user_cmd).await?;
 
                 // 6. 将手机号和新用户ID写入 AUTH identity
                 ctx.auth.identity.bind_phone(user_info.id, &phone).await?;
 
                 // 7. 初始化 Wallet POINT 账户；初始赠送积分按当前配置执行
-                ctx.wallet
+                if let Err(error) = ctx
+                    .wallet
                     .point
                     .init_point_account(WalletPointInitCommand::new(user_info.id, 0))
-                    .await?;
+                    .await
+                {
+                    log::error!(
+                        "[🤐 AUTH CASE] - ❌️ POINT账户初始化失败，继续完成登录: user_id={}, error={:?}",
+                        user_info.id,
+                        error
+                    );
+                }
 
                 // 8. 初始化 LIVE 用户资料：等级1，经验0
-                ctx.live.user.init_live_user(user_info.id).await?;
+                if let Err(error) = ctx.live.user.init_live_user(user_info.id).await {
+                    log::error!(
+                        "[🤐 AUTH CASE] - ❌️ LIVE用户初始化失败，继续完成登录: user_id={}, error={:?}",
+                        user_info.id,
+                        error
+                    );
+                }
 
                 (user_info, true)
             }

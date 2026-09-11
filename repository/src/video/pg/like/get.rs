@@ -5,15 +5,18 @@
 ////////
 
 use crate::pg_pool;
-use cola_data::cola_video::entity::like::dislike::VideoDislikeEntity;
+use cola_data::cola_video::entity::dislike::VideoDislikeEntity;
 use cola_data::cola_video::entity::like::like::VideoLikeEntity;
 use sqlx::{self, Postgres};
+
 ////////
 
 /// [GET REPOSITORY] - 视频 点赞/不喜欢 获取 仓储
 pub struct VideoLikeGetRepo;
 
 impl VideoLikeGetRepo {
+    //
+
     ////////
 
     /// # 1. [REPOSITORY] - 统计某个视频的点赞总数

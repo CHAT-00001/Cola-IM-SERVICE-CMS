@@ -7,6 +7,9 @@ pub mod add; // 发布
 pub mod clean; // 清除
 pub mod danmaku; // 弹幕
 pub mod del; // 删除
+pub mod dislike; // 不喜欢
 pub mod get; // 获取
+pub mod like; // 点赞
+pub mod list; // 列表
 pub mod manage; // 管理
 pub mod stat; // 统计

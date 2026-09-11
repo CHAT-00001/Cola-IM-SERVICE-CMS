@@ -1,6 +1,5 @@
-// cola_data/src/cola_coc/entity/report/record.rs -- 数据 - COC - entity - 举报 - 举报记录
+// cola_data/src/cola_coc/entity/report/record.rs -- 数据 - COC - entity - 举报 - 举报记录表
 // 2026/9/1 05:05 Created.
-// 2026/9/1 Updated: 强化审核原因与处理结果回执字段
 
 ////////
 
@@ -14,7 +13,7 @@ use sqlx::FromRow;
 /// * `pg schema`: `cola_coc` -- PG模式
 /// * `table name`: `report_record` -- 表名
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
-pub struct CocReportRecord {
+pub struct CocReportEntity {
     pub id: i64,                           // 检举 ID
     pub uid: i64,                          // 用户 ID (举报人)
     pub app_id: i16,                       // 应用 ID
@@ -27,7 +26,7 @@ pub struct CocReportRecord {
     pub handle_result: Option<String>,     // 处理结果回执 (例如：已下架、已警告、驳回等处理详情)
     pub is_deleted: Option<bool>,          // 逻辑删除
     pub created_at: DateTime<Utc>,         // 创建时间
-    pub updated_at: DateTime<Utc>,         // 更新时间
+    pub updated_at: Option<DateTime<Utc>>, // 更新时间
     pub deleted_at: Option<DateTime<Utc>>, // 逻辑删除时间
 }
 

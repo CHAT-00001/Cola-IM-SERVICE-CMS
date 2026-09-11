@@ -1,0 +1,13 @@
+{
+    "name": "danmaku",
+    "service": "delete_danmaku",
+    "id": 1000001841,
+    "anth": {
+        "access_token": "aaaa",
+        "refresh_token": "bbbb"
+    },
+    "cmd": {
+        "danmaku_id": 1000001841,
+        "status": 1
+    }
+}

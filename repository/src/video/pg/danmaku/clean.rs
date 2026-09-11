@@ -8,7 +8,8 @@ use sqlx::{self, PgPool};
 
 ////////
 
-/// # [CLEAN REPOSITORY] - 视频 弹幕 清除 仓储
+/// # [CLEAN REPOSITORY] - 视频弹幕清除仓储
+/// * `DESC`: `COLA VIDEO - DANMAKU CLEAN REPOSITORY`
 pub struct VideoDanmakuCleanRepo;
 
 // 构造函数

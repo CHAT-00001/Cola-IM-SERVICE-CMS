@@ -1,10 +1,11 @@
-// src/app.rs
+// src/app.rs -- 根 - APP运行启动器
 // 2025-11-45 09:40
 
 ////////
 
 use app_config::config::config_loader::load_config;
 use app_config::{app_state::AppState, db_service::DbService};
+use cola_data::common::kits::snow; // 雪花 ID
 use gate_grpc::start_gateway;
 use gate_http::start_api;
 use health::start_health;
@@ -45,6 +46,10 @@ pub async fn run() {
 
     // 实例化 AppState，传入 db_service 和 ctx
     let app_state = AppState::new(db_service, ctx);
+
+    // 初始化雪花ID node
+    //snow::init_snowflake(1); // worker_id 根据部署节点分配
+
     // ----------------------------
 
     // 启动 API

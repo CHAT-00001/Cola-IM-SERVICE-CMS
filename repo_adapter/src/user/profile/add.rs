@@ -9,6 +9,8 @@ use cola_data::cola_user::command::user::update::UpdateUserCommand;
 use cola_data::cola_user::info::user::UserInfo;
 use port::cola_user::profile::add::UserAddPort;
 use repository::user::pg::user::add::UserAddRepo;
+use repository::user::redis::profile::UserProfileCache;
+use tracing::warn;
 
 ////////
 
@@ -23,26 +25,32 @@ impl UserAddPort for UserAddAdapter {
 
     ////////
 
-    /// # 1. [SERVICE] - 保存
-    /// * `desc`: `保存新用户记录`
-    async fn save_user(
+    /// # 1. [ADAPTER] - 创建用户
+    /// * `desc`: `PG 创建成功后回填用户资料缓存，缓存失败不影响主流程`
+    async fn create_user(
         &self,
         cmd: UserCommand, // 命令
     ) -> anyhow::Result<(UserInfo)> {
-        // 1. Call ..
         let entity = cmd.new();
 
-        // 2. Call ..
-        let saved = UserAddRepo::save_user(entity)
+        let saved = UserAddRepo::create_user(entity)
             .await
-            .map_err(|e| anyhow::anyhow!("[🤐 USER ADD ADAPTER]: ❌️ 保存用户失败: {}", e))?;
+            .map_err(|e| anyhow::anyhow!("[🤐 USER ADD ADAPTER]: ❌️ 创建用户失败: {}", e))?;
+        let user_info: UserInfo = saved.into();
 
-        Ok(saved.into())
+        if let Err(error) = UserProfileCache::set_user_info(&user_info).await {
+            warn!(
+                "[🤐 USER ADD ADAPTER] - ❌️ 新用户资料缓存回填失败: user_id={}, error={}",
+                user_info.id, error
+            );
+        }
+
+        Ok(user_info)
     }
 
     async fn update_user(&self, cmd: UpdateUserCommand) -> anyhow::Result<(UserInfo)> {
         let entity = cmd.to_entity(0);
-        let saved = UserAddRepo::save_user(entity)
+        let saved = UserAddRepo::create_user(entity)
             .await
             .map_err(|e| anyhow::anyhow!("[🤐 USER UPDATE ADAPTER]: ❌️ 更新用户失败: {}", e))?;
 

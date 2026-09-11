@@ -1,4 +1,4 @@
-// repository/src/pg/danmaku/danmaku.rs  -- 弹幕仓储
+// repository/src/video/pg/danmaku/danmaku.rs  -- 仓储 - VIDEO - PG - 弹幕 - 弹幕仓储
 // 2026/6/8 16:57
 
 ////////
@@ -54,7 +54,7 @@ impl DanmakuRepo {
 
         let query = format!(
             "SELECT {}
-         FROM video_danmaku
+         FROM cola_video.danmaku
          WHERE video_id = $1
            AND status = 1
            AND visibility >= 5
@@ -82,15 +82,15 @@ impl DanmakuRepo {
     /// * `offset`: 分页偏移量
     /// * 返回全部
     pub async fn find_danmaku_by_user_id(
-        user_id: i64,
-        limit: i64,
-        offset: i64,
+        user_id: i64, // 用户 ID
+        limit: i64,   // 数量
+        offset: i64,  // 页码
     ) -> Result<Vec<DanmakuEntity>, sqlx::Error> {
         let pool = pg_pool();
 
         let query = format!(
             "SELECT {}
-         FROM video_danmaku
+         FROM cola_video.danmaku
          WHERE user_id = $1
            AND status = 1
          ORDER BY play_time ASC, created_at DESC
@@ -119,7 +119,7 @@ impl DanmakuRepo {
         let pool = pg_pool();
 
         // 1. 构建基础 SQL 和参数列表
-        let mut sql = format!("SELECT {} FROM new WHERE status = 1", VIDEO_DANMAKU_COLUMNS);
+        let mut sql = format!("SELECT {} FROM cola_video.danmaku WHERE status = 1", VIDEO_DANMAKU_COLUMNS);
 
         // 2. 动态拼接条件
         if let Some(ref ids) = uids {
@@ -165,7 +165,7 @@ impl DanmakuRepo {
 
         let query = format!(
             "SELECT {}
-         FROM video_danmaku
+         FROM cola_video.danmaku
          WHERE video_id = $1
            AND status = 1
            AND visibility = 1
@@ -227,7 +227,7 @@ impl DanmakuRepo {
 
         let query = format!(
             "SELECT {}
-         FROM video_danmaku
+         FROM cola_video.danmaku
          WHERE user_id = $1
            AND status = 1
          ORDER BY created_at DESC, likes DESC
@@ -362,35 +362,6 @@ impl DanmakuRepo {
             .await
     }
 
-    ////////
-
-    /// # 10. [REPOSITORY] - 保存弹幕
-    /// * params: video_id
-    pub async fn save_danmaku_by_video_id(
-        uid: i64,
-        video_id: i64, // 视频 ID
-        cmd: DanmakuCommand,
-        visibility: i16,
-    ) -> Result<DanmakuEntity, sqlx::Error> {
-        let pool = pg_pool();
-
-        let query = format!(
-            "INSERT INTO video_danmaku (user_id, video_id, content, play_time, color, visibility, status) \
-         VALUES ($1, $2, $3, $4, $5, $6, 1) \
-         RETURNING {}",
-            VIDEO_DANMAKU_COLUMNS
-        );
-
-        sqlx::query_as::<_, DanmakuEntity>(&query)
-            .bind(uid)
-            .bind(video_id) // 👈 绑定 video_id
-            .bind(cmd.content)
-            .bind(cmd.play_time)
-            .bind(cmd.color)
-            .bind(visibility)
-            .fetch_one(&pool)
-            .await
-    }
 
     ////////
 
@@ -403,7 +374,7 @@ impl DanmakuRepo {
         let pool = pg_pool();
 
         // 删除指定视频下的所有弹幕
-        let query = "DELETE FROM video_danmaku WHERE video_id = $1";
+        let query = "DELETE FROM cola_video.danmaku WHERE video_id = $1";
 
         let result = sqlx::query(query).bind(video_id).execute(&pool).await?;
 
@@ -419,7 +390,7 @@ impl DanmakuRepo {
         let pool = pg_pool();
 
         // 删除指定视频下的所有弹幕
-        let query = "DELETE FROM video_danmaku WHERE id = $1";
+        let query = "DELETE FROM cola_video.danmaku WHERE id = $1";
 
         let result = sqlx::query(query).bind(danmaku_id).execute(&pool).await?;
 
@@ -438,7 +409,7 @@ impl DanmakuRepo {
         let pool = pg_pool();
 
         // 删除指定视频下的所有弹幕
-        let query = "DELETE FROM video_danmaku WHERE user_id = $1";
+        let query = "DELETE FROM cola_video.danmaku WHERE user_id = $1";
 
         let result = sqlx::query(query).bind(user_id).execute(&pool).await?;
 
@@ -458,7 +429,7 @@ impl DanmakuRepo {
 
         // 1. 检查用户是否已点赞该弹幕
         let exists: Option<bool> = sqlx::query_scalar(
-            "SELECT EXISTS(SELECT 1 FROM video_danmaku_like WHERE user_id = $1 AND danmaku_id = $2)"
+            "SELECT EXISTS(SELECT 1 FROM cola_video.danmaku_like WHERE user_id = $1 AND danmaku_id = $2)"
         )
             .bind(user_id)
             .bind(danmaku_id)
@@ -467,25 +438,29 @@ impl DanmakuRepo {
 
         let delta = if exists == Some(true) {
             // 已点赞：取消点赞（删除记录）
-            sqlx::query("DELETE FROM video_danmaku_like WHERE user_id = $1 AND danmaku_id = $2")
-                .bind(user_id)
-                .bind(danmaku_id)
-                .execute(&mut *tx)
-                .await?;
+            sqlx::query(
+                "DELETE FROM cola_video.danmaku_like WHERE user_id = $1 AND danmaku_id = $2",
+            )
+            .bind(user_id)
+            .bind(danmaku_id)
+            .execute(&mut *tx)
+            .await?;
             -1
         } else {
             // 未点赞：添加点赞记录
-            sqlx::query("INSERT INTO video_danmaku_like (user_id, danmaku_id) VALUES ($1, $2)")
-                .bind(user_id)
-                .bind(danmaku_id)
-                .execute(&mut *tx)
-                .await?;
+            sqlx::query(
+                "INSERT INTO cola_video.danmaku_like (user_id, danmaku_id) VALUES ($1, $2)",
+            )
+            .bind(user_id)
+            .bind(danmaku_id)
+            .execute(&mut *tx)
+            .await?;
             1
         };
 
         // 2. 更新弹幕表的点赞数字段
         let likes: i64 = sqlx::query_scalar(
-            "UPDATE video_danmaku
+            "UPDATE cola_video.danmaku
          SET likes = GREATEST(likes + $1, 0),
              updated_at = NOW()
          WHERE id = $2
@@ -519,7 +494,7 @@ impl DanmakuRepo {
         // 使用 ANY 数组查询
         let query = r#"
         SELECT danmaku_id, true as is_liked
-        FROM video_danmaku_like
+        FROM cola_video.danmaku_like
         WHERE user_id = $1 AND danmaku_id = ANY($2)
     "#;
 

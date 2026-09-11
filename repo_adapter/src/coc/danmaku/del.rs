@@ -25,7 +25,7 @@ impl VideoDanmakuDelPort for VideoDanmakuDelAdapter {
     ////////
 
     /// # 1. [ADAPTER] - 单个
-    async fn single_soft_del_record(
+    async fn single_delete(
         &self,
         uid: i64,        // UID
         danmaku_id: i64, // 弹幕 ID
@@ -36,7 +36,7 @@ impl VideoDanmakuDelPort for VideoDanmakuDelAdapter {
     ////////
 
     /// # 2. [ADAPTER] - 批量
-    async fn batch_soft_del_record(
+    async fn batch_delete(
         &self,
         uid: i64,
         danmaku_ids: Vec<i64>, // 弹幕 IDs

@@ -12,7 +12,7 @@ pub mod app_state;
 pub mod config;
 pub mod db;
 pub mod db_service;
-mod kits;
+pub mod kits;
 
 ////////
 

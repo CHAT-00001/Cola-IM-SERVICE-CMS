@@ -59,7 +59,7 @@ impl UserStateService {
         let entity = cmd.new();
 
         // 3. 入库
-        let saved_entity = UserAddRepo::save_user(entity).await?;
+        let saved_entity = UserAddRepo::create_user(entity).await?;
 
         // 4. 返回新用户信息，is_new_user 为 true
         Ok((saved_entity.into(), true))
@@ -81,7 +81,7 @@ impl UserStateService {
         let entity = cmd.new();
 
         // 3. 入库
-        let saved_entity = UserAddRepo::save_user(entity).await?;
+        let saved_entity = UserAddRepo::create_user(entity).await?;
 
         // 4. 返回新用户信息，is_new_user 为 true
         Ok((saved_entity.into(), true))

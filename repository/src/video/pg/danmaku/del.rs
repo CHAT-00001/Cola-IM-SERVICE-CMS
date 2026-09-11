@@ -9,8 +9,8 @@ use sqlx::{self, Postgres};
 
 ////////
 
-/// # [MANAGE REPOSITORY] - 软删除
-/// * `desc`: `▶ 可乐视频 - 👤 弹幕软删除仓储`
+/// # [DELETE REPOSITORY] - 视频弹幕删除仓储
+/// * `desc`: `COLA VIDEO - DELETE DANMAKU REPOSITORY`
 pub struct VideoDanmakuDelRepo;
 
 // 构造实现
@@ -20,8 +20,7 @@ impl VideoDanmakuDelRepo {
     ////////
 
     /// # 1. [REPOSITORY] - 视频的
-    /// * `uid`: 用户 ID
-    /// * `condition`: `▶ 视频被删除时 - 🔄 同步删除TA的弹幕记录`
+    /// * `desc`: `COLA VIDEO - 根据视频ID - 删除弹幕记录`
     pub async fn soft_delete_danmakus_by_video_id(
         video_id: i64, // 视频 ID
     ) -> Result<u64, sqlx::Error> {
@@ -53,8 +52,7 @@ impl VideoDanmakuDelRepo {
     ////////
 
     /// # 2. [REPOSITORY] - 用户的
-    /// * `uid`: 用户 ID
-    /// * `condition`: `🗣 用户被删除时 - 🔄 同步删除TA的弹幕记录`
+    /// * `desc`: `COLA VIDEO - 根据用户ID - 删除用户的弹幕`
     pub async fn soft_delete_danmakus_by_user_id(
         user_id: i64, // 用户 ID
     ) -> Result<u64, sqlx::Error> {
@@ -85,9 +83,9 @@ impl VideoDanmakuDelRepo {
 
     ////////
 
-    /// # 3. [REPOSITORY] - 单条软删除
+    /// # 3. [REPOSITORY] - 单条逻辑删除
     /// * `desc`: `单条软删除弹幕记录`
-    pub async fn soft_delete_danmakus_by_id(danmaku_id: i64) -> Result<u64, sqlx::Error> {
+    pub async fn single_delete_danmakus_by_id(danmaku_id: i64) -> Result<u64, sqlx::Error> {
         let pool = pg_pool();
         let now = chrono::Utc::now();
         let datetime = now.naive_utc();
@@ -115,9 +113,9 @@ impl VideoDanmakuDelRepo {
 
     ////////
 
-    /// # 4. [REPOSITORY] - 批量软删除
+    /// # 4. [REPOSITORY] - 批量逻辑删除
     /// * `desc`: `批量软删除弹幕记录`
-    pub async fn batch_soft_delete_danmaku_by_ids(
+    pub async fn batch_delete_danmaku_by_ids(
         danmaku_ids: &[i64], // 弹幕 IDs
     ) -> Result<u64, sqlx::Error> {
         if danmaku_ids.is_empty() {

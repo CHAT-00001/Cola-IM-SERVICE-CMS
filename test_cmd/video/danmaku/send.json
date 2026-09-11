@@ -1,0 +1,19 @@
+{
+    "name": "danmaku",
+    "service": "send_danmaku",
+    "id": 1000001841,
+    "anth": {
+        "access_token": "aaaa",
+        "refresh_token": "bbbb"
+    },
+    "cmd": {
+        "video_id": 1000001841,
+        "content": "测试弹幕",
+        "play_time": 1000,
+        "duration": 5000,
+        "mode": 0,
+        "channel_id": 1,
+        "color": "#FFFFFF",
+        "status": 1
+    }
+}

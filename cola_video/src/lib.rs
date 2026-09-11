@@ -1,5 +1,4 @@
-// cola_video/src/lib.rs
-// 视频 - lib
+// cola_video/src/lib.rs -- 视频 - lib
 // 2026-02-07 12:53:47
 
 ////////
