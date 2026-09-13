@@ -81,7 +81,7 @@ impl VideoCommentInfo {
             user_id: entity.user_id,
             video_id: entity.video_id,
             parent_id: entity.parent_id,
-            message_type: entity.comment_type,
+            message_type: entity.message_type,
             content: entity.content,
             photos_url: entity.photos_url,
             video_url: entity.video_url,

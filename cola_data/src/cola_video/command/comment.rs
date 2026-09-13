@@ -49,15 +49,16 @@ impl TryFrom<i16> for MessageType {
 /// * `desc`: `消息类型: 1 文字 2 图像 3 语音 4 视频 5 livephoto 6 位置 7 文件 8 转账...`
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct CommentCommand {
-    pub user_id: i64,                      // 用户 ID
-    pub video_id: i64,                     // 视频 ID
-    pub parent_id: Option<i64>,            // 父评论 ID
-    pub message_type: i16,                 // 消息类型 (1..10)
-    pub content: String,                   // 内容
-    pub media_ids: Option<Vec<i64>>,       // 关联的媒体文件 (可选，因为有时评论不带)
-    pub photos_url: Option<String>,        // 照片 URL (老系统兼容，逗号分隔)
-    pub video_url: Option<String>,         // 视频 URL (老系统兼容，逗号分隔)
-    pub voice_url: Option<String>,         // 语音 URL (老系统兼容，逗号分隔)
+    pub _id: Option<String>,         // 客户端 UUID v4（用于防重）
+    pub user_id: i64,                // 用户 ID
+    pub video_id: i64,               // 视频 ID
+    pub parent_id: Option<i64>,      // 父评论 ID
+    pub message_type: i16,           // 消息类型 (1..10)
+    pub content: String,             // 内容
+    pub media_ids: Option<Vec<i64>>, // 关联的媒体文件 (可选，因为有时评论不带)
+    pub photos_url: Option<String>,  // 照片 URL (老系统兼容，逗号分隔)
+    pub video_url: Option<String>,   // 视频 URL (老系统兼容，逗号分隔)
+    pub voice_url: Option<String>,   // 语音 URL (老系统兼容，逗号分隔)
 }
 
 /// # [BUILD] - 构造函数
@@ -83,12 +84,19 @@ impl CommentCommand {
         // 注：若后续 payload 结构有调整，可按需适配 self.media_ids 或 payload
         let legacy_photos_url = self.photos_url;
 
+        // 4. 客户端ID
+        let client_id = self._id.as_deref().and_then(|value| {
+            let uuid = uuid::Uuid::parse_str(value.trim()).ok()?;
+            (uuid.get_version() == Some(uuid::Version::Random)).then(|| uuid.to_string())
+        });
+
         // 视频评论实体表
         VideoCommentEntity {
+            _id: client_id.or_else(|| Some(uuid::Uuid::new_v4().to_string())),
             user_id: real_user_id,         // 用户 ID
             video_id: real_video_id,       // 视频 ID
             parent_id: self.parent_id,     // 父评论 ID
-            comment_type: validated_type,  // 对应实体中的字段，如需同步改名字可在 entity 中调整
+            message_type: validated_type,  // 对应实体中的字段，如需同步改名字可在 entity 中调整
             content: self.content,         // 内容
             photos_url: legacy_photos_url, // 照片URL (兼容旧版)
             video_url: self.video_url,     // 视频URL (兼容旧版)

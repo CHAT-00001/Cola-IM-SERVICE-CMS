@@ -1,23 +1,14 @@
-// repository/src/new/pg/file/file.rs  --
-// 仓储 - VIDEO - pg - file - 评论
+// repository/src/video/pg/comment/comment.rs  -- 仓储 - VIDEO - pg - 评论 - 评论仓储
 // 2026/6/8 16:55
 
 ////////
 
 use crate::pg_pool;
 use cola_data::cola_video::command::comment::CommentCommand;
-use cola_data::cola_video::entity::comment::VideoCommentEntity;
+use cola_data::cola_video::entity::comment::{VIDEO_COMMENT_COLUMNS, VideoCommentEntity};
 use sqlx::{self, Postgres, QueryBuilder};
 
 ////////
-
-// 数据表原始字段
-const COMMENT_COLUMNS: &str = r#"
-    id, uuid, show_id, user_id, video_id, parent_id, content, at_uids,
-    thumb_url, photos_url,video_url, voice_url, lat, lng,
-    likes, steps, collects, reply, visibility, region_code,
-    status, deleted_at, deleted_by, addtime, created_at, updated_at
-"#;
 
 // 局部辅助结构体：用来承接带有“动态计算距离”的数据库返回行
 #[derive(Debug, sqlx::FromRow)]
@@ -37,7 +28,7 @@ pub enum SearchOrder {
     Latest,    // 最新发布
 }
 
-/// # [REPOSITORY] - 评论 仓储
+/// # [REPOSITORY] - 视频评论列表仓储
 pub struct CommentRepo;
 
 impl CommentRepo {
@@ -56,12 +47,12 @@ impl CommentRepo {
 
         let query = format!(
             "SELECT {}
-     FROM video_comments
+     FROM cola_video.comments
      WHERE status = 1
        AND video_id = $1
      ORDER BY add_time DESC
      LIMIT $2 OFFSET $3",
-            COMMENT_COLUMNS
+            VIDEO_COMMENT_COLUMNS
         );
 
         sqlx::query_as::<_, VideoCommentEntity>(&query)
@@ -83,12 +74,12 @@ impl CommentRepo {
 
         let query = format!(
             "SELECT {}
-     FROM video_comments
+     FROM cola_video.comments
      WHERE status = 1
        AND video_id = $1
      ORDER BY likes DESC, add_time DESC
      LIMIT $2 OFFSET $3",
-            COMMENT_COLUMNS
+            VIDEO_COMMENT_COLUMNS
         );
 
         sqlx::query_as::<_, VideoCommentEntity>(&query)
@@ -113,12 +104,12 @@ impl CommentRepo {
         // 💡 提示：如果你的评论表里，用户ID的物理字段名就叫 `uid`，请把下面的 `user_id = $1` 改为 `uid = $1`
         let query = format!(
             "SELECT {}
-     FROM video_comments
+     FROM cola_video.comments
      WHERE status = 1
        AND uid = $1
      ORDER BY add_time DESC
      LIMIT $2 OFFSET $3",
-            COMMENT_COLUMNS
+            VIDEO_COMMENT_COLUMNS
         );
 
         sqlx::query_as::<_, VideoCommentEntity>(&query)
@@ -140,7 +131,7 @@ impl CommentRepo {
         let pool = pg_pool();
         let query = format!(
             "SELECT {} FROM new WHERE status = 1 ORDER BY RANDOM() LIMIT $1 OFFSET $2",
-            COMMENT_COLUMNS
+            VIDEO_COMMENT_COLUMNS
         );
 
         sqlx::query_as::<_, VideoCommentEntity>(&query)
@@ -163,7 +154,7 @@ impl CommentRepo {
         if is_liked {
             sqlx::query(
                 r#"
-            INSERT INTO video_comments_like (uid, comment_id, created_at)
+            INSERT INTO cola_video.comments_like (uid, comment_id, created_at)
             VALUES ($1, $2, NOW())
             ON CONFLICT (uid, comment_id)
             DO NOTHING
@@ -176,7 +167,7 @@ impl CommentRepo {
         } else {
             sqlx::query(
                 r#"
-            DELETE FROM video_comments_like
+            DELETE FROM cola_video.comments_like
             WHERE uid = $1 AND comment_id = $2
             "#,
             )
@@ -200,7 +191,7 @@ impl CommentRepo {
         if is_unliked {
             sqlx::query(
                 r#"
-            INSERT INTO video_comments_unlike (uid, comment_id, created_at)
+            INSERT INTO cola_video.comments_unlike (uid, comment_id, created_at)
             VALUES ($1, $2, NOW())
             ON CONFLICT (uid, comment_id)
             DO NOTHING
@@ -213,7 +204,7 @@ impl CommentRepo {
         } else {
             sqlx::query(
                 r#"
-            DELETE FROM video_comments_unlike
+            DELETE FROM cola_video.comments_unlike
             WHERE uid = $1 AND comment_id = $2
             "#,
             )
@@ -237,7 +228,7 @@ impl CommentRepo {
         let pool = pg_pool();
         let query = format!(
             "SELECT {} FROM new WHERE id = ANY($1) AND status = 1",
-            COMMENT_COLUMNS
+            VIDEO_COMMENT_COLUMNS
         );
 
         sqlx::query_as::<_, VideoCommentEntity>(&query)
@@ -259,10 +250,10 @@ impl CommentRepo {
         let pool = pg_pool();
 
         let query = format!(
-            "INSERT INTO video_comment (user_id, video_id, parent_id, content, visibility, status) \
+            "INSERT INTO cola_video.comments (user_id, video_id, parent_id, content, visibility, status) \
              VALUES ($1, $2, $3, $4, $5, 1) \
              RETURNING {}",
-            COMMENT_COLUMNS
+            VIDEO_COMMENT_COLUMNS
         );
 
         sqlx::query_as::<_, VideoCommentEntity>(&query)
@@ -286,12 +277,12 @@ impl CommentRepo {
         let pool = pg_pool();
 
         let query = format!(
-            "UPDATE video_comment
+            "UPDATE cola_video.comments
          SET status = 0,  -- 0=已删除, 1=正常
              updated_at = NOW()
          WHERE id = $1 AND uid = $2
          RETURNING {}",
-            COMMENT_COLUMNS
+            VIDEO_COMMENT_COLUMNS
         );
 
         sqlx::query_as::<_, VideoCommentEntity>(&query)
@@ -311,10 +302,10 @@ impl CommentRepo {
         let pool = pg_pool();
 
         let query = format!(
-            "DELETE FROM video_comment
+            "DELETE FROM cola_video.comments
          WHERE id = $1
          RETURNING {}",
-            COMMENT_COLUMNS
+            VIDEO_COMMENT_COLUMNS
         );
 
         sqlx::query_as::<_, VideoCommentEntity>(&query)
@@ -332,7 +323,7 @@ impl CommentRepo {
         let pool = pg_pool();
 
         let query = r#"
-        UPDATE video_comment
+        UPDATE cola_video.comments
         SET status = 0,
             deleted_at = NOW(),
             deleted_by = -1  -- -1 表示系统自动删除（视频被删）

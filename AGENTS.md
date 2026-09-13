@@ -68,7 +68,6 @@ use xxx::yyy;
 | 层级 | 职责 |
 |------|------|
 | `GATEWAY` | web 框架（Actix），解析/合并参数、前置身份校验、按 service 分发 |
-| `DISPATCHER` | 纯路由转发器，只按 action 路由到 handler，**不做业务/验证**，返回 `AppData<Value>` |
 | `API HANDLER` | 应用权限编排、统一响应壳 `AppData<T>` |
 | `CASE` | 逻辑流程编排，调用 Port 接口 |
 | `PORT` | 定义 trait 接口（如 `SessionPort`、`TypePort`） |

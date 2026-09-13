@@ -18,7 +18,7 @@ pub struct VideoCommentInfo {
     pub user_id: i64,                      // 作者 ID
     pub video_id: i64,                     // 视频 ID
     pub parent_id: Option<i64>,            // 父评论（可选）
-    pub comment_type: i16,                 // 类型
+    pub message_type: i16,                 // 类型
     pub content: String,                   // 内容
     pub photos_url: Option<String>,        // 照片 url
     pub video_url: Option<String>,         // 视频 url
@@ -55,7 +55,7 @@ impl VideoCommentInfo {
             user_id: 0,
             video_id: 0,
             parent_id: None,
-            comment_type: 1,
+            message_type: 1,
             content: "评论不存在或已被删除".to_string(),
             photos_url: None,
             video_url: None,
@@ -89,7 +89,7 @@ impl VideoCommentInfo {
             user_id: entity.user_id,
             video_id: entity.video_id,
             parent_id: entity.parent_id,
-            comment_type: entity.comment_type,
+            message_type: entity.message_type,
             content: entity.content,
             photos_url: entity.photos_url,
             video_url: entity.video_url,
