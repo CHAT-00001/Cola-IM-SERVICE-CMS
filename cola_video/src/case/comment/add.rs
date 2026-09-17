@@ -24,6 +24,12 @@ impl CommentAddCase {
         cmd: CommentCommand, // 评论命令
         ctx: AppContext,     // 应用上下文
     ) -> Result<CommentSingleResponse> {
+        let client_id = cmd._id.clone().ok_or_else(|| anyhow::anyhow!("评论幂等ID缺失"))?;
+
+        if ctx.video.comment.check.exists_by_client_id(client_id.clone()).await.map_err(|error| anyhow::anyhow!("评论幂等查重失败: {error}"))? {
+            return Err(anyhow::anyhow!("评论已经存在"));
+        }
+
         let info = ctx
             .video
             .comment

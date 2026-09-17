@@ -1,5 +1,4 @@
-// service/src/cola_video/video/add.rs
-// 👤 服务 - VIDEO - 视频 - 发布
+// service/src/cola_video/video/add.rs -- 服务 - VIDEO - 视频内容 - 发布服务
 // 2026/8/2 12:39 Created.
 
 ////////

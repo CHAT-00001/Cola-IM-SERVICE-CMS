@@ -1,4 +1,4 @@
-// repository/src/video/pg/video/get.rs -- 仓储 - VIDEO - PG - 视频 - 获取仓储
+// repository/src/video/pg/video/get.rs -- 仓储 - VIDEO - PG - 视频内容 - 获取仓储
 // 2026/8/2 13:01 Created.
 
 ////////
@@ -17,7 +17,7 @@ pub enum SearchOrder {
     Latest,    // 最新发布
 }
 
-/// # [REPOSITORY] - 🎥 视频 IDs 仓储
+/// # [REPOSITORY] - 视频实体获取仓储
 pub struct VideoGetRepo;
 
 impl VideoGetRepo {
@@ -25,14 +25,14 @@ impl VideoGetRepo {
 
     ////////
 
-    /// # 1. [REPOSITORY] - ▶ 🆔 单个
+    /// # 1. [REPOSITORY] - 单个查找视频实体
     /// `desc`: `根据视频ID 单个查找记录`
-    pub async fn find_an_single_by_id(
+    pub async fn find_video_entity_by_id(
         id: i64, // 视频 ID
     ) -> Result<Option<VideoEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM cola_video.cola_video WHERE id = $1 AND status = 1 LIMIT 1",
+            "SELECT {} FROM cola_video.video WHERE id = $1 AND status = 1 LIMIT 1",
             VIDEO_COLUMNS
         );
 
@@ -44,9 +44,9 @@ impl VideoGetRepo {
 
     ////////
 
-    /// # 2. [REPOSITORY] - ▶ 🆔 批量
+    /// # 2. [REPOSITORY] - 批量查找视频实体
     /// `desc`; ` 根据视频IDs 批量查找记录`
-    pub async fn find_list_batch_by_ids(
+    pub async fn find_video_entities_by_ids(
         ids: &[i64], // 视频 IDs
     ) -> Result<Vec<VideoEntity>, sqlx::Error> {
         if ids.is_empty() {
@@ -55,7 +55,7 @@ impl VideoGetRepo {
 
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM cola_video.cola_video WHERE id = ANY($1) AND status = 1",
+            "SELECT {} FROM cola_video.video WHERE id = ANY($1) AND status = 1",
             VIDEO_COLUMNS
         );
 
@@ -78,7 +78,7 @@ impl VideoGetRepo {
 
         // 使用参数化查询，避免 SQL 注入
         let query = format!(
-            "SELECT {} FROM cola_video.cola_video WHERE uid = $1 AND status = 1 OFFSET $2 LIMIT $3",
+            "SELECT {} FROM cola_video.video WHERE uid = $1 AND status = 1 OFFSET $2 LIMIT $3",
             VIDEO_COLUMNS
         );
 
@@ -105,7 +105,7 @@ impl VideoGetRepo {
 
         // 1. 构建基础 SQL 和参数列表
         let mut sql = format!(
-            "SELECT {} FROM cola_video.cola_video WHERE status = 1",
+            "SELECT {} FROM cola_video.video WHERE status = 1",
             VIDEO_COLUMNS
         );
 

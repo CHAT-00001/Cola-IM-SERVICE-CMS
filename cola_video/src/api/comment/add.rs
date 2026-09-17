@@ -47,7 +47,14 @@ impl CommentAddApi {
 
         match CommentAddCase::case_send(auth.uid, video_id, cmd, ctx.clone()).await {
             Ok(response) => AppData::ok(response).with_msg("评论发布成功"),
-            Err(error) => AppData::err(5000, format!("评论发布失败: {error}"), None),
+            Err(error) => {
+                let error_text = error.to_string();
+                if error_text.contains("评论已经存在") {
+                    AppData::err(5001, "评论已经存在", None)
+                } else {
+                    AppData::err(5000, format!("评论发布失败: {error}"), None)
+                }
+            }
         }
     }
 }

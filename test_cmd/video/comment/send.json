@@ -1,0 +1,19 @@
+{
+    "name": "comment",
+    "service": "send_comment",
+    "id": 1000001841,
+    "uid": 1000020005,
+    "auth": {
+        "access_token": "aaaa",
+        "refresh_token": "bbbb"
+    },
+    "cmd": {
+        "_id": "7937d0e2-be21-4bbb-8a70-b08fc0cbd276",
+        "user_id": 1000020004,
+        "video_id": 1000001841,
+        "message_type": 1,
+        "content": "哇哇哇哇~可爱",
+        "payload": null,
+        "media_ids": null
+    }
+}

@@ -1,5 +1,4 @@
-// servicey/src/cola_video/file/add.rs
-// 服务 - VIDEO - COMMENT - ADD
+// servicey/src/cola_coc/comment/add.rs -- 服务 - COC - COMMENT - ADD
 // 2026/8/12 05:39 Created.
 
 ////////

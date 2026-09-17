@@ -15,7 +15,7 @@ use cola_video::api::danmaku::add::DanmakuAddApi;
 use cola_video::api::danmaku::get::DanmakuGetApi;
 use cola_video::api::video::home::HomeApi;
 use std::time::Instant;
-
+use cola_video::api::video::get::VideoContentGetApi;
 ////////
 
 /// # [ROUTER] - 短视频 - 路由器
@@ -93,6 +93,9 @@ pub async fn video_gateway(
 
     // 🌟 对齐到 service 字符串进行业务路由分发
     match api_req.service.clone().unwrap_or_default().as_str() {
+
+        //////// HOME
+
         // 1001 最新
         "home_new" => HomeApi::home_new(auth.clone(), api_req.clone(), &state.ctx)
             .await
@@ -150,6 +153,7 @@ pub async fn video_gateway(
             AppData::ok(data).finish(&req, start)
         }
 
+        // 发布视频
         "publish_video" => {
             // 发布视频接口转发
             let data = serde_json::json!({
@@ -160,6 +164,11 @@ pub async fn video_gateway(
             });
             AppData::ok(data).finish(&req, start)
         }
+
+        // 获取视频
+        "get_video" => VideoContentGetApi::get_video(auth.clone(), api_req.clone(), &state.ctx)
+            .await
+            .finish(&req, start),
 
         //////// 评论
 
@@ -185,7 +194,7 @@ pub async fn video_gateway(
             .await
             .finish(&req, start),
 
-        //////// (测试接口)
+        //////// (测试接口, 不可删除)
         "publish_comment" => {
             // 发布评论接口转发
             let data = serde_json::json!({

@@ -1,5 +1,4 @@
-// servicey/src/cola_video/file/add.rs
-// 服务 - VIDEO - COMMENT - ADD
+// servicey/src/cola_video/comment/add.rs -- 服务 - VIDEO - COMMENT - ADD
 // 2026/8/12 05:39 Created.
 
 ////////
@@ -16,6 +15,11 @@ use tracing::{error, info};
 pub struct VideoCommentAddService;
 
 impl VideoCommentAddService {
+    //
+
+    ////////
+
+    /// # [CREATE COMMENT] - 创建评论
     pub async fn create_comment(
         user_id: i64,
         visibility: i16,

@@ -2,11 +2,12 @@
     "name": "danmaku",
     "service": "send_danmaku",
     "id": 1000001841,
-    "anth": {
+    "auth": {
         "access_token": "aaaa",
         "refresh_token": "bbbb"
     },
     "cmd": {
+        "_id": "7937d0e2-be21-4bbb-8a70-b08fc0cbd276",
         "video_id": 1000001841,
         "content": "测试弹幕",
         "play_time": 1000,

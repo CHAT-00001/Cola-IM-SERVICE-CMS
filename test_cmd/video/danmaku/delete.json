@@ -2,7 +2,7 @@
     "name": "danmaku",
     "service": "delete_danmaku",
     "id": 1000001841,
-    "anth": {
+    "auth": {
         "access_token": "aaaa",
         "refresh_token": "bbbb"
     },

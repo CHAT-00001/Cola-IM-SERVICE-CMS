@@ -87,6 +87,15 @@ use xxx::yyy;
 - `repo_adapter` 层实现该 trait，并通过 `build_app_context()` 统一装配
 - trait 方法用 `#[async_trait::async_trait]` 标注
 
+### Redis 客户端挂载约定（强制）
+
+- Redis 客户端由 `app::DbService` 统一初始化：`crate::db::redis::redis_init(&config.redis)`
+- 初始化后通过 `redis_client.get_multiplexed_async_connection().await` 得到 `redis_conn`
+- `DbService` 持有字段 `pub redis_conn: MultiplexedConnection`
+- 全局通过 `app_config::GLOBAL_DB` 挂载，业务代码优先使用 `app_config::GLOBAL_DB.get()` 获取 `DbService`
+- 需要 Redis 的 `repository` / `repo_adapter` 代码，统一复用 `db.redis_conn.clone()` 获取可并发使用的连接
+- 计划阶段如已确认以上链路存在，默认视为“Redis 客户端已挂载完成”，无需重复追查初始化流程
+
 ---
 
 ## 6. 🌐 网关参数规范（强制）

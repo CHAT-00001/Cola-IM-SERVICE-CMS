@@ -1,0 +1,21 @@
+{
+    "name": "video",
+    "service": "add_video",
+    "id": 1000001841,
+    "uid": 1000020005,
+    "auth": {
+        "access_token": "aaaa",
+        "refresh_token": "bbbb"
+    },
+    "cmd": {
+        "_id": "7937d0e2-be21-4bbb-8a70-b08fc0cbd276",
+        "user_id": 1000020004,
+        "channel_id": 1000001841,
+        "category_id": 10,
+        "title": "视频标题",
+        "content": "视频内容: 哇哇哇哇~可爱",
+        "payload": null,
+        "cover_media": 10000154173,
+        "video_media": 10000154174
+    }
+}

@@ -95,6 +95,25 @@ impl VideoCommentCheckRepo {
             .fetch_one(&pool)
             .await
     }
+
+    ////////
+
+    /// # 5. [REPOSITORY] - 客户端幂等ID是否已存在
+    /// * `desc`: `根据客户端 UUID v4 查询评论是否已落库`
+    pub async fn exists_by_client_id(client_id: &str) -> Result<bool, sqlx::Error> {
+        let pool = pg_pool();
+        let query = "
+            SELECT EXISTS(
+                SELECT 1 FROM cola_video.comments
+                WHERE _id = $1
+            )
+        ";
+
+        sqlx::query_scalar::<_, bool>(query)
+            .bind(client_id)
+            .fetch_one(&pool)
+            .await
+    }
 }
 
 //////// END

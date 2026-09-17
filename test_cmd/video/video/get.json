@@ -1,0 +1,15 @@
+{
+    "name": "video",
+    "service": "get_video",
+    "id": 1000001841,
+    "uid": 1000020005,
+    "auth": {
+        "access_token": "aaaa",
+        "refresh_token": "bbbb"
+    },
+    "cmd": {
+        "_id": "7937d0e2-be21-4bbb-8a70-b08fc0cbd276",
+        "user_id": 1000020004,
+        "video_id": 1000001841
+    }
+}

@@ -1,5 +1,5 @@
-// cola_video/src/api/comment/get.rs -- VIDEO - API - 评论获取
-// 2026/9/11 Created.
+// cola_video/src/api/comment/get.rs -- VIDEO - API - 评论 - 获取接口
+// 2026/9/11 17:10 Created.
 
 ////////
 
@@ -13,10 +13,14 @@ use port::app::ctx::AppContext;
 
 ////////
 
-/// # [API] - 视频评论获取接口
+/// # [GET API] - 视频评论获取接口
 pub struct CommentGetApi;
 
 impl CommentGetApi {
+    //
+
+    ////////
+
     /// # 1. [API] - 获取评论
     /// * `desc`: 根据视频 ID 分页获取评论
     pub async fn get_comment(

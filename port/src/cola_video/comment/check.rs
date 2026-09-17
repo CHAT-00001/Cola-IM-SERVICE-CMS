@@ -42,6 +42,12 @@ pub trait VideoCommentCheckPort: Send + Sync {
         user_id: i64,    // 用户 ID
         comment_id: i64, // 评论 ID
     ) -> anyhow::Result<(bool)>;
+
+    ////////
+
+    /// # 4. [PORT] - 客户端幂等ID查重
+    /// * `desc`: `根据客户端 UUID v4 查重评论是否已存在`
+    async fn exists_by_client_id(&self, client_id: String) -> anyhow::Result<bool>;
 }
 
 //////// END
