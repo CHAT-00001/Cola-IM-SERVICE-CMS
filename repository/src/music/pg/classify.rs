@@ -4,7 +4,7 @@
 ////////
 
 pub mod add;
+mod del;
 pub mod get;
 mod list;
-mod del;
 mod stat;

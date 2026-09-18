@@ -28,7 +28,6 @@ impl DanmakuAddApi {
         url: ApiGatewayRequest, // 网关请求
         ctx: &AppContext,       // 应用上下文
     ) -> AppData<DanmakuSingleResponse> {
-
         // 请求体解析
         let cmd_value = url
             .body

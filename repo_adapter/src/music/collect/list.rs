@@ -16,12 +16,23 @@ impl MusicCollectListPort for MusicCollectListAdapter {
     ////////
 
     /// # 1. [ADAPTER] - 保存收藏记录
-    async fn get_collect_record_by_user_id(&self, uid: i64, user_id: i64, limit: i64, offset: i64) -> anyhow::Result<()> {
+    async fn get_collect_record_by_user_id(
+        &self,
+        uid: i64,
+        user_id: i64,
+        limit: i64,
+        offset: i64,
+    ) -> anyhow::Result<()> {
         todo!()
     }
 
-
-    async fn get_collect_record_by_music_id(&self, uid: i64, music_id: i64, limit: i64, offset: i64) -> anyhow::Result<()> {
+    async fn get_collect_record_by_music_id(
+        &self,
+        uid: i64,
+        music_id: i64,
+        limit: i64,
+        offset: i64,
+    ) -> anyhow::Result<()> {
         todo!()
     }
 }

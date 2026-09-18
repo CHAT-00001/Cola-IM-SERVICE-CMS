@@ -5,7 +5,7 @@
 ////////
 
 use crate::app::page::PageInfo;
-use crate::cola_video::info::comment::VideoCommentInfo;
+use crate::cola_video::info::comment::CommentInfo;
 use serde::Serialize;
 
 ////////
@@ -14,14 +14,14 @@ use serde::Serialize;
 #[deprecated(since = "2026-08-08", note = "Use ListResponse<CommentVo> instead")]
 #[derive(Debug, Serialize)]
 pub struct CommentSingleResponse {
-    pub info: VideoCommentInfo, // 吐给前端完美的、组装好的单体 VO
+    pub info: CommentInfo, // 吐给前端完美的、组装好的单体 VO
 }
 
 ////////
 
 /// # [VO] - 多评论响应
 pub struct CommentListResponse {
-    pub list: Vec<VideoCommentInfo>,
+    pub list: Vec<CommentInfo>,
     pub page: PageInfo,
 }
 

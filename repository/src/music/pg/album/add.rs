@@ -3,11 +3,9 @@
 
 ////////
 
-
 /// # [ADD REPOSITORY] - 音乐专辑发布仓储
 /// * `desc`: `MUSIC - Album Add Repository.`
 pub struct MusicAlbumAddRepo;
-
 
 impl MusicAlbumAddRepo {
     //
@@ -32,4 +30,3 @@ impl MusicAlbumAddRepo {
     /// # 4. [REPOSITORY] - 修改状态
     async fn change_status() {}
 }
-

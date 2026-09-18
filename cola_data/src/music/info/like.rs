@@ -37,7 +37,13 @@ impl MusicLikeInfo {
 
     /// # 1. [BUILD] - 创建
     /// * `desc`: 构造标准的 MusicLikeInfo
-    pub fn new(id: i64, uid: i64, music_id: i64, remark: Option<String>, description: Option<String>) -> Self {
+    pub fn new(
+        id: i64,
+        uid: i64,
+        music_id: i64,
+        remark: Option<String>,
+        description: Option<String>,
+    ) -> Self {
         let now = Utc::now();
         let timestamp = now.timestamp();
 

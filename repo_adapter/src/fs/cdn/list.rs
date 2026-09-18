@@ -5,7 +5,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_video::info::comment::VideoCommentInfo;
+use cola_data::cola_video::info::comment::CommentInfo;
 use port::fs::cdn::list::CdnListPort;
 
 ////////
@@ -22,7 +22,7 @@ impl CdnListPort for CdnListAdapter {
         uid: i64,
         limit: i64,
         offset: i64,
-    ) -> Result<(VideoCommentInfo)> {
+    ) -> Result<(CommentInfo)> {
         todo!()
     }
 
@@ -31,7 +31,7 @@ impl CdnListPort for CdnListAdapter {
         uid: i64,
         limit: i64,
         offset: i64,
-    ) -> Result<(VideoCommentInfo)> {
+    ) -> Result<(CommentInfo)> {
         todo!()
     }
 }

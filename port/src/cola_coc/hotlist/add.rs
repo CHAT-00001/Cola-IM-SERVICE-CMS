@@ -19,8 +19,8 @@ pub trait VideoHotlistAddPort: Send + Sync {
     /// # 1. [PORT] - 保存热门
     async fn save_hotlist(
         &self,
-        uid: i64,                 // 操作者 ID
-        video_id: i64,            // 视频 ID
+        uid: i64,            // 操作者 ID
+        video_id: i64,       // 视频 ID
         cmd: HotlistCommand, // 上热门命令
     ) -> anyhow::Result<()>;
 

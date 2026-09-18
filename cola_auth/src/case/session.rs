@@ -1,5 +1,5 @@
-// cola_auth/src/case/session.rs -- 验证中心 - case - 会话用例 - mod
-// 2026-07-19
+// cola_auth/src/case/session.rs -- 验证中心 - case - 会话 - mod
+// 2026-07-19 11:10 Created.
 
 ////////
 
@@ -11,4 +11,5 @@ use service::auth::session::SessionService;
 
 pub mod add;
 pub mod del;
+pub mod get;
 pub mod state;

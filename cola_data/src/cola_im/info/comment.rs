@@ -10,7 +10,7 @@ use crate::video::entity::comment::VideoCommentEntity;
 
 /// # [INFO] - 视频 评论
 #[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct VideoCommentInfo {
+pub struct CommentInfo {
     pub id: i64,                // 评论 ID
     pub user_id: i64,           // 用户 ID
     pub video_id: i64,          // 视频 ID
@@ -23,7 +23,7 @@ pub struct VideoCommentInfo {
 }
 
 /// # 构造评论
-impl VideoCommentInfo {
+impl CommentInfo {
     /// 构造评论基础信息，并自动判定是否为视频作者
     pub fn new(
         id: i64,

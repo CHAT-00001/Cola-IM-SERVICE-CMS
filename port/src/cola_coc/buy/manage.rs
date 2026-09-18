@@ -5,7 +5,7 @@
 ////////
 
 use cola_data::cola_video::command::comment::CommentCommand;
-use cola_data::cola_video::info::comment::VideoCommentInfo;
+use cola_data::cola_video::info::comment::CommentInfo;
 
 ////////
 
@@ -30,7 +30,7 @@ pub trait VideoBuyManagePort: Send + Sync {
         status_code: i16,        // 状态码
         limit: i64,              // 数量
         offset: i64,             // 页码
-    ) -> anyhow::Result<(VideoCommentInfo), u64>;
+    ) -> anyhow::Result<(CommentInfo), u64>;
 }
 
 //////// END

@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 /// # [INFO] - 视频 评论记录信息
 /// * `desc`: `安全的信息`
 #[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct VideoCommentInfo {
+pub struct CommentInfo {
     pub id: i64,                           // ID (自增 / 雪花)
     pub _id: Option<String>,               // UUID v4
     pub user_id: i64,                      // 作者 ID
@@ -41,7 +41,7 @@ pub struct VideoCommentInfo {
 }
 
 // 构造实现
-impl VideoCommentInfo {
+impl CommentInfo {
     //
 
     ////////

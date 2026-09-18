@@ -1,4 +1,4 @@
-// cola_video/src/assembler/danmaku.rs  -- VIDEO - 组装 - 组装弹幕响应体
+// cola_video/src/assembler/danmaku.rs  -- VIDEO - 组装 - 弹幕响应体
 // 2026/06/05 10:10
 
 ////////

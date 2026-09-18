@@ -6,7 +6,7 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use cola_data::cola_video::command::comment::CommentCommand;
-use cola_data::cola_video::info::comment::VideoCommentInfo;
+use cola_data::cola_video::info::comment::CommentInfo;
 use port::auth::identity::add::IdentityAddPort;
 use port::cola_video::comment::add::VideoCommentAddPort;
 
@@ -24,7 +24,7 @@ impl IdentityAddPort for IdentityAddAdapter {
         uid: i64,
         video_id: i64,
         cmd: CommentCommand,
-    ) -> Result<(VideoCommentInfo)> {
+    ) -> Result<(CommentInfo)> {
         todo!()
     }
 
@@ -33,7 +33,7 @@ impl IdentityAddPort for IdentityAddAdapter {
         uid: i64,
         comment_id: i64,
         cmd: CommentCommand,
-    ) -> Result<(VideoCommentInfo)> {
+    ) -> Result<(CommentInfo)> {
         todo!()
     }
 }

@@ -119,7 +119,10 @@ impl DanmakuRepo {
         let pool = pg_pool();
 
         // 1. 构建基础 SQL 和参数列表
-        let mut sql = format!("SELECT {} FROM cola_video.danmaku WHERE status = 1", VIDEO_DANMAKU_COLUMNS);
+        let mut sql = format!(
+            "SELECT {} FROM cola_video.danmaku WHERE status = 1",
+            VIDEO_DANMAKU_COLUMNS
+        );
 
         // 2. 动态拼接条件
         if let Some(ref ids) = uids {
@@ -361,7 +364,6 @@ impl DanmakuRepo {
             .fetch_all(&pool)
             .await
     }
-
 
     ////////
 

@@ -4,7 +4,7 @@
 ////////
 
 pub mod album; // 专辑
+mod classify;
 pub mod music; // 音乐
 pub mod profile;
-mod classify;
 // 用户资料

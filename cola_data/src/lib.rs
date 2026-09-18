@@ -19,11 +19,11 @@ pub mod cola_live; // 直播流
 pub mod cola_three; // 第三方
 pub mod cola_user; // 用户中心
 pub mod cola_video; // 短视频
+pub mod common;
 pub mod gateway; //  网关
 pub mod market; // 可乐市场
 pub mod music; // 音乐
 pub mod wallet;
-pub mod common;
 // 钱包
 
 //////// END

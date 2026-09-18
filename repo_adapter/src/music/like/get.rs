@@ -14,7 +14,6 @@ pub struct MusicLikeGetAdapter;
 
 #[async_trait::async_trait]
 impl MusicLikeGetPort for MusicLikeGetAdapter {
-
     /// # [ADAPTER] - 根据用户ID获取点赞的音乐IDs
     async fn get_music_ids_by_user_id(
         &self,

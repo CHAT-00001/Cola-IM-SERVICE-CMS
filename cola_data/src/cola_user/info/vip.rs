@@ -20,7 +20,6 @@ pub struct UserVipInfo {
     pub add_time: i64,            // 添加时间
 }
 
-
 ////////
 
 /// # [INFO] - 用户 - 贵宾规则信息

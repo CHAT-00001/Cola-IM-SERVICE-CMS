@@ -69,7 +69,7 @@ impl MusicAddRepo {
             .bind(cmd.duration)
             .bind(visibility)
             .bind(music_id) // $7 对应 music_id
-            .bind(uid)      // $8 对应 author（即 uid），确保只能修改自己的音乐
+            .bind(uid) // $8 对应 author（即 uid），确保只能修改自己的音乐
             .fetch_one(&pool)
             .await
     }

@@ -22,8 +22,7 @@ pub mod photo; // Photo
 pub mod three; // Third-party
 pub mod user; // User
 pub mod video; // Video
-pub mod wallet;// Wallet
-
+pub mod wallet; // Wallet
 
 ////////
 

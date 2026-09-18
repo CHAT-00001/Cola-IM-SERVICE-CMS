@@ -4,7 +4,7 @@
 
 ////////
 
-use cola_data::cola_video::info::comment::VideoCommentInfo;
+use cola_data::cola_video::info::comment::CommentInfo;
 
 ////////
 
@@ -27,7 +27,7 @@ pub trait HotlistManagePort: Send + Sync {
         is_deleted: Option<bool>, // 是否删除
         limit: i64,               // 数量
         offset: i64,              // 页码
-    ) -> anyhow::Result<(Vec<VideoCommentInfo>)>;
+    ) -> anyhow::Result<(Vec<CommentInfo>)>;
 }
 
 //////// END

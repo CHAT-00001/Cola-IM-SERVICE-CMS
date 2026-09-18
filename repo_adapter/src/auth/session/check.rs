@@ -6,6 +6,8 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use port::auth::session::check::SessionCheckPort;
+use port::auth::session::{SessionPort, SessionUserInfo, SessionVerifyVo};
+use service::auth::session::SessionService;
 
 ////////
 
@@ -42,6 +44,35 @@ impl SessionCheckPort for SessionCheckAdapter {
         comment_id: i64, // 评论 ID
     ) -> Result<(bool)> {
         todo!()
+    }
+}
+
+////////
+
+#[async_trait]
+impl SessionPort for SessionCheckAdapter {
+    //
+
+    ////////
+
+    /// # 1. [ADAPTER] - 根据 access_token 获取有效会话
+    /// * `desc`: `调用 SessionService 校验 Token，并转换为 SessionVerifyVo`
+    async fn get_session(&self, token: &str) -> anyhow::Result<Option<SessionVerifyVo>> {
+        if token.trim().is_empty() {
+            return Ok(None);
+        }
+
+        let session = SessionService::check_auth_session_info(token)
+            .await
+            .map_err(|error| anyhow::anyhow!("[🤐 ADAPTER]: ❌️ 查询会话失败: {error}"))?;
+
+        Ok(session.map(|session| SessionVerifyVo {
+            user_info: SessionUserInfo {
+                uid: session.user_id,
+                roles: Vec::new(),
+                status: session.status,
+            },
+        }))
     }
 }
 

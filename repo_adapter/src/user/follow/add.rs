@@ -9,7 +9,6 @@ use port::cola_user::follow::add::UserFollowAddPort;
 
 ////////
 
-
 /// # [ADD ADAPTER] - 发布
 /// * `desc`: `USER - 关注发布`
 pub struct FollowAddAdapter;

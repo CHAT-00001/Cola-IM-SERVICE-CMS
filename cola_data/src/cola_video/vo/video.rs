@@ -1,19 +1,18 @@
-// data/src/cola_video/vo/video.rs
-// 🗄 数据 - VIDEO - VO - 视频
-// 2026/6/19 17:35
+// data/src/cola_video/vo/video.rs -- 数据 - VIDEO - VO - 视频视图
+// 2026/6/19 17:35 Created.
 
 ////////
 
-use crate::music::info::music::MusicInfo;
-use crate::music::vo::music::MusicVo;
 use crate::cola_user::info::user::UserInfo;
 use crate::cola_user::vo::user::UserVo;
 use crate::cola_video::info::video::VideoInfo;
+use crate::music::info::music::MusicInfo;
+use crate::music::vo::music::MusicVo;
 use serde::{Deserialize, Serialize};
 
 ////////
 
-/// # [VO] - 视频 视图对象
+/// # [VO] - 视频内容视图对象
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct VideoVo {
     #[serde(flatten)]

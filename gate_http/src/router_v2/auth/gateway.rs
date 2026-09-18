@@ -5,10 +5,12 @@
 
 use crate::kits::response::IntoApi;
 use crate::ping::ping;
-use actix_web::{web, HttpMessage, HttpRequest, HttpResponse, Responder};
+use actix_web::{HttpMessage, HttpRequest, HttpResponse, Responder, web};
 use app_config::app_state::AppState;
 use cola_auth::api::code::AuthCodeApi;
 use cola_auth::api::seesion::add::SessionAddApi;
+use cola_auth::api::seesion::view::SessionViewApi;
+use cola_data::app::api::ApiQuery;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::auth::command::email::EmailLoginCommand;
@@ -209,6 +211,27 @@ async fn auth_gateway(
                 .finish(&req, start)
         }
 
+        //////// SESSION 会话
+
+        // 刷新 access_token
+        "refresh_token" => {
+            let refresh_token = request
+                .auth
+                .as_ref()
+                .and_then(|auth| auth.refresh_token.clone())
+                .filter(|token| !token.trim().is_empty())
+                .unwrap_or_else(|| extract_cmd_string(&request, "refresh_token"));
+
+            SessionViewApi::handler_refresh_token(
+                ApiQuery {
+                    refresh_token: Some(refresh_token),
+                    ..ApiQuery::default()
+                },
+            )
+                .await
+                .finish(&req, start)
+        }
+
         // // 4001 session
         // "session.view" => {
         //     let query = ApiGatewayRequest {
@@ -234,6 +257,9 @@ async fn auth_gateway(
             AppData::ok(data).finish(&req, start)
         }
 
+        ////////
+
+        // 测试接口
         "publish_comment" => {
             let data = serde_json::json!({
                 "comment_id": 67890,

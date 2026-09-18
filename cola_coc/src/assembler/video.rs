@@ -6,10 +6,10 @@
 
 use anyhow::Result;
 use cola_data::app::page::PageInfo;
-use cola_data::music::info::music::MusicInfo;
 use cola_data::cola_user::info::user::UserInfo;
 use cola_data::cola_video::info::video::{VideoInfo, VideoListResponse, VideoSingleResponse};
 use cola_data::cola_video::vo::video::VideoVo;
+use cola_data::music::info::music::MusicInfo;
 use service::cola_user::user::active::UserService;
 use std::collections::HashMap;
 

@@ -5,7 +5,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_video::info::comment::VideoCommentInfo;
+use cola_data::cola_video::info::comment::CommentInfo;
 use port::auth::identity::manage::IdentityManagePort;
 use port::cola_video::comment::manage::VideoCommentManagePort;
 
@@ -28,7 +28,7 @@ impl IdentityManagePort for IdentityManageAdapter {
         status_code: i16,
         limit: i64,
         offset: i64,
-    ) -> Result<(VideoCommentInfo)> {
+    ) -> Result<(CommentInfo)> {
         todo!()
     }
 }

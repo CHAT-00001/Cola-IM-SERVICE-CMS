@@ -4,8 +4,8 @@
 ////////
 
 use crate::app::page::PageInfo;
-use crate::music::info::music::MusicInfo;
 use crate::cola_user::info::user::UserInfo;
+use crate::music::info::music::MusicInfo;
 use serde::{Deserialize, Serialize};
 
 ////////

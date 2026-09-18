@@ -33,9 +33,7 @@ pub fn music_router(cfg: &mut web::ServiceConfig) {
 
 /// # [GATEWAY] - Body 命令提取
 /// * `desc`: `兼容 Body 直接传命令和 { cmd: {...} } 包装格式`
-fn extract_cmd<T: serde::de::DeserializeOwned>(
-    request: &ApiGatewayRequest,
-) -> Result<T, String> {
+fn extract_cmd<T: serde::de::DeserializeOwned>(request: &ApiGatewayRequest) -> Result<T, String> {
     let body = request
         .body
         .as_ref()
@@ -110,7 +108,10 @@ pub async fn music_gateway(
         }
         _ => AppData::<()>::err(
             2004,
-            format!("[🌐 GATEWAY] - ⚠️ 未知音乐 service: {}", api_req.service.unwrap_or_default()),
+            format!(
+                "[🌐 GATEWAY] - ⚠️ 未知音乐 service: {}",
+                api_req.service.unwrap_or_default()
+            ),
             None,
         )
         .finish(&req, start),

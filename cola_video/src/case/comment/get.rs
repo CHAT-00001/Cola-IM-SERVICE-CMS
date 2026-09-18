@@ -4,8 +4,8 @@
 ////////
 
 use crate::assembler::comment::build_comment_list_response;
-use crate::model::vo::comment::CommentListResponse;
 use anyhow::Result;
+use cola_data::cola_video::vo::comment::CommentListResponse;
 use port::app::ctx::AppContext;
 use tracing::info;
 
@@ -32,8 +32,10 @@ impl CommentGetCase {
             .await
             .map_err(|error| anyhow::anyhow!("评论列表查询失败: {error}"))?;
         let total = infos.len() as i64;
-        info!("[🗣️ COMMENT CASE] - ✅️ 评论列表查询成功: uid={uid}, video_id={video_id}, count={total}");
-        build_comment_list_response(infos, Some(uid), 1, limit, total).await
+        info!(
+            "[🗣️ COMMENT CASE] - ✅️ 评论列表查询成功: uid={uid}, video_id={video_id}, count={total}"
+        );
+        build_comment_list_response(infos, Some(uid), 1, limit, total, &ctx).await
     }
 }
 

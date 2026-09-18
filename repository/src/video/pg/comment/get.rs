@@ -6,7 +6,7 @@
 // use anyhow::Error;
 // use cola_data::cola_video::command::file::CommentCommand;
 // use cola_data::cola_video::entity::video::video::VideoEntity;
-// use cola_data::cola_video::info::file::VideoCommentInfo;
+// use cola_data::cola_video::info::file::CommentInfo;
 // use tracing::log;
 //
 // ////////
@@ -27,7 +27,7 @@
 //         video_id: i64,       // 视频 ID
 //         cmd: CommentCommand, // 评论创建命令
 //         visibility: i16,     // 风控可见性
-//     ) -> Result<VideoCommentInfo, anyhow::Error> {
+//     ) -> Result<CommentInfo, anyhow::Error> {
 //         // 1. 保存评论
 //         let comment_entity = CommentRepo::save_comment_by_video_id(uid, video_id, cmd, visibility)
 //             .await
@@ -46,7 +46,7 @@
 //         });
 //
 //         // 3. ✅ 修复 [E0308]：显式进行 Entity -> Info 的类型转换
-//         let comment_info = VideoCommentInfo::from_entity(comment_entity);
+//         let comment_info = CommentInfo::from_entity(comment_entity);
 //
 //         Ok(comment_info)
 //     }
@@ -91,13 +91,13 @@
 //         video_id: i64,
 //         offset: i64,
 //         limit: i64,
-//     ) -> Result<Vec<VideoCommentInfo>, anyhow::Error> {
+//     ) -> Result<Vec<CommentInfo>, anyhow::Error> {
 //         let entities = CommentRepo::find_new_comments_by_video_id(video_id, offset, limit).await?;
 //
 //         // handler -> info
-//         let infos: Vec<VideoCommentInfo> = entities
+//         let infos: Vec<CommentInfo> = entities
 //             .into_iter()
-//             .map(VideoCommentInfo::from_entity)
+//             .map(CommentInfo::from_entity)
 //             .collect();
 //
 //         Ok(infos)
@@ -111,13 +111,13 @@
 //         video_id: i64,
 //         offset: i64,
 //         limit: i64,
-//     ) -> Result<Vec<VideoCommentInfo>, anyhow::Error> {
+//     ) -> Result<Vec<CommentInfo>, anyhow::Error> {
 //         let entities = CommentRepo::find_comments_by_user_id(video_id, offset, limit).await?;
 //
 //         // handler -> info
-//         let infos: Vec<VideoCommentInfo> = entities
+//         let infos: Vec<CommentInfo> = entities
 //             .into_iter()
-//             .map(VideoCommentInfo::from_entity)
+//             .map(CommentInfo::from_entity)
 //             .collect();
 //
 //         Ok(infos)
@@ -131,13 +131,13 @@
 //         user_id: i64,
 //         offset: i64,
 //         limit: i64,
-//     ) -> Result<Vec<VideoCommentInfo>, anyhow::Error> {
+//     ) -> Result<Vec<CommentInfo>, anyhow::Error> {
 //         let entities = CommentRepo::find_comments_by_user_id(user_id, offset, limit).await?;
 //
 //         // handler -> info
-//         let infos: Vec<VideoCommentInfo> = entities
+//         let infos: Vec<CommentInfo> = entities
 //             .into_iter()
-//             .map(VideoCommentInfo::from_entity)
+//             .map(CommentInfo::from_entity)
 //             .collect();
 //
 //         Ok(infos)

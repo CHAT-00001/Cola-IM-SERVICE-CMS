@@ -1,5 +1,4 @@
-// repo_adapter/src/cola_video/danmaku/get.rs
-// 🔌 适配器 - VIDEO - 弹幕 - 获取IDs
+// repo_adapter/src/cola_video/danmaku/get.rs -- 适配器 - VIDEO - 弹幕 - 获取适配器
 // 2026/8/6 18:56 Created.
 
 ////////
@@ -18,6 +17,11 @@ pub struct VideoDanmakuGetAdapter;
 
 #[async_trait]
 impl VideoDanmakuGetPort for VideoDanmakuGetAdapter {
+    //
+
+    ////////
+
+    /// # [ADAPTER] - 视频的弹幕
     async fn get_danmaku_by_video_id(
         &self,
         uid: i64,
@@ -28,6 +32,9 @@ impl VideoDanmakuGetPort for VideoDanmakuGetAdapter {
         todo!()
     }
 
+    ////////
+
+    /// # [ADAPTER] - 用户的弹幕
     async fn get_danmaku_by_user_id(
         &self,
         uid: i64,

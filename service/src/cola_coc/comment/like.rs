@@ -7,7 +7,7 @@
 use anyhow::Error;
 use cola_data::cola_video::command::comment::CommentCommand;
 use cola_data::cola_video::entity::video::video::VideoEntity;
-use cola_data::cola_video::info::comment::VideoCommentInfo;
+use cola_data::cola_video::info::comment::CommentInfo;
 use repository::video::pg::comment::comment::CommentRepo;
 use repository::video::pg::video::home::VideoRepo;
 use tracing::log;

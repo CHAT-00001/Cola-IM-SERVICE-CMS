@@ -4,7 +4,6 @@
 use app_config::DbService;
 use redis::AsyncCommands;
 
-
 /// # [CACHE] - 浏览过的视频
 #[derive(Clone)]
 pub struct VisitedCache {

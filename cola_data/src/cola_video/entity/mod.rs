@@ -18,5 +18,4 @@ pub mod recommend; // 推荐
 pub mod share; // 分享
 pub mod user; // 用户中心
 pub mod video; // 视频
-pub mod view;// 浏览
-
+pub mod view; // 浏览

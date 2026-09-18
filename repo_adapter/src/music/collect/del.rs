@@ -25,10 +25,13 @@ impl MusicCollectDeletePort for MusicCollectDeleteAdapter {
         todo!()
     }
 
-    async fn user_delete_collect_record(&self, uid: i64, music_ids: Vec<i64>) -> anyhow::Result<()> {
+    async fn user_delete_collect_record(
+        &self,
+        uid: i64,
+        music_ids: Vec<i64>,
+    ) -> anyhow::Result<()> {
         todo!()
     }
-
 }
 
 //////// END

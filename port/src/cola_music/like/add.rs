@@ -36,9 +36,9 @@ pub trait MusicLikeAddPort: Send + Sync {
     /// # 3. [PORT] - 插入更新点赞
     async fn upsert_like(
         &self,
-        uid: i64,         // 操作者 ID
-        music_id: i64,    // 音乐 ID
-        status: i16,      // 状态: 1有效, 0取消
+        uid: i64,      // 操作者 ID
+        music_id: i64, // 音乐 ID
+        status: i16,   // 状态: 1有效, 0取消
     ) -> anyhow::Result<()> {
         Err(anyhow::anyhow!("音乐最喜欢新增适配器尚未装配"))
     }

@@ -4,9 +4,9 @@
 ////////
 
 use crate::assembler::comment::build_comment_single_response;
-use crate::model::vo::comment::CommentSingleResponse;
 use anyhow::Result;
 use cola_data::cola_video::command::comment::CommentCommand;
+use cola_data::cola_video::vo::comment::CommentSingleResponse;
 use port::app::ctx::AppContext;
 use tracing::info;
 
@@ -24,9 +24,19 @@ impl CommentAddCase {
         cmd: CommentCommand, // 评论命令
         ctx: AppContext,     // 应用上下文
     ) -> Result<CommentSingleResponse> {
-        let client_id = cmd._id.clone().ok_or_else(|| anyhow::anyhow!("评论幂等ID缺失"))?;
+        let client_id = cmd
+            ._id
+            .clone()
+            .ok_or_else(|| anyhow::anyhow!("评论幂等ID缺失"))?;
 
-        if ctx.video.comment.check.exists_by_client_id(client_id.clone()).await.map_err(|error| anyhow::anyhow!("评论幂等查重失败: {error}"))? {
+        if ctx
+            .video
+            .comment
+            .check
+            .exists_by_client_id(client_id.clone())
+            .await
+            .map_err(|error| anyhow::anyhow!("评论幂等查重失败: {error}"))?
+        {
             return Err(anyhow::anyhow!("评论已经存在"));
         }
 
@@ -38,7 +48,7 @@ impl CommentAddCase {
             .await
             .map_err(|error| anyhow::anyhow!("评论发布持久化失败: {error}"))?;
         info!("[🗣️ COMMENT CASE] - ✅️ 评论发布成功: uid={uid}, video_id={video_id}");
-        build_comment_single_response(info, Some(uid)).await
+        build_comment_single_response(info, Some(uid), &ctx).await
     }
 }
 

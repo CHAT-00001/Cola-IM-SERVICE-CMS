@@ -6,7 +6,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_video::info::comment::VideoCommentInfo;
+use cola_data::cola_video::info::comment::CommentInfo;
 use port::market::buy::manage::GoodsBuyManagePort;
 
 ////////
@@ -34,7 +34,7 @@ impl GoodsBuyManagePort for GoodsBuyManageAdapter {
         status_code: i16,        // 状态码
         limit: i64,              // 数量
         offset: i64,             // 页码
-    ) -> Result<(VideoCommentInfo), u64> {
+    ) -> Result<(CommentInfo), u64> {
         todo!()
     }
 }

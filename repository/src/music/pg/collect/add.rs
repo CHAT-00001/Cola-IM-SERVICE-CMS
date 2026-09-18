@@ -19,11 +19,7 @@ impl MusicCollectAddRepo {
 
     /// # 1. [REPOSITORY] - 保存或恢复音乐收藏
     /// * `desc`: `存在未删除的记录则更新，否则执行插入，返回 bool 表示是否实际产生了数据变更`
-    pub async fn save(
-        uid: i64,
-        music_id: i64,
-        album_id: Option<i64>,
-    ) -> Result<bool, sqlx::Error> {
+    pub async fn save(uid: i64, music_id: i64, album_id: Option<i64>) -> Result<bool, sqlx::Error> {
         let pool = pg_pool();
         let now = chrono::Utc::now();
         let id = now.timestamp_millis();
@@ -44,12 +40,12 @@ impl MusicCollectAddRepo {
             )
             "#,
         )
-            .bind(album_id)
-            .bind(now)
-            .bind(uid)
-            .bind(&music_id_str)
-            .execute(&pool)
-            .await?;
+        .bind(album_id)
+        .bind(now)
+        .bind(uid)
+        .bind(&music_id_str)
+        .execute(&pool)
+        .await?;
 
         // 如果没有找到历史记录进行恢复，则直接插入一条新纪录
         if restored.rows_affected() == 0 {
@@ -83,10 +79,7 @@ impl MusicCollectAddRepo {
 
     /// # 2. [REPOSITORY] - 逻辑删除音乐收藏
     /// * `desc`: `将指定的收藏记录标记为逻辑删除，返回 bool 表示是否实际删除了记录`
-    pub async fn delete(
-        uid: i64,
-        music_id: i64,
-    ) -> Result<bool, sqlx::Error> {
+    pub async fn delete(uid: i64, music_id: i64) -> Result<bool, sqlx::Error> {
         let pool = pg_pool();
         let now = chrono::Utc::now();
         let music_id_str = music_id.to_string();
@@ -98,11 +91,11 @@ impl MusicCollectAddRepo {
             WHERE uid = $2 AND music_id = $3 AND is_deleted = false
             "#,
         )
-            .bind(now)
-            .bind(uid)
-            .bind(&music_id_str)
-            .execute(&pool)
-            .await?;
+        .bind(now)
+        .bind(uid)
+        .bind(&music_id_str)
+        .execute(&pool)
+        .await?;
 
         // 如果影响行数大于 0，说明确实删除了有效的收藏记录；否则说明原本就没有收藏或已经是删除状态
         let is_changed = result.rows_affected() > 0;

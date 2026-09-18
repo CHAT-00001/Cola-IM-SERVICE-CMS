@@ -3,13 +3,13 @@
 
 ////////
 
+use crate::case::video::get::VideoContentGetCase;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::auth::info::auth::AuthContext;
 use cola_data::cola_video::info::video::VideoSingleResponse;
 use port::app::ctx::AppContext;
-use crate::case::video::get::VideoContentGetCase;
 
 ////////
 
@@ -28,7 +28,6 @@ impl VideoContentGetApi {
         url: ApiGatewayRequest, // 网关请求
         ctx: &AppContext,       // 应用上下文
     ) -> AppData<VideoSingleResponse> {
-
         // 初步检查视频ID是否存在
         let video_id = if url.id > 0 { url.id } else { url.video_id };
         if video_id <= 0 {

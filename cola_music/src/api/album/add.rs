@@ -49,7 +49,6 @@ impl MusicAlbumAddApi {
         cmd: UpdateMusicAlbumCmd, // 修改命令
         ctx: AppContext,          // 应用上下文
     ) -> AppData<MusicAlbumSingleResponse> {
-        
         let album_id = url.id;
 
         // Call CASE ..

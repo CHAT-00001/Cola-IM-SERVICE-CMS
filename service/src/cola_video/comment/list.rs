@@ -5,7 +5,7 @@
 ////////
 
 use anyhow::Error;
-use cola_data::cola_video::info::comment::VideoCommentInfo;
+use cola_data::cola_video::info::comment::CommentInfo;
 use repository::video::pg::comment::list::VideoCommentListRepo;
 use tracing::log;
 
@@ -26,7 +26,7 @@ impl VideoCommentListService {
         user_id: i64, // 用户 ID
         limit: i64,   // 数量
         offset: i64,  // 页码
-    ) -> Result<Vec<VideoCommentInfo>, anyhow::Error> {
+    ) -> Result<Vec<CommentInfo>, anyhow::Error> {
         // 🌟 已修正：从 Repo 拿到物理表 Entity
         let entities = VideoCommentListRepo::find_list_by_user_id(user_id, limit, offset)
             .await
@@ -41,7 +41,7 @@ impl VideoCommentListService {
         // 🌟 已修正：加入调用构造函数转换
         let infos = entities
             .into_iter()
-            .map(VideoCommentInfo::from_entity)
+            .map(CommentInfo::from_entity)
             .collect::<Vec<_>>();
 
         Ok(infos)
@@ -55,7 +55,7 @@ impl VideoCommentListService {
         video_id: i64, // 评论 ID
         limit: i64,    // 数量
         offset: i64,   // 页码
-    ) -> Result<Vec<VideoCommentInfo>, anyhow::Error> {
+    ) -> Result<Vec<CommentInfo>, anyhow::Error> {
         // 🌟 已修正：从 Repo 拿到物理表 Entity
         let entities = VideoCommentListRepo::find_list_by_video_id(video_id, limit, offset)
             .await
@@ -70,7 +70,7 @@ impl VideoCommentListService {
         // 🌟 已修正：加入调用构造函数转换
         let infos = entities
             .into_iter()
-            .map(VideoCommentInfo::from_entity)
+            .map(CommentInfo::from_entity)
             .collect::<Vec<_>>();
 
         Ok(infos)
@@ -82,16 +82,16 @@ impl VideoCommentListService {
     pub async fn find_new_video_list(
         limit: i64,
         offset: i64,
-    ) -> Result<Vec<VideoCommentInfo>, anyhow::Error> {
+    ) -> Result<Vec<CommentInfo>, anyhow::Error> {
         // 1. 从 Repo 拿到物理表 Entity 列表
         let entities = VideoCommentListRepo::find_new_list(limit, offset)
             .await
             .map_err(|e| anyhow::anyhow!("[🤐 LIST SERVICE]: - ❌️ 获取最新评论列表失败: {}", e))?;
 
-        // 2. 🌟 拦截并就地转换为纯净的领域元数据 VideoCommentInfo，彻底告别外泄
+        // 2. 🌟 拦截并就地转换为纯净的领域元数据 CommentInfo，彻底告别外泄
         let infos = entities
             .into_iter()
-            .map(VideoCommentInfo::from_entity)
+            .map(CommentInfo::from_entity)
             .collect::<Vec<_>>();
 
         Ok(infos)
@@ -105,16 +105,16 @@ impl VideoCommentListService {
     pub async fn find_hot_video_list(
         limit: i64,
         offset: i64,
-    ) -> Result<Vec<VideoCommentInfo>, anyhow::Error> {
+    ) -> Result<Vec<CommentInfo>, anyhow::Error> {
         // 1. 从 Repo 拿到物理表 Entity 列表
         let entities = VideoCommentListRepo::find_hot_list(limit, offset)
             .await
             .map_err(|e| anyhow::anyhow!("[🤐 LIST SERVICE]: - ❌️ 获取热门评论列表失败: {}", e))?;
 
-        // 2. 🌟 拦截并就地脱敏、规范化，转换为纯净的领域元数据 VideoCommentInfo
+        // 2. 🌟 拦截并就地脱敏、规范化，转换为纯净的领域元数据 CommentInfo
         let infos = entities
             .into_iter()
-            .map(VideoCommentInfo::from_entity)
+            .map(CommentInfo::from_entity)
             .collect::<Vec<_>>();
 
         Ok(infos)
@@ -128,8 +128,8 @@ impl VideoCommentListService {
         lng: f64,
         limit: i64,
         offset: i64,
-    ) -> Result<Vec<VideoCommentInfo>, anyhow::Error> {
-        // 🌟 已修正：返回值改为 Vec<VideoCommentInfo>
+    ) -> Result<Vec<CommentInfo>, anyhow::Error> {
+        // 🌟 已修正：返回值改为 Vec<CommentInfo>
         let entities = VideoCommentListRepo::find_nearby_list(lat, lng, limit, offset)
             .await
             .map_err(|e| {
@@ -139,7 +139,7 @@ impl VideoCommentListService {
         // 🌟 已修正：加入调用构造函数转换
         let infos = entities
             .into_iter()
-            .map(VideoCommentInfo::from_entity)
+            .map(CommentInfo::from_entity)
             .collect::<Vec<_>>();
 
         Ok(infos)

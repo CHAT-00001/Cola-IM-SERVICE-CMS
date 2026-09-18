@@ -4,11 +4,11 @@
 ////////
 
 use crate::case::comment::add::CommentAddCase;
-use crate::model::vo::comment::CommentSingleResponse;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::auth::info::auth::AuthContext;
 use cola_data::cola_video::command::comment::CommentCommand;
+use cola_data::cola_video::vo::comment::CommentSingleResponse;
 use port::app::ctx::AppContext;
 
 ////////

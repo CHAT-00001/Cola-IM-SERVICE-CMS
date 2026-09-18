@@ -3,7 +3,6 @@
 
 ////////
 
-
 pub struct MusicAlbumCheckRepo;
 impl MusicAlbumCheckRepo {
     //
@@ -11,18 +10,14 @@ impl MusicAlbumCheckRepo {
     ////////
 
     /// # 1. [REPO] - 检查健康
-    async fn check_health(
-        album_id: i64, // 专辑 ID
+    async fn check_health(album_id: i64, // 专辑 ID
     ) {
-
     }
 
     ////////
 
     /// # 2. [REPO] - 检查状态
-    async fn check_status(
-        album_id: i64, // 专辑 ID
+    async fn check_status(album_id: i64, // 专辑 ID
     ) {
-
     }
 }

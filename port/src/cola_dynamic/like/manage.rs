@@ -4,7 +4,7 @@
 
 ////////
 
-use cola_data::cola_video::info::comment::VideoCommentInfo;
+use cola_data::cola_video::info::comment::CommentInfo;
 
 /// # [STAT PORT] - 管理
 /// * `desc`: `视频点赞管理端口`
@@ -24,7 +24,7 @@ pub trait LikeManagePort: Send + Sync {
         is_deleted: Option<bool>, // 是否删除
         limit: i64,               // 数量
         offset: i64,              // 页码
-    ) -> anyhow::Result<(Vec<VideoCommentInfo>)>;
+    ) -> anyhow::Result<(Vec<CommentInfo>)>;
 }
 
 //////// END

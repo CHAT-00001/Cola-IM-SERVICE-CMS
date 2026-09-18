@@ -5,7 +5,7 @@
 ////////
 
 use cola_data::cola_video::command::comment::CommentCommand;
-use cola_data::cola_video::info::comment::VideoCommentInfo;
+use cola_data::cola_video::info::comment::CommentInfo;
 
 ////////
 
@@ -24,7 +24,7 @@ pub trait SessionAddPort: Send + Sync {
         uid: i64,            // UID
         user_id: i64,        // 用户 ID
         cmd: CommentCommand, // 命令
-    ) -> anyhow::Result<(VideoCommentInfo)>;
+    ) -> anyhow::Result<(CommentInfo)>;
 
     ////////
 
@@ -35,7 +35,7 @@ pub trait SessionAddPort: Send + Sync {
         uid: i64,            // UID
         comment_id: i64,     // 评论 ID
         cmd: CommentCommand, // 命令
-    ) -> anyhow::Result<(VideoCommentInfo)>;
+    ) -> anyhow::Result<(CommentInfo)>;
 }
 
 //////// END

@@ -33,7 +33,6 @@ impl VideoDanmakuAddPort for VideoDanmakuaddAdapter {
         cmd: DanmakuCommand, // 命令
         visibility: i16,     // 可见范围
     ) -> Result<(DanmakuInfo)> {
-
         // Call REPO .. 💾 保存弹幕
         let entity = DanmakuAddRepo::save_danmaku_by_video_id(uid, video_id, cmd, visibility)
             .await

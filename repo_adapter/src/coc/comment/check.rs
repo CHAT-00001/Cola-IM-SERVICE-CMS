@@ -6,8 +6,8 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use redis::AsyncCommands;
 use port::cola_video::comment::check::VideoCommentCheckPort;
+use redis::AsyncCommands;
 use repository::video::pg::comment::check::VideoCommentCheckRepo;
 
 ////////
@@ -78,14 +78,21 @@ impl VideoCommentCheckPort for VideoCommentCheckAdapter {
     /// # 4. [ADAPTER] - 客户端幂等ID查重
     async fn exists_by_client_id(&self, client_id: String) -> Result<bool> {
         if let Ok(Some(_)) = get_dup_cache(&client_id).await {
-            tracing::info!("[🔌 ADAPTER] - ✅️ 评论幂等缓存命中: client_id={}", client_id);
+            tracing::info!(
+                "[🔌 ADAPTER] - ✅️ 评论幂等缓存命中: client_id={}",
+                client_id
+            );
             return Ok(true);
         }
 
         let exists = VideoCommentCheckRepo::exists_by_client_id(&client_id).await?;
         if exists {
             if let Err(error) = set_dup_cache(&client_id).await {
-                tracing::warn!("[🤐 ADAPTER] - ❌️ 评论幂等缓存回填失败: client_id={}, error={}", client_id, error);
+                tracing::warn!(
+                    "[🤐 ADAPTER] - ❌️ 评论幂等缓存回填失败: client_id={}, error={}",
+                    client_id,
+                    error
+                );
             }
         }
 

@@ -67,7 +67,9 @@ impl MusicUserAddCase {
             .add
             .update_profile(uid, id, cmd)
             .await
-            .map_err(|e| anyhow::anyhow!("[🤐 ADD CASE]: ❌️ 音乐用户统计数据修改持久化失败: {}", e))?;
+            .map_err(|e| {
+                anyhow::anyhow!("[🤐 ADD CASE]: ❌️ 音乐用户统计数据修改持久化失败: {}", e)
+            })?;
 
         info!(
             "[🗣️ ADD CASE] - ✅️ 音乐用户统计数据编辑成功: uid={}, visibility={}",

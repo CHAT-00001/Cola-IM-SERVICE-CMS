@@ -20,7 +20,6 @@ impl MusicLikeStatPort for MusicLikeStatAdapter {
         _operator_uid: i64, // 操作者 ID
         user_id: i64,       // 用户 ID
     ) -> anyhow::Result<u64> {
-
         // Call PG REPO ..
         MusicLikeStatRepo::count_valid_by_user_id(user_id)
             .await
@@ -35,7 +34,6 @@ impl MusicLikeStatPort for MusicLikeStatAdapter {
         _operator_uid: i64, // 操作者 ID
         music_id: i64,      // 音乐 ID
     ) -> anyhow::Result<u64> {
-
         // Call PG REPO ..
         MusicLikeStatRepo::count_valid_by_music_id(music_id)
             .await

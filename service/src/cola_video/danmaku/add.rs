@@ -11,7 +11,7 @@ use cola_data::cola_video::command::danmaku::DanmakuCommand;
 use cola_data::cola_video::command::share::ShareCommand;
 use cola_data::cola_video::entity::danmaku::DanmakuEntity;
 use cola_data::cola_video::entity::video::video::VideoEntity;
-use cola_data::cola_video::info::comment::VideoCommentInfo;
+use cola_data::cola_video::info::comment::CommentInfo;
 use cola_data::cola_video::info::danmaku::DanmakuInfo;
 use repository::cola_gis::pg::user::UserRepo;
 use repository::video::pg::danmaku::add::DanmakuAddRepo;

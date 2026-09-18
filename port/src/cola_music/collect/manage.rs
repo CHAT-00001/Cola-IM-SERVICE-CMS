@@ -28,5 +28,4 @@ pub trait MusicCollectManagePort: Send + Sync {
     }
 }
 
-
 //////// END

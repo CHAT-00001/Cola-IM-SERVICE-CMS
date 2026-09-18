@@ -5,7 +5,7 @@
 ////////
 
 use cola_data::cola_video::command::comment::CommentCommand;
-use cola_data::cola_video::info::comment::VideoCommentInfo;
+use cola_data::cola_video::info::comment::CommentInfo;
 use cola_data::cola_video::info::danmaku::DanmakuInfo;
 ////////
 
@@ -20,7 +20,7 @@ pub trait DynamicCommentGetPort: Send + Sync {
         uid: i64,
         video_id: i64,
         is_liked: bool,
-    ) -> anyhow::Result<(VideoCommentInfo)>;
+    ) -> anyhow::Result<(CommentInfo)>;
 
     ////////
 
@@ -29,7 +29,7 @@ pub trait DynamicCommentGetPort: Send + Sync {
         &self,
         comment_id: i64,
         cmd: CommentCommand,
-    ) -> anyhow::Result<(VideoCommentInfo)>;
+    ) -> anyhow::Result<(CommentInfo)>;
 
     /// # 5. [PORT] - 获取视频ID的弹幕
     async fn get_danmaku_by_video_id(

@@ -43,7 +43,7 @@ impl CreateMusicAlbumCmd {
             name_zh: self.name_zh.clone(),
             description: self.description.clone(),
             cover_url: self.cover_url.clone(),
-            music_qty: Some(0),             // 新建专辑默认音乐数量为 0
+            music_qty: Some(0), // 新建专辑默认音乐数量为 0
             category_id: self.category_id,
             tags: self.tags.clone(),
             source: self.source.clone(),
@@ -53,7 +53,7 @@ impl CreateMusicAlbumCmd {
             collects: 0,
             shares: 0,
             review_reason: None,
-            status: 1,                      // 默认状态（1-正常，或根据业务设为 0-草稿）
+            status: 1, // 默认状态（1-正常，或根据业务设为 0-草稿）
             is_public: self.is_public,
             is_deleted: Some(false),
             created_at: Some(now),

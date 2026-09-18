@@ -19,7 +19,7 @@ pub struct MediaInfo {
     pub height: i16,       // 帧高度
     pub fps: f32,          // 每秒帧数
     pub duration: i32,     // 时长
-    pub items: ()
+    pub items: (),
 }
 
 //////// END

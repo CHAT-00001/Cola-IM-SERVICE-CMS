@@ -37,20 +37,13 @@ impl DanmakuGetCase {
             .map_err(|e| anyhow::anyhow!("[🤐 ADD CASE]: ❌️ 获取最新的弹幕列表失败: {}", e))?;
 
         info!(
-            "[🗣️ ADD CASE] - ✅️ 获取最新的弹幕列表成功: uid={}, play_time={}",
-            uid, play_time
+            "[🗣️ ADD CASE] - ✅️ 获取最新的弹幕列表成功: uid={}, video_id={}, play_time={}",
+            uid, video_id, play_time
         );
 
         // 3. Call Assembler .. 组装成弹幕Vo
-        let response = build_danmaku_list_response(
-            danmaku_infos,
-            Some(uid),
-            0,
-            1,
-            qty as i64,
-            total,
-        )
-        .await?;
+        let response =
+            build_danmaku_list_response(danmaku_infos, Some(uid), 0, 1, qty as i64, total).await?;
 
         Ok(response)
     }

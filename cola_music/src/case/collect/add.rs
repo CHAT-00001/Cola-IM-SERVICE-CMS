@@ -26,7 +26,6 @@ impl MusicCollectAddCase {
         album_id: Option<i64>, // 专辑 ID
         ctx: AppContext,       // 应用上下文
     ) -> Result<bool, anyhow::Error> {
-
         // 调用下层服务，假设下层 save_collect_record 返回 bool (表示是否实际发生了变动/插入)
         let is_changed = ctx
             .music
@@ -60,7 +59,6 @@ impl MusicCollectAddCase {
         music_id: i64,   // 音乐 ID
         ctx: AppContext, // 应用上下文
     ) -> Result<bool, anyhow::Error> {
-
         let album_id = 1;
 
         // 调用下层的逻辑删除方法（对应我们之前拆分的 delete 仓储/服务），返回 bool

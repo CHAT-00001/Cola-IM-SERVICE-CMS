@@ -43,7 +43,11 @@ impl VideoGetPort for VideoGetAdapter {
         todo!()
     }
 
-    async fn get_video_infos_by_ids(&self, uid: i64, video_ids: Vec<i64>) -> Result<(Vec<VideoInfo>)> {
+    async fn get_video_infos_by_ids(
+        &self,
+        uid: i64,
+        video_ids: Vec<i64>,
+    ) -> Result<(Vec<VideoInfo>)> {
         todo!()
     }
 }

@@ -15,7 +15,6 @@ pub mod identity; // 身份识别
 pub mod ip_addr; // IP地址
 pub mod phone; // 电话
 pub mod session; // 会话
-pub mod session22; // 会话
 
 ////////
 
@@ -23,8 +22,8 @@ pub mod session22; // 会话
 /// * `desc`: 构建验证中心 Port 聚合体，包含会话接口
 pub fn build_auth_port() -> AuthServicePorts {
     AuthServicePorts {
-        session: Arc::new(session22::SessionPortAdapter),
-        identity: Arc::new(identity::phone::PhoneIdentityAdapter),
+        session: Arc::new(session::check::SessionCheckAdapter), // 会话
+        identity: Arc::new(identity::phone::PhoneIdentityAdapter), // 身份
     }
 }
 

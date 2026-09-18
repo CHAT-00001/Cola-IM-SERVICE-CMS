@@ -1,5 +1,4 @@
-// repo_adapter/src/cola_video/danmaku/list.rs
-// 🔌 适配器 - VIDEO - 弹幕 - 弹幕列表
+// repo_adapter/src/cola_video/danmaku/list.rs -- 适配器 - VIDEO - 弹幕 - 列表适配器
 // 2026/8/6 18:56 Created.
 
 ////////
@@ -31,14 +30,11 @@ impl VideoDanmakuListPort for VideoDanmakuListAdapter {
         play_time: i32,
         qty: i32,
     ) -> Result<(Vec<DanmakuInfo>, i64)> {
-        let infos = VideoDanmakuAddService::get_video_danmaku(
-            video_id,
-            play_time,
-            5,
-            qty as i64,
-            0,
-        )
-        .await?;
+
+        // 弹幕信息
+        let infos =
+            VideoDanmakuAddService::get_video_danmaku(video_id, play_time, 5, 0, qty as i64)
+                .await?;
         let total = infos.len() as i64;
         Ok((infos, total))
     }

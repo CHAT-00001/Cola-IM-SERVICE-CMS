@@ -1,8 +1,8 @@
-// cola_video/src/new/assembler/mod.rs  -- 视频响应体 组装器
+// cola_video/src/assembler/mod.rs  -- VIDEO - 组装器 - mod
 // 2026/3/28 08:44 by wx: cestbon10080
 
 ////////
 
-pub mod comment;
-pub mod danmaku;
-pub mod video;
+pub mod comment; // 评论
+pub mod danmaku; // 弹幕
+pub mod video;   // 内容

@@ -11,5 +11,5 @@ pub mod contact_relation;
 pub mod contact_request;
 pub mod danmaku;
 pub mod message;
-pub mod setting;
 mod report;
+pub mod setting;

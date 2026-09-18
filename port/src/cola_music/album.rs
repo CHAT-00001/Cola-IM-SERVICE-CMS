@@ -28,13 +28,13 @@ pub mod stat;
 /// * `desc`: `用户创建并管理可公开展示的音乐专辑`
 #[derive(Clone)]
 pub struct MusicAlbumPort {
-    pub add: Arc<dyn MusicAlbumAddPort + Send + Sync + 'static>,       // 发布
-    pub check: Arc<dyn MusicAlbumCheckPort + Send + Sync + 'static>,   // 检查
+    pub add: Arc<dyn MusicAlbumAddPort + Send + Sync + 'static>, // 发布
+    pub check: Arc<dyn MusicAlbumCheckPort + Send + Sync + 'static>, // 检查
     pub delete: Arc<dyn MusicAlbumDeletePort + Send + Sync + 'static>, // 删除
-    pub get: Arc<dyn MusicAlbumGetPort + Send + Sync + 'static>,       // 获取
-    pub list: Arc<dyn MusicAlbumListPort + Send + Sync + 'static>,     // 列表
+    pub get: Arc<dyn MusicAlbumGetPort + Send + Sync + 'static>, // 获取
+    pub list: Arc<dyn MusicAlbumListPort + Send + Sync + 'static>, // 列表
     pub manage: Arc<dyn MusicAlbumManagePort + Send + Sync + 'static>, // 管理
-    pub stat: Arc<dyn MusicAlbumStatPort + Send + Sync + 'static>,     // 统计
+    pub stat: Arc<dyn MusicAlbumStatPort + Send + Sync + 'static>, // 统计
 }
 
 //////// END

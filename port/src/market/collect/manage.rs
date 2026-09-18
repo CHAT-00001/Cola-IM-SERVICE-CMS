@@ -6,7 +6,7 @@
 
 use cola_data::cola_video::command::comment::CommentCommand;
 use cola_data::cola_video::info::collect::VideoCollectInfo;
-use cola_data::cola_video::info::comment::VideoCommentInfo;
+use cola_data::cola_video::info::comment::CommentInfo;
 
 ////////
 

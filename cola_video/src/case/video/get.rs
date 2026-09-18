@@ -3,10 +3,8 @@
 
 ////////
 
-use crate::assembler::comment::build_comment_list_response;
 use crate::assembler::video::build_video_single_response_with_cdn;
 use crate::case::storage::resolve_video_cdn_domain;
-use crate::model::vo::comment::CommentListResponse;
 use anyhow::Result;
 use cola_data::cola_video::info::video::VideoSingleResponse;
 use port::app::ctx::AppContext;

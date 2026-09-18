@@ -30,7 +30,6 @@ impl MusicGetCase {
     ) -> Result<MusicSingleResponse, anyhow::Error> {
         //
 
-
         // Call CTX ..
         let music_info = ctx
             .music

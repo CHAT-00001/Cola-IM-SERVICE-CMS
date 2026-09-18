@@ -5,8 +5,9 @@
 
 use crate::kits::response::IntoApi;
 use crate::ping::ping;
-use actix_web::{HttpMessage, HttpRequest, Responder, web};
+use actix_web::{HttpRequest, Responder, web};
 use app_config::app_state::AppState;
+use cola_auth::api::seesion::state::SessionStateApi;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::cola_video::command::video::new::VideoNewCommand;
@@ -61,12 +62,6 @@ pub async fn video_gateway(
     // 开始时间
     let start = Instant::now();
 
-    // 严格检查登录状态，统一命名操作用户为 uid
-    let uid = match req.extensions().get::<i64>().copied() {
-        Some(id) => id,
-        None => 1, // 测试环境默认 uid
-    };
-
     let url_req = url.into_inner();
     let mut api_req = if body.is_empty() {
         url_req
@@ -97,16 +92,37 @@ pub async fn video_gateway(
         body_req.body = Some(body_value);
         url_req.merge(body_req)
     };
+    let auth_request = match api_req.auth.clone() {
+        Some(auth) => auth,
+        None => {
+            return AppData::<()>::err(4010, "[🌐 GATEWAY]: ❌️ 缺少登录认证信息", None)
+                .finish(&req, start);
+        }
+    };
+
+    let session = match SessionStateApi::verify_login(&auth_request, &state.ctx.auth).await {
+        AppData {
+            data: Some(session),
+            ..
+        } => session,
+        response => {
+            return response.rebind::<()>().finish(&req, start);
+        }
+    };
+
+    let uid = session.uid;
     api_req.uid = Some(uid);
     api_req = api_req.build();
     let auth = cola_data::auth::info::auth::AuthContext {
-        uid,
-        access_token: String::new(),
-        refresh_token: String::new(),
-        device_id: String::new(),
-        iam_roles: vec![],
-        is_anonymous: false,
+        uid: session.uid,
+        access_token: session.access_token,
+        refresh_token: auth_request.refresh_token.clone().unwrap_or_default(),
+        device_id: session.device_id,
+        iam_roles: session.iam_roles,
+        is_anonymous: session.is_anonymous,
     };
+
+    //////// MATCH
 
     // 🌟 对齐到 service 字符串进行业务路由分发
     match api_req.service.clone().unwrap_or_default().as_str() {
@@ -147,8 +163,8 @@ pub async fn video_gateway(
             .await
             .finish(&req, start),
 
+        // 查看视频详情 - (测试接口,不可删除)
         "view" => {
-            // 查看视频详情 - 测试接口
             let video_id = api_req.video_id;
             let data = serde_json::json!({
                 "id": video_id,

@@ -1,8 +1,11 @@
-// cola_data/src/auth/command/session.rs
-// 数据 - AUTH - Command - session - 会话
+// cola_data/src/auth/command/session.rs  -- 数据 - AUTH - Command - session - mod
 // 2026/06/05 06:50
 
 ////////
+
+pub mod add;
+pub mod refresh;
+pub mod signout;
 
 use serde::{Deserialize, Serialize};
 use validator::Validate;

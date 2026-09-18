@@ -5,7 +5,7 @@
 ////////
 
 use anyhow::Error;
-use cola_data::cola_video::info::comment::VideoCommentInfo;
+use cola_data::cola_video::info::comment::CommentInfo;
 use repository::video::pg::comment::comment::CommentRepo;
 use tracing::log;
 
@@ -25,13 +25,13 @@ impl CommentGetService {
         video_id: i64,
         offset: i64,
         limit: i64,
-    ) -> Result<Vec<VideoCommentInfo>, anyhow::Error> {
+    ) -> Result<Vec<CommentInfo>, anyhow::Error> {
         let entities = CommentRepo::find_new_comments_by_video_id(video_id, offset, limit).await?;
 
         // handler -> info
-        let infos: Vec<VideoCommentInfo> = entities
+        let infos: Vec<CommentInfo> = entities
             .into_iter()
-            .map(VideoCommentInfo::from_entity)
+            .map(CommentInfo::from_entity)
             .collect();
 
         Ok(infos)
@@ -45,13 +45,13 @@ impl CommentGetService {
         video_id: i64,
         offset: i64,
         limit: i64,
-    ) -> Result<Vec<VideoCommentInfo>, anyhow::Error> {
+    ) -> Result<Vec<CommentInfo>, anyhow::Error> {
         let entities = CommentRepo::find_comments_by_user_id(video_id, offset, limit).await?;
 
         // handler -> info
-        let infos: Vec<VideoCommentInfo> = entities
+        let infos: Vec<CommentInfo> = entities
             .into_iter()
-            .map(VideoCommentInfo::from_entity)
+            .map(CommentInfo::from_entity)
             .collect();
 
         Ok(infos)

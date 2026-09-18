@@ -4,7 +4,7 @@
 
 ////////
 
-use cola_data::cola_video::info::comment::VideoCommentInfo;
+use cola_data::cola_video::info::comment::CommentInfo;
 
 ////////
 
@@ -23,7 +23,7 @@ pub trait GoodsCollectListPort: Send + Sync {
         uid: i64,    // UID
         limit: i64,  // 数量
         offset: i64, // 页码
-    ) -> anyhow::Result<(VideoCommentInfo)>;
+    ) -> anyhow::Result<(CommentInfo)>;
 
     ////////
 
@@ -34,7 +34,7 @@ pub trait GoodsCollectListPort: Send + Sync {
         uid: i64,    // UID
         limit: i64,  // 数量
         offset: i64, // 页码
-    ) -> anyhow::Result<(VideoCommentInfo)>;
+    ) -> anyhow::Result<(CommentInfo)>;
 
     ////////
 

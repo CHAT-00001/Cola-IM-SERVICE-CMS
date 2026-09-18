@@ -5,9 +5,9 @@
 
 use anyhow::{Result, anyhow};
 use cola_data::app::query::ApiGatewayRequest;
+use cola_data::cola_coc::command::hotlist::record::HotlistCommand;
 use port::app::ctx::AppContext;
 use tracing::{info, warn};
-use cola_data::cola_coc::command::hotlist::record::HotlistCommand;
 ////////
 
 /// # [CASE] - 上热门 用例

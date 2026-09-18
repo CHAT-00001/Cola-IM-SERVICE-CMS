@@ -6,6 +6,6 @@
 pub mod add;
 pub mod del;
 pub mod get;
-pub mod stat;
 mod list;
+pub mod stat;
 //////// END

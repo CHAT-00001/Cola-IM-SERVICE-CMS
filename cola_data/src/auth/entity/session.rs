@@ -35,7 +35,7 @@ pub struct AuthSessionEntity {
 pub const AUTH_SESSION_COLUMNS: &str = r#"
     id, user_id, access_token, refresh_token, client_id,
     device_id, access_expires_at,refresh_expires_at, last_active_at,
-    status, created_at, updated_at
+    status, created_at, updated_at, platform
 "#;
 
 ////////

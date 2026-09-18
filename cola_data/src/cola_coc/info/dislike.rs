@@ -17,7 +17,7 @@ pub struct VideoDislikeInfo {
     pub user_id: i64,                      // 作者 ID
     pub video_id: i64,                     // 视频 ID
     pub status: i16,                       // 状态: 0. 失效 1. 有效
-    pub add_time: Option<i64>,              // 创建时间（兼容PHP旧版）
+    pub add_time: Option<i64>,             // 创建时间（兼容PHP旧版）
     pub created_at: Option<DateTime<Utc>>, // 创建时间
     pub updated_at: Option<DateTime<Utc>>, // 更新时间
 }

@@ -7,11 +7,36 @@
 #[async_trait::async_trait]
 pub trait ViewPort: Send + Sync {
     async fn add_view_record(&self, uid: i64, music_id: i64, is_liked: bool) -> anyhow::Result<()>;
-    async fn done_view_record(&self, uid: i64, music_id: i64, is_unliked: bool) -> anyhow::Result<()>;
-    async fn user_delete_view_record(&self, uid: i64, music_id: i64, is_unliked: bool) -> anyhow::Result<()>;
-    async fn sync_delete_view_record_by_user_id(&self, uid: i64, music_id: i64, is_unliked: bool) -> anyhow::Result<()>;
-    async fn sync_delete_view_record_by_music_id(&self, uid: i64, music_id: i64, is_unliked: bool) -> anyhow::Result<()>;
-    async fn auto_delete_view_record_by_music_id(&self, uid: i64, music_id: i64, time_range: i64) -> anyhow::Result<()>;
+    async fn done_view_record(
+        &self,
+        uid: i64,
+        music_id: i64,
+        is_unliked: bool,
+    ) -> anyhow::Result<()>;
+    async fn user_delete_view_record(
+        &self,
+        uid: i64,
+        music_id: i64,
+        is_unliked: bool,
+    ) -> anyhow::Result<()>;
+    async fn sync_delete_view_record_by_user_id(
+        &self,
+        uid: i64,
+        music_id: i64,
+        is_unliked: bool,
+    ) -> anyhow::Result<()>;
+    async fn sync_delete_view_record_by_music_id(
+        &self,
+        uid: i64,
+        music_id: i64,
+        is_unliked: bool,
+    ) -> anyhow::Result<()>;
+    async fn auto_delete_view_record_by_music_id(
+        &self,
+        uid: i64,
+        music_id: i64,
+        time_range: i64,
+    ) -> anyhow::Result<()>;
 }
 
 ////////

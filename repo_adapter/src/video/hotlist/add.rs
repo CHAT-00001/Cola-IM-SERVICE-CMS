@@ -23,7 +23,12 @@ impl VideoHotlistAddPort for hotlistaddPortAdapter {
     ////////
 
     /// # 1. [ADAPTER] - 发布
-    async fn save_hotlist(&self, uid: i64, video_id: i64, cmd: HotlistCommand) -> anyhow::Result<()> {
+    async fn save_hotlist(
+        &self,
+        uid: i64,
+        video_id: i64,
+        cmd: HotlistCommand,
+    ) -> anyhow::Result<()> {
         todo!()
     }
 

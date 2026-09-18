@@ -70,7 +70,8 @@ impl MusicAddCase {
             .music
             .music
             .add
-            .update_music(uid, id, cmd, visibility).await
+            .update_music(uid, id, cmd, visibility)
+            .await
             .map_err(|e| anyhow::anyhow!("[🤐 ADD CASE]: ❌️ 音乐修改持久化失败: {}", e))?;
 
         info!(

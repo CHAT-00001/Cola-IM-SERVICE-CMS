@@ -4,7 +4,7 @@
 
 ////////
 
-use cola_data::cola_video::info::comment::VideoCommentInfo;
+use cola_data::cola_video::info::comment::CommentInfo;
 
 ////////
 
@@ -20,7 +20,7 @@ pub trait DynamicViewListPort: Send + Sync {
     async fn get_view_infos_by_user_id(
         &self,
         user_id: i64, // 用户 ID
-    ) -> anyhow::Result<(Vec<VideoCommentInfo>)>;
+    ) -> anyhow::Result<(Vec<CommentInfo>)>;
 
     ////////
 
@@ -28,7 +28,7 @@ pub trait DynamicViewListPort: Send + Sync {
     async fn get_view_infos_by_profile_id(
         &self,
         user_id: i64, // 用户 ID
-    ) -> anyhow::Result<(Vec<VideoCommentInfo>)>;
+    ) -> anyhow::Result<(Vec<CommentInfo>)>;
 }
 
 //////// END

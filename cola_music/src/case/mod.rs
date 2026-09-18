@@ -4,6 +4,6 @@
 ////////
 pub mod album; // 专辑
 pub mod collect; // 收藏夹
-pub mod music; // 音乐(主内容)
 pub mod like; // 播放列表
+pub mod music; // 音乐(主内容)
 pub mod user; // 用户

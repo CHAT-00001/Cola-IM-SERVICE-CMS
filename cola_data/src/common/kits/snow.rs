@@ -9,8 +9,8 @@ use std::time::{SystemTime, UNIX_EPOCH};
 // 自定义纪元时间 (2024-01-01 00:00:00 UTC 的毫秒数，保证时间戳在范围内不会溢出)
 const EPOCH: u64 = 1704067200000;
 
-const NODE_ID_BITS: u32 = 10;     // 节点 ID 占 10 位 (最大支持 1024 个节点)
-const SEQUENCE_BITS: u32 = 12;    // 序列号占 12 位 (每毫秒最多支持 4096 个ID)
+const NODE_ID_BITS: u32 = 10; // 节点 ID 占 10 位 (最大支持 1024 个节点)
+const SEQUENCE_BITS: u32 = 12; // 序列号占 12 位 (每毫秒最多支持 4096 个ID)
 
 const MAX_NODE_ID: u64 = (1 << NODE_ID_BITS) - 1;
 const MAX_SEQUENCE: u32 = (1 << SEQUENCE_BITS) - 1;

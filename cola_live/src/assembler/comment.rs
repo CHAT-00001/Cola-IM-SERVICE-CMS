@@ -6,14 +6,14 @@
 use crate::model::vo::comment::{CommentListResponse, CommentSingleResponse, CommentVo};
 use anyhow::{Result, anyhow};
 use cola_data::app::page::PageInfo;
-use cola_data::cola_video::info::comment::VideoCommentInfo;
+use cola_data::cola_video::info::comment::CommentInfo;
 use service::cola_user::user::active::UserService;
 
 ////////
 
 /// # [ASSEMBLER] - 组装单评论响应
 pub async fn build_comment_single_response(
-    comment_info: VideoCommentInfo, // 🌟 听哥们的，改成吃 Info
+    comment_info: CommentInfo, // 🌟 听哥们的，改成吃 Info
     current_uid: Option<i64>,
 ) -> Result<CommentSingleResponse> {
     // 1. 静态调用：获取作者信息
@@ -34,7 +34,7 @@ pub async fn build_comment_single_response(
 
 /// # [ASSEMBLER] - 组装多评论列表
 pub async fn build_comment_list_response(
-    infos: Vec<VideoCommentInfo>, // 🌟 同步升级，多列表组装也全部改吃 infos
+    infos: Vec<CommentInfo>, // 🌟 同步升级，多列表组装也全部改吃 infos
     current_uid: Option<i64>,
     page: i64,
     qty: i64,

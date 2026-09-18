@@ -5,7 +5,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_video::info::comment::VideoCommentInfo;
+use cola_data::cola_video::info::comment::CommentInfo;
 use port::cola_video::dislike::manage::VideoDislikeManagePort;
 
 ////////
@@ -32,7 +32,7 @@ impl VideoDislikeManagePort for VideoDislikeManageAdapter {
         status_code: i16,
         limit: i64,
         offset: i64,
-    ) -> Result<(VideoCommentInfo)> {
+    ) -> Result<(CommentInfo)> {
         todo!()
     }
     // TODO:

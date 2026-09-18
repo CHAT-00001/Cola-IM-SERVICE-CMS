@@ -28,7 +28,7 @@ impl VideoContentAddApi {
     pub async fn add_video(
         user_id: i64,         // 操作者 ID
         cmd: VideoNewCommand, // 命令
-        ctx: &AppContext,      // 全局上下文
+        ctx: &AppContext,     // 全局上下文
     ) -> AppData<VideoSingleResponse> {
         // 1. 发布权限检查：没封禁记录 = true = 可发布
         match VideoPublishBanService::check_banned(user_id).await {

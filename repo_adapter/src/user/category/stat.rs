@@ -23,7 +23,6 @@ impl UserCategoryStatPort for UserCategoryStatAdapter {
         todo!()
     }
 
-
     ////////
 
     /// # 2. [ADAPTER] -

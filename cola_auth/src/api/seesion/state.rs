@@ -6,9 +6,10 @@
 
 use cola_data::app::data::AppData;
 use cola_data::app::error;
+use cola_data::auth::info::session::AccessTokenInfo;
 use cola_data::auth::request::session::{AuthSessionRequest, SessionContext};
 use port::auth::AuthServicePorts;
-
+use crate::case::session::state::SessionStateCase;
 ////////
 
 /// # [STATE HANDLER] - 会话 状态
@@ -102,6 +103,27 @@ impl SessionStateApi {
             } => Ok(ctx.uid),
 
             err => Err(err.rebind()),
+        }
+    }
+
+    ////////
+
+    /// # 4. [API] - Refresh Token 刷新token
+    /// * `desc`: `刷新access_token`
+    pub async fn refresh_token(
+        auth: &AuthSessionRequest,
+    ) -> AppData<AccessTokenInfo> {
+        let refresh_token = match auth.refresh_token.as_deref() {
+            Some(token) if !token.trim().is_empty() => token,
+            _ => return AppData::err(error::PARAM_ERROR, "缺少刷新令牌", None),
+        };
+
+        match SessionStateCase::case_refresh(refresh_token).await {
+            Ok(info) => AppData::ok(info),
+            Err(err) => {
+                tracing::error!("[🤐 AUTH API] - ❌️ 刷新 access_token 失败: {:?}", err);
+                AppData::err(error::UNAUTHORIZED, "刷新失败，请重新登录", None)
+            }
         }
     }
 }

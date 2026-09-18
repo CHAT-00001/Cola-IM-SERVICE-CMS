@@ -5,7 +5,7 @@
 ////////
 
 use cola_data::cola_video::command::comment::CommentCommand;
-use cola_data::cola_video::info::comment::VideoCommentInfo;
+use cola_data::cola_video::info::comment::CommentInfo;
 
 ////////
 
@@ -22,7 +22,7 @@ pub trait GoodsCommentGetPort: Send + Sync {
         uid: i64,
         video_id: i64,
         is_liked: bool,
-    ) -> anyhow::Result<(VideoCommentInfo)>;
+    ) -> anyhow::Result<(CommentInfo)>;
 
     ////////
 
@@ -31,7 +31,7 @@ pub trait GoodsCommentGetPort: Send + Sync {
         &self,
         comment_id: i64,
         cmd: CommentCommand,
-    ) -> anyhow::Result<(VideoCommentInfo)>;
+    ) -> anyhow::Result<(CommentInfo)>;
 
     ////////
 

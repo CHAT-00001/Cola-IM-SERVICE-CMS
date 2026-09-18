@@ -6,7 +6,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_video::info::comment::VideoCommentInfo;
+use cola_data::cola_video::info::comment::CommentInfo;
 use port::cola_video::comment::get::VideoCommentGetPort;
 
 ////////
@@ -23,7 +23,7 @@ impl VideoCommentGetPort for VideoCommentGetAdapter {
         user_id: i64,
         limit: i64,
         offset: i64,
-    ) -> Result<(Vec<VideoCommentInfo>)> {
+    ) -> Result<(Vec<CommentInfo>)> {
         todo!()
     }
 
@@ -32,7 +32,7 @@ impl VideoCommentGetPort for VideoCommentGetAdapter {
         video_id: i64,
         limit: i64,
         offset: i64,
-    ) -> Result<(Vec<VideoCommentInfo>)> {
+    ) -> Result<(Vec<CommentInfo>)> {
         todo!()
     }
 }

@@ -6,9 +6,9 @@
 use crate::pg_pool;
 use cola_data::cola_video::command::comment::CommentCommand;
 use cola_data::cola_video::entity::comment::{VIDEO_COMMENT_COLUMNS, VideoCommentEntity};
+use cola_data::common::kits::snow::next_id;
 use sqlx::{self, Postgres, QueryBuilder};
 use tracing::error;
-use cola_data::common::kits::snow::next_id;
 
 ////////
 
@@ -24,8 +24,8 @@ impl VideoCommentAddRepo {
     /// # 1. [REPOSITORY] - 保存视频评论
     /// * `user_id` 用户 ID
     pub async fn save_comment(
-        uid: i64,           // 当前操作用户 ID（服务端注入）
-        visibility: i16,    // 可见性（服务端风控计算得出）
+        uid: i64,            // 当前操作用户 ID（服务端注入）
+        visibility: i16,     // 可见性（服务端风控计算得出）
         cmd: CommentCommand, // 评论命令（包含 video_id, parent_id, content 等）
     ) -> Result<VideoCommentEntity, sqlx::Error> {
         let pool = pg_pool();
@@ -66,8 +66,8 @@ impl VideoCommentAddRepo {
             .bind(cmd.voice_url)
             .bind(visibility) // 风控计算后的可见性状态
             .bind(now_timestamp) // 对应 $13: add_time (i64)
-            .bind(now)           // 对应 $14: created_at (DateTime<Utc>)
-            .bind(now)           // 对应 $15: updated_at (DateTime<Utc>)
+            .bind(now) // 对应 $14: created_at (DateTime<Utc>)
+            .bind(now) // 对应 $15: updated_at (DateTime<Utc>)
             .fetch_one(&pool)
             .await;
 

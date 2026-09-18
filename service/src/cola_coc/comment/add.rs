@@ -4,7 +4,7 @@
 ////////
 
 use cola_data::cola_video::command::comment::CommentCommand;
-use cola_data::cola_video::info::comment::VideoCommentInfo; // 👈 这里引入 Info 模型
+use cola_data::cola_video::info::comment::CommentInfo; // 👈 这里引入 Info 模型
 use repository::video::pg::comment::add::VideoCommentAddRepo;
 use repository::video::pg::comment::check::VideoCommentCheckRepo;
 use tracing::{error, info};
@@ -19,7 +19,7 @@ impl VideoCommentAddService {
         user_id: i64,
         visibility: i16,
         cmd: CommentCommand,
-    ) -> Result<VideoCommentInfo, anyhow::Error> {
+    ) -> Result<CommentInfo, anyhow::Error> {
         // 1. 如果有父级评论 ID，校验父级评论是否存在
         if let Some(parent_id) = cmd.parent_id {
             info!("Service: 校验父级评论是否存在, parent_id: {}", parent_id);
@@ -41,8 +41,8 @@ impl VideoCommentAddService {
 
         info!("Service: 评论发布成功, comment_id: {}", comment_entity.id);
 
-        // 3. 使用 data 层写好的 from_entity 转换为 VideoCommentInfo
-        let comment_info = VideoCommentInfo::from_entity(comment_entity);
+        // 3. 使用 data 层写好的 from_entity 转换为 CommentInfo
+        let comment_info = CommentInfo::from_entity(comment_entity);
 
         Ok(comment_info)
     }

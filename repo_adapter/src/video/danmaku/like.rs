@@ -1,5 +1,4 @@
-// repo_adapter/src/cola_video/danmaku/like.rs
-// 🔌 适配器 - VIDEO - 弹幕 - 弹幕点赞
+// repo_adapter/src/video/danmaku/like.rs -- 适配器 - VIDEO - 弹幕 - 点赞适配器
 // 2026/8/6 19:17 Created.
 
 ////////
@@ -17,10 +16,18 @@ pub struct VideoDanmakuLikeAdapter;
 
 #[async_trait]
 impl VideoDanmakuLikePort for VideoDanmakuLikeAdapter {
+    //
+
+    ////////
+
+    /// # [ADAPTER] - 点赞弹幕
     async fn upsert_like(&self, uid: i64, comment_id: i64, is_liked: bool) -> Result<(bool)> {
         todo!()
     }
 
+    ////////
+
+    /// # [ADAPTER] - 检查状态
     async fn check_state(&self, uid: i64, comment_id: i64) -> Result<()> {
         todo!()
     }

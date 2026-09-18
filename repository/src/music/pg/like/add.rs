@@ -39,12 +39,12 @@ impl MusicLikeAddRepo {
             )
             "#,
         )
-            .bind(timestamp)
-            .bind(now)
-            .bind(uid)
-            .bind(music_id)
-            .execute(&pool)
-            .await?;
+        .bind(timestamp)
+        .bind(now)
+        .bind(uid)
+        .bind(music_id)
+        .execute(&pool)
+        .await?;
 
         if restored.rows_affected() > 0 {
             return Ok(());
@@ -84,12 +84,12 @@ impl MusicLikeAddRepo {
             WHERE uid = $3 AND music_id = $4 AND is_deleted = false
             "#,
         )
-            .bind(now)
-            .bind(now.timestamp())
-            .bind(uid)
-            .bind(music_id)
-            .execute(&pool)
-            .await?;
+        .bind(now)
+        .bind(now.timestamp())
+        .bind(uid)
+        .bind(music_id)
+        .execute(&pool)
+        .await?;
         Ok(())
     }
 

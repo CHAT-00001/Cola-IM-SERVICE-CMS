@@ -6,7 +6,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::cola_video::info::comment::VideoCommentInfo;
+use cola_data::cola_video::info::comment::CommentInfo;
 use port::cola_video::collect::list::VideoCollectListPort;
 use port::market::collect::list::GoodsCollectListPort;
 ////////
@@ -23,7 +23,7 @@ impl GoodsCollectListPort for GoodsCollectListAdapter {
         uid: i64,
         limit: i64,
         offset: i64,
-    ) -> Result<(VideoCommentInfo)> {
+    ) -> Result<(CommentInfo)> {
         todo!()
     }
 
@@ -32,7 +32,7 @@ impl GoodsCollectListPort for GoodsCollectListAdapter {
         uid: i64,
         limit: i64,
         offset: i64,
-    ) -> Result<(VideoCommentInfo)> {
+    ) -> Result<(CommentInfo)> {
         todo!()
     }
 

@@ -15,17 +15,17 @@ use uuid::{Uuid, Version};
 /// * `desc`: `简单的发布命令`
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct DanmakuCommand {
-    pub _id: Option<String>,    // 客户端 UUID v4，用于乐观发布和离线同步
-    pub video_id: i64,          // 视频 ID
-    pub channel_id: Option<i32>,// 通道（可选，不传默认 1）
-    pub at: Option<String>,     // 艾特内容摘要
-    pub content: String,        // 内容
-    pub play_time: i32,         // 播放时间（ms）
-    pub duration: i16,          // 停留时长
-    pub color: Option<String>,  // 颜色（可选）
-    pub mode: i16,              // 位置:  1.滚动 2.固定
-    pub send_time: Option<i64>, // 发送时间(可选)
-    pub status: Option<i16>,    // 状态: 0. 审核 1. 可见（可选，不传默认 1）
+    pub _id: Option<String>,     // 客户端 UUID v4，用于乐观发布和离线同步
+    pub video_id: i64,           // 视频 ID
+    pub channel_id: Option<i32>, // 通道（可选，不传默认 1）
+    pub at: Option<String>,      // 艾特内容摘要
+    pub content: String,         // 内容
+    pub play_time: i32,          // 播放时间（ms）
+    pub duration: i16,           // 停留时长
+    pub color: Option<String>,   // 颜色（可选）
+    pub mode: i16,               // 位置:  1.滚动 2.固定
+    pub send_time: Option<i64>,  // 发送时间(可选)
+    pub status: Option<i16>,     // 状态: 0. 审核 1. 可见（可选，不传默认 1）
 }
 
 /// # [BUILD] - 构造新弹幕

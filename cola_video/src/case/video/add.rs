@@ -7,11 +7,11 @@ use crate::assembler::video::{build_video_single_response, build_video_single_re
 use crate::case::storage::resolve_video_cdn_domain;
 use anyhow::Result;
 use cola_data::cola_fs::rick_check;
-use cola_data::common::kits::snow::next_id;
 use cola_data::cola_video::command::video::edit::VideoUpdateCommand;
 use cola_data::cola_video::command::video::new::VideoNewCommand;
 use cola_data::cola_video::command::video::permission::VideoUpdatePermissionCommand;
 use cola_data::cola_video::info::video::VideoSingleResponse;
+use cola_data::common::kits::snow::next_id;
 use port::app::ctx::AppContext;
 use service::cola_video::video::add::VideoAddService;
 use tracing::info;

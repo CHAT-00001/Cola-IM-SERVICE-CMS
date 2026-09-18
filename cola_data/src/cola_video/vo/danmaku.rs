@@ -1,5 +1,4 @@
-// /danmaku.rs
-//
+// cola_data/src/cola_video/vo/danmaku.rs -- 数据 - VIDEO - vo - 弹幕视图
 // 2026/8/8 08:24 Created.
 
 /////////

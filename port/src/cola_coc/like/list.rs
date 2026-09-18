@@ -4,7 +4,7 @@
 
 ////////
 
-use cola_data::cola_video::info::comment::VideoCommentInfo;
+use cola_data::cola_video::info::comment::CommentInfo;
 
 ////////
 
@@ -24,7 +24,7 @@ pub trait VideoLikeListPort: Send + Sync {
         user_id: i64, // 用户 ID
         limit: i64,   // 数量
         offset: i64,  // 页码
-    ) -> anyhow::Result<(VideoCommentInfo)>;
+    ) -> anyhow::Result<(CommentInfo)>;
 
     ////////
 
@@ -36,7 +36,7 @@ pub trait VideoLikeListPort: Send + Sync {
         user_id: i64, // 用户 ID
         limit: i64,   // 数量
         offset: i64,  // 页码
-    ) -> anyhow::Result<(VideoCommentInfo)>;
+    ) -> anyhow::Result<(CommentInfo)>;
 }
 
 //////// END

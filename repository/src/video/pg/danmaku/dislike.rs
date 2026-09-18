@@ -472,20 +472,20 @@ impl DanmakuDislikeRepo {
             sqlx::query(
                 "DELETE FROM cola_video.danmaku_like WHERE user_id = $1 AND danmaku_id = $2",
             )
-                .bind(user_id)
-                .bind(danmaku_id)
-                .execute(&mut *tx)
-                .await?;
+            .bind(user_id)
+            .bind(danmaku_id)
+            .execute(&mut *tx)
+            .await?;
             -1
         } else {
             // 未点赞：添加点赞记录
             sqlx::query(
                 "INSERT INTO cola_video.danmaku_like (user_id, danmaku_id) VALUES ($1, $2)",
             )
-                .bind(user_id)
-                .bind(danmaku_id)
-                .execute(&mut *tx)
-                .await?;
+            .bind(user_id)
+            .bind(danmaku_id)
+            .execute(&mut *tx)
+            .await?;
             1
         };
 
@@ -497,10 +497,10 @@ impl DanmakuDislikeRepo {
          WHERE id = $2
          RETURNING likes",
         )
-            .bind(delta)
-            .bind(danmaku_id)
-            .fetch_one(&mut *tx)
-            .await?;
+        .bind(delta)
+        .bind(danmaku_id)
+        .fetch_one(&mut *tx)
+        .await?;
 
         tx.commit().await?;
         Ok(likes)

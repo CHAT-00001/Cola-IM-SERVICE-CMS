@@ -5,7 +5,7 @@
 ////////
 
 use cola_data::cola_video::command::comment::CommentCommand;
-use cola_data::cola_video::info::comment::VideoCommentInfo;
+use cola_data::cola_video::info::comment::CommentInfo;
 
 ////////
 
@@ -20,7 +20,7 @@ pub trait SessionGetPort: Send + Sync {
         user_id: i64, // 用户 ID
         limit: i64,   // 数量
         offset: i64,  // 页码
-    ) -> anyhow::Result<(Vec<VideoCommentInfo>)>;
+    ) -> anyhow::Result<(Vec<CommentInfo>)>;
 
     ////////
 
@@ -30,5 +30,5 @@ pub trait SessionGetPort: Send + Sync {
         video_id: i64, // 视频 ID
         limit: i64,    // 数量
         offset: i64,   // 页码
-    ) -> anyhow::Result<(Vec<VideoCommentInfo>)>;
+    ) -> anyhow::Result<(Vec<CommentInfo>)>;
 }

@@ -5,7 +5,7 @@
 ////////
 
 use cola_data::cola_video::command::comment::CommentCommand;
-use cola_data::cola_video::info::comment::VideoCommentInfo;
+use cola_data::cola_video::info::comment::CommentInfo;
 
 /// # [MANAGE PORTS] - 管理
 /// * `desc`: `视频上热门管理端口`
@@ -28,7 +28,7 @@ pub trait VideoHotlistManagePort: Send + Sync {
         status_code: i16,        // 状态码
         limit: i64,              // 数量
         offset: i64,             // 页码
-    ) -> anyhow::Result<(VideoCommentInfo)>;
+    ) -> anyhow::Result<(CommentInfo)>;
 }
 
 //////// END
