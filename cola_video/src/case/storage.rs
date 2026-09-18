@@ -1,5 +1,4 @@
-// D:\rust\short-video\cola_video\src\case\storage.rs
-// 🗣️ CASE - 视频存储资源解析
+// cola_video\src\case\storage.rs -- CASE - 视频存储资源解析
 // 2026/8/16 Created.
 
 ////////

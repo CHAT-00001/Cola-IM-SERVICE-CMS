@@ -1,5 +1,4 @@
-// cola_video/src/assembler/video.rs
-// core - VIDEO - 组装器 -  视频 VO 响应体
+// cola_video/src/assembler/video.rs -- VIDEO - 组装器 -  视频 VO 响应体
 // 2026/06/11 12:01 Created.
 
 ////////

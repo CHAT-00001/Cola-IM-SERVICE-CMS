@@ -3,7 +3,7 @@
 
 ////////
 
-use crate::case::change::VideoChangeCase;
+use crate::case::video::change::VideoChangeCase;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::auth::info::auth::AuthContext;

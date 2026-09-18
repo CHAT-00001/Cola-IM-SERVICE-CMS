@@ -1,5 +1,4 @@
-// repo_adapter/src/cola_video/cola_video/get.rs
-// 🔌 插头 - 可乐视频 - 视频 - 获取IDs
+// repo_adapter/src/cola_coc/video/get.rs -- 插头 - VIDEO - 视频 - 获取IDs
 // 2026/8/6 19:19 Created.
 
 ////////
@@ -8,6 +7,7 @@ use anyhow::Result;
 use async_trait::async_trait;
 use cola_data::cola_video::info::video::VideoInfo;
 use port::cola_video::video::get::VideoGetPort;
+
 ////////
 
 /// # [ADD ADAPTER] - 发布
@@ -36,6 +36,14 @@ impl VideoGetPort for VideoGetAdapter {
         limit: i64,
         offset: i64,
     ) -> Result<(Vec<VideoInfo>)> {
+        todo!()
+    }
+
+    async fn get_video_info_by_id(&self, uid: i64, video_id: i64) -> Result<(VideoInfo)> {
+        todo!()
+    }
+
+    async fn get_video_infos_by_ids(&self, uid: i64, video_ids: Vec<i64>) -> Result<(Vec<VideoInfo>)> {
         todo!()
     }
 }

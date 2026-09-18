@@ -30,7 +30,7 @@ impl VideoViewAddService {
         }
 
         // 1. 从 DB 捞出原始 Entity 列表
-        let db_videos = VideoGetRepo::find_list_batch_by_ids(&ids)
+        let db_videos = VideoGetRepo::find_video_entities_by_ids(&ids)
             .await
             .map_err(|e| anyhow::anyhow!("[👤 SERVICE]: 批量获取视频 handler 列表失败: {}", e))?;
 

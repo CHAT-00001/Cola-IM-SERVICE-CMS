@@ -1,4 +1,4 @@
-// cola_video/src/api/comment/add.rs -- VIDEO - API - 评论发布
+// cola_video/src/api/comment/add.rs -- VIDEO - API - 评论 - 发布接口
 // 2026/9/11 Created.
 
 ////////
@@ -13,7 +13,7 @@ use port::app::ctx::AppContext;
 
 ////////
 
-/// # [API] - 视频评论发布接口
+/// # [ADD API] - 视频评论发布接口
 pub struct CommentAddApi;
 
 impl CommentAddApi {

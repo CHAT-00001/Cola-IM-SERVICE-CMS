@@ -4,10 +4,6 @@
     "service": "code_phone",
     "name": "login",
     "action": 1004,
-    "auth": {
-        "access_token": "abc123456",
-        "ex_at": ""
-    },
     "lang": "zh",
     "cmd": {
         "area_code": "0086",

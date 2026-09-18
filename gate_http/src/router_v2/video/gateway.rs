@@ -1,4 +1,4 @@
-// gate_http/router_v2/video/gateway.rs -- HTTP网关 - VIDEO - 网关
+// gate_http/router_v2/video/gateway.rs -- HTTP网关 - VIDEO - 业务网关
 // 2026/6/13 10:21
 
 ////////
@@ -9,13 +9,30 @@ use actix_web::{HttpMessage, HttpRequest, Responder, web};
 use app_config::app_state::AppState;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
+use cola_data::cola_video::command::video::new::VideoNewCommand;
 use cola_video::api::comment::add::CommentAddApi;
 use cola_video::api::comment::get::CommentGetApi;
 use cola_video::api::danmaku::add::DanmakuAddApi;
 use cola_video::api::danmaku::get::DanmakuGetApi;
+use cola_video::api::video::add::VideoContentAddApi;
+use cola_video::api::video::get::VideoContentGetApi;
 use cola_video::api::video::home::HomeApi;
 use std::time::Instant;
-use cola_video::api::video::get::VideoContentGetApi;
+
+////////
+
+/// # [GATEWAY] - 解析视频发布命令
+/// * `desc`: `兼容 Body 直接传命令和 { cmd: {...} } 包装格式`
+fn extract_video_new_cmd(request: &ApiGatewayRequest) -> Result<VideoNewCommand, String> {
+    let body = request
+        .body
+        .as_ref()
+        .ok_or_else(|| "视频发布请求缺少 JSON Body".to_string())?;
+
+    let value = body.get("cmd").cloned().unwrap_or_else(|| body.clone());
+    serde_json::from_value(value).map_err(|error| format!("视频发布参数解析失败: {error}"))
+}
+
 ////////
 
 /// # [ROUTER] - 短视频 - 路由器
@@ -93,7 +110,6 @@ pub async fn video_gateway(
 
     // 🌟 对齐到 service 字符串进行业务路由分发
     match api_req.service.clone().unwrap_or_default().as_str() {
-
         //////// HOME
 
         // 1001 最新
@@ -153,7 +169,7 @@ pub async fn video_gateway(
             AppData::ok(data).finish(&req, start)
         }
 
-        // 发布视频
+        // 发布视频(测试使用,不可删除)
         "publish_video" => {
             // 发布视频接口转发
             let data = serde_json::json!({
@@ -163,6 +179,20 @@ pub async fn video_gateway(
                 "status": "published"
             });
             AppData::ok(data).finish(&req, start)
+        }
+
+        // 发布视频
+        "add_video" => {
+            let cmd = match extract_video_new_cmd(&api_req) {
+                Ok(cmd) => cmd,
+                Err(error) => {
+                    return AppData::<()>::err(4002, error, None).finish(&req, start);
+                }
+            };
+
+            VideoContentAddApi::add_video(auth.uid, cmd, &state.ctx)
+                .await
+                .finish(&req, start)
         }
 
         // 获取视频
@@ -206,6 +236,7 @@ pub async fn video_gateway(
             AppData::ok(data).finish(&req, start)
         }
 
+        //////// 兜底错误
         _ => AppData::<()>::err(
             2004,
             format!(

@@ -1,5 +1,4 @@
-// cola_video/src/case/manage
-// core - VIDEO - 用例层 - 修改
+// cola_video/src/case/video/change.rs -- VIDEO - case - 视频内容 - 修改用例
 // 2026/5/20 03:19
 
 ////////
@@ -10,13 +9,15 @@ use tracing::{info, warn};
 
 ////////
 
-/// # [APP USE CASE] - 视频权限修改用例
+/// # [CHANGE CASE] - 视频内容修改用例
 pub struct VideoChangeCase;
 
 impl VideoChangeCase {
+    //
+
     ////////
 
-    /// # 2. [APP USE CASE] - 浏览权限
+    /// # 2. [CASE] - 浏览权限
     pub async fn case_change_visibility_perm(
         uid: i64,
         video_id: i64,
@@ -41,7 +42,7 @@ impl VideoChangeCase {
 
     ////////
 
-    /// # 3. [APP USE CASE] - 修改评论权限
+    /// # 3. [CASE] - 修改评论权限
     pub async fn case_change_comment_perm(
         uid: i64,
         video_id: i64,
@@ -66,7 +67,7 @@ impl VideoChangeCase {
 
     ////////
 
-    /// # 4. [APP USE CASE] - 弹幕权限
+    /// # 4. [CASE] - 弹幕权限
     pub async fn case_change_danmaku_perm(
         uid: i64,
         video_id: i64,
@@ -91,7 +92,7 @@ impl VideoChangeCase {
 
     //////
 
-    /// # 5. [APP USE CASE] - 收藏权限
+    /// # 5. [CASE] - 收藏权限
     pub async fn case_change_collect_perm(
         uid: i64,
         video_id: i64,
@@ -116,7 +117,7 @@ impl VideoChangeCase {
 
     ////////
 
-    /// # 6. [APP USE CASE] - 下载权限
+    /// # 6. [CASE] - 下载权限
     pub async fn case_change_download_perm(
         uid: i64,
         video_id: i64,
@@ -141,7 +142,7 @@ impl VideoChangeCase {
 
     ////////
 
-    /// # 7. [APP USE CASE] - 购买权限
+    /// # 7. [CASE] - 购买权限
     pub async fn case_change_buy_perm(uid: i64, video_id: i64, buy_perm: i16) -> Result<bool> {
         // 验证权限值范围（可选，可以在用例层也做一次校验）
         if !(1..=5).contains(&buy_perm) {

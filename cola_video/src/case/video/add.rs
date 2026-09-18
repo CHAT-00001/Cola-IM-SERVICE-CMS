@@ -1,14 +1,13 @@
-// cola_video/src/case/active
-// core - VIDEO - case - 发布
+// cola_video/src/case/add -- VIDEO - case - 视频内容 - 发布用例
 // 2026-06-11 12:10
 
 ////////
 
 use crate::assembler::video::{build_video_single_response, build_video_single_response_with_cdn};
 use crate::case::storage::resolve_video_cdn_domain;
-use anyhow::{Context, Result};
+use anyhow::Result;
 use cola_data::cola_fs::rick_check;
-use cola_data::cola_gis::command::comment::CommentType::Video;
+use cola_data::common::kits::snow::next_id;
 use cola_data::cola_video::command::video::edit::VideoUpdateCommand;
 use cola_data::cola_video::command::video::new::VideoNewCommand;
 use cola_data::cola_video::command::video::permission::VideoUpdatePermissionCommand;
@@ -22,32 +21,51 @@ use tracing::info;
 pub struct AddCase;
 
 impl AddCase {
+    //
+
     ////////
 
     /// # 1. [CASE] - 发布视频
     pub async fn case_add_publish(
         uid: i64,
         cmd: VideoNewCommand,
-        ctx: AppContext,
+        ctx: &AppContext,
     ) -> Result<VideoSingleResponse, anyhow::Error> {
+        let real_video_id = next_id(1);
+        let mut cmd = cmd;
+        cmd.uid = uid;
+        cmd._sn = Some(real_video_id);
+
         // 1. 内容风控（标题 + 简介 联合过滤）
         let check_text = format!("{} {:?}", cmd.title, cmd.description);
 
         // ✅ 核心修复：rick_check 异步执行后出来就是 i16，直接 await 拿值，删掉多余的 map_err!?
         let visibility = rick_check(check_text).await;
 
-        // 2. 核心数据持久化与计数更新 (💡 提示：建议让这个 Service 函数返回刚插入成功的 VideoInfo)
-        let video_info = VideoAddService::save_video_and_update_count(uid, cmd, visibility)
+        // 2. 通过 Port/Adapter 完成视频发布落库
+        ctx.video
+            .video
+            .add
+            .add_video(uid, cmd)
             .await
-            .map_err(|e| anyhow::anyhow!("[🗣️ BIZ]: 视频发布持久化失败: {}", e))?;
+            .map_err(|e| anyhow::anyhow!("[🤐 CASE]: ❌️ 视频发布落库失败: {}", e))?;
+
+        // 3. 通过视频详情端口重新读取刚发布的视频
+        let video_info = ctx
+            .video
+            .video
+            .get
+            .get_video_info_by_id(uid, real_video_id)
+            .await
+            .map_err(|e| anyhow::anyhow!("[🤐 CASE]: ❌️ 查询新视频详情失败: {}", e))?;
 
         info!(
             "[🗣️ BIZ] - 视频发布成功: uid={}, visibility={}",
             uid, visibility
         );
 
-        // 3. 🌟 架构对齐：用我们刚才写好的高质量总装器，动态拼装博主信息后返回给前端
-        let cdn_domain = resolve_video_cdn_domain(&ctx, "short-video").await?;
+        // 4. 🌟 架构对齐：用我们刚才写好的高质量总装器，动态拼装博主信息后返回给前端
+        let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
         let response =
             build_video_single_response_with_cdn(video_info, Some(uid), &cdn_domain).await?;
 

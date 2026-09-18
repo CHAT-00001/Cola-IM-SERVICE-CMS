@@ -51,7 +51,7 @@ impl UserGetCase {
         _ctx: &AppContext, // 全局上下文
     ) -> Result<Option<VideoInfo>, anyhow::Error> {
         // Call REPOSITORY - 根据视频ID查询实体
-        let entity = VideoGetRepo::find_an_single_by_id(video_id)
+        let entity = VideoGetRepo::find_video_entity_by_id(video_id)
             .await
             .map_err(|e| anyhow!("[🤐 USER GET CASE]: ❌️ 查询视频详情失败: {}", e))?;
 

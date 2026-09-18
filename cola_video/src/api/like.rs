@@ -4,7 +4,7 @@
 ////////
 
 use crate::case;
-use crate::case::add::AddCase;
+use crate::case::video::add::AddCase;
 use crate::case::like::LikeCase;
 use crate::model::vo::video::VideoSingleResponse;
 use cola_data::app::data::AppData;

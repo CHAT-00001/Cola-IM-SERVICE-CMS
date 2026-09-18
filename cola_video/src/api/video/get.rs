@@ -35,11 +35,6 @@ impl VideoContentGetApi {
             return AppData::err(4002, "id 不能为空", None);
         }
 
-        // 检查视频状态
-        let status = ctx.video.video.check.check_state(video_id).await;
-
-        let limit = url.qty.unwrap_or(20).clamp(1, 50);
-
         // Call CASE ..
         match VideoContentGetCase::case_get_detail(auth.uid, video_id, ctx.clone()).await {
             Ok(response) => AppData::ok(response).with_msg("视频详情获取成功"),

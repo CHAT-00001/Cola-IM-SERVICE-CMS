@@ -1,9 +1,9 @@
 // cola_video/src/api/video/add.rs -- VIDEO - api - 视频内容 - 发布接口
-// 2026/4/12 14:45
+// 2026/4/12 14:45 Created.
 
 ////////
 
-use crate::case::add::AddCase;
+use crate::case::video::add::AddCase;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::cola_video::command::video::edit::VideoUpdateCommand;
@@ -15,20 +15,20 @@ use service::cola_video::ban::publish_service::VideoPublishBanService;
 
 ////////
 
-/// # [ADD HANDLER] - 发布 接口
-pub struct AddApi;
+/// # [ADD HANDLER] - 视频内容发布接口
+pub struct VideoContentAddApi;
 
 // 构造函数
-impl AddApi {
+impl VideoContentAddApi {
     //
 
     ////////
 
     /// # 1. [API HANDLER] - 发布视频
-    pub async fn add_publish(
+    pub async fn add_video(
         user_id: i64,         // 操作者 ID
         cmd: VideoNewCommand, // 命令
-        ctx: AppContext,      // 全局上下文
+        ctx: &AppContext,      // 全局上下文
     ) -> AppData<VideoSingleResponse> {
         // 1. 发布权限检查：没封禁记录 = true = 可发布
         match VideoPublishBanService::check_banned(user_id).await {
@@ -58,10 +58,10 @@ impl AddApi {
 
     /// # 2. [API HANDLER] - 编辑内容
     /// * `描述` （需要创作者/视频发布特定权限）
-    pub async fn add_edit(
+    pub async fn edit_video(
         user_id: i64,            // 操作者 ID
         cmd: VideoUpdateCommand, // 命令
-        ctx: AppContext,         // 全局上下文
+        _ctx: AppContext,        // 全局上下文
     ) -> AppData<VideoSingleResponse> {
         // 1. 发布权限检查：没封禁记录 = true = 可发布
         match VideoPublishBanService::check_banned(user_id).await {
@@ -91,7 +91,7 @@ impl AddApi {
 
     /// # 3. [API HANDLER] - 修改状态
     /// * `描述` （需要创作者/视频发布特定权限）
-    pub async fn add_status(
+    pub async fn change_status(
         user_id: i64,         // 操作者 ID
         cmd: VideoNewCommand, // 命令
         ctx: AppContext,      // 全局上下文
@@ -110,7 +110,7 @@ impl AddApi {
         }
 
         // 2. 执行核心发布逻辑
-        match AddCase::case_add_publish(user_id, cmd, ctx).await {
+        match AddCase::case_add_publish(user_id, cmd, &ctx).await {
             Ok(resp) => AppData::ok(resp).with_msg("修改状态成功"),
             Err(e) => AppData::err(
                 error::INTERNAL_ERROR,
@@ -124,7 +124,7 @@ impl AddApi {
 
     /// # 4. [API HANDLER] - 修改权限
     /// * `描述` （需要创作者/视频发布特定权限）
-    pub async fn add_permission(
+    pub async fn change_permission(
         user_id: i64,
         cmd: VideoUpdatePermissionCommand,
     ) -> AppData<VideoSingleResponse> {
@@ -156,7 +156,7 @@ impl AddApi {
 
     /// # 5. [API HANDLER] - 修改LBS
     /// * `描述` （需要创作者/视频发布特定权限）
-    pub async fn add_lbs(
+    pub async fn change_lbs(
         user_id: i64,         // 操作者 ID
         cmd: VideoNewCommand, // 命令
         ctx: AppContext,      // 全局上下文
@@ -175,7 +175,7 @@ impl AddApi {
         }
 
         // 2. 执行核心发布逻辑
-        match AddCase::case_add_publish(user_id, cmd, ctx).await {
+        match AddCase::case_add_publish(user_id, cmd, &ctx).await {
             Ok(resp) => AppData::ok(resp).with_msg("修改LBS成功"),
             Err(e) => AppData::err(error::INTERNAL_ERROR, format!("修改LBS失败: {:?}", e), None),
         }

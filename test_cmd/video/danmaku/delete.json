@@ -4,7 +4,7 @@
     "id": 1000001841,
     "auth": {
         "access_token": "aaaa",
-        "refresh_token": "bbbb"
+        "device_id": "bbbb"
     },
     "cmd": {
         "danmaku_id": 1000001841,

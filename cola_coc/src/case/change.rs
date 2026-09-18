@@ -1,5 +1,4 @@
-// cola_video/src/case/manage
-// core - VIDEO - 用例层 - 修改
+// cola_coc/src/case/change -- COC - case - 内容 - 修改用例
 // 2026/5/20 03:19
 
 ////////
@@ -14,6 +13,8 @@ use tracing::{info, warn};
 pub struct VideoChangeCase;
 
 impl VideoChangeCase {
+    //
+
     ////////
 
     /// # 2. [APP USE CASE] - 浏览权限
