@@ -38,11 +38,12 @@ impl DanmakuRepo {
 
     /// # 1. [REPOSITORY] - 根据视频ID和播放时间获取弹幕列表
     /// * `video_id`: 视频ID
-    /// * `play_time`: 当前播放时间（秒）
-    /// * `time_window`: 时间窗口（秒），例如获取播放时间前后5秒内的弹幕
+    /// * `play_time`: 当前播放时间（毫秒）
+    /// * `time_window`: 时间窗口（**秒**），例如 5 表示取播放时间前后 5 秒内的弹幕
     /// * `limit`: 返回数量限制
     /// * `offset`: 分页偏移量
-    /// * 只返回 visibility >= 5 的弹幕（公众可见）
+    /// * 只返回 status=1 且 visibility >= 5 的弹幕（公众可见）
+    /// * `condition`: `⚠️ play_time 为毫秒，time_window 为秒，SQL 内需 * 1000 换算`
     pub async fn find_danmaku_by_video_id(
         video_id: i64,
         play_time: i32,
@@ -52,26 +53,44 @@ impl DanmakuRepo {
     ) -> Result<Vec<DanmakuEntity>, sqlx::Error> {
         let pool = pg_pool();
 
+        // ⚠️ play_time 存的是毫秒，而 time_window 语义是"秒"，必须 * 1000 换算后再比较，
+        //    否则 ±5 秒的窗口会退化成 ±5 毫秒，导致明明有数据却查不到。
         let query = format!(
             "SELECT {}
          FROM cola_video.danmaku
          WHERE video_id = $1
            AND status = 1
            AND visibility >= 5
-           AND play_time BETWEEN $2 - $3 AND $2 + $3
+           AND play_time BETWEEN $2 - $3 * 1000 AND $2 + $3 * 1000
          ORDER BY play_time ASC, created_at DESC
          LIMIT $4 OFFSET $5",
             VIDEO_DANMAKU_COLUMNS
         );
 
-        sqlx::query_as::<_, DanmakuEntity>(&query)
+        // 🔎 执行查询并按参数过滤（含播放时间窗口）
+        let entities = sqlx::query_as::<_, DanmakuEntity>(&query)
             .bind(video_id)
             .bind(play_time)
             .bind(time_window)
             .bind(limit)
             .bind(offset)
             .fetch_all(&pool)
-            .await
+            .await?;
+
+        // 🔎 打印本次实际命中的对象数量，便于排查"弹幕为空"问题
+        tracing::info!(
+            "[🗣️ REPOSITORY] - ✅️ 弹幕列表查询完成: video_id={}, play_time={}(ms), time_window={}(s), range=[{}, {}](ms), limit={}, offset={}, count={}",
+            video_id,
+            play_time,
+            time_window,
+            play_time - time_window * 1000,
+            play_time + time_window * 1000,
+            limit,
+            offset,
+            entities.len()
+        );
+
+        Ok(entities)
     }
 
     ////////

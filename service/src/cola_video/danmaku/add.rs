@@ -62,8 +62,8 @@ impl VideoDanmakuAddService {
 
     ////////
 
-    /// # 2. [SERVICE] - 浏览
-    /// * `desc` 根据视频ID和播放器轨道时间获取弹幕列表
+    /// # 2. [SERVICE] - 获取视频弹幕
+    /// * `desc`: `根据视频ID和播放器轨道时间获取弹幕列表`
     pub async fn get_video_danmaku(
         video_id: i64,
         play_time: i32,
@@ -71,9 +71,9 @@ impl VideoDanmakuAddService {
         offset: i64,
         limit: i64,
     ) -> Result<Vec<DanmakuInfo>, anyhow::Error> {
-        // 弹幕实体
+        // 弹幕实体（⚠️ repo 入参顺序为 limit, offset，此处不可颠倒）
         let entities =
-            DanmakuRepo::find_danmaku_by_video_id(video_id, play_time, time_window, offset, limit)
+            DanmakuRepo::find_danmaku_by_video_id(video_id, play_time, time_window, limit, offset)
                 .await?;
 
         // handler -> info

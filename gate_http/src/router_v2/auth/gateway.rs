@@ -119,9 +119,9 @@ async fn auth_gateway(
     let service = request.service.as_deref().unwrap_or_default();
 
     match service {
-        //////// 1xxx HOME
+        ////////
 
-        //////// 2xxx SIGN
+        //////// LOGIN 登录
 
         // 2001 手机验证码登录（✔ 改为 cmd）
         "add_phone" => {
@@ -191,7 +191,7 @@ async fn auth_gateway(
                 .finish(&req, start)
         }
 
-        //////// 3xxx CODE
+        //////// CODE 验证码
 
         // 3001 获取短信验证码
         "code_phone" => {

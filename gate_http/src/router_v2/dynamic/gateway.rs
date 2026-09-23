@@ -95,6 +95,7 @@ async fn dynamic_gateway(
         device_id: String::new(),
         iam_roles: vec![],
         is_anonymous: false,
+        permission_context: None,
     };
 
     let gateway_req = GatewayRequest {

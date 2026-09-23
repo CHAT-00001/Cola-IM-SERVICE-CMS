@@ -21,6 +21,8 @@ cola_user = { path = "../cola_user" } # 可乐用户中心
 app_config = { path = "../app" } # APP配置
 cola_data = { path = "../cola_data" } # 数据中心
 port = { path = "../port" } # 服务端口
+service = { path = "../service" } # 业务服务层
+
 network = { path = "../network" }
 
 

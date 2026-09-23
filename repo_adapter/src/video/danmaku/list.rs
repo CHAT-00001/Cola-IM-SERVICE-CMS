@@ -31,9 +31,9 @@ impl VideoDanmakuListPort for VideoDanmakuListAdapter {
         qty: i32,
     ) -> Result<(Vec<DanmakuInfo>, i64)> {
 
-        // 弹幕信息
+        // ⚠️ 第 3 个参数是"时间窗口(秒)"：5000 表示取播放时间前后 5 秒内的弹幕
         let infos =
-            VideoDanmakuAddService::get_video_danmaku(video_id, play_time, 5, 0, qty as i64)
+            VideoDanmakuAddService::get_video_danmaku(video_id, play_time, 5000, 0, qty as i64)
                 .await?;
         let total = infos.len() as i64;
         Ok((infos, total))

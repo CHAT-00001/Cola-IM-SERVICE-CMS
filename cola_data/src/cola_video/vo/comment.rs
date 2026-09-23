@@ -1,4 +1,4 @@
-// cola_data/src/cola_video/vo/comment.rs -- 数据 - VIDEO - VO - 评论视图对象
+// cola_data/src/cola_video/vo/comment.rs -- 数据 - VIDEO - VO - 评论视图
 // 2026/8/8 14:05 Created.
 
 ////////

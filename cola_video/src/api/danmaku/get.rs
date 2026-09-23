@@ -30,13 +30,40 @@ impl DanmakuGetApi {
         url: ApiGatewayRequest, // 网关请求
         ctx: &AppContext,       // 应用上下文
     ) -> AppData<DanmakuListResponse> {
+        // 1. 解析业务命令节点（兼容 { cmd: {...} } 包装与平铺两种 Body 格式）
+        let cmd_value = url
+            .body
+            .as_ref()
+            .map(|body| body.get("cmd").cloned().unwrap_or_else(|| body.clone()))
+            .unwrap_or_default();
+
+        // 2. 播放时间：优先 URL params，其次 Body 的 cmd.play_time
         let play_time = url
             .params
             .get("play_time")
-            .and_then(|value| value.parse().ok())
+            .and_then(|value| value.parse::<i32>().ok())
+            .or_else(|| {
+                cmd_value
+                    .get("play_time")
+                    .and_then(serde_json::Value::as_i64)
+                    .map(|value| value as i32)
+            })
             .unwrap_or(0);
+
         let qty = url.qty.unwrap_or(20).clamp(1, 50) as i32;
-        let video_id = if url.id > 0 { url.id } else { url.video_id };
+
+        // 3. 视频 ID：优先 Body 的 cmd.video_id（播放器显式指定），其次 URL 的 video_id / id
+        let cmd_video_id = cmd_value
+            .get("video_id")
+            .and_then(serde_json::Value::as_i64)
+            .unwrap_or(0);
+        let video_id = if cmd_video_id > 0 {
+            cmd_video_id
+        } else if url.video_id > 0 {
+            url.video_id
+        } else {
+            url.id
+        };
         if video_id <= 0 {
             return AppData::err(4002, "id 不能为空", None);
         }

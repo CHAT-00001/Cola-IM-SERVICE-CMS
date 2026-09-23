@@ -82,6 +82,7 @@ async fn user_gateway(
         device_id: String::new(),
         iam_roles: vec![],
         is_anonymous: false,
+        permission_context: None,
     };
 
     let gateway_req = GatewayRequest {
@@ -124,6 +125,14 @@ async fn user_gateway(
                 .await
                 .finish(&req, start)
         }
+
+        // 修改头像
+
+
+        // 修改昵称
+
+
+        // 修改资料
 
         "view" => {
             // 查看视频详情 - 测试接口

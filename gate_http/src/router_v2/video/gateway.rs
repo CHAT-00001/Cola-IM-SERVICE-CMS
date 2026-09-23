@@ -18,7 +18,9 @@ use cola_video::api::danmaku::get::DanmakuGetApi;
 use cola_video::api::video::add::VideoContentAddApi;
 use cola_video::api::video::get::VideoContentGetApi;
 use cola_video::api::video::home::HomeApi;
+use service::cola_user::permission::query::UserPermissionQueryService;
 use std::time::Instant;
+use tracing::{error, info, warn};
 
 ////////
 
@@ -92,25 +94,61 @@ pub async fn video_gateway(
         body_req.body = Some(body_value);
         url_req.merge(body_req)
     };
+    // 🆕 auth 兜底：未携带 auth 时按匿名会话处理，不直接拒绝
+    // ✨ 只有需要权限 >= 2 的写操作才会在后续权限检查中被拦截
     let auth_request = match api_req.auth.clone() {
         Some(auth) => auth,
         None => {
-            return AppData::<()>::err(4010, "[🌐 GATEWAY]: ❌️ 缺少登录认证信息", None)
-                .finish(&req, start);
+            info!("[🌐 GATEWAY]: 👤 未携带 auth，按游客访问处理 - 权限等级=1");
+            cola_data::auth::request::session::AuthSessionRequest::default()
         }
     };
 
-    let session = match SessionStateApi::verify_login(&auth_request, &state.ctx.auth).await {
-        AppData {
-            data: Some(session),
-            ..
-        } => session,
-        response => {
-            return response.rebind::<()>().finish(&req, start);
+    // 🆕 检查是否有 access_token（游客=1，登录用户>=2）
+    let has_token = auth_request.has_token();
+
+    // 🆕 构建权限上下文
+    // ✨ auth 为空 / token 无效 / 过期 / 错误 → 统一从权限中心拿游客兜底（权限=1）
+    let (session, perm_ctx, uid_final) = if has_token {
+        match SessionStateApi::verify_session(&auth_request, &state.ctx.auth).await {
+            AppData {
+                data: Some(session),
+                ..
+            } if !session.is_anonymous => {
+                // ✅ Token 有效且已登录：按 uid 查询权限（查询失败自动兜底权限=1）
+                let uid = session.uid;
+                let perm_ctx = UserPermissionQueryService::resolve_permission_context(uid).await;
+                (session, perm_ctx, uid)
+            }
+            _ => {
+                // ⚠️ Token 无效/过期/错误 → 权限中心游客兜底（权限=1）
+                warn!("[🌐 GATEWAY]: ⚠️  access_token 失效/异常，降级为游客兜底 - 权限等级=1");
+                let guest_session = cola_data::auth::request::session::SessionContext {
+                    uid: 0,
+                    iam_roles: vec![],
+                    device_id: String::new(),
+                    is_anonymous: true,
+                    access_token: String::new(),
+                };
+                let perm_ctx = UserPermissionQueryService::resolve_permission_context(0).await;
+                (guest_session, perm_ctx, 0)
+            }
         }
+    } else {
+        // 无 token（auth 为空）：权限中心游客兜底（权限=1）
+        info!("[🌐 GATEWAY]: 👤 游客访问 - 权限等级=1");
+        let guest_session = cola_data::auth::request::session::SessionContext {
+            uid: 0,
+            iam_roles: vec![],
+            device_id: String::new(),
+            is_anonymous: true,
+            access_token: String::new(),
+        };
+        let perm_ctx = UserPermissionQueryService::resolve_permission_context(0).await;
+        (guest_session, perm_ctx, 0)
     };
 
-    let uid = session.uid;
+    let uid = uid_final;
     api_req.uid = Some(uid);
     api_req = api_req.build();
     let auth = cola_data::auth::info::auth::AuthContext {
@@ -120,51 +158,100 @@ pub async fn video_gateway(
         device_id: session.device_id,
         iam_roles: session.iam_roles,
         is_anonymous: session.is_anonymous,
+        permission_context: Some(perm_ctx),
     };
 
     //////// MATCH
 
     // 🌟 对齐到 service 字符串进行业务路由分发
     match api_req.service.clone().unwrap_or_default().as_str() {
-        //////// HOME
+        //////// HOME - 权限 >= 1 (游客可访问)
 
-        // 1001 最新
-        "home_new" => HomeApi::home_new(auth.clone(), api_req.clone(), &state.ctx)
+        // 1001 最新 - 权限 >= 1
+        "home_new" => {
+            if !auth.has_permission_level(1) {
+                return AppData::<()>::err(4003, "[🌐 GATEWAY]: ❌️ 权限不足", None)
+                    .finish(&req, start);
+            }
+            HomeApi::home_new(auth.clone(), api_req.clone(), &state.ctx)
             .await
-            .finish(&req, start),
+            .finish(&req, start)
+        }
 
-        // 1002 热门
-        "home_hot" => HomeApi::home_hot(auth.clone(), api_req.clone(), &state.ctx)
+        // 1002 热门 - 权限 >= 1
+        "home_hot" => {
+            if !auth.has_permission_level(1) {
+                return AppData::<()>::err(4003, "[🌐 GATEWAY]: ❌️ 权限不足", None)
+                    .finish(&req, start);
+            }
+            HomeApi::home_hot(auth.clone(), api_req.clone(), &state.ctx)
             .await
-            .finish(&req, start),
+            .finish(&req, start)
+        }
 
-        // 1003 推荐
-        "home_recommend" => HomeApi::home_recommend(auth.clone(), api_req.clone(), &state.ctx)
+        // 1003 推荐 - 权限 >= 1
+        "home_recommend" => {
+            if !auth.has_permission_level(1) {
+                return AppData::<()>::err(4003, "[🌐 GATEWAY]: ❌️ 权限不足", None)
+                    .finish(&req, start);
+            }
+            HomeApi::home_recommend(auth.clone(), api_req.clone(), &state.ctx)
             .await
-            .finish(&req, start),
+            .finish(&req, start)
+        }
 
-        // 1004 同城
-        "home_city" => HomeApi::home_city(auth.clone(), api_req.clone(), &state.ctx)
+        // 1004 同城 - 权限 >= 1
+        "home_city" => {
+            if !auth.has_permission_level(1) {
+                return AppData::<()>::err(4003, "[🌐 GATEWAY]: ❌️ 权限不足", None)
+                    .finish(&req, start);
+            }
+            HomeApi::home_city(auth.clone(), api_req.clone(), &state.ctx)
             .await
-            .finish(&req, start),
+            .finish(&req, start)
+        }
 
-        // 1005 分类
-        "home_category" => HomeApi::home_category(auth.clone(), api_req.clone(), &state.ctx)
+        // 1005 分类 - 权限 >= 1
+        "home_category" => {
+            if !auth.has_permission_level(1) {
+                return AppData::<()>::err(4003, "[🌐 GATEWAY]: ❌️ 权限不足", None)
+                    .finish(&req, start);
+            }
+            HomeApi::home_category(auth.clone(), api_req.clone(), &state.ctx)
             .await
-            .finish(&req, start),
+            .finish(&req, start)
+        }
 
-        // 1006 精选
-        "home_featured" => HomeApi::home_featured(auth.clone(), api_req.clone(), &state.ctx)
+        // 1006 精选 - 权限 >= 1
+        "home_featured" => {
+            if !auth.has_permission_level(1) {
+                return AppData::<()>::err(4003, "[🌐 GATEWAY]: ❌️ 权限不足", None)
+                    .finish(&req, start);
+            }
+            HomeApi::home_featured(auth.clone(), api_req.clone(), &state.ctx)
             .await
-            .finish(&req, start),
+            .finish(&req, start)
+        }
 
-        // 1007 搜索
-        "home_search" => HomeApi::home_search(auth.clone(), api_req.clone(), &state.ctx)
+        // 1007 搜索 - 权限 >= 1
+        "home_search" => {
+            if !auth.has_permission_level(1) {
+                return AppData::<()>::err(4003, "[🌐 GATEWAY]: ❌️ 权限不足", None)
+                    .finish(&req, start);
+            }
+            HomeApi::home_search(auth.clone(), api_req.clone(), &state.ctx)
             .await
-            .finish(&req, start),
+            .finish(&req, start)
+        }
 
-        // 查看视频详情 - (测试接口,不可删除)
+        //////// 视频操作 - 权限检查
+
+        // 查看视频详情 - 权限 >= 1
         "view" => {
+            if !auth.has_permission_level(1) {
+                return AppData::<()>::err(4003, "[🌐 GATEWAY]: ❌️ 权限不足", None)
+                    .finish(&req, start);
+            }
             let video_id = api_req.video_id;
             let data = serde_json::json!({
                 "id": video_id,
@@ -185,8 +272,12 @@ pub async fn video_gateway(
             AppData::ok(data).finish(&req, start)
         }
 
-        // 发布视频(测试使用,不可删除)
+        // 发布视频(测试使用,不可删除) - 权限 >= 2
         "publish_video" => {
+            if !auth.has_permission_level(2) {
+                return AppData::<()>::err(4003, "[🌐 GATEWAY]: ❌️ 权限不足：需要权限 >= 2", None)
+                    .finish(&req, start);
+            }
             // 发布视频接口转发
             let data = serde_json::json!({
                 "video_id": 12345,
@@ -197,8 +288,12 @@ pub async fn video_gateway(
             AppData::ok(data).finish(&req, start)
         }
 
-        // 发布视频
+        // 发布视频 - 权限 >= 2
         "add_video" => {
+            if !auth.has_permission_level(2) {
+                return AppData::<()>::err(4003, "[🌐 GATEWAY]: ❌️ 权限不足：需要权限 >= 2", None)
+                    .finish(&req, start);
+            }
             let cmd = match extract_video_new_cmd(&api_req) {
                 Ok(cmd) => cmd,
                 Err(error) => {
@@ -211,37 +306,73 @@ pub async fn video_gateway(
                 .finish(&req, start)
         }
 
-        // 获取视频
-        "get_video" => VideoContentGetApi::get_video(auth.clone(), api_req.clone(), &state.ctx)
+        // 获取视频 - 权限 >= 1
+        "get_video" => {
+            if !auth.has_permission_level(1) {
+                return AppData::<()>::err(4003, "[🌐 GATEWAY]: ❌️ 权限不足", None)
+                    .finish(&req, start);
+            }
+            VideoContentGetApi::get_video(auth.clone(), api_req.clone(), &state.ctx)
             .await
-            .finish(&req, start),
+            .finish(&req, start)
+        }
 
-        //////// 评论
+        //////// 评论 - 权限检查
 
-        // 发送评论
-        "send_comment" => CommentAddApi::add_comment(auth.clone(), api_req.clone(), &state.ctx)
+        // 发送评论 - 权限 >= 2
+        "send_comment" => {
+            if !auth.has_permission_level(2) {
+                return AppData::<()>::err(4003, "[🌐 GATEWAY]: ❌️ 权限不足：需要权限 >= 2", None)
+                    .finish(&req, start);
+            }
+            CommentAddApi::add_comment(auth.clone(), api_req.clone(), &state.ctx)
             .await
-            .finish(&req, start),
+            .finish(&req, start)
+        }
 
-        // 获取评论
-        "get_comment" => CommentGetApi::get_comment(auth.clone(), api_req.clone(), &state.ctx)
+        // 获取评论 - 权限 >= 1
+        "get_comment" => {
+            if !auth.has_permission_level(1) {
+                return AppData::<()>::err(4003, "[🌐 GATEWAY]: ❌️ 权限不足", None)
+                    .finish(&req, start);
+            }
+            CommentGetApi::get_comment(auth.clone(), api_req.clone(), &state.ctx)
             .await
-            .finish(&req, start),
+            .finish(&req, start)
+        }
 
-        //////// 弹幕
+        //////// 弹幕 - 权限检查
 
-        // 发送弹幕
-        "send_danmaku" => DanmakuAddApi::add_danmaku(auth.clone(), api_req.clone(), &state.ctx)
+        // 发送弹幕 - 权限 >= 2
+        "send_danmaku" => {
+            if !auth.has_permission_level(2) {
+                return AppData::<()>::err(4003, "[🌐 GATEWAY]: ❌️ 权限不足：需要权限 >= 2", None)
+                    .finish(&req, start);
+            }
+            DanmakuAddApi::add_danmaku(auth.clone(), api_req.clone(), &state.ctx)
             .await
-            .finish(&req, start),
+            .finish(&req, start)
+        }
 
-        // 获取弹幕
-        "get_danmaku" => DanmakuGetApi::get_danmaku(auth.clone(), api_req.clone(), &state.ctx)
+        // 获取弹幕 - 权限 >= 1
+        "get_danmaku" => {
+            if !auth.has_permission_level(1) {
+                return AppData::<()>::err(4003, "[🌐 GATEWAY]: ❌️ 权限不足", None)
+                    .finish(&req, start);
+            }
+            DanmakuGetApi::get_danmaku(auth.clone(), api_req.clone(), &state.ctx)
             .await
-            .finish(&req, start),
+            .finish(&req, start)
+        }
 
-        //////// (测试接口, 不可删除)
+        //////// 测试接口 - 权限检查 (不可删除)
+
+        // 发布评论 - 权限 >= 2
         "publish_comment" => {
+            if !auth.has_permission_level(2) {
+                return AppData::<()>::err(4003, "[🌐 GATEWAY]: ❌️ 权限不足：需要权限 >= 2", None)
+                    .finish(&req, start);
+            }
             // 发布评论接口转发
             let data = serde_json::json!({
                 "comment_id": 67890,

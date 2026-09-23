@@ -106,6 +106,7 @@ async fn live_gateway(
         device_id: String::new(),
         iam_roles: query.role.clone().into_iter().collect(),
         is_anonymous: false,
+        permission_context: None,
     };
 
     let gateway_req = GatewayRequest {
