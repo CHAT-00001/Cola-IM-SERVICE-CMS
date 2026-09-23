@@ -15,4 +15,5 @@ pub mod role; // 角色
 pub mod share; // 分享
 pub mod state; // 状态
 pub mod user; // 用户(主内容)
+pub mod user_history; // 用户资料历史
 pub mod vip; // 贵宾

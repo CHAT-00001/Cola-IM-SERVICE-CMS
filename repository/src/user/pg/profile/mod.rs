@@ -7,6 +7,7 @@
 pub mod add; // 发布
 pub mod clean; // 清除
 pub mod get; // 获取
+pub mod history; // 用户资料历史
 pub mod home; // 老东西
 pub mod list; // 列表
 pub mod state; // 状态

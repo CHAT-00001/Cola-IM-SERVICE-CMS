@@ -1,4 +1,4 @@
-// http/src/user/gateway.rs  -- HTTP 用户 网关
+// gate_http/src/user/gateway.rs -- HTTP 用户 网关
 // 2026/6/18 07:53
 
 //////
@@ -12,7 +12,7 @@ use cola_data::app::query::ApiGatewayRequest;
 use cola_data::auth::info::auth::AuthContext;
 use cola_gis::api::home::HomeApi;
 use cola_user::api::user::add::UserAddApi;
-use serde::Deserialize;
+use cola_user::api::user::history::{UpdateProfileRequest, UserHistoryApi};
 use std::time::Instant;
 //////
 
@@ -24,16 +24,6 @@ struct GatewayRequest {
     query: Option<String>, // 查询
     body: web::Bytes,      // body
     path: String,          // 路径
-}
-
-/// # 统一的 Query 提取结构体
-#[derive(Deserialize)]
-pub struct GatewayQuery {
-    pub service: String,     // 🌟 兼容 PhalApi，接收如 "Video.PublishVideo"
-    pub action: Option<i16>, // 🌟 以后转入的 int16 动作代码，先用 Option 顶住
-    pub video_id: Option<i64>,
-    pub page: Option<i64>, // 页码
-    pub qty: Option<i64>,  // 每页数量
 }
 
 /// # [ROUTER] - 用户中心 - 路由器
@@ -53,7 +43,7 @@ pub fn user_router(cfg: &mut web::ServiceConfig) {
 
 // ROOT
 pub async fn root() -> HttpResponse {
-    HttpResponse::Ok().json(vec!["Cole", "VIDEO", "ROUTER"])
+    HttpResponse::Ok().json(vec!["Cole", "USER CENTER", "ROUTER"])
 }
 
 //////
@@ -62,7 +52,7 @@ pub async fn root() -> HttpResponse {
 async fn user_gateway(
     req: HttpRequest,
     // url web::Query<ApiGatewayRequest>,
-    query: web::Query<GatewayQuery>,
+    query: web::Query<ApiGatewayRequest>,
     body: web::Bytes,
     state: web::Data<AppState>,
 ) -> impl Responder {
@@ -85,14 +75,32 @@ async fn user_gateway(
         permission_context: None,
     };
 
+    let url_req = query.into_inner();
+    let body_req = if body.is_empty() {
+        ApiGatewayRequest::default()
+    } else {
+        match serde_json::from_slice::<ApiGatewayRequest>(&body) {
+            Ok(request) => request,
+            Err(error) => {
+                return AppData::<()>::err(4001, format!("网关 JSON 参数无效: {error}"), None)
+                    .finish(&req, start);
+            }
+        }
+    };
+    let mut query = url_req.merge(body_req);
+    // URL/body 中的 UID 均不可信，自助接口只使用 session 注入的身份。
+    query.uid = Some(uid);
+
     let gateway_req = GatewayRequest {
         auth,
-        action: query.action.unwrap_or(0), // 先给个默认值 0，留给以后用
-        service: query.service.clone(),    // 对齐并绑定真正的 PhalApi 字符串服务名
+        action: query.action.unwrap_or(0),
+        service: query.service.clone().unwrap_or_default(),
         query: Some(req.query_string().to_string()),
         body,
         path: req.path().to_string(),
     };
+
+    ////////
 
     // 🌟 对齐到 service 字符串进行业务路由分发
     match gateway_req.service.as_str() {
@@ -126,36 +134,116 @@ async fn user_gateway(
                 .finish(&req, start)
         }
 
+        //////// AVATAR
+
         // 修改头像
-
-
-        // 修改昵称
-
-
-        // 修改资料
-
-        "view" => {
-            // 查看视频详情 - 测试接口
-            let video_id = query.video_id.unwrap_or(0);
-            let data = serde_json::json!({
-                "id": video_id,
-                "user_id": 1,
-                "title": "测试视频标题",
-                "description": "这是一个测试视频描述",
-                "href": "https://example.com/new/1001",
-                "cover": "https://example.com/cover/1001.jpg",
-                "views": 12345,
-                "likes": 678,
-                "comments": 90,
-                "duration": 120.5,
-                "width": 1920,
-                "height": 1080,
-                "status": 1,
-                "created_at": "2026-06-12T07:00:00Z"
-            });
-            AppData::ok(data).finish(&req, start)
+        "edit_avatar" => {
+            let request = match serde_json::from_slice::<UpdateProfileRequest>(&gateway_req.body) {
+                Ok(request) => request,
+                Err(error) => {
+                    return AppData::<()>::err(4001, format!("请求参数无效: {error}"), None)
+                        .finish(&req, start);
+                }
+            };
+            UserHistoryApi::update(
+                uid,
+                UpdateProfileRequest {
+                    nickname: None,
+                    signature: None,
+                    bg_img: None,
+                    sns_url: None,
+                    email: None,
+                    phone: None,
+                    birthday: None,
+                    lat: None,
+                    lng: None,
+                    ..request
+                },
+                &state.ctx,
+            )
+            .await
+            .finish(&req, start)
         }
 
+        // 修改昵称
+        "update_nickname" => {
+            let request = match serde_json::from_slice::<UpdateProfileRequest>(&gateway_req.body) {
+                Ok(request) => request,
+                Err(error) => {
+                    return AppData::<()>::err(4001, format!("请求参数无效: {error}"), None)
+                        .finish(&req, start);
+                }
+            };
+            UserHistoryApi::update(
+                uid,
+                UpdateProfileRequest {
+                    avatar: None,
+                    avatar_thumb: None,
+                    signature: None,
+                    bg_img: None,
+                    sns_url: None,
+                    email: None,
+                    phone: None,
+                    birthday: None,
+                    lat: None,
+                    lng: None,
+                    ..request
+                },
+                &state.ctx,
+            )
+            .await
+            .finish(&req, start)
+        }
+
+        // 修改资料
+        "update_profile" => {
+            let request = match serde_json::from_slice::<UpdateProfileRequest>(&gateway_req.body) {
+                Ok(request) => request,
+                Err(error) => {
+                    return AppData::<()>::err(4001, format!("请求参数无效: {error}"), None)
+                        .finish(&req, start);
+                }
+            };
+            UserHistoryApi::update(uid, request, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 头像列表
+        "get_avatar_list" | "user.nickname.history.list" => {
+            let is_avatar = gateway_req.service == "user.avatar.history.list";
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+            .build();
+            UserHistoryApi::list(uid, is_avatar, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 从记录中启用头像
+        "activate_avatar" | "user.nickname.activate" => {
+            let is_avatar = gateway_req.service == "user.avatar.history.activate";
+            let id = query.id;
+            UserHistoryApi::activate(uid, is_avatar, id, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        "user.avatar.history.delete" | "user.nickname.history.delete" => {
+            let is_avatar = gateway_req.service == "user.avatar.history.delete";
+            let id = query.id;
+            UserHistoryApi::delete(uid, is_avatar, id, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        ////////
+
+        // 测试路由(不可删除)
         "publish_video" => {
             // 发布视频接口转发
             let data = serde_json::json!({
@@ -167,17 +255,21 @@ async fn user_gateway(
             AppData::ok(data).finish(&req, start)
         }
 
+        // 测试路由(不可删除)
         "publish_comment" => {
             // 发布评论接口转发
             let data = serde_json::json!({
                 "comment_id": 67890,
                 "user_id": uid,
-                "video_id": query.video_id.unwrap_or(0),
+                "video_id": query.video_id,
                 "content": "示例评论内容"
             });
             AppData::ok(data).finish(&req, start)
         }
 
+        ////////
+
+        // 兜底路由
         _ => AppData::<()>::err(
             2004,
             format!(
@@ -189,3 +281,5 @@ async fn user_gateway(
         .finish(&req, start),
     }
 }
+
+//////// END

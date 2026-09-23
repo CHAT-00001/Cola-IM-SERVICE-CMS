@@ -1,4 +1,4 @@
-// gate_http/src/router_v2/fs/gateway.rs  -- HTTP - 可乐FS - 路由器与网关
+// gate_http/src/router_v2/fs/gateway.rs  -- HTTP网关 - 可乐FS - 路由器与网关
 // 2026/5/25 06:49 by wx: cestbon10080
 
 ////////
@@ -98,16 +98,22 @@ async fn fs_gateway(
 
     // 2. 业务路由分发（按 service/action 分发到 bucket, cdn, file, media）
     match service_name.as_str() {
-        // -------- 存储桶 (Bucket) --------
-        "bucket_new" => BucketApi::api_get_bucket_list(api_req.clone(), &state.ctx)
+        //////// 存储桶 (Bucket)
+
+        // 获取桶列表
+        "bucket_list" => BucketApi::api_get_bucket_list(api_req.clone(), &state.ctx)
             .await
             .finish(&req, start),
-        "bucket_get" => {
+
+        // 获取桶
+        "get_bucket" => {
             let app_id = api_req.params.get("app_id").cloned().unwrap_or_default();
             BucketApi::api_get_bucket(app_id, &state.ctx)
                 .await
                 .finish(&req, start)
         }
+
+        // 添加桶
         "bucket_add" => {
             let cmd = match parse_create_bucket_cmd(&body) {
                 Ok(cmd) => cmd,
@@ -119,12 +125,16 @@ async fn fs_gateway(
                 .await
                 .finish(&req, start)
         }
+
+        // 删除桶
         "bucket_del" => {
             let id = api_req.id;
             BucketApi::api_del_bucket(uid, id, &state.ctx)
                 .await
                 .finish(&req, start)
         }
+
+        // 搜索桶
         "bucket_search" => {
             let keyword = api_req.keyword.clone();
             BucketApi::api_search_bucket(uid, keyword, &state.ctx)
@@ -132,25 +142,35 @@ async fn fs_gateway(
                 .finish(&req, start)
         }
 
-        // -------- CDN 域名 --------
+        //////// CDN 域名
+
+        // 域名列表
         "cdn_new" => {
             let app_id = api_req.params.get("app_id").cloned();
             CdnApi::api_get_cdn_list(app_id, api_req.limit, api_req.offset, &state.ctx)
                 .await
                 .finish(&req, start)
         }
-        "cdn_get" => {
+
+        // 获取域名
+        "get_cdn" => {
             let app_id = api_req.params.get("app_id").cloned().unwrap_or_default();
             CdnApi::api_get_cdn(app_id, &state.ctx)
                 .await
                 .finish(&req, start)
         }
+
+        //
         "cdn_bucket_get" => CdnApi::api_get_cdn_by_bucket_id(api_req.id, &state.ctx)
             .await
             .finish(&req, start),
+
+        // 获取CDN域名
         "cdn_id_get" => CdnApi::api_get_cdn_by_id(api_req.id, &state.ctx)
             .await
             .finish(&req, start),
+
+        // 添加 CDN 域名
         "cdn_add" => {
             let cmd = match serde_json::from_slice::<CreateCdnDomainCmd>(&body) {
                 Ok(cmd) => cmd,
@@ -167,6 +187,8 @@ async fn fs_gateway(
                 .await
                 .finish(&req, start)
         }
+
+        // 更新域名
         "cdn_update" => {
             let cmd = match serde_json::from_slice::<UpdateCdnDomainCmd>(&body) {
                 Ok(cmd) => cmd,
@@ -183,6 +205,8 @@ async fn fs_gateway(
                 .await
                 .finish(&req, start)
         }
+
+        // CDN域名状态
         "cdn_status" => {
             let status = if api_req.status != 0 {
                 api_req.status
@@ -201,17 +225,23 @@ async fn fs_gateway(
                 .await
                 .finish(&req, start)
         }
+
+        // CDN域名删除
         "cdn_delete" => CdnApi::api_delete_cdn(uid, api_req.id, &state.ctx)
             .await
             .finish(&req, start),
 
-        // -------- 文件对象 (File) --------
+        //////// 件对象 (File)
+
+        // 文件列表
         "file_new" | "file_get" => {
             let app_id = api_req.params.get("app_id").cloned().unwrap_or_default();
             FileApi::api_get_file(app_id, &state.ctx)
                 .await
                 .finish(&req, start)
         }
+
+        // 添加文件
         "file_add" => {
             let cmd = match serde_json::from_slice::<CreateFileCmd>(&body) {
                 Ok(cmd) => cmd,
@@ -229,6 +259,9 @@ async fn fs_gateway(
                 .finish(&req, start)
         }
 
+        //////// UPLOAD 上载
+
+        // 获取上传会话
         "upload_session" => {
             let cmd = match parse_upload_session_cmd(&body) {
                 Ok(cmd) => cmd,
@@ -274,6 +307,8 @@ async fn fs_gateway(
                 .await
                 .finish(&req, start)
         }
+
+        // 文件创建
         "file_create" => {
             let cmd = match serde_json::from_slice::<CreateFileCmd>(&body) {
                 Ok(cmd) => cmd,
@@ -290,6 +325,8 @@ async fn fs_gateway(
                 .await
                 .finish(&req, start)
         }
+
+        // 媒体批量创建
         "media_batch_create" => {
             let cmd = match serde_json::from_slice::<BatchCreateMediaCmd>(&body) {
                 Ok(cmd) => cmd,
@@ -307,13 +344,17 @@ async fn fs_gateway(
                 .finish(&req, start)
         }
 
-        // -------- 对象媒体 (Media) --------
+        //////// 对象媒体 (Media)
+
+        // 媒体列表
         "media_new" | "media_get" => {
             let app_id = api_req.params.get("app_id").cloned().unwrap_or_default();
             MediaApi::api_get_media(app_id, &state.ctx)
                 .await
                 .finish(&req, start)
         }
+
+        // 媒体添加
         "media_add" => {
             let cmd = match serde_json::from_slice::<
                 cola_data::cola_fs::command::media::CreateMediaCmd,
@@ -334,6 +375,9 @@ async fn fs_gateway(
                 .finish(&req, start)
         }
 
+        //////// 安全线
+
+        // 兜底
         _ => AppData::<()>::err(
             4000,
             format!("[🌐 GATEWAY]: ⚠️ Unknown FS service: {}", service_name),

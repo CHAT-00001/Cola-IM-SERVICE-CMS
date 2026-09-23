@@ -9,6 +9,7 @@ use cola_data::cola_user::info::user::UserInfo;
 use cola_data::cola_user::vo::user::UserVo;
 use cola_data::cola_video::info::comment::CommentInfo;
 use cola_data::cola_video::vo::comment::{CommentListResponse, CommentSingleResponse, CommentVo};
+use cola_user::case::user::avatar_cdn::{resolve_avatar_cdn_domain, resolve_avatar_url};
 use port::app::ctx::AppContext;
 use service::cola_user::user::active::UserService;
 use std::collections::{HashMap, HashSet};
@@ -19,8 +20,8 @@ use std::collections::{HashMap, HashSet};
 /// * `desc`: 动态加载评论作者、视频作者和当前用户互动关系
 pub async fn build_comment_single_response(
     comment_info: CommentInfo, // 评论 Info
-    current_uid: Option<i64>,       // 当前用户 ID
-    ctx: &AppContext,               // 应用上下文
+    current_uid: Option<i64>,  // 当前用户 ID
+    ctx: &AppContext,          // 应用上下文
 ) -> Result<CommentSingleResponse> {
     let current_uid = current_uid.unwrap_or_default();
     let user_info = UserService::get_user_info_by_id(comment_info.user_id).await?;
@@ -49,6 +50,9 @@ pub async fn build_comment_single_response(
         false
     };
 
+    let mut user_info = user_info;
+    user_info.avatar_url =
+        resolve_avatar_url(&user_info.avatar_url, &resolve_avatar_cdn_domain(ctx).await);
     let comment_vo = CommentVo::new(
         comment_info.clone(),
         build_user_vo(user_info),
@@ -66,12 +70,12 @@ pub async fn build_comment_single_response(
 /// # 2. [ASSEMBLER] - 组装评论列表
 /// * `desc`: 批量加载用户信息，并逐条动态检查作者归属和互动关系
 pub async fn build_comment_list_response(
-    infos: Vec<CommentInfo>, // 评论 Info 列表
-    current_uid: Option<i64>,     // 当前用户 ID
-    page: i64,                    // 页码
-    qty: i64,                     // 分页数量
-    total: i64,                   // 总数量
-    ctx: &AppContext,             // 应用上下文
+    infos: Vec<CommentInfo>,  // 评论 Info 列表
+    current_uid: Option<i64>, // 当前用户 ID
+    page: i64,                // 页码
+    qty: i64,                 // 分页数量
+    total: i64,               // 总数量
+    ctx: &AppContext,         // 应用上下文
 ) -> Result<CommentListResponse> {
     if infos.is_empty() {
         return Ok(CommentListResponse {
@@ -109,6 +113,7 @@ pub async fn build_comment_list_response(
         .into_iter()
         .map(|video| (video.id, video.uid))
         .collect::<HashMap<_, _>>();
+    let avatar_cdn_domain = resolve_avatar_cdn_domain(ctx).await;
 
     let mut list = Vec::with_capacity(infos.len());
     for comment_info in infos {
@@ -138,6 +143,8 @@ pub async fn build_comment_list_response(
             .get(&comment_info.video_id)
             .is_some_and(|video_author_id| *video_author_id == comment_info.user_id);
 
+        let mut user_info = user_info;
+        user_info.avatar_url = resolve_avatar_url(&user_info.avatar_url, &avatar_cdn_domain);
         list.push(CommentVo::new(
             comment_info.clone(),
             build_user_vo(user_info),

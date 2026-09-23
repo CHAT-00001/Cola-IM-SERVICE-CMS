@@ -102,7 +102,7 @@ impl From<UserEntity> for UserInfo {
             .user_nickname
             .unwrap_or_else(|| "一罐可乐".to_string()); // 👈 对齐 user_nickname
 
-        info.avatar_url = entity.avatar.unwrap_or_default(); // 👈 对齐 avatar
+        info.avatar_url = entity.avatar.unwrap_or_default(); // 🌟 始终保留原始头像路径；CDN 只在输出组装阶段解析
         info.bg_img = entity.bg_img.unwrap_or_default(); // 👈 对齐 bg_img
 
         // 如果实体有签名则覆盖，没有则保留基座默认的 "这里还是空的啊~"

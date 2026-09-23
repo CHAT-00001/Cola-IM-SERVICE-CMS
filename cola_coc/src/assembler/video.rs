@@ -10,6 +10,7 @@ use cola_data::cola_user::info::user::UserInfo;
 use cola_data::cola_video::info::video::{VideoInfo, VideoListResponse, VideoSingleResponse};
 use cola_data::cola_video::vo::video::VideoVo;
 use cola_data::music::info::music::MusicInfo;
+use cola_user::case::user::avatar_cdn::{default_avatar_cdn_domain, resolve_avatar_url};
 use service::cola_user::user::active::UserService;
 use std::collections::HashMap;
 
@@ -78,6 +79,8 @@ pub async fn build_video_single_response_with_cdn(
     video_info.original_url = resolve_cdn_url_opt(video_info.original_url, cdn_domain);
 
     // 5. 🚀 大聚合：调用 combine 生成前端需要的扁平化 VideoVo
+    let mut author = author;
+    author.avatar_url = resolve_avatar_url(&author.avatar_url, default_avatar_cdn_domain());
     let video_vo = VideoVo::combine(video_info, author, music_info);
 
     // 6. 包装进单视频响应体返回
@@ -139,7 +142,8 @@ pub async fn build_video_list_response_with_cdn(
 
             // 💡 因为 UserService 保证了请求的 id 只要大于 0 必然有值在 map 里，
             // 这里直接 cloned() 拿走即可，无需多余转换。
-            let author = authors_map.get(&author_uid).cloned().unwrap_or_default();
+            let mut author = authors_map.get(&author_uid).cloned().unwrap_or_default();
+            author.avatar_url = resolve_avatar_url(&author.avatar_url, default_avatar_cdn_domain());
             let music_info = MusicInfo::default();
 
             let mut video_info = video_info;

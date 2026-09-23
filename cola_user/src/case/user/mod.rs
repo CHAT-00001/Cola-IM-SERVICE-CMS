@@ -5,8 +5,10 @@
 ////////
 
 pub mod add; // 发布
+pub mod avatar_cdn; // 头像 CDN
 pub mod check; // 检查
 pub mod get; // 获取
+pub mod history; // 资料历史
 pub mod list; // 主页
 pub mod manage; // 管理
 pub mod mine; // 我的

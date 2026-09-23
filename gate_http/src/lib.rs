@@ -1,9 +1,9 @@
-// gate_http/src/lib.rs -- API lib
+// gate_http/src/lib.rs -- HTTP网关 - lib
 // 2026-01-16 13:48:00
 
 ////////
-pub mod kits;
 
+pub mod kits;
 mod ping;
 mod router_v1;
 mod router_v2;

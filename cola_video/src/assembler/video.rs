@@ -9,6 +9,8 @@ use cola_data::cola_user::info::user::UserInfo;
 use cola_data::cola_video::info::video::{VideoInfo, VideoListResponse, VideoSingleResponse};
 use cola_data::cola_video::vo::video::VideoVo;
 use cola_data::music::info::music::MusicInfo;
+use cola_user::case::user::avatar_cdn::{resolve_avatar_cdn_domain, resolve_avatar_url};
+use port::app::ctx::AppContext;
 use service::cola_user::user::active::UserService;
 use std::collections::HashMap;
 
@@ -45,6 +47,25 @@ pub async fn build_video_single_response(
     build_video_single_response_with_cdn(video_info, _current_uid, &cdn_domain).await
 }
 
+const DEFAULT_AVATAR_CDN_DOMAIN: &str = "https://cdn1.damawei.com";
+
+/// # [BUILD] - 使用请求上下文配置的头像 CDN 组装单视频响应
+pub async fn build_video_single_response_with_context(
+    video_info: VideoInfo,
+    current_uid: Option<i64>,
+    cdn_domain: &str,
+    ctx: &AppContext,
+) -> Result<VideoSingleResponse> {
+    let avatar_cdn_domain = resolve_avatar_cdn_domain(ctx).await;
+    build_video_single_response_with_cdn_and_avatar_cdn(
+        video_info,
+        current_uid,
+        cdn_domain,
+        &avatar_cdn_domain,
+    )
+    .await
+}
+
 ////////
 
 /// # [BUILD] - 使用业务层解析出的 CDN 域名构建单视频响应
@@ -53,6 +74,21 @@ pub async fn build_video_single_response_with_cdn(
     video_info: VideoInfo,     // 视频源数据
     _current_uid: Option<i64>, // 用户 ID
     cdn_domain: &str,          // 已解析的 CDN 域名
+) -> Result<VideoSingleResponse> {
+    build_video_single_response_with_cdn_and_avatar_cdn(
+        video_info,
+        _current_uid,
+        cdn_domain,
+        DEFAULT_AVATAR_CDN_DOMAIN,
+    )
+    .await
+}
+
+pub async fn build_video_single_response_with_cdn_and_avatar_cdn(
+    video_info: VideoInfo,
+    _current_uid: Option<i64>,
+    cdn_domain: &str,
+    avatar_cdn_domain: &str, // 头像 bucket CDN 域名
 ) -> Result<VideoSingleResponse> {
     // 1. 获取该视频的作者 ID
     let author_uid = video_info.uid;
@@ -77,6 +113,8 @@ pub async fn build_video_single_response_with_cdn(
     video_info.original_url = resolve_cdn_url_opt(video_info.original_url, cdn_domain);
 
     // 5. 🚀 大聚合：调用 combine 生成前端需要的扁平化 VideoVo
+    let mut author = author;
+    author.avatar_url = resolve_avatar_url(&author.avatar_url, avatar_cdn_domain);
     let video_vo = VideoVo::combine(video_info, author, music_info);
 
     // 6. 包装进单视频响应体返回
@@ -100,6 +138,29 @@ pub async fn build_video_list_response(
     build_video_list_response_with_cdn(infos, _current_uid, page, qty, _total, &cdn_domain).await
 }
 
+/// # [BUILD] - 使用请求上下文配置的头像 CDN 组装视频列表
+pub async fn build_video_list_response_with_context(
+    infos: Vec<VideoInfo>,
+    current_uid: Option<i64>,
+    page: i64,
+    qty: i64,
+    total: i64,
+    cdn_domain: &str,
+    ctx: &AppContext,
+) -> Result<VideoListResponse> {
+    let avatar_cdn_domain = resolve_avatar_cdn_domain(ctx).await;
+    build_video_list_response_with_cdn_and_avatar_cdn(
+        infos,
+        current_uid,
+        page,
+        qty,
+        total,
+        cdn_domain,
+        &avatar_cdn_domain,
+    )
+    .await
+}
+
 ////////
 
 /// # [BUILD] - 使用业务层解析出的 CDN 域名构建视频列表
@@ -111,6 +172,27 @@ pub async fn build_video_list_response_with_cdn(
     qty: i64,                  // 每页数量
     _total: i64,               // 总数量
     cdn_domain: &str,          // 已解析的 CDN 域名
+) -> Result<VideoListResponse> {
+    build_video_list_response_with_cdn_and_avatar_cdn(
+        infos,
+        _current_uid,
+        page,
+        qty,
+        _total,
+        cdn_domain,
+        DEFAULT_AVATAR_CDN_DOMAIN,
+    )
+    .await
+}
+
+pub async fn build_video_list_response_with_cdn_and_avatar_cdn(
+    infos: Vec<VideoInfo>,
+    _current_uid: Option<i64>,
+    page: i64,
+    qty: i64,
+    _total: i64,
+    cdn_domain: &str,
+    avatar_cdn_domain: &str, // 头像 bucket CDN 域名
 ) -> Result<VideoListResponse> {
     // 1. 批量获取作者用户信息 (全静态服务化)
     let authors_map: HashMap<i64, UserInfo> = if infos.is_empty() {
@@ -138,7 +220,8 @@ pub async fn build_video_list_response_with_cdn(
 
             // 💡 因为 UserService 保证了请求的 id 只要大于 0 必然有值在 map 里，
             // 这里直接 cloned() 拿走即可，无需多余转换。
-            let author = authors_map.get(&author_uid).cloned().unwrap_or_default();
+            let mut author = authors_map.get(&author_uid).cloned().unwrap_or_default();
+            author.avatar_url = resolve_avatar_url(&author.avatar_url, avatar_cdn_domain);
             let music_info = MusicInfo::default();
 
             let mut video_info = video_info;

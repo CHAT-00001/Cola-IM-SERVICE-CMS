@@ -1,4 +1,4 @@
-// router_v2/music  - 路由器 music
+// router_v2/mod.rs  - HTTP网关 - v2 - mod
 // 2026-06-12 10:40
 
 //////
@@ -9,6 +9,7 @@ mod fs;
 pub mod gift;
 pub mod gis;
 pub mod live;
+pub mod market;
 pub mod music;
 pub mod response;
 pub mod three;
@@ -19,7 +20,7 @@ pub mod video;
 
 use actix_web::web;
 use app_config::app_state::AppState;
-
+use crate::router_v2::three::dispatcher::im;
 //////
 
 /// # [ROUTER] - v2
@@ -40,8 +41,12 @@ pub fn boot_router_v2(cfg: &mut web::ServiceConfig, app_state: AppState) {
             .configure(fs::gateway::fs_router)
             // 动态
             .configure(gis::gateway::gis_router)
+            // 聊天
+            //.configure(im::gateway::im_router)
             // 直播
             .configure(live::gateway::live_router)
+            // 市场
+            .configure(market::gateway::market_router)
             // 音乐
             .configure(music::router::music_router)
             // 第三方服务

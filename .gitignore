@@ -16,6 +16,9 @@ build_output*.txt
 # 数据库自动迁移
 .migrations
 /migrations/
+!/migrations/
+/migrations/*
+!/migrations/20260923094500_user_profile_history.sql
 
 # 运行时日志/临时文件
 *.log

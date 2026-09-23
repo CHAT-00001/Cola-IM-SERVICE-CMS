@@ -1,16 +1,15 @@
-// gate_http/src/router_v2/im/chat.rs
-// 🔌 IM - Chat - 聊天管理分发器
+// gate_http/src/router_v2/im/chat.rs -- IM - Chat - 聊天管理分发器
 // 2026/8/8 Created.
 
 ////////
 
 use crate::kits::response::IntoApi;
 use actix_web::{HttpRequest, Responder, web};
+use app_config::app_state::AppState;
 use cola_data::app::data::AppData;
 use cola_data::app::query::ApiGatewayRequest;
 use cola_data::cola_auth::info::auth::AuthContext;
 use cola_video::api::home::HomeApi;
-use app_config::app_state::AppState;
 use std::time::Instant;
 
 ////////
@@ -26,14 +25,32 @@ pub async fn chat_dispatch(
     uid: i64,
     start: Instant,
 ) -> impl Responder {
+    // 路由
     match service {
+        // 添加聊天对话
         "chat_add" => handle_chat_add(req, query, state, auth, uid, start).await,
+
+        // 删除聊天
         "chat_del" => handle_chat_del(req, query, state, auth, uid, start).await,
+
+        // 聊天列表
         "chat_list" => handle_chat_list(req, query, state, auth, uid, start).await,
+
+        // 聊天管理
         "chat_manage" => handle_chat_manage(req, query, state, auth, uid, start).await,
+
+        // 聊天设置
         "chat_setting" => handle_chat_setting(req, query, state, auth, uid, start).await,
+
+        // 聊天置顶
         "chat_pin" => handle_chat_pin(req, query, state, auth, uid, start).await,
+
+        // 聊天同步
         "chat_sync" => handle_chat_sync(req, query, state, auth, uid, start).await,
+
+        ////////
+
+        // 兜底
         _ => AppData::<()>::err(400, format!("Unknown chat service: {}", service), None)
             .finish(req, start),
     }

@@ -49,6 +49,19 @@ impl UserProfileCache {
     }
 
     ////////
+
+    /// # 3. [REPOSITORY] - 删除用户资料缓存
+    pub async fn delete_user_info(user_id: i64) -> Result<()> {
+        let key = format!("user:profile:{}", user_id);
+        let db = app_config::GLOBAL_DB
+            .get()
+            .ok_or_else(|| anyhow!("GLOBAL_DB 未初始化"))?;
+        let mut conn = db.redis_conn.clone();
+        let _: () = conn.del(key).await?;
+        Ok(())
+    }
+
+    ////////
 }
 
 //////// END

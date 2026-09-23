@@ -3,10 +3,11 @@
 
 ////////
 
-use crate::assembler::video::build_video_single_response_with_cdn;
+use crate::assembler::video::build_video_single_response_with_cdn_and_avatar_cdn;
 use crate::case::storage::resolve_video_cdn_domain;
 use anyhow::Result;
 use cola_data::cola_video::info::video::VideoSingleResponse;
+use cola_user::case::user::avatar_cdn::{resolve_avatar_cdn_domain, resolve_avatar_url};
 use port::app::ctx::AppContext;
 use tracing::info;
 
@@ -38,7 +39,14 @@ impl VideoContentGetCase {
         info!("[🗣️ CASE] - ✅️ 视频信息查询成功: uid={uid}, video_id={video_id}");
 
         let cdn_domain = resolve_video_cdn_domain(&ctx, "short-video").await?;
-        build_video_single_response_with_cdn(info, Some(uid), &cdn_domain).await
+        let avatar_cdn_domain = resolve_avatar_cdn_domain(&ctx).await;
+        build_video_single_response_with_cdn_and_avatar_cdn(
+            info,
+            Some(uid),
+            &cdn_domain,
+            &avatar_cdn_domain,
+        )
+        .await
     }
 }
 

@@ -69,7 +69,7 @@ impl UserAddCase {
     /// * `desc`: `更新用户资料` + `返回新资料`
     pub async fn case_update_profile(
         user_id: i64, // 目标用户ID
-        mut cmd: UpdateUserCommand,
+        cmd: UpdateUserCommand,
         ctx: AppContext,
     ) -> Result<UserInfo, anyhow::Error> {
         // 1. 内容风控（标题 + 简介 联合过滤）
@@ -79,13 +79,7 @@ impl UserAddCase {
         let visibility = rick_check(check_text).await;
 
         // 2. 核心数据持久化与计数更新
-        let user_info = ctx
-            .user
-            .profile
-            .add
-            .update_user(cmd)
-            .await
-            .map_err(|e| anyhow::anyhow!("[🤐 CASE]: ❌️ 修改用户资料失败: {}", e))?;
+        let user_info = super::history::UserHistoryCase::update(user_id, cmd, &ctx).await?;
 
         info!(
             "[🗣️ CASE] - ✅️ 修改用户资料成功: uid={}, visibility={}",

@@ -12,6 +12,7 @@ pub mod add;
 pub mod check;
 pub mod del;
 pub mod get;
+pub mod history;
 pub mod list;
 pub mod manage;
 pub mod stat;
@@ -26,6 +27,7 @@ pub fn build_user_profile_port() -> UserProfilePort {
         check: Arc::new(check::UserCheckAdapter),
         del: Arc::new(del::UserDelAdapter),
         get: Arc::new(get::UserGetAdapter),
+        history: Arc::new(history::UserHistoryAdapter),
         list: Arc::new(list::UserListAdapter),
         manage: Arc::new(manage::UserManageAdapter),
         stat: Arc::new(stat::UserProfileStatAdapter),

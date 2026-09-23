@@ -12,4 +12,5 @@ pub mod profile; // 资料
 pub mod role; // 角色
 pub mod share; // 分享
 pub mod user; // 用户
+pub mod user_history; // 用户资料历史
 pub mod view; // 浏览 (访客记录)
