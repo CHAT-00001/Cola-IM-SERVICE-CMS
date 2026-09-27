@@ -1,5 +1,4 @@
-// repo_adapter/src/cola_video/video/manage.rs
-// 🔌 插头 - VIDEO - 视频 - 管理
+// repo_adapter/src/cola_video/video/manage.rs -- ADAPTER - VIDEO - 内容 - 管理适配器
 // 2026/8/6 19:19 Created.
 
 ////////
@@ -11,8 +10,8 @@ use port::cola_video::video::manage::VideoManagePort;
 
 ////////
 
-/// # [MANAGE ADAPTER] - 管理
-/// * `desc`: `🔌 视频管理适配器`
+/// # [MANAGE ADAPTER] - 视频内容管理适配器
+/// * `desc`: `VIDEO - Content Manage Adapter.`
 pub struct VideoManageAdapter;
 
 #[async_trait]

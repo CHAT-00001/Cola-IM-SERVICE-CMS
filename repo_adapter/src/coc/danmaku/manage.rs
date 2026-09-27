@@ -1,5 +1,4 @@
-// repo_adapter/src/cola_video/danmaku/manage.rs
-// 🔌 适配器 - VIDEO - 弹幕 - 管理
+// repo_adapter/src/cola_video/danmaku/manage.rs -- ADAPTER - VIDEO - 弹幕 - 管理
 // 2026/8/6 18:56 Created.
 
 ////////
@@ -7,6 +6,7 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use cola_data::cola_video::info::comment::CommentInfo;
+use cola_data::cola_video::info::danmaku::DanmakuInfo;
 use port::cola_video::danmaku::manage::VideoDanmakuManagePort;
 
 ////////
@@ -18,6 +18,10 @@ pub struct VideoDanmakuManageAdapter;
 
 #[async_trait]
 impl VideoDanmakuManagePort for VideoDanmakuManageAdapter {
+    //
+
+    ////////
+
     /// # [ADAPTER] - 管理员列表
     async fn admin_get_danmakus_infos(
         &self,
@@ -29,7 +33,7 @@ impl VideoDanmakuManagePort for VideoDanmakuManageAdapter {
         status_code: i16,
         limit: i64,
         offset: i64,
-    ) -> Result<(CommentInfo)> {
+    ) -> Result<(Vec<DanmakuInfo>, u64)> {
         todo!()
     }
 }

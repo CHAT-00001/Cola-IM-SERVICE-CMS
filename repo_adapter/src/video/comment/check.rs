@@ -1,5 +1,4 @@
-// repo_adapter/src/video/comment/check.rs
-// 🔌 适配器 - ▶ 视频 -  评论 - 检查
+// repo_adapter/src/video/comment/check.rs -- ADAPTER - VIDEO - 评论 - 检查
 // 2026/8/9 20:48 Created.
 
 ////////
@@ -12,8 +11,8 @@ use repository::video::pg::comment::check::VideoCommentCheckRepo;
 
 ////////
 
-/// # [CHECK ADAPTER] - 检查
-/// * `desc`: `VIDEO - 视频评论检查适配器`
+/// # [CHECK ADAPTER] - 视频评论检查适配器
+/// * `desc`: `VIDEO - Comment Check Adapter.`
 #[derive(Debug, Default, Clone)]
 pub struct VideoCommentCheckAdapter;
 

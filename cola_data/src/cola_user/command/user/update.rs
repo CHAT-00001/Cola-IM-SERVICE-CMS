@@ -41,6 +41,7 @@ impl UpdateUserCommand {
         UserEntity {
             id: user_id,                             // 用户 ID
             _id: Option::from("".to_string()),       // UUID v4
+            vx_id: Option::from("".to_string()),     // UUID v7
             user_type: None,                         // 用户类型
             user_nickname: self.nickname.clone(),    // 用户昵称
             signature: self.signature.clone(),       // 个性签名

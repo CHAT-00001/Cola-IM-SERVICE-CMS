@@ -1,5 +1,4 @@
-// repo_adapter/src/video/comment/get.rs
-// 🔌 插头 - 可乐视频 - 评论 - 获取IDs
+// repo_adapter/src/video/comment/get.rs -- ADAPTER - ERP -
 // 2026/8/6 18:55 Created.
 
 ////////
@@ -27,7 +26,7 @@ impl VideoCommentGetPort for VideoCommentGetAdapter {
         todo!()
     }
 
-    async fn get_comment_by_video(
+    async fn get_comment_by_video_id(
         &self,
         video_id: i64,
         limit: i64,

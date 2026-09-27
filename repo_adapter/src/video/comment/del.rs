@@ -1,5 +1,4 @@
-// repo_adapter/src/video/comment/del.rs
-// 🔌 适配器 - 可乐视频 - 评论 - 逻辑删除
+// repo_adapter/src/video/comment/del.rs -- ADAPTER - VIDEO - 评论 - 逻辑删除
 // 2026/8/6 19:12 Created.
 
 ////////
@@ -10,8 +9,8 @@ use port::cola_video::comment::del::VideoCommentDelPort;
 
 ////////
 
-/// # [ADD SERVICE] - 发布
-/// * `desc`: `可乐视频 - 视频评论发布服务`
+/// # [DELETE SERVICE] - 视频评论删除适配器
+/// * `desc`: `COLA VIDEO - Comment Delete Adapter.`
 #[derive(Debug, Default, Clone)]
 pub struct VideoCommentDelAdapter;
 

@@ -1,5 +1,4 @@
-// repo_adapter/src/video/comment/manage.rs
-// 🔌 插头 - 可乐视频 - 评论 - 管理
+// repo_adapter/src/video/comment/manage.rs -- ADAPTER - VIDEO - 评论 - 管理
 // 2026/8/6 18:55 Created.
 
 ////////
@@ -11,8 +10,8 @@ use port::cola_video::comment::manage::VideoCommentManagePort;
 
 ////////
 
-/// # [ADD ADAPTER] - 发布
-/// * `desc`: `可乐视频 - 视频评论管理适配器`
+/// # [MANAGE ADAPTER] - 视频评论管理适配器
+/// * `desc`: `COLA VIDEO - Comment Manage Service Adapter.`
 #[derive(Debug, Default, Clone)]
 pub struct VideoCommentManageAdapter;
 
@@ -28,7 +27,9 @@ impl VideoCommentManagePort for VideoCommentManageAdapter {
         status_code: i16,
         limit: i64,
         offset: i64,
-    ) -> Result<(CommentInfo)> {
+    ) -> Result<(Vec<CommentInfo>, u64)> {
         todo!()
     }
 }
+
+//////// END

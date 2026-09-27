@@ -1,5 +1,4 @@
-// repo_adapter/src/cola_video/view/add.rs
-// 🔌 插头 - 可乐视频 - 浏览 - 发布
+// repo_adapter/src/cola_video/view/add.rs -- ADAPTER - VIDEO - 浏览 - 发布
 // 2026/8/6 19:00 Created.
 
 ////////

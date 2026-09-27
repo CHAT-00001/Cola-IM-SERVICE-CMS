@@ -1,5 +1,4 @@
-// port/src/cola_video/comment/get.rs
-// ⏩️ 端口 - VIDEO - 评论 - 获取
+// port/src/cola_video/comment/get.rs -- PORT - VIDEO - 评论 - 获取服务
 // 2026/6/10 08:23 Created.
 
 ////////
@@ -9,8 +8,8 @@ use cola_data::cola_video::info::comment::CommentInfo;
 
 ////////
 
-/// # [SERVICE PORT] - 评论
-/// * `desc`: `VIDEO - 评论获取端口`
+/// # [GET SERVICE PORT] - 视频评论获取服务端口
+/// * `desc`: `VIDEO - Comment Get Service Ports.`
 #[async_trait::async_trait]
 pub trait VideoCommentGetPort: Send + Sync {
     //
@@ -28,10 +27,12 @@ pub trait VideoCommentGetPort: Send + Sync {
     ////////
 
     /// # [PORT] - 视频的
-    async fn get_comment_by_video(
+    async fn get_comment_by_video_id(
         &self,
         video_id: i64, // 视频 ID
         limit: i64,    // 数量
         offset: i64,   // 页码
     ) -> anyhow::Result<(Vec<CommentInfo>)>;
 }
+
+//////// END

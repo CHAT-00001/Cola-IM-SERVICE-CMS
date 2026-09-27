@@ -1,5 +1,4 @@
-// service/src/user/user/active  --
-// 服务层 - 可乐用户 - 用户 - 发布服务
+// service/src/user/user/active  -- SERVICE - USER - 资料 - 活跃
 // 2026/6/9 09:04
 
 ////////

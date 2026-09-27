@@ -1,15 +1,15 @@
-// repo_adapter/src/cola_video/danmaku/check.rs
-// 🔌 适配器 - VIDEO - 弹幕 - 检查
+// repo_adapter/src/cola_video/danmaku/check.rs -- ADAPTER - VIDEO - 弹幕 - 检查
 // 2026/8/6 19:10 Created.
 
 ////////
 
 use async_trait::async_trait;
 use port::cola_video::danmaku::check::VideoDanmakuCheckPort;
+
 ////////
 
-/// # [CHECK ADAPTER] - danmaku check
-/// * `desc`: `VIDEO - 视频弹幕检查适配器`
+/// # [CHECK ADAPTER] - 视频弹幕检查适配器
+/// * `desc`: `VIDEO - Danmaku Check Adapter.`
 #[derive(Debug, Default, Clone)]
 pub struct VideDanmakuCheckAdapter;
 

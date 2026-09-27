@@ -1,5 +1,4 @@
-// repo_adapter/src/video/comment/list.rs
-// 🔌 插头 - 可乐视频 - 评论 - 评论列表
+// repo_adapter/src/video/comment/list.rs -- ADAPTER - VIDEO - 评论 - 列表
 // 2026/8/6 18:55 Created.
 
 ////////
@@ -11,8 +10,8 @@ use port::cola_video::comment::list::VideoCommentListPort;
 
 ////////
 
-/// # [ADD SERVICE] - 发布
-/// * `desc`: `可乐视频 - 视频评论发布服务`
+/// # [LIST SERVICE] - 视频评论列表适配器
+/// * `desc`: `COLA VIDEO - Comment List Service Adapter.`
 #[derive(Debug, Default, Clone)]
 pub struct VideoCommentListAdapter;
 
@@ -36,3 +35,5 @@ impl VideoCommentListPort for VideoCommentListAdapter {
         todo!()
     }
 }
+
+//////// END

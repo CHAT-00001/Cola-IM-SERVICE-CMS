@@ -1,5 +1,4 @@
-// repo_adapter/src/cola_video/cola_video/list.rs
-// 🔌 插头 - 可乐视频 - 视频 - 列表
+// repo_adapter/src/video/video/list.rs -- ADAPTER - VIDEO - 内容 - 列表适配器
 // 2026/8/7 05:31 Created.
 
 ////////
@@ -11,8 +10,8 @@ use port::cola_video::video::list::VideoListPort;
 
 ////////
 
-/// # [ADD ADAPTER] - 发布
-/// * `desc`: `🔌 视频发布插头`
+/// # [ADD ADAPTER] - 视频内容列表适配器
+/// * `desc`: `VIDEO - Content List Adapter.`
 pub struct VideoListAdapter;
 
 #[async_trait]

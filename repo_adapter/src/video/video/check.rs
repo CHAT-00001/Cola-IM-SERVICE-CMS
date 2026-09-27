@@ -1,5 +1,4 @@
-// repo_adapter/src/cola_video/cola_video/check.rs
-// 🔌 插头 - 可乐视频 - 视频 - 检查
+// repo_adapter/src/cola_video/cola_video/check.rs -- ADAPTER - VIDEO - CONTENT - 检查适配器
 // 2026/8/6 19:19 Created.
 
 ////////
@@ -10,8 +9,8 @@ use port::cola_video::video::check::VideoCheckPort;
 
 ////////
 
-/// # [CHECK ADAPTER] - 检查
-/// * `desc`: `🔌 视频检查服务`
+/// # [CHECK ADAPTER] - 视频内容检查适配器
+/// * `desc`: `VIDEO - Content Check Adapter.`
 pub struct VideoCheckAdapter;
 
 #[async_trait]

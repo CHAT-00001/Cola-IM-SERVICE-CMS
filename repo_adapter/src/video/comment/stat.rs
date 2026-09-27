@@ -1,5 +1,4 @@
-// repo_adapter/src/video/comment/stat.rs
-// 🔌 插头 - 可乐视频 - 评论 - 统计
+// repo_adapter/src/video/comment/stat.rs -- ADAPTER - VIDEO - 评论 - 统计
 // 2026/8/6 19:18 Created.
 
 ////////
@@ -10,8 +9,8 @@ use port::cola_video::comment::stat::VideoCommentStatPort;
 
 ////////
 
-/// # [STAT ADAPTER] - 发布
-/// * `desc`: `VIDEO - 视频评论统计适配器`
+/// # [STAT ADAPTER] - 视频评论统计适配器
+/// * `desc`: `VIDEO - Comment Stat Adapter.`
 #[derive(Debug, Default, Clone)]
 pub struct VideoCommentStatAdapter;
 
@@ -25,3 +24,5 @@ impl VideoCommentStatPort for VideoCommentStatAdapter {
         todo!()
     }
 }
+
+//////// END

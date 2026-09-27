@@ -1,19 +1,20 @@
-// cola_data/src/user/command/user/add.rs -- 数据 - USER - Command - 用户 - 发布
-// 2026/5/22 16:35
+// cola_data/src/user/command/user/add.rs -- DATA - USER - Command - 用户 - 发布
+// 2026/5/22 16:35 Created.
 
 ////////
 
 use crate::cola_user::entity::user::UserEntity;
-use crate::cola_user::info::state::UserState;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
+
 ////////
 
 /// # [COMMAND] - 用户创建与修改命令
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct UserCommand {
     pub _id: Option<String>,           // UUID v4（可选，不传服务端生成）
+    pub vx_id: Option<String>,         // UUID v7（模拟微信ID）
     pub user_type: i16,                // 用户类型: 默认 2 (普通用户)
     pub nickname: Option<String>,      // 用户昵称
     pub signature: Option<String>,     // 个性签名（修改时可选）
@@ -38,7 +39,7 @@ pub struct UserCommand {
     pub user_state: i16,            // 用户状态码
 }
 
-// 构造函数
+// 构造实现
 impl UserCommand {
     //
 
@@ -100,6 +101,11 @@ impl UserCommand {
             ._id
             .unwrap_or_else(|| Uuid::new_v4().to_string().replace("-", ""));
 
+        // 🆔 创建一个vx_id
+        let final_vx_id = self
+            .vx_id
+            .unwrap_or_else(|| format!("vx_{}", Uuid::now_v7()));
+
         // 👤 构造默认昵称
         let reg_type = self.register_type.unwrap_or(1);
         let default_nickname = make_nickname(reg_type, self.phone.as_deref());
@@ -115,6 +121,7 @@ impl UserCommand {
         // 装载到User表
         UserEntity {
             _id: Option::from(final_uuid_v4), // 最终确定的 UUID 字符串
+            vx_id: Option::from(final_vx_id), // 最终确定的 UUID v7 字符串
             user_type: Some(2),
             user_nickname: Some(self.nickname.unwrap_or(default_nickname)), // 客户端有传用客户端的，否则用默认生成的
             signature: Option::from(
@@ -186,7 +193,7 @@ fn make_nickname(register_type: i16, phone: Option<&str>) -> String {
         _ => "0000",
     };
 
-    // 获取 UUID 前 8 位
+    // 获取 UUIDv4 前 8 位
     let uuid_full = Uuid::new_v4().to_string();
     let uuid_8 = &uuid_full[..8];
 

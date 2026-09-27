@@ -1,5 +1,4 @@
-// repo_adapter/src/video/cola_video/add.rs
-// 🔌 插头 - VIDEO - 视频 - 发布服务
+// repo_adapter/src/video/cola_video/add.rs -- ADAPTER - VIDEO - 内容 - 发布适配器
 // 2026-06-12 10:52 Created.
 
 ////////
@@ -13,8 +12,8 @@ use port::cola_video::video::add::VideoAddPort;
 
 ////////
 
-/// # [ADD SERVICE] - 发布
-/// * `desc`: `🔌 视频发布插头`
+/// # [ADD SERVICE] - 视频内容发布适配器
+/// * `desc`: `VIDEO - Content Add Adapter.`
 pub struct VideoAddAdapter;
 
 #[async_trait]

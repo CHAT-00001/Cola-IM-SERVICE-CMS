@@ -29,12 +29,12 @@ impl UserAddRepo {
         let query = format!(
             r#"
         INSERT INTO "cola_user"."user" (
-            _id, user_type, user_nickname, avatar,avatar_thumb, bg_img,
+            _id, vx_id, user_type, user_nickname, avatar,avatar_thumb, bg_img,
             signature, email, phone,sns_url, birthday, status, perm_id, create_time,
             login_ip, register_ip, created_at,last_login_time, score, coin, user_status
         )
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19,
-        $20, $21 )
+        $20, $21, $22 )
         RETURNING {}
     "#,
             INSERT_RETURNING
@@ -42,6 +42,7 @@ impl UserAddRepo {
 
         let saved_user = match sqlx::query_as::<_, UserEntity>(&query)
             .bind(&entity._id) // UUID v4
+            .bind(&entity.vx_id) // UUID v7
             .bind(entity.user_type) // 类型
             .bind(&entity.user_nickname) // 昵称
             .bind(&entity.avatar) // 头像

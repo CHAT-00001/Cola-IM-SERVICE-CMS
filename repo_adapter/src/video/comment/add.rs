@@ -1,5 +1,4 @@
-// repo_adapter/src/video/comment/add.rs  --
-// 🔌 适配器 - 视频 - 评论 - 发布 服务
+// repo_adapter/src/video/comment/add.rs  -- ADAPTER - VIDEO - COMMENT - 发布
 // 2026/8/8 Created.
 
 ////////
@@ -13,13 +12,19 @@ use service::cola_video::comment::add::VideoCommentAddService;
 
 ////////
 
-/// # [ADD SERVICE] - 发布
-/// * `desc`: `可乐视频 - 视频评论发布服务`
+/// # [ADD SERVICE] - 视频评论发布适配器
+/// * `desc`: `COLA VIDEO - Comment Add Adapter.`
 #[derive(Debug, Default, Clone)]
 pub struct CommentAddPortAdapter;
 
 #[async_trait]
 impl VideoCommentAddPort for CommentAddPortAdapter {
+
+    //
+
+    ////////
+
+    /// # [ADAPTER] - 发布评论
     async fn send_comment(
         &self,
         uid: i64,
@@ -30,6 +35,9 @@ impl VideoCommentAddPort for CommentAddPortAdapter {
         Ok(entity)
     }
 
+    ////////
+
+    /// # [ADAPTER] - 编辑评论
     async fn edit_comment(
         &self,
         uid: i64,

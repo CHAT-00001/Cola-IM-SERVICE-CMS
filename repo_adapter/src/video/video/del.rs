@@ -1,5 +1,4 @@
-// repo_adapter/src/cola_video/video/del.rs
-// 🔌 插头 - 可乐视频 - 视频 - 删除服务
+// repo_adapter/src/cola_video/video/del.rs -- ADAPTER - VIDEO - CONTENT - 删除适配器
 // 2026/8/6 19:19 Created.
 
 ////////
@@ -10,8 +9,8 @@ use port::cola_video::video::del::VideoDeletePort;
 
 ////////
 
-/// # [DELETE ADAPTER] - 删除
-/// * `desc`: `🔌 视频删除服务`
+/// # [DELETE ADAPTER] - 视频内容删除适配器
+/// * `desc`: `VIDEO - Content Delete Adapter.`
 pub struct VideoDelAdapter;
 
 #[async_trait]

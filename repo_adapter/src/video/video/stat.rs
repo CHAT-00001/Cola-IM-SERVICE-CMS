@@ -1,5 +1,4 @@
-// repo_adapter/src/cola_video/cola_video/stat.rs
-// 🔌 插头服务 - 可乐视频 - 视频 - 统计服务
+// repo_adapter/src/cola_video/cola_video/stat.rs -- ADAPTER - VIDEO - 内容 - 统计适配器
 // 2026/8/6 19:20 Created.
 
 ////////
@@ -10,8 +9,8 @@ use port::cola_video::video::stat::VideoStatPort;
 
 ////////
 
-/// # [STAT SERVICE] - 统计
-/// * `desc`: `🔌 视频统计服务`
+/// # [STAT SERVICE] - 视频内容统计适配器
+/// * `desc`: `VIDEO - Content Stat Adapter.`
 pub struct VideoStatAdapter;
 
 // 构造实现

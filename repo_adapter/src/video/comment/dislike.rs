@@ -1,5 +1,4 @@
-// repo_adapter/src/video/comment/dislike.rs
-// 🔌 插头 - 可乐视频 - 评论 - 不喜欢
+// repo_adapter/src/video/comment/dislike.rs -- ADAPTER - VIDEO - 评论 - 不喜欢
 // 2026/8/6 19:58 Created.
 
 ////////
@@ -8,6 +7,7 @@ use async_trait::async_trait;
 use port::cola_video::comment::dislike::VideoCommentDisikePort;
 
 /// # [DISLIKE SERVICE] - 评论不喜欢服务
+/// * `desc`: `COLA VIDEO - Comment Dislike Adapter.`
 pub struct VideoCommentDislikeAdapter;
 
 #[async_trait]
@@ -26,6 +26,9 @@ impl VideoCommentDisikePort for VideoCommentDislikeAdapter {
         todo!()
     }
 
+    ////////
+
+    /// 2. # [SERVICE] 检查状态
     async fn check_state(&self, uid: i64, comment_id: i64) -> anyhow::Result<(bool)> {
         todo!()
     }

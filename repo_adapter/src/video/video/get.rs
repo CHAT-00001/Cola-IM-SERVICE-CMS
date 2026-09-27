@@ -1,4 +1,4 @@
-// repo_adapter/src/video/video/get.rs -- 适配器 - VIDEO - 视频内容 - 获取
+// repo_adapter/src/video/video/get.rs -- ADAPTER - VIDEO - 视频内容 - 获取适配器
 // 2026/8/6 19:19 Created.
 
 ////////

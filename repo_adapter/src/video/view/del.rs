@@ -1,5 +1,4 @@
-// repo_adapter/src/cola_video/view/del.rs
-// 🔌 插头 - VIDEO - 浏览 - 删除服务
+// repo_adapter/src/cola_video/view/del.rs -- ADAPTER - VIDEO - 浏览 - 删除
 // 2026/8/6 19:00 Created.
 
 ////////

@@ -1,4 +1,4 @@
-// repo_adapter/src/user/user/add.rs -- 适配器层 - USER - 用户资料 - 发布适配器
+// repo_adapter/src/user/user/add.rs -- ADAPTER - USER - 用户资料 - 发布适配器
 // 2026/8/6 04:18 Created.
 
 ////////

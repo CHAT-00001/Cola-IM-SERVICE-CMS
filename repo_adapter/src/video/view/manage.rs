@@ -1,5 +1,4 @@
-// repo_adapter/src/video/view/manage.rs
-// 🔌 适配器 - VIDEO - 视频 - 浏览记录 - 管理
+// repo_adapter/src/video/view/manage.rs -- ADAPTER - VIDEO - 浏览 - 管理
 // 2026/8/8 12:00
 
 ////////

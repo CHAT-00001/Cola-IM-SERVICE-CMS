@@ -17,7 +17,9 @@ use tracing::{error, info};
 
 /// # [RUN] - 运行
 pub async fn run() {
-    // 加载配置
+    ////////
+
+    // 💡 - 加载配置
     let config = match load_config() {
         Ok(cfg) => cfg,
         Err(e) => {
@@ -26,7 +28,9 @@ pub async fn run() {
         }
     };
 
-    // 初始化数据库
+    ////////
+
+    // 💡 - 初始化数据库
     let db_service = match DbService::new(&config).await {
         Some(db) => db,
         None => {
@@ -50,9 +54,9 @@ pub async fn run() {
     // 初始化雪花ID node
     //snow::init_snowflake(1); // worker_id 根据部署节点分配
 
-    // ----------------------------
+    ////////
 
-    // 启动 API
+    // 💡 - 启动 API
     let api_handle = {
         let api_config = config.api.clone();
         let app_state = app_state.clone();
@@ -61,7 +65,9 @@ pub async fn run() {
         })
     };
 
-    // 启动 WS
+    ////////
+
+    // 💡 - 启动 WS
     let ws_handle = {
         let ws_config = config.ws.clone();
         let app_state = app_state.clone();
@@ -70,7 +76,9 @@ pub async fn run() {
         })
     };
 
-    // 启动 Health
+    ////////
+
+    // 💡 - 启动 Health
     let health_handle = {
         let health_config = config.health.clone();
         let app_state = app_state.clone();
@@ -79,7 +87,9 @@ pub async fn run() {
         })
     };
 
-    // 启动 Gateway
+    ////////
+
+    // 💡 - 启动 Gateway
     let gateway_handle = {
         let gateway_config = config.gateway.clone();
         let app_state = app_state.clone();
@@ -88,11 +98,15 @@ pub async fn run() {
         })
     };
 
+    ////////
+
     info!("😊 😊 😊 😊 ✅️ ✅️ ✅️ ✅️ All services started, waiting for them to run...");
     info!("████████████░░░░░░░░  60% 🟡");
     info!("████████████████████  100% 🟡");
 
-    // 💡 改进方案：使用 tokio::select! 代替 tokio::join!
+    ////////
+
+    // 💡 - 改进方案：使用 tokio::select! 代替 tokio::join!
     // 只要有任何一个底层微服务 handle 崩溃或意外退出，立刻触发 error 日志并结束 run() 退出程序，防止僵尸服务
     tokio::select! {
         res = api_handle => if let Err(e) = res { error!("API service panicked: {:?}", e); },
@@ -100,6 +114,8 @@ pub async fn run() {
         res = health_handle => if let Err(e) = res { error!("Health service panicked: {:?}", e); },
         res = gateway_handle => if let Err(e) = res { error!("Gateway service panicked: {:?}", e); },
     }
+
+    ////////
 
     error!("❌ One of the cola_video services exited unexpectedly. Shutting down application...");
 }

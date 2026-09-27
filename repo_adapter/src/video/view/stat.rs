@@ -1,5 +1,4 @@
-// repo_adapter/src/video/view/stat.rs
-// 🔌 插头 - VIDEO - 浏览 - 统计
+// repo_adapter/src/video/view/stat.rs -- ADAPTER  - VIDEO - 浏览 - 统计
 // 2026/8/6 19:18 Created.
 
 ////////
@@ -10,8 +9,8 @@ use port::cola_video::view::stat::VideoViewStatPort;
 
 ////////
 
-/// # [STAT ADAPTER] - 统计
-/// * `desc`: `视频浏览统计服务`
+/// # [STAT ADAPTER] - 视频浏览统计服务
+/// * `desc`: `VIDEO - View Stat Adapter.`
 pub struct VideoViewStatAdapter;
 
 // 构造实现

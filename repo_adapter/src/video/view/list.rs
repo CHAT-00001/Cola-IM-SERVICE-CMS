@@ -1,5 +1,4 @@
-// repo_adapter/src/user/ban/del.rs
-// 🔌 适配器 - 可乐用户 - 浏览 - 删除服务
+// repo_adapter/src/user/ban/del.rs -- ADAPTER - VIDEO - 流量 - 列表记录
 // 2026/8/7 05:56 Created.
 
 ////////

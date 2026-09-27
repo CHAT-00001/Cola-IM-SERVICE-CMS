@@ -1,12 +1,12 @@
-// repo_adapter/src/cola_video/cola_video/mod.rs
-// 🔌 适配器 - VIDEO - 视频 - 模块
+// repo_adapter/src/cola_video/video/mod.rs -- ADAPTER - VIDEO - 内容 - mod
 // 2026/8/6 19:19 Created.
 
 ////////
 
-use port::cola_video::danmaku::VideoDanmakuPort;
 use port::cola_video::video::VideoPort;
 use std::sync::Arc;
+
+////////
 
 pub mod add; // 发布
 pub mod alive; // 存活
@@ -19,7 +19,7 @@ pub mod stat; // 统计
 
 ////////
 
-/// # [BUILD] - 构建 COLLECT Port
+/// # [BUILD] - 构建 VIDEO - 内容 Port
 /// * `desc`: 视频内容端口构造器
 pub fn build_video_video_port() -> VideoPort {
     VideoPort {
