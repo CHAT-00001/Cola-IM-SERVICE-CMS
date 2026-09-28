@@ -19,7 +19,6 @@ pub struct CommentAddPortAdapter;
 
 #[async_trait]
 impl VideoCommentAddPort for CommentAddPortAdapter {
-
     //
 
     ////////

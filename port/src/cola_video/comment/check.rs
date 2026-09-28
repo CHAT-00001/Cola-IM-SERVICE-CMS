@@ -48,6 +48,15 @@ pub trait VideoCommentCheckPort: Send + Sync {
     /// # 4. [PORT] - 客户端幂等ID查重
     /// * `desc`: `根据客户端 UUID v4 查重评论是否已存在`
     async fn exists_by_client_id(&self, client_id: String) -> anyhow::Result<bool>;
+
+    ////////
+
+    /// # 5. [PORT] - 检查评论是否有效
+    /// * `desc`: `评论存在、状态正常且未被软删除`
+    async fn exists_active(&self, comment_id: i64) -> anyhow::Result<bool> {
+        let _ = comment_id;
+        Ok(false)
+    }
 }
 
 //////// END

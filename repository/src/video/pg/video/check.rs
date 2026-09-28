@@ -30,6 +30,25 @@ impl VideoCheckRepo {
 
     ////////
 
+    /// # 4. [REPOSITORY] - 查询视频评论访问状态
+    /// * `desc`: `返回 status、删除状态和评论权限原始值`
+    pub async fn find_comment_access(
+        video_id: i64,
+    ) -> Result<Option<(i16, i16, i16, Option<bool>)>, sqlx::Error> {
+        let pool = pg_pool();
+        sqlx::query_as(
+            r#"
+            SELECT status, comment_perm, is_del, is_deleted
+            FROM cola_video.video
+            WHERE id = $1
+            LIMIT 1
+            "#,
+        )
+        .bind(video_id)
+        .fetch_optional(&pool)
+        .await
+    }
+
     /// # 2. [REPOSITORY] - 检查视频编辑权限
     pub async fn check_video_edit_perm(uid: i64, delta: i32) -> Result<(), sqlx::Error> {
         let pool = pg_pool();

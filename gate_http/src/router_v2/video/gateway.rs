@@ -13,6 +13,7 @@ use cola_data::app::query::ApiGatewayRequest;
 use cola_data::cola_video::command::video::new::VideoNewCommand;
 use cola_video::api::comment::add::CommentAddApi;
 use cola_video::api::comment::get::CommentGetApi;
+use cola_video::api::comment::like::CommentLikeApi;
 use cola_video::api::danmaku::add::DanmakuAddApi;
 use cola_video::api::danmaku::get::DanmakuGetApi;
 use cola_video::api::video::add::VideoContentAddApi;
@@ -21,7 +22,6 @@ use cola_video::api::video::home::HomeApi;
 use service::cola_user::permission::query::UserPermissionQueryService;
 use std::time::Instant;
 use tracing::{error, info, warn};
-
 ////////
 
 /// # [GATEWAY] - 解析视频发布命令
@@ -174,8 +174,8 @@ pub async fn video_gateway(
                     .finish(&req, start);
             }
             HomeApi::home_new(auth.clone(), api_req.clone(), &state.ctx)
-            .await
-            .finish(&req, start)
+                .await
+                .finish(&req, start)
         }
 
         // 1002 热门 - 权限 >= 1
@@ -185,8 +185,8 @@ pub async fn video_gateway(
                     .finish(&req, start);
             }
             HomeApi::home_hot(auth.clone(), api_req.clone(), &state.ctx)
-            .await
-            .finish(&req, start)
+                .await
+                .finish(&req, start)
         }
 
         // 1003 推荐 - 权限 >= 1
@@ -196,8 +196,8 @@ pub async fn video_gateway(
                     .finish(&req, start);
             }
             HomeApi::home_recommend(auth.clone(), api_req.clone(), &state.ctx)
-            .await
-            .finish(&req, start)
+                .await
+                .finish(&req, start)
         }
 
         // 1004 同城 - 权限 >= 1
@@ -207,8 +207,8 @@ pub async fn video_gateway(
                     .finish(&req, start);
             }
             HomeApi::home_city(auth.clone(), api_req.clone(), &state.ctx)
-            .await
-            .finish(&req, start)
+                .await
+                .finish(&req, start)
         }
 
         // 1005 分类 - 权限 >= 1
@@ -218,8 +218,8 @@ pub async fn video_gateway(
                     .finish(&req, start);
             }
             HomeApi::home_category(auth.clone(), api_req.clone(), &state.ctx)
-            .await
-            .finish(&req, start)
+                .await
+                .finish(&req, start)
         }
 
         // 1006 精选 - 权限 >= 1
@@ -229,8 +229,8 @@ pub async fn video_gateway(
                     .finish(&req, start);
             }
             HomeApi::home_featured(auth.clone(), api_req.clone(), &state.ctx)
-            .await
-            .finish(&req, start)
+                .await
+                .finish(&req, start)
         }
 
         // 1007 搜索 - 权限 >= 1
@@ -240,8 +240,8 @@ pub async fn video_gateway(
                     .finish(&req, start);
             }
             HomeApi::home_search(auth.clone(), api_req.clone(), &state.ctx)
-            .await
-            .finish(&req, start)
+                .await
+                .finish(&req, start)
         }
 
         //////// 视频操作 - 权限检查
@@ -313,8 +313,8 @@ pub async fn video_gateway(
                     .finish(&req, start);
             }
             VideoContentGetApi::get_video(auth.clone(), api_req.clone(), &state.ctx)
-            .await
-            .finish(&req, start)
+                .await
+                .finish(&req, start)
         }
 
         //////// 评论 - 权限检查
@@ -326,8 +326,8 @@ pub async fn video_gateway(
                     .finish(&req, start);
             }
             CommentAddApi::add_comment(auth.clone(), api_req.clone(), &state.ctx)
-            .await
-            .finish(&req, start)
+                .await
+                .finish(&req, start)
         }
 
         // 获取评论 - 权限 >= 1
@@ -337,8 +337,30 @@ pub async fn video_gateway(
                     .finish(&req, start);
             }
             CommentGetApi::get_comment(auth.clone(), api_req.clone(), &state.ctx)
-            .await
-            .finish(&req, start)
+                .await
+                .finish(&req, start)
+        }
+
+        // 点赞评论 - 权限 >= 1
+        "like_comment" => {
+            if !auth.has_permission_level(1) {
+                return AppData::<()>::err(4003, "[🌐 GATEWAY]: ❌️ 权限不足", None)
+                    .finish(&req, start);
+            }
+            CommentLikeApi::like_comment(auth.clone(), api_req.clone(), &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 不喜欢评论 - 权限 >= 1
+        "dislike_comment" => {
+            if !auth.has_permission_level(2) {
+                return AppData::<()>::err(4003, "[🌐 GATEWAY]: ❌️ 权限不足", None)
+                    .finish(&req, start);
+            }
+            CommentGetApi::get_comment(auth.clone(), api_req.clone(), &state.ctx)
+                .await
+                .finish(&req, start)
         }
 
         //////// 弹幕 - 权限检查
@@ -350,8 +372,8 @@ pub async fn video_gateway(
                     .finish(&req, start);
             }
             DanmakuAddApi::add_danmaku(auth.clone(), api_req.clone(), &state.ctx)
-            .await
-            .finish(&req, start)
+                .await
+                .finish(&req, start)
         }
 
         // 获取弹幕 - 权限 >= 1
@@ -361,8 +383,30 @@ pub async fn video_gateway(
                     .finish(&req, start);
             }
             DanmakuGetApi::get_danmaku(auth.clone(), api_req.clone(), &state.ctx)
-            .await
-            .finish(&req, start)
+                .await
+                .finish(&req, start)
+        }
+
+        // 点赞弹幕 - 权限 >= 2
+        "like_danmaku" => {
+            if !auth.has_permission_level(2) {
+                return AppData::<()>::err(4003, "[🌐 GATEWAY]: ❌️ 权限不足", None)
+                    .finish(&req, start);
+            }
+            DanmakuGetApi::get_danmaku(auth.clone(), api_req.clone(), &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 不喜欢弹幕 - 权限 >= 2
+        "dislike_danmaku" => {
+            if !auth.has_permission_level(2) {
+                return AppData::<()>::err(4003, "[🌐 GATEWAY]: ❌️ 权限不足", None)
+                    .finish(&req, start);
+            }
+            DanmakuGetApi::get_danmaku(auth.clone(), api_req.clone(), &state.ctx)
+                .await
+                .finish(&req, start)
         }
 
         //////// 测试接口 - 权限检查 (不可删除)

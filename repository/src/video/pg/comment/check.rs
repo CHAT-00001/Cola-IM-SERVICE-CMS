@@ -70,7 +70,7 @@ impl VideoCommentCheckRepo {
         let query = "
             SELECT (COUNT(1) > 0)
             FROM cola_video.comments
-            WHERE id = $1 AND uid = $2
+            WHERE id = $1 AND user_id = $2
         ";
 
         sqlx::query_scalar::<_, bool>(query)
@@ -87,7 +87,9 @@ impl VideoCommentCheckRepo {
         let query = "
             SELECT EXISTS(
                 SELECT 1 FROM cola_video.comments
-                WHERE id = $1 AND status = 1
+                WHERE id = $1
+                  AND status = 1
+                  AND COALESCE(is_deleted, 0) = 0
             )
         ";
         sqlx::query_scalar::<_, bool>(query)

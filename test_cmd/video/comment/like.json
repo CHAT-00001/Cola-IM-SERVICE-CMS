@@ -1,0 +1,11 @@
+{
+    "node": 0,
+    "endpoint": "video",
+    "service": "like_comment",
+    "auth": { "access_token": "'[REDACTED]'" },
+    "cmd": {
+        "_id": "775f95eb-112f-4c74-ad72-de468630df13",
+        "comment_id": 1000004782,
+        "is_like": true
+    }
+}

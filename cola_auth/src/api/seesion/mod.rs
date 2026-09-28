@@ -4,6 +4,6 @@
 ////////
 
 pub mod add;
+mod get;
 pub mod state;
 pub mod view;
-mod get;

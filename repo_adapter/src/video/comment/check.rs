@@ -69,7 +69,12 @@ impl VideoCommentCheckPort for VideoCommentCheckAdapter {
         user_id: i64,    // 用户 ID
         comment_id: i64, // 评论 ID
     ) -> Result<(bool)> {
-        todo!()
+        if uid <= 0 || user_id <= 0 || comment_id <= 0 || uid != user_id {
+            return Ok(false);
+        }
+
+        let owner = VideoCommentCheckRepo::find_owner(comment_id, uid).await?;
+        Ok(owner.into_iter().next().unwrap_or(false))
     }
 
     ////////
@@ -101,6 +106,16 @@ impl VideoCommentCheckPort for VideoCommentCheckAdapter {
             exists
         );
         Ok(exists)
+    }
+
+    ////////
+
+    /// # 5. [ADAPTER] - 检查评论是否有效
+    /// * `desc`: `阻断已删除、失效或不存在的评论继续执行互动操作`
+    async fn exists_active(&self, comment_id: i64) -> Result<bool> {
+        VideoCommentCheckRepo::exists_active(comment_id)
+            .await
+            .map_err(Into::into)
     }
 }
 

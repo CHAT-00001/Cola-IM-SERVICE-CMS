@@ -222,14 +222,12 @@ async fn auth_gateway(
                 .filter(|token| !token.trim().is_empty())
                 .unwrap_or_else(|| extract_cmd_string(&request, "refresh_token"));
 
-            SessionViewApi::handler_refresh_token(
-                ApiQuery {
-                    refresh_token: Some(refresh_token),
-                    ..ApiQuery::default()
-                },
-            )
-                .await
-                .finish(&req, start)
+            SessionViewApi::handler_refresh_token(ApiQuery {
+                refresh_token: Some(refresh_token),
+                ..ApiQuery::default()
+            })
+            .await
+            .finish(&req, start)
         }
 
         // // 4001 session

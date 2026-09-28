@@ -4,6 +4,7 @@
 ////////
 
 use crate::pg_pool;
+use cola_data::common::kits::snow::next_id;
 use sqlx::{self, Postgres, QueryBuilder};
 
 ////////
@@ -26,14 +27,30 @@ impl CommentLikeRepo {
         let pool = pg_pool();
 
         if is_liked {
+            let like_id = next_id(1);
             sqlx::query(
                 r#"
-            INSERT INTO video_comments_like (uid, comment_id, created_at)
-            VALUES ($1, $2, NOW())
-            ON CONFLICT (uid, comment_id)
-            DO NOTHING
+            INSERT INTO cola_video.comments_like
+                (id, user_id, comment_id, video_id, add_time, created_at, updated_at)
+            SELECT
+                $1,
+                $2,
+                $3,
+                comments.video_id,
+                EXTRACT(EPOCH FROM NOW())::BIGINT,
+                NOW(),
+                NOW()
+            FROM cola_video.comments AS comments
+            WHERE comments.id = $3
+            ON CONFLICT (user_id, comment_id)
+            DO UPDATE SET
+                video_id = EXCLUDED.video_id,
+                add_time = EXCLUDED.add_time,
+                created_at = EXCLUDED.created_at,
+                updated_at = EXCLUDED.updated_at
             "#,
             )
+            .bind(like_id)
             .bind(uid)
             .bind(comment_id)
             .execute(&pool)
@@ -41,8 +58,8 @@ impl CommentLikeRepo {
         } else {
             sqlx::query(
                 r#"
-            DELETE FROM video_comments_like
-            WHERE uid = $1 AND comment_id = $2
+            DELETE FROM cola_video.comments_like
+            WHERE user_id = $1 AND comment_id = $2
             "#,
             )
             .bind(uid)
@@ -52,6 +69,27 @@ impl CommentLikeRepo {
         }
 
         Ok(())
+    }
+
+    ////////
+
+    /// # 2. [REPOSITORY] - 查询评论点赞状态
+    /// * `desc`: `根据用户和评论查询有效点赞关系`
+    pub async fn check_comment_like_state(uid: i64, comment_id: i64) -> Result<bool, sqlx::Error> {
+        let pool = pg_pool();
+        let exists: Option<i64> = sqlx::query_scalar(
+            r#"
+            SELECT 1
+            FROM cola_video.comments_like
+            WHERE user_id = $1 AND comment_id = $2
+            LIMIT 1
+            "#,
+        )
+        .bind(uid)
+        .bind(comment_id)
+        .fetch_optional(&pool)
+        .await?;
+        Ok(exists.is_some())
     }
 
     ////////
@@ -67,10 +105,9 @@ impl CommentLikeRepo {
         if is_unliked {
             sqlx::query(
                 r#"
-            INSERT INTO cola_video.comments_dislike (uid, comment_id, created_at)
+            INSERT INTO cola_video.comments_dislike (user_id, comment_id, created_at)
             VALUES ($1, $2, NOW())
-            ON CONFLICT (uid, comment_id)
-            DO NOTHING
+            ON CONFLICT DO NOTHING
             "#,
             )
             .bind(uid)
@@ -81,7 +118,7 @@ impl CommentLikeRepo {
             sqlx::query(
                 r#"
             DELETE FROM cola_video.comments_dislike
-            WHERE uid = $1 AND comment_id = $2
+            WHERE user_id = $1 AND comment_id = $2
             "#,
             )
             .bind(uid)

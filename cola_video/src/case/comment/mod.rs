@@ -5,5 +5,6 @@
 
 pub mod add;
 pub mod get;
+pub mod like;
 
 //////// END

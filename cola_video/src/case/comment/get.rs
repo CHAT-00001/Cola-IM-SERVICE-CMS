@@ -49,7 +49,6 @@ impl CommentGetCase {
         build_comment_list_response(infos, Some(uid), 1, limit, total, &ctx).await
     }
 
-
     ////////
 
     /// # 2. [CASE] - 获取用户的评论

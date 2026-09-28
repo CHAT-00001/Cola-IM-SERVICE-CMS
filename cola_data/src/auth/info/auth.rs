@@ -19,7 +19,7 @@ pub struct AuthContext {
     pub is_anonymous: bool,     // 状态：是否为游客
     pub access_token: String,   // 访问令牌
     pub refresh_token: String,  // 刷新令牌
-    
+
     // 🆕 权限信息（由网关层聚合）
     #[serde(skip_serializing_if = "Option::is_none")]
     pub permission_context: Option<UserPermissionContext>, // 权限上下文

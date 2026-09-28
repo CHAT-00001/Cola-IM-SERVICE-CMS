@@ -13,8 +13,8 @@ pub struct SessionRefreshCommand {
     #[validate(length(min = 1, message = "refresh_token 不能为空"))]
     pub refresh_token: String, // Token
     #[validate(length(min = 1, message = "device_id 不能为空"))]
-    pub device_id: String,     // 设备 ID
-    pub platform: i32,         // 平台
+    pub device_id: String, // 设备 ID
+    pub platform: i32, // 平台
 }
 
 ////////

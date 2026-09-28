@@ -32,6 +32,33 @@ pub trait VideoCommentLikePort: Send + Sync {
         uid: i64,        // UID
         comment_id: i64, // 评论 ID
     ) -> anyhow::Result<(bool)>;
+
+    ////////
+
+    /// # 3. [PORT] - 查询客户端操作幂等结果
+    /// * `desc`: `根据 action_id UUID v4 查询当前用户的评论点赞操作是否已经执行`
+    async fn get_operation_result(
+        &self,
+        uid: i64,        // UID
+        action_id: &str, // 业务动作 UUID v4
+    ) -> anyhow::Result<Option<bool>> {
+        let _ = (uid, action_id);
+        Ok(None)
+    }
+
+    ////////
+
+    /// # 4. [PORT] - 写入客户端操作幂等结果
+    /// * `desc`: `保存 action_id 操作结果, 防止客户端重试重复执行`
+    async fn set_operation_result(
+        &self,
+        uid: i64,        // UID
+        action_id: &str, // 业务动作 UUID v4
+        state: bool,     // 点赞状态
+    ) -> anyhow::Result<()> {
+        let _ = (uid, action_id, state);
+        Ok(())
+    }
 }
 
 //////// END

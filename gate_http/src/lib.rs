@@ -4,9 +4,9 @@
 ////////
 
 pub mod kits;
-mod ping;
-mod router_v1;
-mod router_v2;
+mod ping; // PING (测试)
+mod router_v1; // RESTful APIs (备用)
+mod router_v2; // Command APIs (主要)
 
 ////////
 

@@ -174,8 +174,8 @@ pub async fn market_gateway(
                     .finish(&req, start);
             }
             HomeApi::home_new(auth.clone(), api_req.clone(), &state.ctx)
-            .await
-            .finish(&req, start)
+                .await
+                .finish(&req, start)
         }
 
         // 1002 热门 - 权限 >= 1
@@ -185,8 +185,8 @@ pub async fn market_gateway(
                     .finish(&req, start);
             }
             HomeApi::home_hot(auth.clone(), api_req.clone(), &state.ctx)
-            .await
-            .finish(&req, start)
+                .await
+                .finish(&req, start)
         }
 
         // 1003 推荐 - 权限 >= 1
@@ -196,8 +196,8 @@ pub async fn market_gateway(
                     .finish(&req, start);
             }
             HomeApi::home_recommend(auth.clone(), api_req.clone(), &state.ctx)
-            .await
-            .finish(&req, start)
+                .await
+                .finish(&req, start)
         }
 
         // 1004 同城 - 权限 >= 1
@@ -207,8 +207,8 @@ pub async fn market_gateway(
                     .finish(&req, start);
             }
             HomeApi::home_city(auth.clone(), api_req.clone(), &state.ctx)
-            .await
-            .finish(&req, start)
+                .await
+                .finish(&req, start)
         }
 
         // 1005 分类 - 权限 >= 1
@@ -218,8 +218,8 @@ pub async fn market_gateway(
                     .finish(&req, start);
             }
             HomeApi::home_category(auth.clone(), api_req.clone(), &state.ctx)
-            .await
-            .finish(&req, start)
+                .await
+                .finish(&req, start)
         }
 
         // 1006 精选 - 权限 >= 1
@@ -229,8 +229,8 @@ pub async fn market_gateway(
                     .finish(&req, start);
             }
             HomeApi::home_featured(auth.clone(), api_req.clone(), &state.ctx)
-            .await
-            .finish(&req, start)
+                .await
+                .finish(&req, start)
         }
 
         // 1007 搜索 - 权限 >= 1
@@ -240,8 +240,8 @@ pub async fn market_gateway(
                     .finish(&req, start);
             }
             HomeApi::home_search(auth.clone(), api_req.clone(), &state.ctx)
-            .await
-            .finish(&req, start)
+                .await
+                .finish(&req, start)
         }
 
         //////// 视频操作 - 权限检查
@@ -313,8 +313,8 @@ pub async fn market_gateway(
                     .finish(&req, start);
             }
             VideoContentGetApi::get_video(auth.clone(), api_req.clone(), &state.ctx)
-            .await
-            .finish(&req, start)
+                .await
+                .finish(&req, start)
         }
 
         //////// 评论 - 权限检查
@@ -326,8 +326,8 @@ pub async fn market_gateway(
                     .finish(&req, start);
             }
             CommentAddApi::add_comment(auth.clone(), api_req.clone(), &state.ctx)
-            .await
-            .finish(&req, start)
+                .await
+                .finish(&req, start)
         }
 
         // 获取评论 - 权限 >= 1
@@ -337,8 +337,8 @@ pub async fn market_gateway(
                     .finish(&req, start);
             }
             CommentGetApi::get_comment(auth.clone(), api_req.clone(), &state.ctx)
-            .await
-            .finish(&req, start)
+                .await
+                .finish(&req, start)
         }
 
         //////// 弹幕 - 权限检查
@@ -350,8 +350,8 @@ pub async fn market_gateway(
                     .finish(&req, start);
             }
             DanmakuAddApi::add_danmaku(auth.clone(), api_req.clone(), &state.ctx)
-            .await
-            .finish(&req, start)
+                .await
+                .finish(&req, start)
         }
 
         // 获取弹幕 - 权限 >= 1
@@ -361,8 +361,8 @@ pub async fn market_gateway(
                     .finish(&req, start);
             }
             DanmakuGetApi::get_danmaku(auth.clone(), api_req.clone(), &state.ctx)
-            .await
-            .finish(&req, start)
+                .await
+                .finish(&req, start)
         }
 
         //////// 测试接口 - 权限检查 (不可删除)

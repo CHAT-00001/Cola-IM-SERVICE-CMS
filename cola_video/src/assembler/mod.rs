@@ -5,4 +5,4 @@
 
 pub mod comment; // 评论
 pub mod danmaku; // 弹幕
-pub mod video;   // 内容
+pub mod video; // 内容

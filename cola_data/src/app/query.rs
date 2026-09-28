@@ -15,13 +15,14 @@ use std::collections::HashMap;
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct ApiGatewayRequest {
     // 1. 💡 基础
-    pub node: Option<String>,    // 节点(预设,暂时无意义)
-    pub code: Option<i16>,       // 代码(预设,暂时无意义)
-    pub service: Option<String>, // 子业务模块名称
-    pub action: Option<i16>,     // 动作码 1000-9999
-    pub uid: Option<i64>,        // 操作者 ID（URL或网关鉴权注入）
-    pub req_id: Option<String>,  // 全局请求唯一 ID
-    pub lang: Option<String>,    // 语言(可选)
+    pub node: Option<String>,      // 节点(预设,暂时无意义)
+    pub code: Option<i16>,         // 代码(预设,暂时无意义)
+    pub service: Option<String>,   // 子业务模块名称
+    pub action: Option<i16>,       // 动作码 1000-9999
+    pub uid: Option<i64>,          // 操作者 ID（URL或网关鉴权注入）
+    pub req_id: Option<String>,    // 全局请求唯一 ID
+    pub action_id: Option<String>, // 业务动作幂等 ID
+    pub lang: Option<String>,      // 语言(可选)
 
     // 2. 📰 翻页
     pub page: Option<i64>, // 页码
@@ -137,6 +138,7 @@ impl ApiGatewayRequest {
             action: body.action.or(self.action),
             uid: body.uid.or(self.uid),
             req_id: body.req_id.or(self.req_id),
+            action_id: body.action_id.or(self.action_id),
             lang: body.lang.or(self.lang),
 
             // 2. 翻页

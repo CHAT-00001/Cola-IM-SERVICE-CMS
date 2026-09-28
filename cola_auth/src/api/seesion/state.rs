@@ -4,12 +4,12 @@
 
 ////////
 
+use crate::case::session::state::SessionStateCase;
 use cola_data::app::data::AppData;
 use cola_data::app::error;
 use cola_data::auth::info::session::AccessTokenInfo;
 use cola_data::auth::request::session::{AuthSessionRequest, SessionContext};
 use port::auth::AuthServicePorts;
-use crate::case::session::state::SessionStateCase;
 ////////
 
 /// # [STATE HANDLER] - 会话 状态
@@ -110,9 +110,7 @@ impl SessionStateApi {
 
     /// # 4. [API] - Refresh Token 刷新token
     /// * `desc`: `刷新access_token`
-    pub async fn refresh_token(
-        auth: &AuthSessionRequest,
-    ) -> AppData<AccessTokenInfo> {
+    pub async fn refresh_token(auth: &AuthSessionRequest) -> AppData<AccessTokenInfo> {
         let refresh_token = match auth.refresh_token.as_deref() {
             Some(token) if !token.trim().is_empty() => token,
             _ => return AppData::err(error::PARAM_ERROR, "缺少刷新令牌", None),

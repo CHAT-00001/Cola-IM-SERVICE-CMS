@@ -12,15 +12,15 @@ use serde::{Deserialize, Serialize};
 /// * `scope`: 由网关层聚合，下层直接使用
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct UserPermissionContext {
-    pub uid: i64,                           // 用户ID
-    pub base_level: i16,                    // 权限等级 1-12
-    pub level_name: String,                 // 'GUEST', 'USER', 'VIP', ...
-    pub roles: Vec<String>,                 // ['broadcaster', 'content_reviewer']
-    pub sys_permissions: Vec<String>,       // 聚合的系统权限
-    pub is_vip: bool,                       // base_level >= 3
-    pub is_creator: bool,                   // base_level >= 4
-    pub is_operator: bool,                  // base_level >= 6
-    pub is_admin: bool,                     // base_level >= 10
+    pub uid: i64,                     // 用户ID
+    pub base_level: i16,              // 权限等级 1-12
+    pub level_name: String,           // 'GUEST', 'USER', 'VIP', ...
+    pub roles: Vec<String>,           // ['broadcaster', 'content_reviewer']
+    pub sys_permissions: Vec<String>, // 聚合的系统权限
+    pub is_vip: bool,                 // base_level >= 3
+    pub is_creator: bool,             // base_level >= 4
+    pub is_operator: bool,            // base_level >= 6
+    pub is_admin: bool,               // base_level >= 10
 }
 
 ////////

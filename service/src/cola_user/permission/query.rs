@@ -87,8 +87,8 @@ impl UserPermissionQueryService {
 
     /// # 4. [SERVICE] - 检查权限等级
     pub async fn check_level(
-        uid: i64,              // 用户ID
-        required_level: i16,   // 需要的权限等级
+        uid: i64,            // 用户ID
+        required_level: i16, // 需要的权限等级
     ) -> Result<bool> {
         let ctx = Self::get_user_permission_context(uid).await?;
         Ok(ctx.has_level(required_level))

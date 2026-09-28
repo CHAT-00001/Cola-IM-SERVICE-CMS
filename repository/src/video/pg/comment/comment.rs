@@ -154,9 +154,8 @@ impl CommentRepo {
         if is_liked {
             sqlx::query(
                 r#"
-            INSERT INTO cola_video.comments_like (uid, comment_id, created_at)
+            INSERT INTO cola_video.comments_like (user_id, comment_id, created_at)
             VALUES ($1, $2, NOW())
-            ON CONFLICT (uid, comment_id)
             DO NOTHING
             "#,
             )
@@ -168,7 +167,7 @@ impl CommentRepo {
             sqlx::query(
                 r#"
             DELETE FROM cola_video.comments_like
-            WHERE uid = $1 AND comment_id = $2
+            WHERE user_id = $1 AND comment_id = $2
             "#,
             )
             .bind(uid)
@@ -191,9 +190,8 @@ impl CommentRepo {
         if is_unliked {
             sqlx::query(
                 r#"
-            INSERT INTO cola_video.comments_unlike (uid, comment_id, created_at)
+            INSERT INTO cola_video.comments_unlike (user_id, comment_id, created_at)
             VALUES ($1, $2, NOW())
-            ON CONFLICT (uid, comment_id)
             DO NOTHING
             "#,
             )
@@ -205,7 +203,7 @@ impl CommentRepo {
             sqlx::query(
                 r#"
             DELETE FROM cola_video.comments_unlike
-            WHERE uid = $1 AND comment_id = $2
+            WHERE user_id = $1 AND comment_id = $2
             "#,
             )
             .bind(uid)

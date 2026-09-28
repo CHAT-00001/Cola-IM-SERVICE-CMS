@@ -17,21 +17,11 @@ pub struct CdnListAdapter;
 
 #[async_trait]
 impl CdnListPort for CdnListAdapter {
-    async fn get_my_like_record(
-        &self,
-        uid: i64,
-        limit: i64,
-        offset: i64,
-    ) -> Result<(CommentInfo)> {
+    async fn get_my_like_record(&self, uid: i64, limit: i64, offset: i64) -> Result<(CommentInfo)> {
         todo!()
     }
 
-    async fn get_he_like_record(
-        &self,
-        uid: i64,
-        limit: i64,
-        offset: i64,
-    ) -> Result<(CommentInfo)> {
+    async fn get_he_like_record(&self, uid: i64, limit: i64, offset: i64) -> Result<(CommentInfo)> {
         todo!()
     }
 }

@@ -49,6 +49,15 @@ pub async fn build_comment_single_response(
     } else {
         false
     };
+    let is_owner = if current_uid > 0 {
+        ctx.video
+            .comment
+            .check
+            .is_owner(current_uid, comment_info.user_id, comment_info.id)
+            .await?
+    } else {
+        false
+    };
 
     let mut user_info = user_info;
     user_info.avatar_url =
@@ -57,7 +66,7 @@ pub async fn build_comment_single_response(
         comment_info.clone(),
         build_user_vo(user_info),
         comment_info.user_id == video_info.uid,
-        comment_info.user_id == current_uid,
+        is_owner,
         is_like,
         is_dislike,
     );
@@ -139,6 +148,15 @@ pub async fn build_comment_list_response(
         } else {
             false
         };
+        let is_owner = if current_uid > 0 {
+            ctx.video
+                .comment
+                .check
+                .is_owner(current_uid, comment_info.user_id, comment_info.id)
+                .await?
+        } else {
+            false
+        };
         let is_author = videos
             .get(&comment_info.video_id)
             .is_some_and(|video_author_id| *video_author_id == comment_info.user_id);
@@ -149,7 +167,7 @@ pub async fn build_comment_list_response(
             comment_info.clone(),
             build_user_vo(user_info),
             is_author,
-            comment_info.user_id == current_uid,
+            is_owner,
             is_like,
             is_dislike,
         ));
