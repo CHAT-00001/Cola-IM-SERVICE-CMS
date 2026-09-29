@@ -1,5 +1,4 @@
-// cola_data/src/user/entity/role.rs
-// 数字中心 - USER - entity - 角色
+// cola_data/src/user/entity/role.rs -- DATA - USER - entity - 角色表
 // 2026/8/3 14:45 Created.
 
 ////////
@@ -11,23 +10,22 @@ use sqlx::FromRow;
 ////////
 
 /// # [ENTITY] - 用户 - 角色表
-/// * `pg schema`: `user`
+/// * `pg schema`: `cola_user`
 /// * `table name`: `role`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct UserRoleEntity {
-    pub id: i64,                           // id
-    pub uid: i64,                          // 操作者用户ID
+    pub id: i64,                           // 主键ID
+    pub uid: i64,                          // 创建者/操作者用户ID
+    pub group_id: Option<i64>,             // 所属用户组ID（如需关联用户组）
     pub icon: Option<String>,              // 图标
-    pub name: Option<String>,              // 英文名称
-    pub name_zh: Option<String>,           // 中文名称
+    pub name: String,                      // 英文标识/编码（如: admin, editor）
+    pub name_zh: String,                   // 中文名称（如: 管理员, 编辑）
     pub remark: Option<String>,            // 备注
-    pub is_deleted: bool,                  // 是否删除: 默认false
     pub status: i16,                       // 状态码: 0无效 1有效
-    pub add_time: i64,                     // 添加时间（机器）
-    pub upd_time: i64,                     // 更新时间（机器）
-    pub created_at: Option<DateTime<Utc>>, // 创建时间（人类）
-    pub updated_at: Option<DateTime<Utc>>, // 更新时间（人类）
-    pub deleted_at: Option<DateTime<Utc>>, // 删除时间（人类）
+    pub is_deleted: bool,                  // 是否删除: 默认false
+    pub created_at: Option<DateTime<Utc>>, // 创建时间
+    pub updated_at: Option<DateTime<Utc>>, // 更新时间
+    pub deleted_at: Option<DateTime<Utc>>, // 删除时间
 }
 
 ////////
@@ -35,8 +33,9 @@ pub struct UserRoleEntity {
 /// # [COLUMNS] - 数据表原始字段
 /// * `desc`: `给SQLx提供的表字段映射`
 pub const USER_ROLE_COLUMNS: &str = r#"
-    id, uid, icon, name, remark, is_deleted, status,
-    addtime, updtime, created_at, updated_at, deleted_at
+    id, uid, group_id, icon, name, name_zh, remark,
+    status, is_deleted,
+    created_at, updated_at, deleted_at
 "#;
 
 //////// END

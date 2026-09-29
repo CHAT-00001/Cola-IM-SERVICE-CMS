@@ -137,7 +137,7 @@ async fn user_gateway(
         //////// AVATAR
 
         // 修改头像
-        "edit_avatar" => {
+        "update_avatar" => {
             let request = match serde_json::from_slice::<UpdateProfileRequest>(&gateway_req.body) {
                 Ok(request) => request,
                 Err(error) => {

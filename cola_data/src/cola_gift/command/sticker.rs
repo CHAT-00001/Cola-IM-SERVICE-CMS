@@ -1,4 +1,4 @@
-// cola_data/src/gift/command/sticker.rs  -- 数据中心 - GIFT - command - 自定义表情贴纸
+// cola_data/src/gift/command/score.rs  -- 数据中心 - GIFT - command - 自定义表情贴纸
 // 2026/7/8 11:54
 
 ////////

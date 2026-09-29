@@ -5,3 +5,5 @@
 
 pub mod add; // 发布
 pub mod update; // 更新
+pub mod avatar; // 更新头像
+pub mod nickname; // 更新昵称

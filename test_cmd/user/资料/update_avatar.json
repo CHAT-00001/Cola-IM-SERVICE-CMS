@@ -1,0 +1,13 @@
+{
+    "node": "CN-GZ-01",
+    "endpoint": "IMA",
+    "service": "update_avatar",
+    "auth": {
+        "access_token": "dddd"
+    },
+    "cmd": {
+        "_id": "[UUID v4 幂等]",
+        "profile_id": 1000002040,
+        "avatar_url": "s3_file.jpg"
+    }
+}

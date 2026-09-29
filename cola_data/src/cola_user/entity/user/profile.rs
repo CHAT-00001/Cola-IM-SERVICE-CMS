@@ -1,4 +1,4 @@
-// cola_data/src/user/entity/user.rs -- 数据 - USER - entity - 用户表
+// cola_data/src/user/entity/user/profile.rs -- DATA - USER - entity - 用户 - 资料表
 // 2026/3/30 05:33
 
 ////////
@@ -7,22 +7,16 @@ use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
 
-pub mod avatar;
-pub mod profile;
-
 ////////
 
-/// # [ENTITY] - 用户中心 - 用户表
+/// # [ENTITY] - 用户中心 - 用户头像表
 /// * `pg schema`: `cola.user` -- PG 模式
-/// * `table name`: `user`  -- 表名
+/// * `table name`: `user_profile`  -- 表名
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
-pub struct UserEntity {
+pub struct UserProfileEntity {
     pub id: i64,                              // ID (自增 / 雪花)
     pub _id: Option<String>,                  // UUID v4
-    pub vx_id: Option<String>,                // UUID v7
-    pub user_type: Option<i16>,               // 用户类型 （默认 2 普通用户）
-    pub user_nickname: Option<String>,        // 昵称
-    pub signature: Option<String>,            // 签名
+    pub user_id: i64,                         // 用户 ID
     pub avatar: Option<String>,               // 头像
     pub avatar_thumb: Option<String>,         // 小头像
     pub bg_img: Option<String>,               // 主页背景图
@@ -45,7 +39,6 @@ pub struct UserEntity {
     pub register_ip: Option<String>,          // 注册IP
     pub status: Option<i16>,                  // 状态
     pub is_deleted: Option<bool>,             // 逻辑删除
-    pub create_time: i64,                     // 创建时间（兼容旧版PHP）
     pub created_at: Option<DateTime<Utc>>,    // 创建时间
     pub updated_at: Option<DateTime<Utc>>,    // 更新时间
     pub deleted_at: Option<DateTime<Utc>>,    // 删除时间
@@ -58,7 +51,7 @@ pub struct UserEntity {
 ////////
 
 /// # 2.[COLUMNS] - 数据表原始字段（对应 Entity 的基础字段，1:1 完全一致）
-pub const USER_COLUMNS: &str = r#"
+pub const USER_PROFILE_COLUMNS: &str = r#"
     id, _id, vx_id, user_type, user_nickname, avatar, avatar_thumb, bg_img, signature, birthday,last_login_time,
     sex, perm_id, email, mobile AS phone, sns_url, more, lat, lng, country_code,
     is_ad, firstcharge_used, praise_num,

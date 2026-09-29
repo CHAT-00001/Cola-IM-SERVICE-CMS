@@ -1,4 +1,4 @@
-// cola_data/src/gift/entity/sticker.rs  -- GIFT - entity - 自定义表情贴纸
+// cola_data/src/gift/entity/score.rs  -- GIFT - entity - 自定义表情贴纸
 // 2026/6/19 17:58
 
 ////////
@@ -19,7 +19,7 @@ pub const GIFT_STICKER_COLUMNS: &str = r#"
 
 /// # [ENTITY] - 表情包贴纸 表
 /// * `pg schema`: `cola_fs`
-/// * `table name`: `sticker`
+/// * `table name`: `score`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct GiftStickerEntity {
     pub id: i64,                   // ID

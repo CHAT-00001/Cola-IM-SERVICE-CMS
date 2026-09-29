@@ -1,6 +1,5 @@
-// cola_data/src/cola_im/entity/music.rs
-// 数据中心 - IM - entity - music
-// 2026/6/7 11:10
+// cola_data/src/cola_im/entity/music.rs -- DATA - IM - entity - mod
+// 2026/6/7 11:10 Created.
 
 ////////
 
@@ -11,4 +10,5 @@ pub mod favorites; // 🛒 喜欢的
 pub mod gift; // 🎁 礼物
 pub mod message; // ✉️ 消息
 pub mod notice; // 🔔 通知
-pub mod profile; // 👤 用户
+pub mod profile; // 👤 用户资料
+pub mod sticker; // 表情包贴图

@@ -1,4 +1,4 @@
-// cola_data/src/im/command/mod.rs -- 数据 - 可乐IM - command - 模块
+// cola_data/src/im/command/mod.rs -- DATA - IM - command - mod
 // 2026-07-18 10:25
 
 ////////
@@ -13,3 +13,4 @@ pub mod danmaku;
 pub mod message;
 mod report;
 pub mod setting;
+pub mod sticker; // 表情包贴图

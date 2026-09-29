@@ -3,9 +3,9 @@
 
 ////////
 
-use crate::cola_user::entity::user::UserEntity;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
+use crate::cola_user::entity::role::UserRoleEntity;
 
 ////////
 
@@ -13,68 +13,35 @@ use serde::{Deserialize, Serialize};
 /// * `desc`: `管理员添加新角色`
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct UserRoleCreateCmd {
-    pub nickname: Option<String>,     // 昵称
-    pub signature: Option<String>,    // 个签
-    pub avatar: Option<String>,       // 头像
-    pub avatar_thumb: Option<String>, // 小头像
-    pub bg_img: Option<String>,       // 背景图
-    pub sns_url: Option<String>,      // 社交网站
-    pub email: Option<String>,        // 邮箱
-    pub phone: Option<String>,        // 电话
-    pub birthday: Option<i64>,        // 生日
-    pub lat: Option<String>,          // 纬度
-    pub lng: Option<String>,          // 经度
-    pub created_at: DateTime<Utc>,    // 创建时间
+    pub uid: i64,                  // 操作者用户ID
+    pub group_id: Option<i64>,     // 所属用户组ID
+    pub icon: Option<String>,      // 图标
+    pub name: String,              // 英文名称/标识
+    pub name_zh: String,           // 中文名称
+    pub remark: Option<String>,    // 备注
 }
 
 impl UserRoleCreateCmd {
     pub fn new() -> Self {
-        Self {
-            created_at: Utc::now(),
-            ..Default::default()
-        }
+        Self::default()
     }
 
-    /// 将命令转换为用户实体，需要传入 user_id
-    /// 注意：对于 Option 字段，如果为 None 则使用默认值（空字符串或0）
-    pub fn to_entity(&self, user_id: i64) -> UserEntity {
-        UserEntity {
-            id: user_id,                               // 用户 ID
-            _id: Option::from("".to_string()),         // UUID v4
-            vx_id: Option::from("".to_string()),       // UUID v7
-            user_type: None,                           // 用户类型
-            user_nickname: self.nickname.clone(),      // 用户昵称
-            signature: self.signature.clone(),         // 个性签名
-            avatar: self.avatar.clone(),               // 头像
-            avatar_thumb: self.avatar_thumb.clone(),   // 小头像
-            bg_img: self.bg_img.clone(),               // 背景图
-            sns_url: self.sns_url.clone(),             // 社交网站
-            email: self.email.clone(),                 // 邮箱
-            phone: self.phone.clone(),                 // 电话
-            birthday: self.birthday,                   // 生日
-            last_login_time: None,                     // 最后登录时间(兼容旧版PHP)
-            sex: None,                                 // 性别
-            perm_id: 0,                                // 权限 ID
-            views: None,                               // 被浏览量
-            likes: None,                               // 被点赞量
-            fans: None,                                // 粉丝数量
-            follows: None,                             // 关注数量
-            level: None,                               // 关注等级
-            author_level: None,                        // 主播等级
-            lat: self.lat.clone(),                     // 纬度
-            lng: self.lng.clone(),                     // 经度
-            login_ip: Some("".to_string()),            // 登录 IP
-            register_ip: Some("".to_string()),         // 注册 IP
-            status: None,                              // 状态码
-            is_deleted: None,                          // 逻辑删除
-            create_time: 0,                            // 创建时间 (兼容旧版PHP)
-            created_at: None,                          // 创建时间 (新版)
-            updated_at: Option::from(self.created_at), // 更新时间
-            deleted_at: None,                          // 删除时间
-            last_login_at: None,                       // 最后登录时间(新版)
-            score: 0,                                  // 默认积分
-            coin: 1000000,                             // 钻石
-            user_status: 1,                            // 状态码
+    /// 将创建命令转换为角色实体
+    pub fn to_entity(&self) -> UserRoleEntity {
+        let now = Utc::now();
+        UserRoleEntity {
+            id: 0,                                 // 新增时由数据库自增生成
+            uid: self.uid,
+            group_id: self.group_id,
+            icon: self.icon.clone(),
+            name: self.name.clone(),
+            name_zh: self.name_zh.clone(),
+            remark: self.remark.clone(),
+            status: 1,                             // 默认有效
+            is_deleted: false,                     // 默认未删除
+            created_at: Some(now),
+            updated_at: Some(now),
+            deleted_at: None,
         }
     }
 }
@@ -85,18 +52,45 @@ impl UserRoleCreateCmd {
 /// * `desc`: `管理员更新角色资料`
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct UserRoleUpdateCmd {
-    pub nickname: Option<String>,     // 昵称
-    pub signature: Option<String>,    // 个签
-    pub avatar: Option<String>,       // 头像
-    pub avatar_thumb: Option<String>, // 小头像
-    pub bg_img: Option<String>,       // 背景图
-    pub sns_url: Option<String>,      // 社交网站
-    pub email: Option<String>,        // 邮箱
-    pub phone: Option<String>,        // 电话
-    pub birthday: Option<i64>,        // 生日
-    pub lat: Option<String>,          // 纬度
-    pub lng: Option<String>,          // 经度
-    pub created_at: DateTime<Utc>,    // 创建时间
+    pub id: i64,                   // 角色ID（必须）
+    pub group_id: Option<i64>,     // 所属用户组ID
+    pub icon: Option<String>,      // 图标
+    pub name: Option<String>,      // 英文名称/标识
+    pub name_zh: Option<String>,   // 中文名称
+    pub remark: Option<String>,    // 备注
+    pub status: Option<i16>,       // 状态码: 0无效 1有效
+}
+
+impl UserRoleUpdateCmd {
+    pub fn new(id: i64) -> Self {
+        Self {
+            id,
+            ..Default::default()
+        }
+    }
+
+    /// 将更新命令应用到现有的实体上（增量合并更新）
+    pub fn apply_to_entity(&self, entity: &mut UserRoleEntity) {
+        if let Some(group_id) = self.group_id {
+            entity.group_id = Some(group_id);
+        }
+        if let Some(ref icon) = self.icon {
+            entity.icon = Some(icon.clone());
+        }
+        if let Some(ref name) = self.name {
+            entity.name = name.clone();
+        }
+        if let Some(ref name_zh) = self.name_zh {
+            entity.name_zh = name_zh.clone();
+        }
+        if let Some(ref remark) = self.remark {
+            entity.remark = Some(remark.clone());
+        }
+        if let Some(status) = self.status {
+            entity.status = status;
+        }
+        entity.updated_at = Some(Utc::now());
+    }
 }
 
 //////// END
