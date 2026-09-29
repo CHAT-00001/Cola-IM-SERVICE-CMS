@@ -31,12 +31,13 @@ impl CommentLikeRepo {
             sqlx::query(
                 r#"
             INSERT INTO cola_video.comments_like
-                (id, user_id, comment_id, video_id, add_time, created_at, updated_at)
+                (id, user_id, comment_id, video_id, touid, add_time, created_at, updated_at)
             SELECT
                 $1,
                 $2,
                 $3,
                 comments.video_id,
+                comments.user_id,
                 EXTRACT(EPOCH FROM NOW())::BIGINT,
                 NOW(),
                 NOW()
@@ -45,6 +46,7 @@ impl CommentLikeRepo {
             ON CONFLICT (user_id, comment_id)
             DO UPDATE SET
                 video_id = EXCLUDED.video_id,
+                touid = EXCLUDED.touid,
                 add_time = EXCLUDED.add_time,
                 created_at = EXCLUDED.created_at,
                 updated_at = EXCLUDED.updated_at

@@ -341,9 +341,9 @@ pub async fn video_gateway(
                 .finish(&req, start)
         }
 
-        // 点赞评论 - 权限 >= 1
+        // 点赞评论 - 权限 >= 2
         "like_comment" => {
-            if !auth.has_permission_level(1) {
+            if !auth.has_permission_level(2) {
                 return AppData::<()>::err(4003, "[🌐 GATEWAY]: ❌️ 权限不足", None)
                     .finish(&req, start);
             }
@@ -352,7 +352,7 @@ pub async fn video_gateway(
                 .finish(&req, start)
         }
 
-        // 不喜欢评论 - 权限 >= 1
+        // 不喜欢评论 - 权限 >= 2
         "dislike_comment" => {
             if !auth.has_permission_level(2) {
                 return AppData::<()>::err(4003, "[🌐 GATEWAY]: ❌️ 权限不足", None)

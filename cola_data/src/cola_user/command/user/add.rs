@@ -99,7 +99,8 @@ impl UserCommand {
         // 🆔 处理 send_id：如果客户端不传入，服务端生成一个无分隔符的 UUID v4 取代
         let final_uuid_v4 = self
             ._id
-            .unwrap_or_else(|| Uuid::new_v4().to_string().replace("-", ""));
+            .unwrap_or_else(|| Uuid::new_v4().to_string());
+        //.unwrap_or_else(|| Uuid::new_v4().to_string().replace("-", ""));
 
         // 🆔 创建一个vx_id
         let final_vx_id = self
