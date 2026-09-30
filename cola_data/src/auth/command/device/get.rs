@@ -1,4 +1,4 @@
-// cola_data/src/auth/command/device/get.rs  -- 数据 - AUTH - Command - 设备 - 获取命令
+// cola_data/src/auth/command/node/get.rs  -- 数据 - AUTH - Command - 设备 - 获取命令
 // 2026/6/26 12:04 Created.
 
 //////

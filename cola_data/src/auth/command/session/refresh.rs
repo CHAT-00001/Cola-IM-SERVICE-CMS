@@ -1,4 +1,4 @@
-// cola_data/src/auth/command/session/refresh.rs  -- 数据 - AUTH - Command - 会话 - 刷新命令
+// cola_data/src/auth/command/service/refresh.rs  -- 数据 - AUTH - Command - 会话 - 刷新命令
 // 2026/6/9 07:39 Created.
 
 use serde::Deserialize;
@@ -39,7 +39,7 @@ impl SessionRefreshCommand {
         };
 
         format!(
-            "platform: {}, device: {}, refresh_token: {}",
+            "platform: {}, node: {}, refresh_token: {}",
             self.platform, self.device_id, masked_token
         )
     }

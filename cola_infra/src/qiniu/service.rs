@@ -28,7 +28,7 @@ impl<'a> QiniuConfig<'a> {
 
     /// 获取 CDN 域名
     pub async fn get_cdn(&mut self, name: &str) -> Result<String> {
-        let key = format!("cdn:{}", name);
+        let key = format!("node:{}", name);
 
         // 1️⃣ 尝试 Redis
         let domain_opt: Option<String> = self.redis.get(&key).await.ok();
@@ -64,7 +64,7 @@ impl<'a> QiniuConfig<'a> {
     /// 管理员更新后刷新缓存
     pub async fn refresh_cdn(&mut self, name: &str) -> Result<()> {
         let domain = self.fetch_cdn_from_db(name).await?;
-        let key = format!("cdn:{}", name);
+        let key = format!("node:{}", name);
         let ttl: u64 = self.ttl_sec.try_into().unwrap();
         let _: () = self.redis.set_ex(&key, &domain, ttl).await?;
         Ok(())

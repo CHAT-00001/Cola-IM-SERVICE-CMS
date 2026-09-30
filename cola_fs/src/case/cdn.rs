@@ -1,4 +1,4 @@
-// cola_fs/src/case/cdn.rs -- 可乐FS - 用例层 - CDN域名
+// cola_fs/src/case/node -- 可乐FS - 用例层 - CDN域名
 // 2026/8/11 04:41 Created.
 
 ////////

@@ -51,7 +51,7 @@ impl WalletPointRepo {
             r#"
             SELECT id
             FROM cola_wallet.wallet_currencies
-            WHERE code = 'POINT' AND is_enabled = TRUE
+            WHERE app = 'POINT' AND is_enabled = TRUE
             LIMIT 1
             "#,
         )

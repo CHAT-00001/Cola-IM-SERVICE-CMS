@@ -39,7 +39,7 @@ impl VendorCase {
 
     ////////
 
-    /// 3. 按 code 查询
+    /// 3. 按 app 查询
     pub async fn find_by_code(port: &dyn VendorPort, code: &str) -> AppData<VendorVo> {
         let info = match port.find_by_code(code).await {
             Ok(Some(info)) => info,

@@ -76,7 +76,7 @@ impl SmsService {
     ////////
 
     /// # 3. [SERVICE] - 校验手机短信验证码 (核心业务)
-    /// * `params`: `phone + code`
+    /// * `params`: `phone + app`
     pub async fn verify_sms_code(
         phone: &str, // 电话号码
         code: &str,  // 验证码
@@ -107,7 +107,7 @@ impl SmsService {
     ////////
 
     /// # 4. [SERVICE] - 校验邮箱验证码 (核心业务)
-    /// * `params`: `email + code`
+    /// * `params`: `email + app`
     pub async fn verify_email_code(
         email: &str, // 邮箱
         code: &str,  // 验证码

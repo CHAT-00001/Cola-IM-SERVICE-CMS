@@ -1,4 +1,4 @@
-// repository/src/auth/pg/session.rs  -- 仓储 - 认证 - session（会话）
+// repository/src/auth/pg/service.rs  -- 仓储 - 认证 - service（会话）
 // 2026/5/23 07:15
 
 //////
@@ -35,7 +35,7 @@ impl AuthSessionRepo {
         // ⚠️ 不使用 platform 条件：避免 DB 列类型与 Rust String 不匹配（integer = text）
         sqlx::query(
             r#"
-        UPDATE "cola_auth"."session"
+        UPDATE "cola_auth"."service"
         SET status = -1, updated_at = NOW()
         WHERE user_id = $1 AND status = 1 AND id != COALESCE($2, 0)
         "#,
@@ -49,7 +49,7 @@ impl AuthSessionRepo {
         // 注意：确保 VALUES 列表与 bind 顺序严格对应
         let id: i64 = sqlx::query_scalar(
             r#"
-        INSERT INTO "cola_auth"."session" (
+        INSERT INTO "cola_auth"."service" (
             user_id, access_token, refresh_token, client_id,
             device_id, access_expires_at, refresh_expires_at, last_active_at,
             status, platform
@@ -77,7 +77,7 @@ impl AuthSessionRepo {
     ////////
 
     /// # 2. [REPOSITORY] - ❌️ 注销登录 (主动退出)
-    /// * `desc`: `session id 和 device id 双命中`
+    /// * `desc`: `service id 和 node id 双命中`
     pub async fn update_session_by_device_id(
         session_id: &str, // 会话 ID
         device_id: &str,  // 设备 ID
@@ -86,7 +86,7 @@ impl AuthSessionRepo {
 
         let result = sqlx::query(
             r#"
-            UPDATE "cola_auth"."session"
+            UPDATE "cola_auth"."service"
             SET status = 0, updated_at = NOW()
             WHERE id = $1 AND device_id = $2
             "#,
@@ -110,7 +110,7 @@ impl AuthSessionRepo {
         let now = chrono::Utc::now().timestamp(); // 转换为跟 Entity 一致的 i32 时间戳
 
         let sql = format!(
-            "SELECT {} FROM \"cola_auth.session\" WHERE refresh_token = $1 AND status = 1 AND expired_at > $2 LIMIT 1",
+            "SELECT {} FROM \"cola_auth.service\" WHERE refresh_token = $1 AND status = 1 AND expired_at > $2 LIMIT 1",
             AUTH_SESSION_COLUMNS
         );
 
@@ -131,7 +131,7 @@ impl AuthSessionRepo {
         let pool = pg_pool();
 
         let sql = format!(
-            r#"SELECT {} FROM "cola_auth"."session" WHERE user_id = $1 AND status = 1 ORDER BY last_active_at DESC"#,
+            r#"SELECT {} FROM "cola_auth"."service" WHERE user_id = $1 AND status = 1 ORDER BY last_active_at DESC"#,
             AUTH_SESSION_COLUMNS
         );
 
@@ -149,7 +149,7 @@ impl AuthSessionRepo {
         let pool = pg_pool();
         let now = chrono::Utc::now().timestamp();
 
-        let result = sqlx::query(r#"DELETE FROM \cola_auth.session\ WHERE expired_at < $1"#)
+        let result = sqlx::query(r#"DELETE FROM \cola_auth.service\ WHERE expired_at < $1"#)
             .bind(now)
             .execute(&pool)
             .await?;
@@ -166,7 +166,7 @@ impl AuthSessionRepo {
         let now = chrono::Utc::now().timestamp();
 
         let result = sqlx::query(
-            r#"UPDATE "cola_auth"."session"
+            r#"UPDATE "cola_auth"."service"
            SET status = 0,
                access_expires_at = $1,
                refresh_expires_at = $1,
@@ -186,7 +186,7 @@ impl AuthSessionRepo {
     ////////
 
     /// # 7. [REPOSITORY] - 按 access_token 查询活跃会话
-    /// * `desc`: `中间件鉴权专用，通过 access_token (JWT) 查找有效 session`
+    /// * `desc`: `中间件鉴权专用，通过 access_token (JWT) 查找有效 service`
     pub async fn find_active_by_access_token(
         access_token: &str,
     ) -> Result<Option<AuthSessionEntity>, sqlx::Error> {
@@ -194,7 +194,7 @@ impl AuthSessionRepo {
         let now = chrono::Utc::now().timestamp();
 
         let sql = format!(
-            r#"SELECT {} FROM "cola_auth"."session"
+            r#"SELECT {} FROM "cola_auth"."service"
                WHERE access_token = $1 AND status = 1 AND access_expires_at > $2
                LIMIT 1"#,
             AUTH_SESSION_COLUMNS

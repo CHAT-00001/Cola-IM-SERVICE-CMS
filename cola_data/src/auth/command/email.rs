@@ -35,7 +35,7 @@ impl EmailLoginCommand {
     /// 在记录登录日志时，不要打印完整的手机号或验证码
     pub fn to_log_info(&self) -> String {
         format!(
-            "platform: {}, device: {}, phone: {}***{}",
+            "platform: {}, node: {}, phone: {}***{}",
             self.platform,
             self.device_id,
             &self.email[..3],

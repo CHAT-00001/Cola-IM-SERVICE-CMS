@@ -1,5 +1,5 @@
-// auth/src/api/session/state.rs
-// core - AUTH - api - session - 状态
+// auth/src/api/service/state.rs
+// core - AUTH - api - service - 状态
 // 2026/04/13 10:15
 
 ////////

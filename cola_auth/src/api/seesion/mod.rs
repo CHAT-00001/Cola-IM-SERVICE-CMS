@@ -1,4 +1,4 @@
-// auth/src/api/session/music.rs  -- AUTH - api - session - music
+// auth/src/api/service/music.rs  -- AUTH - api - service - music
 // 2026/7/18 22:25
 
 ////////

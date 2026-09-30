@@ -1,4 +1,4 @@
-// repo_adapter/src/auth/session/list.rs -- 适配器 - AUTH - SESSION - 列表适配器
+// repo_adapter/src/auth/service/list.rs -- 适配器 - AUTH - SESSION - 列表适配器
 // 2026/8/6 18:55 Created.
 
 ////////

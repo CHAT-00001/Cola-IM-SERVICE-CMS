@@ -1,21 +1,21 @@
-// // auth/src/api/session/get.rs  -- AUTH - api - 会话 - 获取接口
+// // auth/src/api/service/get.rs  -- AUTH - api - 会话 - 获取接口
 // // 2026/6/9 07:54 Created.
 //
 // ////////
 //
-// use crate::case::login::LoginCase;
-// use crate::case::session::add::AuthAddCase;
+// use crate::case::binding::LoginCase;
+// use crate::case::service::add::AuthAddCase;
 // use cola_data::app::api::ApiQuery;
 // use cola_data::app::data::AppData;
 // use cola_data::app::error;
 // use cola_data::auth::command::email::EmailLoginCommand;
 // use cola_data::auth::command::phone::PhoneLoginCommand;
-// use cola_data::auth::command::session::refresh::SessionRefreshCommand;
-// use cola_data::auth::vo::session::SignResponse;
+// use cola_data::auth::command::service::refresh::SessionRefreshCommand;
+// use cola_data::auth::vo::service::SignResponse;
 // use port::app::ctx::AppContext;
 // use tracing::log;
 // use validator::Validate;
-// use cola_data::auth::command::session::SessionCommand;
+// use cola_data::auth::command::service::SessionCommand;
 // ////////
 //
 // /// # [GET API] - 验证会话获取接口

@@ -1,4 +1,4 @@
-// auth/src/api/session/add.rs  -- 可乐验证中心 - 接口层 - 登录
+// auth/src/api/service/add.rs  -- 可乐验证中心 - 接口层 - 登录
 // 2026/6/9 07:54
 
 ////////
@@ -53,7 +53,7 @@ impl SessionAddApi {
 
     /// # 2. [API HANDLER] - 邮箱验证码登录
     /// * `action`: 2002
-    /// * `desc`: email + code
+    /// * `desc`: email + app
     pub async fn handler_sign_in_by_email(cmd: EmailLoginCommand) -> AppData<SignResponse> {
         log::info!("[API]: 收到 📮 邮箱验证码登录原始命令数据: {:?}", cmd);
 
@@ -149,7 +149,7 @@ impl SessionAddApi {
     /// * `user_id`   从网关上下文中提取（暂不鉴权，客户端传入）
     /// * `device_id` 设备标识 — 只下线当前设备
     pub async fn handler_sign_out(cmd: PhoneLoginCommand) -> AppData<String> {
-        log::info!("[API]: 收到退出登录请求: device={}", cmd.device_id);
+        log::info!("[API]: 收到退出登录请求: node={}", cmd.device_id);
 
         // 暂不鉴权，直接从 cmd 中提取 user_id 和 device_id
         // user_id 从 phone_no 字段临时传入（后续接 JWT 鉴权后可改为从 token 解析）

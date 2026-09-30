@@ -19,7 +19,7 @@ pub trait TypePort: Send + Sync {
     /// 列表（全部）
     async fn list(&self) -> anyhow::Result<Vec<ServerTypeInfo>>;
 
-    /// 按 code 查询
+    /// 按 app 查询
     async fn find_by_code(&self, code: &str) -> anyhow::Result<Option<ServerTypeInfo>>;
 }
 

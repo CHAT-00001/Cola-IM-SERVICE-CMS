@@ -1,4 +1,4 @@
-// cola_auth/src/case/login.rs -- 验证中心 - case - 登录用例 - mod
+// cola_auth/src/case/binding.rs -- 验证中心 - case - 登录用例 - mod
 // 2026/6/9 08:16 Created.
 
 ////////

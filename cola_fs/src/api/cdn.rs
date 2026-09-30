@@ -1,4 +1,4 @@
-// cola_fs/src/api/cdn.rs -- FS - 接口层 - CDN域名
+// cola_fs/src/api/node -- FS - 接口层 - CDN域名
 // 2026/8/11 04:40 Created.
 
 ////////

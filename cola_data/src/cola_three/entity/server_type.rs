@@ -16,7 +16,7 @@ use sqlx::FromRow;
 pub struct ThreeServerTypeEntity {
     pub id: i64,                           // ID
     pub uid: i64,                          // 作者 ID
-    pub code: String,                      // cdn / sms / stream / cola_im / email / pay
+    pub code: String,                      // node / sms / stream / cola_im / email / pay
     pub name: String,                      // 英文名
     pub name_zh: String,                   // 中文名
     pub icon: Option<String>,              // 图标
@@ -31,7 +31,7 @@ pub struct ThreeServerTypeEntity {
 
 /// # 查询字段常量
 pub const THREE_SERVER_TYPE_COLUMNS: &str = r#"
-    id, uid, code, name, name_zh, icon, thumb, sort, status, created_at, updated_at
+    id, uid, app, name, name_zh, icon, thumb, sort, status, created_at, updated_at
 "#;
 
 //////// END

@@ -1,5 +1,4 @@
-// port/src/fs/bucket/list.rs
-// ⏩️ 端口 - FS - 存储桶 - 列表
+// port/src/fs/bucket/list.rs -- PORT - FS - 存储桶 - 列表服务
 // 2026/8/5 02:06 Created.
 
 ////////

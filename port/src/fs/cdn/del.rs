@@ -1,4 +1,4 @@
-// port/src/fs/cdn/del.rs
+// port/src/fs/node/del.rs
 // ⏩️ 端口 - FS - CDN - 删除
 // 2026/8/5 00:03 Created.
 

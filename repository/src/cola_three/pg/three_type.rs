@@ -25,9 +25,9 @@ impl ServerTypeRepo {
     ) -> Result<ThreeServerTypeEntity, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            r#"INSERT INTO cola_three.server_type (code, name, sort, status)
+            r#"INSERT INTO cola_three.server_type (app, name, sort, status)
                VALUES ($1, $2, $3, $4)
-               ON CONFLICT (code) DO UPDATE SET name=$2, sort=$3, status=$4, updated_at=NOW()
+               ON CONFLICT (app) DO UPDATE SET name=$2, sort=$3, status=$4, updated_at=NOW()
                RETURNING {}"#,
             THREE_SERVER_TYPE_COLUMNS
         );
@@ -56,11 +56,11 @@ impl ServerTypeRepo {
 
     ////////
 
-    /// 3. #[REPOSITORY] - 按 code 查询
+    /// 3. #[REPOSITORY] - 按 app 查询
     pub async fn find_by_code(code: &str) -> Result<Option<ThreeServerTypeEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM cola_three.servier_type WHERE code = $1 LIMIT 1",
+            "SELECT {} FROM cola_three.servier_type WHERE app = $1 LIMIT 1",
             THREE_SERVER_TYPE_COLUMNS
         );
         sqlx::query_as::<_, ThreeServerTypeEntity>(&query)

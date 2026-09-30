@@ -116,12 +116,12 @@
 ```bash
 # 获取弹幕 - 成功
 curl 'http://127.0.0.1:8080/api/v2/video/gateway?service=get_danmaku&video_id=1'
-# Response: { "code": 0, "data": {...} }
+# Response: { "app": 0, "data": {...} }
 
 # 发送弹幕 - 失败
 curl -X POST 'http://127.0.0.1:8080/api/v2/video/gateway' \
   -d '{"cmd": {"service": "send_danmaku", "video_id": 1, "content": "test"}}'
-# Response: { "code": 4003, "msg": "[🌐 GATEWAY]: ❌️ 权限不足：需要权限 >= 2" }
+# Response: { "app": 4003, "msg": "[🌐 GATEWAY]: ❌️ 权限不足：需要权限 >= 2" }
 ```
 
 ### 测试登录用户访问（权限>=2）
@@ -133,7 +133,7 @@ curl -X POST 'http://127.0.0.1:8080/api/v2/video/gateway' \
     "auth": { "access_token": "valid_token" },
     "cmd": { "service": "get_comment", "video_id": 1 }
   }'
-# Response: { "code": 0, "data": {...} }
+# Response: { "app": 0, "data": {...} }
 
 # 发送评论 - 成功
 curl -X POST 'http://127.0.0.1:8080/api/v2/video/gateway' \
@@ -141,7 +141,7 @@ curl -X POST 'http://127.0.0.1:8080/api/v2/video/gateway' \
     "auth": { "access_token": "valid_token" },
     "cmd": { "service": "send_comment", "video_id": 1, "content": "很好" }
   }'
-# Response: { "code": 0, "data": {...} }
+# Response: { "app": 0, "data": {...} }
 
 # 发布视频 - 成功
 curl -X POST 'http://127.0.0.1:8080/api/v2/video/gateway' \
@@ -153,7 +153,7 @@ curl -X POST 'http://127.0.0.1:8080/api/v2/video/gateway' \
       "description": "这是一个测试"
     }
   }'
-# Response: { "code": 0, "data": {...} }
+# Response: { "app": 0, "data": {...} }
 ```
 
 ---

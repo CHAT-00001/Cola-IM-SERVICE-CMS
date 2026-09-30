@@ -82,7 +82,7 @@ impl S3Client {
                 if !errors.is_empty() {
                     for error in errors {
                         error!(
-                            "Failed to delete object: key='{}', code='{}', message='{}'",
+                            "Failed to delete object: key='{}', app='{}', message='{}'",
                             error.key().unwrap_or_default(),
                             error.code().unwrap_or_default(),
                             error.message().unwrap_or_default()

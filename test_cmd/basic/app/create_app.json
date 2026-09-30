@@ -1,0 +1,16 @@
+{
+    "gate": "1001",
+    "node": "cn-gz-04",
+    "service": "add_app",
+    "name": "code",
+    "action": 1004,
+    "auth": {
+        "access_token": "aaaa",
+        "client_id": "cccc"
+    },
+    "lang": "zh",
+    "cmd": {
+        "app_code": "COLA-VIDEO",
+        "app_name": "cola-video-api-backend"
+    }
+}

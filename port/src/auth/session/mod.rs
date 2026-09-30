@@ -1,4 +1,4 @@
-// port/src/auth/session/mod.rs
+// port/src/auth/service/mod.rs
 // ⏩️ 端口 - AUTH - 会话 - 模块
 // 2026/8/5 15:11 Created.
 

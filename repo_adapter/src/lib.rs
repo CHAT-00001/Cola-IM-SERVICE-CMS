@@ -1,5 +1,5 @@
-// repo_adapter/src/lib.rs -- 🔌 适配器 - Adapter - lib
-// 2026/8/10 20:00 Updated.
+// repo_adapter/src/lib.rs -- ADAPTER - Adapter - lib
+// 2026/4/10 11:00 Updated.
 
 ////////
 
@@ -9,6 +9,7 @@ use std::sync::Arc;
 ////////
 
 pub mod auth; // Auth Center
+pub mod basic; // 基础
 pub mod coc; // 运营中心
 pub mod dynamic; // Dynamic
 pub mod fs; // 文件存储
@@ -22,7 +23,8 @@ pub mod photo; // Photo
 pub mod three; // Third-party
 pub mod user; // User
 pub mod video; // Video
-pub mod wallet; // Wallet
+pub mod wallet;
+// Wallet
 
 ////////
 
@@ -53,6 +55,7 @@ pub fn build_app_context() -> AppContext {
     ////////
 
     let auth = auth::build_auth_port();
+    let basic = basic::build_cola_basic_port();
     let coc = coc::build_cola_coc_port();
     let gis = gis::build_gis_port();
     let fs = fs::build_cola_fs_port();
@@ -68,7 +71,7 @@ pub fn build_app_context() -> AppContext {
     ////////
 
     AppContext::default(
-        auth, coc, fs, gis, live, market, music, three, user, video, im, wallet,
+        auth, basic, coc, fs, gis, live, market, music, three, user, video, im, wallet,
     )
 }
 

@@ -1,4 +1,4 @@
-// auth/src/case/session/state.rs -- 验证中心 - case - 会话 - 状态编排
+// auth/src/case/service/state.rs -- 验证中心 - case - 会话 - 状态编排
 // 2026/8/14 02:08 Created.
 
 ////////

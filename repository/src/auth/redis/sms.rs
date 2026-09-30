@@ -17,7 +17,7 @@ impl SmsCache {
 
     /// # [CACHE] - 保存短信验证码到 Redis
     /// * `phone`: 手机号
-    /// * `code`: 验证码
+    /// * `app`: 验证码
     /// * `ttl`: 过期时间 (秒)
     pub async fn set_sms_code(phone: &str, code: &str, ttl: i64) -> Result<()> {
         let key = format!("auth:sms:{}", phone);

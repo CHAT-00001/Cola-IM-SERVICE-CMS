@@ -1,4 +1,4 @@
-// cola_data/src/auth/command/session.rs  -- 数据 - AUTH - Command - session - mod
+// cola_data/src/auth/command/service.rs  -- 数据 - AUTH - Command - service - mod
 // 2026/06/05 06:50
 
 ////////

@@ -104,7 +104,7 @@ pub enum UserRole {
 
 /// # [BUILD] - 构造函数与命令行为
 impl LiveStreamProviderCommand {
-    /// 运维人员专用：根据厂商 code 初始化不同的直播流配置
+    /// 运维人员专用：根据厂商 app 初始化不同的直播流配置
     /// 默认状态为 0 (不启用)，后续由开播命令激活
     pub fn new(
         role: &UserRole,       // 强制校验角色

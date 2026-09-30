@@ -1,0 +1,20 @@
+#### COLA FS - 可乐 基础服务
+## 2026-01-01 10:00
+
+[package]
+name = "cola_aaaa"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+## 内部依赖
+cola_data = { path = "../cola_data" }
+port = { path = "../port"}
+service = { path = "../service" }  ## 全函数调用service层
+
+## 外部依赖
+aws-sdk-s3 = { version = "1.140.0", features = ["behavior-version-latest"] }
+tracing = "0.1.44"
+anyhow = "1.0.104"
+serde_json = "1.0.143"
+chrono = { version = "0.4.42", features = ["serde"] }

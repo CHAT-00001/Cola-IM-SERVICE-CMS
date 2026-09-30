@@ -1,4 +1,4 @@
-// port/src/fs/cdn/stat.rs
+// port/src/fs/node/stat.rs
 // ⏩️ 端口 - FS - CDN - 统计
 // 2026/8/5 00:03 Created.
 

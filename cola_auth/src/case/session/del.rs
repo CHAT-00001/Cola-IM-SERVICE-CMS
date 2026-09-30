@@ -1,4 +1,4 @@
-// auth/src/case/session/del.rs
+// auth/src/case/service/del.rs
 // 🆔 验证中心 - case - 会话用例编排
 // 2026/8/14 02:06 Created.
 

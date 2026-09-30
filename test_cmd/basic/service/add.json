@@ -1,0 +1,19 @@
+{
+    "gate": "1001",
+    "node": "cn-gz-04",
+    "service": "add_service",
+    "name": "code",
+    "action": 1004,
+    "auth": {
+        "access_token": "aaaa",
+        "client_id": "cccc"
+    },
+    "lang": "zh",
+    "cmd": {
+        "app_id": "应用 ID",
+        "service_code": "SV",
+        "service_name": "短视频",
+        "node_domain": "https://ap-sgr-01.xx.com",
+        "node_key": "add"
+    }
+}

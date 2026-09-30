@@ -1,4 +1,4 @@
-// port/src/fs/cdn/manage.rs
+// port/src/fs/node/manage.rs
 // ⏩️ 端口 - FS - CDN - 管理
 // 2026/8/5 15:23 Created.
 

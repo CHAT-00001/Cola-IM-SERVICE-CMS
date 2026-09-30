@@ -1,4 +1,4 @@
-// repo_adapter/src/auth/session/mod.rs -- 适配器 - AUTH - SESSION - mod
+// repo_adapter/src/auth/service/mod.rs -- 适配器 - AUTH - SESSION - mod
 // 2026/8/8 10:44 Created.
 
 ////////
@@ -75,7 +75,7 @@ impl SessionPort for SessionPortAdapter {
         match session_opt {
             Some(session) => {
                 tracing::info!(
-                    "[ADAPTER]: ✅ session 查询成功，user_id={}, device_id={}, status={}",
+                    "[ADAPTER]: ✅ service 查询成功，user_id={}, device_id={}, status={}",
                     session.user_id,
                     session.device_id,
                     session.status,
@@ -90,7 +90,7 @@ impl SessionPort for SessionPortAdapter {
             }
             None => {
                 tracing::warn!(
-                    "[😭 ADAPTER]: ⚠️ session 查询未命中，access_token 在 DB/Redis 中不存在或已过期"
+                    "[😭 ADAPTER]: ⚠️ service 查询未命中，access_token 在 DB/Redis 中不存在或已过期"
                 );
                 Ok(None)
             }

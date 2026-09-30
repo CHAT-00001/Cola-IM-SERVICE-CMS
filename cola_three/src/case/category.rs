@@ -42,7 +42,7 @@ impl TypeCase {
 
     ////////
 
-    /// # 3. [CASE] - 按 code 查询
+    /// # 3. [CASE] - 按 app 查询
     pub async fn find_by_code(port: &dyn TypePort, code: &str) -> AppData<CategoryVo> {
         let info = match port.find_by_code(code).await {
             Ok(Some(info)) => info,

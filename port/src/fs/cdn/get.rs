@@ -1,4 +1,4 @@
-// port/src/fs/cdn/get.rs
+// port/src/fs/node/get.rs
 // ⏩️ 端口 - FS - CDN - 获取
 // 2026/6/10 08:23 Created.
 

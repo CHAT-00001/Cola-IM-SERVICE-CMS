@@ -34,7 +34,7 @@ pub struct ThreeServerTypeEntity {
 
 /// # [COLUMNS] - 查询字段常量
 pub const THREE_SERVER_TYPE_COLUMNS: &str = r#"
-    id, _id, uid, code, name, name_zh, remark, sort, status, owner, add_time, upd_time, created_at, updated_at
+    id, _id, uid, app, name, name_zh, remark, sort, status, owner, add_time, upd_time, created_at, updated_at
 "#;
 
 //////// END

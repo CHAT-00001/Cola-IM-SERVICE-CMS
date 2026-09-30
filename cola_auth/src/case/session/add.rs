@@ -31,7 +31,7 @@ impl AuthAddCase {
     ////////
 
     /// # 1. [CASE] - 手机验证码登录
-    /// * `params`:  area + phone + code
+    /// * `params`:  area + phone + app
     pub async fn case_sign_in_by_phone(
         cmd: &PhoneLoginCommand,
         ctx: &AppContext,
@@ -114,7 +114,7 @@ impl AuthAddCase {
     ////////
 
     /// # 2. [CASE] - 邮箱验证码登录
-    /// * `params`: email + code
+    /// * `params`: email + app
     pub async fn case_sign_in_by_email(cmd: &EmailLoginCommand) -> Result<SignResponse> {
         // 1. 抽取参数 email
         let email = cmd.email.clone();

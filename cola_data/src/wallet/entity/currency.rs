@@ -14,7 +14,7 @@ use serde_json::Value as JsonValue;
 /// # [ENTITY] - 资产/货币种类表
 /// * `pg schema`: `cola_wallet` - PG 模式
 /// * `table name`: `wallet_currencies`
-/// * `desc`: `POINT、COIN、CNY、USD 等资产统一由 code 标识；usd_rate 仅用于展示或汇率业务，不参与余额存储`
+/// * `desc`: `POINT、COIN、CNY、USD 等资产统一由 app 标识；usd_rate 仅用于展示或汇率业务，不参与余额存储`
 #[derive(Debug, Clone, Serialize, Deserialize, sqlx::FromRow)]
 pub struct WalletCurrency {
     pub id: i16,                   // 货币ID

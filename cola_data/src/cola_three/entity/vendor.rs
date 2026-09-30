@@ -32,7 +32,7 @@ pub struct ThreeVendorEntity {
 
 /// # [COLUMNS] - 查询字段常量
 pub const THREE_VENDOR_COLUMNS: &str = r#"
-    id, code, name, name_zh, remark, sort, status, owner, add_time, upd_time, created_at, updated_at
+    id, app, name, name_zh, remark, sort, status, owner, add_time, upd_time, created_at, updated_at
 "#;
 
 //////// END

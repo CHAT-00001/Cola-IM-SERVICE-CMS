@@ -1,4 +1,4 @@
-// cola_video/src/port/api/session -- 登录应用层
+// cola_video/src/port/api/service -- 登录应用层
 // 2026-03-11 10:56:12
 
 use serde::{Deserialize, Serialize}; // 序列化/反序列化，供transport层交互

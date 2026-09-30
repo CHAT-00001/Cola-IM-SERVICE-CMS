@@ -96,7 +96,7 @@ async fn fs_gateway(
 
     let service_name = api_req.service.clone().unwrap_or_default();
 
-    // 2. 业务路由分发（按 service/action 分发到 bucket, cdn, file, media）
+    // 2. 业务路由分发（按 service/action 分发到 bucket, node, file, media）
     match service_name.as_str() {
         //////// 存储桶 (Bucket)
 

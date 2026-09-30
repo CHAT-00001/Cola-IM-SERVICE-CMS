@@ -1,9 +1,10 @@
-// D:\rust\short-video\port\src\fs\cdn\config.rs
+// D:\rust\short-video\port\src\fs\node\config.rs
 // 🔌 端口 - FS - CDN - 配置管理
 // 2026/8/16 Created.
 
 ////////
 
+use cola_data::basic::command::core::node::{NodeCreateCmd, NodeUpdateCmd};
 use cola_data::cola_fs::command::cdn::{CreateCdnDomainCmd, UpdateCdnDomainCmd};
 use cola_data::cola_fs::info::cdn::CdnDomainInfo;
 

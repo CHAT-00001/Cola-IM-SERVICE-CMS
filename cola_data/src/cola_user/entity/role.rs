@@ -3,6 +3,9 @@
 
 ////////
 
+pub mod group; // 用户组
+pub mod permission; // 角色权限
+
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use sqlx::FromRow;

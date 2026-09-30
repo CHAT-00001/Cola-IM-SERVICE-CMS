@@ -1,4 +1,4 @@
-// cola_auth/src/case/code.rs  -- AUTH - case - 验证码 - mod
+// cola_auth/src/case/app.rs  -- AUTH - case - 验证码 - mod
 // 2026/6/22 07:00
 
 ////////

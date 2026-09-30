@@ -1,5 +1,4 @@
-// cola_data/src/app/page.rs
-// 数据 - APP - 分页
+// cola_data/src/app/page.rs -- DATA - APP - 分页响应
 // 2026/5/21 02:28 Created.
 
 ////////

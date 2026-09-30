@@ -14,7 +14,7 @@ use cola_data::cola_fs::command::upload::{CreateUploadSessionRequest, UploadPoli
 #[async_trait::async_trait]
 pub trait UploadSessionPort: Send + Sync {
     /// # 1. [PORT] - 创建上传会话
-    /// * `desc`: `生成 session、Object Key 和短期预签名 URL`
+    /// * `desc`: `生成 service、Object Key 和短期预签名 URL`
     async fn create_session(
         &self,
         uid: i64,

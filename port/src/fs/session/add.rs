@@ -1,4 +1,4 @@
-// port/src/auth/session/add.rs
+// port/src/auth/service/add.rs
 // ⏩️ 端口 - AUTH - 会话 - 发布
 // 2026/8/5 00:03 Created.
 

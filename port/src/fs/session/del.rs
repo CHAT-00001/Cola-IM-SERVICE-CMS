@@ -1,4 +1,4 @@
-// port/src/auth/session/del.rs
+// port/src/auth/service/del.rs
 // ⏩️ 端口 - AUTH - 会话 - 删除
 // 2026/8/5 00:03 Created.
 

@@ -1,4 +1,4 @@
-// cola_data/src/auth/entity/device.rs
+// cola_data/src/auth/entity/node.rs
 // 数据 - AUTH - entity - 设备
 // 2026/5/26 07:40
 

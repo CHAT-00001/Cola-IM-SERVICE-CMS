@@ -1,4 +1,4 @@
-// port/src/auth/session/manage.rs
+// port/src/auth/service/manage.rs
 // ⏩️ 端口 - AUTH - 会话 - 管理
 // 2026/8/5 15:23 Created.
 

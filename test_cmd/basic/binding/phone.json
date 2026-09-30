@@ -1,0 +1,13 @@
+{
+    "gate": "1001",
+    "node": "cn-gz-04",
+    "service": "code_phone",
+    "name": "login",
+    "action": 1004,
+    "lang": "zh",
+    "cmd": {
+        "area_code": "0086",
+        "phone_no": "18888410001",
+        "code": "000000"
+    }
+}

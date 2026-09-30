@@ -1,5 +1,5 @@
-// repository/src/auth/pg/session/ban
-// 仓储 - AUTH - pg - session - 会话校验服务(cache-first + pg fallback + 多设备支持)
+// repository/src/auth/pg/service/ban
+// 仓储 - AUTH - pg - service - 会话校验服务(cache-first + pg fallback + 多设备支持)
 // 2026/8/2 09:43
 
 ////////
@@ -57,7 +57,7 @@ impl SessionStateService {
     ////////
 
     /// # 2. [SERVICE] - 检查某用户是否在指定设备登录
-    /// * 多设备比对：先去 PG 查该设备是否有活跃 session
+    /// * 多设备比对：先去 PG 查该设备是否有活跃 service
     pub async fn check_device_active(user_id: i64, device_id: &str) -> Result<bool> {
         // Redis 快速检查(Set 成员判断)
         if let Ok(devices) = SessionCache::get_user_devices(user_id).await {

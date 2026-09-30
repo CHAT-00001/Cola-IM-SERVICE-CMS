@@ -1,4 +1,4 @@
-// port/src/fs/cdn/check.rs
+// port/src/fs/node/check.rs
 // ⏩️ 端口 - FS - CDN - 检查
 // 2026/8/5 00:00 Created.
 

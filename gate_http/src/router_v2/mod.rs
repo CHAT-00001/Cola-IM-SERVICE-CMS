@@ -1,12 +1,12 @@
-// router_v2/mod.rs  - HTTP网关 - v2 - mod
+// gate_http/src/router_v2/mod.rs  - HTTP网关 - v2 - mod
 // 2026-06-12 10:40
 
 //////
 
 pub mod auth;
+pub mod basic;
 pub mod dynamic;
-mod fs;
-pub mod gift;
+pub mod fs;
 pub mod gis;
 pub mod live;
 pub mod market;
@@ -39,6 +39,8 @@ pub fn boot_router_v2(cfg: &mut web::ServiceConfig, app_state: AppState) {
             .configure(dynamic::gateway::dynamic_router)
             // 文件存储
             .configure(fs::gateway::fs_router)
+            // 基础应用 / 节点 / 服务命令入口
+            .configure(basic::gateway::basic_router)
             // 动态
             .configure(gis::gateway::gis_router)
             // 聊天

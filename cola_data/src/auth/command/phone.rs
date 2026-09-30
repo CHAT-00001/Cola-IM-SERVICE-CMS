@@ -75,7 +75,7 @@ impl PhoneLoginCommand {
     /// * `desc`: 在记录登录日志时，不要打印完整的手机号或验证码
     pub fn to_log_info(&self) -> String {
         format!(
-            "platform: {}, device: {}, phone: {}***{}, ip: {}",
+            "platform: {}, node: {}, phone: {}***{}, ip: {}",
             self.platform,
             self.device_id,
             &self.phone_no[..3],

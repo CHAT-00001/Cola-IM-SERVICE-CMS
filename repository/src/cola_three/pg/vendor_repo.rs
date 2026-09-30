@@ -16,7 +16,7 @@ impl VendorRepo {
     /////////
 
     /// 1. #[REPOSITORY] - 插入或更新
-    /// * upsert: INSERT ... ON CONFLICT (code) DO UPDATE
+    /// * upsert: INSERT ... ON CONFLICT (app) DO UPDATE
     /// * 新建: add_time, upd_time, created_at, updated_at 都是当前时间
     /// * 更新: 仅 upd_time, updated_at 更新
     pub async fn upsert(
@@ -28,9 +28,9 @@ impl VendorRepo {
         let pool = pg_pool();
         let now = Utc::now().timestamp();
         let query = format!(
-            r#"INSERT INTO cola_three.vendor (code, name, name_zh, sort, status, owner, add_time, upd_time)
+            r#"INSERT INTO cola_three.vendor (app, name, name_zh, sort, status, owner, add_time, upd_time)
                VALUES ($1, $2, $2, $3, $4, 0, $5, $5)
-               ON CONFLICT (code) DO UPDATE SET name=$2, name_zh=$2, sort=$3, status=$4, upd_time=EXCLUDED.upd_time, updated_at=NOW()
+               ON CONFLICT (app) DO UPDATE SET name=$2, name_zh=$2, sort=$3, status=$4, upd_time=EXCLUDED.upd_time, updated_at=NOW()
                RETURNING {}"#,
             THREE_VENDOR_COLUMNS
         );
@@ -60,11 +60,11 @@ impl VendorRepo {
 
     ////////
 
-    /// 3. #[REPOSITORY] - 按 code 查询
+    /// 3. #[REPOSITORY] - 按 app 查询
     pub async fn find_by_code(code: &str) -> Result<Option<ThreeVendorEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM cola_three.vendor WHERE code = $1 LIMIT 1",
+            "SELECT {} FROM cola_three.vendor WHERE app = $1 LIMIT 1",
             THREE_VENDOR_COLUMNS
         );
         sqlx::query_as::<_, ThreeVendorEntity>(&query)

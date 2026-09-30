@@ -1,4 +1,4 @@
-// auth/src/api/session/view.rs  -- AUTH - 接口层 - 会话 - 浏览
+// auth/src/api/service/view.rs  -- AUTH - 接口层 - 会话 - 浏览
 // 2026/06/05 05:10
 
 ////////

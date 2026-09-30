@@ -6,6 +6,7 @@ extern crate core;
 
 ////////
 pub mod auth; // 可乐验证中心
+pub mod basic; // 基础
 pub mod cola_asset; // 可乐资产
 pub mod cola_finance; // 可乐财务
 pub mod cola_fs; // 可怜文件存储(公共)

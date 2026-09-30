@@ -11,6 +11,6 @@ pub struct UpsertBindingCommand {
     pub id: Option<i64>,
     pub three_config_id: i64,
     pub biz_module: String, // cola_video / user / cola_live / music
-    pub biz_type: String,   // cdn / sms / stream
+    pub biz_type: String,   // node / sms / stream
     pub status: i16,
 }

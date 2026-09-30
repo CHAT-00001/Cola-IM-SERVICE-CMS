@@ -1,9 +1,10 @@
-// repo_adapter\src\fs\cdn\config.rs -- 适配器 - FS - CDN - 配置管理
+// repo_adapter\src\fs\node\config.rs -- 适配器 - FS - CDN - 配置管理
 // 2026/8/16 Created.
 
 ////////
 
 use async_trait::async_trait;
+use cola_data::basic::command::core::node::{NodeCreateCmd, NodeUpdateCmd};
 use cola_data::cola_fs::command::cdn::{CreateCdnDomainCmd, UpdateCdnDomainCmd};
 use cola_data::cola_fs::info::cdn::CdnDomainInfo;
 use port::fs::cdn::config::CdnConfigPort;

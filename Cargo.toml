@@ -8,7 +8,7 @@ edition = "2024"
 
 #### 工作区
 [workspace]
-members = ["gate_http", "cola_video", "app", "cola_coc", "gate_grpc", "health", "cola_infra", "im", "repository", "cola_data", "cola_dynamic", "cola_gis", "kits", "cola_user", "cola_music", "cola_auth", "cola_live", "cola_fs", "cola_three", "repo_adapter", "service", "port", ]
+members = ["app", "gate_grpc", "gate_http", "cola_video",  "cola_aaaa", "cola_coc",  "health", "cola_infra", "im", "repository", "cola_data", "cola_dynamic", "cola_gis", "kits", "cola_user", "cola_music", "cola_auth", "cola_live", "cola_fs", "cola_three", "repo_adapter", "service", "port", ]
 
 [workspace.package]
 version = "0.1.0"
@@ -39,13 +39,14 @@ im = { path = "im" }
 
 # 业务模块
 cola_auth = { path = "cola_auth" }
+cola_aaaa = { path = "cola_aaaa" }
 cola_dynamic = { path = "cola_dynamic" }
 cola_live = { path = "cola_live" }
 cola_music = { path = "cola_music" }
 cola_video = { path = "cola_video" }
 cola_user = { path = "cola_user" }
 
-# 适配器层
+## 适配器层
 repo_adapter = { path = "./repo_adapter" }
 
 # 构建优化（发行版）

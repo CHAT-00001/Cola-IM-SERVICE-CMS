@@ -1,4 +1,4 @@
-// port/src/auth/session/check.rs
+// port/src/auth/service/check.rs
 // ⏩️ 端口 - AUTH - 会话 - 检查
 // 2026/8/5 00:00 Created.
 

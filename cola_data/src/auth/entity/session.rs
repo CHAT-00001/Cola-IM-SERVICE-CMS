@@ -1,4 +1,4 @@
-// cola_data/src/auth/entity/session.rs  -- 数据 - 认证中心 - handler - session
+// cola_data/src/auth/entity/service.rs  -- 数据 - 认证中心 - handler - service
 // 2026/5/23 07:45 by wx: cestbon10080
 
 ////////
@@ -10,7 +10,7 @@ use sqlx::FromRow;
 
 /// # [ENTITY] - 认证中心 - 会话
 /// * `pg schema`: `auth` - PG 模式
-/// * `table name`: `session` - 表名
+/// * `table name`: `service` - 表名
 /// * platform 字段在 DB 中是 INT NOT NULL，用 i16 对齐
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow, Default)]
 pub struct AuthSessionEntity {

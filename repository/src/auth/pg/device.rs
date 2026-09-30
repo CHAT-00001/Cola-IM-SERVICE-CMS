@@ -1,4 +1,4 @@
-// repository/src/auth/pg/device.rs
+// repository/src/auth/pg/node.rs
 // 仓储 - AUTH  - PG - 设备
 // 2026/5/26 07:55 by wx: cestbon10080
 

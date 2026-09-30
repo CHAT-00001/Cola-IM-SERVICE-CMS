@@ -1,4 +1,4 @@
-// repo_adapter/src/auth/session/del.rs -- 适配器 - AUTH - SESSION - 删除适配器
+// repo_adapter/src/auth/service/del.rs -- 适配器 - AUTH - SESSION - 删除适配器
 // 2026/8/6 19:12 Created.
 
 ////////

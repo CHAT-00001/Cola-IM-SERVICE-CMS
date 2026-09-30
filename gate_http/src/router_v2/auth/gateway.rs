@@ -230,8 +230,8 @@ async fn auth_gateway(
             .finish(&req, start)
         }
 
-        // // 4001 session
-        // "session.view" => {
+        // // 4001 service
+        // "service.view" => {
         //     let query = ApiGatewayRequest {
         //         uid: Some(uid),
         //         page: query.page,

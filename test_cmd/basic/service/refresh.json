@@ -1,0 +1,10 @@
+{
+    "action": 1,
+    "name": "session",
+    "service": "refresh_token",
+    "cmd": {
+        "refresh_token": "bbbb",
+        "device_id": "null",
+        "platform": "null"
+    }
+}

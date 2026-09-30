@@ -1,4 +1,4 @@
-// cola_auth/src/case/session/get.rs -- 验证中心 - case - 会话 - 获取编排
+// cola_auth/src/case/service/get.rs -- 验证中心 - case - 会话 - 获取编排
 // 2026/9/18 19:12 Created.
 
 ////////

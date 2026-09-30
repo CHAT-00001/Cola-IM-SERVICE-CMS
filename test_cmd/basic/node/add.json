@@ -1,0 +1,19 @@
+{
+    "gate": "1001",
+    "node": "cn-gz-04",
+    "service": "add_node",
+    "name": "code",
+    "action": 1004,
+    "auth": {
+        "access_token": "aaaa",
+        "client_id": "cccc"
+    },
+    "lang": "zh",
+    "cmd": {
+        "region_id": "区域ID",
+        "node_code": "SGR-01",
+        "node_sni": "0017",
+        "node_domain": "https://ap-sgr-01.xx.com",
+        "node_key": "add"
+    }
+}

@@ -88,7 +88,7 @@ async fn user_gateway(
         }
     };
     let mut query = url_req.merge(body_req);
-    // URL/body 中的 UID 均不可信，自助接口只使用 session 注入的身份。
+    // URL/body 中的 UID 均不可信，自助接口只使用 service 注入的身份。
     query.uid = Some(uid);
 
     let gateway_req = GatewayRequest {

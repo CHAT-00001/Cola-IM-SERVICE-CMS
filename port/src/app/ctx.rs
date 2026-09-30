@@ -1,9 +1,10 @@
-// port/src/ctx.rs -- 端口 - CTX 全局应用上下文
+// port/src/ctx.rs -- PORT - CTX 全局应用上下文
 // 2026/4/23 07:03
 
 ////////
 
 use crate::auth::AuthServicePorts;
+use crate::basic::ColaBasicPort;
 use crate::cola_coc::ColaCocPort;
 use crate::cola_gis::ColaGisPort;
 use crate::cola_im::ColaImPort;
@@ -23,8 +24,9 @@ use crate::wallet::WalletPort;
 #[derive(Clone)]
 pub struct AppContext {
     //pub api: AppServicePorts,
-    pub auth: AuthServicePorts, // IAM验证中心
-    pub coc: ColaCocPort,       // 内容运营中心
+    pub auth: AuthServicePorts,    // IAM验证中心
+    pub basic: ColaBasicPort, // 基础
+    pub coc: ColaCocPort,          // 内容运营中心
     // pub cola_dynamic: ColaDynamicPort,  // 动态
     pub fs: ColaFileStoagePort, // 文件存储
     pub gis: ColaGisPort,       // GIS
@@ -42,6 +44,7 @@ pub struct AppContext {
 impl AppContext {
     pub fn default(
         auth: AuthServicePorts,
+        basic: ColaBasicPort,
         coc: ColaCocPort,
         fs: ColaFileStoagePort,
         gis: ColaGisPort,
@@ -56,6 +59,7 @@ impl AppContext {
     ) -> Self {
         Self {
             auth,
+            basic,
             coc,
             fs,
             gis,
