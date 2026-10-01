@@ -71,12 +71,16 @@ impl VideoDanmakuAddService {
         offset: i64,
         limit: i64,
     ) -> Result<Vec<DanmakuInfo>, anyhow::Error> {
-        // 弹幕实体（⚠️ repo 入参顺序为 limit, offset，此处不可颠倒）
+        ////////
+
+        // 💡 - ENTITIES - 弹幕实体（⚠️ repo 入参顺序为 limit, offset，此处不可颠倒）
         let entities =
             DanmakuRepo::find_danmaku_by_video_id(video_id, play_time, time_window, limit, offset)
                 .await?;
 
-        // handler -> info
+        ////////
+
+        // 💡 - INFO - 数据转换
         let infos: Vec<DanmakuInfo> = entities.into_iter().map(DanmakuInfo::from_entity).collect();
 
         Ok(infos)

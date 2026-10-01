@@ -1,4 +1,4 @@
-// repo_adapter/src/basic/app/list.rs -- ADAPTER - BASIC - 应用 - 列表服务
+// repo_adapter/src/aaaa/app/list.rs -- ADAPTER - BASIC - 应用 - 列表服务
 // 2026/8/6 18:55 Created.
 
 ////////

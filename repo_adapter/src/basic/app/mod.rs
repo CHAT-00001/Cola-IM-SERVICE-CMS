@@ -1,4 +1,4 @@
-// repo_adapter/src/basic/app/mod.rs -- ADAPTER - BASIC - APP - mod
+// repo_adapter/src/aaaa/app/mod.rs -- ADAPTER - BASIC - APP - mod
 // 2026/4/8 10:20 Created.
 
 ////////

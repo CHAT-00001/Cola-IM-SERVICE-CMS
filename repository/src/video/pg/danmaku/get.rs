@@ -10,24 +10,6 @@ use sqlx::{self, Postgres, QueryBuilder};
 
 ////////
 
-// 局部辅助结构体：用来承接带有“动态计算距离”的数据库返回行
-#[derive(Debug, sqlx::FromRow)]
-pub struct VideoHomeRow {
-    #[sqlx(flatten)] // 自动把标准字段映射进 Entity
-    pub entity: DanmakuEntity,
-    #[sqlx(default)]
-    pub distance: Option<f64>, // 承接动态计算的距离
-}
-
-/// # 搜索排序规则枚举（新增：最新发布）
-#[derive(Debug, Clone, Copy)]
-pub enum SearchOrder {
-    Distance,  // 距离最近 (默认)
-    MostViews, // 播放量最多
-    MostLikes, // 点赞量最多
-    Latest,    // 最新发布
-}
-
 ////////
 
 /// # [GET REPO] - 视频弹幕获取仓储
@@ -110,6 +92,46 @@ impl DanmakuGetRepo {
 
     ////////
 
+    /// # 3. [REPOSITORY] -
+    /// * `desc`: `根据唯一 ID 查找单个视频详情`
+    pub async fn find_one_by_id(id: i64) -> Result<Option<DanmakuEntity>, sqlx::Error> {
+        let pool = pg_pool();
+        let query = format!(
+            "SELECT {} FROM new WHERE id = $1 AND status = 1 LIMIT 1",
+            VIDEO_DANMAKU_COLUMNS
+        );
+
+        sqlx::query_as::<_, DanmakuEntity>(&query)
+            .bind(id)
+            .fetch_optional(&pool)
+            .await
+    }
+
+    ////////
+
+    /// # 4. [REPOSITORY] - 批量查找弹幕
+    /// * `desc`: `根据 IDs 集合批量查找视频列表 (保持高性能)`
+    pub async fn find_all_by_ids(
+        ids: Vec<i64>, // 弹幕 IDs
+    ) -> Result<Vec<DanmakuEntity>, sqlx::Error> {
+        if ids.is_empty() {
+            return Ok(vec![]);
+        }
+
+        let pool = pg_pool();
+        let query = format!(
+            "SELECT {} FROM new WHERE id = ANY($1) AND status = 1",
+            VIDEO_DANMAKU_COLUMNS
+        );
+
+        sqlx::query_as::<_, DanmakuEntity>(&query)
+            .bind(ids)
+            .fetch_all(&pool)
+            .await
+    }
+
+    ////////
+
     /// # 5. [REPOSITORY] - 根据用户IDs查找对象
     /// * 关注的人/朋友/某个用户 复用
     pub async fn find_list_by_uids(
@@ -153,7 +175,7 @@ impl DanmakuGetRepo {
 
     ////////
 
-    /// # 2. [REPOSITORY] - 获取视频的热门弹幕
+    /// # 6. [REPOSITORY] - 获取视频的热门弹幕
     /// * `video_id`: 视频ID
     /// * `limit`: 返回数量限制
     /// * `offset`: 分页偏移量
@@ -186,36 +208,7 @@ impl DanmakuGetRepo {
 
     ////////
 
-    /// # 4. [REPOSITORY] - 附近(同城)
-    /// * 使用lat和lng参数
-    pub async fn find_nearby_list(
-        lat: f64,
-        lng: f64,
-        limit: i64,
-        offset: i64,
-    ) -> Result<Vec<VideoHomeRow>, sqlx::Error> {
-        let pool = pg_pool();
-        let query = format!(
-            "SELECT {}, SQRT(POW(lat - $1, 2) + POW(lng - $2, 2)) AS distance
-             FROM new
-             WHERE status = 1
-             ORDER BY distance ASC
-             LIMIT $3 OFFSET $4",
-            VIDEO_DANMAKU_COLUMNS
-        );
-
-        sqlx::query_as::<_, VideoHomeRow>(&query)
-            .bind(lat)
-            .bind(lng)
-            .bind(limit)
-            .bind(offset)
-            .fetch_all(&pool)
-            .await
-    }
-
-    ////////
-
-    /// # 5. [REPOSITORY] - 根据用户ID查找自己发布的弹幕
+    /// # 7. [REPOSITORY] - 根据用户ID查找自己发布的弹幕
     /// * `user_id`: 用户ID
     /// * `limit`: 返回数量限制
     /// * `offset`: 分页偏移量
@@ -247,7 +240,7 @@ impl DanmakuGetRepo {
 
     ////////
 
-    /// # 6. [REPOSITORY] - 精选
+    /// # 8. [REPOSITORY] - 精选
     pub async fn find_featured_list(
         limit: i64,
         offset: i64,
@@ -261,105 +254,6 @@ impl DanmakuGetRepo {
         sqlx::query_as::<_, DanmakuEntity>(&query)
             .bind(limit)
             .bind(offset)
-            .fetch_all(&pool)
-            .await
-    }
-
-    ////////
-
-    /// # 7. [REPOSITORY] - 搜索关键词 (超级强化版：时间筛选 + 多维可选排序 + 距离计算)
-    pub async fn search_keyword_list(
-        keyword: &str,
-        lat: f64,
-        lng: f64,
-        start_time: Option<i64>,
-        end_time: Option<i64>,
-        order_by: Option<SearchOrder>,
-        limit: i64,
-        offset: i64,
-    ) -> Result<Vec<VideoHomeRow>, sqlx::Error> {
-        let pool = pg_pool();
-        let mut sql = format!(
-            "SELECT {}, SQRT(POW(lat - $1, 2) + POW(lng - $2, 2)) AS distance FROM new WHERE status = 1",
-            VIDEO_DANMAKU_COLUMNS
-        );
-
-        let mut param_index = 3;
-
-        sql.push_str(&format!(" AND title LIKE ${}", param_index));
-        param_index += 1;
-
-        if start_time.is_some() {
-            sql.push_str(&format!(" AND addtime >= ${}", param_index));
-            param_index += 1;
-        }
-
-        if end_time.is_some() {
-            sql.push_str(&format!(" AND addtime <= ${}", param_index));
-            param_index += 1;
-        }
-
-        match order_by.unwrap_or(SearchOrder::Distance) {
-            SearchOrder::Distance => sql.push_str(" ORDER BY distance ASC"),
-            SearchOrder::MostViews => sql.push_str(" ORDER BY views DESC, distance ASC"),
-            SearchOrder::MostLikes => sql.push_str(" ORDER BY likes DESC, distance ASC"),
-            SearchOrder::Latest => sql.push_str(" ORDER BY addtime DESC, distance ASC"),
-        }
-
-        sql.push_str(&format!(
-            " LIMIT ${} OFFSET ${}",
-            param_index,
-            param_index + 1
-        ));
-
-        let keyword_like = format!("%{}%", keyword);
-        let mut query = sqlx::query_as::<_, VideoHomeRow>(&sql).bind(lat).bind(lng);
-
-        query = query.bind(&keyword_like);
-
-        if let Some(start) = start_time {
-            query = query.bind(start);
-        }
-
-        if let Some(end) = end_time {
-            query = query.bind(end);
-        }
-
-        query.bind(limit).bind(offset).fetch_all(&pool).await
-    }
-
-    ////////
-
-    /// # 8. [REPOSITORY] - 根据唯一 ID 查找单个视频详情
-    pub async fn find_by_id(id: i64) -> Result<Option<DanmakuEntity>, sqlx::Error> {
-        let pool = pg_pool();
-        let query = format!(
-            "SELECT {} FROM new WHERE id = $1 AND status = 1 LIMIT 1",
-            VIDEO_DANMAKU_COLUMNS
-        );
-
-        sqlx::query_as::<_, DanmakuEntity>(&query)
-            .bind(id)
-            .fetch_optional(&pool)
-            .await
-    }
-
-    ////////
-
-    /// # 9. [REPOSITORY] - 根据 IDs 集合批量查找视频列表 (保持高性能)
-    pub async fn find_by_ids(ids: &[i64]) -> Result<Vec<DanmakuEntity>, sqlx::Error> {
-        if ids.is_empty() {
-            return Ok(vec![]);
-        }
-
-        let pool = pg_pool();
-        let query = format!(
-            "SELECT {} FROM new WHERE id = ANY($1) AND status = 1",
-            VIDEO_DANMAKU_COLUMNS
-        );
-
-        sqlx::query_as::<_, DanmakuEntity>(&query)
-            .bind(ids)
             .fetch_all(&pool)
             .await
     }
@@ -445,65 +339,6 @@ impl DanmakuGetRepo {
         let result = sqlx::query(query).bind(user_id).execute(&pool).await?;
 
         Ok(result.rows_affected()) // 返回被删除的行数
-    }
-
-    ////////
-
-    /// # 12. [REPOSITORY] - 点赞/取消点赞弹幕
-    /// * `user_id`: 用户ID
-    /// * `danmaku_id`: 弹幕ID
-    /// * 如果用户已点赞则取消点赞（-1），未点赞则添加点赞（+1）
-    /// * 返回当前弹幕的最新点赞数
-    pub async fn update_like_danmaku(user_id: i64, danmaku_id: i64) -> Result<i64, sqlx::Error> {
-        let pool = pg_pool();
-        let mut tx = pool.begin().await?;
-
-        // 1. 检查用户是否已点赞该弹幕
-        let exists: Option<bool> = sqlx::query_scalar(
-            "SELECT EXISTS(SELECT 1 FROM cola_video.danmaku_like WHERE user_id = $1 AND danmaku_id = $2)"
-        )
-            .bind(user_id)
-            .bind(danmaku_id)
-            .fetch_one(&mut *tx)
-            .await?;
-
-        let delta = if exists == Some(true) {
-            // 已点赞：取消点赞（删除记录）
-            sqlx::query(
-                "DELETE FROM cola_video.danmaku_like WHERE user_id = $1 AND danmaku_id = $2",
-            )
-            .bind(user_id)
-            .bind(danmaku_id)
-            .execute(&mut *tx)
-            .await?;
-            -1
-        } else {
-            // 未点赞：添加点赞记录
-            sqlx::query(
-                "INSERT INTO cola_video.danmaku_like (user_id, danmaku_id) VALUES ($1, $2)",
-            )
-            .bind(user_id)
-            .bind(danmaku_id)
-            .execute(&mut *tx)
-            .await?;
-            1
-        };
-
-        // 2. 更新弹幕表的点赞数字段
-        let likes: i64 = sqlx::query_scalar(
-            "UPDATE cola_video.danmaku
-         SET likes = GREATEST(likes + $1, 0),
-             updated_at = NOW()
-         WHERE id = $2
-         RETURNING likes",
-        )
-        .bind(delta)
-        .bind(danmaku_id)
-        .fetch_one(&mut *tx)
-        .await?;
-
-        tx.commit().await?;
-        Ok(likes)
     }
 
     ////////

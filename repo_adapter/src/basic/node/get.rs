@@ -1,4 +1,4 @@
-// repo_adapter/src/basic/node/get.rs -- ADAPTER - BASIC - NODE - 获取适配器
+// repo_adapter/src/aaaa/node/get.rs -- ADAPTER - BASIC - NODE - 获取适配器
 // 2026/8/6 18:55 Created.
 
 ////////

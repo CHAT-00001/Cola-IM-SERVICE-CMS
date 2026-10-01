@@ -1,4 +1,4 @@
-// cola_data/src/basic/entity/core/node.rs  -- DATA - BASIC - entity - 核心 -节点表
+// cola_data/src/aaaa/entity/core/node.rs  -- DATA - BASIC - entity - 核心 -节点表
 // 2026/8/14 13:00 Created.
 
 ////////
@@ -10,8 +10,8 @@ use sqlx::FromRow;
 ////////
 
 /// # [ENTITY] - 基础 - 核心节点表
-/// * `pg schema`: `basic` -- PG 模式
-/// * `table name`: `core_node` -- 表名
+/// * `pg schema`: `cola_aaaa` -- PG 模式
+/// * `table name`: `node` -- 表名
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct NodeEntity {
     pub id: i64,                           // ID (自增 / 雪花)

@@ -1,4 +1,4 @@
-// repo_adapter/src/basic/node/del.rs -- ADAPTER - BASIC - NODE - 删除适配器
+// repo_adapter/src/aaaa/node/del.rs -- ADAPTER - BASIC - NODE - 删除适配器
 // 2026/8/6 19:12 Created.
 
 ////////

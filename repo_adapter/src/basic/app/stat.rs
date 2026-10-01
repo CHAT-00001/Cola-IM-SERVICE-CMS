@@ -1,4 +1,4 @@
-// repo_adapter/src/basic/app/stat.rs -- ADAPTER - BASIC - 应用 - 统计服务
+// repo_adapter/src/aaaa/app/stat.rs -- ADAPTER - BASIC - 应用 - 统计服务
 // 2026/8/6 19:18 Created.
 
 ////////

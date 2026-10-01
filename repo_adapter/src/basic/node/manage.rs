@@ -1,4 +1,4 @@
-// repo_adapter/src/basic/node/manage.rs -- ADAPTER - BASIC - NODE - 节点管理适配器
+// repo_adapter/src/aaaa/node/manage.rs -- ADAPTER - BASIC - NODE - 节点管理适配器
 // 2026/8/6 18:55 Created.
 
 ////////

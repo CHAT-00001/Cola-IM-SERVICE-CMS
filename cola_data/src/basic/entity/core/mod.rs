@@ -1,4 +1,4 @@
-// cola_data/src/basic/entity/core/mod.rs  -- DATA - BASIC - entity - core - mod
+// cola_data/src/aaaa/entity/core/mod.rs  -- DATA - BASIC - entity - core - mod
 // 2026/7/27 14:38
 
 ////////

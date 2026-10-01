@@ -1,4 +1,4 @@
-// cola_data/src/basic/command/upload.rs -- 数据 - FS - 通用 UGC 上传命令
+// cola_data/src/aaaa/command/upload.rs -- 数据 - FS - 通用 UGC 上传命令
 // 2026/8/17 Created.
 
 ////////

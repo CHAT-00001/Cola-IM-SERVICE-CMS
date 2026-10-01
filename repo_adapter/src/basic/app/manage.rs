@@ -1,4 +1,4 @@
-// repo_adapter/src/basic/app/manage.rs -- ADAPTER - BASIC - 应用 -管理
+// repo_adapter/src/aaaa/app/manage.rs -- ADAPTER - BASIC - 应用 -管理
 // 2026/8/6 18:55 Created.
 
 ////////

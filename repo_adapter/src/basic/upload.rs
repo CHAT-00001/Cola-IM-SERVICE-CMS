@@ -1,4 +1,4 @@
-// repo_adapter/src/basic/upload.rs -- 适配器 - BASIC - 通用上传
+// repo_adapter/src/aaaa/upload.rs -- 适配器 - BASIC - 通用上传
 // 2026/8/17 Created.
 
 ////////

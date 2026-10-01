@@ -1,4 +1,4 @@
-// basic/src/api/binding.rs -- BASIC - 接口层 - 应用绑定接口
+// aaaa/src/api/binding.rs -- BASIC - 接口层 - 应用绑定接口
 // 2026/09/30 11:30 Created.
 
 ////////
@@ -15,7 +15,7 @@ use port::app::ctx::AppContext;
 ////////
 
 /// # [API HANDLER] - 应用绑定
-/// * `desc`: `当前阶段使用 basic.app 表承载 app_id 与存储配置绑定`
+/// * `desc`: `当前阶段使用 aaaa.app 表承载 app_id 与存储配置绑定`
 pub struct BindingApi;
 
 impl BindingApi {

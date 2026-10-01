@@ -1,4 +1,4 @@
-// repository/src/basic/pg/node.rs  -- 仓储 - BASIC - PG - 节点仓储
+// repository/src/aaaa/pg/node.rs  -- 仓储 - BASIC - PG - 节点仓储
 // 2026/5/14 11:59 Created.
 
 ////////
@@ -27,7 +27,7 @@ impl NodeRepo {
 
         let query = format!(
             r#"
-            SELECT {} FROM basic.cdn_domain
+            SELECT {} FROM aaaa.cdn_domain
             WHERE id = $1 AND (is_deleted IS NOT TRUE)
             LIMIT 1
             "#,
@@ -72,7 +72,7 @@ impl NodeRepo {
 
         let query = format!(
             r#"
-            SELECT {} FROM basic.cdn_domain
+            SELECT {} FROM aaaa.cdn_domain
             WHERE app_id = $1
               AND is_enabled = true
               AND status = 1
@@ -126,7 +126,7 @@ impl NodeRepo {
 
         let query = format!(
             r#"
-            SELECT {} FROM basic.cdn_domain
+            SELECT {} FROM aaaa.cdn_domain
             WHERE app_id IS NOT DISTINCT FROM $1
               AND bucket_key = $2
               AND is_enabled = true
@@ -167,7 +167,7 @@ impl NodeRepo {
 
         let query = format!(
             r#"
-            INSERT INTO basic.cdn_domain (
+            INSERT INTO aaaa.cdn_domain (
                 _id, app_id, bucket_key, cdn_domain, provider,
                 is_https, is_enabled, auth_type, auth_key, status,
                 is_deleted, create_time, created_at, updated_at
@@ -207,7 +207,7 @@ impl NodeRepo {
         let now = Utc::now();
         let query = format!(
             r#"
-            UPDATE basic.cdn_domain
+            UPDATE aaaa.cdn_domain
             SET cdn_domain = COALESCE($1, cdn_domain),
                 provider = COALESCE($2, provider),
                 is_https = COALESCE($3, is_https),
@@ -247,7 +247,7 @@ impl NodeRepo {
         let now = Utc::now();
         let query = format!(
             r#"
-            UPDATE basic.cdn_domain
+            UPDATE aaaa.cdn_domain
             SET status = $1, is_enabled = ($1 = 1), updated_at = $2
             WHERE id = $3 AND (is_deleted IS NOT TRUE)
             RETURNING {}
@@ -276,7 +276,7 @@ impl NodeRepo {
         );
 
         let count_query = r#"
-            SELECT COUNT(*) FROM basic.cdn_domain
+            SELECT COUNT(*) FROM aaaa.cdn_domain
             WHERE ($1::text IS NULL OR app_id = $1)
         "#;
 
@@ -287,7 +287,7 @@ impl NodeRepo {
 
         let list_query = format!(
             r#"
-            SELECT {} FROM basic.cdn_domain
+            SELECT {} FROM aaaa.cdn_domain
             WHERE ($1::text IS NULL OR app_id = $1)
             ORDER BY id DESC
             LIMIT $2 OFFSET $3
@@ -319,7 +319,7 @@ impl NodeRepo {
         let now = Utc::now();
 
         let query = r#"
-            UPDATE basic.cdn_domain
+            UPDATE aaaa.cdn_domain
             SET is_deleted = true, deleted_at = $1, updated_at = $1
             WHERE id = $2 AND (is_deleted IS NOT TRUE)
         "#;

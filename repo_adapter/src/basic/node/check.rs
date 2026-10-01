@@ -1,4 +1,4 @@
-// repo_adapter/src/basic/node/check.rs -- ADAPTER - BASIC - NODE - 检查适配器
+// repo_adapter/src/aaaa/node/check.rs -- ADAPTER - BASIC - NODE - 检查适配器
 // 2026/8/9 20:48 Created.
 
 ////////

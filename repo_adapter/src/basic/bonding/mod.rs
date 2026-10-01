@@ -1,4 +1,4 @@
-// repo_adapter/src/basic/bonding/mod.rs -- ADAPTER - BASIC - bonding - mod
+// repo_adapter/src/aaaa/bonding/mod.rs -- ADAPTER - BASIC - bonding - mod
 // 2026/8/8 Created.
 
 ////////

@@ -10,8 +10,8 @@ use sqlx::FromRow;
 ////////
 
 /// # [ENTITY] - 基础设施 - 核心应用
-/// * `pg schema`: `basic`
-/// * `table name`: `core_app`
+/// * `pg schema`: `cola_aaaac`
+/// * `table name`: `app`
 #[derive(Debug, Clone, Default, Serialize, Deserialize, FromRow)]
 pub struct AppEntity {
     pub id: i64,

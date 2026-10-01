@@ -1,4 +1,4 @@
-// basic/src/case/mod.rs -- core - BASIC - case - mod
+// aaaa/src/case/mod.rs -- core - BASIC - case - mod
 // 2026-01-18 10:16
 
 ////////

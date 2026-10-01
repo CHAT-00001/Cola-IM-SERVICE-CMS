@@ -1,4 +1,4 @@
-// repo_adapter/src/basic/app/add.rs -- ADAPTER - BASIC - APP - 发布服务
+// repo_adapter/src/aaaa/app/add.rs -- ADAPTER - BASIC - APP - 发布服务
 // 2026/8/14 18:00 Created.
 
 ////////

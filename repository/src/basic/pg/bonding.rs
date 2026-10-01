@@ -34,7 +34,7 @@ impl FileRepo {
         let pool = pg_pool();
         let now = Utc::now();
         let query = format!(
-            r#"INSERT INTO basic.file (type_id, vendor_id, name, bucket, access_key, secret_key, endpoint, region, config_json, remark, status, created_at, updated_at)
+            r#"INSERT INTO aaaa.file (type_id, vendor_id, name, bucket, access_key, secret_key, endpoint, region, config_json, remark, status, created_at, updated_at)
                VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
                RETURNING {}"#,
             FS_FILE_COLUMNS
@@ -76,7 +76,7 @@ impl FileRepo {
     ) -> Result<FsFileEntity, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            r#"UPDATE basic.file SET type_id=$1, vendor_id=$2, name=$3, bucket=$4, access_key=$5, secret_key=$6, endpoint=$7, region=$8, config_json=$9, remark=$10, status=$11, updated_at=NOW()
+            r#"UPDATE aaaa.file SET type_id=$1, vendor_id=$2, name=$3, bucket=$4, access_key=$5, secret_key=$6, endpoint=$7, region=$8, config_json=$9, remark=$10, status=$11, updated_at=NOW()
                WHERE id=$12 RETURNING {}"#,
             FS_FILE_COLUMNS
         );
@@ -103,7 +103,7 @@ impl FileRepo {
     pub async fn list_by_type(type_id: i64) -> Result<Vec<FsFileEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM basic.file WHERE type_id = $1 ORDER BY id DESC",
+            "SELECT {} FROM aaaa.file WHERE type_id = $1 ORDER BY id DESC",
             FS_FILE_COLUMNS
         );
         sqlx::query_as::<_, FsFileEntity>(&query)
@@ -118,7 +118,7 @@ impl FileRepo {
     pub async fn find_by_id(id: i64) -> Result<Option<FsFileEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM basic.file WHERE id = $1 LIMIT 1",
+            "SELECT {} FROM aaaa.file WHERE id = $1 LIMIT 1",
             FS_FILE_COLUMNS
         );
         sqlx::query_as::<_, FsFileEntity>(&query)
@@ -133,7 +133,7 @@ impl FileRepo {
     pub async fn update_status(id: i64, status: i16) -> Result<Option<FsFileEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "UPDATE basic.file SET status=$1, updated_at=NOW() WHERE id=$2 RETURNING {}",
+            "UPDATE aaaa.file SET status=$1, updated_at=NOW() WHERE id=$2 RETURNING {}",
             FS_FILE_COLUMNS
         );
         sqlx::query_as::<_, FsFileEntity>(&query)
@@ -149,7 +149,7 @@ impl FileRepo {
     pub async fn list_all() -> Result<Vec<FsFileEntity>, sqlx::Error> {
         let pool = pg_pool();
         let query = format!(
-            "SELECT {} FROM basic.file ORDER BY id DESC",
+            "SELECT {} FROM aaaa.file ORDER BY id DESC",
             FS_FILE_COLUMNS
         );
         sqlx::query_as::<_, FsFileEntity>(&query)
@@ -163,7 +163,7 @@ impl FileRepo {
     pub async fn check_file_exists(file_id: i64) -> Result<bool, sqlx::Error> {
         let pool = pg_pool();
         let result =
-            sqlx::query_scalar::<_, i64>("SELECT COUNT(*) FROM basic.file WHERE id = $1")
+            sqlx::query_scalar::<_, i64>("SELECT COUNT(*) FROM aaaa.file WHERE id = $1")
                 .bind(file_id)
                 .fetch_one(&pool)
                 .await?;
@@ -176,7 +176,7 @@ impl FileRepo {
     pub async fn check_file_available(file_id: i64) -> Result<bool, sqlx::Error> {
         let pool = pg_pool();
         let result = sqlx::query_scalar::<_, i64>(
-            "SELECT COUNT(*) FROM basic.file WHERE id = $1 AND status = 1",
+            "SELECT COUNT(*) FROM aaaa.file WHERE id = $1 AND status = 1",
         )
         .bind(file_id)
         .fetch_one(&pool)
@@ -190,7 +190,7 @@ impl FileRepo {
     pub async fn check_file_owner(uid: i64, file_id: i64) -> Result<bool, sqlx::Error> {
         let pool = pg_pool();
         let result = sqlx::query_scalar::<_, i64>(
-            "SELECT COUNT(*) FROM basic.file WHERE id = $1 AND vendor_id = $2",
+            "SELECT COUNT(*) FROM aaaa.file WHERE id = $1 AND vendor_id = $2",
         )
         .bind(file_id)
         .bind(uid)

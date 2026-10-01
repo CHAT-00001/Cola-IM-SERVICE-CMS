@@ -1,4 +1,4 @@
-// repo_adapter/src/basic/app/check.rs -- ADAPTER - BASIC - 应用 - 检查服务
+// repo_adapter/src/aaaa/app/check.rs -- ADAPTER - BASIC - 应用 - 检查服务
 // 2026/8/9 20:48 Created.
 
 ////////

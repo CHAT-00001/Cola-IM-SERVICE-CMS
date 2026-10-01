@@ -1,4 +1,4 @@
-// cola_data/src/basic/vo/comment.rs -- DATA - BASIC - VO - 评论视图
+// cola_data/src/aaaa/vo/comment.rs -- DATA - BASIC - VO - 评论视图
 // 2026/8/8 14:05 Created.
 
 ////////

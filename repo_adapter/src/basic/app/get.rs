@@ -1,4 +1,4 @@
-// repo_adapter/src/basic/app/get.rs -- ADAPTER - BASIC - 应用 - 获取
+// repo_adapter/src/aaaa/app/get.rs -- ADAPTER - BASIC - 应用 - 获取
 // 2026/8/14 15:00 Updated.
 
 ////////

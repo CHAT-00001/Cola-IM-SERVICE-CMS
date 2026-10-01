@@ -1,4 +1,4 @@
-// repo_adapter/src/basic/mod.rs -- 适配器 - BASIC - mod
+// repo_adapter/src/aaaa/mod.rs -- 适配器 - BASIC - mod
 // 2026/5/10 20:00 Updated.
 
 ////////

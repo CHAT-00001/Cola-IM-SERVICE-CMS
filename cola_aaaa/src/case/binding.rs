@@ -1,4 +1,4 @@
-// basic/src/case/binding.rs -- BASIC - 用例层 - 应用绑定
+// aaaa/src/case/binding.rs -- BASIC - 用例层 - 应用绑定
 // 2026/09/30 11:30 Created.
 
 ////////

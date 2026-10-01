@@ -1,4 +1,4 @@
-// cola_data/src/basic/info/core/app.rs -- DATA - BASIC - info - 核心 - 应用信息
+// cola_data/src/aaaa/info/core/app.rs -- DATA - BASIC - info - 核心 - 应用信息
 // 2026/8/9 07:38 Created.
 
 ////////

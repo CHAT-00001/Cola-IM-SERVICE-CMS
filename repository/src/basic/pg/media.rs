@@ -24,7 +24,7 @@ impl MediaRepo {
     pub async fn find_by_id(pool: &PgPool, id: i64) -> Result<Option<MediaEntity>, sqlx::Error> {
         let query = format!(
             r#"
-            SELECT {} FROM basic.media
+            SELECT {} FROM aaaa.media
             WHERE id = $1 AND (is_deleted IS NOT TRUE)
             LIMIT 1
             "#,
@@ -48,7 +48,7 @@ impl MediaRepo {
 
         let query = format!(
             r#"
-            INSERT INTO basic.media (
+            INSERT INTO aaaa.media (
                 _id, app_id, media_type, status, cover_file_id,
                 main_file_id, aux_file_id, hls_playlist_url, variants_meta,
                 duration, width, height, is_deleted, create_time, created_at, updated_at
@@ -92,7 +92,7 @@ impl MediaRepo {
         let now = Utc::now();
 
         let query = r#"
-            UPDATE basic.media
+            UPDATE aaaa.media
             SET status = 1,
                 hls_playlist_url = COALESCE($1, hls_playlist_url),
                 variants_meta = COALESCE($2, variants_meta),
@@ -122,7 +122,7 @@ impl MediaRepo {
         offset: i64,
     ) -> Result<(Vec<MediaEntity>, i64), sqlx::Error> {
         let count_query = r#"
-            SELECT COUNT(*) FROM basic.media
+            SELECT COUNT(*) FROM aaaa.media
             WHERE ($1::text IS NULL OR app_id = $1)
               AND ($2::smallint IS NULL OR media_type = $2)
         "#;
@@ -135,7 +135,7 @@ impl MediaRepo {
 
         let list_query = format!(
             r#"
-            SELECT {} FROM basic.media
+            SELECT {} FROM aaaa.media
             WHERE ($1::text IS NULL OR app_id = $1)
               AND ($2::smallint IS NULL OR media_type = $2)
             ORDER BY id DESC
@@ -162,7 +162,7 @@ impl MediaRepo {
         let now = Utc::now();
 
         let query = r#"
-            UPDATE basic.media
+            UPDATE aaaa.media
             SET is_deleted = true, deleted_at = $1, updated_at = $1
             WHERE id = $2 AND (is_deleted IS NOT TRUE)
         "#;

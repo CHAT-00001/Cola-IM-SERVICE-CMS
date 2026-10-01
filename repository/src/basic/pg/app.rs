@@ -1,4 +1,4 @@
-// repository/src/basic/pg/app.rs  -- 仓储 - FS - PG - 应用仓储
+// repository/src/aaaa/pg/app.rs  -- 仓储 - FS - PG - 应用仓储
 // 2026/8/14 13:10
 
 ////////
@@ -7,6 +7,10 @@ use chrono::{DateTime, Utc};
 use cola_data::basic::command::core::app::AppCreateCmd;
 use cola_data::basic::entity::core::app::{APP_COLUMNS, AppEntity};
 use sqlx::PgPool;
+
+////////
+
+const TABLE_NAMA: &str = "cola_aaaa.app"; // 表名称
 
 ////////
 
@@ -23,7 +27,7 @@ impl AppRepo {
     pub async fn find_by_id(pool: &PgPool, id: i64) -> Result<Option<AppEntity>, sqlx::Error> {
         let query = format!(
             r#"
-            SELECT {} FROM basic.app
+            SELECT {} FROM cola_aaaa.app
             WHERE id = $1 AND (is_deleted IS NOT TRUE)
             LIMIT 1
             "#,
@@ -47,7 +51,7 @@ impl AppRepo {
     ) -> Result<Option<AppEntity>, sqlx::Error> {
         let query = format!(
             r#"
-            SELECT {} FROM basic.app
+            SELECT {} FROM cola_aaaa.app
             WHERE app_id = $1
               AND status = 1
               AND (is_deleted IS NOT TRUE)
@@ -74,7 +78,7 @@ impl AppRepo {
         let query = r#"
             SELECT EXISTS(
                 SELECT 1
-                FROM basic.app
+                FROM cola_aaaa.app
                 WHERE app_id = $1
                   AND ($2::BIGINT IS NULL OR id <> $2)
                   AND is_deleted IS NOT TRUE
@@ -98,7 +102,7 @@ impl AppRepo {
     ) -> Result<Option<AppEntity>, sqlx::Error> {
         let query = format!(
             r#"
-            SELECT {} FROM basic.app
+            SELECT {} FROM cola_aaaa.app
             WHERE app_id IS NOT DISTINCT FROM $1
               AND bucket = $2
               AND (is_deleted IS NOT TRUE)
@@ -123,7 +127,7 @@ impl AppRepo {
         let now = Utc::now();
         let query = format!(
             r#"
-            INSERT INTO basic.app (
+            INSERT INTO cola_aaaa.app (
                 _id, app_id, type_id, vendor_id, app_code, app_name, bucket, cdn_domain,
                 access_key, secret_key, endpoint, region, config_json,
                 remark, status, created_at, updated_at
@@ -166,7 +170,7 @@ impl AppRepo {
         let now = Utc::now();
 
         let query = r#"
-            UPDATE basic.app
+            UPDATE cola_aaaa.app
             SET is_deleted = true, deleted_at = $1, updated_at = $1
             WHERE id = $2 AND (is_deleted IS NOT TRUE)
         "#;
@@ -192,7 +196,7 @@ impl AppRepo {
 
         // 查询符合条件的总数
         let count_query = r#"
-            SELECT COUNT(*) FROM basic.app
+            SELECT COUNT(*) FROM cola_aaaa.app
             WHERE ($1::text IS NULL OR app_id = $1)
               AND ($2::text IS NULL OR app_name ILIKE $2 OR app_code ILIKE $2 OR bucket::text ILIKE $2)
         "#;
@@ -206,7 +210,7 @@ impl AppRepo {
         // 查询当前页数据
         let list_query = format!(
             r#"
-            SELECT {} FROM basic.app
+            SELECT {} FROM cola_aaaa.app
             WHERE ($1::text IS NULL OR app_id = $1)
               AND ($2::text IS NULL OR app_name ILIKE $2 OR app_code ILIKE $2 OR bucket::text ILIKE $2)
             ORDER BY id DESC
