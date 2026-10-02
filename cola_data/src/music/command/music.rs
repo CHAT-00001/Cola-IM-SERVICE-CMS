@@ -1,5 +1,5 @@
-// cola_data/src/music/command/music
-// 数据中心 - MUSIC - command - music 音乐
+// cola_data/src/music/cmd/music
+// 数据中心 - MUSIC - cmd - music 音乐
 // 2026/5/22 16:28 Created.
 
 ////////

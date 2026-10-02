@@ -1,4 +1,4 @@
-// cola_data/src/cola_im/command/message.rs  -- IM - Command - 消息
+// cola_data/src/cola_im/cmd/message.rs  -- IM - Command - 消息
 // 2026-07-07
 
 //////

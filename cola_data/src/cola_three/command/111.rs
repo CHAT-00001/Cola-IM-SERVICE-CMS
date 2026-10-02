@@ -1,4 +1,4 @@
-// cola_data/src/cola_three/command/111  -- 第三方服务分类 命令
+// cola_data/src/cola_three/cmd/111  -- 第三方服务分类 命令
 // 2026/7/27
 
 use serde::{Deserialize, Serialize};

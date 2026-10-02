@@ -1,4 +1,4 @@
-// gate_http/src/router_v2/aaaa/gateway.rs -- HTTP 网关 - BASIC - 基础管理业务网关
+// gate_http/src/router_v2/aaaa/endpoint -- HTTP 网关 - BASIC - 基础管理业务网关
 // 2026/09/30 10:30 Created.
 
 ////////

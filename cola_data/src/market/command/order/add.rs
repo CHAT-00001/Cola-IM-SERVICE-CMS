@@ -1,5 +1,5 @@
-// market/command/order/add.rs
-// 数据中心 - MARKET - command - 订单 发布
+// market/cmd/order/add.rs
+// 数据中心 - MARKET - cmd - 订单 发布
 // 2026/8/3 22:34 Created.
 
 ////////

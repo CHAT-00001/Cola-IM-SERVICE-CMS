@@ -1,4 +1,4 @@
-// gate_http/src/v2/auth/gateway.rs  --  HTTP网关 -  验证中心 - 业务网关
+// gate_http/src/v2/auth/endpoint  --  HTTP网关 -  验证中心 - 业务网关
 // 2026/6/18 09:26
 
 ////////

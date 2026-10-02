@@ -1,4 +1,4 @@
-// cola_data/src/cola_three/command/stream.rs  -- THREE - 直播推流配置命令
+// cola_data/src/cola_three/cmd/stream.rs  -- THREE - 直播推流配置命令
 // 2026/6/30 03:47
 
 ////////

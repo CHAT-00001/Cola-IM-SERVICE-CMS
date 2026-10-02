@@ -1,4 +1,4 @@
-// cola_data/src/cola_video/command/video/mod.rs -- VIDEO - command - video - music
+// cola_data/src/cola_video/cmd/video/mod.rs -- VIDEO - cmd - video - music
 // 2026/8/1 18:17
 
 ////////

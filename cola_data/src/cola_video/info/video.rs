@@ -12,44 +12,42 @@ use serde::{Deserialize, Serialize};
 ////////
 
 /// # [INFO] - 视频 - 视频信息
-/// * `desc`: `安全的视频元信息`
+/// * `DESC`: `SAFE VIDEO INFOS - (CACHE LAYER)`
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct VideoInfo {
-    pub id: i64,                       // 视频 ID
-    pub _id: Option<String>,           // UUID v4
-    pub uid: i64,                      // 用户 ID
-    pub category_id: Option<i16>,      // 分类 ID
-    pub channel_id: Option<i16>,       // 频道 ID
-    pub title: String,                 // 标题
-    pub description: Option<String>,   // 描述
-    pub thumb: String,                 // 封面(旧版)
-    pub thumbnail: Option<String>,     // 封面 2
-    pub cover_media: Option<i64>,      // 封面媒体(新版)
-    pub video_media: Option<Vec<i64>>, // 视频媒体(新版)
-    pub href: String,                  // 视频url (旧版)
-    pub original_url: Option<String>,  // 视频原始url
-    pub is_4k: i16,                    // 是否4k
-    pub tags: Option<Vec<String>>,     // 标签
-    pub duration: Option<String>,      // 时长
-    pub width: Option<i16>,            // 帧宽度
-    pub height: Option<i16>,           // 帧高度
-    pub fps: Option<i16>,              // 帧数
-    pub length: Option<i32>,           // 时长(ms)
-    pub views: i32,                    // 浏览量
-    pub done_views: Option<i32>,       // 完成播放数量
-    pub likes: i32,                    // 点赞量
-    pub dislike: i32,                  // 被踩数量
-    pub collects: i32,                 // 收藏量
-    pub comments: i32,                 // 评论数量
-    pub danmakus: i32,                 // 弹幕数量
-    pub shares: i32,                   // 分享数量
-    // -- perm
-    pub visibility_perm: i16, // 可见权限
-    pub comment_perm: i16,    // 评论权限
-    pub danmaku_perm: i16,    // 弹幕权限
-    pub collect_perm: i16,    // 收藏权限
-    pub download_perm: i16,   // 下载权限
-    // -- time
+    pub id: i64,                           // 视频 ID
+    pub _id: Option<String>,               // UUID v4
+    pub uid: i64,                          // 用户 ID
+    pub category_id: Option<i16>,          // 分类 ID
+    pub channel_id: Option<i16>,           // 频道 ID
+    pub title: String,                     // 标题
+    pub description: Option<String>,       // 描述
+    pub thumb: String,                     // 封面(旧版)
+    pub thumbnail: Option<String>,         // 封面 2
+    pub cover_media: Option<i64>,          // 封面媒体(新版)
+    pub video_media: Option<Vec<i64>>,     // 视频媒体(新版)
+    pub href: String,                      // 视频url (旧版)
+    pub original_url: Option<String>,      // 视频原始url
+    pub is_4k: i16,                        // 是否4k
+    pub tags: Option<Vec<String>>,         // 标签
+    pub duration: Option<String>,          // 时长
+    pub width: Option<i16>,                // 帧宽度
+    pub height: Option<i16>,               // 帧高度
+    pub fps: Option<i16>,                  // 帧数
+    pub length: Option<i32>,               // 时长(ms)
+    pub views: i32,                        // 浏览量
+    pub done_views: Option<i32>,           // 完成播放数量
+    pub likes: i32,                        // 点赞量
+    pub dislike: i32,                      // 被踩数量
+    pub collects: i32,                     // 收藏量
+    pub comments: i32,                     // 评论数量
+    pub danmakus: i32,                     // 弹幕数量
+    pub shares: i32,                       // 分享数量
+    pub visibility_perm: i16,              // 可见权限
+    pub comment_perm: i16,                 // 评论权限
+    pub danmaku_perm: i16,                 // 弹幕权限
+    pub collect_perm: i16,                 // 收藏权限
+    pub download_perm: i16,                // 下载权限
     pub add_time: i64,                     // 发布时间 (兼容旧版PHP)
     pub created_at: Option<DateTime<Utc>>, // 创建时间
 }
@@ -150,6 +148,7 @@ impl VideoInfo {
 ////////
 
 /// # [RESPONSE] - 单视频响应
+/// * `DESC`: `THE VIDEO SINGLE RESPONSE.`
 #[derive(Debug, Serialize)]
 pub struct VideoSingleResponse {
     pub info: VideoVo, // 吐给前端完美的、组装好的 VO 列表
@@ -158,6 +157,7 @@ pub struct VideoSingleResponse {
 ////////
 
 /// # [RESPONSE] - 多视频响应
+/// * `DESC`: `THE VIDEOS LIST RESPONSE.`
 #[derive(Debug, Serialize)]
 pub struct VideoListResponse {
     pub list: Vec<VideoVo>, // 吐给前端完美的、组装好的 VO 列表
@@ -175,6 +175,7 @@ impl VideoListResponse {
     }
 }
 
+// 默认实现
 impl Default for VideoListResponse {
     fn default() -> Self {
         Self::empty()

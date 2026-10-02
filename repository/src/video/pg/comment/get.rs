@@ -4,7 +4,7 @@
 // ////////
 //
 // use anyhow::Error;
-// use cola_data::cola_video::command::file::CommentCommand;
+// use cola_data::cola_video::cmd::file::CommentCommand;
 // use cola_data::cola_video::entity::video::video::VideoEntity;
 // use cola_data::cola_video::info::file::CommentInfo;
 // use tracing::log;

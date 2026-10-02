@@ -1,4 +1,4 @@
-// gate_http/router_v2/video/gateway.rs -- HTTP网关 - VIDEO - 业务网关
+// gate_http/router_v2/video/endpoint -- HTTP网关 - VIDEO - 业务网关
 // 2026/6/13 10:21
 
 ////////

@@ -1,5 +1,5 @@
-// cola_data/src/cola_three/command/binding.rs
-// 数据 - 第三方 - command - 服务绑定
+// cola_data/src/cola_three/cmd/binding.rs
+// 数据 - 第三方 - cmd - 服务绑定
 // 2026/6/18 16:40
 
 ////////

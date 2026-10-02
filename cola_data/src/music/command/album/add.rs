@@ -1,5 +1,5 @@
-// cola_data/src/music/command/album.rs
-// 数据中心 - MUSIC - command - new 新建
+// cola_data/src/music/cmd/album.rs
+// 数据中心 - MUSIC - cmd - new 新建
 // 2026/8/3 21:46 Created.
 
 ////////

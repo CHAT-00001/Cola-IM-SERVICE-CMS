@@ -1,4 +1,4 @@
-// data/src/gateway/command/message.rs  -- 数据中心 - GATEWAY - command - message.rs
+// data/src/gateway/cmd/message.rs  -- 数据中心 - GATEWAY - cmd - message.rs
 // 2026/7/22 01:58
 
 ////////

@@ -1,4 +1,4 @@
-//  cola_data/src/cola_video/command/worker/person.rs -- 数据 - COC - command - 工作人员 - 人员
+//  cola_data/src/cola_video/cmd/worker/person.rs -- 数据 - COC - cmd - 工作人员 - 人员
 // 2026/9/1 05:31 Created.
 
 ////////

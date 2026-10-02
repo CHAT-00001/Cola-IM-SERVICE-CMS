@@ -1,4 +1,4 @@
-// cola_data/src/cola_im/command/chat.rs  -- 数据中心 - IM - Command - 聊天
+// cola_data/src/cola_im/cmd/chat.rs  -- 数据中心 - IM - Command - 聊天
 // 2026-07-07
 
 ////////

@@ -1,4 +1,4 @@
-// http/src/router_v2/cola_dynamic/gateway.rs  -- HTTP - V2 - 动态 - 网关
+// http/src/router_v2/cola_dynamic/endpoint  -- HTTP - V2 - 动态 - 网关
 // 2026/6/18 09:48
 
 ////////

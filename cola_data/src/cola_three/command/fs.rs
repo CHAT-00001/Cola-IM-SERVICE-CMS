@@ -1,4 +1,4 @@
-// cola_data/src/cola_three/command/cola_fs.rs -- THREE - 配置命令
+// cola_data/src/cola_three/cmd/cola_fs.rs -- THREE - 配置命令
 // 2026/6/30 03:47
 
 ////////

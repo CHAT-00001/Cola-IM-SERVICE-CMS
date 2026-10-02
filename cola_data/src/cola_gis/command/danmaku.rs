@@ -1,4 +1,4 @@
-// cola_data/src/cola_gis/command/danmaku.rs  -- 数据中心 - GIS - command - 弹幕
+// cola_data/src/cola_gis/cmd/danmaku.rs  -- 数据中心 - GIS - cmd - 弹幕
 // 2026/5/19 22:13 by wx: cestbon10080
 
 ////////

@@ -1,4 +1,4 @@
-// cola_data/src/cola_im/command/buy.rs
+// cola_data/src/cola_im/cmd/buy.rs
 // 🗄️ 数据 - ✉️ 可乐IM - Command - 购买
 // 2026/5/22 20:51 by wx: cestbon10080
 

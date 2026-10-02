@@ -1,4 +1,4 @@
-﻿// cola_data/src/cola_gis/command/add  -- 可乐数据中心 - GIS - Command - 分享
+﻿// cola_data/src/cola_gis/cmd/add  -- 可乐数据中心 - GIS - Command - 分享
 // 2026/5/22 20:45 by wx: cestbon10080
 
 ////////

@@ -1,4 +1,4 @@
-// cola_data/src/cola_three/command/pay.rs  -- THREE - 第三方支付配置命令
+// cola_data/src/cola_three/cmd/pay.rs  -- THREE - 第三方支付配置命令
 // 2026/6/30 04:01
 
 ////////

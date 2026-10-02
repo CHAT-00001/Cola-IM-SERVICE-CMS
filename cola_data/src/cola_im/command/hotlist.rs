@@ -1,5 +1,5 @@
-// cola_data/src/cola_im/command/hotlist.rs
-// 🗄️ 数据 - ▶ 可乐IM -command - 上热门命令
+// cola_data/src/cola_im/cmd/hotlist.rs
+// 🗄️ 数据 - ▶ 可乐IM -cmd - 上热门命令
 // 2026/5/22 20:45 by wx: cestbon10080
 
 ////////

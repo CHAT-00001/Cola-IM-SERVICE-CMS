@@ -1,4 +1,4 @@
-// cola_data/src/new/command/new.rs  -- 数据中心 - VIDEO - Command  - 发布视频
+// cola_data/src/new/cmd/new.rs  -- 数据中心 - VIDEO - Command  - 发布视频
 // 2026/5/19 21:28 by wx: cestbon10080
 
 ////////

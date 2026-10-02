@@ -1,4 +1,4 @@
-// cola_data/src/im/command/report.rs  -- 数据 - 可乐IM - Command - 举报 - mod
+// cola_data/src/im/cmd/report.rs  -- 数据 - 可乐IM - Command - 举报 - mod
 // 2026/5/22 20:45 by wx: cestbon10080
 
 ////////

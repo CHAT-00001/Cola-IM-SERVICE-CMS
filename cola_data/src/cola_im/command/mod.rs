@@ -1,4 +1,4 @@
-// cola_data/src/im/command/mod.rs -- DATA - IM - command - mod
+// cola_data/src/im/cmd/mod.rs -- DATA - IM - cmd - mod
 // 2026-07-18 10:25
 
 ////////

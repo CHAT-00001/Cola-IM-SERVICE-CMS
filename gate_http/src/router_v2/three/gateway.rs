@@ -1,4 +1,4 @@
-// gate_http/src/router_v2/cola_three/gateway.rs  -- 第三方服务 网关
+// gate_http/src/router_v2/cola_three/endpoint  -- 第三方服务 网关
 // 2026/7/27 11:40
 
 ////////

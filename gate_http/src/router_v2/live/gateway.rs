@@ -1,4 +1,4 @@
-// gate_http/router_v2/cola_live/gateway.rs  -- cola_live gate
+// gate_http/router_v2/cola_live/endpoint  -- cola_live gate
 // 2026/6/13 10:21
 
 ////////

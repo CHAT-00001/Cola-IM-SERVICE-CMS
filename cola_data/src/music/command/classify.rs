@@ -1,4 +1,4 @@
-// cola_data/src/music/command/classify.rs  -- 数据中心 - MUSIC - command - 分类
+// cola_data/src/music/cmd/classify.rs  -- 数据中心 - MUSIC - cmd - 分类
 // 2026/7/7 13:08
 
 ////////

@@ -4,8 +4,8 @@
 ////////
 
 use chrono::{DateTime, Utc};
-use cola_data::basic::command::core::app::AppCreateCmd;
-use cola_data::basic::entity::core::app::{APP_COLUMNS, AppEntity};
+use cola_data::aaaa::command::core::app::AppCreateCmd;
+use cola_data::aaaa::entity::core::app::{APP_COLUMNS, AppEntity};
 use sqlx::PgPool;
 
 ////////

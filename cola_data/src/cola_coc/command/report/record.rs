@@ -1,4 +1,4 @@
-// cola_data/src/coc/command/report/record.rs -- 数据 - COC - Command - 举报 - 记录命令
+// cola_data/src/coc/cmd/report/record.rs -- 数据 - COC - Command - 举报 - 记录命令
 // 2026/9/1 05:28 Created.
 
 ////////

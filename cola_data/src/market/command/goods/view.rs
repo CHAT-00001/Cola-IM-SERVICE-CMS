@@ -1,5 +1,5 @@
-// data/src/market/command/goods/view.rs
-// data - MARKET - command - 商品 - 浏览记录指令
+// data/src/market/cmd/goods/view.rs
+// data - MARKET - cmd - 商品 - 浏览记录指令
 // 2026/8/11 22:08 Created.
 
 ////////

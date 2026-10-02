@@ -1,4 +1,4 @@
-// cola_data/src/user/command/vip.rs -- 数据 - USER - command - VIP 充值命令
+// cola_data/src/user/cmd/vip.rs -- 数据 - USER - cmd - VIP 充值命令
 // 2026/8/6 Created.
 
 ////////

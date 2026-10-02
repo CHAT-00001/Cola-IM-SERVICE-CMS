@@ -5,10 +5,10 @@
 
 extern crate core;
 
-pub mod aggregate; // 集合
+pub mod mall; // 集合
 pub mod app; // 应用数据
 pub mod auth; // 验证中心
-pub mod basic; // 基础
+pub mod aaaa; // 基础
 pub mod cola_coc; // 内容运营中心
 pub mod cola_dynamic; // 即时动态
 pub mod cola_fs; // 文件存储

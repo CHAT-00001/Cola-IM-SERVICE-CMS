@@ -1,4 +1,4 @@
-// cola_data/src/cola_live/command/mod.rs  - 数据 - LIVE - command - mod
+// cola_data/src/cola_live/cmd/mod.rs  - 数据 - LIVE - cmd - mod
 // 2026/5/22 14:32
 
 ////////

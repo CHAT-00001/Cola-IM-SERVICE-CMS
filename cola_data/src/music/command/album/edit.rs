@@ -1,5 +1,5 @@
-// cola_data/src/music/command/album/edit.rs
-// 数据中心 - MUSIC - command - 编辑专辑
+// cola_data/src/music/cmd/album/edit.rs
+// 数据中心 - MUSIC - cmd - 编辑专辑
 // 2026/8/3 21:46 Created.
 
 ////////

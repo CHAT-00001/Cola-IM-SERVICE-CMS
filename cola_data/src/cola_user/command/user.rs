@@ -1,4 +1,4 @@
-// cola_data/src/user/command/user.rs -- 数据 - USER- command - 用户 - mod
+// cola_data/src/user/cmd/user.rs -- 数据 - USER- cmd - 用户 - mod
 // 2026/8/4 02:05 Created.
 
 ////////

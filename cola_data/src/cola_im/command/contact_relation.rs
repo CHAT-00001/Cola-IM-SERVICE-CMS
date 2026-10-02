@@ -1,4 +1,4 @@
-// cola_data/src/cola_im/command/contact_relation.rs  -- IM - Command - 联系人关系
+// cola_data/src/cola_im/cmd/contact_relation.rs  -- IM - Command - 联系人关系
 // 2026-07-07
 
 //////

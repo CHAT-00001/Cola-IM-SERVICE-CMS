@@ -1,4 +1,4 @@
-// cola_video/src/case/home2  -- VIDEO - 用例层 - home
+// cola_video/src/case/home.rs  -- VIDEO - 用例层 - home用例
 // 2026-06-11 08:10
 
 ////////
@@ -11,13 +11,15 @@ use cola_data::cola_user::info::config::UserConfigInfo;
 use cola_data::cola_video::info::video::VideoListResponse;
 use port::app::ctx::AppContext;
 use service::cola_video::video::list::VideoListService;
+
 ////////
 
-/// # [HOME CASE] - 主页 用例
+/// # [HOME CASE] - 视频主页用例编排
+/// * `desc`: `COLA VIDEO - User Case Ep`
 pub struct HomeCase;
 
 impl HomeCase {
-    ////////
+    /// 💡 - 所有CASE
 
     ////////
 
@@ -27,9 +29,21 @@ impl HomeCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> Result<VideoListResponse> {
+        // 🚧 - CASE - 开始编排
+
+        ////////
+
+        // 💡 - CDN - 域名
         let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
+
+        ////////
+
+        // 💡 - INFOS - 视频信息
         let video_infos = VideoListService::find_new_video_list(url.limit, url.offset).await?;
 
+        ////////
+
+        // 💡 - RESPONSE - 响应组装
         let response = build_video_list_response_with_cdn(
             video_infos,
             Some(uid),
@@ -40,6 +54,9 @@ impl HomeCase {
         )
         .await?;
 
+        ////////
+
+        // ✅️ - Ok
         Ok(response)
     }
 
@@ -51,9 +68,21 @@ impl HomeCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> Result<VideoListResponse> {
+        // 🚧 - CASE - 开始编排
+
+        ////////
+
+        // 💡 - CDN - 域名
         let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
+
+        ////////
+
+        // 💡 - INFOS - 视频信息
         let video_infos = VideoListService::find_hot_video_list(url.limit, url.offset).await?;
 
+        ////////
+
+        // 💡 - RESPONSE - 响应组装
         let response = build_video_list_response_with_cdn(
             video_infos,
             url.uid,
@@ -64,6 +93,9 @@ impl HomeCase {
         )
         .await?;
 
+        ////////
+
+        // ✅️ - Ok
         Ok(response)
     }
 
@@ -75,10 +107,22 @@ impl HomeCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> Result<VideoListResponse> {
+        // 🚧 - 开始编排
+
+        ////////
+
+        // 💡 - CDN - 域名
         let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
+
+        ////////
+
+        // 💡 - INFOS - 视频信息
         let video_infos =
             VideoListService::find_recommend_video_list(url.limit, url.offset).await?;
 
+        ////////
+
+        // 💡 - RESPONSE - 响应组装
         let response = build_video_list_response_with_cdn(
             video_infos,
             url.uid,
@@ -89,6 +133,9 @@ impl HomeCase {
         )
         .await?;
 
+        ////////
+
+        // ✅️ Ok
         Ok(response)
     }
 
@@ -100,14 +147,26 @@ impl HomeCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> Result<VideoListResponse> {
+        // 🚧 - 开始编排
+
+        ////////
+
+        // 💡 - CDN - 域名
         let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
+
+        // 💡 - PARMAES - 参数
         let lat = url.lat.unwrap_or(-4.4150144);
         let lng = url.lng.unwrap_or(114.016487);
 
-        // 🌟 已修正：下层直接返回 info，去掉多余转换逻辑
+        ////////
+
+        // 💡 - INFOS - 视频信息
         let video_infos =
             VideoListService::find_city_video_list(lat, lng, url.limit, url.offset).await?;
 
+        ////////
+
+        // 💡 - RESPONSE - 响应组装
         let response = build_video_list_response_with_cdn(
             video_infos,
             url.uid,
@@ -118,8 +177,13 @@ impl HomeCase {
         )
         .await?;
 
+        ////////
+
+        // ✅️ - Ok
         Ok(response)
     }
+
+    ////////
 
     /// # 6. [CASE] - 分类
     pub async fn case_get_category_list(
@@ -127,6 +191,11 @@ impl HomeCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> Result<VideoListResponse> {
+        //  🚧 - 开始编排
+
+        ////////
+
+        // 💡 - CDN - 域名
         let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
         let lat = url.lat.unwrap_or(-4.4150144);
         let lng = url.lng.unwrap_or(114.016487);
@@ -156,14 +225,24 @@ impl HomeCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> Result<VideoListResponse> {
+        // 🚧 - 开始编排
+
+        ////////
+
+        // 💡 - CDN - 域名
         let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
         let lat = url.lat.unwrap_or(-4.4150144);
         let lng = url.lng.unwrap_or(114.016487);
 
-        // 🌟 已修正：直接一步到位拿到 video_infos
+        ////////
+
+        // 💡 - INFOS - 视频信息
         let video_infos =
             VideoListService::find_city_video_list(lat, lng, url.limit, url.offset).await?;
 
+        ////////
+
+        // 💡 - RESPONSE - 响应组装
         let response = build_video_list_response_with_cdn(
             video_infos,
             url.uid,
@@ -174,10 +253,13 @@ impl HomeCase {
         )
         .await?;
 
+        ////////
+
+        // ✅️ - Ok
         Ok(response)
     }
 
-    //////
+    ////////
 
     /// # 8. [CASE] - 精选
     pub async fn case_get_featured_list(
@@ -185,9 +267,21 @@ impl HomeCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> Result<VideoListResponse> {
+        // 🚧 - CASE - 开始编排
+
+        ////////
+
+        // 💡 - CDN - 域名
         let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
+
+        ////////
+
+        // 💡 - INFOS - CTX
         let video_infos = VideoListService::find_featured_video_list(url.limit, url.offset).await?;
 
+        ////////
+
+        // 💡 - RESPONSE
         let response = build_video_list_response_with_cdn(
             video_infos,
             url.uid,
@@ -198,8 +292,11 @@ impl HomeCase {
         )
         .await?;
 
+        // ✅️ - Ok
         Ok(response)
     }
+
+    ////////
 
     /// # 9. [CASE] - 搜索
     pub async fn case_get_keyword_list(
@@ -207,11 +304,16 @@ impl HomeCase {
         url: ApiGatewayRequest,
         ctx: &AppContext,
     ) -> Result<VideoListResponse> {
+        // 🚧 - CASE - 开始编排
+
+        ////////
+
+        // 💡 - CDN - CTX
         let cdn_domain = resolve_video_cdn_domain(ctx, "short-video").await?;
         let lat = url.lat.unwrap_or(-4.4150144);
         let lng = url.lng.unwrap_or(114.016487);
 
-        // 🌟 已修正：去掉底层的 Row 解构，直接接收干净的 video_infos
+        // 💡 - INFOS - CTX
         let video_infos = VideoListService::search_video_keyword_list(
             url.keyword,
             lat,
@@ -221,6 +323,9 @@ impl HomeCase {
         )
         .await?;
 
+        ////////
+
+        // 💡 - RESPONSE - 响应组装
         let response = build_video_list_response_with_cdn(
             video_infos,
             url.uid,
@@ -231,6 +336,11 @@ impl HomeCase {
         )
         .await?;
 
+        ////////
+
+        // ✅ - OK
         Ok(response)
     }
 }
+
+//////// END

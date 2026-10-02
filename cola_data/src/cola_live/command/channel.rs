@@ -1,4 +1,4 @@
-// cola_live/command/channel.rs  -- LIVE - command - 频道
+// cola_live/cmd/channel.rs  -- LIVE - cmd - 频道
 // 2026/6/13 08:56
 
 ////////

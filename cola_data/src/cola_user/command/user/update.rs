@@ -1,4 +1,4 @@
-// data/src/user/command/user/update.rs -- 用户资料 - 更新
+// data/src/user/cmd/user/update.rs -- 用户资料 - 更新
 // 2026/5/14 10:20
 
 ////////

@@ -1,4 +1,4 @@
-// cola_data/src/coc/command/hotlist/record.rs -- 数据 - COC - command - 上热门 - 记录命令
+// cola_data/src/coc/cmd/hotlist/record.rs -- 数据 - COC - cmd - 上热门 - 记录命令
 // 2026/9/1 05:24 Created.
 
 ////////

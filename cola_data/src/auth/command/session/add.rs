@@ -1,4 +1,4 @@
-// cola_data/src/auth/command/service/add.rs  -- 数据 - AUTH - Command - service - 发布命令
+// cola_data/src/auth/cmd/service/add.rs  -- 数据 - AUTH - Command - service - 发布命令
 // 2026/06/05 06:50
 
 ////////

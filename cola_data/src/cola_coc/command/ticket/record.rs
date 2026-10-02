@@ -1,4 +1,4 @@
-// cola_data/src/coc/command/ticket/record.rs -- 数据 - COC - Command - 工单 - 记录命令
+// cola_data/src/coc/cmd/ticket/record.rs -- 数据 - COC - Command - 工单 - 记录命令
 // 2026/9/1 05:25 Created.
 
 ////////

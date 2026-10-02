@@ -1,5 +1,5 @@
-// data/src/cola_video/command/video/new.rs
-// 数据 - VIDEO - command - video - 发布视频
+// data/src/cola_video/cmd/video/new.rs
+// 数据 - VIDEO - cmd - video - 发布视频
 // 2026/5/19 21:28
 
 ////////

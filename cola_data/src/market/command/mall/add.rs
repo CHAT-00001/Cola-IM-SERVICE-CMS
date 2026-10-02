@@ -1,5 +1,5 @@
-// cola_data/src/market/command/mall/add.rs
-// 数据中心 - MARKET - command - 商场 - 发布
+// cola_data/src/market/cmd/mall/add.rs
+// 数据中心 - MARKET - cmd - 商场 - 发布
 // 2026/8/3 22:24 Created.
 
 ////////

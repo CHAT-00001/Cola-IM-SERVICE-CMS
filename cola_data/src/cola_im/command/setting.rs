@@ -1,4 +1,4 @@
-// cola_data/src/cola_im/command/setting.rs  -- IM - Command - 聊天设置
+// cola_data/src/cola_im/cmd/setting.rs  -- IM - Command - 聊天设置
 // 2026-07-07
 
 //////
