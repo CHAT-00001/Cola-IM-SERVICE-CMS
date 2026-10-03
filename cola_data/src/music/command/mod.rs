@@ -1,5 +1,5 @@
-// cola_data/src/music/command/mod.rs
-// 数据 - MUSIC - command - music
+// cola_data/src/music/cmd/mod.rs
+// 数据 - MUSIC - cmd - music
 // 2026/8/3 21:51 Created.
 
 ////////

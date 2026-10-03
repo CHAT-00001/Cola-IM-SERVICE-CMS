@@ -1,3 +1,8 @@
+// cola_data/src/app/mod -- DATA - APP - mod
+// 2026-05-20 14:01
+
+////////
+
 pub mod api;
 pub mod data; // 数据壳
 pub mod error; // 错误信息

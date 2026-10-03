@@ -1,4 +1,4 @@
-// handler/gateway.rs  -- cola_live gate
+// handler/endpoint  -- cola_live gate
 // 2026/6/13 10:21
 
 ////////

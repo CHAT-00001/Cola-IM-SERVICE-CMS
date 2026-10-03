@@ -1,4 +1,4 @@
-// cola_data/src/cola_three/command/cola_fs  -- THREE - 服务类型命令
+// cola_data/src/cola_three/cmd/cola_fs  -- THREE - 服务类型命令
 // 2026/7/27
 
 use serde::{Deserialize, Serialize};

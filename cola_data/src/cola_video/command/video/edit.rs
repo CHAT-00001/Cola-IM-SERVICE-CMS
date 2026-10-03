@@ -1,5 +1,5 @@
-// cola_data/src/cola_video/command/cola_video/edit.rs  --
-// 数据 - VIDEO - command - cola_video - edit 编辑内容
+// cola_data/src/cola_video/cmd/cola_video/edit.rs  --
+// 数据 - VIDEO - cmd - cola_video - edit 编辑内容
 // 2026/8/1 18:18
 
 ////////

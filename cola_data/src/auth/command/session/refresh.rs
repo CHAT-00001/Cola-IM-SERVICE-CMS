@@ -1,4 +1,4 @@
-// cola_data/src/auth/command/service/refresh.rs  -- 数据 - AUTH - Command - 会话 - 刷新命令
+// cola_data/src/auth/cmd/service/refresh.rs  -- 数据 - AUTH - Command - 会话 - 刷新命令
 // 2026/6/9 07:39 Created.
 
 use serde::Deserialize;

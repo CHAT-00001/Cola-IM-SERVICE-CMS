@@ -1,4 +1,4 @@
-// cola_data/src/user/command/user/add.rs -- DATA - USER - Command - 用户 - 发布
+// cola_data/src/user/cmd/user/add.rs -- DATA - USER - Command - 用户 - 发布
 // 2026/5/22 16:35 Created.
 
 ////////

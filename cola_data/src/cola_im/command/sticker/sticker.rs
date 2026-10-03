@@ -1,4 +1,4 @@
-// cola_data/src/im/command/sticker/sticker.rs -- DATA - IM - command - 表情包 - 贴图
+// cola_data/src/im/cmd/sticker/sticker.rs -- DATA - IM - cmd - 表情包 - 贴图
 // 2026/3/30 05:33
 
 ////////

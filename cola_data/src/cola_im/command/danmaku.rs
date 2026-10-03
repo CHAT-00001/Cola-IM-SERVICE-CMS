@@ -1,5 +1,5 @@
-// cola_data/src/cola_im/command/danmaku.rs
-// 🗄 数据 - ✉️ 可乐IM - command - 弹幕
+// cola_data/src/cola_im/cmd/danmaku.rs
+// 🗄 数据 - ✉️ 可乐IM - cmd - 弹幕
 // 2026/5/19 22:13 by wx: cestbon10080
 
 ////////

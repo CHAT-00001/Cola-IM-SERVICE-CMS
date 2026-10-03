@@ -1,4 +1,4 @@
-// cola_data/src/dynamic/command/hotlist.rs -- 数据 - 动态 - command - 上热门 - mod
+// cola_data/src/dynamic/cmd/hotlist.rs -- 数据 - 动态 - cmd - 上热门 - mod
 // 2026/5/22 20:45 Created.
 
 ////////

@@ -1,5 +1,5 @@
 // cola_data/src/cola_gisc/hotlist.rs
-// 🗄️ 数据 - 📍 可乐GIS - command - 推荐
+// 🗄️ 数据 - 📍 可乐GIS - cmd - 推荐
 // 2026/5/22 20:45 by wx: cestbon10080
 
 ////////

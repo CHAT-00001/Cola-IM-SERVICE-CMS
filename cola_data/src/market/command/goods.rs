@@ -1,5 +1,5 @@
-// market/command/goods.rs
-// data - MARKET - command - 商品
+// market/cmd/goods.rs
+// data - MARKET - cmd - 商品
 // 2026/6/18 13:28 Created.
 
 ////////

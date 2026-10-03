@@ -1,4 +1,4 @@
-// cola_data/src/cola_gis/command/poi.rs  -- GIS - Command - 发布兴趣点
+// cola_data/src/cola_gis/cmd/poi.rs  -- GIS - Command - 发布兴趣点
 // 2026/7/6 22:00
 
 ////////

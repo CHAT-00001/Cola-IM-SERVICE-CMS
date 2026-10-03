@@ -5,7 +5,7 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use cola_data::basic::info::core::app::AppInfo;
+use cola_data::aaaa::info::core::app::AppInfo;
 use port::basic::app::manage::AppManagePort;
 use repository::basic::pg::app::AppRepo;
 use repository::pg_pool;

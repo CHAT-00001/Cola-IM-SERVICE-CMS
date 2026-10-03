@@ -1,5 +1,5 @@
-// command/shop/add.rs
-// 数据中心 - MARKET - command - 商店 - 发布
+// cmd/shop/add.rs
+// 数据中心 - MARKET - cmd - 商店 - 发布
 // 2026/8/3 22:30 Created.
 
 ////////

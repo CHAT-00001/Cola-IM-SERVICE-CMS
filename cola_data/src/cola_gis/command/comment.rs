@@ -1,4 +1,4 @@
-// cola_data/src/cola_gis/command/add  -- 数据中心 - GIS - Command - POI 评论
+// cola_data/src/cola_gis/cmd/add  -- 数据中心 - GIS - Command - POI 评论
 // 2026/5/20 12:01
 
 ////////

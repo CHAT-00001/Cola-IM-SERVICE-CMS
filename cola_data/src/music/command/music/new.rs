@@ -1,4 +1,4 @@
-// cola_data/src/music/command/music/new.rs  -- 数据中心 - MUSIC - command - 音乐
+// cola_data/src/music/cmd/music/new.rs  -- 数据中心 - MUSIC - cmd - 音乐
 // 2026/5/22 16:28 by wx: cestbon10080
 
 ////////

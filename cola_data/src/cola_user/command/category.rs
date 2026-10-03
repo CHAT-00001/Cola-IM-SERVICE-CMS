@@ -1,5 +1,5 @@
-// user/command/category.rs
-// 用户 - command - 分类
+// user/cmd/category.rs
+// 用户 - cmd - 分类
 // 2026/8/4 01:58 Created.
 
 ////////

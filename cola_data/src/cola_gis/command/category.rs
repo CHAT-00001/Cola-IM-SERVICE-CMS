@@ -1,4 +1,4 @@
-﻿// cola_data/src/cola_gis/command/cola_fs.rs  -- 可乐数据中心 - GIS - Command - 分类
+﻿// cola_data/src/cola_gis/cmd/cola_fs.rs  -- 可乐数据中心 - GIS - Command - 分类
 // 2026/5/22 19:45 by wx: cestbon10080
 
 ////////

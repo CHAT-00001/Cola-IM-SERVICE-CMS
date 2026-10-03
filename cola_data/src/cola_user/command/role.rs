@@ -1,4 +1,4 @@
-// cola_data/src/user/command/user/role.rs -- 数据 - USER - cmd - 角色命令
+// cola_data/src/user/cmd/user/role.rs -- 数据 - USER - cmd - 角色命令
 // 2026/9/5 08:04 Created.
 
 ////////

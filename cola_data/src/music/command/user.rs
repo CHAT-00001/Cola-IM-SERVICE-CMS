@@ -1,4 +1,4 @@
-// cola_data/src/music/command/user.rs -- 数据 - MUSIC - command - 用户
+// cola_data/src/music/cmd/user.rs -- 数据 - MUSIC - cmd - 用户
 // 2026/8/31 00:37 Created.
 
 ////////

@@ -1,5 +1,5 @@
-// market/command/mod.rs
-// 市场 - command - 模块
+// market/cmd/mod.rs
+// 市场 - cmd - 模块
 // 2026/8/3 23:38 Created.
 
 ////////

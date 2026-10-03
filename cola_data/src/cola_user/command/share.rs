@@ -1,5 +1,5 @@
-// cola_data/src/user/command/ticket
-// 数据中心 - USER - command - 分享
+// cola_data/src/user/cmd/ticket
+// 数据中心 - USER - cmd - 分享
 // 2026/8/6 Created.
 
 ////////

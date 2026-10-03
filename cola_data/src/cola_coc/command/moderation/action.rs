@@ -1,4 +1,4 @@
-// data/src/cola_coc/command/moderation/action.rs -- 数据 - COC - command - 治理 - 动作
+// data/src/cola_coc/cmd/moderation/action.rs -- 数据 - COC - cmd - 治理 - 动作
 // 2026/9/1 05:27 Created.
 
 ////////

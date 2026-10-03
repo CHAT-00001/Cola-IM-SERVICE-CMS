@@ -1,4 +1,4 @@
-// cola_live/command/class.rs  -- LIVE - command - 分类
+// cola_live/cmd/class.rs  -- LIVE - cmd - 分类
 // 2026/6/13 07:25
 
 ////////

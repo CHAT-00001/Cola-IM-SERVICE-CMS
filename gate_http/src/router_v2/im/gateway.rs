@@ -1,4 +1,4 @@
-// gate_http/src/router_v2/im/gateway.rs
+// gate_http/src/router_v2/im/endpoint
 // 🔌 IM - Gateway - 网关主分发器
 // 2026/8/8 Created.
 

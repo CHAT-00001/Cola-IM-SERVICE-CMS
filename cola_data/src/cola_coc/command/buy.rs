@@ -1,4 +1,4 @@
-// cola_data/src/cola_coc/command/buy.rs -- 数据 - COC - command - 购买命令 - mod
+// cola_data/src/cola_coc/cmd/buy.rs -- 数据 - COC - cmd - 购买命令 - mod
 // 2026/5/22 20:51 by wx: cestbon10080
 
 ////////

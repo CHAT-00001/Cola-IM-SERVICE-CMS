@@ -1,5 +1,5 @@
-// cola_data/src/cola_video/command/video/upload.rs
-// 数据 - VIDEO - command - 通用上传会话
+// cola_data/src/cola_video/cmd/video/upload.rs
+// 数据 - VIDEO - cmd - 通用上传会话
 // 2026/8/17 Created.
 
 ////////

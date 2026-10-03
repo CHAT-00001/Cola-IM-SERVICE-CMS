@@ -1,4 +1,4 @@
-// cola_data/src/app/request.rs  -- 数据 - APP - 请求体
+// cola_data/src/app/request.rs  -- DATA - APP - 请求体
 // 2026/4/16 07:45
 
 use std::cmp;

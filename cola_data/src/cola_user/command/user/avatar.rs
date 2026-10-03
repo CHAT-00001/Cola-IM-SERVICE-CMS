@@ -1,4 +1,4 @@
-// cola_data/src/user/command/user/avatar.rs -- DATA - USER - 资料 - 头像
+// cola_data/src/user/cmd/user/avatar.rs -- DATA - USER - 资料 - 头像
 // 2026/5/14 10:20
 
 ////////

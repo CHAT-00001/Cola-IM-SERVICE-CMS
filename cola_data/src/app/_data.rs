@@ -1,5 +1,4 @@
-// cola_data/src/api/cola_data.rs
-// 数据 - APP - data  （统一应用数据响应壳）
+// cola_data/src/api/cola_data.rs -- DATA - APP - data  （统一应用数据响应壳）
 // 2026/5/22 13:46
 
 ////////

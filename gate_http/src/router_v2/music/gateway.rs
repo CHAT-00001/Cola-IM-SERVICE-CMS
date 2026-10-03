@@ -1,4 +1,4 @@
-// gate_http/src/router_v2/music/gateway.rs
+// gate_http/src/router_v2/music/endpoint
 // 🌐 网关 - 可乐音乐 - 统一 API 转发
 // 2026/8/23 02:00 Created.
 

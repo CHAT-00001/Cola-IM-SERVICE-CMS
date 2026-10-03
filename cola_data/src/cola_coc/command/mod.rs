@@ -1,4 +1,4 @@
-// cola_data/src/cola_coc/command/mod.rs -- 数据 - COC - command - mod
+// cola_data/src/cola_coc/cmd/mod.rs -- 数据 - COC - cmd - mod
 // 2026/04/12 10:40 Created.
 
 ////////

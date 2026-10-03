@@ -1,4 +1,4 @@
-// cola_data/src/video/command/comment.rs -- 数据 - VIDEO - command - 评论 - mod
+// cola_data/src/video/cmd/comment.rs -- 数据 - VIDEO - cmd - 评论 - mod
 // 2026/5/20 12:01 Created.
 
 ////////

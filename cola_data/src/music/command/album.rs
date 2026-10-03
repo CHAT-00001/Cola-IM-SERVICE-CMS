@@ -1,5 +1,5 @@
-// music/command/album.rs
-// 数据中心 - MUSIC - command - album
+// music/cmd/album.rs
+// 数据中心 - MUSIC - cmd - album
 // 2026/8/3 21:47 Created.
 
 ////////

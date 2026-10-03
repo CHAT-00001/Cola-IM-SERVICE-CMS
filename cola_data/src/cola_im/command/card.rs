@@ -1,4 +1,4 @@
-// cola_data/src/cola_im/command/card.rs  -- IM - Command - 名片
+// cola_data/src/cola_im/cmd/card.rs  -- IM - Command - 名片
 // 2026-07-07
 
 //////

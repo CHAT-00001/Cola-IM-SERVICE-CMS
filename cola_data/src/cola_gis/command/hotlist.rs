@@ -1,4 +1,4 @@
-﻿// cola_data/src/cola_gis/command/hotlist.rs -- 数据 - 可乐GIS - command - 上热门 - mod
+﻿// cola_data/src/cola_gis/cmd/hotlist.rs -- 数据 - 可乐GIS - cmd - 上热门 - mod
 // 2026/5/22 20:45 by wx: cestbon10080
 
 ////////

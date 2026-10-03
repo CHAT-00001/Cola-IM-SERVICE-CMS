@@ -1,4 +1,4 @@
-// cola_data/src/gift/command/mod.rs  -- 数据中心 - GIFT - command - music
+// cola_data/src/gift/cmd/mod.rs  -- 数据中心 - GIFT - cmd - music
 // 2026/7/8 11:53
 
 ////////

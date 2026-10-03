@@ -1,4 +1,4 @@
-// cola_data/src/coc/command/report/category.rs  -- 数据中心 - COC - Command - 举报 - 分类
+// cola_data/src/coc/cmd/report/category.rs  -- 数据中心 - COC - Command - 举报 - 分类
 // 2026/5/22 19:45 by wx: cestbon10080
 
 ////////

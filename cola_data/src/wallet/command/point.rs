@@ -1,4 +1,4 @@
-// cola_data/src/wallet/command/point.rs
+// cola_data/src/wallet/cmd/point.rs
 // ✅ WALLET - 新用户积分账户初始化命令
 // 2026/8/20 Created.
 

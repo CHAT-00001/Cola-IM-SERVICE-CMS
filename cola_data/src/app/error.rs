@@ -1,12 +1,13 @@
-// cola_video/src/error.rs  -- 错误定义
-// 2026/4/13 05:08
+// cola_video/src/error.rs  -- DATA - APP - 错误码
+// 2026/4/13 05:08 Created.
 
 ////////
 
-// 保持你原来的模块命名，我们可以直接在这里扩展
+/// # [CODE] - 错误码
+/// * `desc`: `保持你原来的模块命名，我们可以直接在这里扩展`
 pub mod error {
-    pub const SUCCESS: i32 = 0;
-    pub const PARAM_ERROR: i32 = 4000;
+    pub const SUCCESS: i32 = 0;  // Ok
+    pub const PARAM_ERROR: i32 = 4000;  // 参数错误
 
     // --- 认证与授权 (Auth) ---
     pub const NOT_LOGIN: i32 = 4001; // 未登录
@@ -26,3 +27,5 @@ pub mod error {
 }
 
 pub use error::*;
+
+//////// END

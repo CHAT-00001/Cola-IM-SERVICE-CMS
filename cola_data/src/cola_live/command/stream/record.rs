@@ -1,5 +1,5 @@
-// cola_data/src/cola_live/command/stream/record.rs
-// 数据 - LIVE - command - 直播场次记录
+// cola_data/src/cola_live/cmd/stream/record.rs
+// 数据 - LIVE - cmd - 直播场次记录
 // 2026/8/21 09:10 Created.
 
 ////////

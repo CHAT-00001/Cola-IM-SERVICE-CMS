@@ -1,4 +1,4 @@
-// gate_http/router_v2/market/gateway.rs -- HTTP网关 - MARKET - 业务网关
+// gate_http/router_v2/market/endpoint -- HTTP网关 - MARKET - 业务网关
 // 2026/6/13 10:21
 
 ////////

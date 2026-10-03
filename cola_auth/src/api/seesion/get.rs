@@ -8,14 +8,14 @@
 // use cola_data::app::api::ApiQuery;
 // use cola_data::app::data::AppData;
 // use cola_data::app::error;
-// use cola_data::auth::command::email::EmailLoginCommand;
-// use cola_data::auth::command::phone::PhoneLoginCommand;
-// use cola_data::auth::command::service::refresh::SessionRefreshCommand;
+// use cola_data::auth::cmd::email::EmailLoginCommand;
+// use cola_data::auth::cmd::phone::PhoneLoginCommand;
+// use cola_data::auth::cmd::service::refresh::SessionRefreshCommand;
 // use cola_data::auth::vo::service::SignResponse;
 // use port::app::ctx::AppContext;
 // use tracing::log;
 // use validator::Validate;
-// use cola_data::auth::command::service::SessionCommand;
+// use cola_data::auth::cmd::service::SessionCommand;
 // ////////
 //
 // /// # [GET API] - 验证会话获取接口

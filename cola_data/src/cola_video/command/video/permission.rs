@@ -1,5 +1,5 @@
-// cola_data/src/cola_video/command/cola_video/permission.rs  --
-// 数据 - VIDEO - command - cola_video - permission 修改权限
+// cola_data/src/cola_video/cmd/cola_video/permission.rs  --
+// 数据 - VIDEO - cmd - cola_video - permission 修改权限
 // 2026/8/1 18:23
 
 ////////

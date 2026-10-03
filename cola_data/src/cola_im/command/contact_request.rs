@@ -1,4 +1,4 @@
-// cola_data/src/cola_im/command/contact_request.rs  -- IM - Command - 联系人添加请求
+// cola_data/src/cola_im/cmd/contact_request.rs  -- IM - Command - 联系人添加请求
 // 2026-07-07
 
 //////
