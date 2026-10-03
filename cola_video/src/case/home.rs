@@ -1,4 +1,4 @@
-// cola_video/src/case/home2  -- VIDEO - 用例层 - home
+// cola_video/src/case/video/home.rs  -- VIDEO - 用例层 - 视频内容 - home用例
 // 2026-06-11 08:10
 
 ////////
@@ -7,17 +7,17 @@ use crate::assembler::video::build_video_list_response_with_cdn;
 use crate::case::storage::resolve_video_cdn_domain;
 use anyhow::Result;
 use cola_data::app::query::ApiGatewayRequest;
-use cola_data::cola_user::info::config::UserConfigInfo;
 use cola_data::cola_video::info::video::VideoListResponse;
 use port::app::ctx::AppContext;
 use service::cola_video::video::list::VideoListService;
+
 ////////
 
 /// # [HOME CASE] - 主页 用例
 pub struct HomeCase;
 
 impl HomeCase {
-    ////////
+    // 🚧 - CASE - 用例编排
 
     ////////
 

@@ -1,7 +1,7 @@
 // gate_http/src/user/gateway.rs -- HTTP 用户 网关
 // 2026/6/18 07:53
 
-//////
+////////
 
 use crate::kits::response::IntoApi;
 use crate::ping::ping;
@@ -14,7 +14,8 @@ use cola_gis::api::home::HomeApi;
 use cola_user::api::user::add::UserAddApi;
 use cola_user::api::user::history::{UpdateProfileRequest, UserHistoryApi};
 use std::time::Instant;
-//////
+
+////////
 
 /// # 网关请求体
 struct GatewayRequest {
@@ -46,12 +47,11 @@ pub async fn root() -> HttpResponse {
     HttpResponse::Ok().json(vec!["Cole", "USER CENTER", "ROUTER"])
 }
 
-//////
+////////
 
 /// # [GATEWAY] - 可乐用户中心网关
 async fn user_gateway(
     req: HttpRequest,
-    // url web::Query<ApiGatewayRequest>,
     query: web::Query<ApiGatewayRequest>,
     body: web::Bytes,
     state: web::Data<AppState>,
@@ -104,6 +104,9 @@ async fn user_gateway(
 
     // 🌟 对齐到 service 字符串进行业务路由分发
     match gateway_req.service.as_str() {
+
+        //////// 💡 - HOME
+
         // 1001 最新
         "home.new" => {
             let url = ApiGatewayRequest {
@@ -119,7 +122,69 @@ async fn user_gateway(
                 .finish(&req, start)
         }
 
-        // 2001 创建新用户
+        // 1002 热门
+        "home.hot" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 1003 推荐
+        "home.recommend" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 1004 附近
+        "home.nearby" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        // 1005 搜索
+        "home.search" => {
+            let url = ApiGatewayRequest {
+                uid: Some(uid),
+                page: query.page,
+                qty: query.qty,
+                ..Default::default()
+            }
+                .build();
+
+            HomeApi::handler_get_new(gateway_req.auth, url, &state.ctx)
+                .await
+                .finish(&req, start)
+        }
+
+        //////// 💡 - ADD
+
+        // 2001 创建新用户 (备用, 目前新用户由注册中心创建)
         "add.new" => {
             let url = ApiGatewayRequest {
                 uid: Some(uid),

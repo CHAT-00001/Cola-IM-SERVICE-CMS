@@ -41,13 +41,19 @@ impl AppApi {
         cmd: AppCreateCmd, // 创建命令
         ctx: &AppContext,  // 全局上下文
     ) -> AppData<serde_json::Value> {
-        // 严格权限检查（仅管理员）
+        // 🚧 - API - 接口编排
+
+        ////////
+
+        // 💡 - RERM - 严格权限检查（仅管理员）
         if let Err(e) = Self::verify_admin_permission(uid) {
             tracing::error!("[🤐 API] - ❌️ 创建应用权限校验失败: uid={}, err={}", uid, e);
             return AppData::err(4003, e, None);
         }
 
-        // 调用 CASE 层做业务编排
+        ////////
+
+        // 💡 - CASE - 调用 CASE 层做业务编排
         match AppCase::case_add_app(uid, cmd, ctx).await {
             Ok(data) => {
                 tracing::info!("[🗣️ API] - ✅️ 创建应用成功: uid={}", uid);
@@ -68,6 +74,11 @@ impl AppApi {
         app_id: String,   // 应用 ID
         ctx: &AppContext, // 全局上下文
     ) -> AppData<serde_json::Value> {
+        // 🚧 - API - 接口编排
+
+        ////////
+
+        // 💡 - CASE - 用例层
         match AppCase::case_get_app(app_id, ctx).await {
             Ok(data) => {
                 tracing::info!("[🗣️ API] - ✅️ 查询应用成功");
@@ -87,6 +98,11 @@ impl AppApi {
         url: ApiGatewayRequest, // 网关请求参数
         ctx: &AppContext,       // 全局上下文
     ) -> AppData<ListResponse<AppInfo>> {
+        // 🚧 - API - 接口编排
+
+        ////////
+
+        // 💡 - CASE - 用例层
         match AppCase::case_get_app_list(url, ctx).await {
             Ok(data) => {
                 tracing::info!("[🗣️ API] - ✅️ 管理员应用列表查询成功");
@@ -103,13 +119,27 @@ impl AppApi {
 
     /// # 3. [API] - 删除应用
     /// * `desc`: `仅限管理员删除应用`
-    pub async fn api_del_app(uid: i64, id: i64, _ctx: &AppContext) -> AppData<serde_json::Value> {
+    pub async fn api_del_app(uid: i64, id: i64, _ctx: &AppContext
+    ) -> AppData<serde_json::Value> {
+        // 🚧 - API - 接口编排
+
+        ////////
+
+        // 💡 - RERM - 权限检查
         if let Err(e) = Self::verify_admin_permission(uid) {
             tracing::error!("[🤐 API] - ❌️ 删除应用权限校验失败: uid={}, err={}", uid, e);
             return AppData::err(4003, e, None);
         }
 
+        ////////
+
+        // 💡 - CASE - 用例层
+
         tracing::info!("[🗣️ API] - ✅️ 删除应用成功: uid={}, id={}", uid, id);
+
+        ////////
+
+        // ✅️ - Ok
         AppData::ok(serde_json::json!({"deleted_id": id}))
     }
 
@@ -122,16 +152,26 @@ impl AppApi {
         keyword: String,
         _ctx: &AppContext,
     ) -> AppData<serde_json::Value> {
+        // 🚧 - API - 接口编排
+
+        ////////
+
+        // 💡 - PERM - 权限检查
         if let Err(e) = Self::verify_admin_permission(uid) {
             tracing::error!("[🤐 API] - ❌️ 搜索应用权限校验失败: uid={}, err={}", uid, e);
             return AppData::err(4003, e, None);
         }
 
+        ////////
+
+        // 💡 - CASE - 用例层 (未实现)
         tracing::info!(
             "[🗣️ API] - ✅️ 搜索应用成功: uid={}, keyword={}",
             uid,
             keyword
         );
+
+        // ✅️ - Ok
         AppData::ok(serde_json::json!({"keyword": keyword, "list": []}))
     }
 }

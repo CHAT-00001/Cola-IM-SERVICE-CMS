@@ -1,4 +1,4 @@
-// user/src/case/user/add.rs -- 用户 - case - 用户 - 发布用例
+// cola_user/src/case/user/add.rs -- USER - case - 用户资料 - 发布用例
 // 2026/8/2 22:45 Created.
 
 ////////
@@ -15,6 +15,7 @@ use tracing::info;
 ////////
 
 const DEFAULT_REGISTER_POINT_BONUS: i64 = 0;
+
 ////////
 
 /// # [ADD CASE]
@@ -33,13 +34,19 @@ impl UserAddCase {
         cmd: UserCommand,
         ctx: AppContext,
     ) -> Result<UserInfo, anyhow::Error> {
-        // 1. 内容风控（标题 + 简介 联合过滤）
+        // 🚧 - CASE - 用例编排
+
+        ////////
+
+        // 💡 1. - CT - 内容风控（标题 + 简介 联合过滤）
         let check_text = format!("{:?} {:?}", cmd.nickname, cmd.signature);
 
         // ✅ 核心修复：rick_check 异步执行后出来就是 i16，直接 await 拿值，删掉多余的 map_err!?
         let visibility = rick_check(check_text).await;
 
-        // 2. 核心数据持久化与计数更新 (💡 提示：建议让这个 Service 函数返回刚插入成功的 VideoInfo)
+        ////////
+
+        // 💡 2. - INFO - 调用 CTX操作
         let user_info = ctx
             .user
             .profile
@@ -48,7 +55,9 @@ impl UserAddCase {
             .await
             .map_err(|e| anyhow::anyhow!("[🤐 CASE]: ❌️ 用户资料保存失败: {}", e))?;
 
-        // 3. 初始化钱包 POINT 账户；注册赠送积分大于0时同步生成首笔积分交易
+        ////////
+
+        // 💡 3. - 初始化钱包 POINT 账户；注册赠送积分大于0时同步生成首笔积分交易
         ctx.wallet
             .point
             .init_point_account(WalletPointInitCommand::new(
@@ -58,8 +67,14 @@ impl UserAddCase {
             .await
             .map_err(|e| anyhow::anyhow!("[🤐 CASE]: ❌️ 用户积分账户初始化失败: {}", e))?;
 
+        ////////
+
+        // 💡 - LOGGER
         info!("[🗣️ CASE] - ✅️ 用户资料保存成功: uid={},", uid);
 
+        ////////
+
+        // ✅️ - Ok
         Ok(user_info)
     }
 
@@ -72,13 +87,19 @@ impl UserAddCase {
         cmd: UpdateUserCommand,
         ctx: AppContext,
     ) -> Result<UserInfo, anyhow::Error> {
-        // 1. 内容风控（标题 + 简介 联合过滤）
+        // 🚧 - CASE - 用例编排
+
+        ////////
+
+        // 💡 1. CT - 内容风控（标题 + 简介 联合过滤）
         let check_text = format!("{:?} {:?}", cmd.nickname, cmd.signature);
 
         // ✅ 核心修复：同上，直接接住 i16
         let visibility = rick_check(check_text).await;
 
-        // 2. 核心数据持久化与计数更新
+        ////////
+
+        // 💡 2. INFO - 核心数据持久化与计数更新
         let user_info = super::history::UserHistoryCase::update(user_id, cmd, &ctx).await?;
 
         info!(
@@ -86,6 +107,9 @@ impl UserAddCase {
             user_id, visibility
         );
 
+        ////////
+
+        // ✅️ - Ok
         Ok(user_info)
     }
 }

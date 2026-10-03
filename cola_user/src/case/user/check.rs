@@ -1,4 +1,4 @@
-// user/src/case/user/check.rs -- 用户 - case - 用户 - 检查用例
+// cola_user/src/case/user/check.rs -- 用户 - case - 用户 - 检查用例
 // 2026/8/2 22:48 Created.
 
 ////////

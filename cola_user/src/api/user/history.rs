@@ -1,4 +1,4 @@
-// cola_user/src/api/user/history.rs -- 用户资料及历史接口
+// cola_user/src/api/user/history.rs -- USER - api - 用户资料- 历史接口
 // 2026/9/23 Created.
 
 ////////
